@@ -68,27 +68,13 @@ var archive_manage = {
                 layer.open({
                     type: 1,
                     title: '添加',
-                    content: "<table id='AddArchive' style='text-align: center;padding-top: 10px;'>" +
-                    "<tr>" +
-                    "<td>设备编码<input type='text' id='arc_ecode'/></td>" +
-                    "<td style='text-align:right'>供货厂家<input type='text' id='arc_supfac'/></td>" +
-                    "</tr>" +
-                    "<td>安装时间<input type='text' id='arc_intime'/></td>" +
-                    "<td style='text-align:right'>供货厂家电话<input type='text' id='arc_supcon'/></td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td>保修期限<input type='text' id='arc_depe'/></td>" +
-                    "<td style='text-align:right'>维护厂家<input type='text' id='arc_refac'/></td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<td>档案编码<input type='text' id='arc_code'/></td>" +
-                    "<td style='text-align:right'>维护厂家电话<input type='text' id='arc_refac'/></td>" +
-                    "</tr>" +
-                    "</table>",
-                    area: ['650px', '250px'],
+                    content: $('#add-doc-modal'),
+                    area: ['550px', '200px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
+                    closeBtn : 0,
                     yes: function (index) {
+                        //todo
                         var code = $('#arc_code').val()
                         var intime = $('#arc_intime').val()
                         var depe = $('#arc_depe').val()
@@ -97,6 +83,7 @@ var archive_manage = {
                         var refac = $('#arc_refac').val()
                         var recon = $('#arc_recon').val()
                         var ecode = $('#arc_ecode').val()
+                        console.log(code,intime,depe,supfac,supcon,supcon,refac,recon,ecode)
                         $.post(home.urls.archive.add(), {code: code}, function (result) {
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
@@ -105,10 +92,12 @@ var archive_manage = {
                                 }, 500)
                             }
                             layer.close(index)
+                            $("#add-doc-modal").css('display', 'none')
                         })
                     },
                     btn2: function (index) {
                         layer.close(index)
+                        $("#add-doc-modal").css('display', 'none')
                     }
                 });
             })
