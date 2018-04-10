@@ -1,0 +1,47 @@
+<div id='model-li-hide-60' class="display-component-container" style="padding: 20px 20px 0px 20px;">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<div class="block-quote">
+		<div class="fl">
+			<p style="color: #62a49a; font-size: 14px;">
+				<span id='model-li-hide-add-60'><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+				<span id="model-li-hide-delete-60"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+			</p>
+		</div>
+		<div class="fr">
+			<p style="color: #62a49a; font-size: 14px;">
+				<span id="model-li-hide-refresh-60"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span> &nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="text" id="company_name_input" />
+				<span id="model-li-hide-search-60"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+			</p>
+		</div>
+	</div>
+	<div class="whitespace"></div>
+	<table id="company_table" style="width: 100%;">
+		<thead style="background: #666666;">
+			<tr>
+				<td><input id="checkAll" type="checkbox"></td>
+				<td>公司编号</td>
+				<td>公司名称</td>
+				<td>统一社会信用代码</td>
+				<td>公司地址</td>
+				<td>联系人</td>
+				<td>联系电话</td>
+				<td>公司类型</td>
+				<td>编辑</td>
+				<td>删除</td>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<div id="company_page">
+	</div>
+	<script src="../components/js/company_manage.js"></script>
+	<script type="application/javascript">
+		$(function() {
+			/** 页面加载完的一瞬间 */
+			company_manage.init()
+		})
+	</script>
+</div>
