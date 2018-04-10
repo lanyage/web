@@ -27,15 +27,17 @@ var productline_manage = {
                     elem: 'productline_page',
                     count: 10 * page.totalPages //数据总数
                     , jump: function (obj, first) {
-                        $.post(home.urls.productline.getAllByPage(), {
-                            page: obj.curr - 1,
-                            size: obj.limit
-                        }, function (result) {
-                            var productlinees = result.data.content //获取数据
-                            const $tbody = $("#productline_table").children('tbody')
-                            productline_manage.funcs.renderHandler($tbody, productlinees)
-                            productline_manage.pageSize = result.data.content.length
-                        })
+                        if(!first) {
+                            $.post(home.urls.productline.getAllByPage(), {
+                                page: obj.curr - 1,
+                                size: obj.limit
+                            }, function (result) {
+                                var productlinees = result.data.content //获取数据
+                                const $tbody = $("#productline_table").children('tbody')
+                                productline_manage.funcs.renderHandler($tbody, productlinees)
+                                productline_manage.pageSize = result.data.content.length
+                            })
+                        }
                     }
                 })
             })

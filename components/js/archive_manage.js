@@ -26,15 +26,17 @@ var archive_manage = {
                     , count: 10 * page.totalPages//数据总数
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
-                        $.post(home.urls.archive.getAllByPage(), {
-                            page: obj.curr - 1,
-                            size: obj.limit
-                        }, function (result) {
-                            var archives = result.data.content //获取数据
-                            const $tbody = $("#archive_table").children('tbody')
-                            archive_manage.funcs.renderHandler($tbody, archives)
-                            archive_manage.pageSize = result.data.content.length
-                        })
+                        if(!first) {
+                            $.post(home.urls.archive.getAllByPage(), {
+                                page: obj.curr - 1,
+                                size: obj.limit
+                            }, function (result) {
+                                var archives = result.data.content //获取数据
+                                const $tbody = $("#archive_table").children('tbody')
+                                archive_manage.funcs.renderHandler($tbody, archives)
+                                archive_manage.pageSize = result.data.content.length
+                            })
+                        }
                     }
                 })
                 var editBtns = $('.editArchive')

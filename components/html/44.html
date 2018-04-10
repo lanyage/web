@@ -1,63 +1,6 @@
 <div id='model-li-hide-44' class="display-component-container" style="padding: 20px 20px 0px 20px;height:100%">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <style type="text/css">
-        #customer_table {
-            padding-left: 50%;
-        }
-
-        #repair_top {
-            font-weight: bold;
-            width: 100%;
-            height: 25px;
-            background-color: #00A99D;
-        }
-
-        #repair_body {
-            background-color: white;
-            text-align: center;
-        }
-
-        #repair_table {
-            margin: 0 auto;
-            border: 1px solid black;
-            width: 90%;
-            border-collapse: collapse;
-        }
-
-        .repair_td_text {
-            font-weight: bold;
-            width: 90px;
-
-        }
-
-        .repair_td_blank {
-            width: 90px;
-        }
-
-        .repair_input {
-            outline: none;
-            border: 0px;
-            margin: 0px;
-            width: 95%;
-            height: 100%;
-        }
-
-        tr, td {
-            border: 1px solid black;
-            font-size: 12px;
-            text-align: center;
-        }
-
-        .provider_input {
-            outline: none;
-            border: 0px;
-            margin: 0px;
-            width: 95%;
-            height: 100%;
-            resize: none;
-        }
-    </style>
     <div class="block-quote">
         <div class="fl">
             工单状态
@@ -225,16 +168,18 @@
                                     elem: 'repair_page'
                                     , count: 10 * result.data.totalPages//数据总数
                                     , jump: function (obj, first) {
-                                        $.post(home.urls.repair.findByApplicationTimeInPages(), {
-                                            page: obj.curr - 1,
-                                            size: obj.limit,
-                                            date: date
-                                        }, function (result) {
-                                            var repairs = result.data.content //获取数据
-                                            const $tbody = $("#repair_table").children('tbody')
-                                            repair_apply.funcs.renderHandler($tbody, repairs)
-                                            repair_apply.pageSize = result.data.content.length
-                                        })
+                                        if(!first) {
+                                            $.post(home.urls.repair.findByApplicationTimeInPages(), {
+                                                page: obj.curr - 1,
+                                                size: obj.limit,
+                                                date: date
+                                            }, function (result) {
+                                                var repairs = result.data.content //获取数据
+                                                const $tbody = $("#repair_table").children('tbody')
+                                                repair_apply.funcs.renderHandler($tbody, repairs)
+                                                repair_apply.pageSize = result.data.content.length
+                                            })
+                                        }
                                     }
                                 })
                             }

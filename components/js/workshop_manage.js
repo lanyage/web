@@ -29,17 +29,18 @@ var workshop_manage = {
                 layui.laypage.render({
                     elem: 'workshop_page',
                     count: 10 * page.totalPages //数据总数
-                    ,
-                    jump: function (obj, first) {
-                        $.post(home.urls.workshop.getAllByPage(), {
-                            page: obj.curr - 1,
-                            size: obj.limit
-                        }, function (result) {
-                            var workshopes = result.data.content //获取数据
-                            const $tbody = $("#workshop_table").children('tbody')
-                            workshop_manage.funcs.renderHandler($tbody, workshopes)
-                            workshop_manage.pageSize = result.data.content.length
-                        })
+                    , jump: function (obj, first) {
+                        if(!first) {
+                            $.post(home.urls.workshop.getAllByPage(), {
+                                page: obj.curr - 1,
+                                size: obj.limit
+                            }, function (result) {
+                                var workshopes = result.data.content //获取数据
+                                const $tbody = $("#workshop_table").children('tbody')
+                                workshop_manage.funcs.renderHandler($tbody, workshopes)
+                                workshop_manage.pageSize = result.data.content.length
+                            })
+                        }
                     }
                 })
             })

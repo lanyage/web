@@ -71,16 +71,18 @@ var user_manage = {
                     , count: 10 * page.totalPages//数据总数
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
-                        $.post(home.urls.user.getByDepartmentCodeByPage(), {
-                            departmentCode: user_manage.the_departmentcode,
-                            page: obj.curr - 1,
-                            size: obj.limit
-                        }, function (result) {
-                            var users = result.data.content //获取数据
-                            const $tbody = $("#user_table").children('tbody')
-                            user_manage.funcs.renderHandler($tbody, users)
-                            user_manage.pageSize = result.data.content.length
-                        })
+                        if(!first) {
+                            $.post(home.urls.user.getByDepartmentCodeByPage(), {
+                                departmentCode: user_manage.the_departmentcode,
+                                page: obj.curr - 1,
+                                size: obj.limit
+                            }, function (result) {
+                                var users = result.data.content //获取数据
+                                const $tbody = $("#user_table").children('tbody')
+                                user_manage.funcs.renderHandler($tbody, users)
+                                user_manage.pageSize = result.data.content.length
+                            })
+                        }
                     }
                 })
             })

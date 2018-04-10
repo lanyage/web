@@ -20,21 +20,21 @@ var guide_manage = {
                 guide_manage.pageSize = result.data.content.length
                 var page = result.data
 
-
                 layui.laypage.render({
                     elem: 'guide_page'
-                    , count: 10 * page.totalPages数据总数
-
+                    , count: 10 * page.totalPages
                     , jump: function (obj, first) {
-                        $.post(home.urls.guideHeader.getAllByPage(), {
-                            page: obj.curr - 1,
-                            size: obj.limit
-                        }, function (result) {
-                            var guides = result.data.content //获取数据
-                            const $tbody = $("#guide_table").children('tbody')
-                            guide_manage.funcs.renderHandler($tbody, guides)
-                            guide_manage.pageSize = result.data.content.length
-                        })
+                        if(!first) {
+                            $.post(home.urls.guideHeader.getAllByPage(), {
+                                page: obj.curr - 1,
+                                size: obj.limit
+                            }, function (result) {
+                                var guides = result.data.content //获取数据
+                                const $tbody = $("#guide_table").children('tbody')
+                                guide_manage.funcs.renderHandler($tbody, guides)
+                                guide_manage.pageSize = result.data.content.length
+                            })
+                        }
                     }
                 })
             })//$数据渲染完毕

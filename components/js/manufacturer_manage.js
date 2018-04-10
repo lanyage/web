@@ -30,15 +30,17 @@ var manufacturer_manage = {
                     count: 10 * page.totalPages //数据总数
                     ,
                     jump: function (obj, first) {
-                        $.post(home.urls.manufacturer.getAllByPage(), {
-                            page: obj.curr - 1,
-                            size: obj.limit
-                        }, function (result) {
-                            var manufactureres = result.data.content //获取数据
-                            const $tbody = $("#manufacturer_table").children('tbody')
-                            manufacturer_manage.funcs.renderHandler($tbody, manufactureres)
-                            manufacturer_manage.pageSize = result.data.content.length
-                        })
+                        if(!first) {
+                            $.post(home.urls.manufacturer.getAllByPage(), {
+                                page: obj.curr - 1,
+                                size: obj.limit
+                            }, function (result) {
+                                var manufactureres = result.data.content //获取数据
+                                const $tbody = $("#manufacturer_table").children('tbody')
+                                manufacturer_manage.funcs.renderHandler($tbody, manufactureres)
+                                manufacturer_manage.pageSize = result.data.content.length
+                            })
+                        }
                     }
                 })
             })

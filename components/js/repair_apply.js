@@ -32,15 +32,17 @@ var repair_apply = {
                     , count: 10 * page.totalPages//数据总数
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
-                        $.post(home.urls.repair.listApplicationsInPages(), {
-                            page: obj.curr - 1,
-                            size: obj.limit
-                        }, function (result) {
-                            var repairs = result.data.content //获取数据
-                            const $tbody = $("#repair_table").children('tbody')
-                            repair_apply.funcs.renderHandler($tbody, repairs)
-                            repair_apply.pageSize = result.data.content.length
-                        })
+                        if(!first) {
+                            $.post(home.urls.repair.listApplicationsInPages(), {
+                                page: obj.curr - 1,
+                                size: obj.limit
+                            }, function (result) {
+                                var repairs = result.data.content //获取数据
+                                const $tbody = $("#repair_table").children('tbody')
+                                repair_apply.funcs.renderHandler($tbody, repairs)
+                                repair_apply.pageSize = result.data.content.length
+                            })
+                        }
                     }
                 })
             })//$数据渲染完毕

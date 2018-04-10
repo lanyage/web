@@ -28,15 +28,17 @@ var process_manage = {
                     count: 10 * page.totalPages //数据总数
                     ,
                     jump: function (obj, first) {
-                        $.post(home.urls.process.getAllByPage(), {
-                            page: obj.curr - 1,
-                            size: obj.limit
-                        }, function (result) {
-                            var processes = result.data.content //获取数据
-                            const $tbody = $("#process_table").children('tbody')
-                            process_manage.funcs.renderHandler($tbody, processes)
-                            process_manage.pageSize = result.data.content.length
-                        })
+                        if(!first) {
+                            $.post(home.urls.process.getAllByPage(), {
+                                page: obj.curr - 1,
+                                size: obj.limit
+                            }, function (result) {
+                                var processes = result.data.content //获取数据
+                                const $tbody = $("#process_table").children('tbody')
+                                process_manage.funcs.renderHandler($tbody, processes)
+                                process_manage.pageSize = result.data.content.length
+                            })
+                        }
                     }
                 })
             })

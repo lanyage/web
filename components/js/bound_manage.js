@@ -33,15 +33,17 @@ var bound_manage = {
 						count: 10 * page.totalPages //数据总数
 							,
 						jump: function(obj, first) {
-							$.post(home.urls.bound.getAllByPage(), {
-								page: obj.curr - 1,
-								size: obj.limit
-							}, function(result) {
-								var boundes = result.data.content //获取数据
-								const $tbody = $("#bound_table").children('tbody')
-								bound_manage.funcs.renderHandler($tbody, boundes)
-								bound_manage.pageSize = result.data.content.length
-							})
+							if(!first) {
+                                $.post(home.urls.bound.getAllByPage(), {
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function(result) {
+                                    var boundes = result.data.content //获取数据
+                                    const $tbody = $("#bound_table").children('tbody')
+                                    bound_manage.funcs.renderHandler($tbody, boundes)
+                                    bound_manage.pageSize = result.data.content.length
+                                })
+							}
 						}
 					})
 				})

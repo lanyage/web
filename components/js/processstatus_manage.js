@@ -59,17 +59,18 @@ var processstatus_manage = {
 					layui.laypage.render({
 						elem: 'processstatus_page',
 						count: 10 * page.totalPages //数据总数
-							,
-						jump: function(obj, first) {
-							$.post(home.urls.processstatus.getAllByPage(), {
-								page: obj.curr - 1,
-								size: obj.limit
-							}, function(result) {
-								var processstatuses = result.data.content //获取数据
-								const $tbody = $("#processstatus_table").children('tbody')
-								processstatus_manage.funcs.renderHandler($tbody, processstatuses)
-								processstatus_manage.pageSize = result.data.content.length
-							})
+							,jump: function(obj, first) {
+							if(!first) {
+                                $.post(home.urls.processstatus.getAllByPage(), {
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function(result) {
+                                    var processstatuses = result.data.content //获取数据
+                                    const $tbody = $("#processstatus_table").children('tbody')
+                                    processstatus_manage.funcs.renderHandler($tbody, processstatuses)
+                                    processstatus_manage.pageSize = result.data.content.length
+                                })
+							}
 						}
 					})
 				})
