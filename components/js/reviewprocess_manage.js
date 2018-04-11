@@ -1,7 +1,7 @@
-var reviewprocess_mange = {
+var reviewprocess_manage = {
     init:function(){
         /** 获取流程信息分页并展示 */
-        reviewprocess_mange.funcs.renderTable()
+        reviewprocess_manage.funcs.renderTable()
 
         var out = $('#reviewprocess_page').width()//???????
         var time = setTimeout(function(){
@@ -21,8 +21,8 @@ var reviewprocess_mange = {
                 var reviewprocesses = result.data.content//获取全部数据
                 const $tbody = $('#reviewprocess_table').children('tbody')
 
-                reviewprocess_mange.funcs.renderHandler($tbody, reviewprocesses)//????????????/
-                reviewprocess_mange.pageSize = result.data.content.length//??????????????
+                reviewprocess_manage.funcs.renderHandler($tbody, reviewprocesses)//????????????/
+                reviewprocess_manage.pageSize = result.data.content.length//??????????????
                 var page = result.data//？？？？？？？？？？
                 /** @namespace page.totalPages 这是返回数据的总页码数 */
                 /** 分页信息 */
@@ -40,8 +40,8 @@ var reviewprocess_mange = {
                                 var reviewprocesses = result.data.content//获取数据
                                 const $tbody = $('#reviewprocess_table').children('tbody')
 
-                                reviewprocess_mange.funcs.renderHandler($tbody, reviewprocesses)//????????????/
-                                reviewprocess_mange.pageSize = result.data.content.length//??????????????
+                                reviewprocess_manage.funcs.renderHandler($tbody, reviewprocesses)//????????????/
+                                reviewprocess_manage.pageSize = result.data.content.length//??????????????
                             })
                         }
                     }
@@ -50,13 +50,13 @@ var reviewprocess_mange = {
              })//数据渲染完毕
              /** 追加添加事件 */
             var addBtn = $("#model-li-hide-add-75")
-            reviewprocess_mange.funcs.bindAddEventListener(addBtn) //追加增加事件
+            reviewprocess_manage.funcs.bindAddEventListener(addBtn) //追加增加事件
             /** 追加刷新事件 */
             var refreshBtn = $('#model-li-hide-refresh-75')
-            reviewprocess_mange.funcs.bindRefreshEventListener(refreshBtn)//追加刷新事件
+            reviewprocess_manage.funcs.bindRefreshEventListener(refreshBtn)//追加刷新事件
             /** 追加搜索事件 */
             var searchBtn = $('#model-li-hide-search-75')
-            reviewprocess_mange.funcs.bindSearchEventListener(searchBtn)
+            reviewprocess_manage.funcs.bindSearchEventListener(searchBtn)
          }
 
          /** 添加事件 */
@@ -121,7 +121,7 @@ var reviewprocess_mange = {
                             })
                             if(result.code===0){//??????????????
                                 var time = setTimeout(function(){
-                                    reviewprocess_mange.init()
+                                    reviewprocess_manage.init()
                                     clearTimeout(time)
                                 },500)
                             }
@@ -144,7 +144,7 @@ var reviewprocess_mange = {
                         offset:['40%', '55%'],
                         time:700
                      })
-                     reviewprocess_mange.init()
+                     reviewprocess_manage.init()
                      layer.close(index)
                      clearTimeout(time)
                  },200)
@@ -162,7 +162,7 @@ var reviewprocess_mange = {
                     var page = result.data
                     var reviewprocesses = result.data.content //获取数据
                     const $tbody = $("#reviewprocess_table").children('tbody')
-                    reviewprocess_mange.funcs.renderHandler($tbody, reviewprocesses)
+                    reviewprocess_manage.funcs.renderHandler($tbody, reviewprocesses)
                     layui.laypage.render({
                         ele:'reviewprocess_page',
                         count:10*page.totalPages,//数据总数
@@ -176,8 +176,8 @@ var reviewprocess_mange = {
                                 },function(result){
                                     var reviewprocesses = result.data.content //获取数据
                                     const $tbody = $("#reviewprocess_table").children('tbody')
-                                    reviewprocess_mange.funcs.renderHandler($tbody, reviewprocesses)
-                                    reviewprocess_mange.pageSize = result.data.content.length
+                                    reviewprocess_manage.funcs.renderHandler($tbody, reviewprocesses)
+                                    reviewprocess_manage.pageSize = result.data.content.length
                                 })
                             }
                         }
@@ -209,7 +209,7 @@ var reviewprocess_mange = {
                             })
                             if(result.code===0){
                                 var time = setTimeout(function(){
-                                    reviewprocess_mange.init()
+                                    reviewprocess_manage.init()
                                     clearTimeout(time)
                                 },500)
                                
@@ -256,7 +256,7 @@ var reviewprocess_mange = {
                                 success: function (result) {
                                     if (result.code === 0) {
                                         var time = setTimeout(function () {
-                                            reviewprocess_mange.init()
+                                            reviewprocess_manage.init()
                                             clearTimeout(time)
                                         }, 500)
                                     }
@@ -393,15 +393,15 @@ var reviewprocess_mange = {
 
             var editBtns = $('.editrevireprocess')
             var deleteBtns = $('deleterevireprocess')
-            reviewprocess_mange.funcs.bindDeleteEventlistener(deleteBtns)
-            reviewprocess_mange.funcs.bindEditEventListener(editBtns)
+            reviewprocess_manage.funcs.bindDeleteEventlistener(deleteBtns)
+            reviewprocess_manage.funcs.bindEditEventListener(editBtns)
 
             var deleteBatchBtn = $('#model-li-hide-delete-75')
-            reviewprocess_mange.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
+            reviewprocess_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
             var selectAllBox = $('#revpro_checkAll')
-            reviewprocess_mange.funcs.bindSelectAll(selectAllBox)
+            reviewprocess_manage.funcs.bindSelectAll(selectAllBox)
             var revpro_checkboxes = $('.checkbox')
-            reviewprocess_mange.funcs.disSelectAll(revpro_checkboxes, selectAllBox)
+            reviewprocess_manage.funcs.disSelectAll(revpro_checkboxes, selectAllBox)
          }
 
          /** 全选逻辑 */
@@ -411,7 +411,7 @@ var reviewprocess_mange = {
                 var statusNow = $(this).prop('checked')
                 if(statusNow===false){
                     selectAllBox.prop('checked',false)
-                }else if(statusNow===true&&$('.checkbox:checked').length===reviewprocess_mange.pageSize){
+                }else if(statusNow===true&&$('.checkbox:checked').length===reviewprocess_manage.pageSize){
                     selectAllBox.prop('checked',true)
                 }
             })
