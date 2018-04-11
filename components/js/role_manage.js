@@ -299,6 +299,66 @@ var role_manage = {
             })
         }//$ bindEditEventListener——end$
 
+                /** 编辑权限 */
+                , bindEditLimitListener: function (limitBtns) {
+                    limitBtns.off('click')
+                    limitBtns.on('click', function () {
+                        $.get(home.urls.role.getAllModel(), function(result) {
+                            var models = result.data
+                            var flag1 = 1
+                            var flag2 = 1
+                            models.forEach(function (e) {
+                                if(e.menu1.code == flag1){
+                                    flag1++
+                                    $('#right_body_table').append(
+                                        "<tr><td>" +
+                                        "<i class='layui-icon' style='color:rgb(134,134,134)'>&#xe7a0;</i>" +
+                                        "<span>" + (e.menu1.name) + "</span>" +
+                                        "</td><td></td><td></td></tr>"
+                                    )
+                                }
+                                if(e.menu2.code == flag2){
+                                    flag2++
+                                    $('#right_body_table').append(
+                                        "<tr><td>" +
+                                        "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 15px'>&#xe625;</i>" +
+                                        "<span>" + (e.menu2.name) + "</span>" +
+                                        "</td><td></td><td></td></tr>"
+                                    )
+                                }
+                                $('#right_body_table').append(
+                                    "<tr><td>" +
+                                    "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
+                                    "<span>" + (e.name) + "</span>" +
+                                    "<td style='text-align: center'><input type='checkbox'>" +
+                                    "</td><td>" +
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'>新增" +
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'>查询" +
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'>编辑" +
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'>删除" +
+                                    "</td></tr>"
+                                )
+                            })
+                            layer.open({
+                                type: 1,
+                                content: $('#right_body'),
+                                area: ['700px', '650px'],
+                                btn: ['确认', '取消'],
+                                offset: ['12%', '30%'],
+                                closeBtn : 0,
+                                yes: function (index) {
+                                    layer.close(index)
+                                    $("#right_body").css('display', 'none')
+                                },
+                                btn2: function (index) {
+                                    layer.close(index)
+                                    $("#right_body").css('display', 'none')
+                                }
+                            })
+                        })
+                    })
+                }
+
         /** 渲染 */
         , renderHandler: function ($tbody, roles) {
             $tbody.empty() //清空表格
@@ -311,14 +371,16 @@ var role_manage = {
                     "<td>" + (e.code) + "</td>" +
                     "<td>" + (e.description) + "</td>" +
                     "<td><a href='#' class='editRole' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='changeRole' id='change-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                    "<td><a href='#' class='editLimit' id='limit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "<td><a href='#' class='deleteRole' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
                     "</tr>")
             })//$数据渲染完毕
             var editBtns = $('.editRole')
             var deleteBtns = $('.deleteRole')
+            var limitBtns = $('.editLimit')
             role_manage.funcs.bindDeleteEventListener(deleteBtns)
             role_manage.funcs.bindEditEventListener(editBtns)
+            role_manage.funcs.bindEditLimitListener(limitBtns)
             var selectAllBox = $('#role_checkAll')
             role_manage.funcs.bindSelectAll(selectAllBox)
             var deleteBatchBtn = $('#model-li-hide-delete-77')
