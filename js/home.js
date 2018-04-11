@@ -190,6 +190,9 @@ var home = {
             },
             getAllByPage: function () {
                 return servers.backup() + 'role/getAllByPage'
+            },
+            getAllModel: function() {
+                return servers.backup() + 'model/getAll'
             }
         },
         user: {
