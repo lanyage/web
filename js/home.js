@@ -1,5 +1,13 @@
 var home = {
     urls: {
+        menus : {
+          getAllMenu1 : function() {
+              return servers.backup() + 'menu1/getAll'
+          },
+            getAllMenu2 : function() {
+                return servers.backup() + 'menu2/getAll'
+            }
+        },
         department: {
             getAllByPage: function () {
                 return servers.backup() + 'department/getAllByPage'
