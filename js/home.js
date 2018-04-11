@@ -1,5 +1,16 @@
 var home = {
     urls: {
+        menus: {
+            getAllMenu1: function () {
+                return servers.backup() + 'menu1/getAll'
+            },
+            getAllMenu2: function () {
+                return servers.backup() + 'menu2/getAll'
+            },
+            getAllMenu3 : function() {
+                return servers.backup() + 'model/getAll'
+            }
+        },
         department: {
             getAllByPage: function () {
                 return servers.backup() + 'department/getAllByPage'
@@ -279,8 +290,8 @@ var home = {
             customerDetail: function () {
                 return servers.backup() + 'customer/customerDetail'
             },
-            getAllSuppliers : function() {
-                return servers.backup()  + 'customer/getAllSuppliers'
+            getAllSuppliers: function () {
+                return servers.backup() + 'customer/getAllSuppliers'
             }
         },
         manufacturer: {
@@ -364,71 +375,71 @@ var home = {
             },
         },
         defaultpassword: {
-            getAllByPage: function() {
+            getAllByPage: function () {
                 return servers.backup() + 'defaultPassword/getAllByPage'
             },
-            add: function() {
+            add: function () {
                 return servers.backup() + 'defaultPassword/add'
             },
-            deleteByCode: function() {
+            deleteByCode: function () {
                 return servers.backup() + 'defaultPassword/deleteByCode'
             },
-            update: function() {
+            update: function () {
                 return servers.backup() + 'defaultPassword/update'
             },
-            getByCode: function() {
+            getByCode: function () {
                 return servers.backup() + 'defaultPassword/getByCode'
             },
-            getAllByLikePasswordByPage: function() {
+            getAllByLikePasswordByPage: function () {
                 return servers.backup() + 'defaultPassword/getAllByLikePasswordByPage'
             },
-            deleteByBatchCode: function() {
+            deleteByBatchCode: function () {
                 return servers.backup() + 'defaultPassword/deleteByBatchCode'
             },
         },
         evaluation: {
-            getAllByPage: function() {
+            getAllByPage: function () {
                 return servers.backup() + 'evaluation/getAllByPage'
             },
-            add: function() {
+            add: function () {
                 return servers.backup() + 'evaluation/add'
             },
-            deleteByCode: function() {
+            deleteByCode: function () {
                 return servers.backup() + 'evaluation/deleteByCode'
             },
-            update: function() {
+            update: function () {
                 return servers.backup() + 'evaluation/update'
             },
-            getByCode: function() {
+            getByCode: function () {
                 return servers.backup() + 'evaluation/getByCode'
             },
-            getAllByLikeNameByPage: function() {
+            getAllByLikeNameByPage: function () {
                 return servers.backup() + 'evaluation/getAllByLikeNameByPage'
             },
-            deleteByBatchCode: function() {
+            deleteByBatchCode: function () {
                 return servers.backup() + 'evaluation/deleteByBatchCode'
             },
         },
         bound: {
-            getAllByPage: function() {
+            getAllByPage: function () {
                 return servers.backup() + 'bound/getAllByPage'
             },
-            add: function() {
+            add: function () {
                 return servers.backup() + 'bound/add'
             },
-            deleteByCode: function() {
+            deleteByCode: function () {
                 return servers.backup() + 'bound/deleteByCode'
             },
-            update: function() {
+            update: function () {
                 return servers.backup() + 'bound/update'
             },
-            getByCode: function() {
+            getByCode: function () {
                 return servers.backup() + 'bound/getByCode'
             },
-            getAllByCodeLikeByPage: function() {
+            getAllByCodeLikeByPage: function () {
                 return servers.backup() + 'bound/getAllByCodeLikeByPage'
             },
-            deleteByBatchCode: function() {
+            deleteByBatchCode: function () {
                 return servers.backup() + 'bound/deleteByBatchCode'
             },
         },
@@ -597,97 +608,97 @@ var home = {
             },
         },
         indicator: {
-            getAllByPage: function() {
+            getAllByPage: function () {
                 return servers.backup() + 'indicator/getAllByPage'
             },
-            add: function() {
+            add: function () {
                 return servers.backup() + 'indicator/add'
             },
-            deleteByCode: function() {
+            deleteByCode: function () {
                 return servers.backup() + 'indicator/deleteByCode'
             },
-            update: function() {
+            update: function () {
                 return servers.backup() + 'indicator/update'
             },
-            getByCode: function() {
+            getByCode: function () {
                 return servers.backup() + 'indicator/getByCode'
             },
-            getAllByLikeNameByPage: function() {
+            getAllByLikeNameByPage: function () {
                 return servers.backup() + 'indicator/getAllByLikeNameByPage'
             },
-            deleteByBatchCode: function() {
+            deleteByBatchCode: function () {
                 return servers.backup() + 'indicator/deleteByBatchCode'
             },
-            getAll: function() {
+            getAll: function () {
                 return servers.backup() + 'indicator/getAll'
             },
         },
         duty: {
-            getAllByPage: function() {
+            getAllByPage: function () {
                 return servers.backup() + 'duty/getAllByPage'
             },
-            add: function() {
+            add: function () {
                 return servers.backup() + 'duty/add'
             },
-            deleteByCode: function() {
+            deleteByCode: function () {
                 return servers.backup() + 'duty/deleteByCode'
             },
-            update: function() {
+            update: function () {
                 return servers.backup() + 'duty/update'
             },
-            getByCode: function() {
+            getByCode: function () {
                 return servers.backup() + 'duty/getByCode'
             },
-            getAllByLikeNameByPage: function() {
+            getAllByLikeNameByPage: function () {
                 return servers.backup() + 'duty/getAllByLikeNameByPage'
             },
-            deleteByBatchCode: function() {
+            deleteByBatchCode: function () {
                 return servers.backup() + 'duty/deleteByBatchCode'
             },
         },
         cycle: {
-            getAllByPage: function() {
+            getAllByPage: function () {
                 return servers.backup() + 'cycle/getAllByPage'
             },
-            add: function() {
+            add: function () {
                 return servers.backup() + 'cycle/add'
             },
-            deleteByCode: function() {
+            deleteByCode: function () {
                 return servers.backup() + 'cycle/deleteByCode'
             },
-            update: function() {
+            update: function () {
                 return servers.backup() + 'cycle/update'
             },
-            getByCode: function() {
+            getByCode: function () {
                 return servers.backup() + 'cycle/getByCode'
             },
-            getAllByLikeNameByPage: function() {
+            getAllByLikeNameByPage: function () {
                 return servers.backup() + 'cycle/getAllByLikeNameByPage'
             },
-            deleteByBatchCode: function() {
+            deleteByBatchCode: function () {
                 return servers.backup() + 'cycle/deleteByBatchCode'
             },
         },
         processstatus: {
-            getAllByPage: function() {
+            getAllByPage: function () {
                 return servers.backup() + 'processStatus/getAllByPage'
             },
-            add: function() {
+            add: function () {
                 return servers.backup() + 'processStatus/add'
             },
-            deleteByCode: function() {
+            deleteByCode: function () {
                 return servers.backup() + 'processStatus/deleteByCode'
             },
-            update: function() {
+            update: function () {
                 return servers.backup() + 'processStatus/update'
             },
-            getByCode: function() {
+            getByCode: function () {
                 return servers.backup() + 'processStatus/getByCode'
             },
-            getAllByLikeNameByPage: function() {
+            getAllByLikeNameByPage: function () {
                 return servers.backup() + 'processStatus/getAllByLikeNameByPage'
             },
-            deleteByBatchCode: function() {
+            deleteByBatchCode: function () {
                 return servers.backup() + 'processStatus/deleteByBatchCode'
             },
         }

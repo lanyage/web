@@ -70,7 +70,7 @@ var archive_manage = {
                     type: 1,
                     title: '添加',
                     content: $('#add-doc-modal'),
-                    area: ['520px', '210px'],
+                    area: ['560px', '240px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '38%'],
                     closeBtn : 0,
