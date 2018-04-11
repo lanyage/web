@@ -64,36 +64,37 @@ var archive_manage = {
         , bindAddEventListener: function (addBtn) {
             addBtn.off('click')
             addBtn.on('click', function () {
+                console.log(($('.right').width() - 520) / 2 / $('.right').width() * 100)
                 //首先就是弹出一个弹出框
                 layer.open({
                     type: 1,
                     title: '添加',
                     content: $('#add-doc-modal'),
-                    area: ['550px', '200px'],
+                    area: ['520px', '210px'],
                     btn: ['确认', '取消'],
-                    offset: ['40%', '45%'],
+                    offset: ['40%', '38%'],
                     closeBtn : 0,
                     yes: function (index) {
                         //todo
-                        var code = $('#arc_code').val()
+                        var code = $('#arc_ecode').val()
                         var intime = $('#arc_intime').val()
-                        var depe = $('#arc_depe').val()
-                        var supfac = $('#arc_supfac').val()
-                        var supcon = $('#arc_supcon').val()
-                        var refac = $('#arc_refac').val()
-                        var recon = $('#arc_recon').val()
-                        var ecode = $('#arc_ecode').val()
+                        var depe = $('#arc_deadend').val()
+                        var supfac = $('#arc_code').val()
+                        var supcon = $('#arc_supfac').val()
+                        var refac = $('#arc_supcon').val()
+                        var recon = $('#arc_ref').val()
+                        var ecode = $('#arc_refac').val()
                         console.log(code,intime,depe,supfac,supcon,supcon,refac,recon,ecode)
-                        $.post(home.urls.archive.add(), {code: code}, function (result) {
-                            if (result.code === 0) {
-                                var time = setTimeout(function () {
-                                    archive_manage.init()
-                                    clearTimeout(time)
-                                }, 500)
-                            }
-                            layer.close(index)
-                            $("#add-doc-modal").css('display', 'none')
-                        })
+                        // $.post(home.urls.archive.add(), {code: code}, function (result) {
+                        //     if (result.code === 0) {
+                        //         var time = setTimeout(function () {
+                        //             archive_manage.init()
+                        //             clearTimeout(time)
+                        //         }, 500)
+                        //     }
+                        //     layer.close(index)
+                        //     $("#add-doc-modal").css('display', 'none')
+                        // })
                     },
                     btn2: function (index) {
                         layer.close(index)
@@ -102,7 +103,6 @@ var archive_manage = {
                 });
             })
         }//$ bindAddEventListener——end$
-
         , bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
             deleteBtns.on('click', function () {

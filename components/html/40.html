@@ -2,61 +2,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <style type="text/css">
-        .left {
-            float: left;
-        }
-        .right {
-            float: right;
-        }
         #add-doc-modal {
-            width: 460px;
-            height: 120px;
+            text-align: center;
         }
         #add-doc-modal ul {
-            list-style: none;
-            max-width: 246px;
-            padding-left: 0;
-        }
-        .inp-right {
             text-align: right;
         }
-        .hide {
-            display: none;
-        }
-        .whitespace-small{
+        .whitespace-small {
             padding: 3px;
         }
     </style>
-    <div id="add-doc-modal" class="hide">
-        <div class="left">
-            <ul>
-                <li class="inp-right"><label>设备编码:</label><input type="text" id="arc_code"/></li>
-                <div class="whitespace-small"></div>
-                <li class="inp-right"><label>安装时间:</label><input type="text" id="arc_intime"/></li>
-                <div class="whitespace-small"></div>
-                <li class="inp-right"><label>保修期限:</label><input type="text" id="arc_depe"/></li>
-                <div class="whitespace-small"></div>
-                <li class="inp-right"><label>档案编码:</label><input type="text" id="arc_code"/></li>
-            </ul>
-        </div>
-        <div class="right">
-            <ul>
-                <li class="inp-right"><label>供货厂家:</label><input type="text" id="arc_supfac"/></li>
-                <div class="whitespace-small"></div>
-                <li class="inp-right"><label>供货厂家电话:</label><input type="text" id="arc_supcon"/></li>
-                <div class="whitespace-small"></div>
-                <li class="inp-right"><label>维修厂家:</label><input type="text" id="arc_ecode"/></li>
-                <div class="whitespace-small"></div>
-                <li class="inp-right"><label>维修厂家电话:</label><input type="text" id="arc_refac"/></li>
-            </ul>
-        </div>
-    </div>
     <div class="block-quote">
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
                 <span id='model-li-hide-add-40'><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
                 <span id="model-li-hide-delete-40"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>&nbsp;&nbsp;
-        
+
             </p>
         </div>
         <div class="fr">
@@ -73,7 +34,8 @@
         <tr>
             <td><input type="checkbox" id='arc_checkbox'></td>
             <td>编码</td>
-            <td>档案名称</td></td>
+            <td>档案名称</td>
+            </td>
             <td>设备名称</td>
             <td>安装时间</td>
             <td>保修期限</td>
@@ -91,13 +53,40 @@
     </table>
     <div id="archive_page">
     </div>
+    <div id='add-doc-modal' class='hide'>
+        <div id='add-doc-modal-left' style='display: inline-block;max-width: 260px;max-height: 100px;'>
+            <ul>
+                <div class="whitespace-small"></div>
+                <li><label>设备编码:</label><input type='text' id='arc_ecode'/></li>
+                <div class="whitespace-small"></div>
+                <li><label>安装时间:</label><input type='text' id='arc_intime'/></li>
+                <div class="whitespace-small"></div>
+                <li><label>保修期限:</label><input type='text' id='arc_deadend'/></li>
+                <div class="whitespace-small"></div>
+                <li><label>档案编码:</label><input type='text' id='arc_code'/></li>
+                <div class="whitespace-small"></div>
+            </ul>
+        </div>
+        <div id='add-doc-modal-right' style="display: inline-block;max-width: 260px;max-height: 100px;">
+            <ul>
+                <div class="whitespace-small"></div>
+                <li><label>供货厂家:</label><input type='text' id='arc_supfac'/></li>
+                <div class="whitespace-small"></div>
+                <li><label>供货厂家电话:</label><input type='text' id='arc_supcon'/></li>
+                <div class="whitespace-small"></div>
+                <li><label>维修厂家:</label><input type='text' id='arc_ref'/></li>
+                <div class="whitespace-small"></div>
+                <li><label>维修厂家电话:</label><input type='text' id='arc_refac'/></li>
+                <div class="whitespace-small"></div>
+            </ul>
+        </div>
+    </div>
     <script src="../components/js/archive_manage.js"></script>
     <script type="application/javascript">
         $(function () {
             archive_manage.init()
         })
     </script>
-    
 </div>
 
 
