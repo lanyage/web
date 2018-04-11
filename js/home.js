@@ -9,6 +9,15 @@ var home = {
             },
             getAllMenu3 : function() {
                 return servers.backup() + 'model/getAll'
+            },
+            deleteMenu1ByCode : function() {
+                return servers.backup() + 'menu1/deleteByCode'
+            },
+            deleteMenu2ByCode : function() {
+                return servers.backup() + 'menu2/deleteByCode'
+            },
+            deleteMenu3ByCode : function() {
+                return servers.backup() + 'model/deleteByCode'
             }
         },
         department: {
