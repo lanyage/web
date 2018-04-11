@@ -332,10 +332,10 @@ var role_manage = {
                                     "<span>" + (e.name) + "</span>" +
                                     "<td style='text-align: center'><input type='checkbox'>" +
                                     "</td><td>" +
-                                    "<input type='checkbox'>新增" +
-                                    "<input type='checkbox'>查询" +
-                                    "<input type='checkbox'>编辑" +
-                                    "<input type='checkbox'>删除" +
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'>新增" +
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'>查询" +
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'>编辑" +
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'>删除" +
                                     "</td></tr>"
                                 )
                             })
