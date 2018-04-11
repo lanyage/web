@@ -39,9 +39,9 @@ var processstatus_manage = {
         var out = $('#processstatus_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#processstatus_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#processstatus_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '36%')
             clearTimeout(time)
-        }, 50)
+        }, 30)
 	},
 	pageSize: 0,
 	funcs: {

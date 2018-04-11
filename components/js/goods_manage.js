@@ -8,7 +8,7 @@ var goods_manage = {
             var inside = $('.layui-laypage').width()
             $('#goods_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
-        }, 50)
+        }, 30)
     } //$init end$
     ,
     pageSize: 0,

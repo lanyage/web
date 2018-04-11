@@ -8,7 +8,7 @@ var company_manage = {
             console.log('inside', inside)
             $('#companyman_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 30 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
-        },50)
+        },30)
     }//$init end$
 
     /** 当前总记录数,用户控制全选逻辑 */

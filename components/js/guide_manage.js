@@ -8,7 +8,7 @@ var guide_manage = {
                 $('#guide_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
                 clearTimeout(time)
             }//$init end$50
-        )
+        ,30)
     }//$init end$
     , pageSize: 0
     , funcs: {
