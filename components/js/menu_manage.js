@@ -2,17 +2,10 @@ var menu_manage = {
     menu1s: [],
     menu2s: [],
     menu3s: [],
-    menu1List: null,
-    menu2List: null,
-    menu3List: null,
-    init: function (menu1List, menu2List, menu3List) {
+    init: function () {
         // console.log('init menu manage!')
         /** 渲染一级菜单 */
-        menu_manage.menu1List = menu1List
-        menu_manage.menu2List = menu2List
-        menu_manage.menu3List = menu3List
         menu_manage.funcs.renderMenu1()
-
         /** 给所有footer下面的链接添加点击事件 */
         menu_manage.funcs.bindAddEventListener($('footer .addBtn'))
     },
@@ -20,14 +13,14 @@ var menu_manage = {
     funcs: {
         /** 渲染一级菜单 */
         renderMenu1: function () {
-            menu_manage.menu1List.empty()
+            $('#menu1List').empty()
             $.get(home.urls.menus.getAllMenu1(), {}, function (result) {
                 menu_manage.menu1s = result.data //存储一级菜单
                 menu_manage.menu1s.forEach(function (e, index) {
                     if (index == 0)
-                        menu_manage.menu1List.append("<li class='item selected' id='menu1-" + (e.code) + "'><a href='#' class='mainClick'>" + (e.name) + "</a>&nbsp;&nbsp;<a href='#' id='menu1-move-up-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' id='menu1-move-down-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu1-edit-tab-" + (e.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu1-del-tab-" + (e.code) + "'><i class='fa fa-trash-o'></i></a></li>")
+                        $('#menu1List').append("<li class='item selected' id='menu1-" + (e.code) + "'><a href='#' class='mainClick'>" + (e.name) + "</a>&nbsp;&nbsp;<a href='#' id='menu1-move-up-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' id='menu1-move-down-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu1-edit-tab-" + (e.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu1-del-tab-" + (e.code) + "'><i class='fa fa-trash-o'></i></a></li>")
                     else
-                        menu_manage.menu1List.append("<li class='item' id='menu1-" + (e.code) + "'><a href='#' class='mainClick'>" + (e.name) + "</a>&nbsp;&nbsp;<a href='#' id='menu1-move-up-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' id='menu1-move-down-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu1-edit-tab-" + (e.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu1-del-tab-" + (e.code) + "'><i class='fa fa-trash-o'></i></a></li>")
+                        $('#menu1List').append("<li class='item' id='menu1-" + (e.code) + "'><a href='#' class='mainClick'>" + (e.name) + "</a>&nbsp;&nbsp;<a href='#' id='menu1-move-up-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' id='menu1-move-down-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu1-edit-tab-" + (e.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu1-del-tab-" + (e.code) + "'><i class='fa fa-trash-o'></i></a></li>")
                 })
                 /** 渲染二级菜单 */
                 menu_manage.funcs.renderMenu2()
@@ -49,10 +42,10 @@ var menu_manage = {
                 var menu2ToSelected = menu_manage.funcs.getCurrentMenu2(menu_manage.menu2s, $('.selected').attr('id').substr(6))
 
                 /** 清空二级菜单的container */
-                menu_manage.menu2List.empty()
+                $('#menu2List').empty()
                 /** 给二级菜单的容器添加二级菜单 */
                 menu2ToSelected.forEach(function (e) {
-                    menu_manage.menu2List.append("<li class='item' id='menu2-" + (e.code) + "'><a href='#' class='mainClick'>" + (e.name) + "</a>&nbsp;&nbsp;<a href='#' id='menu2-move-up-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' id='menu2-move-down-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu2-edit-tab-" + (e.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu2-del-tab-" + (e.code) + "'><i class='fa fa-trash-o'></i></a></li>")
+                    $('#menu2List').append("<li class='item' id='menu2-" + (e.code) + "'><a href='#' class='mainClick'>" + (e.name) + "</a>&nbsp;&nbsp;<a href='#' id='menu2-move-up-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' id='menu2-move-down-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu2-edit-tab-" + (e.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu2-del-tab-" + (e.code) + "'><i class='fa fa-trash-o'></i></a></li>")
                 })
                 /** 给容器中二级菜单添加点击事件 */
                 menu_manage.funcs.bindClickForMenu2($('#menu2List .item .mainClick'))
@@ -104,7 +97,7 @@ var menu_manage = {
                 // console.log(menu_manage.menu1s)
                 // console.log(menu_manage.menu2s)
                 // console.log(menu_manage.menu3s)
-                menu_manage.menu3List.empty()
+                $('#menu3List').empty()
                 $('.md4 .selected').removeClass('selected')
                 $(this).parent('li').addClass('selected')
                 menu_manage.funcs.renderMenu2()
@@ -112,9 +105,9 @@ var menu_manage = {
         }
         , renderMenu3: function (items) {
             // console.log(items)
-            menu_manage.menu3List.empty()
+            $('#menu3List').empty()
             items.forEach(function (e) {
-                menu_manage.menu3List.append("<li class='item' id='menu3-" + (e.code) + "'><a href='#' class='mainClick'>" + (e.name) + "</a>&nbsp;&nbsp;<a href='#' id='menu3-move-up-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' id='menu3-move-down-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu3-edit-tab-" + (e.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu3-del-tab-" + (e.code) + "'><i class='fa fa-trash-o'></i></a></li>")
+                $('#menu3List').append("<li class='item' id='menu3-" + (e.code) + "'><a href='#' class='mainClick'>" + (e.name) + "</a>&nbsp;&nbsp;<a href='#' id='menu3-move-up-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' id='menu3-move-down-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu3-edit-tab-" + (e.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu3-del-tab-" + (e.code) + "'><i class='fa fa-trash-o'></i></a></li>")
             })
         }
         /** 给二级菜单绑定点击事件 */
@@ -143,6 +136,7 @@ var menu_manage = {
                 var _this = $(this)
                 console.log('点击的是' + _this.attr('id').charAt(4) + '级菜单！')
                 console.log(_this)
+                console.log(_this.parent('li').attr('id'))
                 layer.open({
                     type: 1,
                     title: '删除',
@@ -173,6 +167,7 @@ var menu_manage = {
                         }
                         console.log(deleteUrl)
                         $.post(deleteUrl, {code: menuCode}, function (result) {
+                            // console.log(result.code, deleteUrl.indexOf('menu1'))
                             // console.log(result.message)
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
@@ -195,20 +190,21 @@ var menu_manage = {
                                 /** 重新绑定删除 */
                                 menu_manage.funcs.bindAddEventListener($('footer .addBtn'))
                             }
+                            /** 如果删除二级菜单成功 */
                             if (result.code == 0 && deleteUrl.indexOf('menu2') > -1) {
-                                //todo 如果删除的是二级菜单,二级菜单下的所有三级菜单都会被删除,并且需要重新渲染所有的二级菜单,3级菜单需要清空
-                                console.log(home.menu)
+                                console.log('删除二级菜单')
                                 /** 删除二级菜单首先清空三级菜单 */
-                                home.menu3List && home.menu3List.empty()
-                                /** 然后得重新render二级菜单 */
-                                menu_manage.funcs.renderMenu2()
-                                /** 重新填充二级菜单的容器 */
+                                $('#menu3List') && $('#menu3List').empty()
+                                /** 在二级菜单中删除指定的元素 */
+                                $('#menu2List').children('#' + _this.parent('li').attr('id')).remove()
                             }
+                            /** 如果删除一级菜单成功 */
                             if (result.code == 0 && deleteUrl.indexOf('menu1') > -1) {
-                                //todo 如果删除的是一级菜单,一级菜单下的所有二级菜单和三级菜单都会被删除,并且需要重新渲染1级菜单和二级菜单,三级菜单需要被清空
-                                home.menu3List && home.menu3List.empty()
-                                home.menu2List && home.menu2List.empty()
-                                menu_manage.funcs.renderMenu1()
+                                console.log('删除一级菜单')
+                                $('#menu3List') && $('#menu3List').empty()
+                                $('#menu2List') && $('#menu2List').empty()
+                                //删除一级菜单不能级联删除二级菜单和三级菜单
+                                $('#menu1List').children('#'+_this.parent('li').attr('id')).remove()
                             }
                             layer.close(index)
                         })
