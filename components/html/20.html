@@ -1,22 +1,53 @@
-<div id='model-li-hide-20' class="display-component-container" style="padding: 20px 20px 20px 20px;">
+<div id='model-li-hide-20' style="padding: 20px 20px 20px 20px;">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style type="text/css">
+        .table_style thead td {
+            margin: 0;
+            padding: 2px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .table_style tbody td {
+            margin: 0;
+            padding: 2px;
+            border: 1px darkgrey solid;
+            font-size: 10px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            height: 35px;
+            width: 30px;
+        }
+
+        .table_style a {
+            text-decoration: none;
+            color: #419398;
+        }
+
+        .table_style a:hover {
+            color: #777;
+        }
+    </style>
     <div class="block-quote">
         <div class="fl">
             <p style="font-size: 14px;">
                 <span style="border-bottom:#62a49a 3px solid;padding-bottom: 10px;color: #62a49a;">LY306E</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="model-li-hide-select-20">
-                    <select>
-                        <option value="unaudited">未审核</option>
-                        <option value="audited">已审核</option>
+                    <select id="status">
+                        <option value="1">未审核</option>
+                        <option value="2">已审核</option>
                     </select>
                 </span>
             </p>
-
         </div>
         <div class="fr">
-            <p style="color: #62a49a; font-size: 14px;">
+            <p style="color: #62a49a; font-size: 14px;" class="table_style">
                 <span id="model-li-hide-refresh-20"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
                 &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="product_batch_number_input"/>
                 <span id="model-li-hide-search-20"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
@@ -24,7 +55,7 @@
         </div>
     </div>
     <div class="whitespace"></div>
-    <table id="product_table" style="width: 100%">
+    <table id="product_table" class="table_style" style="width: 100%">
         <thead>
         <tr style="background: #484848">
             <td rowspan="2">操作</td>
@@ -118,4 +149,10 @@
     </table>
     <div id="product_audit_page">
     </div>
+    <script src="../components/js/product_audit.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            product_audit.init()
+        })
+    </script>
 </div>
