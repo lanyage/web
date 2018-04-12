@@ -57,6 +57,14 @@ var reviewprocess_manage = {
             /** 追加搜索事件 */
             var searchBtn = $('#model-li-hide-search-75')
             reviewprocess_manage.funcs.bindSearchEventListener(searchBtn)
+
+            var deleteBatchBtn = $('#model-li-hide-delete-75')
+            reviewprocess_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
+
+            var selectAllBox = $('#revpro_checkAll')
+            reviewprocess_manage.funcs.bindSelectAll(selectAllBox)
+            var revpro_checkboxes = $('.checkbox')
+            reviewprocess_manage.funcs.disSelectAll(revpro_checkboxes, selectAllBox)
          }
 
          /** 添加事件 */
@@ -89,7 +97,7 @@ var reviewprocess_manage = {
                     "</div>",
                     area:['600px','310px'],
                     btn:['确认','取消'],
-                    offset:['40%','55%'],
+                    offset:['30%','25%'],
                     yes:function(){
                         var code = $('#revpro_code')
                         var name = $('#revpro_name')
@@ -193,7 +201,7 @@ var reviewprocess_manage = {
          ,bindDeleteEventlistener:function(deleteBtns){
              deleteBtns.off('click')
              deleteBtns.on('click',function(){
-                 var _this = $(this)
+                var _this = $(this)
                  layer.open({
                      type:1,
                      title:'删除',
@@ -229,14 +237,16 @@ var reviewprocess_manage = {
          }//删除事件结束
 
          ,bindDeleteBatchEventListener:function(deleteBatchBtn){//批量删除开始处
+            console.log(deleteBatchBtn)
             deleteBatchBtn.off('click')
-            deleteBatchBtn.on('click',function(){
-                if($('.checkbox:checked').length===0){
-                    layer.msg('亲，您还没有选中数据',{
-                        offset: ['40%', '55%'],
+            deleteBatchBtn.on('click', function () {
+                if ($('.rev_checkbox:checked').length === 0) {
+                    console.log('haha')
+                    layer.msg('亲,您还没有选中任何数据！', {
+                        offset: ['40%','55%'],
                         time: 700
-                    })
-                }else{
+                    });
+                } else{
                     layer.open({
                         type:1,
                         title:"批量删除",
@@ -377,7 +387,7 @@ var reviewprocess_manage = {
                 $('#revpro_checkAll').prop('checked',false)
                 $tbody.append(
                     "<tr>" +
-                    "<td><input type='checkbox' class='checkbox' value='" + (e.code) + "'></td>" +
+                    "<td><input type='checkbox' class='rev_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
                     "<td>" + (e.name) + "</td>" +
                     "<td>" + (e.leader1code) + "</td>" +
@@ -400,12 +410,6 @@ var reviewprocess_manage = {
             reviewprocess_manage.funcs.bindDeleteEventlistener(deleteBtns)
             reviewprocess_manage.funcs.bindEditEventListener(editBtns)
 
-            var deleteBatchBtn = $('#model-li-hide-delete-75')
-            reviewprocess_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
-            var selectAllBox = $('#revpro_checkAll')
-            reviewprocess_manage.funcs.bindSelectAll(selectAllBox)
-            var revpro_checkboxes = $('.checkbox')
-            reviewprocess_manage.funcs.disSelectAll(revpro_checkboxes, selectAllBox)
          }
 
          /** 全选逻辑 */
