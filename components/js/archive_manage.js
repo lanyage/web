@@ -47,16 +47,13 @@ var archive_manage = {
             })
             var selectAllBtn = $("#arc_checkbox")
             archive_manage.funcs.bindSelectAll(selectAllBtn)
-            // // var disselectAllBtn = $("#arc_checkbox")
-            // console.log($('.arc_checkbox'))
-            // archive_manage.funcs.disselectAll($('.arc_checkbox'),selectAllBtn)
-            //$数据渲染完毕
             var addBtn = $("#model-li-hide-add-40")
             archive_manage.funcs.bindAddEventListener(addBtn) //追加增加事件
             var refreshBtn = $('#model-li-hide-refresh-40')
             archive_manage.funcs.bindRefreshEventLisener(refreshBtn)//追加刷新事件
             var searchBtn = $('#model-li-hide-search-40')
             archive_manage.funcs.bindSearchEventListener(searchBtn)
+    
 
             // 批量删除 分页逻辑  todo
         }

@@ -366,6 +366,9 @@ var home = {
             getAllByLikeNameByPage: function () {
                 return servers.backup() + 'guideHeader/getAllByLikeNameByPage'
             },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'guideHeader/deleteByBatchCode'
+            },
         },
         archive: {
             getAllByPage: function () {

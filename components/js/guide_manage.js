@@ -42,12 +42,11 @@ var guide_manage = {
 
             var addBtn = $("#model-li-hide-add-43")
             guide_manage.funcs.bindAddEventListener(addBtn) //追加增加事件
-
             var refreshBtn = $('#model-li-hide-refresh-43')
-            guide_manage.funcs.bindRefreshEventListener(refreshBtn)//追加刷新事件
-
+            guide_manage.funcs.bindRefreshEventLisener(refreshBtn)//追加刷新事件
             var searchBtn = $('#model-li-hide-search-43')
             guide_manage.funcs.bindSearchEventListener(searchBtn)
+            
 
         }
 
@@ -58,51 +57,37 @@ var guide_manage = {
                 layer.open({
                     type: 1,
                     title: '添加',
-                    content: $('#provider_info'),
-                    area: ['350px', '200px'],
+                    content: $('#edgudiebook_info'),
+                    area: ['700px', '500px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
-                    yes: function (index) {
-                        var code = $('#gui_code').val()
-                        var gname = $('#gui_gname').val()
-                        var efftime = $('#gui_efftime').val()
-                        var cmname = $('#gui_cmname').val()
-                        var auname = $('#gui_auname').val()
-                        var apname = $('#gui_apname').val()
-                        $.post(home.urls.guideHeader.add(), {
-                            code: code,
-                            name: gname,
-                            effectivedate: edate,
-                            'compactorcode.name': cmname,
-                            'auditorcode.name': auname,
-                            'approvercode.name': apname,
-
-                        }, function (result) {
-                            layer.msg(result.message, {
-                                offset: ['40%', '55%'],
-                                time: 700
-                            })
+                    closeBtn : 0,
+                    yes:function (index) {
+                        $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {}, function (result) {
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    guide_manage.init()
                                     clearTimeout(time)
                                 }, 500)
                             }
                             layer.close(index)
+                            $("#edgudiebook_info").css('display', 'none')
                         })
-                    },
-                    btn2: function (index) {
+                     }, btn2: function (index) {
                         layer.close(index)
+                        $("#edgudiebook_info").css('display', 'none')
+
                     }
-                });
-            })
-        }//$ bindAddEventListener——end$
+                })
+         })
+        }
+    
+        //$ bindAddEventListener——end$
 
 
         , bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
             deleteBtns.on('click', function () {
-                首先弹出一个询问框
+    
                 var _this = $(this)
                 layer.open({
                     type: 1,
@@ -114,7 +99,7 @@ var guide_manage = {
                     yes: function (index) {
                         console.log('yes')
                         var guideCode = _this.attr('id').substr(3)
-                        $.post(home.urls.guideHeader.deleteByCode(), {code: guideCode}, function (result) {
+                        $.post(home.urls.guideHeader.deleteByBatchCode(), {code: guideCode}, function (result) {
                             console.log(result.message)
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
@@ -171,7 +156,7 @@ var guide_manage = {
         } //$bindSearchEventListener_end$
 
 
-        , bindRefreshEventListener: function (refreshBtn) {
+        , bindRefreshEventLisener: function (refreshBtn) {
             refreshBtn.off('click')
             refreshBtn.on('click', function () {
                 var index = layer.load(2, {offset: ['40%', '58%']});
@@ -187,6 +172,7 @@ var guide_manage = {
             })
         }
         , bindSelectAll: function (selectAllBox) {
+            
             selectAllBox.off('change')
             selectAllBox.on('change', function () {
                 var status = selectAllBox.prop('checked')
@@ -195,61 +181,37 @@ var guide_manage = {
                 })
             })
         }
-
+        
         , bindEditEventListener: function (editBtns) {
             editBtns.off('click')
             editBtns.on('click', function () {
-                var _selfBtn = $(this)
-                var guideCode = _selfBtn.attr('id').substr(5)
-                $.post(home.urls.guideHeader.getByCode(), {code: guideCode}, function (result) {
-                    var guide = result.data
-                    layer.open({
-                        type: 1,
-                        content: "<div id='addModal'>" +
-                        "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>部门编码:<input type='text' id='dep_code' value='" + (department.code) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>部门名称:<input type='text' id='dep_name' value='" + (department.name) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>部门信息:<input type='text' id='dep_info' value='" + (department.info) + "'/></p>" +
-                        "</div>" +
-                        "</div>",
-                        area: ['350px', '200px'],
-                        btn: ['确认', '取消'],
-                        offset: ['40%', '45%'],
-                        yes: function (index) {
-                            var code = $('#gui_code').val()
-                            var gname = $('#gui_gname').val()
-                            var efftime = $('#gui_efftime').val()
-                            var cmname = $('#gui_cmname').val()
-                            var auname = $('#gui_auname').val()
-                            var apname = $('#gui_apname').val()
-                            $.post(home.urls.guideHeader.update(), {
-                                code: code,
-                                name: gname,
-                                effectivedate: edate,
-                                'compactorcode.name': cmname,
-                                'auditorcode.name': auname,
-                                'approvercode.name': apname,
-                            }, function (result) {
-                                layer.msg(result.message, {
-                                    offset: ['40%', '55%'],
-                                    time: 700
-                                })
-                                if (result.code === 0) {
-                                    var time = setTimeout(function () {
-                                        guide_manage.init()
-                                        clearTimeout(time)
-                                    }, 500)
-                                }
-                                layer.close(index)
-                            })
-                        },
-                        btn2: function (index) {
+                layer.open({
+                    type: 1,
+                    title: '添加',
+                    content: $('#edgudiebook_info'),
+                    area: ['700px', '500px'],
+                    btn: ['确认', '取消'],
+                    offset: ['40%', '45%'],
+                    closeBtn : 0,
+                    yes:function (index) {
+                        $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {}, function (result) {
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
+                                    clearTimeout(time)
+                                }, 500)
+                            }
                             layer.close(index)
-                        }
-                    })
+                            $("#edgudiebook_info").css('display', 'none')
+                        })
+                     }, btn2: function (index) {
+                        layer.close(index)
+                        $("#edgudiebook_info").css('display', 'none')
+
+                    }
                 })
-            })
-        }  //$ bindEditEventListener——end$
+         })
+        }
+
         , bindDeleteBatchEventListener: function (deleteBatchBtn) {
             deleteBatchBtn.off('click')
             deleteBatchBtn.on('click', function () {
@@ -301,6 +263,38 @@ var guide_manage = {
                 }
             })
         }
+        , bindDetailEventListener: function (detailBtns) {
+            detailBtns.off('click')
+            detailBtns.on('click', function () {
+                /** 弹出一个询问框 */
+                layer.open({
+                    type: 1,
+                    title: '添加',
+                    content: $('#gudiebook_info'),
+                    area: ['900px', '550px'],
+                    btn: ['确认', '取消'],
+                    offset: ['10%', '10%'],
+                    closeBtn: 0,
+                    yes: function (index) {
+                        $.post(home.urls.repair.listApplicationsInPages(), {}, function (result) {
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
+                                    repair_apply.init()
+                                    clearTimeout(time)
+                                }, 500)
+                            }
+                            layer.close(index)
+                            $("#gudiebook_info").css('display', 'none')
+                        })
+                    },
+                    btn2: function (index) {
+                        layer.close(index)
+                        $("#gudiebook_info").css('display', 'none')
+
+                    }
+                });
+            })
+        }
 
         , renderHandler: function ($tbody, guides) {
             $tbody.empty() //清空表格
@@ -315,9 +309,10 @@ var guide_manage = {
                     "<td>" + (e.compactorcode ? e.compactorcode.name : 'null') + "</td>" +
                     "<td>" + (e.auditorcode ? e.auditorcode.name : 'null') + "</td>" +
                     "<td>" + (e.approvercode ? e.approvercode.name : 'null') + "</td>" +
-                    "<td><a href='#' class='editGuide' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                    "<td>" + (e.approvercode ? e.approvercode.name : 'null') + "</td>" +
+                    "<td><a href='#' class='detailGuide' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
+                    "<td><a href='#' class='editGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "<td><a href='#' class='deleteGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
-                    "<td><a href='#' class='detailGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
                     "</tr>")
             })//数据渲染完毕
             var editBtns = $('.editGuide')
@@ -328,16 +323,21 @@ var guide_manage = {
             guide_manage.funcs.bindSelectAll(selectAllBox)
             var deleteBatchBtn = $('#model-li-hide-delete-43')
             guide_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
+
+            var detaillBtns = $('.detailGuide')
+            guide_manage.funcs.bindDetailEventListener(detaillBtns)
+
             var gui_checkboxes = $('.gui_checkbox')
             guide_manage.funcs.disselectAll(gui_checkboxes, selectAllBox)
         }
+
         , disselectAll: function (gui_checkboxes, selectAllBox) {
             gui_checkboxes.off('change')
             gui_checkboxes.on('change', function () {
                 var statusNow = $(this).prop('checked')
-                if (statusNow === false) {
-                    selectAllBox.prop('checked', false)
-                } else if (statusNow === true && $('.gui_checkbox:checked').length === guide_manage.pageSize) {
+                     if (statusNow === false) {
+                     selectAllBox.prop('checked', false)
+                 } else if (statusNow === true && $('.gui_checkbox:checked').length === guide_manage.pageSize) {
                     selectAllBox.prop('checked', true)
                 }
             })
