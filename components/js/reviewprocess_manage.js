@@ -17,7 +17,7 @@ var reviewprocess_manage = {
          /** 渲染页面 */
          renderTable:function(){
              /** 获取所有记录 */
-             $.post(home.urls.reviewprocess.getExamByNameByPage(),{page:0},function(result){
+             $.get(home.urls.reviewprocess.getExamByNameByPage(),{page:0},function(result){
                 var reviewprocesses = result.data.content//获取全部数据
                 const $tbody = $('#reviewprocess_table').children('tbody')
 
@@ -68,22 +68,26 @@ var reviewprocess_manage = {
                     type:1,
                     title:'添加',
                     content:"<div id='addModal'>" +
-                    "<div style='text-align: center;padding-top: 10px;'>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>流程编码:<input type='text' id='revpro_code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>流程名称:<input type='text' id='revpro_name'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>职责1:<input type='text' id='revpro_leader1code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>负责人1:<input type='text' id='revpro_resp1code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>职责2:<input type='text' id='revpro_leader2code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>负责人2:<input type='text' id='revpro_resp2code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>职责3:<input type='text' id='revpro_leader3code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>负责人3:<input type='text' id='revpro_resp3code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>职责4:<input type='text' id='revpro_leader4code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>负责人4:<input type='text' id='revpro_resp4code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>职责5:<input type='text' id='revpro_leader5code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>负责人5:<input type='text' id='revpro_resp5code'/></p>" +
-                    "</div>" +
+                    '<div style="width:550px;text-align:center;padding-top:10px">'+
+                    '<ul id="fl" style="float:left;line-height:30px;padding-left:50px;">'+
+                        '<li>流程编码: <input type="text"id="revpro_code"></li>'+
+                       '<li>职责1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="revpro_leader1code"></li>'+
+                        '<li>职责2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="revpro_leader2code"></li>'+
+                        '<li>职责3:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="revpro_leader3code"></li>'+
+                        '<li>职责4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="revpro_leader4code"></li>'+
+                        '<li>职责5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="revpro_leader5code"></li>'+
+                    '</ul>'+
+                    '<ul id="fr" style="float:right;line-height:30px">'+
+                        '<li>流程名称: &nbsp;<input type="text"id="revpro_name"></li>'+
+                        '<li>负责人1:&nbsp;&nbsp;&nbsp;<input type="text"id="revpro_resp1code"></li>'+
+                        '<li>负责人2:&nbsp;&nbsp;&nbsp;<input type="text"id="revpro_resp2code"></li>'+
+                        '<li>负责人3:&nbsp;&nbsp;&nbsp;<input type="text"id="revpro_resp3code"></li>'+
+                        '<li>负责人4:&nbsp;&nbsp;&nbsp;<input type="text"id="revpro_resp4code"></li>'+
+                        '<li>负责人5:&nbsp;&nbsp;&nbsp;<input type="text"id="revpro_resp5code"></li>'+
+                    '</ul>'+
+                '</div>'+
                     "</div>",
-                    area:['450px','310px'],
+                    area:['600px','310px'],
                     btn:['确认','取消'],
                     offset:['40%','55%'],
                     yes:function(){
@@ -101,7 +105,7 @@ var reviewprocess_manage = {
                         var leader5code = $('#revpro_leader5code').val()
                         var resp5code = $('#revpro_resp5code').val()
 
-                        $.post(home.urls.reviewprocess.addExam(),{
+                        $.get(home.urls.reviewprocess.addExam(),{
                             code:code,
                             name:name,
                             leader1code:leader1code,
@@ -157,7 +161,7 @@ var reviewprocess_manage = {
                  console.log('search')
                 var reviewprocess_name = $('#reviewprocess_name_input').val()//返回input里面的value值
                 $.post(home.urls.reviewprocess.getExamByCode(),{
-                    name = reviewprocess_name
+                    code : reviewprocess_name
                 },function(result){
                     var page = result.data
                     var reviewprocesses = result.data.content //获取数据
@@ -170,7 +174,7 @@ var reviewprocess_manage = {
                         jump:function(obj,first){
                             if(!first){
                                 $.post(home.urls.reviewprocess.getExamByCode(),{
-                                    name: reviewprocess_name,
+                                    code: reviewprocess_name,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 },function(result){
