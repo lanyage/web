@@ -36,6 +36,15 @@ var home = {
             },
             getMenu3ByCode : function() {
                 return servers.backup() + 'model/getByCode'
+            },
+            addMenu1 : function() {
+                return servers.backup() + 'menu1/add'
+            },
+            addMenu2 : function() {
+                return servers.backup() + 'menu2/add'
+            },
+            addMenu3 : function() {
+                return servers.backup() + 'model/add'
             }
         },
         reviewprocess:{
