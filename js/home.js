@@ -38,6 +38,23 @@ var home = {
                 return servers.backup() + 'model/getByCode'
             }
         },
+        reviewprocess:{
+            getExamByNameByPage:function(){
+                return servers.backup() + 'reviewprocess/getExamByNameByPage'
+            },
+            addExam:function(){
+                return servers.backup() + 'reviewprocess/addExam'
+            },
+            getExamByCode:function(){
+                return servers.backup() + 'reviewprocess/getExamByCode'
+            },
+            deleteExamByCode:function(){
+                return servers.backup() + 'reviewprocess/deleteExamByCode'
+            },
+            updateExam:function(){
+                return servers.backup() + 'reviewprocess/updateExam'
+            },
+        },
         department: {
             getAllByPage: function () {
                 return servers.backup() + 'department/getAllByPage'
