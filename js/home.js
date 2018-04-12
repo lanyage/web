@@ -18,6 +18,24 @@ var home = {
             },
             deleteMenu3ByCode : function() {
                 return servers.backup() + 'model/deleteByCode'
+            },
+            updateMenu1ByCode : function() {
+                return servers.backup() + 'menu1/updateByCode'
+            },
+            updateMenu2ByCode : function() {
+                return servers.backup() + 'menu2/updateByCode'
+            },
+            updateMenu3ByCode : function() {
+                return servers.backup() + 'model/updateByCode'
+            },
+            getMenu1ByCode : function() {
+                return servers.backup() + 'menu1/getByCode'
+            },
+            getMenu2ByCode : function() {
+                return servers.backup() + 'menu2/getByCode'
+            },
+            getMenu3ByCode : function() {
+                return servers.backup() + 'model/getByCode'
             }
         },
         department: {
