@@ -401,6 +401,13 @@ var home = {
             getAllByLikeNameByPage: function () {
                 return servers.backup() + 'guideHeader/getAllByLikeNameByPage'
             },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'guideHeader/deleteByBatchCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'guideHeader/getAll'
+            },
+
         },
         archive: {
             getAllByPage: function () {
@@ -423,7 +430,11 @@ var home = {
             },
             deleteByBatchCode: function () {
                 return servers.backup() + 'archive/deleteByBatchCode'
+            },
+            getAll:function(){
+                return servers.backup()+'archive/getAll'
             }
+
         },
         repair: {
             listApplicationsInPages: function () {
