@@ -4,3 +4,15 @@
 .idea/vcs.xml
 .idea/workspace.xml
 components/test.html
+components/js/supply_manage.js
+*.js
+components/html/editor_guidebook.html
+components/html/80.html
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/encodings.xml
+components/html/80.html
+components/html/editor_guidebook.html
+components/js/supply_manage.js
+components/html/80.html
