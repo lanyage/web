@@ -303,10 +303,10 @@ var role_manage = {
                 , bindEditLimitListener: function (limitBtns) {
                     limitBtns.off('click')
                     limitBtns.on('click', function () {
-                        $.get(home.urls.role.getAllModel(), function(result) {
-                            var models = result.data
-                            var flag1 = 1
-                            var flag2 = 1
+                        var _selfBtn = $(this)
+                        var roleCode = _selfBtn.attr('id').substr(6)
+                        $.post(home.urls.role.getByCode(), {code: roleCode}, function(result) {
+                            var models = result.data.models
                             models.forEach(function (e) {
                                 if(e.menu1.code == flag1){
                                     flag1++
@@ -330,7 +330,7 @@ var role_manage = {
                                     "<tr><td>" +
                                     "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
                                     "<span>" + (e.name) + "</span>" +
-                                    "<td style='text-align: center'><input type='checkbox'>" +
+                                    "<td style='text-align: center'><input id='checkAllOperations_" + (e.code) + "' type='checkbox'>" +
                                     "</td><td>" +
                                     "&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'>新增" +
                                     "&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'>查询" +
@@ -339,6 +339,7 @@ var role_manage = {
                                     "</td></tr>"
                                 )
                             })
+
                             layer.open({
                                 type: 1,
                                 content: $('#right_body'),

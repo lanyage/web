@@ -202,8 +202,8 @@ var home = {
             getAllByPage: function () {
                 return servers.backup() + 'role/getAllByPage'
             },
-            getAllModel: function() {
-                return servers.backup() + 'model/getAll'
+            updateRoleModelOperations: function() {
+                return servers.backup() + 'role/updateRoleModelOperations'
             }
         },
         user: {
