@@ -20,13 +20,13 @@ var home = {
                 return servers.backup() + 'model/deleteByCode'
             },
             updateMenu1ByCode : function() {
-                return servers.backup() + 'menu1/updateByCode'
+                return servers.backup() + 'menu1/updateNameAndPath'
             },
             updateMenu2ByCode : function() {
-                return servers.backup() + 'menu2/updateByCode'
+                return servers.backup() + 'menu2/updateName'
             },
             updateMenu3ByCode : function() {
-                return servers.backup() + 'model/updateByCode'
+                return servers.backup() + 'model/updateName'
             },
             getMenu1ByCode : function() {
                 return servers.backup() + 'menu1/getByCode'
@@ -45,6 +45,15 @@ var home = {
             },
             addMenu3 : function() {
                 return servers.backup() + 'model/add'
+            },
+            menu1Shift : function() {
+                return servers.backup() + 'menu1/shift'
+            },
+            menu2Shift : function() {
+                return servers.backup() + 'menu2/shift'
+            },
+            menu3Shift : function() {
+                return servers.backup() + 'model/shift'
             }
         },
         reviewprocess:{
