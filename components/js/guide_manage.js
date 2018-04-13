@@ -99,7 +99,7 @@ var guide_manage = {
                     yes: function (index) {
                         console.log('yes')
                         var guideCode = _this.attr('id').substr(3)
-                        $.post(home.urls.guideHeader.deleteByBatchCode(), {code: guideCode}, function (result) {
+                        $.post(home.urls.guideHeader.deleteByCode(), {code: guideCode}, function (result) {
                             console.log(result.message)
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
@@ -112,6 +112,7 @@ var guide_manage = {
                                 }, 500)
                             }
                             layer.close(index)
+                            
                         })
                     },
                     btn2: function (index) {
@@ -236,7 +237,7 @@ var guide_manage = {
                                 }
                             })
                             $.ajax({
-                                url: home.urls.guideHeader.deleteByCode(),
+                                url: home.urls.guideHeader.deleteByBatchCode(),
                                 contentType: 'application/json',
                                 data: JSON.stringify(guideCodes),
                                 dataType: 'json',
@@ -276,7 +277,13 @@ var guide_manage = {
                     offset: ['10%', '10%'],
                     closeBtn: 0,
                     yes: function (index) {
-                        $.post(home.urls.repair.listApplicationsInPages(), {}, function (result) {
+                        $.get(home.urls.guideHeader.getAll(), {}, function (result) {
+                            var guides = result.data 
+                            document.getElementById('show').innerHTML = data;
+
+
+
+
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
                                     repair_apply.init()
@@ -309,7 +316,7 @@ var guide_manage = {
                     "<td>" + (e.compactorcode ? e.compactorcode.name : 'null') + "</td>" +
                     "<td>" + (e.auditorcode ? e.auditorcode.name : 'null') + "</td>" +
                     "<td>" + (e.approvercode ? e.approvercode.name : 'null') + "</td>" +
-                    "<td>" + (e.approvercode ? e.approvercode.name : 'null') + "</td>" +
+                    "<td>" + (e.roles ? e.roles.name : 'null') + "</td>" +
                     "<td><a href='#' class='detailGuide' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
                     "<td><a href='#' class='editGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "<td><a href='#' class='deleteGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
