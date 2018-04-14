@@ -777,6 +777,26 @@ var home = {
             deleteByBatchCode: function () {
                 return servers.backup() + 'processStatus/deleteByBatchCode'
             },
+        },
+        product:{
+            updatePublishByCode: function () {
+                return servers.backup() + 'product/updatePublishByCode'
+            },
+            updateAuditByCodeL: function () {
+                return servers.backup() + 'product/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'product/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'product/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'product/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'product/getByLikeBatchNumberByPage'
+            }
         }
     }
     /** start */

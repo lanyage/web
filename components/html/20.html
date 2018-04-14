@@ -1,8 +1,179 @@
-<div id='model-li-hide-20' class="display-component-container" style="line-height:700px;">
-    <h1 style="text-align: center">页面还在火速开发中...</h1>
+<div id='model-li-hide-20' style="padding: 20px 20px 20px 20px;">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style type="text/css">
+        .table_style thead td {
+            margin: 0;
+            padding: 2px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .table_style tbody td {
+            margin: 0;
+            padding: 2px;
+            border: 1px darkgrey solid;
+            font-size: 10px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            height: 35px;
+            width: 30px;
+        }
+
+        .table_style a {
+            text-decoration: none;
+            color: #419398;
+        }
+
+        .table_style a:hover {
+            color: #777;
+        }
+
+        .table_inner thead td {
+            background-color: #777777;
+            margin: 0;
+            padding: 2px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            font-weight: 400;
+        }
+        .table_inner tbody td{
+            margin: 0;
+            padding: 2px;
+            border: 1px darkgrey solid;
+            font-size: 10px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+        }
+
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p style="font-size: 14px;">
+                <span style="border-bottom:#62a49a 3px solid;padding-bottom: 10px;color: #62a49a;">LY306E</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="model-li-hide-select-20">
+                    <select id="status">
+                        <option value="1">未审核</option>
+                        <option value="2">已审核</option>
+                    </select>
+                </span>
+            </p>
+        </div>
+        <div class="fr">
+            <p style="color: #62a49a; font-size: 14px;" class="table_style">
+                <span id="model-li-hide-refresh-20"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="product_batch_number_input"/>
+                <span id="model-li-hide-search-20"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <table id="product_table" class="table_style" style="width: 100%">
+        <thead>
+        <tr style="background: #484848">
+            <td rowspan="2">操作</td>
+            <td rowspan="2">审核人</td>
+            <td rowspan="2">检测日期</td>
+            <td rowspan="2">批号</td>
+            <td rowspan="2">判定</td>
+            <td>数量</td>
+            <td>振实密度</td>
+            <td>水分</td>
+            <td>SSA</td>
+            <td>pH值</td>
+            <td>总Li含量</td>
+            <td colspan="2">粒度(&mu;m)</td>
+            <td>Co</td>
+            <td>Mn</td>
+            <td>Ni</td>
+            <td>Li</td>
+            <td>Co</td>
+            <td>Mn</td>
+            <td>Ni</td>
+            <td>0.1C首次放电容量</td>
+            <td>0.1C首次效率</td>
+            <td>1C首次放电容量</td>
+        </tr>
+        <tr style="background: #484848">
+            <td>t</td>
+            <td>g/cm3</td>
+            <td>ppm</td>
+            <td>m2/g</td>
+            <td>/</td>
+            <td>10ppm</td>
+            <td>D50</td>
+            <td>粒度宽度系数</td>
+            <td>mol%</td>
+            <td>mol%</td>
+            <td>mol%</td>
+            <td>%</td>
+            <td>%</td>
+            <td>%</td>
+            <td>%</td>
+            <td>mAh/g</td>
+            <td>%</td>
+            <td>mAh%</td>
+        </tr>
+        <tr style="background: #666666">
+            <td></td>
+            <td colspan="5">三级控制标准</td>
+            <td>&ge;2.00</td>
+            <td>&le;500</td>
+            <td>0.20~0.40</td>
+            <td>&le;11.80</td>
+            <td>&le;100</td>
+            <td>11.00~14.00</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>7.0&plusmn;0.5</td>
+            <td>11.4&plusmn;1.0</td>
+            <td>12.2&plusmn;1.0</td>
+            <td>11.4&plusmn;1.0</td>
+            <td>36.2&plusmn;1.0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr style="background: #666666">
+            <td></td>
+            <td colspan="5">2016-3-2三级控制标准</td>
+            <td>2.3~2.7</td>
+            <td>&le;200</td>
+            <td>0.22~0.38</td>
+            <td>&le;11.80</td>
+            <td>&le;120</td>
+            <td>11.30~13.30</td>
+            <td></td>
+            <td>19.7&plusmn;0.5</td>
+            <td>19.9&plusmn;0.5</td>
+            <td>7.0&plusmn;0.5</td>
+            <td>11.4&plusmn;1.0</td>
+            <td>12.2&plusmn;1.0</td>
+            <td>11.4&plusmn;1.0</td>
+            <td>36.2&plusmn;1.0</td>
+            <td>&ge;177.5</td>
+            <td>&ge;88.0</td>
+            <td>&ge;162</td>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div id="product_audit_page">
+    </div>
+    <script src="../components/js/product_audit.js"></script>
     <script type="application/javascript">
-        $(function() {
-            console.log( $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>'))
+        $(function () {
+            product_audit.init()
         })
     </script>
 </div>
