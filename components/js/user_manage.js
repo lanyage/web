@@ -37,17 +37,14 @@ var user_manage = {
         /** 选择部门 */
         , changeDepart: function (set_department) {
             set_department.off('click')
-
             set_department.on('click', function () {
                 var _self = $(this)
-
                 $('.setdepartment').removeClass('selected_department').css('color', '')
                 _self.addClass('selected_department').css('color', '#ffffff')
 
                 var id_name = $(this).attr('id')
                 var new_id = '#' + id_name
                 user_manage.the_departmentcode = id_name.substr(10)
-
                 user_manage.funcs.department_Set()
             })
             user_manage.funcs.department_Set()
@@ -620,6 +617,25 @@ var user_manage = {
                     closeBtn: 0,
                     offset: ['20%', '35%'],
                     yes: function (index) {
+                        var rolecodes = new Array()
+                        $('.right_role').each(function() {
+                            rolecodes.push($(this).val())
+                        })
+                        $.ajax({
+                            url: home.urls.user.updateRoles(),
+                            data: {
+                                code: userCode,
+                                roleCode: rolecodes
+                            },
+                            type: 'post',
+                            traditional: true,
+                            success: function(result) {
+                                layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
+                                })
+                            }
+                        })
                         layer.close(index)
                         $("#setRole_body").css('display', 'none')
                     },
@@ -699,7 +715,6 @@ var user_manage = {
                     var str1, str2
                     if (user.enableIc == 1)
                         str1 = "checked='checked'"
-                    else
                         // str2 = "disabled='disabled'"
                         layer.open({
                             type: 1,
@@ -711,8 +726,6 @@ var user_manage = {
                             btn: ['确认', '取消'],
                             offset: ['40%', '45%'],
                             yes: function (index) {
-                                var ic_ifcheck = $('#ic_checkbox')
-                                user_manage.funcs.icIfcheck(ic_ifcheck)
                                 var enableIc = (($('#ic_checkbox').prop('checked')) ? 1 : 0)
                                 var inteCircCard = $('#ic_num').val()
                                 $.post(home.urls.user.updateInteCircCard(), {

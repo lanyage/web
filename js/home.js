@@ -105,6 +105,9 @@ var home = {
             },
             getAll: function () {
                 return servers.backup() + 'user/getAll'
+            },
+            updateRoles: function () {
+                return servers.backup() + 'user/updateRoles'
             }
         },
         monitor_online: {
@@ -204,6 +207,9 @@ var home = {
             },
             updateRoleModelOperations: function() {
                 return servers.backup() + 'role/updateRoleModelOperations'
+            },
+            getAllOperations: function () {
+                return servers.backup() + 'operation/getAll'
             }
         },
         user: {
