@@ -193,14 +193,14 @@
         <script>
              function  addTab(){
                  var count = $("#tab tr").length +1
-                 console.log(count)     
+                 console.log(count,'count')
                 var tabpl = "<tr id='s"+count+"'><td><input type='text'></td><td><input type='text'></td><td><input type='text'></td><td><input type='text'></td><td><button onclick='delTab("+count+")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td></tr>";           
     
                     $("#tab").append(tabpl);
                    }
     
             function delTab(x){
-                console.log(x)
+                console.log(x,'x')
                 $("#s"+x).remove();
             }
     

@@ -81,6 +81,8 @@ var supply_manage = {
                     })
                     trcount = 3
                 }
+                var newtrcount = $('#provider_body_downtable tr').length
+                console.log(newtrcount,'新的trcount')
                 layer.open({
                     type: 1,
                     title: '新增',
@@ -140,23 +142,30 @@ var supply_manage = {
                     add_btn_number += 1
                     console.log(add_btn_number, '点击次数')
                     var count = $('#provider_body_downtable tr').length
-                    console.log(count,'tr的数目')
-                    $('#provider_body_downtable').append("<tr id='inputcontent' class='addline'><td><input class='provider_input'></td>" +
+                    console.log(count,'count,tr的数目')
+                    $('#provider_body_downtable').append("<tr id='inputcontent"+ count+"'><td><input class='provider_input'></td>" +
                         "<td style='padding: 0;'><input class='provider_input'></td>" +
                         "<td><input class='provider_input'></td>" +
                         "<td><input class='provider_input'></td>" +
                         "<td>" +
-                        "<button type='button' id='close_btn' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
+                        "<button type='button' id='close_btn' onclick='javascript:supply_manage.funcs.delTab("+count+")' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
                         " &times;  "
                         + " </button>" + "</td></tr>")
 
                     $("#provider_body_downtable").append(addb)
 
                 })
+                $('#close_btn').click(function(){
+                    $('.addline').remove()
+                })
 
 
             })
         }//$ bindAddEventListener——end$
+        /**删除tab*/
+        ,delTab: function(count){
+            $('#inputcontent'+count).remove()
+        }
         /**删除 */
         , bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
