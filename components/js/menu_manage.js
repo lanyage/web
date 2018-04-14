@@ -3,7 +3,6 @@ var menu_manage = {
     menu2s: [],
     menu3s: [],
     init: function () {
-        // console.log('init menu manage!')
         /** 渲染一级菜单 */
         menu_manage.funcs.renderMenu1()
     },
@@ -34,7 +33,7 @@ var menu_manage = {
         },
         /** 渲染二级菜单 */
         renderMenu2: function () {
-            /** 获取所有的三级菜单 */
+            // /** 获取所有的三级菜单 */
             $.get(home.urls.menus.getAllMenu3(), {sort: 'rank'}, function (result) {
                 menu_manage.funcs.sortMenus(result.data)
                 menu_manage.menu3s = result.data //存储三级菜单
@@ -55,17 +54,28 @@ var menu_manage = {
                 })
                 /** 给容器中二级菜单添加点击事件 */
                 menu_manage.funcs.bindClickForMenu2($('#menu2List .item .mainClick'))
-                /** 给1 2级菜单删除按钮绑定事件 */
-                menu_manage.funcs.bindDeleteEventListener($('.deleteBtn'))
-                /** 给1 2级编辑按钮绑定事件 */
-                menu_manage.funcs.bindEditEventListener($('.editBtn'))
-                /** 给1 2级shift上按钮绑定事件 */
-                menu_manage.funcs.bindShiftUpListener($('.shift-up'))
-                /** 给1 2级shift下按钮绑定事件 */
-                menu_manage.funcs.bindShiftDownListener($('.shift-down'))
+                // /** 给1 2级菜单删除按钮绑定事件 */
+                // menu_manage.funcs.bindDeleteEventListener($('.deleteBtn'))
+                // /** 给1 2级编辑按钮绑定事件 */
+                // menu_manage.funcs.bindEditEventListener($('.editBtn'))
+                // /** 给1 2级shift上按钮绑定事件 */
+                // menu_manage.funcs.bindShiftUpListener($('.shift-up'))
+                // /** 给1 2级shift下按钮绑定事件 */
+                // menu_manage.funcs.bindShiftDownListener($('.shift-down'))
+                menu_manage.funcs.bindCrubEvent()
                 /** 给所有footer下面的链接添加点击事件 */
                 menu_manage.funcs.bindAddEventListener($('footer .addBtn'))
             })
+        },
+        bindCrubEvent: function() {
+            /** 给1 2级菜单删除按钮绑定事件 */
+            menu_manage.funcs.bindDeleteEventListener($('.deleteBtn'))
+            /** 给1 2级编辑按钮绑定事件 */
+            menu_manage.funcs.bindEditEventListener($('.editBtn'))
+            /** 给1 2级shift上按钮绑定事件 */
+            menu_manage.funcs.bindShiftUpListener($('.shift-up'))
+            /** 给1 2级shift下按钮绑定事件 */
+            menu_manage.funcs.bindShiftDownListener($('.shift-down'))
         }
         /**
          * 获取当前选中一级菜单下的所有二级菜单
@@ -99,7 +109,6 @@ var menu_manage = {
         }
         /** 为一级菜单绑定点击事件 */
         , bindClickForMenu1s: function (items) {
-            // console.log(items)
             items.off('click')
             items.on('click', function () {
                 /** 点击所有的一级菜单的时候都必须将三级菜单关掉 */
@@ -114,7 +123,6 @@ var menu_manage = {
             })
         }
         , renderMenu3: function (items) {
-            // console.log(items)
             $('#menu3List').empty()
             items.forEach(function (e) {
                 $('#menu3List').append("<li class='item' id='menu3-" + (e.code) + "'><a href='#' class='mainClick'>" + (e.name) + "</a>&nbsp;&nbsp;<a href='#' class='shift-up' id='menu3-move-up-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' class='shift-down' id='menu3-move-down-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu3-edit-tab-" + (e.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu3-del-tab-" + (e.code) + "'><i class='fa fa-trash-o'></i></a></li>")
@@ -124,7 +132,6 @@ var menu_manage = {
         }
         /** 给二级菜单绑定点击事件 */
         , bindClickForMenu2: function (items) {
-            // console.log(items)
             items.off('click')
             items.on('click', function () {
                 $('.md4 .selected-menu2').removeClass('selected-menu2')
@@ -150,9 +157,6 @@ var menu_manage = {
             deleteBtns.on('click', function () {
                 //首先弹出一个询问框
                 var _this = $(this)
-                // console.log(_this.attr('id').charAt(4) + '级菜单！')  //当前菜单的种类1,2,3
-                // console.log('当前条目id' + _this.parent('li').attr('id')) //当前元素的id
-                // console.log('当前菜单的code:' + _this.attr('id').substr(14)) //当前菜单对应的菜单在数据库中的code
                 var deleteUrl
                 var subList
                 switch (_this.attr('id').charAt(4)) {
@@ -196,23 +200,28 @@ var menu_manage = {
                             /** 三级菜单删除成功后的逻辑 */
                             if (result.code == 0 && deleteUrl.indexOf('model') > -1) {
                                 /** 删除成功之后还需要渲染三级菜单 */
+                                $.get(home.urls.menus.getAllMenu3(), {sort: 'rank'}, function (result) {
+                                    menu_manage.funcs.sortMenus(result.data)
+                                    menu_manage.menu3s = result.data //存储三级菜单
+                                    menu_manage.funcs.bindClickForMenu2($('#menu2List .item .mainClick'))
+                                })
                                 $('#menu3List').children('#' + _this.parent('li').attr('id')).remove()
                             }
                             /** 如果删除二级菜单成功 */
                             if (result.code == 0 && deleteUrl.indexOf('menu2') > -1) {
-                                console.log('删除二级菜单')
                                 /** 删除二级菜单首先清空三级菜单 */
                                 $('#menu3List') && $('#menu3List').empty()
+                                $('.selected-menu2')? $('.selected-menu2').removeClass('selected-menu2'):(function(){})()
                                 /** 在二级菜单中删除指定的元素 */
                                 $('#menu2List').children('#' + _this.parent('li').attr('id')).remove()
                             }
                             /** 如果删除一级菜单成功 */
                             if (result.code == 0 && deleteUrl.indexOf('menu1') > -1) {
-                                console.log('删除一级菜单')
                                 $('#menu3List') && $('#menu3List').empty()
                                 $('#menu2List') && $('#menu2List').empty()
                                 //删除一级菜单不能级联删除二级菜单和三级菜单
                                 $('#menu1List').children('#' + _this.parent('li').attr('id')).remove()
+                                // menu_manage.funcs.renderMenu1()
                             }
                             layer.close(index)
                         })
@@ -226,15 +235,18 @@ var menu_manage = {
 
         /** 添加事件 */
         , bindAddEventListener: function (addBtn) {
-            // console.log($('#menu1List')[0])
-            // console.log($('#menu2List')[0])
-            // console.log($('#menu1List').children('.selected').attr('id').substr(6))
             addBtn.off('click')
             addBtn.on('click', function () {
                 /** 弹出一个询问框 */
                 var _this = $(this)
-                console.log('点击的是' + _this.attr('id').substr(4) + '级菜单！')
                 /** 如果是点击三级菜单的添加必须要先选定二级菜单,否则就要弹出相应的提示框 */
+                if (_this.attr('id').substr(4) == 2 && !$('.selected')[0]) {
+                    layer.msg('您还没有选择一级级菜单,请先选择一级菜单项', {
+                        offset: ['45%', '47%'],
+                        time: 900
+                    })
+                    return
+                }
                 if (_this.attr('id').substr(4) == 3 && !$('.selected-menu2')[0]) {
                     layer.msg('您还没有选择二级菜单,请先选择二级菜单项', {
                         offset: ['45%', '47%'],
@@ -245,7 +257,7 @@ var menu_manage = {
                 layer.open({
                     type: 1,
                     title: '添加',
-                    content: _this.attr('id').charAt(4) == 1 ?
+                    content: _this.attr('id').substr(4) == 1 ?
                         ("<div id='addModal'>" +
                         "<div style='text-align: center;padding:10px 30px 10px 20px;'>" +
                         "<p style='padding: 5px 0px 5px 0px;'><div class='fl' style='text-align: right;width: 30%'>菜单名称:</div><div class='fl' style='padding-left: 3%'><input type='text' id='menu_name'/></div></p>" +
@@ -258,7 +270,7 @@ var menu_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'><div class='fl' style='text-align: right;width: 30%'>菜单名称:</div><div class='fl' style='padding-left: 3%'><input type='text' id='menu_name'/></div></p>" +
                         "</div>" +
                         "</div>"),
-                    area: [_this.attr('id').charAt(4) == 1 ? '330px' : '318px', _this.attr('id').charAt(4) == 1 ? '180px' : '150px'],
+                    area: [_this.attr('id').substr(4) == 1 ? '330px' : '318px', _this.attr('id').substr(4) == 1 ? '180px' : '150px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
                     yes: function (index) {
@@ -289,7 +301,6 @@ var menu_manage = {
                                 break;
                         }
                         var addType = _this.attr('id').substr(4)
-                        console.log(addType)
                         $.post(addUrl, addData, function (result) {
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
@@ -299,7 +310,6 @@ var menu_manage = {
                                 var time = setTimeout(function () {
                                     /** 如果添加成功了以后要重新填充容器,还要分情况,添加一菜单不需要设置什么,添加二级菜单要设置其相应的1级菜单,添加三级菜单的时候需要添加相应的二级菜单和一级菜单 */
                                     addType == '1' && (function() {
-                                        console.log('一级菜单成功')
                                         $('#menu1List').append("<li class='item' id='menu1-" + (result.data.code) + "'><a href='#' class='mainClick'>" + (result.data.name) + "</a>&nbsp;&nbsp;<a href='#' class='shift-up' id='menu1-move-up-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' class='shift-down' id='menu1-move-down-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu1-edit-tab-" + (result.data.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu1-del-tab-" + (result.data.code) + "'><i class='fa fa-trash-o'></i></a></li>")
                                         menu_manage.funcs.bindClickForMenu1s($('#menu1List .item .mainClick'))
                                         /** 给1 2级菜单删除按钮绑定事件 */
@@ -314,7 +324,6 @@ var menu_manage = {
                                         // menu_manage.funcs.bindAddEventListener($('footer .addBtn'))
                                     })()
                                     addType == '2' && (function() {
-                                        console.log('二级菜单成功')
                                         $('#menu2List').append("<li class='item' id='menu2-" + (result.data.code) + "'><a href='#' class='mainClick'>" + (result.data.name) + "</a>&nbsp;&nbsp;<a href='#' class='shift-up' id='menu2-move-up-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' class='shift-down' id='menu2-move-down-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu2-edit-tab-" + (result.data.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu2-del-tab-" + (result.data.code) + "'><i class='fa fa-trash-o'></i></a></li>")
                                         /** 给容器中二级菜单添加点击事件 */
                                         menu_manage.funcs.bindClickForMenu2($('#menu2List .item .mainClick'))
@@ -329,7 +338,13 @@ var menu_manage = {
                                     })()
                                     addType == '3' && (function() {
                                         console.log('三级菜单成功')
-                                        //todo 需要把当前的三级菜单的添加内容
+                                        // /** 获取所有的三级菜单 */
+                                        $.get(home.urls.menus.getAllMenu3(), {sort: 'rank'}, function (result) {
+                                            menu_manage.funcs.sortMenus(result.data)
+                                            menu_manage.menu3s = result.data //存储三级菜单
+                                            /** 继续给二级菜单绑定事件 */
+                                            menu_manage.funcs.bindClickForMenu2($('#menu2List .item .mainClick'))
+                                        })
                                         $('#menu3List').append("<li class='item' id='menu3-" + (result.data.code) + "'><a href='#' class='mainClick'>" + (result.data.name) + "</a>&nbsp;&nbsp;<a href='#' class='shift-up' id='menu3-move-up-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' class='shift-down' id='menu3-move-down-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu3-edit-tab-" + (result.data.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu3-del-tab-" + (result.data.code) + "'><i class='fa fa-trash-o'></i></a></li>")
                                         /** 给1 2级菜单删除按钮绑定事件 */
                                         menu_manage.funcs.bindDeleteEventListener($('.deleteBtn'))
@@ -339,7 +354,6 @@ var menu_manage = {
                                         menu_manage.funcs.bindShiftUpListener($('.shift-up'))
                                         /** 给1 2级shift下按钮绑定事件 */
                                         menu_manage.funcs.bindShiftDownListener($('.shift-down'))
-                                        //todo 还存在问题,就是二级菜单切换不好
                                     })()
                                     clearTimeout(time)
                                 }, 500)
@@ -360,7 +374,6 @@ var menu_manage = {
             editBtns.on('click', function () {
                 var _this = $(this)
                 var menuCode = _this.attr('id').substr(15)
-                // console.log(menuCode) //当前menu的code
                 var detailUrl
                 var container
                 switch (_this.attr('id').charAt(4)) {
@@ -462,6 +475,7 @@ var menu_manage = {
             })
         }//$ bindEditEventListener——end$
         , bindShiftUpListener: function (shiftUps) {
+            shiftUps.off('click')
             shiftUps.on('click', function () {
                 var _this = $(this)
                 /** 点击向上的箭头会交换和上一个菜单的rank值 */
@@ -486,9 +500,8 @@ var menu_manage = {
                         })();
                         break;
                 }
-                // console.log(shiftUrl)
-                console.log(beforeCode)
-                console.log(currentCode)
+                // console.log(beforeCode)
+                // console.log(currentCode)
                 if (beforeCode != undefined) {
                     $.post(shiftUrl, {code1: beforeCode, code2: currentCode}, function (result) {
                         layer.msg(result.message, {
@@ -506,6 +519,7 @@ var menu_manage = {
             })
         }//$ bindShiftUpListener--ends$
         , bindShiftDownListener: function (shiftDowns) {
+            shiftDowns.off('click')
             shiftDowns.on('click', function () {
                 var _this = $(this)
                 /** 点击向上的箭头会交换和上一个菜单的rank值 */
@@ -531,8 +545,8 @@ var menu_manage = {
                         break;
                 }
                 // console.log(shiftUrl)
-                console.log(currentCode)
-                console.log(afterCode)
+                // console.log(currentCode)
+                // console.log(afterCode)
                 if (afterCode != undefined) {
                     $.post(shiftUrl, {code1: afterCode, code2: currentCode}, function (result) {
                         layer.msg(result.message, {
