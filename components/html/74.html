@@ -74,7 +74,11 @@
         }
 
         footer a:hover {
-            color: #569196;
+            color: #01AAED;
+        }
+
+        footer a:active {
+            color: #2D93CA;
         }
 
         .clear {
@@ -84,9 +88,11 @@
         .md4 .selected {
             background: #f2f2f2;
         }
+
         .md4 .selected-menu2 {
             background: #f2f2f2;
         }
+
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -125,22 +131,19 @@
     <div class="clear"></div>
     <div class="footers">
         <footer>
-            <a href="#">+添加一级菜单</a>
+            <a href="#" class="addBtn" id="add-1">+添加一级菜单</a>
         </footer>
         <footer class="middle">
-            <a href="#">+添加二级菜单</a>
+            <a href="#" class="addBtn" id="add-2">+添加二级菜单</a>
         </footer>
         <footer>
-            <a href="#">+添加三级菜单</a>
+            <a href="#" class="addBtn" id="add-3">+添加三级菜单</a>
         </footer>
     </div>
     <script src="../components/js/menu_manage.js"></script>
     <script type="application/javascript">
         $(function () {
-            var menu1List = $('#menu1List')
-            var menu2List = $('#menu2List')
-            var menu3List = $('#menu3List')
-            menu_manage.init(menu1List, menu2List, menu3List)
+            menu_manage.init()
         })
     </script>
 </div>
