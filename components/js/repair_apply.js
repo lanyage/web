@@ -182,15 +182,6 @@ var repair_apply = {
         , bindDetailEventListener: function (detailBtns) {
             detailBtns.off('click')
             detailBtns.on('click', function () {
-                $.post(home.urls.repair.listApplicationsInPages(), {}, function (result) {
-                    var repairs=result.data.content[0]
-                    $('#repair_department_input').val(repairs.department.name)
-                    $('#repair_equipmentname_input').val(repairs.equipment.name)
-                    $('#repair_equipmentcode_input').val(repairs.eqArchive.code)
-                    $('#repair_productLine_input').val(repairs.productLine.name)
-                    $('#repair_duty_input').val(repairs.duty.name)
-                    $('#repair_applicationPerson_input').val(repairs.applicationPerson.name)
-                    $('#repair_input_appcontact').val(repairs.applicationPerson.Contact)
                 /** 弹出一个询问框 */
                 layer.open({
                     type: 1,
@@ -199,8 +190,22 @@ var repair_apply = {
                     area: ['900px', '550px'],
                     btn: ['确认', '取消'],
                     offset: ['10%', '10%'],
-                    closeBtn: 0, 
+                    closeBtn: 0,
                     yes: function (index) {
+                        var department = $('#repair_department_input').val()
+                        var equipmentname = $('#repair_equipmentname_input').val()
+                        var equipentcode = $('#repair_equipmentcode_input').val()
+                        var productLine = $('#repair_productLine_input').val()
+                        var duty = $('#repair_duty_input').val()
+                        var applicationPerson = $('#repair_applicationPerson_input').val()
+                        var repairContact = $('#repair_repairContact_input').val()
+                        var applicationTime = $('#repair_applicationTime_input').val()
+                        var applicationDescription = $('#repair_td_applicationDescription').val()
+                        var orderTime = $('#repair_orderTime_input').val()
+                        var finishTime = $('#repair_finishTime_input').val()
+                        var evaluation = $('#repair_td_evaluation').val()
+                        var evaluator = $('#repair_td_evaluator').val()
+                        $.post(home.urls.repair.listApplicationsInPages(), {}, function (result) {
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
                                     repair_apply.init()
@@ -208,7 +213,6 @@ var repair_apply = {
                                 }, 500)
                             }
                             layer.close(index)
-                            $("#repair_info").css('display', 'none')
                         })
                     },
                     btn2: function (index) {
@@ -216,8 +220,7 @@ var repair_apply = {
                         $("#repair_info").css('display', 'none')
 
                     }
-                })
-            })
+                });
             })
         },
         transformStampToDate: function (stamp) {
