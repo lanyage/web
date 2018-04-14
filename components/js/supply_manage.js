@@ -49,20 +49,6 @@ var supply_manage = {
             supply_manage.funcs.bindSearchEventListener(searchBtn)
         }
 
-        /**删除表格中的行*/
-        , bindDeletetr: function (close_btn, add_btn_number) {
-
-            $('#close_btn').click(function () {
-                var addb = $('#inputcontent')
-                addb = addb.detach()
-
-                add_btn_number -= 1
-                add_btn_number = add_btn_number < 0 ? 0 : add_btn_number
-                console.log(add_btn_number, '点击次数')
-
-            })
-            return add_btn_number
-        }
         /**新增*/
         , bindAddEventListener: function (addBtn) {
             addBtn.off('click')
@@ -70,7 +56,7 @@ var supply_manage = {
                 /** 新增默认输入框为空*/
                 $('#header_inp').val('')
                 $('#dilivery_time_inp').val('')
-                $('#provider_inp').val('')
+                $('#diliverer_inp').val('')
                 $('#contact_inp').val('')
                 $('#total_inp').val('')
 
@@ -78,30 +64,43 @@ var supply_manage = {
                 $('#specifications_inp').val('')
                 $('#number_inp').val('')
                 $('#batch_number_inp').val('')
+
+                /** 初始化输入栏 */
                 var add_btn_number = 1
+                var trcount = $('#provider_body_downtable tr').length
+                console.log(trcount,'trcount')
+                if(trcount > 3){
+                    var temp = 0
+                    $('#provider_body_downtable tr').each(function(){
+                        console.log($(this),'tr内容')
+                        console.log(temp,'temp')
+                        if(temp!=0 && temp!=1 && temp!=(trcount-1)){
+                            $(this).remove()
+                        }
+                        temp++
+                    })
+                    trcount = 3
+                }
+                var newtrcount = $('#provider_body_downtable tr').length
+                console.log(newtrcount,'新的trcount')
                 layer.open({
                     type: 1,
                     title: '新增',
                     content: $('#provider_info'),
                     area: ['800px', '600px'],
                     btn: ['确认', '取消'],
-                    offset: ['15%', '15%'],
+                    offset: ['20%', '28%'],
                     closeBtn : 0,
                     yes: function (index) {
-                        for (var i = 0; i < add_btn_number; i++) {
-
-                            var code = $('#header_inp').val()
-                            var customerName = $('#diliverer_inp').val()
-                            var supplyTime = $('#dilivery_time_inp').val()
-                            var contact = $('#contact_inp').val()
-                            var total = $('#total_inp').val()
-
-
-                            var name = $('#name_inp').val()
-                            var specification = $('#specifications_inp').val()
-                            var number = $('#number_inp').val()
-                            var batchNumber = $('#batch_number_inp').val()
-
+                        var code = $('#header_inp').val()
+                        var customerName = $('#diliverer_inp').val()
+                        var supplyTime = $('#dilivery_time_inp').val()
+                        var contact = $('#contact_inp').val()
+                        var total = $('#total_inp').val()
+                        $('.addline').each(function() {
+                            var row = $(this)
+                            var valsContainer = row.children('td').children('.provider_input')
+                            console.log(valsContainer,'批号')
                             $.post(home.urls.supplyman.add(), {
                                 'header.code': code,
                                 'header.supplyTime': supplyTime,
@@ -109,17 +108,17 @@ var supply_manage = {
                                 'header.customer.name': customerName,
                                 'header.contact': contact,
 
-                                name: name,
-                                specification: specification,
-                                number: number,
-                                batchNumber: batchNumber
+                                batchNumber: $(valsContainer[0]).val(),
+                                name: $(valsContainer[1]).val(),
+                                specifications: $(valsContainer[2]).val(),
+                                number: $(valsContainer[3]).val()
 
                             }, function (result) {
                                 layer.msg(result.message, {
                                     offset: ['40%', '55%'],
                                     time: 700,
                                 })
-                                if (result.code === 0) {
+                                if (result.code == 0) {
                                     var time = setTimeout(function () {
                                         supply_manage.init()
                                         clearTimeout(time)
@@ -128,8 +127,8 @@ var supply_manage = {
                                 layer.close(index)
                                 $("#provider_info").css('display', 'none')
                             })
-                        }
 
+                        })
                     },
                     btn2: function (index) {
                         layer.close(index)
@@ -142,23 +141,31 @@ var supply_manage = {
 
                     add_btn_number += 1
                     console.log(add_btn_number, '点击次数')
-
-                    $('#provider_body_downtable').append("<tr><td><input class='provider_input'></td>" +
+                    var count = $('#provider_body_downtable tr').length
+                    console.log(count,'count,tr的数目')
+                    $('#provider_body_downtable').append("<tr id='inputcontent"+ count+"'><td><input class='provider_input'></td>" +
                         "<td style='padding: 0;'><input class='provider_input'></td>" +
                         "<td><input class='provider_input'></td>" +
                         "<td><input class='provider_input'></td>" +
                         "<td>" +
-                        "<button type='button' id='close_btn' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
+                        "<button type='button' id='close_btn' onclick='javascript:supply_manage.funcs.delTab("+count+")' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
                         " &times;  "
                         + " </button>" + "</td></tr>")
 
                     $("#provider_body_downtable").append(addb)
 
                 })
-                var closebtn = $('#close_btn')
-                supply_manage.funcs.bindDeletetr(closebtn, add_btn_number)
+                $('#close_btn').click(function(){
+                    $('.addline').remove()
+                })
+
+
             })
         }//$ bindAddEventListener——end$
+        /**删除tab*/
+        ,delTab: function(count){
+            $('#inputcontent'+count).remove()
+        }
         /**删除 */
         , bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
@@ -315,15 +322,16 @@ var supply_manage = {
                 $.post(home.urls.supplyman.getByCode(), {code: supplymanCode}, function (result) {
                     // console.log(result, '初试结果')
                     // console.log(result.data.code)
+                    var dt = new Date((result.data.header.supplyTime))
                     /** 编辑框默认值*/
                     $('#header_inp').val(result.data.code)
                     $('#diliverer_inp').val(result.data.header.customer.name)
-                    $('#dilivery_time_inp').val(result.data.supplyTime)
+                    $('#dilivery_time_inp').val(dt.toLocaleString())
                     $('#contact_inp').val(result.data.header.contact)
                     $('#total_inp').val(result.data.header.total)
 
                     $('#name_inp').val(result.data.name)
-                    $('#specifications_inp').val(result.data.specification)
+                    $('#specifications_inp').val(result.data.specifications)
                     $('#number_inp').val(result.data.number)
                     $('#batch_number_inp').val(result.data.batchNumber)
                     layer.open({
@@ -353,7 +361,7 @@ var supply_manage = {
                                 total: total,
 
                                 name: name,
-                                specification: specification,
+                                specifications: specification,
                                 number: number,
                                 batchNumber: batchNumber
                             }, function (result) {
@@ -407,15 +415,17 @@ var supply_manage = {
                 var _selfBtn = $(this)
                 var supplymanCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.supplyman.getByCode(), {code: supplymanCode}, function (result) {
+                    console.log(result,'结果')
+                    var dt = new Date((result.data.header.supplyTime))
                     /** 详情框默认值*/
                     $('#header_inp1').val(result.data.code)
                     $('#diliverer_inp1').val(result.data.header.customer.name)
-                    $('#provider_input1').val(result.data.supplyTime)
+                    $('#dilivery_time_inp1').val(dt.toLocaleString())
                     $('#contact_inp1').val(result.data.header.contact)
                     $('#total_inp1').val(result.data.header.total)
 
                     $('#name_inp1').val(result.data.name)
-                    $('#specifications_inp1').val(result.data.specification)
+                    $('#specifications_inp1').val(result.data.specifications)
                     $('#number_inp1').val(result.data.number)
                     $('#batch_number_inp1').val(result.data.batchNumber)
                     layer.open({
