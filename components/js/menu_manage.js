@@ -221,7 +221,6 @@ var menu_manage = {
                                 $('#menu2List') && $('#menu2List').empty()
                                 //删除一级菜单不能级联删除二级菜单和三级菜单
                                 $('#menu1List').children('#' + _this.parent('li').attr('id')).remove()
-                                // menu_manage.funcs.renderMenu1()
                             }
                             layer.close(index)
                         })
@@ -312,32 +311,15 @@ var menu_manage = {
                                     addType == '1' && (function() {
                                         $('#menu1List').append("<li class='item' id='menu1-" + (result.data.code) + "'><a href='#' class='mainClick'>" + (result.data.name) + "</a>&nbsp;&nbsp;<a href='#' class='shift-up' id='menu1-move-up-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' class='shift-down' id='menu1-move-down-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu1-edit-tab-" + (result.data.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu1-del-tab-" + (result.data.code) + "'><i class='fa fa-trash-o'></i></a></li>")
                                         menu_manage.funcs.bindClickForMenu1s($('#menu1List .item .mainClick'))
-                                        /** 给1 2级菜单删除按钮绑定事件 */
-                                        menu_manage.funcs.bindDeleteEventListener($('.deleteBtn'))
-                                        /** 给1 2级编辑按钮绑定事件 */
-                                        menu_manage.funcs.bindEditEventListener($('.editBtn'))
-                                        /** 给1 2级shift上按钮绑定事件 */
-                                        menu_manage.funcs.bindShiftUpListener($('.shift-up'))
-                                        /** 给1 2级shift下按钮绑定事件 */
-                                        menu_manage.funcs.bindShiftDownListener($('.shift-down'))
-                                        // /** 给所有footer下面的链接添加点击事件 */
-                                        // menu_manage.funcs.bindAddEventListener($('footer .addBtn'))
+                                        menu_manage.funcs.bindCrubEvent()
                                     })()
                                     addType == '2' && (function() {
                                         $('#menu2List').append("<li class='item' id='menu2-" + (result.data.code) + "'><a href='#' class='mainClick'>" + (result.data.name) + "</a>&nbsp;&nbsp;<a href='#' class='shift-up' id='menu2-move-up-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' class='shift-down' id='menu2-move-down-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu2-edit-tab-" + (result.data.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu2-del-tab-" + (result.data.code) + "'><i class='fa fa-trash-o'></i></a></li>")
                                         /** 给容器中二级菜单添加点击事件 */
                                         menu_manage.funcs.bindClickForMenu2($('#menu2List .item .mainClick'))
-                                        /** 给1 2级菜单删除按钮绑定事件 */
-                                        menu_manage.funcs.bindDeleteEventListener($('.deleteBtn'))
-                                        /** 给1 2级编辑按钮绑定事件 */
-                                        menu_manage.funcs.bindEditEventListener($('.editBtn'))
-                                        /** 给1 2级shift上按钮绑定事件 */
-                                        menu_manage.funcs.bindShiftUpListener($('.shift-up'))
-                                        /** 给1 2级shift下按钮绑定事件 */
-                                        menu_manage.funcs.bindShiftDownListener($('.shift-down'))
+                                        menu_manage.funcs.bindCrubEvent()
                                     })()
                                     addType == '3' && (function() {
-                                        console.log('三级菜单成功')
                                         // /** 获取所有的三级菜单 */
                                         $.get(home.urls.menus.getAllMenu3(), {sort: 'rank'}, function (result) {
                                             menu_manage.funcs.sortMenus(result.data)
@@ -346,14 +328,7 @@ var menu_manage = {
                                             menu_manage.funcs.bindClickForMenu2($('#menu2List .item .mainClick'))
                                         })
                                         $('#menu3List').append("<li class='item' id='menu3-" + (result.data.code) + "'><a href='#' class='mainClick'>" + (result.data.name) + "</a>&nbsp;&nbsp;<a href='#' class='shift-up' id='menu3-move-up-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' class='shift-down' id='menu3-move-down-tab-" + (result.data.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu3-edit-tab-" + (result.data.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu3-del-tab-" + (result.data.code) + "'><i class='fa fa-trash-o'></i></a></li>")
-                                        /** 给1 2级菜单删除按钮绑定事件 */
-                                        menu_manage.funcs.bindDeleteEventListener($('.deleteBtn'))
-                                        /** 给1 2级编辑按钮绑定事件 */
-                                        menu_manage.funcs.bindEditEventListener($('.editBtn'))
-                                        /** 给1 2级shift上按钮绑定事件 */
-                                        menu_manage.funcs.bindShiftUpListener($('.shift-up'))
-                                        /** 给1 2级shift下按钮绑定事件 */
-                                        menu_manage.funcs.bindShiftDownListener($('.shift-down'))
+                                        menu_manage.funcs.bindCrubEvent()
                                     })()
                                     clearTimeout(time)
                                 }, 500)
