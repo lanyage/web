@@ -6,7 +6,6 @@ var menu_manage = {
         /** 渲染一级菜单 */
         menu_manage.funcs.renderMenu1()
     },
-
     funcs: {
         /** 渲染一级菜单 */
         renderMenu1: function () {
@@ -54,14 +53,6 @@ var menu_manage = {
                 })
                 /** 给容器中二级菜单添加点击事件 */
                 menu_manage.funcs.bindClickForMenu2($('#menu2List .item .mainClick'))
-                // /** 给1 2级菜单删除按钮绑定事件 */
-                // menu_manage.funcs.bindDeleteEventListener($('.deleteBtn'))
-                // /** 给1 2级编辑按钮绑定事件 */
-                // menu_manage.funcs.bindEditEventListener($('.editBtn'))
-                // /** 给1 2级shift上按钮绑定事件 */
-                // menu_manage.funcs.bindShiftUpListener($('.shift-up'))
-                // /** 给1 2级shift下按钮绑定事件 */
-                // menu_manage.funcs.bindShiftDownListener($('.shift-down'))
                 menu_manage.funcs.bindCrubEvent()
                 /** 给所有footer下面的链接添加点击事件 */
                 menu_manage.funcs.bindAddEventListener($('footer .addBtn'))
@@ -342,7 +333,6 @@ var menu_manage = {
                 });
             })
         }//$ bindAddEventListener——end$
-
         /** 编辑事件 */
         , bindEditEventListener: function (editBtns) {
             editBtns.off('click')
@@ -475,14 +465,8 @@ var menu_manage = {
                         })();
                         break;
                 }
-                // console.log(beforeCode)
-                // console.log(currentCode)
                 if (beforeCode != undefined) {
                     $.post(shiftUrl, {code1: beforeCode, code2: currentCode}, function (result) {
-                        layer.msg(result.message, {
-                            offset: ['40%', '55%'],
-                            time: 700
-                        })
                         if (result.code === 0) {
                             /** 当你修改数据成功之后,需要将一级菜单当前元素移除，然后在前一个元素的前面添加当前元素 */
                             var beforeOne = _this.parent('li').prev('li').detach()
@@ -493,6 +477,7 @@ var menu_manage = {
                 }
             })
         }//$ bindShiftUpListener--ends$
+
         , bindShiftDownListener: function (shiftDowns) {
             shiftDowns.off('click')
             shiftDowns.on('click', function () {
@@ -519,15 +504,8 @@ var menu_manage = {
                         })();
                         break;
                 }
-                // console.log(shiftUrl)
-                // console.log(currentCode)
-                // console.log(afterCode)
                 if (afterCode != undefined) {
                     $.post(shiftUrl, {code1: afterCode, code2: currentCode}, function (result) {
-                        layer.msg(result.message, {
-                            offset: ['40%', '55%'],
-                            time: 700
-                        })
                         if (result.code === 0) {
                             /** 当你修改数据成功之后,需要将一级菜单当前元素移除，然后在前一个元素的前面添加当前元素 */
                             var afterOne = _this.parent('li').next('li').detach()
