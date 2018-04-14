@@ -1,43 +1,647 @@
 <div id='model-li-hide-43' class="display-component-container" style="padding: 20px 20px 0px 20px;">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style type="text/css">
+        #guidebook_top {
+            font-weight: bold;
+            width: 100%;
+            height: 25px;
+            background-color: #00A99D;
+        }
+
+        #guidebook_body {
+            background-color: white;
+            text-align: center;
+            margin-top: 30px;
+            width: 100%;
+
+        }
+
+        #guidebook_bodyfoot {
+            margin-bottom: 20px;
+            background-color: white;
+            text-align: center;
+            width: 100%;
+            min-height: 100px;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        #guidebook_body_uptable {
+            margin: 0 auto;
+            margin-bottom: 10px;
+            border: 1px solid black;
+            width: 90%;
+            height: 80px;
+            border-collapse: collapse;
+
+        }
+
+        #guidebook_body_middletable {
+            padding-top: 10px;
+            margin: 0 auto;
+            background-color: white;
+            text-align: center;
+            width: 90%;
+            border-collapse: collapse;
+
+            table-layout: fixed;
+        }
+
+        #guidebook_body_downtable {
+            margin: 0 auto;
+            background-color: white;
+            text-align: center;
+            width: 90%;
+            border-collapse: collapse;
+
+            table-layout: fixed;
+        }
+
+        #guidebook_body_text {
+            font-weight: bold;
+            font-size: 14px;
+            width: 12%;
+        }
+
+        tr,
+        td {
+
+            border: 1px solid grey;
+            font-size: 12px;
+            text-align: center;
+
+        }
+
+        /* 新增和编辑内容 */
+
+        #edguidebook_top {
+            font-weight: bold;
+            width: 100%;
+            height: 25px;
+            background-color: #00A99D;
+        }
+
+        #edguidebook_body {
+            background-color: white;
+            text-align: center;
+            margin-top: 30px;
+            width: 100%;
+            margin-bottom: 20px;
+
+        }
+
+        #edguidebook_body1 {
+            background-color: white;
+            text-align: center;
+            margin-top: 30px;
+            width: 100%;
+            margin-bottom: 20px;
+
+        }
+
+        #edguidebook_body_uptable {
+            margin: 0 auto;
+            margin-bottom: 10px;
+            border: 1px solid black;
+            width: 90%;
+            height: 80px;
+            border-collapse: collapse;
+
+        }
+
+        #edguidebook_body_downtable {
+            margin: 0 auto;
+            border: 1px solid black;
+            width: 90%;
+            border-collapse: collapse;
+        }
+
+        #edguidebook_body_downtable1 {
+            margin: 0 auto;
+            width: 90%;
+            border-collapse: collapse;
+        }
+
+        #guidebook_body_text {
+            font-weight: bold;
+            font-size: 14px;
+            width: 12%;
+        }
+
+        /* input {
+            width: 100%;
+            height: 100%;
+            border: 0px;
+        } */
+
+        #edguidebook_bottom {
+            margin-top: 10px;
+            bottom: 0;
+            text-align: center;
+            font-weight: bold;
+            width: 100%;
+            height: 50px;
+            background-color: white;
+        }
+
+        #btn {
+            width: 12%;
+            height: 25px;
+            border: 1px solid grey;
+        }
+
+        tr,
+        td {
+
+            border: 1px solid grey;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+
+
+
+
     <div class="block-quote">
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
-                <span id='model-li-hide-add-43'><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
-                <span id="model-li-hide-delete-43"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>&nbsp;&nbsp;
-        
+                <span id='model-li-hide-add-43'>
+                    <a href="#">
+                        <i class="layui-icon">&#xe608;</i>新增</a>
+                </span>&nbsp;&nbsp;
+                <span id="model-li-hide-delete-43">
+                    <a href="#">
+                        <i class="layui-icon">&#xe640;</i>删除</a>
+                </span>&nbsp;&nbsp;
+
             </p>
         </div>
         <div class="fr">
             <p style="color: #62a49a; font-size: 14px;">
-                <span id="model-li-hide-refresh-43"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+                <span id="model-li-hide-refresh-43">
+                    <a href="#">
+                        <i class="layui-icon">&#x1002;</i>刷新</a>
+                </span>
                 &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="guide_name_input"/>
-                <span id="model-li-hide-search-43"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+                <span id="model-li-hide-search-43">
+                    <a href="#">
+                        <i class="layui-icon">&#xe615;</i>搜索</a>
+                </span>
             </p>
         </div>
     </div>
     <div class="whitespace"></div>
     <table id="guide_table" style="width: 100%;">
         <thead style="background: #666666;">
-        <tr>
-            <td><input type="checkbox" id="guide_checkbox"></td>
-            <td>编号</td>
-            <td>指导书名称</td>
-            <td>生效时间</td>
-            <td>编制</td>
-            <td>审核</td>
-            <td>批准</td>
-            <td>详情</td>
-            <td>编辑</td>
-            <td>删除</td>
-        </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" id="gui_checkAll">
+                </td>
+                <td>编号</td>
+                <td>指导书名称</td>
+                <td>生效时间</td>
+                <td>编制</td>
+                <td>审核</td>
+                <td>批准</td>
+                <td>巡检人</td>
+                <td>详情</td>
+                <td>编辑</td>
+                <td>删除</td>
+            </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
     <!--3-->
     <div id="guide_page">
+    </div>
+
+    <!-- 详情gudie 有很多图片的那个 -->
+    <div id="gudiebook_info" display:none; style="width:800px;height:100%; display:none; margin:0 auto;overflow: hidden;
+   ">
+
+        <div id="guidebook_body">
+            <table id="guidebook_body_uptable">
+                <tr>
+                    <td id="guidebook_body_text" rowspan="3" colspan="6">气氛辊道炉日常巡检指导书</td>
+
+                    <td id="guidebook_body_text" style="width:15%;">编号</td>
+                    <td style="width:20%;"></td>
+                </tr>
+
+                <tr>
+                    <td id="guidebook_body_text">版次</td>
+                    <td></td>
+
+
+
+                </tr>
+
+                <tr>
+                    <td id="guidebook_body_text">页次</td>
+                    <td></td>
+
+
+
+                </tr>
+                <tr>
+                    <td id="guidebook_body_text" style="width:10%;">编制</td>
+                    <td></td>
+                    <td id="guidebook_body_text" style="width:10%;">审核</td>
+                    <td></td>
+                    <td id="guidebook_body_text" style="width:10%;">批准</td>
+                    <td></td>
+                    <td id="guidebook_body_text" style="width:15%;">生效日期</td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <table id="guidebook_body_middletable" style="background:#F2F2F2">
+                <tr style="width: calc( 100% - 1em )">
+                    <td id="guidebook_body_text" style="width:10%;">序号</td>
+                    <td id="guidebook_body_text" style="width:30%;">每日点检内容</td>
+                    <td id="guidebook_body_text" style="width:30%;">检查标准</td>
+                    <td id="guidebook_body_text" style="width:30%;">图片</td>
+                </tr>
+            </table>
+
+            <div id="guidebook_bodyfoot" style=" height: 300px;  width: 800px; overflow-x: hidden; overflow-y: auto;">
+                <div style="height:100%; width: 817px;overflow-x: hidden;">
+                    <table id="guidebook_body_downtable">
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">>
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">>
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">>
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/22.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">>
+                                <img src="../dist/images/guidebook/22.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/22.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">>
+                                <img src="../dist/images/guidebook/22.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/22.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">>
+                                <img src="../dist/images/guidebook/22.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/22.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">>
+                                <img src="../dist/images/guidebook/22.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/22.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">>
+                                <img src="../dist/images/guidebook/22.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">>
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">>
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                        <tr style="height:80px;">
+                            <td style="width:10%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">1</td>
+                            <td style="width:30%;">
+                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
     </div>
     <script src="../components/js/guide_manage.js"></script>
     <script type="application/javascript">
@@ -47,26 +651,111 @@
     </script>
 </div>
 
+<!-- 新增和编辑  没有图片的那个-->
+<div id="edgudiebook_info" style="width:600px;height:100%;display:none ;  margin:0 auto;border:1px solid black;">
+    <!-- <div id="edguidebook_top">
+        <span style="padding-left:5px;color:white">编辑指导书</span>
+        <button type="button" id="close" title="close it"
+                style="float:right;background:#00A99D;border:none;font-weight:bold;font-size: 20px;color:white;">
+                    &times;
+        </button>
+    </div> -->
+
+    <div id="edguidebook_body">
+            <table id="edguidebook_body_uptable">
+                    <tr >
+                        <td id="guidebook_body_text" rowspan="3" colspan="6">
+                            <select name="" id="guidebook_body_text" style="width:100%;height:100%;border:0px;">
+                                <option >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp气氛辊道炉日常巡检指导书</option>
+                                <option >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp气氛除湿机日常巡检指导书</option>
+                            </select>    
+                        </td>
+                        <td id="guidebook_body_text" style="width:15%;">编号</td>
+                        <td style="width:20%;"><input type="text" style="width:100%;height:100%;border:0px;"></td>
+                    </tr>
+
+                    <tr>
+                        <td id="guidebook_body_text">版次</td>
+                        <td><input type="text" style="width:100%;height:100%;border:0px;"></td>     
+                    </tr>
+
+                    <tr>
+                        <td id="guidebook_body_text">页次</td>
+                        <td><input type="text" style="width:100%;height:100%;border:0px;"></td>   
+                    </tr>
+                    <tr>
+                        <td id="guidebook_body_text" style="width:10%;">编制</td>
+                        <td><input type="text" style="width:100%;height:100%;border:0px;"></td>
+                        <td id="guidebook_body_text" style="width:10%;">审核</td>
+                        <td><input type="text" style="width:100%;height:100%;border:0px;"></td>
+                        <td id="guidebook_body_text" style="width:10%;">批准</td>
+                        <td><input type="text" style="width:100%;height:100%;border:0px;"></td>
+                        <td id="guidebook_body_text" style="width:15%;">生效日期</td>
+                        <td><input type="date" style="width:100%;height:100%;border:0px;"></td>
+                    </tr>
+            </table>
+
+            <div style="max-height:200px; overflow-x:hidden;overflow-y:scroll;">
+            <table id="edguidebook_body_downtable">
+
+                <thead>
+                    <th style="width:10%;">序号</th>
+                    <th style="width:30%;">每日点检内容</th>
+                    <th style="width:30%;">检查标准</th>
+                    <th style="width:25%;">图片</th>
+                    <th style="width:5%;">删除</th>
+                </thead>
+
+                <tbody id="tab">
+                
+                
+
+            </tbody>
+            </table>
+        </div>
+        <div id="edguidebook_body1">
+            <table id="edguidebook_body_downtable1" >
+                <tbody id="tab1" style="border:0px;">
+                        <tr id="s0" style="text-align:center;border:0px;">
+                                <td colspan="5" style="border:0px;"> <button onClick=" delTab(0),addTab(),addPlus()"style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;" >+</button></td>
+                                
+                            </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div id="edguidebook_bottom">
+            <button id="btn" style="background: #00AEA2;border:none;color: white;">保存</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="btn" style="background:white;border-color:#9F9F9F;color:#C1C1C1">取消</button>
+    </div>
+</div>
 
 
 
 
 
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
 
+<script>
+ function  addTab(){
+     var count = $("#tab tr").length +1
+     console.log(count)     
+    var tabpl = "<tr id='s"+count+"'><td><input type='text'></td><td><input type='text'></td><td><input type='text'></td><td><input type='text'></td><td><button onclick='delTab("+count+")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td></tr>";           
 
+        $("#tab").append(tabpl);
+       }
 
+function delTab(x){
+    console.log(x)
+    $("#s"+x).remove();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function addPlus(){
+    var tabplus = '<tr id="s0" style="text-align:center;border:0px;"><td colspan="5" style="border:0px;"> <button onclick=" delTab(0),addTab(),addPlus()"style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;" >+</button></td></tr>'
+    $("#tab1").append(tabplus)
+}
+</script>

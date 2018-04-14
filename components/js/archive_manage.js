@@ -47,16 +47,13 @@ var archive_manage = {
             })
             var selectAllBtn = $("#arc_checkbox")
             archive_manage.funcs.bindSelectAll(selectAllBtn)
-            // // var disselectAllBtn = $("#arc_checkbox")
-            // console.log($('.arc_checkbox'))
-            // archive_manage.funcs.disselectAll($('.arc_checkbox'),selectAllBtn)
-            //$数据渲染完毕
             var addBtn = $("#model-li-hide-add-40")
             archive_manage.funcs.bindAddEventListener(addBtn) //追加增加事件
             var refreshBtn = $('#model-li-hide-refresh-40')
             archive_manage.funcs.bindRefreshEventLisener(refreshBtn)//追加刷新事件
             var searchBtn = $('#model-li-hide-search-40')
             archive_manage.funcs.bindSearchEventListener(searchBtn)
+    
 
             // 批量删除 分页逻辑  todo
         }
@@ -75,33 +72,54 @@ var archive_manage = {
                     offset: ['40%', '38%'],
                     closeBtn : 0,
                     yes: function (index) {
-                        //todo
-                        var code = $('#arc_ecode').val()
-                        var intime = $('#arc_intime').val()
-                        var depe = $('#arc_deadend').val()
-                        var supfac = $('#arc_code').val()
-                        var supcon = $('#arc_supfac').val()
-                        var refac = $('#arc_supcon').val()
-                        var recon = $('#arc_ref').val()
-                        var ecode = $('#arc_refac').val()
-                        console.log(code,intime,depe,supfac,supcon,supcon,refac,recon,ecode)
-                        // $.post(home.urls.archive.add(), {code: code}, function (result) {
-                        //     if (result.code === 0) {
-                        //         var time = setTimeout(function () {
-                        //             archive_manage.init()
-                        //             clearTimeout(time)
-                        //         }, 500)
-                        //     }
-                        //     layer.close(index)
-                        //     $("#add-doc-modal").css('display', 'none')
-                        // })
+                        //todo传入的参数
+                        var equipmentname = $('#arc_ecode').val()
+                        var installTime = $('#arc_intime').val()
+                        var defectPeriod = $('#arc_deadend').val()
+                        var repairFactory = $('#arc_ref').val()
+                        var repairContact = $('#arc_refac').val()
+                        var supplyFactory = $('#arc_supfac').val()
+                        var supplyContact = $('#arc_supcon').val()
+                        $.post(home.urls.archive.add(), {
+                             repairContact:repairContact,
+                             supplyContact:supplyContact,
+                        }, function (result) {
+                            layer.msg(result.message, {
+                                offset: ['40%', '55%'],
+                                time: 700
+                            })
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
+                                    archive_manage.init()
+                                    clearTimeout(time)
+                                }, 500)
+                            }
+                            layer.close(index) 
+                            $("#add-doc-modal").css('display', 'none')
+                        })
                     },
                     btn2: function (index) {
                         layer.close(index)
                         $("#add-doc-modal").css('display', 'none')
                     }
-                });
-            })
+                })
+                $.get(home.urls.archive.getAll(),function(result){
+                    console.log(result)
+                    var archives=result.data
+                    archives.forEach(function(e){
+                        $('#arc_ecode').append(
+                            "<option value='" + (e.code) + "'>" + (e.equipmentName) + "</option>")
+                        $('#arc_intime').append(
+                            "<option value='" + (e.code) + "'>" + (e.installTime) + "</option>")
+                        $('#arc_deadend').append(
+                            "<option value='" + (e.code) + "'>" + (e.defectPeriod) + "</option>")
+                        $('#arc_supfac').append(
+                            "<option value='" + (e.code) + "'>" + (e.supplyFactory) + "</option>")
+                        $('#arc_ref').append(
+                        "<option value='" + (e.code) + "'>" + (e.repairFactory) + "</option>")
+                     })
+                 })
+             })
         }//$ bindAddEventListener——end$
         , bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
@@ -251,10 +269,12 @@ var archive_manage = {
                                 }, 500)
                             }
                             layer.close(index)
+                            $("#add-doc-modal").css('display', 'none')
                         })
                     },
                     btn2: function (index) {
                         layer.close(index)
+                        $("#add-doc-modal").css('display', 'none')
                     }
                 })
             })
@@ -265,33 +285,18 @@ var archive_manage = {
                 var _selfBtn = $(this)
                 var archiveCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.archive.getByCode(), {code: archiveCode}, function (result) {
-                    var archive = result.data
-                    layer.open({
+                    var archives=result.data
+                    console.log(result)
+                    $('#arc_supcon').val(archives.supplyContact)
+                    $('#arc_refac').val(archives.repairContact)
+                      layer.open({
                         type: 1,
                         title: '编辑',
-                        content: "<table id='editArchive' style='text-align: center;padding-top: 10px;'>" +
-                        "<tr>" +
-                        "<td>设备名称<input type=text id='arc_ename'/></td>" +
-                        "<td style='text-align:right'>供货厂家<input type=text id='arc_supfac'/></td>" +
-                        "</tr>" +
-                        "<td>安装时间<input type=text id='arc_intime'/></td>" +
-                        "<td style='text-align:right'>供货厂家电话<input type=text id='arc_supcon'/></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                        "<td>保修期限<input type=text id='arc_depe'/></td>" +
-                        "<td style='text-align:right'>维护厂家<input type=text id='arc_refac'/></td>" +
-                        "</tr>" +
-                        "<tr>" +
-                        "<td>档案编码<input type=text id='arc_code'/></td>" +
-                        "<td style='text-align:right'>维护厂家电话<input type=text id='arc_refac'/></td>" +
-                        "</tr>" +
-                        "</table>",
-
+                        content: $('#add-doc-modal'),
                         area: ['600px', '400px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '45%'],
                         yes: function (index) {
-                            console.log('yes')
                             var code = $('#arc_code').val()
                             var ename = $('#arc_ename').val()
                             var intime = $('#arc_intime').val()
@@ -302,15 +307,8 @@ var archive_manage = {
                             var recon = $('#arc_recon').val()
                             var doc = $('#arc_doc').val()
                             $.post(home.urls.archive.update(), {
-                                code: code,
-                                equipmentName: name,
-                                installTime: intime,
-                                defectPeriod: depe,
-                                supplyFactory: supfac,
                                 supplyContact: supcon,
-                                repairFactory: refac,
                                 repairContact: recon,
-                                document: doc,
                             }, function (result) {
                                 console.log(result.message)
                                 layer.msg(result.message, {
@@ -323,10 +321,12 @@ var archive_manage = {
                                     }, 500)
                                 }
                                 layer.close(index)
+                                $("#add-doc-modal").css('display', 'none')
                             })
                         },
                         btn2: function (index) {
                             layer.close(index)
+                            $("#add-doc-modal").css('display', 'none')
                         }
                     })
                 })

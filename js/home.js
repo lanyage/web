@@ -20,13 +20,13 @@ var home = {
                 return servers.backup() + 'model/deleteByCode'
             },
             updateMenu1ByCode : function() {
-                return servers.backup() + 'menu1/updateByCode'
+                return servers.backup() + 'menu1/updateNameAndPath'
             },
             updateMenu2ByCode : function() {
-                return servers.backup() + 'menu2/updateByCode'
+                return servers.backup() + 'menu2/updateName'
             },
             updateMenu3ByCode : function() {
-                return servers.backup() + 'model/updateByCode'
+                return servers.backup() + 'model/updateName'
             },
             getMenu1ByCode : function() {
                 return servers.backup() + 'menu1/getByCode'
@@ -36,7 +36,42 @@ var home = {
             },
             getMenu3ByCode : function() {
                 return servers.backup() + 'model/getByCode'
+            },
+            addMenu1 : function() {
+                return servers.backup() + 'menu1/add'
+            },
+            addMenu2 : function() {
+                return servers.backup() + 'menu2/add'
+            },
+            addMenu3 : function() {
+                return servers.backup() + 'model/add'
+            },
+            menu1Shift : function() {
+                return servers.backup() + 'menu1/shift'
+            },
+            menu2Shift : function() {
+                return servers.backup() + 'menu2/shift'
+            },
+            menu3Shift : function() {
+                return servers.backup() + 'model/shift'
             }
+        },
+        reviewprocess:{
+            getExamByNameByPage:function(){
+                return servers.backup() + 'reviewprocess/getExamByNameByPage'
+            },
+            addExam:function(){
+                return servers.backup() + 'reviewprocess/addExam'
+            },
+            getExamByCode:function(){
+                return servers.backup() + 'reviewprocess/getExamByCode'
+            },
+            deleteExamByCode:function(){
+                return servers.backup() + 'reviewprocess/deleteExamByCode'
+            },
+            updateExam:function(){
+                return servers.backup() + 'reviewprocess/updateExam'
+            },
         },
         department: {
             getAllByPage: function () {
@@ -366,6 +401,13 @@ var home = {
             getAllByLikeNameByPage: function () {
                 return servers.backup() + 'guideHeader/getAllByLikeNameByPage'
             },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'guideHeader/deleteByBatchCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'guideHeader/getAll'
+            },
+
         },
         archive: {
             getAllByPage: function () {
@@ -388,7 +430,11 @@ var home = {
             },
             deleteByBatchCode: function () {
                 return servers.backup() + 'archive/deleteByBatchCode'
+            },
+            getAll:function(){
+                return servers.backup()+'archive/getAll'
             }
+
         },
         repair: {
             listApplicationsInPages: function () {

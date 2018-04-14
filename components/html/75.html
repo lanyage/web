@@ -1,8 +1,51 @@
-<div id='model-li-hide-75' class="display-component-container" style="line-height:700px;">
-    <h1 style="text-align: center">页面还在火速开发中...</h1>
-    <script type="application/javascript">
-        $(function() {
-            console.log( $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>'))
-        })
-    </script>
+<div id='model-li-hide-75' class="display-component-container" style="padding: 20px 20px 0px 20px;"> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <div class="block-quote">
+        <div class="fl">
+            <p style="color: #62a49a; font-size: 14px;">
+                <span id='model-li-hide-add-75'><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                <span id="model-li-hide-delete-75"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+            </p>
+        </div>
+        <div class="fr">
+            <p style="color: #62a49a; font-size: 14px;">
+                <span id="model-li-hide-refresh-75"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="reviewprocess_name_input"/>
+                <span id="model-li-hide-search-75"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+            </p>
+        </div>
+    </div>
+        <div class="whitespace"></div>
+        <table id="reviewprocess_table" style="width: 100%;">
+            <thead style="background: #666666;">
+                <tr>
+                    <td><input id="revpro_checkAll" type="checkbox"></td>
+                    <td>流程编码</td>
+                    <td>流程名称</td>
+                    <td>职责1</td>
+                    <td>负责人1</td>
+                    <td>职责2</td>
+                    <td>负责人2</td>
+                    <td>职责3</td>
+                    <td>负责人3</td>
+                    <td>职责4</td>
+                    <td>负责人4</td>
+                    <td>职责5</td>
+                    <td>负责人5</td>
+                    <td>编辑</td>
+                    <td>删除</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div id="reviewprocess_page">
+        </div>
+        <script src="../components/js/reviewprocess_manage.js"></script>
+        <script type="application/javascript">
+            $(function () {
+                reviewprocess_manage.init()
+            })
+        </script>
 </div>
