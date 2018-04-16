@@ -6,6 +6,13 @@ var _24hours = {
     ino : 13,
     //
     init: function () {
+        /** chart.js全局动画 */
+        Chart.defaults.global.animation = {
+            duration : 0,
+            //easeInOutBack
+            easing : 'easeInOutCirc',
+        }
+
         _24hours.funcs.bindSelectChangeEvent($('#model-li-hide-13-select'))
         _24hours.funcs.bindClearInterval()
         /** 初始化的图表 */

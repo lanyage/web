@@ -11,9 +11,12 @@ var fenshiduibi = {
     end1: null,
     end2: null,
     init: function () {
+        Chart.defaults.global.animation = {
+            duration : 0,
+            easing : 'easeInOutCirc',
+        }
         /** 给日期添加格式化的原型方法*/
         fenshiduibi.funcs.updateDate()
-
         /** 初始化日期控件日期控件  todo当选择日期控件的日期后,会相应的把end1和end2中的值填满*/
         layui.use('laydate', function () {
             var laydate = layui.laydate
@@ -29,7 +32,7 @@ var fenshiduibi = {
             })
             laydate.render({
                 elem: '#start2',  //指定元素
-                format: 'yyyy/MM/dd HH:mm:ss',
+                format: 'yyyy-MM-dd HH:mm:ss',
                 done: function (value, date, endDate) {
                     fenshiduibi.timeGap = Number($('#timeGapInp').val())
                     var date = fenshiduibi.funcs.addHourAndRender(date, fenshiduibi.timeGap)
@@ -83,7 +86,11 @@ var fenshiduibi = {
                 fenshiduibi.start2 = $('#start2').val()
                 fenshiduibi.end1 = $('#end1').val()
                 fenshiduibi.end2 = $('#end2').val()
-                console.log(fenshiduibi.timeGap, fenshiduibi.start1, fenshiduibi.start2, fenshiduibi.end1, fenshiduibi.end2)
+                console.log(fenshiduibi.timeGap)
+                console.log(fenshiduibi.start1)
+                console.log(fenshiduibi.start2)
+                console.log(fenshiduibi.end1)
+                console.log(fenshiduibi.end2)
                 if (!fenshiduibi.timeGap || !fenshiduibi.start1 || !fenshiduibi.start2 || !fenshiduibi.end1 || !fenshiduibi.end2) {
                     alert('您的查询条件还没填写完整!')
                     return
@@ -218,8 +225,6 @@ var fenshiduibi = {
                 fenshiduibi.funcs.fillData2(result.data)
             })
             var time = setTimeout(function() {
-                // console.log(fenshiduibi.data1)
-                // console.log(fenshiduibi.data2)
                 fenshiduibi.funcs.createChart(fenshiduibi.labels, fenshiduibi.data1,fenshiduibi.data2)
                 clearTimeout(time)
             },1000) //这里必须设置一个时间阈值，要不然可能数据还没有完全加载好

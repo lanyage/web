@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55faa023-1938-4a7a-af2e-84093ab7b96a" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/components/js/kongzhishi.js" afterPath="$PROJECT_DIR$/components/js/fenshiduibi.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/components/js/waiguixian.js" afterPath="$PROJECT_DIR$/components/js/24hours.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/lanyage.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/lanyage.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/html/13.html" afterPath="$PROJECT_DIR$/components/html/13.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/html/15.html" afterPath="$PROJECT_DIR$/components/html/15.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/home.js" afterPath="$PROJECT_DIR$/js/home.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/js/24hours.js" afterPath="$PROJECT_DIR$/components/js/24hours.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/js/fenshiduibi.js" afterPath="$PROJECT_DIR$/components/js/fenshiduibi.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,23 +23,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="fenshiduibi.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fenshiduibi.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/js/fenshiduibi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="217" column="52" lean-forward="true" selection-start-line="217" selection-start-column="52" selection-end-line="217" selection-end-column="52" />
-              <folding>
-                <element signature="n#!!block;n#updateDate#0;n#updateDate#0;n#!!block;n#funcs#0;n#!!block;n#fenshiduibi#0;n#!!top" expanded="false" />
-              </folding>
+            <state relative-caret-position="-45">
+              <caret line="34" column="33" lean-forward="false" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="15.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="24hours.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/js/24hours.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="37" lean-forward="true" selection-start-line="10" selection-start-column="11" selection-end-line="12" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="15.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/components/html/15.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="36" column="22" lean-forward="false" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
+            <state relative-caret-position="405">
+              <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -51,6 +55,7 @@
                 <element signature="n#style#0;n#input#2;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#3;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#4;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -107,11 +112,11 @@
         <option value="$PROJECT_DIR$/components/js/menu_manage.js" />
         <option value="$PROJECT_DIR$/components/js/waiguixian.js" />
         <option value="$PROJECT_DIR$/components/js/kongzhishi.js" />
-        <option value="$PROJECT_DIR$/components/html/15.html" />
         <option value="$PROJECT_DIR$/components/html/13.html" />
         <option value="$PROJECT_DIR$/js/home.js" />
-        <option value="$PROJECT_DIR$/components/js/fenshiduibi.js" />
         <option value="$PROJECT_DIR$/components/js/24hours.js" />
+        <option value="$PROJECT_DIR$/components/js/fenshiduibi.js" />
+        <option value="$PROJECT_DIR$/components/html/15.html" />
       </list>
     </option>
   </component>
@@ -686,12 +691,12 @@
       <workItem from="1523525912761" duration="34498000" />
       <workItem from="1523705600166" duration="723000" />
       <workItem from="1523765634247" duration="29917000" />
-      <workItem from="1523868785536" duration="987000" />
+      <workItem from="1523868785536" duration="3885000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95431000" />
+    <option name="totallyTimeSpent" value="98329000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="44" y="23" width="1396" height="877" extended-state="6" />
@@ -746,9 +751,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!block;n#updateDate#0;n#updateDate#0;n#!!block;n#funcs#0;n#!!block;n#fenshiduibi#0;n#!!top" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1215,6 +1218,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1523364226547" expanded="true" signature="2762:2799" ph="..." />
+            <marker date="1523364226547" expanded="true" signature="2836:2861" ph="..." />
+            <marker date="1523364226547" expanded="true" signature="2938:2963" ph="..." />
+            <marker date="1523364226547" expanded="true" signature="4660:4695" ph="..." />
+            <marker date="1523364226547" expanded="true" signature="9328:9363" ph="..." />
+            <marker date="1523364226547" expanded="true" signature="11917:11954" ph="..." />
+            <marker date="1523364226547" expanded="true" signature="11995:12020" ph="..." />
+            <marker date="1523364226547" expanded="true" signature="12136:12161" ph="..." />
+            <marker date="1523364226547" expanded="true" signature="14256:14264" ph="&amp;##xe642;" />
+            <marker date="1523364226547" expanded="true" signature="14391:14399" ph="&amp;##xe640;" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1371,6 +1386,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="198" column="9" lean-forward="false" selection-start-line="198" selection-start-column="9" selection-end-line="198" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1379,21 +1395,6 @@
         <state relative-caret-position="60">
           <caret line="4" column="28" lean-forward="true" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/html/15.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="22" lean-forward="false" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#2;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#3;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#4;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1407,14 +1408,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/js/24hours.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="34" column="17" lean-forward="false" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/components/html/13.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -1423,12 +1416,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/components/js/24hours.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="37" lean-forward="true" selection-start-line="10" selection-start-column="11" selection-end-line="12" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/components/js/fenshiduibi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="217" column="52" lean-forward="true" selection-start-line="217" selection-start-column="52" selection-end-line="217" selection-end-column="52" />
+        <state relative-caret-position="-45">
+          <caret line="34" column="33" lean-forward="false" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/html/15.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
           <folding>
-            <element signature="n#!!block;n#updateDate#0;n#updateDate#0;n#!!block;n#funcs#0;n#!!block;n#fenshiduibi#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#2;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#3;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#4;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
