@@ -16,7 +16,6 @@ var waiguixian = {
     },
     funcs: {
         bindClearInterval : function() {
-            $('#menu3-li-13').off('click')
             $('#menu3-li-13').on('click', function() {
                 home.funcs.clearIntervals(waiguixian.realDataIntervals)
                 waiguixian.funcs.bindLoadDataEvent()
