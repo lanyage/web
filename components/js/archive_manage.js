@@ -121,10 +121,11 @@ var archive_manage = {
                  })
              })
         }//$ bindAddEventListener——end$
+       
         , bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
             deleteBtns.on('click', function () {
-                //首先弹出一个询问框
+    
                 var _this = $(this)
                 layer.open({
                     type: 1,
@@ -134,28 +135,30 @@ var archive_manage = {
                     btn: ['确认', '取消'],
                     offset: ['40%', '55%'],
                     yes: function (index) {
-                        var archiveCode = _this.attr('id').substr(3)
+                        console.log('yes')
+                        var guideCode = _this.attr('id').substr(3)
                         $.post(home.urls.archive.deleteByCode(), {code: archiveCode}, function (result) {
                             console.log(result.message)
                             layer.msg(result.message, {
-                                offset: ['40%', '55%']
+                                offset: ['40%', '55%'],
+                                time: 700
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
                                     archive_manage.init()
                                     clearTimeout(time)
-                                }, 1000)
+                                }, 500)
                             }
                             layer.close(index)
+                            
                         })
                     },
                     btn2: function (index) {
-                        console.log('no')
                         layer.close(index)
                     }
                 })
             })
-        }//$ bindDeleteEventListener_end$
+        }//**$ bindDeleteEventListener_end$
         , bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
@@ -243,6 +246,7 @@ var archive_manage = {
             })
         }
         , bindDeleteEventListener: function (deleteBtns) {
+            deleteBtns.off('click')
             deleteBtns.on('click', function () {
                 //首先弹出一个询问框
                 var _this = $(this)
@@ -255,7 +259,7 @@ var archive_manage = {
                     offset: ['40%', '55%'],
                     yes: function (index) {
                         console.log('yes')
-                        var archiveCode = _this.attr('id').substr(3)
+                        var guideCode = _this.attr('id').substr(3)
                         $.post(home.urls.archive.deleteByCode(), {code: archiveCode}, function (result) {
                             console.log(result.message)
                             layer.msg(result.message, {
@@ -269,16 +273,16 @@ var archive_manage = {
                                 }, 500)
                             }
                             layer.close(index)
-                            $("#add-doc-modal").css('display', 'none')
+                            
                         })
                     },
                     btn2: function (index) {
                         layer.close(index)
-                        $("#add-doc-modal").css('display', 'none')
                     }
                 })
             })
-        }//$ bindDeleteEventListener_end$
+        }//**$ bindDeleteEventListener_end$
+
         , bindEditEventListener: function (editBtns) {
             editBtns.off('click')
             editBtns.on('click', function () {
@@ -289,15 +293,17 @@ var archive_manage = {
                     console.log(result)
                     $('#arc_supcon').val(archives.supplyContact)
                     $('#arc_refac').val(archives.repairContact)
-                      layer.open({
-                        type: 1,
-                        title: '编辑',
-                        content: $('#add-doc-modal'),
-                        area: ['600px', '400px'],
-                        btn: ['确认', '取消'],
-                        offset: ['40%', '45%'],
+                    layer.open({
+                            type: 1,
+                            title: '编辑',
+                            content: $('#add-doc-modal'),
+                            area: ['700px', '240px'],
+                            btn: ['确认', '取消'],
+                            offset: ['40%', '38%'],
+                            closeBtn : 0,
                         yes: function (index) {
                             var code = $('#arc_code').val()
+                            console.log(code)
                             var ename = $('#arc_ename').val()
                             var intime = $('#arc_intime').val()
                             var depe = $('#arc_depe').val()
@@ -307,8 +313,15 @@ var archive_manage = {
                             var recon = $('#arc_recon').val()
                             var doc = $('#arc_doc').val()
                             $.post(home.urls.archive.update(), {
+                                code : code,
+                                equipmentName :ename,
+                                installTime :intime,
+                                defectPeriod :depe,
+                                suppltFactory :supfac,
                                 supplyContact: supcon,
+                                repairFactory: refac,
                                 repairContact: recon,
+                                document :doc,
                             }, function (result) {
                                 console.log(result.message)
                                 layer.msg(result.message, {
@@ -328,7 +341,24 @@ var archive_manage = {
                             layer.close(index)
                             $("#add-doc-modal").css('display', 'none')
                         }
+                        
                     })
+                    $.get(home.urls.archive.getAll(),function(result){
+                        console.log(result)
+                        var archives=result.data
+                        archives.forEach(function(e){
+                            $('#arc_ecode').append(
+                                "<option value='" + (e.code) + "'>" + (e.equipmentName) + "</option>")
+                            $('#arc_intime').append(
+                                "<option value='" + (e.code) + "'>" + (e.installTime) + "</option>")
+                            $('#arc_deadend').append(
+                                "<option value='" + (e.code) + "'>" + (e.defectPeriod) + "</option>")
+                            $('#arc_supfac').append(
+                                "<option value='" + (e.code) + "'>" + (e.supplyFactory) + "</option>")
+                            $('#arc_ref').append(
+                            "<option value='" + (e.code) + "'>" + (e.repairFactory) + "</option>")
+                         })
+                     })
                 })
             })
         }//$ bindEditEventListener——end$
