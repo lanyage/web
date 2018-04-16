@@ -16,7 +16,6 @@ var waiguixian = {
     },
     funcs: {
         bindClearInterval : function() {
-            $('#menu3-li-13').off('click')
             $('#menu3-li-13').on('click', function() {
                 home.funcs.clearIntervals(waiguixian.realDataIntervals)
                 waiguixian.funcs.bindLoadDataEvent()
@@ -90,7 +89,7 @@ var waiguixian = {
         },
         loadDataAndRender: function () {
             $.get(home.urls.energyMonitor.loadWaiguixianData(), {
-                ino: waiguixian.ino,//todo,这里的话需要传入的是
+                ino: waiguixian.ino,
                 curDateTime: new Date().getTime()
             }, function (result) {
                 waiguixian.funcs.fillLabelsAndData(result.data)
