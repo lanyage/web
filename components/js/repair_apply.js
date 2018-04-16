@@ -209,18 +209,16 @@ var repair_apply = {
                             }
                             layer.close(index)
                             $("#repair_info").css('display', 'none')
-                        })
                     },
                     btn2: function (index) {
                         layer.close(index)
                         $("#repair_info").css('display', 'none')
-
                     }
-                })
-            })
-            })
-        },
-        transformStampToDate: function (stamp) {
+        })
+        })
+       })
+    },
+         transformStampToDate: function (stamp) {
             var dateArr = []
             var date = new Date(stamp)
             dateArr.push(date.getFullYear())
@@ -248,6 +246,7 @@ var repair_apply = {
                         "</tr>")
                 )
             })
+        
             //$数据渲染完毕
 
             var detaillBtns = $('.detailRepair')
