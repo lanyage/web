@@ -1,3 +1,4 @@
+/** 外轨线控制 */
 var waiguixian = {
     labels: [],
     data: [],
