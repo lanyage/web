@@ -1,44 +1,44 @@
 /** 外轨线控制 */
-var waiguixian = {
+var _24hours = {
     labels: [],
     data: [],
     realDataIntervals : [],
     ino : 13,
     //
     init: function () {
-        waiguixian.funcs.bindSelectChangeEvent($('#model-li-hide-13-select'))
-        waiguixian.funcs.bindClearInterval()
+        _24hours.funcs.bindSelectChangeEvent($('#model-li-hide-13-select'))
+        _24hours.funcs.bindClearInterval()
         /** 初始化的图表 */
-        waiguixian.funcs.loadDataAndRender()
-        home.funcs.clearIntervals(waiguixian.realDataIntervals)
+        _24hours.funcs.loadDataAndRender()
+        home.funcs.clearIntervals(_24hours.realDataIntervals)
         /** 开始间隔30秒获取数据 */
-        waiguixian.funcs.bindLoadDataEvent()
+        _24hours.funcs.bindLoadDataEvent()
     },
     funcs: {
         bindClearInterval : function() {
             $('#menu3-li-13').on('click', function() {
-                home.funcs.clearIntervals(waiguixian.realDataIntervals)
-                waiguixian.funcs.bindLoadDataEvent()
+                home.funcs.clearIntervals(_24hours.realDataIntervals)
+                _24hours.funcs.bindLoadDataEvent()
             })
             $('.menus2').off('click')
             $('.menus2').on('click', function() {
-                home.funcs.clearIntervals(waiguixian.realDataIntervals)
+                home.funcs.clearIntervals(_24hours.realDataIntervals)
             })
             $('.menus1').off('click')
             $('.menus1').on('click', function() {
-                home.funcs.clearIntervals(waiguixian.realDataIntervals)
+                home.funcs.clearIntervals(_24hours.realDataIntervals)
             })
         },
         bindLoadDataEvent : function() {
-            waiguixian.realDataIntervals.push(setInterval(function() {
-                waiguixian.funcs.loadDataAndRender()
-            },3000))
+            _24hours.realDataIntervals.push(setInterval(function() {
+                _24hours.funcs.loadDataAndRender()
+            },30000))
         },
         bindSelectChangeEvent: function (select) {
             select.on('change', function () {
-                waiguixian.ino = $(this).val()
-                waiguixian.funcs.loadDataAndRender()
-                console.log('waiguixian.ino', waiguixian.ino)
+                _24hours.ino = $(this).val()
+                _24hours.funcs.loadDataAndRender()
+                console.log('_24hours.ino', _24hours.ino)
             })
         },
         createChart: function (labels, data) {
@@ -80,20 +80,20 @@ var waiguixian = {
             })
         },
         fillLabelsAndData: function (data) {
-            waiguixian.data = []
-            waiguixian.labels = []
+            _24hours.data = []
+            _24hours.labels = []
             data.forEach(function (e) {
-                waiguixian.data.push(e.ivalue)
-                waiguixian.labels.push(e.ihour)
+                _24hours.data.push(e.ivalue)
+                _24hours.labels.push(e.ihour)
             })
         },
         loadDataAndRender: function () {
-            $.get(home.urls.energyMonitor.loadWaiguixianData(), {
-                ino: waiguixian.ino,
+            $.get(home.urls.energyMonitor.load24HoursData(), {
+                ino: _24hours.ino,
                 curDateTime: new Date().getTime()
             }, function (result) {
-                waiguixian.funcs.fillLabelsAndData(result.data)
-                waiguixian.funcs.createChart(waiguixian.labels, waiguixian.data)
+                _24hours.funcs.fillLabelsAndData(result.data)
+                _24hours.funcs.createChart(_24hours.labels, _24hours.data)
             })
         }
     }

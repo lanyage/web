@@ -1,10 +1,10 @@
 var home = {
     urls: {
         energyMonitor: {
-            loadWaiguixianData: function () {
+            load24HoursData: function () {
                 return servers.backup() + 'energyReadData/getByInoAndCurDateTime'
             },
-            loadKongzhishiData: function () {
+            loadFenshiduibiData: function () {
                 return servers.backup() + 'energyReadData/getByInoAndStartDateTimeAndEndDateTime'
             }
         },
