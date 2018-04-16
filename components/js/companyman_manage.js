@@ -61,8 +61,8 @@ var company_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>公司编号:&nbsp;<input type='text' id='company_code' value='" + (companyman.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>公司名称:&nbsp;<input type='text' id='company_name' value='" + (companyman.name) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>信用代码:&nbsp;<input type='text' id='company_creditCode' value='" + (companyman.creditCode) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>地址:&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='company_address' value='" + (companyman.address) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>联系人:&nbsp;&nbsp;&nbsp;<input type='text' id='company_person' value='" + (companyman.contactPerson) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>地址:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='company_address' value='" + (companyman.address) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>联系人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='company_person' value='" + (companyman.contactPerson) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系电话:&nbsp;<input type='text' id='company_contact' value='" + (companyman.contact) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>公司类型:&nbsp;<select disabled='disabled' style='width: 150px' id='company_type' value='" + (companyman.supplierType.code) + "'><option value='companyman.supplierType.code'>"+(companyman.supplierType.type)+"</option> </select></p>" +
                         "</div>" +
