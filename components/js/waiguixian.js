@@ -1,44 +1,45 @@
 /** 外轨线控制 */
-var kongzhishi = {
+var waiguixian = {
     labels: [],
     data: [],
     realDataIntervals : [],
     ino : 13,
     //
     init: function () {
-        kongzhishi.funcs.bindSelectChangeEvent($('#model-li-hide-13-select'))
-        kongzhishi.funcs.bindClearInterval()
+        waiguixian.funcs.bindSelectChangeEvent($('#model-li-hide-13-select'))
+        waiguixian.funcs.bindClearInterval()
         /** 初始化的图表 */
-        kongzhishi.funcs.loadDataAndRender()
-        home.funcs.clearIntervals(kongzhishi.realDataIntervals)
+        waiguixian.funcs.loadDataAndRender()
+        home.funcs.clearIntervals(waiguixian.realDataIntervals)
         /** 开始间隔30秒获取数据 */
-        kongzhishi.funcs.bindLoadDataEvent()
+        waiguixian.funcs.bindLoadDataEvent()
     },
     funcs: {
         bindClearInterval : function() {
+            $('#menu3-li-13').off('click')
             $('#menu3-li-13').on('click', function() {
-                home.funcs.clearIntervals(kongzhishi.realDataIntervals)
-                kongzhishi.funcs.bindLoadDataEvent()
+                home.funcs.clearIntervals(waiguixian.realDataIntervals)
+                waiguixian.funcs.bindLoadDataEvent()
             })
             $('.menus2').off('click')
             $('.menus2').on('click', function() {
-                home.funcs.clearIntervals(kongzhishi.realDataIntervals)
+                home.funcs.clearIntervals(waiguixian.realDataIntervals)
             })
             $('.menus1').off('click')
             $('.menus1').on('click', function() {
-                home.funcs.clearIntervals(kongzhishi.realDataIntervals)
+                home.funcs.clearIntervals(waiguixian.realDataIntervals)
             })
         },
         bindLoadDataEvent : function() {
-            kongzhishi.realDataIntervals.push(setInterval(function() {
-                kongzhishi.funcs.loadDataAndRender()
+            waiguixian.realDataIntervals.push(setInterval(function() {
+                waiguixian.funcs.loadDataAndRender()
             },3000))
         },
         bindSelectChangeEvent: function (select) {
             select.on('change', function () {
-                kongzhishi.ino = $(this).val()
-                kongzhishi.funcs.loadDataAndRender()
-                console.log('kongzhishi.ino', kongzhishi.ino)
+                waiguixian.ino = $(this).val()
+                waiguixian.funcs.loadDataAndRender()
+                console.log('waiguixian.ino', waiguixian.ino)
             })
         },
         createChart: function (labels, data) {
@@ -80,20 +81,20 @@ var kongzhishi = {
             })
         },
         fillLabelsAndData: function (data) {
-            kongzhishi.data = []
-            kongzhishi.labels = []
+            waiguixian.data = []
+            waiguixian.labels = []
             data.forEach(function (e) {
-                kongzhishi.data.push(e.ivalue)
-                kongzhishi.labels.push(e.ihour)
+                waiguixian.data.push(e.ivalue)
+                waiguixian.labels.push(e.ihour)
             })
         },
         loadDataAndRender: function () {
-            $.get(home.urls.energyMonitor.loadkongzhishiData(), {
-                ino: kongzhishi.ino,//todo,这里的话需要传入的是
+            $.get(home.urls.energyMonitor.loadWaiguixianData(), {
+                ino: waiguixian.ino,//todo,这里的话需要传入的是
                 curDateTime: new Date().getTime()
             }, function (result) {
-                kongzhishi.funcs.fillLabelsAndData(result.data)
-                kongzhishi.funcs.createChart(kongzhishi.labels, kongzhishi.data)
+                waiguixian.funcs.fillLabelsAndData(result.data)
+                waiguixian.funcs.createChart(waiguixian.labels, waiguixian.data)
             })
         }
     }
