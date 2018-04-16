@@ -1,8 +1,28 @@
-<div id='model-li-hide-13' class="display-component-container" style="line-height:700px;">
-    <h1 style="text-align: center">页面还在火速开发中...</h1>
+<div id='model-li-hide-13' class="display-component-container" style="padding: 20px 20px 20px 20px;">
+    <div class="block-quote">
+        <div class="fl">
+            <p style="color: #62a49a; font-size: 14px;">
+                <select id='model-li-hide-13-select'>
+                    <option value="13">一层高粉机</option>
+                    <option value="18">锅炉房</option>
+                    <option value="23">空压机站</option>
+                    <option value="28">四车间低压一段</option>
+                    <option value="33">三楼炉前控制室</option>
+                    <option value="38">三楼炉尾控制室1</option>
+                    <option value="43">车间低压2段</option>
+                    <option value="48">四车间低压三段</option>
+                    <option value="53">三楼炉尾控制室2</option>
+                    <option value="58">四楼炉尾控制室</option>
+                </select>
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <canvas id="myChart" style="width: 100%;height: 74%;min-width: 800px;min-height: 500px;"></canvas>
+    <script src="../components/js/waiguixian.js"></script>
     <script type="application/javascript">
-        $(function() {
-            console.log( $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>'))
+        $(function () {
+            waiguixian.init()
         })
     </script>
 </div>

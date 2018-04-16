@@ -79,7 +79,7 @@ var menu_manage = {
                 return ele.menu1.code == menu1Code
             })
             menu2ToMenu1.sort(function (a, b) {
-                return a.code - b.code
+                return a.rank - b.rank
             }) //一级菜单排序
             return menu2ToMenu1
         }

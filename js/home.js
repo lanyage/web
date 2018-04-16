@@ -1,5 +1,13 @@
 var home = {
     urls: {
+        energyMonitor: {
+            loadWaiguixianData: function () {
+                return servers.backup() + 'energyReadData/getByInoAndCurDateTime'
+            },
+            loadKongzhishiData: function () {
+                return servers.backup() + 'energyReadData/getByInoAndStartDateTimeAndEndDateTime'
+            }
+        },
         menus: {
             getAllMenu1: function () {
                 return servers.backup() + 'menu1/getAll'
@@ -7,69 +15,69 @@ var home = {
             getAllMenu2: function () {
                 return servers.backup() + 'menu2/getAll'
             },
-            getAllMenu3 : function() {
+            getAllMenu3: function () {
                 return servers.backup() + 'model/getAll'
             },
-            deleteMenu1ByCode : function() {
+            deleteMenu1ByCode: function () {
                 return servers.backup() + 'menu1/deleteByCode'
             },
-            deleteMenu2ByCode : function() {
+            deleteMenu2ByCode: function () {
                 return servers.backup() + 'menu2/deleteByCode'
             },
-            deleteMenu3ByCode : function() {
+            deleteMenu3ByCode: function () {
                 return servers.backup() + 'model/deleteByCode'
             },
-            updateMenu1ByCode : function() {
+            updateMenu1ByCode: function () {
                 return servers.backup() + 'menu1/updateNameAndPath'
             },
-            updateMenu2ByCode : function() {
+            updateMenu2ByCode: function () {
                 return servers.backup() + 'menu2/updateName'
             },
-            updateMenu3ByCode : function() {
+            updateMenu3ByCode: function () {
                 return servers.backup() + 'model/updateName'
             },
-            getMenu1ByCode : function() {
+            getMenu1ByCode: function () {
                 return servers.backup() + 'menu1/getByCode'
             },
-            getMenu2ByCode : function() {
+            getMenu2ByCode: function () {
                 return servers.backup() + 'menu2/getByCode'
             },
-            getMenu3ByCode : function() {
+            getMenu3ByCode: function () {
                 return servers.backup() + 'model/getByCode'
             },
-            addMenu1 : function() {
+            addMenu1: function () {
                 return servers.backup() + 'menu1/add'
             },
-            addMenu2 : function() {
+            addMenu2: function () {
                 return servers.backup() + 'menu2/add'
             },
-            addMenu3 : function() {
+            addMenu3: function () {
                 return servers.backup() + 'model/add'
             },
-            menu1Shift : function() {
+            menu1Shift: function () {
                 return servers.backup() + 'menu1/shift'
             },
-            menu2Shift : function() {
+            menu2Shift: function () {
                 return servers.backup() + 'menu2/shift'
             },
-            menu3Shift : function() {
+            menu3Shift: function () {
                 return servers.backup() + 'model/shift'
             }
         },
-        reviewprocess:{
-            getExamByNameByPage:function(){
+        reviewprocess: {
+            getExamByNameByPage: function () {
                 return servers.backup() + 'reviewprocess/getExamByNameByPage'
             },
-            addExam:function(){
+            addExam: function () {
                 return servers.backup() + 'reviewprocess/addExam'
             },
-            getExamByCode:function(){
+            getExamByCode: function () {
                 return servers.backup() + 'reviewprocess/getExamByCode'
             },
-            deleteExamByCode:function(){
+            deleteExamByCode: function () {
                 return servers.backup() + 'reviewprocess/deleteExamByCode'
             },
-            updateExam:function(){
+            updateExam: function () {
                 return servers.backup() + 'reviewprocess/updateExam'
             },
         },
@@ -264,7 +272,7 @@ var home = {
             getAllByPage: function () {
                 return servers.backup() + 'role/getAllByPage'
             },
-            getAllModel: function() {
+            getAllModel: function () {
                 return servers.backup() + 'model/getAll'
             }
         },
@@ -431,8 +439,8 @@ var home = {
             deleteByBatchCode: function () {
                 return servers.backup() + 'archive/deleteByBatchCode'
             },
-            getAll:function(){
-                return servers.backup()+'archive/getAll'
+            getAll: function () {
+                return servers.backup() + 'archive/getAll'
             }
 
         },
@@ -778,7 +786,7 @@ var home = {
                 return servers.backup() + 'processStatus/deleteByBatchCode'
             },
         },
-        product:{
+        product: {
             updatePublishByCode: function () {
                 return servers.backup() + 'product/updatePublishByCode'
             },
@@ -877,7 +885,7 @@ var home = {
         /** $$$ 此处已经获取到用户的所有的一级菜单，二级菜单，三级菜单,分别存储在数组munu1s, menu2s, models中,无重复 $$$*/
         /** 给一级菜单进行排序 */
         home.menu1s.sort(function (a, b) {
-            return a.code - b.code
+            return a.rank - b.rank
         })
 
         /** 遍历一级菜单,然后给一级菜单的容器填充一级菜单,并且给selected菜单添加样式 */
@@ -936,10 +944,10 @@ var home = {
         /** 通过一级菜单的code获取其下的所有二级菜单 */
         getMenu2ListByMenu1Code: function (selectedMenu1Code) {
             var menu2ToMenu1 = home.menu2s.filter(function (ele) {
-                return ele.menu1.code == selectedMenu1Code
+                return ele.menu1.rank == selectedMenu1Code
             })
             menu2ToMenu1.sort(function (a, b) {
-                return a.code - b.code
+                return a.rank - b.rank
             }) //一级菜单排序
             return menu2ToMenu1
         }
@@ -974,7 +982,7 @@ var home = {
                     return ele.menu2.code == selectedMenu2Code
                 })
                 Menu3List.sort(function (a, b) {
-                    return a.code - b.code
+                    return a.rank - b.rank
                 })
 
                 var modelWrapper = selectedTabBarItem.next().children('ul')
@@ -1106,7 +1114,6 @@ var home = {
             /** 先删除所有绑定的事件 */
             home.menu2Clicks.off('click')
             home.menu2Clicks.on('click', function () {
-                // console.log('二级菜单点击的时候会自动清除load-real-data的事件')
                 home.funcs.clearIntervals(home.realdata_interval)
                 /** 点击二级菜单必须要把所有的展示框移除 */
                 $('.display-component-container').remove()
@@ -1145,7 +1152,7 @@ var home = {
                     return ele.menu2.code == menu2HideCode
                 })
                 Menu3List.sort(function (a, b) {
-                    return a.code - b.code
+                    return a.rank - b.rank
                 })
                 /** 填充三级菜单 */
                 modelWrapper.empty()
@@ -1350,8 +1357,8 @@ var home = {
             }, 1000))
         }
         , render0: function () {
-            $("#TI_1001_T")[0].innerHTML = home.TI1s[0].value
-            $("#TI_1001_R")[0].innerHTML = home.RI1s[0].value
+            $("#TI_1001_T")[0] && (function(){$("#TI_1001_T")[0].innerHTML = home.TI1s[0].value})()
+            $("#TI_1001_R")[0] && (function(){$("#TI_1001_R")[0].innerHTML = home.RI1s[0].value})()
             $("#TI_1002_T")[0].innerHTML = home.TI1s[1].value
             $("#TI_1002_R")[0].innerHTML = home.RI1s[1].value
 

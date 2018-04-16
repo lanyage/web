@@ -1,8 +1,114 @@
-<div id='model-li-hide-15' class="display-component-container" style="line-height:700px;">
-    <h1 style="text-align: center">页面还在火速开发中...</h1>
+<div id='model-li-hide-15' class="display-component-container" style="padding: 20px 20px 20px 20px;">
+    <div style="background: #f2f2f2;padding: 20px;">
+        <div class="fl">
+            <p style="color: #62a49a; font-size: 14px;">
+                <select id='model-li-hide-15-select'>
+                    <option value="13">一层高粉机</option>
+                    <option value="18">锅炉房</option>
+                    <option value="23">空压机站</option>
+                    <option value="28">四车间低压一段</option>
+                    <option value="33">三楼炉前控制室</option>
+                    <option value="38">三楼炉尾控制室1</option>
+                    <option value="43">车间低压2段</option>
+                    <option value="48">四车间低压三段</option>
+                    <option value="53">三楼炉尾控制室2</option>
+                    <option value="58">四楼炉尾控制室</option>
+                </select>
+            </p>
+            <div>
+                <div style="padding: 5px;"></div>
+                <label>时间段&nbsp;&nbsp;</label><input type="text" placeholder="小时" style="width: 35%"/><br>
+                <div style="padding: 5px;"></div>
+                <label>时间段1</label><input style="height: 20px;width:35%;display: inline" type="text" class="layui-input" id="test11" placeholder="yyyy/MM/dd"><span>&nbsp;-&nbsp;</span><input
+                    type="text" placeholder="" style="width: 35%"/>
+                <div style="padding: 5px;"></div>
+                <label>时间段2</label><input style="height: 20px;width:35%;display: inline" type="text" class="layui-input" id="test12" placeholder="yyyy/MM/dd"><span>&nbsp;-&nbsp;</span><input type="text"
+                                                                                                placeholder="" style="width: 35%"/>
+                <button>查询</button>
+            </div>
+        </div>
+        <div style="clear: both; padding: 1px;"></div>
+    </div>
+    <div class="whitespace"></div>
+    <canvas id="myChart" style="width: 100%;height: 60%;min-width: 800px;min-height: 400px;"></canvas>
     <script type="application/javascript">
-        $(function() {
-            console.log( $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>'))
+        $(function () {
+            /** 创建曲线图 */
+            var data = {
+                //折线图需要为每个数据点设置一标签。这是显示在X轴上。
+                /** 横坐标 */
+                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"],
+                //数据集（y轴数据范围随数据集合中的data中的最大或最小数据而动态改变的）
+                datasets: [
+                    {
+                        label: "时间段1能耗值曲线",
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(75,192,192,0.4)",
+                        borderColor: "rgba(75,192,192,1)",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 5,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        spanGaps: true,
+                        /** 纵坐标 */
+                        data: [10, 59, 90, 81, 56, 55, 40, 10, 59, 90, 81, 56, 55, 40, 10, 59, 90, 81, 56, 55, 40, 10, 59, 90] //对象数据
+                    },
+                    {
+                        label: "时间段2能耗值曲线",
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(75,100,192,0.4)",
+                        borderColor: "rgba(75,140,192,1)",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,140,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 5,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        spanGaps: true,
+                        /** 纵坐标 */
+                        data: [28, 48, 40, 19, 96, 27, 200, 28, 48, 40, 19, 96, 27, 200, 28, 48, 40, 19, 96, 27, 200, 28, 48, 40]
+                    }
+                ]
+            };
+            var ctx = document.getElementById("myChart").getContext("2d");
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: data
+            })
+//            /** 选择变动后会触发的时间 */
+//            $('#model-li-hide-13-select').on('change', function () {
+//                console.log($('#model-li-hide-13-select').val())
+//            })
+            /** 日期控件 */
+            layui.use('laydate', function(){
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem: '#test11' //指定元素
+                    ,format: 'yyyy/MM/dd'
+                });
+                laydate.render({
+                    elem: '#test12' //指定元素
+                    ,format: 'yyyy/MM/dd'
+                });
+            });
         })
     </script>
 </div>
