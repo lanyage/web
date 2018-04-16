@@ -486,11 +486,11 @@ var user_manage = {
                     "<td>" + (e.department.name) + "</td>" +
                     "<td>" + (e.contact) + "</td>" +
                     "<td><input type='checkbox' class='if_checkbox'" + str + " value='" + (e.code) + "'></td>" +
-                    "<td><a href='#' class='editdepart' id='depart-" + (e.code) + "'><i class='layui-icon'>&#xe620;</i></a></td>" +
-                    "<td><a href='#' class='editrole' id='role-" + (e.code) + "'><i class='layui-icon'>&#xe620;</i></a></td>" +
-                    "<td><a href='#' class='editic' id='ic-" + (e.code) + "'><i class='layui-icon'>&#xe620;</i></a></td>" +
+                    "<td><a href='#' class='editdepart' id='depart-" + (e.code) + "'><i class='fa fa-window-restore' aria-hidden='true'></i></a></td>" +
+                    "<td><a href='#' class='editrole' id='role-" + (e.code) + "'><i class='fa fa-user' aria-hidden='true'></i></a></td>" +
+                    "<td><a href='#' class='editic' id='ic-" + (e.code) + "'><i class='fa fa-credit-card' aria-hidden='true'></i></a></td>" +
                     "<td><a href='#' class='edituser' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='deleteuser' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                    "<td><a href='#' class='deleteuser' id='de-" + (e.code) + "'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
                     "</tr>")
             })//$数据渲染完毕
             var departBtns = $('.editdepart')

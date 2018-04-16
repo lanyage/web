@@ -75,7 +75,7 @@ var customer_manage = {
                     content: "<div id='addModal'>" +
                     "<div style='text-align: center;padding-top: 10px;'>" +
                     "<p style='padding: 5px 0px 5px 0px;'>用户名称:<input type='text' id='cus_name'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>登录名:<input type='text' id='cus_code'/></p>" +
+                    "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名:<input type='text' id='cus_code'/></p>" +
                     "<p style='padding: 5px 0px 5px 0px;'>描述说明:<input type='text' id='cus_description'/></p>" +
                     "<p style='padding: 5px 0px 5px 0px;'>手机号码:<input type='text' id='cus_contact'/></p>" +
                     "<p style='padding: 5px 0px 5px 0px;'>所属公司:<select id='add_supplier_name' style='padding: 3px 33px;'></select></p>" +
@@ -287,7 +287,7 @@ var customer_manage = {
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
                         "<p style='padding: 5px 0px 5px 0px;'>用户名称:<input type='text' id='cus_name' value='" + (customers.name) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>登录名:<input type='text' id='cus_code' value='" + (customers.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名:<input type='text' id='cus_code' value='" + (customers.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>描述说明:<input type='text' id='cus_description' value='" + (customers.description) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>手机号码:<input type='text' id='cus_contact' value='" + (customers.contact) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>所属公司:<select id='cus_supplier_name'  style='padding: 3px 33px ;' value='" + (customers.supplier.code) + "'></select></p>" +
@@ -462,7 +462,7 @@ var customer_manage = {
                     "<td>" + (e.contact) + "</td>" +
                     "<td>" + (e.supplier.name) + "</td>" +
                     "<td><a href='#' class='editcustomer' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='deletecustomer' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                    "<td><a href='#' class='deletecustomer' id='de-" + (e.code) + "'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
                     "</tr>")
             })//$数据渲染完毕
             var editBtns = $('.editcustomer')

@@ -306,97 +306,99 @@ var role_manage = {
                 var _selfBtn = $(this)
                 var roleCode = _selfBtn.attr('id').substr(6)
                 var operations = []
-                    $.get(home.urls.role.getAllOperations(), function (op) {
-                        operations = op.data
-                    })
-                $.post(home.urls.role.getByCode(), { code: roleCode }, function (result) {
-                    var models = result.data.models
-                    models.sort(function (a, b) {
-                        return (a.menu2.code - b.menu2.code) && (a.code - b.code)
-                    })
-                    var flag1 = models[0].menu1.code
-                    var flag2 = models[0].menu2.code
-                    models.forEach(function (e) {
-                        if (e.menu1.code == flag1) {
-                            flag1++
-                            $('#right_body_table').append(
-                                "<tr><td>" +
-                                "<i class='layui-icon' style='color:rgb(134,134,134)'>&#xe7a0;</i>" +
-                                "<span>" + (e.menu1.name) + "</span>" +
-                                "</td><td></td><td></td></tr>"
-                            )
-                        }
-                        if (e.menu2.code == flag2) {
-                            flag2++
-                            $('#right_body_table').append(
-                                "<tr><td>" +
-                                "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 15px'>&#xe625;</i>" +
-                                "<span>" + (e.menu2.name) + "</span>" +
-                                "</td><td></td><td></td></tr>"
-                            )
-                        }
-                        $('#right_body_table').append(
-                            "<tr id='model_"+(e.code)+"' class='the_models'><td>" +
-                            "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
-                            "<span>" + (e.name) + "</span>" +
-                            "<td style='text-align: center'><input class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
-                            "</td><td id='add_operatsion_"+(e.code)+"'>" +
-                            "</td></tr>"
-                        )
-                        operations.forEach(function(ele){
-                            $('#add_operation_'+e.code).append(
-                                "&nbsp;&nbsp;&nbsp;&nbsp;<input id='the_operation_"+(e.code)+"' class='a_operation' type='checkbox' value='" + (ele.code) + "'/>" + (ele.name) + ""
-                            )
+                $.get(home.urls.role.getAllOperations(), function (op) {
+                    operations = op.data
+                    console.log(operations)
+                    $.post(home.urls.role.getByCode(), { code: roleCode }, function (result) {
+                        var models = result.data.models
+                        models.sort(function (a, b) {
+                            return (a.menu2.code - b.menu2.code) && (a.code - b.code)
                         })
-                        /*
-                        var the_operations = e.operations
-                        the_operations.forEach(function (e) {
-                            $('#the_operation_'+e.code).attr('chencked',true)
-                        })
-                        */
-                    })
-                    layer.open({
-                        type: 1,
-                        content: $('#right_body'),
-                        area: ['700px', '650px'],
-                        btn: ['确认', '取消'],
-                        offset: ['12%', '30%'],
-                        closeBtn: 0,
-                        yes: function (index) {
-                            var RoleModelOperations = []
-                            $('.the_models').each(function() {
-                                var model = $(this).attr('id').substr(6)
-                                
+                        var flag1 = models[0].menu1.code
+                        var flag2 = models[0].menu2.code
+                        models.forEach(function (e) {
+                            if (e.menu1.code == flag1) {
+                                flag1++
+                                $('#right_body_table').append(
+                                    "<tr><td>" +
+                                    "<i class='layui-icon' style='color:rgb(134,134,134)'>&#xe7a0;</i>" +
+                                    "<span>" + (e.menu1.name) + "</span>" +
+                                    "</td><td></td><td></td></tr>"
+                                )
+                            }
+                            if (e.menu2.code == flag2) {
+                                flag2++
+                                $('#right_body_table').append(
+                                    "<tr><td>" +
+                                    "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 15px'>&#xe625;</i>" +
+                                    "<span>" + (e.menu2.name) + "</span>" +
+                                    "</td><td></td><td></td></tr>"
+                                )
+                            }
+                            $('#right_body_table').append(
+                                "<tr id='model_" + (e.code) + "' class='the_models'><td>" +
+                                "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
+                                "<span>" + (e.name) + "</span>" +
+                                "<td style='text-align: center'><input class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
+                                "</td><td id='add_operation_" + (e.code) + "'>" +
+                                "</td></tr>"
+                            )
+                            operations.forEach(function (ele) {
+                                $('#add_operation_' + e.code).append(
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input id='the_operation_" + (e.code) + "' class='a_operation' type='checkbox' value='" + (ele.code) + "'/>&nbsp;" + (ele.name) + ""
+                                )
                             })
-                            $.ajax({
-                                url: home.urls.role.updateRoleModelOperations(),
-                                contentType: 'application/json',
-                                data: JSON.stringify(RoleModelOperations),
-                                dataType: 'json',
-                                type: 'post',
-                                success: function (result) {
-                                    if (result.code === 0) {
+                            
+                            var the_operations = e.operations
+                            the_operations = operations
+                            the_operations.forEach(function (e) {
+                                $('#the_operation_'+e.code).attr('chencked',true)
+                            })
+                            
+                        })
+                        layer.open({
+                            type: 1,
+                            content: $('#right_body'),
+                            area: ['700px', '650px'],
+                            btn: ['确认', '取消'],
+                            offset: ['12%', '30%'],
+                            closeBtn: 0,
+                            yes: function (index) {
+                                var RoleModelOperations = []
+                                $('.the_models').each(function () {
+                                    var model = $(this).attr('id').substr(6)
 
+                                })
+                                $.ajax({
+                                    url: home.urls.role.updateRoleModelOperations(),
+                                    contentType: 'application/json',
+                                    data: JSON.stringify(RoleModelOperations),
+                                    dataType: 'json',
+                                    type: 'post',
+                                    success: function (result) {
+                                        if (result.code === 0) {
+
+                                        }
                                     }
-                                }
-                            })
-                            layer.close(index)
-                            $("#right_body").css('display', 'none')
-                        },
-                        btn2: function (index) {
-                            layer.close(index)
-                            $("#right_body").css('display', 'none')
-                        }
+                                })
+                                layer.close(index)
+                                $("#right_body").css('display', 'none')
+                            },
+                            btn2: function (index) {
+                                layer.close(index)
+                                $("#right_body").css('display', 'none')
+                            }
+                        })
                     })
-                    
                 })
+
                 var selectAllOperations = $('.all_operations')
                 var addTheOperation = $('#the_operation')
                 role_manage.funcs.bindSelectAllOperations(addTheOperation, selectAllOperations)
             })
         }
         /** 全选权限框 */
-        , bindSelectAllOperations: function(addTheOperation, selectAllOperations) {
+        , bindSelectAllOperations: function (addTheOperation, selectAllOperations) {
             addTheOperation.off('change')
             addTheOperation.on('change', function () {
                 var statusNow = $(this).prop('checked')
@@ -419,9 +421,9 @@ var role_manage = {
                     "<td>" + (e.name) + "</td>" +
                     "<td>" + (e.code) + "</td>" +
                     "<td>" + (e.description) + "</td>" +
-                    "<td><a href='#' class='editRole' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='editLimit' id='limit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='deleteRole' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                    "<td><a href='#' class='editRole' id='edit-" + (e.code) + "'><i class='fa fa-user' aria-hidden='true'></i></a></td>" +
+                    "<td><a href='#' class='editLimit' id='limit-" + (e.code) + "'><i class='fa fa-key fa-rotate-90' aria-hidden='true'></i></a></td>" +
+                    "<td><a href='#' class='deleteRole' id='de-" + (e.code) + "'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
                     "</tr>")
             })//$数据渲染完毕
             var editBtns = $('.editRole')

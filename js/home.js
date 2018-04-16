@@ -58,56 +58,6 @@ var home = {
             },
             deleteByBatchCode: function () {
                 return servers.backup() + 'material/deleteByBatchCode'
-            },
-        },
-        user: {
-            add: function () {
-                return servers.backup() + 'user/add'
-            },
-            update: function () {
-                return servers.backup() + 'user/update'
-            },
-            deleteByCode: function () {
-                return servers.backup() + 'user/deleteByCode'
-            },
-            getByCode: function () {
-                return servers.backup() + 'user/getByCode'
-            },
-            getAll: function () {
-                return servers.backup() + 'user/getAll'
-            },
-            getAllByPage: function () {
-                return servers.backup() + 'user/getAllByPage'
-            },
-            getAllByLikeNameByPage: function () {
-                return servers.backup() + 'user/getAllLikeByNameByPage'
-            },
-            updateEnable: function () {
-                return servers.backup() + 'user/updateEnable'
-            },
-            updateDepartmentCode: function () {
-                return servers.backup() + 'user/updateDepartmentCode'
-            },
-            updateInteCircCard: function () {
-                return servers.backup() + 'user/updateInteCircCard'
-            },
-            resetPassword: function () {
-                return servers.backup() + 'user/resetPassword'
-            },
-            updatePassword: function () {
-                return servers.backup() + 'user/updatePassword'
-            },
-            login: function () {
-                return servers.backup() + 'user/login'
-            },
-            loginByInteCircCard: function () {
-                return servers.backup() + 'user/loginByInteCircCard'
-            },
-            getAll: function () {
-                return servers.backup() + 'user/getAll'
-            },
-            updateRoles: function () {
-                return servers.backup() + 'user/updateRoles'
             }
         },
         monitor_online: {
@@ -260,6 +210,9 @@ var home = {
             },
             getByDepartmentCodeByPage: function () {
                 return servers.backup() + 'user/getByDepartmentCodeByPage'
+            },
+            updateRoles: function () {
+                return servers.backup() + 'user/updateRoles'
             }
         },
         customer: {
