@@ -1,5 +1,5 @@
-var check_manage={
-    init:function(){
+var check_manage = {
+    init: function () {
         check_manage.funcs.renderTable()
         var out = $('#checkprocess_page').width()
         var time = setTimeout(function () {
@@ -10,7 +10,7 @@ var check_manage={
     } //$init end$
     ,
     pageSize: 0,
-    funcs:{
+    funcs: {
         renderTable: function () {
             $.post(home.urls.check.getAllByPage(), {
                 page: 0
@@ -57,24 +57,24 @@ var check_manage={
                     type: 1,
                     title: '添加',
                     content: "<div id='addModal'>" +
-                    '<div style="width:550px;text-align:center;padding-top:10px">'+
-                    '<ul id="fl" style="float:left;line-height:30px;padding-left:50px;">'+
-                        '<li>流程编码: <input type="text"id="chp_code"></li>'+
-                       '<li>职责1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader1code"></li>'+
-                        '<li>职责2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader2code"></li>'+
-                        '<li>职责3:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader3code"></li>'+
-                        '<li>职责4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader4code"></li>'+
-                        '<li>职责5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader5code"></li>'+
-                    '</ul>'+
-                    '<ul id="fr" style="float:right;line-height:30px">'+
-                        '<li>流程名称: &nbsp;<input type="text"id="chp_name"></li>'+
-                        '<li>负责人1:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_resp1code"></li>'+
-                        '<li>负责人2:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_resp2code"></li>'+
-                        '<li>负责人3:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_resp3code"></li>'+
-                        '<li>负责人4:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_resp4code"></li>'+
-                        '<li>负责人5:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_resp5code"></li>'+
-                    '</ul>'+
-                '</div>'+
+                    '<div style="width:550px;text-align:center;padding-top:10px">' +
+                    '<ul id="fl" style="float:left;line-height:30px;padding-left:50px;">' +
+                    '<li>流程编码: <input type="text"id="chp_code"></li>' +
+                    '<li>职责1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader1code"></li>' +
+                    '<li>职责2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader2code"></li>' +
+                    '<li>职责3:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader3code"></li>' +
+                    '<li>职责4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader4code"></li>' +
+                    '<li>职责5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader5code"></li>' +
+                    '</ul>' +
+                    '<ul id="fr" style="float:right;line-height:30px">' +
+                    '<li>流程名称: &nbsp;<input type="text"id="chp_name"></li>' +
+                    '<li>负责人1:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_resp1code"></li>' +
+                    '<li>负责人2:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_resp2code"></li>' +
+                    '<li>负责人3:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_resp3code"></li>' +
+                    '<li>负责人4:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_resp4code"></li>' +
+                    '<li>负责人5:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_resp5code"></li>' +
+                    '</ul>' +
+                    '</div>' +
                     "</div>",
                     area: ['600px', '310px'],
                     btn: ['确认', '取消'],
@@ -82,7 +82,6 @@ var check_manage={
                     yes: function (index) {
                         var code = $('#chp_code').val()
                         var name = $('#chp_name').val()
-                       
                         var leader1code = $('#chp_leader1code').val()
                         var resp1code = $('#chp_resp1code').val()
                         var leader2code = $('#chp_leader2code').val()
@@ -93,19 +92,29 @@ var check_manage={
                         var resp4code = $('#chp_resp4code').val()
                         var leader5code = $('#chp_leader5code').val()
                         var resp5code = $('#chp_resp5code').val()
+                        console.log('leader1code', leader1code)
+                        console.log('resp1code', resp1code)
+                        console.log('leader2code', leader2code)
+                        console.log('resp2code', resp2code)
+                        console.log('leader3code', leader3code)
+                        console.log('resp3code', resp3code)
+                        console.log('leader4code', leader4code)
+                        console.log('resp4code', resp4code)
+                        console.log('leader5code', leader5code)
+                        console.log('resp5code', resp5code)
                         $.post(home.urls.check.add(), {
-                            code:code,
-                            name:name,
-                            leader1code:leader1code,
-                            leader2code:leader2code,
-                            leader3code:leader3code,
-                            leader4code:leader4code,
-                            leader5code:leader5code,
-                            resp1code:resp1code,
-                            resp2code:resp2code,
-                            resp3code:resp3code,
-                            resp4code:resp4code,
-                            resp5code:resp5code
+                            code: code,
+                            name: name,
+                            'leader1.code': leader1code,
+                            'leader2.code': leader2code,
+                            'leader3.code': leader3code,
+                            'leader4.code': leader4code,
+                            'leader5.code': leader5code,
+                            'resp1.code': resp1code,
+                            'resp2.code': resp2code,
+                            'resp3.code': resp3code,
+                            'resp4.code': resp4code,
+                            'resp5.code': resp5code
                         }, function (result) {
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
@@ -183,7 +192,7 @@ var check_manage={
                         count: 10 * page.totalPages //数据总数
                         ,
                         jump: function (obj, first) {
-                            if(!first) {
+                            if (!first) {
                                 $.post(home.urls.check.getAllByLikeNameByPage(), {
                                     name: checkprocess_name,
                                     page: obj.curr - 1,
@@ -221,7 +230,6 @@ var check_manage={
             })
         },
 
-        
 
         bindDeleteBatchEventListener: function (deleteBatchBtn) {
             deleteBatchBtn.off('click')
@@ -291,24 +299,24 @@ var check_manage={
                         type: 1,
                         title: '编辑',
                         content: "<div id='addModal'>" +
-                        '<div style="width:550px;text-align:center;padding-top:10px">'+
-                        '<ul id="fl" style="float:left;line-height:30px;padding-left:50px;">'+
-                            '<li>流程编码: <input type="text"id="chp_code" value="' + (check.code) + '"/></li>'+
-                           '<li>职责1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  id="chp_leader1code" value="'+check_manage.funcs.hh1(check)+'"/ ></li>'+
-                            '<li>职责2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader2code" value="'+check_manage.funcs.hh2(check)+'"/></li>'+
-                            '<li>职责3:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader3code" value="'+check_manage.funcs.hh3(check)+'"></li>'+
-                            '<li>职责4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader4code" value="'+check_manage.funcs.hh4(check)+'"/></li>'+
-                            '<li>职责5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader5code" value="'+check_manage.funcs.hh5(check)+'"/></li>'+
-                        '</ul>'+
-                        '<ul id="fr" style="float:right;line-height:30px" >'+
-                            '<li>流程名称: &nbsp;<input type="text"id="chp_name" value="' + (check.name) + '"></li>'+
-                            '<li>负责人1:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_resp1code" value="'+check_manage.funcs.hh6(check)+'"/ ></li>'+
-                            '<li>负责人2:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_resp2code" value="'+check_manage.funcs.hh7(check)+'"/></li>'+
-                            '<li>负责人3:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_resp3code" value="'+check_manage.funcs.hh8(check)+'"/></li>'+
-                            '<li>负责人4:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_resp4code"  value="'+check_manage.funcs.hh9(check)+'"/></li>'+
-                            '<li>负责人5:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_resp5code" value="'+check_manage.funcs.hh10(check)+'"/></li>'+
-                        '</ul>'+
-                    '</div>'+
+                        '<div style="width:550px;text-align:center;padding-top:10px">' +
+                        '<ul id="fl" style="float:left;line-height:30px;padding-left:50px;">' +
+                        '<li>流程编码: <input type="text"id="chp_code" value="' + (check.code) + '"/></li>' +
+                        '<li>职责1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  id="chp_leader1code" value="' + check_manage.funcs.hh1(check) + '"/ ></li>' +
+                        '<li>职责2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader2code" value="' + check_manage.funcs.hh2(check) + '"/></li>' +
+                        '<li>职责3:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader3code" value="' + check_manage.funcs.hh3(check) + '"></li>' +
+                        '<li>职责4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader4code" value="' + check_manage.funcs.hh4(check) + '"/></li>' +
+                        '<li>职责5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader5code" value="' + check_manage.funcs.hh5(check) + '"/></li>' +
+                        '</ul>' +
+                        '<ul id="fr" style="float:right;line-height:30px" >' +
+                        '<li>流程名称: &nbsp;<input type="text"id="chp_name" value="' + (check.name) + '"></li>' +
+                        '<li>负责人1:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_resp1code" value="' + check_manage.funcs.hh6(check) + '"/ ></li>' +
+                        '<li>负责人2:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_resp2code" value="' + check_manage.funcs.hh7(check) + '"/></li>' +
+                        '<li>负责人3:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_resp3code" value="' + check_manage.funcs.hh8(check) + '"/></li>' +
+                        '<li>负责人4:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_resp4code"  value="' + check_manage.funcs.hh9(check) + '"/></li>' +
+                        '<li>负责人5:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_resp5code" value="' + check_manage.funcs.hh10(check) + '"/></li>' +
+                        '</ul>' +
+                        '</div>' +
                         "</div>",
                         area: ['600px', '310px'],
                         btn: ['确认', '取消'],
@@ -316,7 +324,7 @@ var check_manage={
                         yes: function (index) {
                             var code = $('#chp_code').val()
                             var name = $('#chp_name').val()
-                           
+
                             var leader1code = $('#chp_leader1code').val()
                             var resp1code = $('#chp_resp1code').val()
                             var leader2code = $('#chp_leader2code').val()
@@ -327,19 +335,30 @@ var check_manage={
                             var resp4code = $('#chp_resp4code').val()
                             var leader5code = $('#chp_leader5code').val()
                             var resp5code = $('#chp_resp5code').val()
+
+                            console.log('leader1code', leader1code)
+                            console.log('resp1code', resp1code)
+                            console.log('leader2code', leader2code)
+                            console.log('resp2code', resp2code)
+                            console.log('leader3code', leader3code)
+                            console.log('resp3code', resp3code)
+                            console.log('leader4code', leader4code)
+                            console.log('resp4code', resp4code)
+                            console.log('leader5code', leader5code)
+                            console.log('resp5code', resp5code)
                             $.post(home.urls.check.update(), {
-                                code:code,
-                                name:name,
-                                leader1code:leader1code,
-                                leader2code:leader2code,
-                                leader3code:leader3code,
-                                leader4code:leader4code,
-                                leader5code:leader5code,
-                                resp1code:resp1code,
-                                resp2code:resp2code,
-                                resp3code:resp3code,
-                                resp4code:resp4code,
-                                resp5code:resp5code
+                                code: code,
+                                name: name,
+                                'leader1.code': leader1code,
+                                'leader2.code': leader2code,
+                                'leader3.code': leader3code,
+                                'leader4.code': leader4code,
+                                'leader5.code': leader5code,
+                                'resp1.code': resp1code,
+                                'resp2.code': resp2code,
+                                'resp3.code': resp3code,
+                                'resp4.code': resp4code,
+                                'resp5.code': resp5code
                             }, function (result) {
                                 layer.msg(result.message, {
                                     offset: ['40%', '55%'],
@@ -360,78 +379,76 @@ var check_manage={
                     })
                 })
             })
-        } //$ bindEditEventListener——end$
-        ,
-
-        hh1:function(e){
-            if(e.leader1 == null){
+        }, //$ bindEditEventListener——end$
+        hh1: function (e) {
+            if (e.leader1 == null) {
                 return null;
-            }else{
+            } else {
                 return e.leader1.code;
-            } 
+            }
         },
-        hh2:function(e){
-            if(e.leader2==null){
+        hh2: function (e) {
+            if (e.leader2 == null) {
                 return null;
-            }else{
+            } else {
                 return e.leader2.code;
             }
         },
-        hh3:function(e){
-            if(e.leader3==null){
+        hh3: function (e) {
+            if (e.leader3 == null) {
                 return null;
-            }else{
+            } else {
                 return e.leader3.code;
             }
         },
-        hh4:function(e){
-            if(e.leader4==null){
+        hh4: function (e) {
+            if (e.leader4 == null) {
                 return null;
-            }else{
+            } else {
                 return e.leader4.code;
             }
         },
-        hh5:function(e){
-            if(e.leader5==null){
+        hh5: function (e) {
+            if (e.leader5 == null) {
                 return null;
-            }else{
+            } else {
                 return e.leader5.code;
             }
         },
-        hh6:function(e){
-            if(e.resp1==null){
+        hh6: function (e) {
+            if (e.resp1 == null) {
                 return null;
-            }else{
+            } else {
                 return e.resp1.code;
             }
-           
+
         },
-        hh7:function(e){
-            if(e.resp2==null){
+        hh7: function (e) {
+            if (e.resp2 == null) {
                 return null;
-            }else{
+            } else {
                 return e.resp2.code;
             }
         },
-        hh8:function(e){
-            if(e.resp3==null){
+        hh8: function (e) {
+            if (e.resp3 == null) {
                 return null;
-            }else{
+            } else {
                 return e.resp3.code;
             }
         },
-        hh9:function(e){
-            if(e.resp4==null){
+        hh9: function (e) {
+            if (e.resp4 == null) {
                 return null;
-            }else{
+            } else {
                 return e.resp4.code;
             }
-            
+
         },
-        hh10:function(e){
-            if(e.resp5==null){
+        hh10: function (e) {
+            if (e.resp5 == null) {
                 return null;
-            }else{
+            } else {
                 return e.resp5.code;
             }
         },
@@ -451,9 +468,9 @@ var check_manage={
                     "<td>" + check_manage.funcs.hh2(e) + "</td>" +
                     "<td>" + check_manage.funcs.hh7(e) + "</td>" +
                     "<td>" + check_manage.funcs.hh3(e) + "</td>" +
-                    "<td>" +check_manage.funcs.hh8(e) + "</td>" +
+                    "<td>" + check_manage.funcs.hh8(e) + "</td>" +
                     "<td>" + check_manage.funcs.hh4(e) + "</td>" +
-                    "<td>" + check_manage.funcs.hh9(e)+ "</td>" +
+                    "<td>" + check_manage.funcs.hh9(e) + "</td>" +
                     "<td>" + check_manage.funcs.hh5(e) + "</td>" +
                     "<td>" + check_manage.funcs.hh10(e) + "</td>" +
                     "<td><a href='#' class='editcheckprocess' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
@@ -496,6 +513,6 @@ var check_manage={
             })
         }
 
-       
+
     }
 }
