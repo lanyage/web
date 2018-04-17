@@ -994,6 +994,8 @@ var home = {
                     switch (signal) {
                         case 5 :
                             (function () {
+                                /** 页面重新加载的时候会立马加载数据，然后开启interval */
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
@@ -1004,6 +1006,7 @@ var home = {
                             break;
                         case 6 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
@@ -1014,6 +1017,7 @@ var home = {
                             break;
                         case 7 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
@@ -1024,6 +1028,7 @@ var home = {
                             break;
                         case 8 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
@@ -1034,6 +1039,7 @@ var home = {
                             break;
                         case 9 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
@@ -1044,6 +1050,7 @@ var home = {
                             break;
                         case 10 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
@@ -1054,6 +1061,7 @@ var home = {
                             break;
                         case 11 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
@@ -1064,6 +1072,7 @@ var home = {
                             break;
                         case 12 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
@@ -1154,8 +1163,6 @@ var home = {
 
         /** 三级菜单点击事件 */
         , addModelClickEvent: function () {
-            // console.log('点击二级菜单之后就会给对应的三级菜单绑定点击事件')
-            // console.log('每次点击都要先remove分页组件')
             $('.layui-laypage').remove()
             home.menu3Clicks.off('click')
             /** 首先加载展示层页面 */
@@ -1178,7 +1185,7 @@ var home = {
             /** -------------------------------------------------------------------------------------*/
             /** 此处是在线监视模块所需内容,其他开发模块清忽略此内容 */
             if ($(home.menu3Clicks[0]).attr('id').substr(9) == 5) {
-                //如果说当前二级菜单的第一个三级菜单的id对应的是5,那么就给他们一次绑定点击事件
+                /** 如果说当前二级菜单的第一个三级菜单的id对应的是5,那么就给他们一次绑定点击事件 */
                 // console.log('因为menu3Clicks中刚好是在线监视的所有3级菜单模块,所以会在这一块加载数据')
                 $(home.menu3Clicks[0]).on('click', function () {
                     // console.log('点击3级菜单的时候会先清除load-real-data事件,然后再添加load-real-data事件')
@@ -1286,59 +1293,64 @@ var home = {
                 return ele.weihao.indexOf('BFS') !== -1
             })
         }
+        ,renderHandler : function(signal) {
+            $.get(home.urls.monitor_online.loadData(), {}, function (result) {
+                home.funcs.storeData(result)
+                /** 开始打印数据 */
+                // console.log("signal", signal)
+                switch (signal) {
+                    case 0 :
+                        (function () {
+                            home.funcs.render0()
+                        })();
+                        break;
+
+                    case 1:
+                        (function () {
+                            home.funcs.render1()
+                        })();
+                        break;
+
+                    case 2 :
+                        (function () {
+                            home.funcs.render2()
+                        })();
+                        break;
+
+                    case 3 :
+                        (function () {
+                            home.funcs.render3()
+                        })();
+                        break;
+                    case 4 :
+                        (function () {
+                            home.funcs.render4()
+                        })();
+                        break;
+                    case 5 :
+                        (function () {
+                            home.funcs.render5()
+                        })();
+                        break;
+                    case 6 :
+                        (function () {
+                            home.funcs.render6()
+                        })();
+                        break;
+                    case 7 :
+                        (function () {
+                            home.funcs.render7()
+                        })();
+                        break;
+                }
+                /** 可以在此处打印home.WI1s或其他域 */
+            })
+        }
         , loadRealData: function (signal) {
+            home.funcs.renderHandler(signal)
+            /** 在开启定时之前,必须要先加载一次 */
             home.realdata_interval.push(setInterval(function () {
-                $.get(home.urls.monitor_online.loadData(), {}, function (result) {
-                    home.funcs.storeData(result)
-                    /** 开始打印数据 */
-                    // console.log("signal", signal)
-                    switch (signal) {
-                        case 0 :
-                            (function () {
-                                home.funcs.render0()
-                            })();
-                            break;
-
-                        case 1:
-                            (function () {
-                                home.funcs.render1()
-                            })();
-                            break;
-
-                        case 2 :
-                            (function () {
-                                home.funcs.render2()
-                            })();
-                            break;
-
-                        case 3 :
-                            (function () {
-                                home.funcs.render3()
-                            })();
-                            break;
-                        case 4 :
-                            (function () {
-                                home.funcs.render4()
-                            })();
-                            break;
-                        case 5 :
-                            (function () {
-                                home.funcs.render5()
-                            })();
-                            break;
-                        case 6 :
-                            (function () {
-                                home.funcs.render6()
-                            })();
-                            break;
-                        case 7 :
-                            (function () {
-                                home.funcs.render7()
-                            })();
-                            break;
-                    }
-                    /** 可以在此处打印home.WI1s或其他域 */
-                })
+                home.funcs.renderHandler(signal)
             }, 1000))
         }
         , render0: function () {
@@ -1348,6 +1360,7 @@ var home = {
             $("#TI_1001_R")[0] && (function () {
                 $("#TI_1001_R")[0].innerHTML = home.RI1s[0].value
             })()
+
             $("#TI_1002_T")[0].innerHTML = home.TI1s[1].value
             $("#TI_1002_R")[0].innerHTML = home.RI1s[1].value
 
