@@ -303,12 +303,18 @@ var role_manage = {
         , bindEditLimitListener: function (limitBtns) {
             limitBtns.off('click')
             limitBtns.on('click', function () {
+                $('#right_body_table').empty()
                 var _selfBtn = $(this)
                 var roleCode = _selfBtn.attr('id').substr(6)
                 var operations = []
+                $('#right_body_table').append(
+                    "<tr style='background:#F2F2F2'>" +
+                    "<td style='text-align: center'>导航名称</td>" +
+                    "<td style='text-align: center'>选择</td><td>" +
+                    "</td></tr>"
+                )
                 $.get(home.urls.role.getAllOperations(), function (op) {
                     operations = op.data
-                    console.log(operations)
                     $.post(home.urls.role.getByCode(), { code: roleCode }, function (result) {
                         var models = result.data.models
                         models.sort(function (a, b) {
@@ -339,22 +345,22 @@ var role_manage = {
                                 "<tr id='model_" + (e.code) + "' class='the_models'><td>" +
                                 "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
                                 "<span>" + (e.name) + "</span>" +
-                                "<td style='text-align: center'><input class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
+                                "<td style='text-align: center'><input id='all_operations_"+(e.code)+"' class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
                                 "</td><td id='add_operation_" + (e.code) + "'>" +
                                 "</td></tr>"
                             )
                             operations.forEach(function (ele) {
                                 $('#add_operation_' + e.code).append(
-                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input id='the_operation_" + (e.code) + "' class='a_operation' type='checkbox' value='" + (ele.code) + "'/>&nbsp;" + (ele.name) + ""
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input class='a_operation' type='checkbox' value='" + (ele.code) + "'/>&nbsp;" + (ele.name) + ""
                                 )
                             })
                             
                             var the_operations = e.operations
-                            the_operations = operations
-                            the_operations.forEach(function (e) {
-                                $('#the_operation_'+e.code).attr('chencked',true)
+                            if(the_operations != null){
+                                the_operations.forEach(function (a_op) {
+                                    ($('input#add_operation_' + e.code)[a_op.code+1]).attr('chencked',true)
                             })
-                            
+                            }
                         })
                         layer.open({
                             type: 1,
@@ -367,7 +373,11 @@ var role_manage = {
                                 var RoleModelOperations = []
                                 $('.the_models').each(function () {
                                     var model = $(this).attr('id').substr(6)
-
+                                    $('input#add_operation_' + model).each(function () {
+                                        if ($(this).prop('checked')){
+                                            RoleModelOperations.push({ roleCode: roleCode, modelCode: model, operationCode: $(this).val() })
+                                        }
+                                    })
                                 })
                                 $.ajax({
                                     url: home.urls.role.updateRoleModelOperations(),
@@ -377,7 +387,10 @@ var role_manage = {
                                     type: 'post',
                                     success: function (result) {
                                         if (result.code === 0) {
-
+                                            layer.msg(result.message, {
+                                                offset: ['40%', '55%'],
+                                                time: 700
+                                            })
                                         }
                                     }
                                 })
@@ -391,21 +404,31 @@ var role_manage = {
                         })
                     })
                 })
-
                 var selectAllOperations = $('.all_operations')
-                var addTheOperation = $('#the_operation')
-                role_manage.funcs.bindSelectAllOperations(addTheOperation, selectAllOperations)
+                var addAOperation = $('.a_operation')
+                role_manage.funcs.bindSelectAllOperations(selectAllOperations)
+                role_manage.funcs.bindAddOperations(addAOperation)
             })
         }
         /** 全选权限框 */
-        , bindSelectAllOperations: function (addTheOperation, selectAllOperations) {
-            addTheOperation.off('change')
-            addTheOperation.on('change', function () {
+        , bindSelectAllOperations: function (selectAllOperations) {
+            selectAllOperations.off('change')
+            selectAllOperations.on('change', function () {
+                var status = selectAllOperations.prop('checked')
+                var model = selectAllOperations.val()
+                $('#add_operation_' + model).find('input').attr('checked',status)
+            })
+        }
+        /** 单选权限框 */
+        , bindAddOperations: function (addAOperation) {
+            addAOperation.off('change')
+            addAOperation.on('change', function () {
                 var statusNow = $(this).prop('checked')
+                var model = addAOperation.parent().attr('id').substr(14)
                 if (statusNow === false) {
-                    selectAllOperations.prop('checked', false)
-                } else if (statusNow === true && $('.role_checkbox:checked').length === role_manage.operations.length) {
-                    selectAllOperations.prop('checked', true)
+                    $('#all_operations_' + model).prop('checked', false)
+                } else if (statusNow === true && $('.a_operation:checked').length === role_manage.pageSize) {
+                    $('#all_operations_' + model).prop('checked', true)
                 }
             })
         }
