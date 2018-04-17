@@ -870,7 +870,7 @@ var home = {
 
         /** 遍历一级菜单,然后给一级菜单的容器填充一级菜单,并且给selected菜单添加样式 */
         home.menu1s.forEach(function (element, index) {
-            home.menu1Wrapper.append("<li id='menu1-li-" + (index + 1) + "'class='menu1-tab-bar'><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
+            home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
         })
 
         /** 给选中的一级菜单追加默认selected类标签,也就是默认样式 */
@@ -883,6 +883,7 @@ var home = {
         /** 给selected状态的一级菜单设置默认状态,包括填充2级菜单、给其所有的二级菜单追加三级菜单和绑定事件*/
         var selectedMenu1Code = selectedMenu1
         /**获取selected状态的一级菜单的二级菜单*/
+        console.log('selectedMenu1Code',selectedMenu1Code)
         var menu2ToSelected = home.funcs.getMenu2ListByMenu1Code(selectedMenu1Code)
 
         /** 填充二级菜单并且携带3级菜单 */
@@ -924,7 +925,7 @@ var home = {
         /** 通过一级菜单的code获取其下的所有二级菜单 */
         getMenu2ListByMenu1Code: function (selectedMenu1Code) {
             var menu2ToMenu1 = home.menu2s.filter(function (ele) {
-                return ele.menu1.rank == selectedMenu1Code
+                return ele.menu1.code == selectedMenu1Code
             })
             menu2ToMenu1.sort(function (a, b) {
                 return a.rank - b.rank
