@@ -1001,7 +1001,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render0()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 6 :
@@ -1012,7 +1012,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render1()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 7 :
@@ -1023,7 +1023,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render2()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 8 :
@@ -1034,7 +1034,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render3()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 9 :
@@ -1045,7 +1045,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render4()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 10 :
@@ -1056,7 +1056,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render5()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 11 :
@@ -1067,7 +1067,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render6()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 12 :
@@ -1078,7 +1078,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render7()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                     }
@@ -1293,7 +1293,7 @@ var home = {
                 return ele.weihao.indexOf('BFS') !== -1
             })
         }
-        ,renderHandler : function(signal) {
+        , renderHandler: function (signal) {
             $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                 home.funcs.storeData(result)
                 /** 开始打印数据 */
@@ -1351,19 +1351,14 @@ var home = {
             /** 在开启定时之前,必须要先加载一次 */
             home.realdata_interval.push(setInterval(function () {
                 home.funcs.renderHandler(signal)
-            }, 1000))
+            }, 3000))
         }
         , render0: function () {
-            $("#TI_1001_T")[0] && (function () {
-                $("#TI_1001_T")[0].innerHTML = home.TI1s[0].value
-            })()
-            $("#TI_1001_R")[0] && (function () {
-                $("#TI_1001_R")[0].innerHTML = home.RI1s[0].value
-            })()
-
+            console.log($("#TI_1001_T")[0])
+            $("#TI_1001_T")[0].innerHTML = home.TI1s[0].value
+            $("#TI_1001_R")[0].innerHTML = home.RI1s[0].value
             $("#TI_1002_T")[0].innerHTML = home.TI1s[1].value
             $("#TI_1002_R")[0].innerHTML = home.RI1s[1].value
-
             $("#WI_1001_W")[0].innerHTML = home.WI1s[0].value
             $("#WI_1002_W")[0].innerHTML = home.WI1s[1].value
             $("#WI_1003_W")[0].innerHTML = home.WI1s[2].value
@@ -1373,7 +1368,6 @@ var home = {
             $("#TI_1003_T")[0].innerHTML = home.TI1s[2].value
             $("#TI_1003_R")[0].innerHTML = home.RI1s[2].value
             $("#WI_1007_W")[0].innerHTML = home.WI1s[6].value
-
             $("#41_W136")[0].innerHTML = home._41s[0].value
             $("#41_W148")[0].innerHTML = home._41s[1].value
             $("#41W_W104")[0].innerHTML = home._41s[6].value
@@ -1393,7 +1387,6 @@ var home = {
             $("#TI_1006_R")[0].innerHTML = home.RI1s[5].value
             $("#TI_1005_T")[0].innerHTML = home.TI1s[4].value
             $("#TI_1005_R")[0].innerHTML = home.RI1s[4].value
-
             $("#43_W352_1")[0].innerHTML = home._43s[0].value
             $("#43_W352_2")[0].innerHTML = home._43s[0].value
             $("#43W_W316")[0].innerHTML = home._43s[7].value
