@@ -20,22 +20,26 @@ var home = {
                 return servers.backup() + 'model/deleteByCode'
             }
         },
-        reviewprocess:{
-            getExamByNameByPage:function(){
-                return servers.backup() + 'reviewprocess/getExamByNameByPage'
+        check:{
+            getAllByPage:function(){
+                return servers.backup() + 'check/getAllByPage'
             },
-            addExam:function(){
-                return servers.backup() + 'reviewprocess/addExam'
+            add:function(){
+                return servers.backup() + 'check/add'
             },
-            getExamByCode:function(){
-                return servers.backup() + 'reviewprocess/getExamByCode'
+            update:function(){
+                return servers.backup() + 'check/update'
             },
-            deleteExamByCode:function(){
-                return servers.backup() + 'reviewprocess/deleteExamByCode'
+            getByCode:function(){
+                return servers.backup() + 'check/getByCode'
             },
-            updateExam:function(){
-                return servers.backup() + 'reviewprocess/updateExam'
+            deleteByCode:function(){
+                return servers.backup() + 'check/deleteByCode'
             },
+            getAllByLikeNameByPage:function() {
+                return servers.backup() + 'check/getAllByLikeNameByPage'
+            },
+           
         },
         department: {
             getAllByPage: function () {
