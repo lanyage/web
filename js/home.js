@@ -79,7 +79,28 @@ var home = {
             },
             updateExam: function () {
                 return servers.backup() + 'reviewprocess/updateExam'
+            }
+        },
+        check: {
+            getAllByPage: function () {
+                return servers.backup() + 'check/getAllByPage'
             },
+            add: function () {
+                return servers.backup() + 'check/add'
+            },
+            update: function () {
+                return servers.backup() + 'check/update'
+            },
+            getByCode: function () {
+                return servers.backup() + 'check/getByCode'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'check/deleteByCode'
+            },
+            getAllByLikeNameByPage: function () {
+                return servers.backup() + 'check/getAllByLikeNameByPage'
+            },
+
         },
         department: {
             getAllByPage: function () {
@@ -225,7 +246,7 @@ var home = {
             getAllByPage: function () {
                 return servers.backup() + 'role/getAllByPage'
             },
-            updateRoleModelOperations: function() {
+            updateRoleModelOperations: function () {
                 return servers.backup() + 'role/updateRoleModelOperations'
             },
             getAllOperations: function () {
@@ -1316,8 +1337,12 @@ var home = {
             }, 1000))
         }
         , render0: function () {
-            $("#TI_1001_T")[0] && (function(){$("#TI_1001_T")[0].innerHTML = home.TI1s[0].value})()
-            $("#TI_1001_R")[0] && (function(){$("#TI_1001_R")[0].innerHTML = home.RI1s[0].value})()
+            $("#TI_1001_T")[0] && (function () {
+                $("#TI_1001_T")[0].innerHTML = home.TI1s[0].value
+            })()
+            $("#TI_1001_R")[0] && (function () {
+                $("#TI_1001_R")[0].innerHTML = home.RI1s[0].value
+            })()
             $("#TI_1002_T")[0].innerHTML = home.TI1s[1].value
             $("#TI_1002_R")[0].innerHTML = home.RI1s[1].value
 
