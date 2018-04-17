@@ -359,53 +359,43 @@ var user_manage = {
         , bindResetEventListener: function (resetBtns) {
             resetBtns.off('click')
             resetBtns.on('click', function () {
-                if ($('.user_checkbox:checked').length === 0) {
-                    layer.msg('亲,您还没有选中任何数据！', {
-                        offset: ['40%', '55%'],
-                        time: 700
-                    })
-                } else {
-                    layer.open({
-                        type: 1,
-                        title: '重置密码',
-                        content: "<h5 style='text-align: center;padding-top: 8px'>确认要重置密码吗?</h5>",
-                        area: ['190px', '130px'],
-                        btn: ['确认', '取消'],
-                        offset: ['40%', '55%'],
-                        yes: function (index) {
-                            var userCodes = []
-                            $('.user_checkbox').each(function () {
-                                if ($(this).prop('checked')) {
-                                    userCodes.push({ code: $(this).val() })
+                layer.open({
+                    type: 1,
+                    title: '重置密码',
+                    content: "<h5 style='text-align: center;padding-top: 8px'>确认要重置密码吗?</h5>",
+                    area: ['190px', '130px'],
+                    btn: ['确认', '取消'],
+                    offset: ['40%', '55%'],
+                    yes: function (index) {
+                        var userCodes = []
+                        $('.user_checkbox').each(function () {
+                            userCodes.push({ code: $(this).val() })
+                        })
+                        $.ajax({
+                            url: home.urls.user.resetPassword(),
+                            contentType: 'application/json',
+                            data: JSON.stringify(userCodes),
+                            dataType: 'json',
+                            type: 'post',
+                            success: function (result) {
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        user_manage.funcs.department_Set()
+                                        clearTimeout(time)
+                                    }, 500)
                                 }
-                            })
-                            console.log(userCodes)
-                            $.ajax({
-                                url: home.urls.user.resetPassword(),
-                                contentType: 'application/json',
-                                data: JSON.stringify(userCodes),
-                                dataType: 'json',
-                                type: 'post',
-                                success: function (result) {
-                                    if (result.code === 0) {
-                                        var time = setTimeout(function () {
-                                            user_manage.funcs.department_Set()
-                                            clearTimeout(time)
-                                        }, 500)
-                                    }
-                                    layer.msg(result.message, {
-                                        offset: ['40%', '55%'],
-                                        time: 700
-                                    })
-                                }
-                            })
-                            layer.close(index)
-                        },
-                        btn2: function (index) {
-                            layer.close(index)
-                        }
-                    })
-                }
+                                layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
+                                })
+                            }
+                        })
+                        layer.close(index)
+                    },
+                    btn2: function (index) {
+                        layer.close(index)
+                    }
+                })
             })
         }
         /** 修改初始密码 */
@@ -618,7 +608,7 @@ var user_manage = {
                     offset: ['20%', '35%'],
                     yes: function (index) {
                         var rolecodes = new Array()
-                        $('.right_role').each(function() {
+                        $('.right_role').each(function () {
                             rolecodes.push($(this).val())
                         })
                         $.ajax({
@@ -629,7 +619,7 @@ var user_manage = {
                             },
                             type: 'post',
                             traditional: true,
-                            success: function(result) {
+                            success: function (result) {
                                 layer.msg(result.message, {
                                     offset: ['40%', '55%'],
                                     time: 700
@@ -715,41 +705,41 @@ var user_manage = {
                     var str1, str2
                     if (user.enableIc == 1)
                         str1 = "checked='checked'"
-                        // str2 = "disabled='disabled'"
-                        layer.open({
-                            type: 1,
-                            content: "<div style='text-align: center;padding-top: 10px;'>" +
-                                "<p stylr='padding: 5px 0px 5px 0px;'>启用IC卡登录:<input type='checkbox' id='ic_checkbox' " + str1 + "/></p>" +
-                                "<p style='padding: 5px 0px 5px 0px;'>卡号:<input type='text' id='ic_num' disabled/></p>" +
-                                "</div>",
-                            area: ['350px', '180px'],
-                            btn: ['确认', '取消'],
-                            offset: ['40%', '45%'],
-                            yes: function (index) {
-                                var enableIc = (($('#ic_checkbox').prop('checked')) ? 1 : 0)
-                                var inteCircCard = $('#ic_num').val()
-                                $.post(home.urls.user.updateInteCircCard(), {
-                                    code: userCode,
-                                    enableIc: enableIc,
-                                    inteCircCard: inteCircCard
-                                }, function (result) {
-                                    layer.msg(result.message, {
-                                        offset: ['40%', '55%'],
-                                        time: 700
-                                    })
-                                    if (result.code === 0) {
-                                        var time = setTimeout(function () {
-                                            user_manage.funcs.department_Set()
-                                            clearTimeout(time)
-                                        }, 500)
-                                    }
-                                    layer.close(index)
+                    // str2 = "disabled='disabled'"
+                    layer.open({
+                        type: 1,
+                        content: "<div style='text-align: center;padding-top: 10px;'>" +
+                            "<p stylr='padding: 5px 0px 5px 0px;'>启用IC卡登录:<input type='checkbox' id='ic_checkbox' " + str1 + "/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>卡号:<input type='text' id='ic_num' disabled/></p>" +
+                            "</div>",
+                        area: ['350px', '180px'],
+                        btn: ['确认', '取消'],
+                        offset: ['40%', '45%'],
+                        yes: function (index) {
+                            var enableIc = (($('#ic_checkbox').prop('checked')) ? 1 : 0)
+                            var inteCircCard = $('#ic_num').val()
+                            $.post(home.urls.user.updateInteCircCard(), {
+                                code: userCode,
+                                enableIc: enableIc,
+                                inteCircCard: inteCircCard
+                            }, function (result) {
+                                layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
                                 })
-                            },
-                            btn2: function (index) {
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        user_manage.funcs.department_Set()
+                                        clearTimeout(time)
+                                    }, 500)
+                                }
                                 layer.close(index)
-                            }
-                        })
+                            })
+                        },
+                        btn2: function (index) {
+                            layer.close(index)
+                        }
+                    })
                     $('#ic_checkbox').prop('checked') ? (function () { $('#ic_num').attr('disabled', false) })() : (function () {
                         console.log('因为checked为false,所以将其设置为黑色')
                         console.log($('#ic_num').attr('disabled'))
