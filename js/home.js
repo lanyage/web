@@ -859,9 +859,6 @@ var home = {
                 }
             })
         })
-        // console.log(home.menu1s)
-        // console.log(home.menu2s)
-        // console.log(home.menu3s)
         /** $$$ 此处已经获取到用户的所有的一级菜单，二级菜单，三级菜单,分别存储在数组munu1s, menu2s, models中,无重复 $$$*/
         /** 给一级菜单进行排序,通过一级菜单的rank进行排序 */
         home.menu1s.sort(function (a, b) {
@@ -873,15 +870,17 @@ var home = {
             home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
         })
         console.log($(home.menu1Wrapper.children('li')[0]).attr('id').substr(9))
-        /** 这里是记录123级菜单的关键,########*/
-        /** 这里是记录123级菜单的关键,########*/
-        /** 这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
         var selectedMenu1 = localStorage.getItem('selectedMenu1') || $(home.menu1Wrapper.children('li')[0]).attr('id').substr(9)   //选中的一级菜单ID 默认为1
         var selectedMenu2 = localStorage.getItem('selectedMenu2') || null //选中的二级菜单ID
         var selectedMenu3 = localStorage.getItem('selectedMenu3') || null  //选中三级菜单ID
-        /** 这里是记录123级菜单的关键,########*/
-        /** 这里是记录123级菜单的关键,########*/
-        /** 这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
 
         /** 给选中的一级菜单追加默认selected类标签,也就是默认样式 */
         $('#menu1-li-' + selectedMenu1).addClass('li-selected')
