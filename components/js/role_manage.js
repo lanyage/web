@@ -12,6 +12,8 @@ var role_manage = {
     /** 当前总记录数,用户控制全选逻辑 */
     , pageSize: 0
 
+    , operationsLength : $.get(home.urls.role.getAllOperations(), function(result){ return result.data.length })
+
     /** 逻辑方法 */
     , funcs: {
         /** 渲染页面 */
@@ -427,7 +429,7 @@ var role_manage = {
                 var model = addAOperation.parent().attr('id').substr(14)
                 if (statusNow === false) {
                     $('#all_operations_' + model).prop('checked', false)
-                } else if (statusNow === true && $('.a_operation:checked').length === role_manage.pageSize) {
+                } else if (statusNow === true && $('input##add_operation_' + model + ':checked').length === role_manage.operationsLength) {
                     $('#all_operations_' + model).prop('checked', true)
                 }
             })
