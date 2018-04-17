@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55faa023-1938-4a7a-af2e-84093ab7b96a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/components/js/check_manage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/html/75.html" afterPath="$PROJECT_DIR$/components/html/75.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/js/reviewprocess_manage.js" afterPath="$PROJECT_DIR$/components/js/reviewprocess_manage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/home.js" afterPath="$PROJECT_DIR$/js/home.js" />
-    </list>
+    <list default="true" id="55faa023-1938-4a7a-af2e-84093ab7b96a" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -637,12 +632,12 @@
       <workItem from="1523765634247" duration="29917000" />
       <workItem from="1523868785536" duration="6850000" />
       <workItem from="1523935807574" duration="6000" />
-      <workItem from="1523942460329" duration="132000" />
+      <workItem from="1523942460329" duration="253000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101432000" />
+    <option name="totallyTimeSpent" value="101553000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="47" y="23" width="1393" height="877" extended-state="6" />
@@ -1002,8 +997,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/home.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="91" column="37" lean-forward="false" selection-start-line="91" selection-start-column="37" selection-end-line="91" selection-end-column="37" />
+        <state relative-caret-position="135">
+          <caret line="9" column="10" lean-forward="true" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
           <folding />
         </state>
       </provider>
