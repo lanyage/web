@@ -788,9 +788,9 @@ var home = {
         }
     }
     /** start */
-    , menu3Clicks: null
-    , menu2Clicks: null
-    , menu1Clicks: null
+    , menu3Clicks: null  //所有的一级菜单点击栏
+    , menu2Clicks: null  //所有的二级菜单点击栏
+    , menu1Clicks: null  //所有的三级菜单点击栏
     , menu3s: []
     , menu2s: []
     , menu1s: []
@@ -828,9 +828,6 @@ var home = {
      * @hides 代表所有三级菜单点击后显示的内容的id
      */
     , init: function (userJson, menu1Wrapper, menu2Wrapper) {
-        var selectedMenu1 = localStorage.getItem('selectedMenu1') || 1   //选中的一级菜单ID 默认为1
-        var selectedMenu2 = localStorage.getItem('selectedMenu2') || null //选中的二级菜单ID
-        var selectedMenu3 = localStorage.getItem('selectedMenu3') || null  //选中三级菜单ID
         /** 头像显示事件绑定 */
         home.funcs.bindClickEventForAvatar($('#user-info-hover'), $("#hover-body"))
         home.menu1Wrapper = menu1Wrapper
@@ -843,7 +840,7 @@ var home = {
         var menu1codes = []//用户一级菜单去重
         var menu2codes = []//用于二级菜单去重
 
-        /** 遍历用户的角色,从何获取一二三级菜单 */
+        /** 遍历用户的角色,从何获取一二三级菜单,填充home.menu1s,home.menu2s,home.menu3s */
         roles.forEach(function (element) {//遍历所有roles
             /**遍历用户的三级菜单*/
             element.models.forEach(function (ele) {
@@ -862,8 +859,11 @@ var home = {
                 }
             })
         })
+        // console.log(home.menu1s)
+        // console.log(home.menu2s)
+        // console.log(home.menu3s)
         /** $$$ 此处已经获取到用户的所有的一级菜单，二级菜单，三级菜单,分别存储在数组munu1s, menu2s, models中,无重复 $$$*/
-        /** 给一级菜单进行排序 */
+        /** 给一级菜单进行排序,通过一级菜单的rank进行排序 */
         home.menu1s.sort(function (a, b) {
             return a.rank - b.rank
         })
@@ -872,23 +872,28 @@ var home = {
         home.menu1s.forEach(function (element, index) {
             home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
         })
+        console.log($(home.menu1Wrapper.children('li')[0]).attr('id').substr(9))
+        /** 这里是记录123级菜单的关键,########*/
+        /** 这里是记录123级菜单的关键,########*/
+        /** 这里是记录123级菜单的关键,########*/
+        var selectedMenu1 = localStorage.getItem('selectedMenu1') || $(home.menu1Wrapper.children('li')[0]).attr('id').substr(9)   //选中的一级菜单ID 默认为1
+        var selectedMenu2 = localStorage.getItem('selectedMenu2') || null //选中的二级菜单ID
+        var selectedMenu3 = localStorage.getItem('selectedMenu3') || null  //选中三级菜单ID
+        /** 这里是记录123级菜单的关键,########*/
+        /** 这里是记录123级菜单的关键,########*/
+        /** 这里是记录123级菜单的关键,########*/
 
         /** 给选中的一级菜单追加默认selected类标签,也就是默认样式 */
         $('#menu1-li-' + selectedMenu1).addClass('li-selected')
         home.menu1Clicks = home.menu1Wrapper.children('.menu1-tab-bar')
-
         /** 绑定一级菜单点击事件 */
         home.funcs.bindClickForMenu1s()
-
         /** 给selected状态的一级菜单设置默认状态,包括填充2级菜单、给其所有的二级菜单追加三级菜单和绑定事件*/
-        var selectedMenu1Code = selectedMenu1
+        var selectedMenu1Code = $('.li-selected').attr('id').substr(9)
         /**获取selected状态的一级菜单的二级菜单*/
-        console.log('selectedMenu1Code',selectedMenu1Code)
         var menu2ToSelected = home.funcs.getMenu2ListByMenu1Code(selectedMenu1Code)
-
         /** 填充二级菜单并且携带3级菜单 */
         home.funcs.appendMenu2sToWrapperAndCarryModels(menu2ToSelected)
-
 
         /** 绑定退出登录时间 */
         var $exit = $('#exit')
