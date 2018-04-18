@@ -141,9 +141,9 @@ var fenshiduibi = {
                     {
                         label: "时间段1能耗值曲线",
                         fill: false,
-                        lineTension: 0.1,
-                        backgroundColor: "rgba(75,192,192,0.4)",
-                        borderColor: "rgba(75,192,192,1)",
+                        // lineTension: 0.1,
+                        backgroundColor: "rgba(54, 162, 235,1)",
+                        borderColor: "rgba(54, 162, 235,1)",
                         borderCapStyle: 'butt',
                         borderDash: [],
                         borderDashOffset: 0.0,
@@ -156,17 +156,17 @@ var fenshiduibi = {
                         pointHoverBorderColor: "rgba(220,220,220,1)",
                         pointHoverBorderWidth: 2,
                         pointRadius: 1,
-                        pointHitRadius: 10,
-                        spanGaps: true,
+                        // pointHitRadius: 10,
+                        // spanGaps: true,
                         /** 纵坐标 */
                         data : data1
                     },
                     {
                         label: "时间段2能耗值曲线",
                         fill: false,
-                        lineTension: 0.1,
-                        backgroundColor: "rgba(75,100,192,0.4)",
-                        borderColor: "rgba(75,140,192,1)",
+                        // lineTension: 0.1,
+                        backgroundColor: "rgba(255, 99, 132,1)",
+                        borderColor: "rgba(255, 99, 132,1)",
                         borderCapStyle: 'butt',
                         borderDash: [],
                         borderDashOffset: 0.0,
@@ -179,8 +179,8 @@ var fenshiduibi = {
                         pointHoverBorderColor: "rgba(220,220,220,1)",
                         pointHoverBorderWidth: 2,
                         pointRadius: 1,
-                        pointHitRadius: 10,
-                        spanGaps: true,
+                        // pointHitRadius: 10,
+                        // spanGaps: true,
                         /** 纵坐标 */
                         data : data2
                     }
@@ -188,7 +188,7 @@ var fenshiduibi = {
             }
             var ctx = document.getElementById("myChart").getContext("2d");
             var myChart = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: data
             })
         },
