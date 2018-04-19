@@ -350,16 +350,9 @@ var customer_manage = {
                     btn: ['确认', '取消'],
                     offset: ['40%', '55%'],
                     yes: function (index) {
-                        var cusCodes = []
-                        $('.cus_checkbox').each(function () {
-                            cusCodes.push({ code: $(this).val() })
-                        })
-                        console.log(cusCodes)
                         $.ajax({
-                            url: home.urls.customer.resetPassword(),
-                            contentType: 'application/json',
-                            data: JSON.stringify(cusCodes),
-                            dataType: 'json',
+                            url: home.urls.customer.resetAllDefaultPassword(),
+                            data: {} ,
                             type: 'post',
                             success: function (result) {
                                 if (result.code === 0) {

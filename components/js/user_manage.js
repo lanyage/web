@@ -367,15 +367,9 @@ var user_manage = {
                     btn: ['确认', '取消'],
                     offset: ['40%', '55%'],
                     yes: function (index) {
-                        var userCodes = []
-                        $('.user_checkbox').each(function () {
-                            userCodes.push({ code: $(this).val() })
-                        })
                         $.ajax({
-                            url: home.urls.user.resetPassword(),
-                            contentType: 'application/json',
-                            data: JSON.stringify(userCodes),
-                            dataType: 'json',
+                            url: home.urls.user.resetAllDefaultPassword(),
+                            data: {},
                             type: 'post',
                             success: function (result) {
                                 if (result.code === 0) {
