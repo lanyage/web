@@ -356,13 +356,16 @@ var role_manage = {
                                     "&nbsp;&nbsp;&nbsp;&nbsp;<input class='a_operation' type='checkbox' value='" + (ele.code) + "'/>&nbsp;" + (ele.name) + ""
                                 )
                             })
-                            
                             var the_operations = e.operations
                             if(the_operations != null){
                                 the_operations.forEach(function (a_op) {
-                                    ($('input#add_operation_' + e.code)[a_op.code+1]).attr('chencked',true)
+                                    $('#add_operation_' + e.code).children("[value= "+(a_op.code)+"]").prop('checked',true)
                             })
+                                if(the_operations.length == operations.length){
+                                    $('#all_operations_' + e.code).prop('checked',true)
+                                }
                             }
+                            
                         })
                         layer.open({
                             type: 1,
@@ -417,8 +420,10 @@ var role_manage = {
             selectAllOperations.off('change')
             selectAllOperations.on('change', function () {
                 var status = selectAllOperations.prop('checked')
+                console.log(status)
                 var model = selectAllOperations.val()
-                $('#add_operation_' + model).find('input').attr('checked',status)
+                console.log(model)
+                $('#add_operation_' + model).children().attr('checked',status)
             })
         }
         /** 单选权限框 */
