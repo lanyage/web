@@ -507,7 +507,7 @@ var check_manage = {
                 var statusNow = $(this).prop('checked')
                 if (statusNow === false) {
                     selectAllBox.prop('checked', false)
-                } else if (statusNow === true && $('.chp_checkbox').length === check_manage.pageSize) {
+                } else if (statusNow === true && $('.chp_checkbox:checked').length === check_manage.pageSize) {
                     selectAllBox.prop('checked', true)
                 }
             })

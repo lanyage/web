@@ -357,6 +357,7 @@ var company_manage = {
             checkboxes.off('change')
             checkboxes.on('change', function () {
                 var statusNow = $(this).prop('checked')
+                console.log(this)
                 if (statusNow === false) {
                     selectAllBox.prop('checked', false)
                 } else if (statusNow === true && $('.checkbox:checked').length === company_manage.pageSize) {

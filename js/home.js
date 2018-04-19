@@ -100,6 +100,9 @@ var home = {
             getAllByLikeNameByPage: function () {
                 return servers.backup() + 'check/getAllByLikeNameByPage'
             },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'check/deleteByBatchCode'
+            }
 
         },
         department: {
@@ -437,6 +440,9 @@ var home = {
             findByEquipmentNameInPages: function () {
                 return servers.backup() + 'equipment/findByEquipmentNameInPages'
             },
+            detail:function(){
+                return servers.backup() + 'equipment/detail'
+            }
         },
         defaultpassword: {
             getAllByPage: function () {
