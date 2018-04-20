@@ -776,7 +776,7 @@ var home = {
             updatePublishByCode: function () {
                 return servers.backup() + 'product/updatePublishByCode'
             },
-            updateAuditByCodeL: function () {
+            updateAuditByCode: function () {
                 return servers.backup() + 'product/updateAuditByCode'
             },
             getByCode: function () {
@@ -790,6 +790,27 @@ var home = {
             },
             getByLikeBatchNumberByPage: function () {
                 return servers.backup() + 'product/getByLikeBatchNumberByPage'
+            }
+        },
+        presoma:{
+            // 金弛622 前驱体
+            updatePublishByCode: function () {
+                return servers.backup() + 'rawPresoma/updatePublishByCode'
+            },
+            updateAuditByCodeL: function () {
+                return servers.backup() + 'rawPresoma/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'rawPresoma/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'rawPresoma/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'rawPresoma/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'rawPresoma/getByLikeBatchNumberByPage'
             }
         }
     }
