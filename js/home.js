@@ -790,7 +790,7 @@ var home = {
             updatePublishByCode: function () {
                 return servers.backup() + 'product/updatePublishByCode'
             },
-            updateAuditByCodeL: function () {
+            updateAuditByCode: function () {
                 return servers.backup() + 'product/updateAuditByCode'
             },
             getByCode: function () {

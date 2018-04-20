@@ -27,6 +27,8 @@ var product_audit = {
                 product_audit.funcs.renderHandler($tbody, products)
                 product_audit.pageSize = result.data.content.length
 
+                console.log("完成刷新");
+
                 var page = result.data
                 /** @namespace page.totalPages 这是返回数据的总页码数 */
                 /** 分页信息 */
@@ -54,21 +56,29 @@ var product_audit = {
             })
 
             /** 追加状态下拉框事件 */
-            var statusSelect = $('#model-li-hide-select-20')
-            product_audit.funcs.bindSelectEventListener(statusSelect)
+            var statusSelect = $('#model-li-hide-select-20');
+            product_audit.funcs.bindSelectEventListener(statusSelect);
             /** 追加刷新事件 */
-            var refreshBtn = $('#model-li-hide-refresh-20')
-            product_audit.funcs.bindRefreshEventListener(refreshBtn)//追加刷新事件
+            var refreshBtn = $('#model-li-hide-refresh-20');
+            product_audit.funcs.bindRefreshEventListener(refreshBtn);//追加刷新事件
             /** 追加搜索事件 */
-            var searchBtn = $('#model-li-hide-search-20')
-            product_audit.funcs.bindSearchEventListener(searchBtn)
+            var searchBtn = $('#model-li-hide-search-20');
+            product_audit.funcs.bindSearchEventListener(searchBtn);
+            /** 左箭头 */
+            var leftBtn = $('#model-li-hide-left-20');
+            product_audit.funcs.bindLeftBtn(leftBtn);
+            /** 右箭头 */
+            var rightBtn = $('#model-li-hide-right-20')
         },
 
         /** 渲染 */
         renderHandler: function ($tbody, products) {
             $tbody.empty()
+            var count = 0;
             products.forEach(function (e) {
-                var status = $('#status').val()
+                var status = $('#status').val();
+                count++;
+                console.log(count);
                 $tbody.append(
                     "<tr>" +
                     "<td>" + product_audit.funcs.getIcon(status, e.code) + "</i></td>" +
@@ -180,10 +190,47 @@ var product_audit = {
                         content: product_audit.funcs.getData(product),
                         area: ['530px', '700px'],
                         btn: ['通过审核', '取消'],
-                        offset: ['10%', '40%'],
+                        offset: 'auto', // ['10%', '40%'],
                         btnAlign: 'c',
-                        yes: function (index) {
-
+                        yes: function () {
+                            console.log("提交审核" + productCode);
+                            $.post(home.urls.product.updateAuditByCode(), {
+                                code: productCode,
+                                auditorCode: "001",     // 此处需要读取用户编号
+                                statusCode: 2
+                            }, function (result) {
+                                if (result.code == 0) {
+                                    // 成功
+                                    layer.open({
+                                        type: 1,
+                                        content: "<div>" + "审核成功" + "</div>",
+                                        area: ['280px', '180px'],
+                                        btn: ['关闭'],
+                                        offset: 'auto', // ['43%', '49%'],
+                                        btnAlign: 'c',
+                                        yes: function () {
+                                            console.log("审核成功" + productCode);
+                                            layer.closeAll();
+                                            product_audit.funcs.renderTable();
+                                        }
+                                    });
+                                } else {
+                                    // 失败
+                                    layer.open({
+                                        type: 1,
+                                        content: "<div>" + "失败<br>" + result.message + "</div>",
+                                        area: ['280px', '180px'],
+                                        btn: ['关闭'],
+                                        offset: 'auto', // ['43%', '49%'],
+                                        btnAlign: 'c',
+                                        yes: function () {
+                                            console.log("审核成功" + productCode);
+                                            layer.closeAll();
+                                            product_audit.funcs.renderTable();
+                                        }
+                                    });
+                                }
+                            })
                         },
                         btn2: function (index) {
                             layer.close(index)
@@ -205,9 +252,13 @@ var product_audit = {
                     layer.open({
                         type: 1,
                         content: product_audit.funcs.getData(product),
-                        area: ['580px', '700px'],
-                        btn: [],
+                        area: ['530px', '700px'],
+                        btn: ['关闭'],
                         offset: ['10%', '40%'],
+                        btnAlign: 'c',
+                        yes: function (index) {
+                            layer.close(index);
+                        }
                     })
 
                 })
@@ -230,7 +281,12 @@ var product_audit = {
             }
         },
 
-        /** 操作图标 */
+        /** 
+         * 操作图标
+         * @param status    状态码
+         * @param code      产品编码
+         * @returns {string}
+         */
         getIcon: function (status, code) {
             if (status == 1) {
                 return "<a href=\"#\" class='audit' id='audit-" + code + "'><i class=\"layui-icon\">&#xe6b2;";
@@ -239,8 +295,12 @@ var product_audit = {
                 return "<a href=\"#\" class='detail' id='check-" + code + "'><i class=\"layui-icon\">&#xe60a;";
             }
         },
-
-        /** 获得数据（查看数据时） */
+        
+        /**
+         * 查看数据
+         * @param product
+         * @returns {string}
+         */
         getData: function (product) {
             return (
                 "<div id='auditModal'>" +
@@ -309,6 +369,18 @@ var product_audit = {
                 "</table>" +
                 "</div>" +
                 "</div>");
+        },
+        
+        bindLeftBtn: function (leftBtn) {
+            leftBtn.off('click');
+            leftBtn.on('click', function () {
+                console.log("左");
+            })
+        },
+
+        bindRightBtn: function () {
+
         }
+        
     }
 }
