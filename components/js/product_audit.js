@@ -74,11 +74,8 @@ var product_audit = {
         /** 渲染 */
         renderHandler: function ($tbody, products) {
             $tbody.empty()
-            var count = 0;
             products.forEach(function (e) {
                 var status = $('#status').val();
-                count++;
-                console.log(count);
                 $tbody.append(
                     "<tr>" +
                     "<td>" + product_audit.funcs.getIcon(status, e.code) + "</i></td>" +
@@ -201,30 +198,30 @@ var product_audit = {
                             }, function (result) {
                                 if (result.code == 0) {
                                     // 成功
+                                    console.log("审核成功" + productCode);
                                     layer.open({
                                         type: 1,
-                                        content: "<div>" + "审核成功" + "</div>",
+                                        content: "<div class='align_middle'>" + "审核成功" + "</div>",
                                         area: ['280px', '180px'],
                                         btn: ['关闭'],
                                         offset: 'auto', // ['43%', '49%'],
                                         btnAlign: 'c',
                                         yes: function () {
-                                            console.log("审核成功" + productCode);
                                             layer.closeAll();
                                             product_audit.funcs.renderTable();
                                         }
                                     });
                                 } else {
                                     // 失败
+                                    console.log("审核失败" + result.message);
                                     layer.open({
                                         type: 1,
-                                        content: "<div>" + "失败<br>" + result.message + "</div>",
+                                        content: "<div class='text--align-center'" + "失败<br>" + result.message + "</div>",
                                         area: ['280px', '180px'],
                                         btn: ['关闭'],
                                         offset: 'auto', // ['43%', '49%'],
                                         btnAlign: 'c',
                                         yes: function () {
-                                            console.log("审核成功" + productCode);
                                             layer.closeAll();
                                             product_audit.funcs.renderTable();
                                         }
@@ -281,7 +278,7 @@ var product_audit = {
             }
         },
 
-        /** 
+        /**
          * 操作图标
          * @param status    状态码
          * @param code      产品编码
@@ -295,7 +292,7 @@ var product_audit = {
                 return "<a href=\"#\" class='detail' id='check-" + code + "'><i class=\"layui-icon\">&#xe60a;";
             }
         },
-        
+
         /**
          * 查看数据
          * @param product
@@ -370,7 +367,7 @@ var product_audit = {
                 "</div>" +
                 "</div>");
         },
-        
+
         bindLeftBtn: function (leftBtn) {
             leftBtn.off('click');
             leftBtn.on('click', function () {
@@ -381,6 +378,6 @@ var product_audit = {
         bindRightBtn: function () {
 
         }
-        
+
     }
 }
