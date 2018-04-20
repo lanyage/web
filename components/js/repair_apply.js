@@ -199,7 +199,7 @@ var repair_apply = {
                     area: ['900px', '550px'],
                     btn: ['确认', '取消'],
                     offset: ['10%', '10%'],
-                    closeBtn: 0, 
+                    closeBtn: 0,
                     yes: function (index) {
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
@@ -246,7 +246,7 @@ var repair_apply = {
                         "</tr>")
                 )
             })
-        
+
             //$数据渲染完毕
 
             var detaillBtns = $('.detailRepair')
