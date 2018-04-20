@@ -19,7 +19,7 @@ var customer_manage = {
         /** 渲染页面 */
         renderTable: function () {
             /** 获取所有的记录 */
-            $.post(home.urls.customer.listCustomer(), {page: 0}, function (result) {
+            $.post(home.urls.customer.listCustomer(), { page: 0 }, function (result) {
                 var customers = result.data.content //获取数据
                 const $tbody = $("#customer_table").children('tbody')
                 customer_manage.funcs.renderHandler($tbody, customers)
@@ -73,14 +73,14 @@ var customer_manage = {
                     type: 1,
                     title: '新增',
                     content: "<div id='addModal'>" +
-                    "<div style='text-align: center;padding-top: 10px;'>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>用户名称:<input type='text' id='cus_name'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名:<input type='text' id='cus_code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>描述说明:<input type='text' id='cus_description'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>手机号码:<input type='text' id='cus_contact'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>所属公司:<select id='add_supplier_name' style='padding: 3px 33px;'></select></p>" +
-                    "</div>" +
-                    "</div>",
+                        "<div style='text-align: center;padding-top: 10px;'>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>用户名称:<input type='text' id='cus_name'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名:<input type='text' id='cus_code'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>描述说明:<input type='text' id='cus_description'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>手机号码:<input type='text' id='cus_contact'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>所属公司:<select id='add_supplier_name' style='padding: 3px 33px;'></select></p>" +
+                        "</div>" +
+                        "</div>",
                     area: ['350px', '300px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
@@ -141,7 +141,7 @@ var customer_manage = {
                     yes: function (index) {
                         console.log('yes')
                         var customerCode = _this.attr('id').substr(3)
-                        $.post(home.urls.customer.deleteCustomer(), {code: customerCode}, function (result) {
+                        $.post(home.urls.customer.deleteCustomer(), { code: customerCode }, function (result) {
                             console.log(result.message)
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
@@ -168,7 +168,7 @@ var customer_manage = {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var customer_name = $('#customer_name_input').val()
-                $.post(home.urls.customer.listCustomer(), {name: customer_name}, function (result) {
+                $.post(home.urls.customer.listCustomer(), { name: customer_name }, function (result) {
                     var page = result.data
                     var customers = result.data.content //获取数据
                     const $tbody = $("#customer_table").children('tbody')
@@ -200,7 +200,7 @@ var customer_manage = {
         , bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
             refreshBtn.on('click', function () {
-                var index = layer.load(2, {offset: ['40%', '58%']});
+                var index = layer.load(2, { offset: ['40%', '58%'] });
                 var time = setTimeout(function () {
                     layer.msg('刷新成功', {
                         offset: ['40%', '55%'],
@@ -243,7 +243,7 @@ var customer_manage = {
                             var customerCodes = []
                             $('.cus_checkbox').each(function () {
                                 if ($(this).prop('checked')) {
-                                    customerCodes.push({code: $(this).val()})
+                                    customerCodes.push({ code: $(this).val() })
                                 }
                             })
                             $.ajax({
@@ -280,19 +280,19 @@ var customer_manage = {
             editBtns.on('click', function () {
                 var _selfBtn = $(this)
                 var customerCode = _selfBtn.attr('id').substr(5)
-                $.get(home.urls.customer.customerDetail(), {code: customerCode}, function (result) {
+                $.get(home.urls.customer.customerDetail(), { code: customerCode }, function (result) {
                     var customers = result.data
                     layer.open({
                         type: 1,
                         content: "<div id='addModal'>" +
-                        "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>用户名称:<input type='text' id='cus_name' value='" + (customers.name) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名:<input type='text' id='cus_code' value='" + (customers.code) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>描述说明:<input type='text' id='cus_description' value='" + (customers.description) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>手机号码:<input type='text' id='cus_contact' value='" + (customers.contact) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>所属公司:<select id='cus_supplier_name'  style='padding: 3px 33px ;' value='" + (customers.supplier.code) + "'></select></p>" +
-                        "</div>" +
-                        "</div>",
+                            "<div style='text-align: center;padding-top: 10px;'>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>用户名称:<input type='text' id='cus_name' value='" + (customers.name) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名:<input type='text' id='cus_code' value='" + (customers.code) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>描述说明:<input type='text' id='cus_description' value='" + (customers.description) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>手机号码:<input type='text' id='cus_contact' value='" + (customers.contact) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>所属公司:<select id='cus_supplier_name'  style='padding: 3px 33px ;' value='" + (customers.supplier.code) + "'></select></p>" +
+                            "</div>" +
+                            "</div>",
                         area: ['350px', '200px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '45%'],
@@ -342,52 +342,37 @@ var customer_manage = {
         , bindResetEventListener: function (resetBtns) {
             resetBtns.off('click')
             resetBtns.on('click', function () {
-                if ($('.cus_checkbox:checked').length === 0) {
-                    layer.msg('亲,您还没有选中任何数据！', {
-                        offset: ['40%', '55%'],
-                        time: 700
-                    })
-                } else {
-                    layer.open({
-                        type: 1,
-                        title: '重置密码',
-                        content: "<h5 style='text-align: center;padding-top: 8px'>确认要重置密码吗?</h5>",
-                        area: ['190px', '130px'],
-                        btn: ['确认', '取消'],
-                        offset: ['40%', '55%'],
-                        yes: function (index) {
-                            var cusCodes = []
-                            $('.cus_checkbox').each(function () {
-                                if ($(this).prop('checked')) {
-                                    cusCodes.push({code: $(this).val()})
+                layer.open({
+                    type: 1,
+                    title: '重置密码',
+                    content: "<h5 style='text-align: center;padding-top: 8px'>确认要重置密码吗?</h5>",
+                    area: ['190px', '130px'],
+                    btn: ['确认', '取消'],
+                    offset: ['40%', '55%'],
+                    yes: function (index) {
+                        $.ajax({
+                            url: home.urls.customer.resetAllDefaultPassword(),
+                            data: {} ,
+                            type: 'post',
+                            success: function (result) {
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        customer_manage.init()
+                                        clearTimeout(time)
+                                    }, 500)
                                 }
-                            })
-                            $.ajax({
-                                url: home.urls.customer.resetPassword(),
-                                contentType: 'application/json',
-                                data: JSON.stringify(cusCodes),
-                                dataType: 'json',
-                                type: 'post',
-                                success: function (result) {
-                                    if (result.code === 0) {
-                                        var time = setTimeout(function () {
-                                            customer_manage.init()
-                                            clearTimeout(time)
-                                        }, 500)
-                                    }
-                                    layer.msg(result.message, {
-                                        offset: ['40%', '55%'],
-                                        time: 700
-                                    })
-                                }
-                            })
-                            layer.close(index)
-                        },
-                        btn2: function (index) {
-                            layer.close(index)
-                        }
-                    })
-                }
+                                layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
+                                })
+                            }
+                        })
+                        layer.close(index)
+                    },
+                    btn2: function (index) {
+                        layer.close(index)
+                    }
+                })
             })
         }
         /** 修改初始密码 */
@@ -404,11 +389,11 @@ var customer_manage = {
                         type: 1,
                         title: '修改初始密码',
                         content: "<div id='changeModal'>" +
-                        "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>原密码:<input type='text' id='old_password' /></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>新密码:<input type='text' id='new_password' placeholder='至少6位'/></p>" +
-                        "</div>" +
-                        "</div>",
+                            "<div style='text-align: center;padding-top: 10px;'>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>原密码:<input type='text' id='old_password' /></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>新密码:<input type='text' id='new_password' placeholder='至少6位'/></p>" +
+                            "</div>" +
+                            "</div>",
                         area: ['350px', '200px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '55%'],

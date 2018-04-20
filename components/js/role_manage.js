@@ -12,6 +12,8 @@ var role_manage = {
     /** 当前总记录数,用户控制全选逻辑 */
     , pageSize: 0
 
+    , operationsLength: $.get(home.urls.role.getAllOperations(), function (result) { return result.data.length })
+
     /** 逻辑方法 */
     , funcs: {
         /** 渲染页面 */
@@ -303,16 +305,22 @@ var role_manage = {
         , bindEditLimitListener: function (limitBtns) {
             limitBtns.off('click')
             limitBtns.on('click', function () {
+                $('#right_body_table').empty()
                 var _selfBtn = $(this)
                 var roleCode = _selfBtn.attr('id').substr(6)
                 var operations = []
+                $('#right_body_table').append(
+                    "<tr style='background:#F2F2F2'>" +
+                    "<td style='text-align: center'>导航名称</td>" +
+                    "<td style='text-align: center'>选择</td><td>" +
+                    "</td></tr>"
+                )
                 $.get(home.urls.role.getAllOperations(), function (op) {
                     operations = op.data
-                    console.log(operations)
                     $.post(home.urls.role.getByCode(), { code: roleCode }, function (result) {
                         var models = result.data.models
                         models.sort(function (a, b) {
-                            return (a.menu2.code - b.menu2.code) && (a.code - b.code)
+                            return a.code - b.code
                         })
                         var flag1 = models[0].menu1.code
                         var flag2 = models[0].menu2.code
@@ -339,23 +347,51 @@ var role_manage = {
                                 "<tr id='model_" + (e.code) + "' class='the_models'><td>" +
                                 "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
                                 "<span>" + (e.name) + "</span>" +
-                                "<td style='text-align: center'><input class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
+                                "<td style='text-align: center'><input id='all_operations_" + (e.code) + "' class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
                                 "</td><td id='add_operation_" + (e.code) + "'>" +
                                 "</td></tr>"
                             )
                             operations.forEach(function (ele) {
                                 $('#add_operation_' + e.code).append(
-                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input id='the_operation_" + (e.code) + "' class='a_operation' type='checkbox' value='" + (ele.code) + "'/>&nbsp;" + (ele.name) + ""
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input class='a_operation' type='checkbox' value='" + (ele.code) + "'/>&nbsp;" + (ele.name) + ""
                                 )
                             })
-                            
                             var the_operations = e.operations
-                            the_operations = operations
-                            the_operations.forEach(function (e) {
-                                $('#the_operation_'+e.code).attr('chencked',true)
-                            })
-                            
+                            if (the_operations != null) {
+                                the_operations.forEach(function (a_op) {
+                                    $('#add_operation_' + e.code).children("[value= " + (a_op.code) + "]").prop('checked', true)
+                                })
+                                if (the_operations.length == operations.length) {
+                                    $('#all_operations_' + e.code).prop('checked', true)
+                                }
+                            }
+
                         })
+
+                        /** 全选权限框 */
+                        $('.all_operations').on('change', function () {
+                            var _selfBtn = $(this)
+                            var status = _selfBtn.prop('checked')
+                            var model = _selfBtn.val()
+                            $('#add_operation_' + model).children().prop('checked', status)
+                        })
+                        /** 单选权限框 */
+                        $('.a_operation').on('change', function () {
+                            var _selfBtn = $(this)
+                            var statusNow = _selfBtn.prop('checked')
+                            var model = _selfBtn.parent().attr('id').substr(14)
+                            var op_num = 0
+                            $('#add_operation_' + model).children().each(function () {
+                                if ($(this).prop('checked'))
+                                    op_num++
+                            })
+                            if (statusNow === false) {
+                                $('#all_operations_' + model).prop('checked', false)
+                            } else if (statusNow === true && op_num === operations.length) {
+                                $('#all_operations_' + model).prop('checked', true)
+                            }
+                        })
+
                         layer.open({
                             type: 1,
                             content: $('#right_body'),
@@ -367,7 +403,9 @@ var role_manage = {
                                 var RoleModelOperations = []
                                 $('.the_models').each(function () {
                                     var model = $(this).attr('id').substr(6)
-
+                                    $('.a_operation:checked').each(function () {
+                                        RoleModelOperations.push({ roleCode: roleCode, modelCode: model, operationCode: $(this).val() })
+                                    })
                                 })
                                 $.ajax({
                                     url: home.urls.role.updateRoleModelOperations(),
@@ -377,7 +415,10 @@ var role_manage = {
                                     type: 'post',
                                     success: function (result) {
                                         if (result.code === 0) {
-
+                                            layer.msg(result.message, {
+                                                offset: ['40%', '55%'],
+                                                time: 700
+                                            })
                                         }
                                     }
                                 })
@@ -391,22 +432,6 @@ var role_manage = {
                         })
                     })
                 })
-
-                var selectAllOperations = $('.all_operations')
-                var addTheOperation = $('#the_operation')
-                role_manage.funcs.bindSelectAllOperations(addTheOperation, selectAllOperations)
-            })
-        }
-        /** 全选权限框 */
-        , bindSelectAllOperations: function (addTheOperation, selectAllOperations) {
-            addTheOperation.off('change')
-            addTheOperation.on('change', function () {
-                var statusNow = $(this).prop('checked')
-                if (statusNow === false) {
-                    selectAllOperations.prop('checked', false)
-                } else if (statusNow === true && $('.role_checkbox:checked').length === role_manage.operations.length) {
-                    selectAllOperations.prop('checked', true)
-                }
             })
         }
 

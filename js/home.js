@@ -304,6 +304,9 @@ var home = {
             },
             updateRoles: function () {
                 return servers.backup() + 'user/updateRoles'
+            },
+            resetAllDefaultPassword: function () {
+                return servers.backup() + 'user/resetAllDefaultPassword'
             }
         },
         customer: {
@@ -345,6 +348,9 @@ var home = {
             },
             getAllSuppliers: function () {
                 return servers.backup() + 'customer/getAllSuppliers'
+            },
+            resetAllDefaultPassword: function () {
+                return servers.backup() + 'customer/resetAllDefaultPassword'
             }
         },
         manufacturer: {
