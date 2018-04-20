@@ -216,7 +216,7 @@ var product_audit = {
                                     console.log("审核失败" + result.message);
                                     layer.open({
                                         type: 1,
-                                        content: "<div class='text--align-center'" + "失败<br>" + result.message + "</div>",
+                                        content: "<div class='align_middle'>" + "失败<br>" + result.message + "</div>",
                                         area: ['280px', '180px'],
                                         btn: ['关闭'],
                                         offset: 'auto', // ['43%', '49%'],
@@ -251,7 +251,7 @@ var product_audit = {
                         content: product_audit.funcs.getData(product),
                         area: ['530px', '700px'],
                         btn: ['关闭'],
-                        offset: ['10%', '40%'],
+                        offset: 'auto',   // ['10%', '40%'],
                         btnAlign: 'c',
                         yes: function (index) {
                             layer.close(index);
