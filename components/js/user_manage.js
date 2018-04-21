@@ -9,7 +9,7 @@ var user_manage = {
             clearTimeout(time)
         }, 30)
     }//$init end$
-    , the_departmentcode : '001'
+    , the_departmentcode: '001'
     /** 当前总记录数,用户控制全选逻辑 */
     , pageSize: 0
 
@@ -23,13 +23,13 @@ var user_manage = {
                 $ul.append(
                     "<li style='background: #666666; color :white;'>部门</li>"
                 )
-              
+
                 departments.forEach(function (e) {
                     $ul.append(
                         "<li class='setdepartment' id='setdepart-" + (e.code) + "'>" + (e.name) + "</li>"
                     )
                 })
-               $($('.setdepartment')[0]).addClass('selected_department').css('color',' #ffffff')
+                $($('.setdepartment')[0]).addClass('selected_department').css('color', ' #ffffff')
                 var set_department = $('.setdepartment')
                 user_manage.funcs.changeDepart(set_department)
             })
@@ -37,18 +37,14 @@ var user_manage = {
         /** 选择部门 */
         , changeDepart: function (set_department) {
             set_department.off('click')
-            
             set_department.on('click', function () {
-                console.log($(this).attr('style'))  
                 var _self = $(this)
-                
-                $('.setdepartment').removeClass('selected_department').css('color','')
-                 _self.addClass('selected_department').css('color','#ffffff')
-               
+                $('.setdepartment').removeClass('selected_department').css('color', '')
+                _self.addClass('selected_department').css('color', '#ffffff')
+
                 var id_name = $(this).attr('id')
-                var new_id = '#'+id_name
+                var new_id = '#' + id_name
                 user_manage.the_departmentcode = id_name.substr(10)
-               
                 user_manage.funcs.department_Set()
             })
             user_manage.funcs.department_Set()
@@ -71,7 +67,7 @@ var user_manage = {
                     , count: 10 * page.totalPages//数据总数
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
-                        if(!first) {
+                        if (!first) {
                             $.post(home.urls.user.getByDepartmentCodeByPage(), {
                                 departmentCode: user_manage.the_departmentcode,
                                 page: obj.curr - 1,
@@ -119,7 +115,7 @@ var user_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>描述说明:<input type='text' id='user_description'/></p>" +
                         "</div>" +
                         "</div>",
-                    area: ['350px', '300px'],
+                    area: ['350px', '260px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
                     yes: function (index) {
@@ -179,8 +175,8 @@ var user_manage = {
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                console.log()
-                                user_manage.funcs.department_Set()
+                                    console.log()
+                                    user_manage.funcs.department_Set()
                                     clearTimeout(time)
                                 }, 500)
                             }
@@ -363,53 +359,37 @@ var user_manage = {
         , bindResetEventListener: function (resetBtns) {
             resetBtns.off('click')
             resetBtns.on('click', function () {
-                if ($('.user_checkbox:checked').length === 0) {
-                    layer.msg('亲,您还没有选中任何数据！', {
-                        offset: ['40%', '55%'],
-                        time: 700
-                    })
-                } else {
-                    layer.open({
-                        type: 1,
-                        title: '重置密码',
-                        content: "<h5 style='text-align: center;padding-top: 8px'>确认要重置密码吗?</h5>",
-                        area: ['190px', '130px'],
-                        btn: ['确认', '取消'],
-                        offset: ['40%', '55%'],
-                        yes: function (index) {
-                            var userCodes = []
-                            $('.user_checkbox').each(function () {
-                                if ($(this).prop('checked')) {
-                                    userCodes.push({ code: $(this).val() })
+                layer.open({
+                    type: 1,
+                    title: '重置密码',
+                    content: "<h5 style='text-align: center;padding-top: 8px'>确认要重置密码吗?</h5>",
+                    area: ['190px', '130px'],
+                    btn: ['确认', '取消'],
+                    offset: ['40%', '55%'],
+                    yes: function (index) {
+                        $.ajax({
+                            url: home.urls.user.resetAllDefaultPassword(),
+                            data: {},
+                            type: 'post',
+                            success: function (result) {
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        user_manage.funcs.department_Set()
+                                        clearTimeout(time)
+                                    }, 500)
                                 }
-                            })
-                            console.log(userCodes)
-                            $.ajax({
-                                url: home.urls.user.resetPassword(),
-                                contentType: 'application/json',
-                                data: JSON.stringify(userCodes),
-                                dataType: 'json',
-                                type: 'post',
-                                success: function (result) {
-                                    if (result.code === 0) {
-                                        var time = setTimeout(function () {
-                                            user_manage.funcs.department_Set()
-                                            clearTimeout(time)
-                                        }, 500)
-                                    }
-                                    layer.msg(result.message, {
-                                        offset: ['40%', '55%'],
-                                        time: 700
-                                    })
-                                }
-                            })
-                            layer.close(index)
-                        },
-                        btn2: function (index) {
-                            layer.close(index)
-                        }
-                    })
-                }
+                                layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
+                                })
+                            }
+                        })
+                        layer.close(index)
+                    },
+                    btn2: function (index) {
+                        layer.close(index)
+                    }
+                })
             })
         }
         /** 修改初始密码 */
@@ -490,11 +470,11 @@ var user_manage = {
                     "<td>" + (e.department.name) + "</td>" +
                     "<td>" + (e.contact) + "</td>" +
                     "<td><input type='checkbox' class='if_checkbox'" + str + " value='" + (e.code) + "'></td>" +
-                    "<td><a href='#' class='editdepart' id='depart-" + (e.code) + "'><i class='layui-icon'>&#xe620;</i></a></td>" +
-                    "<td><a href='#' class='editrole' id='role-" + (e.code) + "'><i class='layui-icon'>&#xe620;</i></a></td>" +
-                    "<td><a href='#' class='editic' id='ic-" + (e.code) + "'><i class='layui-icon'>&#xe620;</i></a></td>" +
+                    "<td><a href='#' class='editdepart' id='depart-" + (e.code) + "'><i class='fa fa-window-restore' aria-hidden='true'></i></a></td>" +
+                    "<td><a href='#' class='editrole' id='role-" + (e.code) + "'><i class='fa fa-user' aria-hidden='true'></i></a></td>" +
+                    "<td><a href='#' class='editic' id='ic-" + (e.code) + "'><i class='fa fa-credit-card' aria-hidden='true'></i></a></td>" +
                     "<td><a href='#' class='edituser' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='deleteuser' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                    "<td><a href='#' class='deleteuser' id='de-" + (e.code) + "'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
                     "</tr>")
             })//$数据渲染完毕
             var departBtns = $('.editdepart')
@@ -567,10 +547,10 @@ var user_manage = {
                     type: 1,
                     title: '设置部门',
                     content: "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<select id='set_depart' style='padding: 3px 33px;'>" +
+                        "<select id='set_depart' style='padding: 5px 33px; margin-top: 20px;'>" +
                         "</select>" +
                         "</div>",
-                    area: ['350px', '200px'],
+                    area: ['350px', '180px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
                     yes: function (index) {
@@ -615,21 +595,99 @@ var user_manage = {
                 layer.open({
                     type: 1,
                     title: '设置角色',
-                    content: "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<select style='padding: 3px 10px 3px 10px;'></select>" +
-                        "</div>",
-                    area: ['350px', '200px'],
+                    content: $('#setRole_body'),
+                    area: ['700px', '550px'],
                     btn: ['确认', '取消'],
-                    offset: ['40%', '45%'],
+                    closeBtn: 0,
+                    offset: ['20%', '35%'],
                     yes: function (index) {
-
+                        var rolecodes = new Array()
+                        $('.right_role').each(function () {
+                            rolecodes.push($(this).val())
+                        })
+                        $.ajax({
+                            url: home.urls.user.updateRoles(),
+                            data: {
+                                code: userCode,
+                                roleCode: rolecodes
+                            },
+                            type: 'post',
+                            traditional: true,
+                            success: function (result) {
+                                layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
+                                })
+                            }
+                        })
+                        layer.close(index)
+                        $("#setRole_body").css('display', 'none')
                     },
                     btn2: function (index) {
                         layer.close(index)
+                        $("#setRole_body").css('display', 'none')
                     }
-                });
+                })
+                $.post(home.urls.user.getByCode(), { code: userCode }, function (result) {
+                    var haveroles = result.data.roles
+                    var roles_code = []
+                    $('#have_role').empty()
+                    haveroles.forEach(function (e) {
+                        $('#have_role').append(
+                            "<li id='right_role_" + (e.code) + "' class='roles'>" + (e.name) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='right_role' value='" + (e.code) + "' type='checkbox' /></li>"
+                        )
+                        roles_code.push(e.code)
+                    })
+                    $.get(home.urls.role.getAll(), function (un_result) {
+                        var unroles = un_result.data
+                        $('#un_role').empty()
+                        unroles.forEach(function (e) {
+                            $('#un_role').append(
+                                "<li id='left_role_" + (e.code) + "' class='roles'>" + (e.name) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='left_role' value='" + (e.code) + "' type='checkbox' /></li>"
+                            )
+                        })
+                        for (var i = 0; i < roles_code.length; i++) {
+                            $('#' + 'left_role_' + roles_code[i]).remove()
+                        }
+                    })
+                })
+                var addRolesBtn = $("#add_roles")
+                var deleteRolesBtn = $("#delete_roles")
+                user_manage.funcs.bindAddRolesListener(addRolesBtn) //追加增加角色事件
+                user_manage.funcs.bindDeleteRolesListener(deleteRolesBtn) //追加删除角色事件
             })
         }
+        , bindAddRolesListener: function (addRolesBtn) {
+            addRolesBtn.off('click')
+            addRolesBtn.on('click', function () {
+                $('.left_role').each(function () {
+                    if ($(this).prop('checked')) {
+                        var the_value = $(this).val()
+                        var the_name = $('#left_role_' + the_value).text()
+                        $('#have_role').append(
+                            "<li id='right_role_" + the_value + "' class='roles'>" + the_name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='right_role' value='" + the_value + "' type='checkbox' /></li>"
+                        )
+                        $('#left_role_' + the_value).remove()
+                    }
+                })
+            })
+        }
+        , bindDeleteRolesListener: function (deleteRolesBtn) {
+            deleteRolesBtn.off('click')
+            deleteRolesBtn.on('click', function () {
+                $('.right_role').each(function () {
+                    if ($(this).prop('checked')) {
+                        var the_value = $(this).val()
+                        var the_name = $('#right_role_' + the_value).text()
+                        $('#un_role').append(
+                            "<li id='left_role_" + the_value + "' class='roles'>" + the_name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='left_role' value='" + the_value + "' type='checkbox' /></li>"
+                        )
+                        $('#right_role_' + the_value).remove()
+                    }
+                })
+            })
+        }
+
         /** 设置IC卡 */
         , bindIcEventListener: function (icBtns) {
             icBtns.off('click')
@@ -641,20 +699,17 @@ var user_manage = {
                     var str1, str2
                     if (user.enableIc == 1)
                         str1 = "checked='checked'"
-                    else
-                        // str2 = "disabled='disabled'"
+                    // str2 = "disabled='disabled'"
                     layer.open({
                         type: 1,
                         content: "<div style='text-align: center;padding-top: 10px;'>" +
                             "<p stylr='padding: 5px 0px 5px 0px;'>启用IC卡登录:<input type='checkbox' id='ic_checkbox' " + str1 + "/></p>" +
                             "<p style='padding: 5px 0px 5px 0px;'>卡号:<input type='text' id='ic_num' disabled/></p>" +
                             "</div>",
-                        area: ['350px', '250px'],
+                        area: ['350px', '180px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '45%'],
                         yes: function (index) {
-                            var ic_ifcheck = $('#ic_checkbox')
-                            user_manage.funcs.icIfcheck(ic_ifcheck)
                             var enableIc = (($('#ic_checkbox').prop('checked')) ? 1 : 0)
                             var inteCircCard = $('#ic_num').val()
                             $.post(home.urls.user.updateInteCircCard(), {
@@ -679,26 +734,17 @@ var user_manage = {
                             layer.close(index)
                         }
                     })
-                    $('#ic_checkbox').prop('checked') ? (function(){$('#ic_num').attr('disabled', false)})():(function(){
+                    $('#ic_checkbox').prop('checked') ? (function () { $('#ic_num').attr('disabled', false) })() : (function () {
                         console.log('因为checked为false,所以将其设置为黑色')
                         console.log($('#ic_num').attr('disabled'))
                         $('#ic_num').attr('disabled', true)
                     })()
-                    
-                    $('#ic_checkbox').on('change', function() {
+
+                    $('#ic_checkbox').on('change', function () {
                         var status = $('#ic_checkbox').prop('checked')
-                        !status ?  (function(){$('#ic_num').attr('disabled', true)})() : (function(){$('#ic_num').attr('disabled', false)})()
+                        !status ? (function () { $('#ic_num').attr('disabled', true) })() : (function () { $('#ic_num').attr('disabled', false) })()
                     })
                 })
-            })
-        }
-        ,icIfcheck: function(ic_ifcheck) {
-            ic_ifcheck.off('change')
-            ic_ifcheck.on('change', function() {
-                alert(111)
-                if(ic_ifcheck.prop('checked'))
-                    $('#ic_num').attr("disabled",false)
-                $('#ic_num').attr("disabled",true)
             })
         }
     }

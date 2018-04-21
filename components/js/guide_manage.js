@@ -279,9 +279,6 @@ var guide_manage = {
                     yes: function (index) {
                         $.get(home.urls.guideHeader.getAll(), {}, function (result) {
                             var guides = result.data 
-                            document.getElementById('show').innerHTML = data;
-
-
 
 
                             if (result.code === 0) {

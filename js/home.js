@@ -1,10 +1,10 @@
 var home = {
     urls: {
         energyMonitor: {
-            loadWaiguixianData: function () {
+            load24HoursData: function () {
                 return servers.backup() + 'energyReadData/getByInoAndCurDateTime'
             },
-            loadKongzhishiData: function () {
+            loadFenshiduibiData: function () {
                 return servers.backup() + 'energyReadData/getByInoAndStartDateTimeAndEndDateTime'
             }
         },
@@ -79,7 +79,28 @@ var home = {
             },
             updateExam: function () {
                 return servers.backup() + 'reviewprocess/updateExam'
+            }
+        },
+        check: {
+            getAllByPage: function () {
+                return servers.backup() + 'check/getAllByPage'
             },
+            add: function () {
+                return servers.backup() + 'check/add'
+            },
+            update: function () {
+                return servers.backup() + 'check/update'
+            },
+            getByCode: function () {
+                return servers.backup() + 'check/getByCode'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'check/deleteByCode'
+            },
+            getAllByLikeNameByPage: function () {
+                return servers.backup() + 'check/getAllByLikeNameByPage'
+            },
+
         },
         department: {
             getAllByPage: function () {
@@ -128,53 +149,6 @@ var home = {
             },
             deleteByBatchCode: function () {
                 return servers.backup() + 'material/deleteByBatchCode'
-            },
-        },
-        user: {
-            add: function () {
-                return servers.backup() + 'user/add'
-            },
-            update: function () {
-                return servers.backup() + 'user/update'
-            },
-            deleteByCode: function () {
-                return servers.backup() + 'user/deleteByCode'
-            },
-            getByCode: function () {
-                return servers.backup() + 'user/getByCode'
-            },
-            getAll: function () {
-                return servers.backup() + 'user/getAll'
-            },
-            getAllByPage: function () {
-                return servers.backup() + 'user/getAllByPage'
-            },
-            getAllByLikeNameByPage: function () {
-                return servers.backup() + 'user/getAllLikeByNameByPage'
-            },
-            updateEnable: function () {
-                return servers.backup() + 'user/updateEnable'
-            },
-            updateDepartmentCode: function () {
-                return servers.backup() + 'user/updateDepartmentCode'
-            },
-            updateInteCircCard: function () {
-                return servers.backup() + 'user/updateInteCircCard'
-            },
-            resetPassword: function () {
-                return servers.backup() + 'user/resetPassword'
-            },
-            updatePassword: function () {
-                return servers.backup() + 'user/updatePassword'
-            },
-            login: function () {
-                return servers.backup() + 'user/login'
-            },
-            loginByInteCircCard: function () {
-                return servers.backup() + 'user/loginByInteCircCard'
-            },
-            getAll: function () {
-                return servers.backup() + 'user/getAll'
             }
         },
         monitor_online: {
@@ -275,8 +249,11 @@ var home = {
             getAllByPage: function () {
                 return servers.backup() + 'role/getAllByPage'
             },
-            getAllModel: function () {
-                return servers.backup() + 'model/getAll'
+            updateRoleModelOperations: function () {
+                return servers.backup() + 'role/updateRoleModelOperations'
+            },
+            getAllOperations: function () {
+                return servers.backup() + 'operation/getAll'
             }
         },
         user: {
@@ -327,6 +304,12 @@ var home = {
             },
             getByDepartmentCodeByPage: function () {
                 return servers.backup() + 'user/getByDepartmentCodeByPage'
+            },
+            updateRoles: function () {
+                return servers.backup() + 'user/updateRoles'
+            },
+            resetAllDefaultPassword: function () {
+                return servers.backup() + 'user/resetAllDefaultPassword'
             }
         },
         customer: {
@@ -368,6 +351,9 @@ var home = {
             },
             getAllSuppliers: function () {
                 return servers.backup() + 'customer/getAllSuppliers'
+            },
+            resetAllDefaultPassword: function () {
+                return servers.backup() + 'customer/resetAllDefaultPassword'
             }
         },
         manufacturer: {
@@ -793,7 +779,7 @@ var home = {
             updatePublishByCode: function () {
                 return servers.backup() + 'product/updatePublishByCode'
             },
-            updateAuditByCodeL: function () {
+            updateAuditByCode: function () {
                 return servers.backup() + 'product/updateAuditByCode'
             },
             getByCode: function () {
@@ -808,12 +794,33 @@ var home = {
             getByLikeBatchNumberByPage: function () {
                 return servers.backup() + 'product/getByLikeBatchNumberByPage'
             }
+        },
+        presoma:{
+            // 金弛622 前驱体
+            updatePublishByCode: function () {
+                return servers.backup() + 'rawPresoma/updatePublishByCode'
+            },
+            updateAuditByCodeL: function () {
+                return servers.backup() + 'rawPresoma/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'rawPresoma/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'rawPresoma/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'rawPresoma/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'rawPresoma/getByLikeBatchNumberByPage'
+            }
         }
     }
     /** start */
-    , menu3Clicks: null
-    , menu2Clicks: null
-    , menu1Clicks: null
+    , menu3Clicks: null  //所有的一级菜单点击栏
+    , menu2Clicks: null  //所有的二级菜单点击栏
+    , menu1Clicks: null  //所有的三级菜单点击栏
     , menu3s: []
     , menu2s: []
     , menu1s: []
@@ -851,9 +858,6 @@ var home = {
      * @hides 代表所有三级菜单点击后显示的内容的id
      */
     , init: function (userJson, menu1Wrapper, menu2Wrapper) {
-        var selectedMenu1 = localStorage.getItem('selectedMenu1') || 1   //选中的一级菜单ID 默认为1
-        var selectedMenu2 = localStorage.getItem('selectedMenu2') || null //选中的二级菜单ID
-        var selectedMenu3 = localStorage.getItem('selectedMenu3') || null  //选中三级菜单ID
         /** 头像显示事件绑定 */
         home.funcs.bindClickEventForAvatar($('#user-info-hover'), $("#hover-body"))
         home.menu1Wrapper = menu1Wrapper
@@ -866,7 +870,7 @@ var home = {
         var menu1codes = []//用户一级菜单去重
         var menu2codes = []//用于二级菜单去重
 
-        /** 遍历用户的角色,从何获取一二三级菜单 */
+        /** 遍历用户的角色,从何获取一二三级菜单,填充home.menu1s,home.menu2s,home.menu3s */
         roles.forEach(function (element) {//遍历所有roles
             /**遍历用户的三级菜单*/
             element.models.forEach(function (ele) {
@@ -886,31 +890,39 @@ var home = {
             })
         })
         /** $$$ 此处已经获取到用户的所有的一级菜单，二级菜单，三级菜单,分别存储在数组munu1s, menu2s, models中,无重复 $$$*/
-        /** 给一级菜单进行排序 */
+        /** 给一级菜单进行排序,通过一级菜单的rank进行排序 */
         home.menu1s.sort(function (a, b) {
             return a.rank - b.rank
         })
 
         /** 遍历一级菜单,然后给一级菜单的容器填充一级菜单,并且给selected菜单添加样式 */
         home.menu1s.forEach(function (element, index) {
-            home.menu1Wrapper.append("<li id='menu1-li-" + (index + 1) + "'class='menu1-tab-bar'><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
+            home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
         })
+        console.log($(home.menu1Wrapper.children('li')[0]).attr('id').substr(9))
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
+        var selectedMenu1 = localStorage.getItem('selectedMenu1') || $(home.menu1Wrapper.children('li')[0]).attr('id').substr(9)   //选中的一级菜单ID 默认为1
+        var selectedMenu2 = localStorage.getItem('selectedMenu2') || null //选中的二级菜单ID
+        var selectedMenu3 = localStorage.getItem('selectedMenu3') || null  //选中三级菜单ID
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
+        /** ########这里是记录123级菜单的关键,########*/
 
         /** 给选中的一级菜单追加默认selected类标签,也就是默认样式 */
         $('#menu1-li-' + selectedMenu1).addClass('li-selected')
         home.menu1Clicks = home.menu1Wrapper.children('.menu1-tab-bar')
-
         /** 绑定一级菜单点击事件 */
         home.funcs.bindClickForMenu1s()
-
         /** 给selected状态的一级菜单设置默认状态,包括填充2级菜单、给其所有的二级菜单追加三级菜单和绑定事件*/
-        var selectedMenu1Code = selectedMenu1
+        var selectedMenu1Code = $('.li-selected').attr('id').substr(9)
         /**获取selected状态的一级菜单的二级菜单*/
         var menu2ToSelected = home.funcs.getMenu2ListByMenu1Code(selectedMenu1Code)
-
         /** 填充二级菜单并且携带3级菜单 */
         home.funcs.appendMenu2sToWrapperAndCarryModels(menu2ToSelected)
-
 
         /** 绑定退出登录时间 */
         var $exit = $('#exit')
@@ -947,7 +959,7 @@ var home = {
         /** 通过一级菜单的code获取其下的所有二级菜单 */
         getMenu2ListByMenu1Code: function (selectedMenu1Code) {
             var menu2ToMenu1 = home.menu2s.filter(function (ele) {
-                return ele.menu1.rank == selectedMenu1Code
+                return ele.menu1.code == selectedMenu1Code
             })
             menu2ToMenu1.sort(function (a, b) {
                 return a.rank - b.rank
@@ -1012,82 +1024,91 @@ var home = {
                     switch (signal) {
                         case 5 :
                             (function () {
+                                /** 页面重新加载的时候会立马加载数据，然后开启interval */
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
                                         home.funcs.render0()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 6 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
                                         home.funcs.render1()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 7 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
                                         home.funcs.render2()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 8 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
                                         home.funcs.render3()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 9 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
                                         home.funcs.render4()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 10 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
                                         home.funcs.render5()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 11 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
                                         home.funcs.render6()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                         case 12 :
                             (function () {
+                                home.funcs.renderHandler(signal)
                                 home.realdata_interval.push(setInterval(function () {
                                     $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                                         home.funcs.storeData(result)
                                         home.funcs.render7()
                                     })
-                                }, 1000))
+                                }, 3000))
                             })();
                             break;
                     }
@@ -1172,8 +1193,6 @@ var home = {
 
         /** 三级菜单点击事件 */
         , addModelClickEvent: function () {
-            // console.log('点击二级菜单之后就会给对应的三级菜单绑定点击事件')
-            // console.log('每次点击都要先remove分页组件')
             $('.layui-laypage').remove()
             home.menu3Clicks.off('click')
             /** 首先加载展示层页面 */
@@ -1196,7 +1215,7 @@ var home = {
             /** -------------------------------------------------------------------------------------*/
             /** 此处是在线监视模块所需内容,其他开发模块清忽略此内容 */
             if ($(home.menu3Clicks[0]).attr('id').substr(9) == 5) {
-                //如果说当前二级菜单的第一个三级菜单的id对应的是5,那么就给他们一次绑定点击事件
+                /** 如果说当前二级菜单的第一个三级菜单的id对应的是5,那么就给他们一次绑定点击事件 */
                 // console.log('因为menu3Clicks中刚好是在线监视的所有3级菜单模块,所以会在这一块加载数据')
                 $(home.menu3Clicks[0]).on('click', function () {
                     // console.log('点击3级菜单的时候会先清除load-real-data事件,然后再添加load-real-data事件')
@@ -1304,67 +1323,72 @@ var home = {
                 return ele.weihao.indexOf('BFS') !== -1
             })
         }
+        , renderHandler: function (signal) {
+            $.get(home.urls.monitor_online.loadData(), {}, function (result) {
+                home.funcs.storeData(result)
+                /** 开始打印数据 */
+                // console.log("signal", signal)
+                switch (signal) {
+                    case 0 :
+                        (function () {
+                            home.funcs.render0()
+                        })();
+                        break;
+
+                    case 1:
+                        (function () {
+                            home.funcs.render1()
+                        })();
+                        break;
+
+                    case 2 :
+                        (function () {
+                            home.funcs.render2()
+                        })();
+                        break;
+
+                    case 3 :
+                        (function () {
+                            home.funcs.render3()
+                        })();
+                        break;
+                    case 4 :
+                        (function () {
+                            home.funcs.render4()
+                        })();
+                        break;
+                    case 5 :
+                        (function () {
+                            home.funcs.render5()
+                        })();
+                        break;
+                    case 6 :
+                        (function () {
+                            home.funcs.render6()
+                        })();
+                        break;
+                    case 7 :
+                        (function () {
+                            home.funcs.render7()
+                        })();
+                        break;
+                }
+                /** 可以在此处打印home.WI1s或其他域 */
+            })
+        }
         , loadRealData: function (signal) {
+            home.funcs.renderHandler(signal)
+            /** 在开启定时之前,必须要先加载一次 */
             home.realdata_interval.push(setInterval(function () {
-                $.get(home.urls.monitor_online.loadData(), {}, function (result) {
-                    home.funcs.storeData(result)
-                    /** 开始打印数据 */
-                    // console.log("signal", signal)
-                    switch (signal) {
-                        case 0 :
-                            (function () {
-                                home.funcs.render0()
-                            })();
-                            break;
-
-                        case 1:
-                            (function () {
-                                home.funcs.render1()
-                            })();
-                            break;
-
-                        case 2 :
-                            (function () {
-                                home.funcs.render2()
-                            })();
-                            break;
-
-                        case 3 :
-                            (function () {
-                                home.funcs.render3()
-                            })();
-                            break;
-                        case 4 :
-                            (function () {
-                                home.funcs.render4()
-                            })();
-                            break;
-                        case 5 :
-                            (function () {
-                                home.funcs.render5()
-                            })();
-                            break;
-                        case 6 :
-                            (function () {
-                                home.funcs.render6()
-                            })();
-                            break;
-                        case 7 :
-                            (function () {
-                                home.funcs.render7()
-                            })();
-                            break;
-                    }
-                    /** 可以在此处打印home.WI1s或其他域 */
-                })
-            }, 1000))
+                home.funcs.renderHandler(signal)
+            }, 3000))
         }
         , render0: function () {
-            $("#TI_1001_T")[0] && (function(){$("#TI_1001_T")[0].innerHTML = home.TI1s[0].value})()
-            $("#TI_1001_R")[0] && (function(){$("#TI_1001_R")[0].innerHTML = home.RI1s[0].value})()
+            console.log($("#TI_1001_T")[0])
+            $("#TI_1001_T")[0].innerHTML = home.TI1s[0].value
+            $("#TI_1001_R")[0].innerHTML = home.RI1s[0].value
             $("#TI_1002_T")[0].innerHTML = home.TI1s[1].value
             $("#TI_1002_R")[0].innerHTML = home.RI1s[1].value
-
             $("#WI_1001_W")[0].innerHTML = home.WI1s[0].value
             $("#WI_1002_W")[0].innerHTML = home.WI1s[1].value
             $("#WI_1003_W")[0].innerHTML = home.WI1s[2].value
@@ -1374,7 +1398,6 @@ var home = {
             $("#TI_1003_T")[0].innerHTML = home.TI1s[2].value
             $("#TI_1003_R")[0].innerHTML = home.RI1s[2].value
             $("#WI_1007_W")[0].innerHTML = home.WI1s[6].value
-
             $("#41_W136")[0].innerHTML = home._41s[0].value
             $("#41_W148")[0].innerHTML = home._41s[1].value
             $("#41W_W104")[0].innerHTML = home._41s[6].value
@@ -1394,7 +1417,6 @@ var home = {
             $("#TI_1006_R")[0].innerHTML = home.RI1s[5].value
             $("#TI_1005_T")[0].innerHTML = home.TI1s[4].value
             $("#TI_1005_R")[0].innerHTML = home.RI1s[4].value
-
             $("#43_W352_1")[0].innerHTML = home._43s[0].value
             $("#43_W352_2")[0].innerHTML = home._43s[0].value
             $("#43W_W316")[0].innerHTML = home._43s[7].value
