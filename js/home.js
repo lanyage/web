@@ -202,7 +202,10 @@ var home = {
                 return servers.backup() + 'supplyInfo/findByCompany'
             },
             deleteByBatchCode: function () {
-                return servers.backup() + 'supplyInfo//deleteSupplyInfoInBatch'
+                return servers.backup() + 'supplyInfo/deleteSupplyInfoInBatch'
+            },
+            getAllInfo: function () {
+                return servers.backup() + 'supplyInfo/getSupplyInfosByHeadCode'
             }
         },
         firmman: {
