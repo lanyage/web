@@ -61,8 +61,8 @@ var firm_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>公司编号: &nbsp;<input type='text' id='firm_code' value='" + (firmman.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>公司名称: &nbsp;<input type='text' id='firm_name' value='" + (firmman.name) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>信用代码: &nbsp;<input type='text' id='firm_creditCode' value='" + (firmman.creditCode) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>地址: &nbsp; &nbsp; &nbsp; &nbsp;<input type='text' id='firm_address' value='" + (firmman.address) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>联系人: &nbsp; &nbsp; &nbsp;<input type='text' id='firm_person' value='" + (firmman.contactPerson) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>地址:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='firm_address' value='" + (firmman.address) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>联系人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='firm_person' value='" + (firmman.contactPerson) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系电话: &nbsp;<input type='text' id='firm_contact' value='" + (firmman.contact) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>公司类型: &nbsp;<select disabled='disabled' style='width: 150px' id='firm_type' value='" + (firmman.supplierType.code) + "'><option value='"+(firmman.supplierType.code)+"'>"+(firmman.supplierType.type)+"</option> </select></p>" +
                         "</div>" +

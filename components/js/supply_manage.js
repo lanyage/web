@@ -97,8 +97,14 @@ var supply_manage = {
                         var supplyTime = $('#dilivery_time_inp').val()
                         var contact = $('#contact_inp').val()
                         var total = $('#total_inp').val()
-                        $('.addline').each(function() {
+                        var count=0
+                        $('.addline').each(function(e) {
+                            console.log(e,'eeeee')
+                            count++
+                            var scount = $('#provider_body_downtable tr').length
+                            console.log(scount,'count,tr的数目2333333333')
                             var row = $(this)
+                            console.log(row,'row')
                             var valsContainer = row.children('td').children('.provider_input')
                             console.log(valsContainer,'批号')
                             $.post(home.urls.supplyman.add(), {
@@ -127,34 +133,48 @@ var supply_manage = {
                                 layer.close(index)
                                 $("#provider_info").css('display', 'none')
                             })
-
                         })
+                        console.log(count,'此时书')
+                        var newtrcount = $('#provider_body_downtable tr')
+                        console.log(newtrcount,'新的trcount23333')
                     },
                     btn2: function (index) {
                         layer.close(index)
                         $("#provider_info").css('display', 'none')
                     }
                 });
-                $('#add_btn').click(function () {
-                    var addb = $('#addb')
-                    addb = addb.detach()
+               // $('#add_btn').click(function () {
+                    //var addb = $('#addb')
+                    //addb = addb.detach()
+                    //
+                    //add_btn_number += 1
+                    //console.log(add_btn_number, '点击次数')
+                    //var count = $('#provider_body_downtable tr').length
+                    //console.log(count,'count,tr的数目')
+                    //$('#provider_body_downtable').append("<tr id='inputcontent"+ count+"'><td><input class='provider_input'></td>" +
+                    //    "<td style='padding: 0;'><input class='provider_input'></td>" +
+                    //    "<td><input class='provider_input'></td>" +
+                    //    "<td><input class='provider_input'></td>" +
+                    //    "<td>" +
+                    //    "<button type='button' id='close_btn' onclick='javascript:supply_manage.funcs.delTab("+count+")' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
+                    //    " &times;  "
+                    //    + " </button>" + "</td></tr>")
+                    //var count = $('#provider_body_downtable tr').length
 
-                    add_btn_number += 1
-                    console.log(add_btn_number, '点击次数')
-                    var count = $('#provider_body_downtable tr').length
-                    console.log(count,'count,tr的数目')
-                    $('#provider_body_downtable').append("<tr id='inputcontent"+ count+"'><td><input class='provider_input'></td>" +
-                        "<td style='padding: 0;'><input class='provider_input'></td>" +
-                        "<td><input class='provider_input'></td>" +
-                        "<td><input class='provider_input'></td>" +
-                        "<td>" +
-                        "<button type='button' id='close_btn' onclick='javascript:supply_manage.funcs.delTab("+count+")' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
-                        " &times;  "
-                        + " </button>" + "</td></tr>")
+                    //var count = $('#provider_body_downtable tr').length
+                    //console.log(count,'count,tr的数目')
+                    //$('#addb').before("<tr id='inputcontent"+ count+"'><td><input class='provider_input'></td>" +
+                    //            "<td style='padding: 0;'><input class='provider_input'></td>" +
+                    //            "<td><input class='provider_input'></td>" +
+                    //            "<td><input class='provider_input'></td>" +
+                    //            "<td>" +
+                    //            "<button type='button' id='close_btn' onclick='javascript:supply_manage.funcs.delTab("+count+")' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
+                    //            " &times;  "
+                    //            + " </button>" + "</td></tr>")
+                    //console.log(count,'count,新增后tr的数目')
+                    //$("#provider_body_downtable").append(addb)
 
-                    $("#provider_body_downtable").append(addb)
-
-                })
+               // })
                 $('#close_btn').click(function(){
                     $('.addline').remove()
                 })
@@ -163,9 +183,9 @@ var supply_manage = {
             })
         }//$ bindAddEventListener——end$
         /**删除tab*/
-        ,delTab: function(count){
-            $('#inputcontent'+count).remove()
-        }
+        //,delTab: function(count){
+        //    $('#inputcontent'+count).remove()
+        //}
         /**删除 */
         , bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
@@ -206,18 +226,25 @@ var supply_manage = {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var supply_code = $('#supplyman_name_input').val()
-                $.post(home.urls.supplyman.getByCode(), {code: supply_code}, function (result) {
+
+                $.post(home.urls.supplyman.getAllInfo(), {headCode: supply_code}, function (result) {
                     var page = []
-                    page.push(result.data)
+                    console.log(result.data,'resulttttttt')
+                    page = result.data
+
+
+
                     const $tbody = $("#supplier_table").children('tbody')
                     supply_manage.funcs.renderHandler($tbody, page)
+                    const pageNumber = page.length % 10 !== 0 ? parseInt(page.length / 10) + 1 : parseInt(page.length) / 10
+                    console.log(pageNumber)
                     layui.laypage.render({
                         elem: 'supplyman_page'
-                        , count: 10 * 1//数据总数
+                        , count: 10 * pageNumber//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.supplyman.getByCode(), {
-                                    code: supply_code,
+                                $.post(home.urls.supplyman.getAllInfo(), {
+                                    headCode: supply_code,
                                 }, function (result) {
                                     var page = []
                                     page.push(result.data) //获取数据
@@ -275,10 +302,8 @@ var supply_manage = {
                         area: ['190px', '130px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '55%'],
-                        contentType: 'application/json',
                         yes: function (index) {
                             var supplymanCodes = []
-
                             $('.sup_checkbox').each(function () {
                                 if ($(this).prop('checked')) {
                                     supplymanCodes.push({code: $(this).val()})
@@ -320,8 +345,6 @@ var supply_manage = {
                 var _selfBtn = $(this)
                 var supplymanCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.supplyman.getByCode(), {code: supplymanCode}, function (result) {
-                    // console.log(result, '初试结果')
-                    // console.log(result.data.code)
                     var dt = new Date((result.data.header.supplyTime))
                     /** 编辑框默认值*/
                     $('#header_inp').val(result.data.code)
@@ -334,6 +357,7 @@ var supply_manage = {
                     $('#specifications_inp').val(result.data.specifications)
                     $('#number_inp').val(result.data.number)
                     $('#batch_number_inp').val(result.data.batchNumber)
+                    /**初始化新增框*/
                     layer.open({
                         type: 1,
                         title: '编辑',
@@ -388,19 +412,25 @@ var supply_manage = {
                     $('#add_btn').click(function () {
                         var addb = $('#addb')
                         addb = addb.detach()
+
                         add_btn_number += 1
-                        $('#provider_body_downtable').append("<tr><td><input class='provider_input'></td>" +
-                            "<td><input class='provider_input'></td>" +
+                        console.log(add_btn_number, '点击次数')
+                        var count = $('#provider_body_downtable tr').length
+                        console.log(count,'count,tr的数目')
+                        $('#provider_body_downtable').append("<tr id='inputcontent"+ count+"'><td><input class='provider_input'></td>" +
+                            "<td style='padding: 0;'><input class='provider_input'></td>" +
                             "<td><input class='provider_input'></td>" +
                             "<td><input class='provider_input'></td>" +
                             "<td>" +
-                            "<button type='button' id='close_btn' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
+                            "<button type='button' id='close_btn' onclick='javascript:supply_manage.funcs.delTab("+count+")' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
                             " &times;  "
                             + " </button>" + "</td></tr>")
 
-
                         $("#provider_body_downtable").append(addb)
 
+                    })
+                    $('#close_btn').click(function(){
+                        $('.addline').remove()
                     })
                 })
 
@@ -414,20 +444,22 @@ var supply_manage = {
             editBtns.on('click', function () {
                 var _selfBtn = $(this)
                 var supplymanCode = _selfBtn.attr('id').substr(5)
-                $.post(home.urls.supplyman.getByCode(), {code: supplymanCode}, function (result) {
-                    console.log(result,'结果')
-                    var dt = new Date((result.data.header.supplyTime))
+                console.log(supplymanCode,'codeshi啥')
+                $.post(home.urls.supplyman.getAllInfo(), {headCode: supplymanCode}, function (result) {
+                    console.log(result,'结果eeeeee')
+                    var page = result.data[0]
+                    var dt = new Date(page.header.supplyTime)
                     /** 详情框默认值*/
-                    $('#header_inp1').val(result.data.code)
-                    $('#diliverer_inp1').val(result.data.header.customer.name)
+                    $('#header_inp1').val(page.header.code)
+                    $('#diliverer_inp1').val(page.header.customer.name)
                     $('#dilivery_time_inp1').val(dt.toLocaleString())
-                    $('#contact_inp1').val(result.data.header.contact)
-                    $('#total_inp1').val(result.data.header.total)
+                    $('#contact_inp1').val(page.header.contact)
+                    $('#total_inp1').val(page.header.total)
 
-                    $('#name_inp1').val(result.data.name)
-                    $('#specifications_inp1').val(result.data.specifications)
-                    $('#number_inp1').val(result.data.number)
-                    $('#batch_number_inp1').val(result.data.batchNumber)
+                    $('#name_inp1').val(page.name)
+                    $('#specifications_inp1').val(page.specifications)
+                    $('#number_inp1').val(page.number)
+                    $('#batch_number_inp1').val(page.batchNumber)
                     layer.open({
                         type: 1,
                         title: '详情',
@@ -455,14 +487,14 @@ var supply_manage = {
                 var dt = new Date((e.header.supplyTime))
                 $tbody.append(
                     "<tr>" +
-                    "<td><input type='checkbox' class='sup_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + (e.code) + "</td>" +
-                    "<td>" + dt.toLocaleString() + "</td>" +
+                    "<td><input type='checkbox' class='sup_checkbox' value='" + (e.header.code) + "'></td>" +
+                    "<td>" + (e.header.code) + "</td>" +
+                    "<td>" + dt.toLocaleDateString() + "</td>" +
                     "<td>" + (e.header.total) + "</td>" +
                     "<td>" + (e.header.customer.name) + "</td>" +
                     "<td>" + (e.header.contact) + "</td>" +
-                    "<td><a href='#' class='detailSupplyman' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe63c;</i></a></td>" +
-                    "<td><a href='#' class='editSupplyman' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                    "<td><a href='#' class='detailSupplyman' id='edit-" + (e.header.code) + "'><i class='layui-icon'>&#xe63c;</i></a></td>" +
+                    "<td><a href='#' class='editSupplyman' id='edit-" + (e.header.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "<td><a href='#' class='deleteSupplyman' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
                     "</tr>")
             })//$数据渲染完毕

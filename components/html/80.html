@@ -100,8 +100,7 @@
 
                 <tr>
                     <td id="dilivery_time">送货时间</td>
-                    <td id="test" style="width:38%"><input class='provider_input layui-input' id="dilivery_time_inp" type="datetime"
-                                                           placeholder="前端注：年-月-日  时：分：秒"></td>
+                    <td id="test" style="width:38%"><input class='provider_input layui-input' id="dilivery_time_inp" type="datetime"></td>
                     <td id="contact">联系电话</td>
                     <td><input class='provider_input' type="text" id="contact_inp"></td>
                 </tr>
@@ -137,7 +136,7 @@
                 </tr>
                 <tr id="addb">
                     <td colspan="5">
-                        <button id="add_btn"
+                        <button id="add_btn" onclick="addbtn()"
                                 style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
                             +
                         </button>
@@ -161,7 +160,7 @@
                 <tr>
                     <td id="dilivery_time1">送货时间</td>
                     <td id="test1" style="width:38%"><input class='provider_input' disabled="disabled" id="dilivery_time_inp1"
-                                                            type="datetime" placeholder="前端注：年-月-日  时：分：秒"></td>
+                                                            type="datetime"></td>
                     <td id="contact1">联系电话</td>
                     <td><input class='provider_input' disabled="disabled" type="text" id="contact_inp1"></td>
                 </tr>
@@ -205,6 +204,30 @@
                 ,format: 'yyyy/MM/dd'
             });
         });
+    </script>
+    <script>
+        function addbtn(){
+            var count = $('#provider_body_downtable tr').length
+            console.log(count,'count,tr的数目')
+            $('#addb').before("<tr id='inputcontent"+ count+"'><td><input class='provider_input'></td>" +
+                    "<td style='padding: 0;'><input class='provider_input'></td>" +
+                    "<td><input class='provider_input'></td>" +
+                    "<td><input class='provider_input'></td>" +
+                    "<td>" +
+                    "<button type='button' id='close_btn' onclick='delTab("+count+")' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
+                    " &times;  "
+                    + " </button>" + "</td></tr>")
+            console.log(count,'count,新增后tr的数目')
+            $("#provider_body_downtable").append(addb)
+        }
+    </script>
+    <script>
+        function delTab(count){
+            $('#inputcontent'+count).remove()
+        }
+    </script>
+    <script>
+
     </script>
 </div>
 
