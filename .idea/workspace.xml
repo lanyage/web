@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="55faa023-1938-4a7a-af2e-84093ab7b96a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/html/80.html" afterPath="$PROJECT_DIR$/components/html/80.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/js/supply_manage.js" afterPath="$PROJECT_DIR$/components/js/supply_manage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/home.js" afterPath="$PROJECT_DIR$/js/home.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -31,34 +29,33 @@
           <file leaf-file-name="supply_manage.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/components/js/supply_manage.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.4041096">
-                  <caret line="238" column="79" selection-start-line="238" selection-start-column="79" selection-end-line="238" selection-end-column="79" />
+                <state vertical-scroll-proportion="0.52328765">
+                  <caret line="458" column="22" selection-start-line="458" selection-start-column="22" selection-end-line="458" selection-end-column="22" />
                   <folding>
-                    <element signature="n#!!block;n#renderTable#0;n#renderTable#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
-                    <element signature="n#!!block;n#bindAddEventListener#0;n#bindAddEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
                     <element signature="n#!!block;n#bindDeleteEventListener#0;n#bindDeleteEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
+                    <element signature="n#!!block;n#bindSearchEventListener#0;n#bindSearchEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
                     <element signature="n#!!block;n#bindRefreshEventLisener#0;n#bindRefreshEventLisener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
                     <element signature="n#!!block;n#bindSelectAll#0;n#bindSelectAll#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
                     <element signature="n#!!block;n#bindDeleteBatchEventListener#0;n#bindDeleteBatchEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
-                    <element signature="n#!!block;n#bindDetailEventListener#0;n#bindDetailEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
-                    <marker date="1524292460000" expanded="true" signature="7280:7906" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="7362:7373" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="7584:7901" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="7736:7808" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="7809:7891" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="8186:8226" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="8186:8868" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="8276:8287" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="8522:8863" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="8682:8754" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="8755:8853" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="9658:9693" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="14140:14175" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="20305:20945" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="20389:20400" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="20617:20940" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="20771:20843" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="20844:20930" placeholder="..." />
+                    <element signature="n#!!block;n#bindEditEventListener#0;n#bindEditEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
+                    <marker date="1524294340000" expanded="true" signature="7280:7906" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="7362:7373" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="7584:7901" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="7736:7808" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="7809:7891" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="8186:8226" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="8186:8868" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="8276:8287" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="8522:8863" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="8682:8754" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="8755:8853" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="9658:9693" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="14140:14175" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="20143:20783" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="20227:20238" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="20455:20778" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="20609:20681" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="20682:20768" placeholder="..." />
                   </folding>
                 </state>
               </provider>
@@ -82,41 +79,57 @@
             <entry file="file://$PROJECT_DIR$/components/js/supply_manage.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="155" column="61" selection-start-line="155" selection-start-column="61" selection-end-line="155" selection-end-column="61" />
+                  <caret line="305" column="51" selection-start-line="305" selection-start-column="51" selection-end-line="305" selection-end-column="51" />
                   <folding>
                     <element signature="n#!!block;n#renderTable#0;n#renderTable#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
                     <element signature="n#!!block;n#bindDeleteEventListener#0;n#bindDeleteEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
-                    <element signature="n#!!block;n#bindSearchEventListener#0;n#bindSearchEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
                     <element signature="n#!!block;n#bindRefreshEventLisener#0;n#bindRefreshEventLisener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
                     <element signature="n#!!block;n#bindSelectAll#0;n#bindSelectAll#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
-                    <element signature="n#!!block;n#bindDeleteBatchEventListener#0;n#bindDeleteBatchEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
                     <element signature="n#!!block;n#bindEditEventListener#0;n#bindEditEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
-                    <element signature="n#!!block;n#bindDetailEventListener#0;n#bindDetailEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
                     <element signature="n#!!block;n#renderHandler#0;n#renderHandler#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
-                    <marker date="1524292460000" expanded="true" signature="6848:9015" placeholder="{...}" />
-                    <marker date="1524292460000" expanded="true" signature="7280:7906" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="7362:7373" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="7584:7901" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="7736:7808" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="7809:7891" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="9239:9300" placeholder="{...}" />
-                    <marker date="1524292460000" expanded="true" signature="9658:9693" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="14140:14175" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="20305:20945" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="20389:20400" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="20617:20940" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="20771:20843" placeholder="..." />
-                    <marker date="1524292460000" expanded="true" signature="20844:20930" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="7280:7906" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="7362:7373" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="7584:7901" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="7736:7808" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="7809:7891" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="9658:9693" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="14140:14175" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="20143:20783" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="20227:20238" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="20455:20778" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="20609:20681" placeholder="..." />
+                    <marker date="1524294340000" expanded="true" signature="20682:20768" placeholder="..." />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="80.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="department_manage.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/components/js/department_manage.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.4649934">
+                  <caret line="229" column="29" selection-start-line="229" selection-start-column="29" selection-end-line="229" selection-end-column="29" />
+                  <folding>
+                    <marker date="1523431623000" expanded="true" signature="2987:3024" placeholder="..." />
+                    <marker date="1523431623000" expanded="true" signature="3061:3086" placeholder="..." />
+                    <marker date="1523431623000" expanded="true" signature="3166:3191" placeholder="..." />
+                    <marker date="1523431623000" expanded="true" signature="3271:3296" placeholder="..." />
+                    <marker date="1523431623000" expanded="true" signature="5109:5144" placeholder="..." />
+                    <marker date="1523431623000" expanded="true" signature="9664:9699" placeholder="..." />
+                    <marker date="1523431623000" expanded="true" signature="12116:12153" placeholder="..." />
+                    <marker date="1523431623000" expanded="true" signature="12194:12219" placeholder="..." />
+                    <marker date="1523431623000" expanded="true" signature="12337:12362" placeholder="..." />
+                    <marker date="1523431623000" expanded="true" signature="12480:12505" placeholder="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="80.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/components/html/80.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.29745042">
-                  <caret line="64" column="80" selection-start-line="64" selection-start-column="60" selection-end-line="64" selection-end-column="80" />
+                <state vertical-scroll-proportion="-2.3529413">
+                  <caret line="58" column="49" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="49" />
                   <folding>
                     <element signature="n#style#1;n#div#0;n#!!top" expanded="false" />
                     <marker date="1523886000000" expanded="true" signature="8458:9011" placeholder="..." />
@@ -868,12 +881,12 @@
       <workItem from="1523525912761" duration="34498000" />
       <workItem from="1523705600166" duration="723000" />
       <workItem from="1523765634247" duration="21633000" />
-      <workItem from="1523867316725" duration="11688000" />
+      <workItem from="1523867316725" duration="13438000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97848000" />
+    <option name="totallyTimeSpent" value="99598000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="21" y="23" width="1393" height="877" extended-state="0" />
@@ -927,7 +940,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -998,14 +1011,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="946" column="0" selection-start-line="946" selection-start-column="0" selection-end-line="946" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/js/department_manage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="90" column="41" selection-start-line="90" selection-start-column="41" selection-end-line="90" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1134,6 +1139,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1156,6 +1165,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="244" column="0" selection-start-line="244" selection-start-column="0" selection-end-line="244" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1353,10 +1363,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="208" column="13" selection-start-line="208" selection-start-column="13" selection-end-line="208" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/components/html/80.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29745042">
-          <caret line="64" column="80" selection-start-line="64" selection-start-column="60" selection-end-line="64" selection-end-column="80" />
+        <state vertical-scroll-proportion="-2.3529413">
+          <caret line="58" column="49" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="49" />
           <folding>
             <element signature="n#style#1;n#div#0;n#!!top" expanded="false" />
             <marker date="1523886000000" expanded="true" signature="8458:9011" placeholder="..." />
@@ -1368,44 +1386,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/home.js">
+    <entry file="file://$PROJECT_DIR$/components/js/department_manage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="208" column="13" selection-start-line="208" selection-start-column="13" selection-end-line="208" selection-end-column="13" />
-          <folding />
+        <state vertical-scroll-proportion="0.4649934">
+          <caret line="229" column="29" selection-start-line="229" selection-start-column="29" selection-end-line="229" selection-end-column="29" />
+          <folding>
+            <marker date="1523431623000" expanded="true" signature="2987:3024" placeholder="..." />
+            <marker date="1523431623000" expanded="true" signature="3061:3086" placeholder="..." />
+            <marker date="1523431623000" expanded="true" signature="3166:3191" placeholder="..." />
+            <marker date="1523431623000" expanded="true" signature="3271:3296" placeholder="..." />
+            <marker date="1523431623000" expanded="true" signature="5109:5144" placeholder="..." />
+            <marker date="1523431623000" expanded="true" signature="9664:9699" placeholder="..." />
+            <marker date="1523431623000" expanded="true" signature="12116:12153" placeholder="..." />
+            <marker date="1523431623000" expanded="true" signature="12194:12219" placeholder="..." />
+            <marker date="1523431623000" expanded="true" signature="12337:12362" placeholder="..." />
+            <marker date="1523431623000" expanded="true" signature="12480:12505" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/components/js/supply_manage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4041096">
-          <caret line="238" column="79" selection-start-line="238" selection-start-column="79" selection-end-line="238" selection-end-column="79" />
+        <state vertical-scroll-proportion="0.52328765">
+          <caret line="458" column="22" selection-start-line="458" selection-start-column="22" selection-end-line="458" selection-end-column="22" />
           <folding>
-            <element signature="n#!!block;n#renderTable#0;n#renderTable#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#bindAddEventListener#0;n#bindAddEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
             <element signature="n#!!block;n#bindDeleteEventListener#0;n#bindDeleteEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
+            <element signature="n#!!block;n#bindSearchEventListener#0;n#bindSearchEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
             <element signature="n#!!block;n#bindRefreshEventLisener#0;n#bindRefreshEventLisener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
             <element signature="n#!!block;n#bindSelectAll#0;n#bindSelectAll#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
             <element signature="n#!!block;n#bindDeleteBatchEventListener#0;n#bindDeleteBatchEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
-            <element signature="n#!!block;n#bindDetailEventListener#0;n#bindDetailEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
-            <marker date="1524292460000" expanded="true" signature="7280:7906" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="7362:7373" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="7584:7901" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="7736:7808" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="7809:7891" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="8186:8226" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="8186:8868" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="8276:8287" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="8522:8863" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="8682:8754" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="8755:8853" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="9658:9693" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="14140:14175" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="20305:20945" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="20389:20400" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="20617:20940" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="20771:20843" placeholder="..." />
-            <marker date="1524292460000" expanded="true" signature="20844:20930" placeholder="..." />
+            <element signature="n#!!block;n#bindEditEventListener#0;n#bindEditEventListener#0;n#!!block;n#funcs#0;n#!!block;n#supply_manage#0;n#!!top" expanded="false" />
+            <marker date="1524294340000" expanded="true" signature="7280:7906" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="7362:7373" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="7584:7901" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="7736:7808" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="7809:7891" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="8186:8226" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="8186:8868" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="8276:8287" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="8522:8863" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="8682:8754" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="8755:8853" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="9658:9693" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="14140:14175" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="20143:20783" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="20227:20238" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="20455:20778" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="20609:20681" placeholder="..." />
+            <marker date="1524294340000" expanded="true" signature="20682:20768" placeholder="..." />
           </folding>
         </state>
       </provider>

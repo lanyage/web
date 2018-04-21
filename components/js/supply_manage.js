@@ -302,10 +302,8 @@ var supply_manage = {
                         area: ['190px', '130px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '55%'],
-                        contentType: 'application/json',
                         yes: function (index) {
                             var supplymanCodes = []
-
                             $('.sup_checkbox').each(function () {
                                 if ($(this).prop('checked')) {
                                     supplymanCodes.push({code: $(this).val()})
@@ -347,8 +345,6 @@ var supply_manage = {
                 var _selfBtn = $(this)
                 var supplymanCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.supplyman.getByCode(), {code: supplymanCode}, function (result) {
-                    // console.log(result, '初试结果')
-                    // console.log(result.data.code)
                     var dt = new Date((result.data.header.supplyTime))
                     /** 编辑框默认值*/
                     $('#header_inp').val(result.data.code)
@@ -448,20 +444,22 @@ var supply_manage = {
             editBtns.on('click', function () {
                 var _selfBtn = $(this)
                 var supplymanCode = _selfBtn.attr('id').substr(5)
-                $.post(home.urls.supplyman.getByCode(), {code: supplymanCode}, function (result) {
-                    console.log(result,'结果')
-                    var dt = new Date((result.data.header.supplyTime))
+                console.log(supplymanCode,'codeshi啥')
+                $.post(home.urls.supplyman.getAllInfo(), {headCode: supplymanCode}, function (result) {
+                    console.log(result,'结果eeeeee')
+                    var page = result.data[0]
+                    var dt = new Date(page.header.supplyTime)
                     /** 详情框默认值*/
-                    $('#header_inp1').val(result.data.code)
-                    $('#diliverer_inp1').val(result.data.header.customer.name)
+                    $('#header_inp1').val(page.header.code)
+                    $('#diliverer_inp1').val(page.header.customer.name)
                     $('#dilivery_time_inp1').val(dt.toLocaleString())
-                    $('#contact_inp1').val(result.data.header.contact)
-                    $('#total_inp1').val(result.data.header.total)
+                    $('#contact_inp1').val(page.header.contact)
+                    $('#total_inp1').val(page.header.total)
 
-                    $('#name_inp1').val(result.data.name)
-                    $('#specifications_inp1').val(result.data.specifications)
-                    $('#number_inp1').val(result.data.number)
-                    $('#batch_number_inp1').val(result.data.batchNumber)
+                    $('#name_inp1').val(page.name)
+                    $('#specifications_inp1').val(page.specifications)
+                    $('#number_inp1').val(page.number)
+                    $('#batch_number_inp1').val(page.batchNumber)
                     layer.open({
                         type: 1,
                         title: '详情',
@@ -483,11 +481,9 @@ var supply_manage = {
             })
         }//$ bindEditEventListener——end$
         , renderHandler: function ($tbody, supplymans) {
-            console.log(supplymans);
             $tbody.empty() //清空表格
             supplymans.forEach(function (e) {
                 $('#sup_checkAll').prop('checked', false)
-                //console.log(e,'eeeee')
                 var dt = new Date((e.header.supplyTime))
                 $tbody.append(
                     "<tr>" +
@@ -497,8 +493,8 @@ var supply_manage = {
                     "<td>" + (e.header.total) + "</td>" +
                     "<td>" + (e.header.customer.name) + "</td>" +
                     "<td>" + (e.header.contact) + "</td>" +
-                    "<td><a href='#' class='detailSupplyman' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe63c;</i></a></td>" +
-                    "<td><a href='#' class='editSupplyman' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                    "<td><a href='#' class='detailSupplyman' id='edit-" + (e.header.code) + "'><i class='layui-icon'>&#xe63c;</i></a></td>" +
+                    "<td><a href='#' class='editSupplyman' id='edit-" + (e.header.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "<td><a href='#' class='deleteSupplyman' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
                     "</tr>")
             })//$数据渲染完毕
