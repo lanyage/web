@@ -484,12 +484,12 @@ var supply_manage = {
             $tbody.empty() //清空表格
             supplymans.forEach(function (e) {
                 $('#sup_checkAll').prop('checked', false)
-                var dt = new Date((e.header.supplyTime))
+                var dt = new Date((e.header.supplyTime)).Format('yyyy-MM-dd')
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='sup_checkbox' value='" + (e.header.code) + "'></td>" +
                     "<td>" + (e.header.code) + "</td>" +
-                    "<td>" + dt.toLocaleDateString() + "</td>" +
+                    "<td>" + dt.toLocaleString() + "</td>" +
                     "<td>" + (e.header.total) + "</td>" +
                     "<td>" + (e.header.customer.name) + "</td>" +
                     "<td>" + (e.header.contact) + "</td>" +
