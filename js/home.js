@@ -900,7 +900,7 @@ var home = {
         home.menu1s.forEach(function (element, index) {
             home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
         })
-        console.log($(home.menu1Wrapper.children('li')[0]).attr('id').substr(9))
+
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
@@ -1053,7 +1053,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render0()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 6 :
@@ -1064,7 +1064,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render1()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 7 :
@@ -1075,7 +1075,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render2()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 8 :
@@ -1086,7 +1086,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render3()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 9 :
@@ -1097,7 +1097,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render4()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 10 :
@@ -1108,7 +1108,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render5()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 11 :
@@ -1119,7 +1119,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render6()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 12 :
@@ -1130,7 +1130,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render7()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                     }
@@ -1403,10 +1403,9 @@ var home = {
             /** 在开启定时之前,必须要先加载一次 */
             home.realdata_interval.push(setInterval(function () {
                 home.funcs.renderHandler(signal)
-            }, 3000))
+            }, 1000))
         }
         , render0: function () {
-            console.log($("#TI_1001_T")[0])
             $("#TI_1001_T")[0].innerHTML = home.TI1s[0].value
             $("#TI_1001_R")[0].innerHTML = home.RI1s[0].value
             $("#TI_1002_T")[0].innerHTML = home.TI1s[1].value
