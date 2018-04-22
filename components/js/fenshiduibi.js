@@ -16,17 +16,17 @@ var fenshiduibi = {
             easing : 'easeInOutCirc',
         }
         /** 给日期添加格式化的原型方法*/
-        fenshiduibi.funcs.updateDate()
+        // fenshiduibi.funcs.updateDate()
         /** 初始化日期控件日期控件  todo当选择日期控件的日期后,会相应的把end1和end2中的值填满*/
         layui.use('laydate', function () {
             var laydate = layui.laydate
             laydate.render({
                 elem: '#start1',//指定元素
-                format: 'yyyy/MM/dd HH:mm:ss',
+                format: 'yyyy-MM-dd HH:mm:ss',
                 done: function (value, date, endDate) {
                     fenshiduibi.timeGap = Number($('#timeGapInp').val())
                     var date = fenshiduibi.funcs.addHourAndRender(date, fenshiduibi.timeGap)
-                    var end1Val = date.Format("yyyy-MM-dd hh:mm:ss");
+                    var end1Val = date.Format("yyyy-MM-dd hh:mm:ss")
                     $('#end1').val(end1Val)
                 }
             })
@@ -36,7 +36,7 @@ var fenshiduibi = {
                 done: function (value, date, endDate) {
                     fenshiduibi.timeGap = Number($('#timeGapInp').val())
                     var date = fenshiduibi.funcs.addHourAndRender(date, fenshiduibi.timeGap)
-                    var end2Val = date.Format("yyyy-MM-dd hh:mm:ss");
+                    var end2Val = date.Format("yyyy-MM-dd hh:mm:ss")
                     $('#end2').val(end2Val)
                 }
             })
@@ -53,27 +53,27 @@ var fenshiduibi = {
         home.funcs.clearIntervals(fenshiduibi.realDataIntervals)
     },
     funcs: {
-        updateDate: function () {
-            Date.prototype.Format = function (fmt) { //author: meizz
-                var o = {
-                    "M+": this.getMonth() + 1, //月份
-                    "d+": this.getDate(), //日
-                    "h+": this.getHours(), //小时
-                    "m+": this.getMinutes(), //分
-                    "s+": this.getSeconds(), //秒
-                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-                    "S": this.getMilliseconds() //毫秒
-                };
-                if (/(y+)/.test(fmt)) {
-                    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-                }
-                for (var k in o)
-                    if (new RegExp("(" + k + ")").test(fmt))
-                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-                return fmt;
-
-            }
-        },
+        // updateDate: function () {
+        //     Date.prototype.Format = function (fmt) { //author: meizz
+        //         var o = {
+        //             "M+": this.getMonth() + 1, //月份
+        //             "d+": this.getDate(), //日
+        //             "h+": this.getHours(), //小时
+        //             "m+": this.getMinutes(), //分
+        //             "s+": this.getSeconds(), //秒
+        //             "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        //             "S": this.getMilliseconds() //毫秒
+        //         };
+        //         if (/(y+)/.test(fmt)) {
+        //             fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        //         }
+        //         for (var k in o)
+        //             if (new RegExp("(" + k + ")").test(fmt))
+        //                 fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        //         return fmt;
+        //
+        //     }
+        // },
         addHourAndRender: function (date, gap) {
             return new Date(date.year, date.month - 1, date.date, date.hours + gap, date.minutes, date.seconds)
         },
