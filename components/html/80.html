@@ -128,7 +128,7 @@
                     <td><input class='provider_input' type="text" id="specifications_inp"></td>
                     <td><input class='provider_input' type="text" id="number_inp"></td>
                     <td id="closebtn">
-                        <button type="button" id="close_btn" title="close it"
+                        <button type="button" id="close_btn" title="close it" onclick="del()"
                                 style="border:none;outline:none;font-size: 20px;color:#00A99D;background:white;">
                             &times;
                         </button>
@@ -208,16 +208,14 @@
     <script>
         function addbtn(){
             var count = $('#provider_body_downtable tr').length
-            console.log(count,'count,tr的数目')
-            $('#addb').before("<tr id='inputcontent"+ count+"' class='addline'><td><input class='provider_input'></td>" +
-                    "<td style='padding: 0;'><input class='provider_input'></td>" +
-                    "<td><input class='provider_input'></td>" +
-                    "<td><input class='provider_input'></td>" +
+            $('#addb').before("<tr id='inputcontent"+ count+"' class='addline'><td><input class='provider_input' id='batch_number_inp'></td>" +
+                    "<td style='padding: 0;'><input class='provider_input' id='name_inp'></td>" +
+                    "<td><input class='provider_input' id='specifications_inp'></td>" +
+                    "<td><input class='provider_input' id='number_inp'></td>" +
                     "<td>" +
                     "<button type='button' id='close_btn' onclick='delTab("+count+")' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
                     " &times;  "
                     + " </button>" + "</td></tr>")
-            console.log(count,'count,新增后tr的数目')
             $("#provider_body_downtable").append(addb)
         }
     </script>
@@ -227,7 +225,9 @@
         }
     </script>
     <script>
-
+        function del(){
+            $('#inputcontent').remove()
+        }
     </script>
 </div>
 

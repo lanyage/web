@@ -180,6 +180,9 @@ var home = {
             },
             getAllInfo: function () {
                 return servers.backup() + 'supplyInfo/getSupplyInfosByHeadCode'
+            },
+            saveInBatch: function (){
+                return servers.backup() + 'supplyInfo/saveInBatch'
             }
         },
         firmman: {
