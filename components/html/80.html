@@ -201,7 +201,7 @@
             var laydate = layui.laydate;
             laydate.render({
                 elem: '#dilivery_time_inp' //指定元素
-                ,format: 'yyyy/MM/dd'
+                ,format: 'yyyy-MM-dd'
             });
         });
     </script>
@@ -209,7 +209,7 @@
         function addbtn(){
             var count = $('#provider_body_downtable tr').length
             console.log(count,'count,tr的数目')
-            $('#addb').before("<tr id='inputcontent"+ count+"'><td><input class='provider_input'></td>" +
+            $('#addb').before("<tr id='inputcontent"+ count+"' class='addline'><td><input class='provider_input'></td>" +
                     "<td style='padding: 0;'><input class='provider_input'></td>" +
                     "<td><input class='provider_input'></td>" +
                     "<td><input class='provider_input'></td>" +
