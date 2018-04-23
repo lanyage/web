@@ -795,12 +795,12 @@ var home = {
                 return servers.backup() + 'product/getByLikeBatchNumberByPage'
             }
         },
-        presoma:{
+        rawPresoma:{
             // 金弛622 前驱体
             updatePublishByCode: function () {
                 return servers.backup() + 'rawPresoma/updatePublishByCode'
             },
-            updateAuditByCodeL: function () {
+            updateAuditByCode: function () {
                 return servers.backup() + 'rawPresoma/updateAuditByCode'
             },
             getByCode: function () {
@@ -814,6 +814,27 @@ var home = {
             },
             getByLikeBatchNumberByPage: function () {
                 return servers.backup() + 'rawPresoma/getByLikeBatchNumberByPage'
+            }
+        },
+        rawLithium:{
+            // 碳酸锂
+            updatePublishByCode: function () {
+                return servers.backup() + 'rawLithium/updatePublishByCode'
+            },
+            updateAuditByCode: function () {
+                return servers.backup() + 'rawLithium/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'rawLithium/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'rawLithium/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'rawLithium/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'rawLithium/getByLikeBatchNumberByPage'
             }
         }
     }
