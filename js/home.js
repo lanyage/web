@@ -872,7 +872,7 @@ var home = {
     , monitor_data: null
     , realdata_interval: []
     , singlePage_interval: []
-
+    , user : null
     /** end */
     /**
      *  初始化函数
@@ -890,6 +890,7 @@ var home = {
 
         /** 获取session用户信息 */
         const user = userJson
+        home.user = userJson
         var roles = user.roles //获取用户角色
 
         var menu1codes = []//用户一级菜单去重

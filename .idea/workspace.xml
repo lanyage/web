@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0b475517-6c9b-4a71-be83-21389f8910dd" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/js/product_audit.js" afterPath="$PROJECT_DIR$/components/js/product_audit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/home.js" afterPath="$PROJECT_DIR$/js/home.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,20 +23,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="home.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/home.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="892" column="21" lean-forward="true" selection-start-line="892" selection-start-column="21" selection-end-line="892" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="product_audit.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/components/js/product_audit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2565">
-              <caret line="166" column="10" lean-forward="true" selection-start-line="166" selection-start-column="10" selection-end-line="166" selection-end-column="10" />
+            <state relative-caret-position="513">
+              <caret line="386" column="29" lean-forward="true" selection-start-line="386" selection-start-column="29" selection-end-line="386" selection-end-column="29" />
               <folding>
-                <marker date="1524472818799" expanded="true" signature="12575:12583" ph="&amp;##xe6b2;" />
-                <marker date="1524472818799" expanded="true" signature="12720:12728" ph="&amp;##xe60a;" />
+                <element signature="e#8188#10931#0" expanded="false" />
+                <marker date="1524475209287" expanded="true" signature="12833:12841" ph="&amp;##xe6b2;" />
+                <marker date="1524475209287" expanded="true" signature="12978:12986" ph="&amp;##xe60a;" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>getData</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,6 +65,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/js/home.js" />
         <option value="$PROJECT_DIR$/components/js/product_audit.js" />
       </list>
     </option>
@@ -239,12 +255,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1524472173134</updated>
-      <workItem from="1524472174851" duration="913000" />
+      <workItem from="1524472174851" duration="2754000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="913000" />
+    <option name="totallyTimeSpent" value="2754000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="49" y="23" width="1391" height="877" extended-state="6" />
@@ -293,13 +309,22 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/js/home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="892" column="21" lean-forward="true" selection-start-line="892" selection-start-column="21" selection-end-line="892" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/components/js/product_audit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2565">
-          <caret line="166" column="10" lean-forward="true" selection-start-line="166" selection-start-column="10" selection-end-line="166" selection-end-column="10" />
+        <state relative-caret-position="513">
+          <caret line="386" column="29" lean-forward="true" selection-start-line="386" selection-start-column="29" selection-end-line="386" selection-end-column="29" />
           <folding>
-            <marker date="1524472818799" expanded="true" signature="12575:12583" ph="&amp;##xe6b2;" />
-            <marker date="1524472818799" expanded="true" signature="12720:12728" ph="&amp;##xe60a;" />
+            <element signature="e#8188#10931#0" expanded="false" />
+            <marker date="1524475209287" expanded="true" signature="12833:12841" ph="&amp;##xe6b2;" />
+            <marker date="1524475209287" expanded="true" signature="12978:12986" ph="&amp;##xe60a;" />
           </folding>
         </state>
       </provider>

@@ -1,5 +1,6 @@
 var product_audit = {
     init: function () {
+        console.log('user = ', home.user.code)
         // display
         product_audit.funcs.renderTable()
 
@@ -77,7 +78,7 @@ var product_audit = {
             products.forEach(function (e) {
                 var status = $('#status').val();
                 $tbody.append(
-                    "<tr>" +
+                    "<tr id='product-audit-"+(e.code)+"'>" +
                     "<td>" + product_audit.funcs.getIcon(status, e.code) + "</i></td>" +
                     "<td>" + product_audit.funcs.getAuditor(e.auditor) + "</td>" +
                     "<td>" + product_audit.funcs.formatDate(e.testDate) + "</td>" +
@@ -180,7 +181,14 @@ var product_audit = {
             auditBtns.on('click', function () {
                 var _selfBtn = $(this)
                 var productCode = _selfBtn.attr('id').substr(6)
+
+
                 console.log("审核" + productCode)
+
+
+
+
+
                 $.post(home.urls.product.getByCode(), {code: productCode}, function (result) {
                     var product = result.data
                     layer.open({
@@ -191,10 +199,10 @@ var product_audit = {
                         offset: 'auto', // ['10%', '40%'],
                         btnAlign: 'c',
                         yes: function () {
-                            console.log("提交审核" + productCode);
+                            console.log("提交审核" + productCode)
                             $.post(home.urls.product.updateAuditByCode(), {
                                 code: productCode,
-                                auditorCode: "001",     // 此处需要读取用户编号
+                                auditorCode: home.user.code,     // 此处需要读取用户编号
                                 statusCode: 2
                             }, function (result) {
                                 if (result.code == 0) {
@@ -234,6 +242,8 @@ var product_audit = {
                             layer.close(index)
                         }
                     })
+                    product_audit.funcs.bindLeftBtn($('#model-li-hide-left-20'))
+                    product_audit.funcs.bindRightBtn($('#model-li-hide-right-20'))
                 })
             })
         },
@@ -300,8 +310,7 @@ var product_audit = {
          * @returns {string}
          */
         getData: function (product) {
-            return (
-                "<div id='auditModal'>" +
+            var data = "<div id='auditModal'>" +
                 "<div class='arrow_div_left'>" +
                 "<span id='model-li-hide-left-20'><a href=\"#\"><i class=\"layui-icon\" style='font-size: 40px'>&#xe603;</i></a></span>" +
                 "</div>" +
@@ -366,18 +375,25 @@ var product_audit = {
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
-                "</div>");
+                "</div>"
+            return data
         },
 
         bindLeftBtn: function (leftBtn) {
             leftBtn.off('click');
             leftBtn.on('click', function () {
+                var $table = $('#product_table')
+                // $($table.children('tbody').children('tr')[0]).attr('id') ==
+                console.log()
                 console.log("左");
             })
         },
 
-        bindRightBtn: function () {
-
+        bindRightBtn: function (rightBtn) {
+            rightBtn.off('click');
+            rightBtn.on('click', function () {
+                console.log("右");
+            })
         }
 
     }
