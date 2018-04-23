@@ -44,7 +44,7 @@
             </ul>
         </div>
     </div>
-    <div class="right" style="max-height: 100%;overflow-y: auto;">
+    <div class="right" style="max-height: 100%;overflow-y: scroll;">
 
     </div>
 </div>

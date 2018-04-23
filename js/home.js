@@ -798,6 +798,11 @@ var home = {
                 return servers.backup() + 'product/getByLikeBatchNumberByPage'
             }
         },
+        productPublish : {
+            getAllByPage : function() {
+                return servers.backup() + 'product/getAllByStatusCodeByPage'
+            }
+        },
         rawPresoma:{
             // 金弛622 前驱体
             updatePublishByCode: function () {
