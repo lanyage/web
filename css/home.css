@@ -18,7 +18,6 @@ html, body, parent {
     position: absolute;
     top: 60px;
     left: 0;
-    /*bottom: 0px;*/
     width: 260px;
     height: 100%;
 
@@ -30,7 +29,6 @@ html, body, parent {
     left: 260px;
     right: 0;
     top: 60px;
-    /*bottom: 0px;*/
     height: 100%;
     background: #ffffff;
     min-width: 695px;
