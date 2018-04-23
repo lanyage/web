@@ -180,6 +180,9 @@ var home = {
             },
             getAllInfo: function () {
                 return servers.backup() + 'supplyInfo/getSupplyInfosByHeadCode'
+            },
+            saveInBatch: function (){
+                return servers.backup() + 'supplyInfo/saveInBatch'
             }
         },
         firmman: {
@@ -879,6 +882,7 @@ var home = {
      * @hides 代表所有三级菜单点击后显示的内容的id
      */
     , init: function (userJson, menu1Wrapper, menu2Wrapper) {
+        home.funcs.updateDatePrototype()
         /** 头像显示事件绑定 */
         home.funcs.bindClickEventForAvatar($('#user-info-hover'), $("#hover-body"))
         home.menu1Wrapper = menu1Wrapper
@@ -920,7 +924,7 @@ var home = {
         home.menu1s.forEach(function (element, index) {
             home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
         })
-        console.log($(home.menu1Wrapper.children('li')[0]).attr('id').substr(9))
+
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
@@ -951,6 +955,27 @@ var home = {
     }
     ,//$init()
     funcs: {
+        updateDatePrototype : function() {
+            Date.prototype.Format = function (fmt) { //author: meizz
+                var o = {
+                    "M+": this.getMonth() + 1, //月份
+                    "d+": this.getDate(), //日
+                    "h+": this.getHours(), //小时
+                    "m+": this.getMinutes(), //分
+                    "s+": this.getSeconds(), //秒
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                    "S": this.getMilliseconds() //毫秒
+                };
+                if (/(y+)/.test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                }
+                for (var k in o)
+                    if (new RegExp("(" + k + ")").test(fmt))
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                return fmt;
+
+            }
+        },
         /** 给一级菜单绑定点击事件 */
         bindClickForMenu1s: function () {
             home.menu1Clicks.on('click', function () {
@@ -1052,7 +1077,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render0()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 6 :
@@ -1063,7 +1088,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render1()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 7 :
@@ -1074,7 +1099,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render2()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 8 :
@@ -1085,7 +1110,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render3()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 9 :
@@ -1096,7 +1121,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render4()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 10 :
@@ -1107,7 +1132,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render5()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 11 :
@@ -1118,7 +1143,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render6()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                         case 12 :
@@ -1129,7 +1154,7 @@ var home = {
                                         home.funcs.storeData(result)
                                         home.funcs.render7()
                                     })
-                                }, 3000))
+                                }, 1000))
                             })();
                             break;
                     }
@@ -1402,10 +1427,9 @@ var home = {
             /** 在开启定时之前,必须要先加载一次 */
             home.realdata_interval.push(setInterval(function () {
                 home.funcs.renderHandler(signal)
-            }, 3000))
+            }, 1000))
         }
         , render0: function () {
-            console.log($("#TI_1001_T")[0])
             $("#TI_1001_T")[0].innerHTML = home.TI1s[0].value
             $("#TI_1001_R")[0].innerHTML = home.RI1s[0].value
             $("#TI_1002_T")[0].innerHTML = home.TI1s[1].value
