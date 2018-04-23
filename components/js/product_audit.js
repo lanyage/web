@@ -168,7 +168,8 @@ var product_audit = {
 
         /** 监听状态下拉选框 */
         bindSelectEventListener: function (statusSelect) {
-            statusSelect.change(function () {
+            statusSelect.off('change')
+            statusSelect.on('change', function() {
                 product_audit.funcs.renderTable()
             })
         },
