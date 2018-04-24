@@ -339,7 +339,7 @@ var product_audit = {
                 "</thead>" +
                 "<tbody>" +
                 "<tr><td colspan='2'>振实密度(g/cm3)</td><td>&ge;2.0</td><td>2.3~2.7</td><td>" + product.p1 + "</td></tr>" +
-                "<tr><td colspan='2'>水分(ppm)</td><td>&le;500</td><td>&le;200/td><td>" + product.p2 + "</td></tr>" +
+                "<tr><td colspan='2'>水分(ppm)</td><td>&le;500</td><td>&le;200</td><td>" + product.p2 + "</td></tr>" +
                 "<tr><td colspan='2'>SSA(m2/g)</td><td>0.20~0.40</td><td>0.22~0.48</td><td>" + product.p3 + "</td></tr>" +
                 "<tr><td colspan='2'>pH值</td><td>&le;11.80</td><td>&le;11.80</td><td>" + product.p4 + "</td></tr>" +
                 "<tr><td colspan='2'>Li2CO3(%)</td><td></td><td>&le;0.25</td><td>" + product.p5 + "</td></tr>" +

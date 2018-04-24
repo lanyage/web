@@ -16,6 +16,7 @@ var raw_audit = {
     }
     , raw_type: 0   // choose material type: 0-personma, 1-lithium
     , pageSize: 0
+    , currId: null
     , funcs: {
         renderTable: function () {
             /** 获取所有记录 */
@@ -25,6 +26,12 @@ var raw_audit = {
                     page: 0,
                     statusCode: status
                 }, function (result) {
+                    // display and hide
+                    var presoma_table = $('#presoma_table');
+                    var lithium_table = $('#lithium_table');
+                    presoma_table.show();
+                    lithium_table.hide();
+
                     var presomas = result.data.content
                     const $tbody = $("#presoma_table").children('tbody')
                     raw_audit.funcs.renderHandlerPresoma($tbody, presomas)
@@ -57,12 +64,18 @@ var raw_audit = {
                 })
             }
             else {
+                // display and show
+                var presoma_table = $('#presoma_table');
+                var lithium_table = $('#lithium_table');
+                presoma_table.hide();
+                lithium_table.show();
+
                 $.post(home.urls.rawLithium.getAllByStatusCodeByPage(), {
                     page: 0,
                     statusCode: status
                 }, function (result) {
                     var lithiums = result.data.content
-                    const $tbody = $("#presoma_table").children('tbody')
+                    const $tbody = $("#lithium_table").children('tbody')
                     raw_audit.funcs.renderHandlerLithium($tbody, lithiums)
                     raw_audit.pageSize = result.data.content.length
 
@@ -115,11 +128,19 @@ var raw_audit = {
                 if (raw_audit.raw_type === 1) {
                     raw_audit.raw_type = 0;
                 }
+                raw_audit.funcs.renderTable();
             })
         },
 
         selectLithium: function (lithiumSelect) {
-
+            lithiumSelect.off('click');
+            lithiumSelect.on('click', function () {
+                console.log("lithiumSelect");
+                if (raw_audit.raw_type === 0) {
+                    raw_audit.raw_type = 1;
+                }
+                raw_audit.funcs.renderTable();
+            })
         },
 
         /**
@@ -167,7 +188,51 @@ var raw_audit = {
         },
 
         /**
-         * 刷新事件-已完成
+         * 渲染lituium-已完成
+         * @param $tbody
+         * @param lithiums
+         */
+        renderHandlerLithium: function ($tbody, lithiums) {
+            $tbody.empty()
+            lithiums.forEach(function (e) {
+                var status = $('#status').val()
+                $tbody.append(
+                    "<tr>" +
+                    "<td>" + raw_audit.funcs.getIcon(status, e.code) + "</i></td>" +
+                    "<td>" + raw_audit.funcs.getAuditor(e.auditor) + "</td>" +
+                    "<td>" + raw_audit.funcs.formatDate(e.testDate) + "</td>" +
+                    "<td>" + e.batchNumber + "</td>" +
+                    "<td>" + raw_audit.funcs.formatDate(e.productDate) + "</td>" +
+                    "<td>" + e.judge.name + "</td>" +
+                    "<td>" + e.number + "</td>" +
+                    "<td>" + e.c1 + "</td>" +
+                    "<td>" + e.c2 + "</td>" +
+                    "<td>" + e.c3 + "</td>" +
+                    "<td>" + e.c4 + "</td>" +
+                    "<td>" + e.c5 + "</td>" +
+                    "<td>" + e.c6 + "</td>" +
+                    "<td>" + e.c7 + "</td>" +
+                    "<td>" + e.c8 + "</td>" +
+                    "<td>" + e.c9 + "</td>" +
+                    "<td>" + e.c10 + "</td>" +
+                    "<td>" + e.c11 + "</td>" +
+                    "<td>" + e.c12 + "</td>" +
+                    "<td>" + e.c13 + "</td>" +
+                    "<td>" + e.c14 + "</td>" +
+                    "<td>" + e.c15 + "</td>" +
+                    "<td>" + e.c16 + "</td>" +
+                    "<td>" + e.c17 + "</td>" +
+                    "</tr>"
+                )
+            })
+            var auditBtns = $('.audit')
+            var detailBtns = $('.detail')
+            raw_audit.funcs.bindAuditEventListener(auditBtns)
+            raw_audit.funcs.bindDetailEventListener(detailBtns)
+        },
+
+        /**
+         * 刷新事件-存在问题
          * @param refreshBtn
          */
         bindRefreshEventListener: function (refreshBtn) {
@@ -239,34 +304,34 @@ var raw_audit = {
         },
 
         /**
-         * 审核按钮-需要分离？
+         * 审核按钮-已完成
          * @param auditBtns
          */
         bindAuditEventListener: function (auditBtns) {
             auditBtns.off('click')
             auditBtns.on('click', function () {
                 var _selfBtn = $(this)
-                var presomaCode = _selfBtn.attr('id').substr(6)
-                console.log("审核" + presomaCode)
-                $.post(home.urls.rawPresoma.getByCode(), {code: presomaCode}, function (result) {
+                var code = _selfBtn.attr('id').substr(6)
+                console.log("审核" + code)
+                $.post(raw_audit.raw_type === 0 ? home.urls.rawPresoma.getByCode() : home.urls.rawLithium.getByCode(), {code: code}, function (result) {
                     var presoma = result.data
                     layer.open({
                         type: 1,
-                        content: raw_audit.funcs.getDataPresoma(presoma),
+                        content: raw_audit.funcs.getData(presoma),
                         area: ['550px', '700px'],
                         btn: ['通过审核', '取消'],
                         offset: 'auto', // ['10%', '40%'],
                         btnAlign: 'c',
                         yes: function () {
-                            console.log("提交审核" + presomaCode);
-                            $.post(home.urls.rawPresoma.updateAuditByCode(), {
-                                code: presomaCode,
+                            console.log("提交审核" + code);
+                            $.post(raw_audit.raw_type === 0 ? home.urls.rawPresoma.updateAuditByCode() : home.urls.rawLithium.updateAuditByCode(), {
+                                code: code,
                                 auditorCode: "001",     // 此处需要读取用户编号
                                 statusCode: 2
                             }, function (result) {
                                 if (result.code == 0) {
                                     // 成功
-                                    console.log("审核成功" + presomaCode);
+                                    console.log("审核成功" + code);
                                     layer.open({
                                         type: 1,
                                         content: "<div class='align_middle'>" + "审核成功" + "</div>",
@@ -313,13 +378,13 @@ var raw_audit = {
             detailBtns.off('click')
             detailBtns.on('click', function () {
                 var _selfBtn = $(this)
-                var presomaCode = _selfBtn.attr('id').substr(6)
-                console.log("查看" + presomaCode)
-                $.post(home.urls.rawPresoma.getByCode(), {code: presomaCode}, function (result) {
+                var code = _selfBtn.attr('id').substr(6)
+                console.log("查看" + code)
+                $.post(raw_audit.raw_type === 0 ? home.urls.rawPresoma.getByCode() : home.urls.rawLithium.getByCode(), {code: code}, function (result) {
                     var presoma = result.data
                     layer.open({
                         type: 1,
-                        content: raw_audit.funcs.getDataPresoma(presoma),
+                        content: raw_audit.funcs.getData(presoma),
                         area: ['550px', '700px'],
                         btn: ['关闭'],
                         offset: 'auto',   // ['10%', '40%'],
@@ -364,21 +429,32 @@ var raw_audit = {
             }
         },
 
-        /**
-         * 查看presoma-需要修改标准
-         * @param presoma
-         * @returns {string}
-         */
-        getDataPresoma: function (presoma) {
-            return (
+        getData: function (raw) {
+            var data =
                 "<div id='auditModal'>" +
                 "<div class='arrow_div_left'>" +
                 "<span id='model-li-hide-left-20'><a href=\"#\"><i class=\"layui-icon\" style='font-size: 40px'>&#xe603;</i></a></span>" +
                 "</div>" +
                 "<div class='arrow_div_right'>" +
                 "<span id='model-li-hide-right-20'><a href=\"#\"><i class=\"layui-icon\" style='font-size: 40px'>&#xe602;</i></a></span>" +
-                "</div>" +
-                "<div class='table_scroll'>" +
+                "</div>";
+            if (raw_audit.raw_type === 0) {
+                data += raw_audit.funcs.getTablePresoma(raw);
+            }
+            else {
+                data += raw_audit.funcs.getTableLithium(raw);
+            }
+            return data;
+        },
+
+        /**
+         * presoma表格-需要修改标准
+         * @param presoma
+         * @returns {string}
+         */
+        getTablePresoma: function (presoma) {
+            return (
+                "<div id='div_table' class='table_scroll'>" +
                 "<table id='audit_table_inner' class='table_inner' align='center'>" +
                 "<thead>" +
                 "<tr><td colspan='2'>批号</td><td>检测日期</td><td>数量(t)</td><td>判定</td></tr>" +
@@ -428,7 +504,53 @@ var raw_audit = {
                 "</div>" +
                 "</div>"
             );
-        }
+        },
 
+        /**
+         * lithium表格-需要修改标准
+         * @param lithium
+         * @returns {string}
+         */
+        getTableLithium: function (lithium) {
+            return (
+                "<div id='div_table' class='table_scroll'>" +
+                "<table id='audit_table_inner' class='table_inner' align='center'>" +
+                "<thead>" +
+                "<tr><td colspan='2'>批号</td><td>检测日期</td><td>数量(t)</td><td>判定</td></tr>" +
+                "</thead>" +
+                "<tbody>" +
+                "<tr><td colspan='2'>" + lithium.batchNumber + "</td><td>" + raw_audit.funcs.formatDate(lithium.testDate) + "</td><td>" + lithium.number + "</td><td>" + lithium.judge.name + "</td></tr>" +
+                "</tbody>" +
+                "<thead>" +
+                "<tr><td colspan='2'>审核状态</td><td>审核人</td><td></td><td></td></tr>" +
+                "</thead>" +
+                "<tr><td colspan='2'>" + lithium.status.name + "</td><td>" + raw_audit.funcs.getAuditor(lithium.auditor) + "</td><td></td><td></td></tr>" +
+                "<thead>" +
+                "<tr><td colspan='2'>检测项目</td><td>控制采购标准-2016-11-21</td><td>2017.07.01采购标准</td><td>" + lithium.batchNumber + "</td></tr>" +
+                "</thead>" +
+                "<tbody>" +
+                "<tr><td colspan='2'>水分(%)</td><td>&ge;2.0</td><td>2.3~2.7</td><td>" + lithium.c1 + "</td></tr>" +
+                "<tr><td rowspan='5'>粒度(&mu;m)</td><td>D1</td><td></td><td>&ge;3.00</td><td>" + lithium.c2 + "</td></tr>" +
+                "<tr><td>D10</td><td>&ge;6.00</td><td>&ge;5.00</td><td>" + lithium.c3 + "</td></tr>" +
+                "<tr><td>D50</td><td>11.00~14.00</td><td>11.30~13.3</td><td>" + lithium.c4 + "</td></tr>" +
+                "<tr><td>D90</td><td>&le;30.00</td><td>&le;30.00</td><td>" + lithium.c5 + "</td></tr>" +
+                "<tr><td>D99</td><td></td><td>&le;40.00</td><td>" + lithium.c6 + "</td></tr>" +
+                "<tr><td colspan='2'>筛上物</td><td>&le;11.80</td><td>&le;11.80</td><td>" + lithium.c7 + "</td></tr>" +
+                "<tr><td rowspan='5'>磁性物质检测(ppb)</td><td>Fe</td><td></td><td></td><td>" + lithium.c8 + "</td></tr>" +
+                "<tr><td>Ni</td><td></td><td></td><td>" + lithium.c9 + "</td></tr>" +
+                "<tr><td>Cr</td><td></td><td></td><td>" + lithium.c10 + "</td></tr>" +
+                "<tr><td>Zn</td><td></td><td></td><td>" + lithium.c11 + "</td></tr>" +
+                "<tr><td>总量</td><td>&le;50</td><td>&le;50</td><td>" + lithium.c12 + "</td></tr>" +
+                "<tr><td colspan='2'>Li2CO3(%)</td><td></td><td>19.7&plusmn;0.5</td><td>" + lithium.c13 + "</td></tr>" +
+                "<tr><td colspan='2'>Na(ppm)</td><td></td><td>19.7&plusmn;0.5</td><td>" + lithium.c14 + "</td></tr>" +
+                "<tr><td colspan='2'>Mg(ppm)</td><td></td><td>19.7&plusmn;0.5</td><td>" + lithium.c15 + "</td></tr>" +
+                "<tr><td colspan='2'>Ca(ppm)</td><td></td><td>19.7&plusmn;0.5</td><td>" + lithium.c16 + "</td></tr>" +
+                "<tr><td colspan='2'>Fe(ppm)</td><td></td><td>19.7&plusmn;0.5</td><td>" + lithium.c17 + "</td></tr>" +
+                "</tbody>" +
+                "</table>" +
+                "</div>" +
+                "</div>"
+            );
+        }
     }
 }
