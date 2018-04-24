@@ -1,18 +1,15 @@
-<div id='model-li-hide-23' class="display-component-container" style="padding: 20px 20px 0px 20px;">
+<div id='model-li-hide-23' class="display-component-container" style="padding: 20px 20px 0px 20px;max-height: 100%;overflow-y: scroll;">
     <style type="text/css">
-        #_23table td {
-            color: #0b0b13;
-        }
         .select-span {
             color: #569196;
             border-bottom: 3px solid #569196;
             padding-bottom: 15px;
             cursor: hand;
         }
-        #_23table tr td {
+        #_23table thead tr td {
             color : #fff;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 12px;
+            font-weight: 400;
             padding: 0;
         }
         .dark-greg {
@@ -21,29 +18,31 @@
         .light-grey {
             background: rgba(102, 102, 102, 0.9);
         }
-
+        #_23table tbody td{
+            padding: 3px;
+        }
     </style>
     <!--上-->
     <div class="block-quote">
         <div class="fl">
             <span class="select-span">LY306E</span>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <select>
-                <option>未发布</option>
-                <option>已发布</option>
+            <select id="model-li-hide-select-23">
+                <option value="1">未发布</option>
+                <option value="0">已发布</option>
             </select>
         </div>
         <div class="fr">
             <p>
-                <a href="#"><i class="layui-icon">&#x1002;</i>刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input placeholder="请输入批号"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#">搜索</a>
+                <a href="#" id="model-li-hide-refresh-23"><i class="layui-icon">&#x1002;</i>刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input placeholder="请输入批号" id="product_batch_number_input"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#" id="model-li-hide-search-23">搜索</a>
             </p>
         </div>
     </div>
     <div class="whitespace"></div>
     <!--中-->
-    <table id="_23table" style="width: 100%">
+    <table id="_23table" style="width: 100%;max-height: 526px;overflow-y: scroll" >
         <thead>
         <tr class="dark-greg">
             <td rowspan="2">操作</td>
@@ -90,43 +89,42 @@
         <tr class="light-grey">
             <td></td>
             <td colspan="5">三级控制标准</td>
-
             <td>>=2.00</td>
             <td><=500</td>
             <td>0.20~0.40</td>
-            <td>10</td>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-            <td>14</td>
-            <td>15</td>
-            <td>16</td>
-            <td>17</td>
-            <td>18</td>
-            <td>19</td>
-            <td>20</td>
-            <td>21</td>
-            <td>22</td>
+            <td><=11.80</td>
+            <td><=100</td>
+            <td>11.00~14.00</td>
+            <td></td>
+            <td></td>
+            <td>7.0±0.5</td>
+            <td>12.2±1.0</td>
+            <td>11.4±1.0</td>
+            <td>12.2±1.0</td>
+            <td>11.4±1.0</td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         <tr class="light-grey">
-            <td>1</td>
-            <td colspan="5">2</td>
-            <td>7</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-            <td>14</td>
-            <td>15</td>
-            <td>16</td>
-            <td>17</td>
-            <td>18</td>
-            <td>19</td>
-            <td>20</td>
-            <td>21</td>
-            <td>22</td>
+            <td></td>
+            <td colspan="5">2016-3-2三级控制标准</td>
+            <td>2.3-2.7</td>
+            <td><=500</td>
+            <td>0.22~0.38</td>
+            <td><=11.80</td>
+            <td><=120</td>
+            <td>11.30~13.30</td>
+            <td></td>
+            <td>19.7±0.5</td>
+            <td>7.0±0.5</td>
+            <td>12.2±1.0</td>
+            <td>11.4±1.0</td>
+            <td>12.2±1.0</td>
+            <td>11.4±1.0</td>
+            <td>≥177.5</td>
+            <td>≥88.0</td>
+            <td>≥162</td>
         </tr>
         </thead>
         <tbody>
@@ -134,7 +132,13 @@
         </tbody>
     </table>
     <!--下-->
-    <div id="_23page"></div>
+    <div id="_23page">
+
+    </div>
+    <script src="../components/js/product_publish.js"></script>
     <script type="application/javascript">
+        $(function() {
+            product_publish.init()
+        })
     </script>
 </div>
