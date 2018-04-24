@@ -802,6 +802,9 @@ var home = {
             getAllByPage : function() {
                 return servers.backup() + 'product/getAllByStatusCodeByPage'
             }
+            ,getByLikeBatchNumberByPage : function() {
+                return servers.backup() + 'product/getByLikeBatchNumberByPage'
+            }
         },
         rawPresoma:{
             // 金弛622 前驱体

@@ -19,7 +19,7 @@
             background: rgba(102, 102, 102, 0.9);
         }
         #_23table tbody td{
-            padding: 0;
+            padding: 3px;
         }
     </style>
     <!--上-->
@@ -27,22 +27,22 @@
         <div class="fl">
             <span class="select-span">LY306E</span>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <select>
-                <option>未发布</option>
-                <option>已发布</option>
+            <select id="model-li-hide-select-23">
+                <option value="1">未发布</option>
+                <option value="0">已发布</option>
             </select>
         </div>
         <div class="fr">
             <p>
-                <a href="#"><i class="layui-icon">&#x1002;</i>刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input placeholder="请输入批号"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#">搜索</a>
+                <a href="#" id="model-li-hide-refresh-23"><i class="layui-icon">&#x1002;</i>刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input placeholder="请输入批号" id="product_batch_number_input"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#" id="model-li-hide-search-23">搜索</a>
             </p>
         </div>
     </div>
     <div class="whitespace"></div>
     <!--中-->
-    <table id="_23table" style="width: 100%;max" >
+    <table id="_23table" style="width: 100%;max-height: 526px;overflow-y: scroll" >
         <thead>
         <tr class="dark-greg">
             <td rowspan="2">操作</td>
