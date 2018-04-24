@@ -276,7 +276,7 @@ var raw_audit = {
         },
 
         /**
-         * 搜索事件-需要分离
+         * 搜索事件-已完成
          * @param searchBtn
          */
         bindSearchEventListener: function (searchBtn) {
@@ -293,7 +293,7 @@ var raw_audit = {
                     var page = result.data
                     var raws = result.data.content //获取数据
                     var status = $('#status').val()
-                    if (raw_audit.raw_type === 0){
+                    if (raw_audit.raw_type === 0) {
                         const $tbody = $("#presoma_table").children('tbody')
                         raw_audit.funcs.renderHandlerPresoma($tbody, raws)
                     }
@@ -313,7 +313,7 @@ var raw_audit = {
                                     size: obj.limit
                                 }, function (result) {
                                     var raws = result.data.content //获取数据
-                                    if (raw_audit.raw_type === 0){
+                                    if (raw_audit.raw_type === 0) {
                                         const $tbody = $("#presoma_table").children('tbody')
                                         raw_audit.funcs.renderHandlerPresoma($tbody, raws)
                                     }
@@ -491,7 +491,7 @@ var raw_audit = {
         },
 
         /**
-         * presoma表格-需要修改标准
+         * presoma表格-已完成
          * @param presoma
          * @returns {string}
          */
@@ -500,48 +500,48 @@ var raw_audit = {
                 "<div id='div_table' class='table_scroll'>" +
                 "<table id='audit_table_inner' class='table_inner' align='center'>" +
                 "<thead>" +
-                "<tr><td colspan='2'>批号</td><td>检测日期</td><td>数量(t)</td><td>判定</td></tr>" +
+                "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr><td colspan='2'>" + presoma.batchNumber + "</td><td>" + raw_audit.funcs.formatDate(presoma.testDate) + "</td><td>" + presoma.number + "</td><td>" + presoma.judge.name + "</td></tr>" +
+                "<tr> <td colspan='2'>" + presoma.batchNumber + "</td> <td>" + raw_audit.funcs.formatDate(presoma.testDate) + "</td> <td>" + presoma.number + "</td> <td>" + presoma.judge.name + "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
-                "<tr><td colspan='2'>审核状态</td><td>审核人</td><td></td><td></td></tr>" +
+                "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
                 "</thead>" +
-                "<tr><td colspan='2'>" + presoma.status.name + "</td><td>" + raw_audit.funcs.getAuditor(presoma.auditor) + "</td><td></td><td></td></tr>" +
+                "<tr> <td colspan='2'>" + presoma.status.name + "</td> <td>" + raw_audit.funcs.getAuditor(presoma.auditor) + "</td> <td></td> <td></td></tr>" +
                 "<thead>" +
-                "<tr><td colspan='2'>检测项目</td><td>控制采购标准-2016-11-21</td><td>2017.07.01采购标准</td><td>" + presoma.batchNumber + "</td></tr>" +
+                "<tr> <td colspan='2'>检测项目</td> <td>控制采购标准-2016-11-21</td> <td>2017.07.01采购标准</td> <td>" + presoma.batchNumber + "</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr><td colspan='2'>振实密度(g/cm3)</td><td>&ge;2.0</td><td>2.3~2.7</td><td>" + presoma.c1 + "</td></tr>" +
-                "<tr><td colspan='2'>水分(ppm)</td><td>&le;500</td><td>&le;200/td><td>" + presoma.c2 + "</td></tr>" +
-                "<tr><td colspan='2'>SSA(m2/g)</td><td>0.20~0.40</td><td>0.22~0.48</td><td>" + presoma.c3 + "</td></tr>" +
-                "<tr><td colspan='2'>pH值</td><td>&le;11.80</td><td>&le;11.80</td><td>" + presoma.c4 + "</td></tr>" +
-                "<tr><td rowspan='5'>粒度(&mu;m)</td><td>D1</td><td></td><td>&ge;3.00</td><td>" + presoma.c5 + "</td></tr>" +
-                "<tr><td>D10</td><td>&ge;6.00</td><td>&ge;5.00</td><td>" + presoma.c6 + "</td></tr>" +
-                "<tr><td>D50</td><td>11.00~14.00</td><td>11.30~13.3</td><td>" + presoma.c7 + "</td></tr>" +
-                "<tr><td>D90</td><td>&le;30.00</td><td>&le;30.00</td><td>" + presoma.c8 + "</td></tr>" +
-                "<tr><td>D99</td><td></td><td>&le;40.00</td><td>" + presoma.c9 + "</td></tr>" +
-                "<tr><td colspan='2'>筛上物</td><td>&le;11.80</td><td>&le;11.80</td><td>" + presoma.c10 + "</td></tr>" +
-                "<tr><td rowspan='5'>磁性物质检测(ppb)</td><td>Fe</td><td></td><td></td><td>" + presoma.c11 + "</td></tr>" +
-                "<tr><td>Ni</td><td></td><td></td><td>" + presoma.c12 + "</td></tr>" +
-                "<tr><td>Cr</td><td></td><td></td><td>" + presoma.c13 + "</td></tr>" +
-                "<tr><td>Zn</td><td></td><td></td><td>" + presoma.c14 + "</td></tr>" +
-                "<tr><td>总量</td><td>&le;50</td><td>&le;50</td><td>" + presoma.c15 + "</td></tr>" +
-                "<tr><td colspan='2'>Ni+Co+Mn(%)</td><td></td><td>19.7&plusmn;0.5</td><td>" + presoma.c16 + "</td></tr>" +
-                "<tr><td colspan='2'>Co(%)</td><td></td><td>19.7&plusmn;0.5</td><td>" + presoma.c17 + "</td></tr>" +
-                "<tr><td colspan='2'>Mn(%)</td><td></td><td>19.9&plusmn;0.5</td><td>" + presoma.c18 + "</td></tr>" +
-                "<tr><td colspan='2'>Ni(%)</td><td></td><td>60.4&plusmn;0.5</td><td>" + presoma.c19 + "</td></tr>" +
-                "<tr><td colspan='2'>Na(ppm)</td><td>&le;200</td><td>&le;200</td><td>" + presoma.c20 + "</td></tr>" +
-                "<tr><td colspan='2'>Mg(ppm)</td><td>&le;200</td><td>&le;200</td><td>" + presoma.c21 + "</td></tr>" +
-                "<tr><td colspan='2'>Ca(ppm)</td><td>&le;200</td><td>&le;200</td><td>" + presoma.c22 + "</td></tr>" +
-                "<tr><td colspan='2'>Fe(ppm)</td><td>&le;50</td><td>&le;30</td><td>" + presoma.c23 + "</td></tr>" +
-                "<tr><td colspan='2'>Cu(ppm)</td><td>&le;50</td><td>&le;20</td><td>" + presoma.c24 + "</td></tr>" +
-                "<tr><td colspan='2'>Cd(ppm)</td><td>&le;50</td><td>&le;30</td><td>" + presoma.c25 + "</td></tr>" +
-                "<tr><td colspan='2'>Zn(ppm)</td><td>&le;50</td><td>&le;30</td><td>" + presoma.c26 + "</td></tr>" +
-                "<tr><td colspan='2'>S(ppm)</td><td></td><td>&le;1500</td><td>" + presoma.c27 + "</td></tr>" +
-                "<tr><td colspan='2'>Cl-(%)</td><td>1000&plusmn;300</td><td>1000&plusmn;300</td><td>" + presoma.c28 + "</td></tr>" +
-                "<tr><td colspan='2'>Zr(ppm)</td><td>1000&plusmn;300</td><td>1000&plusmn;300</td><td>" + presoma.c29 + "</td></tr>" +
+                "<tr> <td colspan='2'>振实密度(g/cm3)</td> <td>&ge;2.0</td> <td></td> <td>" + presoma.c1 + "</td></tr>" +
+                "<tr> <td colspan='2'>水分(ppm)</td> <td>&le;1.0</td> <td></td> <td>" + presoma.c2 + "</td></tr>" +
+                "<tr> <td colspan='2'>SSA(m2/g)</td> <td>4.0~7.0</td> <td></td> <td>" + presoma.c3 + "</td></tr>" +
+                "<tr> <td colspan='2'>pH值</td> <td>7.0~9.0</td> <td></td> <td>" + presoma.c4 + "</td></tr>" +
+                "<tr> <td rowspan='5'>粒度(&mu;m)</td> <td>&ge;2.5</td> <td></td> <td></td> <td>" + presoma.c5 + "</td></tr>" +
+                "<tr> <td>D10</td> <td>&ge;5.0</td> <td></td> <td>" + presoma.c6 + "</td></tr>" +
+                "<tr> <td>D50</td> <td>9.8~10.5</td> <td></td> <td>" + presoma.c7 + "</td></tr>" +
+                "<tr> <td>D90</td> <td>&le;22</td> <td></td> <td>" + presoma.c8 + "</td></tr>" +
+                "<tr> <td>D99</td> <td>&le;35</td> <td></td> <td>" + presoma.c9 + "</td></tr>" +
+                "<tr> <td colspan='2'>筛上物</td> <td>&le;0.3</td> <td></td> <td>" + presoma.c10 + "</td></tr>" +
+                "<tr> <td rowspan='5'>磁性物质检测(ppb)</td> <td>Fe</td> <td></td> <td></td> <td>" + presoma.c11 + "</td></tr>" +
+                "<tr> <td>Ni</td> <td></td> <td></td> <td>" + presoma.c12 + "</td></tr>" +
+                "<tr> <td>Cr</td> <td></td> <td></td> <td>" + presoma.c13 + "</td></tr>" +
+                "<tr> <td>Zn</td> <td></td> <td></td> <td>" + presoma.c14 + "</td></tr>" +
+                "<tr> <td>总量</td> <td>&le;100</td> <td></td> <td>" + presoma.c15 + "</td></tr>" +
+                "<tr> <td colspan='2'>Ni+Co+Mn(%)</td> <td>60~64</td> <td>19.7&plusmn;0.5</td> <td>" + presoma.c16 + "</td></tr>" +
+                "<tr> <td colspan='2'>Co(%)</td> <td>12.2~13.0</td> <td></td> <td>" + presoma.c17 + "</td></tr>" +
+                "<tr> <td colspan='2'>Mn(%)</td> <td>11.6~12.2</td> <td></td> <td>" + presoma.c18 + "</td></tr>" +
+                "<tr> <td colspan='2'>Ni(%)</td> <td>37.6~38.8</td> <td></td> <td>" + presoma.c19 + "</td></tr>" +
+                "<tr> <td colspan='2'>Na(ppm)</td> <td>&le;120</td> <td></td> <td>" + presoma.c20 + "</td></tr>" +
+                "<tr> <td colspan='2'>Mg(ppm)</td> <td>&le;100</td> <td></td> <td>" + presoma.c21 + "</td></tr>" +
+                "<tr> <td colspan='2'>Ca(ppm)</td> <td>&le;100</td> <td></td> <td>" + presoma.c22 + "</td></tr>" +
+                "<tr> <td colspan='2'>Fe(ppm)</td> <td>&le;50</td> <td></td> <td>" + presoma.c23 + "</td></tr>" +
+                "<tr> <td colspan='2'>Cu(ppm)</td> <td>&le;50</td> <td></td> <td>" + presoma.c24 + "</td></tr>" +
+                "<tr> <td colspan='2'>Cd(ppm)</td> <td>&le;20</td> <td></td> <td>" + presoma.c25 + "</td></tr>" +
+                "<tr> <td colspan='2'>Zn(ppm)</td> <td>&le;40</td> <td></td> <td>" + presoma.c26 + "</td></tr>" +
+                "<tr> <td colspan='2'>S(ppm)</td> <td>&le;1000</td> <td>&le;1300</td> <td>" + presoma.c27 + "</td></tr>" +
+                "<tr> <td colspan='2'>Cl-(%)</td> <td>&le;0.03</td> <td></td> <td>" + presoma.c28 + "</td></tr>" +
+                "<tr> <td colspan='2'>Zr(ppm)</td> <td></td> <td></td> <td>" + presoma.c29 + "</td></tr>" +
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
@@ -550,7 +550,7 @@ var raw_audit = {
         },
 
         /**
-         * lithium表格-需要修改标准
+         * lithium表格-已完成
          * @param lithium
          * @returns {string}
          */
@@ -559,36 +559,36 @@ var raw_audit = {
                 "<div id='div_table' class='table_scroll'>" +
                 "<table id='audit_table_inner' class='table_inner' align='center'>" +
                 "<thead>" +
-                "<tr><td colspan='2'>批号</td><td>检测日期</td><td>数量(t)</td><td>判定</td></tr>" +
+                "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr><td colspan='2'>" + lithium.batchNumber + "</td><td>" + raw_audit.funcs.formatDate(lithium.testDate) + "</td><td>" + lithium.number + "</td><td>" + lithium.judge.name + "</td></tr>" +
+                "<tr> <td colspan='2'>" + lithium.batchNumber + "</td> <td>" + raw_audit.funcs.formatDate(lithium.testDate) + "</td> <td>" + lithium.number + "</td> <td>" + lithium.judge.name + "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
-                "<tr><td colspan='2'>审核状态</td><td>审核人</td><td></td><td></td></tr>" +
+                "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
                 "</thead>" +
-                "<tr><td colspan='2'>" + lithium.status.name + "</td><td>" + raw_audit.funcs.getAuditor(lithium.auditor) + "</td><td></td><td></td></tr>" +
+                "<tr> <td colspan='2'>" + lithium.status.name + "</td> <td>" + raw_audit.funcs.getAuditor(lithium.auditor) + "</td> <td></td> <td></td></tr>" +
                 "<thead>" +
-                "<tr><td colspan='2'>检测项目</td><td>控制采购标准-2016-11-21</td><td>2017.07.01采购标准</td><td>" + lithium.batchNumber + "</td></tr>" +
+                "<tr> <td colspan='2'>检测项目</td><td colspan='2'>原料技术标准<td>" + lithium.batchNumber + "</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr><td colspan='2'>水分(%)</td><td>&ge;2.0</td><td>2.3~2.7</td><td>" + lithium.c1 + "</td></tr>" +
-                "<tr><td rowspan='5'>粒度(&mu;m)</td><td>D1</td><td></td><td>&ge;3.00</td><td>" + lithium.c2 + "</td></tr>" +
-                "<tr><td>D10</td><td>&ge;6.00</td><td>&ge;5.00</td><td>" + lithium.c3 + "</td></tr>" +
-                "<tr><td>D50</td><td>11.00~14.00</td><td>11.30~13.3</td><td>" + lithium.c4 + "</td></tr>" +
-                "<tr><td>D90</td><td>&le;30.00</td><td>&le;30.00</td><td>" + lithium.c5 + "</td></tr>" +
-                "<tr><td>D99</td><td></td><td>&le;40.00</td><td>" + lithium.c6 + "</td></tr>" +
-                "<tr><td colspan='2'>筛上物</td><td>&le;11.80</td><td>&le;11.80</td><td>" + lithium.c7 + "</td></tr>" +
-                "<tr><td rowspan='5'>磁性物质检测(ppb)</td><td>Fe</td><td></td><td></td><td>" + lithium.c8 + "</td></tr>" +
-                "<tr><td>Ni</td><td></td><td></td><td>" + lithium.c9 + "</td></tr>" +
-                "<tr><td>Cr</td><td></td><td></td><td>" + lithium.c10 + "</td></tr>" +
-                "<tr><td>Zn</td><td></td><td></td><td>" + lithium.c11 + "</td></tr>" +
-                "<tr><td>总量</td><td>&le;50</td><td>&le;50</td><td>" + lithium.c12 + "</td></tr>" +
-                "<tr><td colspan='2'>Li2CO3(%)</td><td></td><td>19.7&plusmn;0.5</td><td>" + lithium.c13 + "</td></tr>" +
-                "<tr><td colspan='2'>Na(ppm)</td><td></td><td>19.7&plusmn;0.5</td><td>" + lithium.c14 + "</td></tr>" +
-                "<tr><td colspan='2'>Mg(ppm)</td><td></td><td>19.7&plusmn;0.5</td><td>" + lithium.c15 + "</td></tr>" +
-                "<tr><td colspan='2'>Ca(ppm)</td><td></td><td>19.7&plusmn;0.5</td><td>" + lithium.c16 + "</td></tr>" +
-                "<tr><td colspan='2'>Fe(ppm)</td><td></td><td>19.7&plusmn;0.5</td><td>" + lithium.c17 + "</td></tr>" +
+                "<tr> <td colspan='2'>水分(%)</td> <td>&le;0.25</td> <td>&le;0.25</td> <td>" + lithium.c1 + "</td></tr>" +
+                "<tr> <td rowspan='5'>粒度(&mu;m)</td> <td>D1</td> <td></td> <td></td> <td>" + lithium.c2 + "</td></tr>" +
+                "<tr> <td>D10</td> <td></td> <td></td> <td>" + lithium.c3 + "</td></tr>" +
+                "<tr> <td>D50</td> <td>3~7</td> <td>3~7</td> <td>" + lithium.c4 + "</td></tr>" +
+                "<tr> <td>D90</td> <td>&le;30</td> <td>&le;30</td> <td>" + lithium.c5 + "</td></tr>" +
+                "<tr> <td>D99</td> <td></td> <td></td> <td>" + lithium.c6 + "</td></tr>" +
+                "<tr> <td colspan='2'>筛上物</td> <td>&le;0.3</td> <td>&le;0.3</td> <td>" + lithium.c7 + "</td></tr>" +
+                "<tr> <td rowspan='5'>磁性物质检测(ppb)</td> <td>Fe</td> <td></td> <td></td> <td>" + lithium.c8 + "</td></tr>" +
+                "<tr> <td>Ni</td> <td></td> <td></td> <td>" + lithium.c9 + "</td></tr>" +
+                "<tr> <td>Cr</td> <td></td> <td></td> <td>" + lithium.c10 + "</td></tr>" +
+                "<tr> <td>Zn</td> <td></td> <td></td> <td>" + lithium.c11 + "</td></tr>" +
+                "<tr> <td>总量</td> <td>&le;800</td> <td>&le;500</td> <td>" + lithium.c12 + "</td></tr>" +
+                "<tr> <td colspan='2'>Li2CO3(%)</td> <td>&ge;18.66</td> <td>&ge;18.66</td> <td>" + lithium.c13 + "</td></tr>" +
+                "<tr> <td colspan='2'>Na(ppm)</td> <td>&le;250</td> <td>&le;250</td> <td>" + lithium.c14 + "</td></tr>" +
+                "<tr> <td colspan='2'>Mg(ppm)</td> <td>&le;80</td> <td>&le;80</td> <td>" + lithium.c15 + "</td></tr>" +
+                "<tr> <td colspan='2'>Ca(ppm)</td> <td>&le;50</td> <td>&le;50</td> <td>" + lithium.c16 + "</td></tr>" +
+                "<tr> <td colspan='2'>Fe(ppm)</td> <td>&le;10</td> <td>&le;10</td> <td>" + lithium.c17 + "</td></tr>" +
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
