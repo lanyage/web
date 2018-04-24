@@ -5,12 +5,13 @@
             color: #0b0b13;
 
         }
-
+        .block-quote span{
+            cursor: hand;
+        }
         .select_span {
             color: rgb(51, 51, 51);
             border-bottom: 3px solid #569196;
             padding-bottom: 13px;
-            cursor: hand;
             font-size: 14px;
             font-weight: 600;
         }
@@ -48,10 +49,10 @@
     <div class="block-quote">
         <!--左边-->
         <div class="fl">
-            <span class="select_span">预混</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="select_span">粉碎粒度</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="select_span">粉碎总锂</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="select_span">粉碎SSA</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="yuhun" class="select_span">预混</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="fensuild" >粉碎粒度</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="fensuizl" >粉碎总锂</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="fensuiSSA" >粉碎SSA</span>&nbsp;&nbsp;&nbsp;&nbsp;
 
             <select>
                 <option>未发布</option>
@@ -71,8 +72,8 @@
     <!--中-->
     <!--1表预混-->
     <div>
-        <table id="_25table1" style="width: 100%;">
-            <thead>
+        <table id="_25table1" style="width: 100%;" class="yuhun_table">
+            <thead style="position:fixed;">
             <tr class="dark-gray" style="font-weight: bold;">
                 <td>操作</td>
                 <td>发布人</td>
@@ -113,11 +114,11 @@
             </tbody>
         </table>
     </div>
-    <br><br>
+
 
     <!--2表粉碎粒度-->
     <div>
-        <table id="_25table2" style="width: 100%;">
+        <table id="_25table2" style="width: 100%;" class="hide fensuild_table">
             <thead>
             <tr class="dark-gray" style="font-weight: bold;">
                 <td rowspan="2">操作</td>
@@ -156,11 +157,10 @@
             </tbody>
         </table>
     </div>
-    <br><br>
 
     <!--3表粉碎总锂-->
     <div>
-        <table id="_25table3" style="width: 100%;">
+        <table id="_25table3" style="width: 100%;" class="hide fensuizl_table">
             <thead>
             <tr class="dark1-gray" style="font-weight: bold;">
                 <td></td>
@@ -214,11 +214,10 @@
             </tbody>
         </table>
     </div>
-    <br><br>
 
     <!--4表粉碎SSA-->
     <div>
-        <table id="_25table4" style="width: 100%;">
+        <table id="_25table4" style="width: 100%;" class="hide fensuiSSA_table">
             <thead>
             <tr class="dark-gray" style="font-weight: bold;">
                 <td rowspan="2">操作</td>
@@ -247,10 +246,16 @@
             </tbody>
         </table>
     </div>
-    <br><br>
 
     <!--下-->
     <div>
     </div>
+
+    <script src="../components/js/Production_process.js"></script>
+    <script type="application/javascript">
+        $(function(){
+            Production_process.init()
+        })
+    </script>
 
 </div>
