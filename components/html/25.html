@@ -1,43 +1,44 @@
 <div id='model-li-hide-25' class="display-component-container" style="padding: 20px 20px 0px 20px;">
 
     <style type="text/css">
-    td {
+        td {
             color: #0b0b13;
 
-        } 
-        
-       
-        .select_span
-        {
+        }
+
+        .select_span {
             color: rgb(51, 51, 51);
             border-bottom: 3px solid #569196;
             padding-bottom: 13px;
             cursor: hand;
             font-size: 14px;
-            font-weight:600;
+            font-weight: 600;
         }
-        #_25table tr td,#_25table1 tr td {
-            color : #fff;
+
+        #_25table1 tr td, #_25table2 tr td, #_25table3 tr td, #_25table4 tr td {
+            color: #fff;
             font-size: 13px;
-            text-align:center;
+            text-align: center;
             padding: 1px;
-            border:1px solid gray;
+            border: 1px solid gray;
 
         }
-        
+
         .dark-gray {
             background: rgba(75, 75, 75, 0.9);
         }
+
         .light-gray {
             background: rgba(102, 102, 102, 0.9);
         }
+
         .dark1-gray {
             background: rgba(54, 54, 54, 0.9);
         }
 
-        #_25table,#_25table1{
+        #_25table1, #_25table2, #_25table3, #_25table3 {
             border-collapse: collapse;
-            
+
         }
 
     </style>
@@ -57,20 +58,21 @@
                 <option>已发布</option>
             </select>
         </div>
-         <!--右边-->
+        <!--右边-->
         <div class="fr">
             <p>
-                <a href="#" ><i class="layui-icon">&#x1002;</i>刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#"><i class="layui-icon">&#x1002;</i>刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 <input placeholder="请输入编号"/>
                 <a href="#">搜索</a>
             </p>
         </div>
     </div>
-    
+    <div class="whitespace"></div>
     <!--中-->
     <!--1表预混-->
     <div>
         <table id="_25table1" style="width: 100%;">
+            <thead>
             <tr class="dark-gray" style="font-weight: bold;">
                 <td>操作</td>
                 <td>发布人</td>
@@ -90,7 +92,7 @@
 
             </tr>
             <tr class="light-gray">
-               <td></td>
+                <td></td>
                 <td colspan="3">三级文件控制标准</td>
                 <td></td>
                 <td></td>
@@ -103,15 +105,20 @@
                 <td></td>
                 <td></td>
                 <td></td>
-               
+
             </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
         </table>
     </div>
     <br><br>
 
     <!--2表粉碎粒度-->
     <div>
-        <table id="_25table" style="width: 100%;">
+        <table id="_25table2" style="width: 100%;">
+            <thead>
             <tr class="dark-gray" style="font-weight: bold;">
                 <td rowspan="2">操作</td>
                 <td rowspan="2">发布人</td>
@@ -121,11 +128,11 @@
                 <td colspan="9">振筛粒度%</td>
                 <td rowspan="2">宽度系数</td>
                 <td rowspan="2">宽度系数</td>
-               
+
 
             </tr>
             <tr class="dark-gray">
-               <td>D0</td>
+                <td>D0</td>
                 <td>D1</td>
                 <td>D5</td>
                 <td>D10</td>
@@ -137,25 +144,30 @@
             </tr>
             <tr class="light-gray">
                 <td></td>
-                 <td colspan="4">三级文件控制标准</td>
-                 <td></td>
-                 <td colspan="8">12.5±1.5</td>
-                 <td>(D90-D10)/D50</td>
-                 <td>(D90-D10)/D50</td>    
-             </tr>
+                <td colspan="4">三级文件控制标准</td>
+                <td></td>
+                <td colspan="8">12.5±1.5</td>
+                <td>(D90-D10)/D50</td>
+                <td>(D90-D10)/D50</td>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
         </table>
     </div>
     <br><br>
 
     <!--3表粉碎总锂-->
     <div>
-        <table id="_25table" style="width: 100%;">
+        <table id="_25table3" style="width: 100%;">
+            <thead>
             <tr class="dark1-gray" style="font-weight: bold;">
-               <td></td>
-               <td></td>
-               <td colspan="5">11#炉</td>
-               <td></td>
-               <td colspan="5">15#炉</td>           
+                <td></td>
+                <td></td>
+                <td colspan="5">11#炉</td>
+                <td></td>
+                <td colspan="5">15#炉</td>
             </tr>
 
             <tr class="dark-gray" style="font-weight: bold;">
@@ -168,23 +180,23 @@
                 <td>总Li含量</td>
                 <td rowspan="2"></td>
                 <td rowspan="2">检测日期</td>
-                <td rowspan="2" >编号</td>
+                <td rowspan="2">编号</td>
                 <td>Li2CO3</td>
                 <td>LiOH</td>
                 <td>总Li含量</td>
             </tr>
- 
-           <tr class="dark-gray">
-               <td>%</td> 
-               <td>%</td>
-               <td>10ppm</td>
-               <td>%</td>
-               <td>%</td>
-               <td>10ppm</td>          
+
+            <tr class="dark-gray">
+                <td>%</td>
+                <td>%</td>
+                <td>10ppm</td>
+                <td>%</td>
+                <td>%</td>
+                <td>10ppm</td>
             </tr>
 
             <tr class="light-gray">
-               <td></td>
+                <td></td>
                 <td colspan="3">三级文件控制标准</td>
                 <td></td>
                 <td></td>
@@ -196,13 +208,18 @@
                 <td></td>
                 <td>≤120</td>
             </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
         </table>
     </div>
     <br><br>
 
     <!--4表粉碎SSA-->
     <div>
-        <table id="_25table1" style="width: 100%;">
+        <table id="_25table4" style="width: 100%;">
+            <thead>
             <tr class="dark-gray" style="font-weight: bold;">
                 <td rowspan="2">操作</td>
                 <td rowspan="2">发布人</td>
@@ -214,16 +231,20 @@
                 <td rowspan="2">XRDFWHM(104)</td>
             </tr>
             <tr class="dark-gray" style="font-weight: bold;">
-               <td>0.30±0.08</td>
-               <td>mAh/g</td>   
+                <td>0.30±0.08</td>
+                <td>mAh/g</td>
             </tr>
             <tr class="light-gray">
-                    <td></td>
-                     <td colspan="4">三级文件控制标准</td>
-                     <td>m2/g</td>
-                     <td>≧177.5</td>
-                     <td></td>
-                 </tr>
+                <td></td>
+                <td colspan="4">三级文件控制标准</td>
+                <td>m2/g</td>
+                <td>≧177.5</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
         </table>
     </div>
     <br><br>

@@ -1,72 +1,73 @@
 <div id='model-li-hide-24' class="display-component-container" style="padding: 20px 20px 0px 20px;">
-        <style type="text/css">  
-         td 
-         {
+    <style type="text/css">
+        td {
             color: #0b0b13;
-        } 
-        
-       
-        .select_span
-        {
+        }
+
+        .block-quote span {
+            cursor: hand;
+        }
+
+        .select_span {
             color: rgb(51, 51, 51);
             border-bottom: 3px solid #569196;
             padding-bottom: 14px;
             font-size: 14px;
-            font-weight:700;
-            cursor: hand;
+            font-weight: 700;
         }
-        #_24table tr td,#_24table1 tr td {
-            color : #fff;
+
+        #_24table tr td, #_24table1 tr td {
+            color: #fff;
             font-size: 13px;
-            text-align:center;
+            text-align: center;
             padding: 0;
-            border:1px solid gray;
+            border: 1px solid gray;
 
         }
-        
+
         .dark-grey1 {
             background: rgba(75, 75, 75, 0.9);
         }
+
         .light-grey1 {
             background: rgba(102, 102, 102, 0.9);
         }
 
-        #_24table,#_24table1
-        {
-            border-collapse: collapse;   
+        #_24table, #_24table1 {
+            border-collapse: collapse;
         }
 
-        
-        </style>
-<!--上-->
-<div class="block-quote">
-    <div class="fl">
-        <span class="select_span">金驰622</span>
-        <!--<input type="button" onclick="turnPage1()" id="select_1" value="金驰622">-->
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="select_span">天齐碳酸锂</span>
-        <!--<input type="button" onclick="turnPage2()" id="select_2" value="天齐碳酸锂">-->
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <select>
-            <option>未发布</option>
-            <option>已发布</option>
-        </select>
-    </div>
-    <div class="fr">
+
+    </style>
+    <!--上-->
+    <div class="block-quote">
+        <div class="fl">
+            <span id="jinchi622" class="select_span">金驰622</span>
+            <!--<input type="button" onclick="turnPage1()" id="select_1" value="金驰622">-->
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="tianqitsl">天齐碳酸锂</span>
+            <!--<input type="button" onclick="turnPage2()" id="select_2" value="天齐碳酸锂">-->
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <select>
+                <option>未发布</option>
+                <option>已发布</option>
+            </select>
+        </div>
+        <div class="fr">
             <p>
                 <a href="#"><i class="layui-icon">&#x1002;</i>刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 <input placeholder="请输入批号"/>&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="#">搜索</a>
             </p>
+        </div>
     </div>
-</div>
-<!--留白-->
-<div class="whitespace"></div>
+    <!--留白-->
+    <div class="whitespace"></div>
 
-<!--中-->
+    <!--中-->
     <!--金驰622-->
-    <table id="_24table" style="width:100%;">
-    <thead>
+    <table id="_24table" style="width:100%;" class="jinchi622_table">
+        <thead>
         <!--第一行-->
         <tr class="dark-grey1" style="font-weight: bold;">
             <td rowspan="2">操作</td>
@@ -91,7 +92,7 @@
             <td>Mg</td>
             <td>Ca</td>
             <td>Fe</td>
-            <td>Cu</td>       
+            <td>Cu</td>
         </tr>
         <!--第二行-->
         <tr class="dark-grey1" style="font-weight: bold;">
@@ -110,7 +111,7 @@
             <td>ppm</td>
             <td>ppm</td>
             <td>ppm</td>
-            <td>ppm</td> 
+            <td>ppm</td>
         </tr>
         <!--第3行-->
         <tr class="light-grey1">
@@ -129,8 +130,8 @@
             <td>≤120</td>
             <td>≤100</td>
             <td>≤200</td>
-            <td>≤50</td> 
-            <td>≤50</td> 
+            <td>≤50</td>
+            <td>≤50</td>
         </tr>
         <!--第4行-->
         <tr class="light-grey1">
@@ -149,15 +150,14 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td> 
+            <td></td>
             <td></td>
         </tr>
-    </thead>
+        </thead>
     </table>
-<br><br>
-<!--天齐碳酸锂-->
-<table id="_24table1" style="width:100%;">
-    <thead>
+    <!--天齐碳酸锂-->
+    <table id="_24table1" style="width:100%;" class="hide tianqitsl_table">
+        <thead>
         <!--第一行-->
         <tr class="dark-grey1" style="font-weight: bold;">
             <td rowspan="2">操作</td>
@@ -215,9 +215,9 @@
             <td></td>
             <td><=800</td>
             <td>≥18.66</td>
-            <td>≤250</td> 
-            <td>≤80</td> 
-            <td>≤50</td> 
+            <td>≤250</td>
+            <td>≤80</td>
+            <td>≤50</td>
             <td>≤10</td>
         </tr>
         <!--第4行-->
@@ -237,31 +237,21 @@
             <td></td>
             <td><=5800</td>
             <td>≥18.66</td>
-            <td>≤250</td> 
-            <td>≤80</td> 
-            <td>≤50</td> 
+            <td>≤250</td>
+            <td>≤80</td>
+            <td>≤50</td>
             <td>≤10</td>
         </tr>
-    </thead>
+        </thead>
     </table>
 
-<!--下-->
-<div id="_24page"></div>
+    <!--下-->
+    <div id="_24page"></div>
+
+    <script src="../components/js/material_publish.js"></script>
     <script type="application/javascript">
-    /*function turnPage1(){
-        var div1 = document.getElementById('select_1')
-        var table1 = document.getElementById('_24table')
-        table1.style.display = "block"
-        var table2 = document.getElementById('_24table1')
-        table2.style.display = 'none'
-    }
-    
-    function turnPage2(){
-        var div1 = document.getElementById('select_1')
-        var table1 = document.getElementById('_24table')
-        table1.style.display = "none"
-        var table2 = document.getElementById('_24table1')
-        table2.style.display = 'block'
-    }*/
+        $(function(){
+            material_publish.init()
+        })
     </script>
 </div>
