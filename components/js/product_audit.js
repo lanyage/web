@@ -1,6 +1,5 @@
 var product_audit = {
     init: function () {
-        console.log('user = ', home.user.code)
         // display
         product_audit.funcs.renderTable()
 
@@ -13,8 +12,6 @@ var product_audit = {
     }
     /** 当前总记录数,用户控制全选逻辑 */
     , pageSize: 0
-    /** 记录当前打开的id */
-    , currId: null
     /** 逻辑方法 */
     , funcs: {
         /** 渲染页面*/
@@ -67,6 +64,11 @@ var product_audit = {
             /** 追加搜索事件 */
             var searchBtn = $('#model-li-hide-search-20');
             product_audit.funcs.bindSearchEventListener(searchBtn);
+            /** 左箭头 */
+            var leftBtn = $('#model-li-hide-left-20');
+            product_audit.funcs.bindLeftBtn(leftBtn);
+            /** 右箭头 */
+            var rightBtn = $('#model-li-hide-right-20')
         },
 
         /** 渲染 */
@@ -75,7 +77,7 @@ var product_audit = {
             products.forEach(function (e) {
                 var status = $('#status').val();
                 $tbody.append(
-                    "<tr id='product-audit-" + (e.code) + "'>" +
+                    "<tr>" +
                     "<td>" + product_audit.funcs.getIcon(status, e.code) + "</i></td>" +
                     "<td>" + product_audit.funcs.getAuditor(e.auditor) + "</td>" +
                     "<td>" + product_audit.funcs.formatDate(e.testDate) + "</td>" +
@@ -166,8 +168,7 @@ var product_audit = {
 
         /** 监听状态下拉选框 */
         bindSelectEventListener: function (statusSelect) {
-            statusSelect.off('change')
-            statusSelect.on('change', function () {
+            statusSelect.change(function () {
                 product_audit.funcs.renderTable()
             })
         },
@@ -178,10 +179,8 @@ var product_audit = {
             auditBtns.on('click', function () {
                 var _selfBtn = $(this)
                 var productCode = _selfBtn.attr('id').substr(6)
-                product_audit.currId = "product-audit-" + productCode
-
+                console.log("审核" + productCode)
                 $.post(home.urls.product.getByCode(), {code: productCode}, function (result) {
-                    console.log("审核" + productCode)
                     var product = result.data
                     layer.open({
                         type: 1,
@@ -191,10 +190,10 @@ var product_audit = {
                         offset: 'auto', // ['10%', '40%'],
                         btnAlign: 'c',
                         yes: function () {
-                            console.log("提交审核" + productCode)
+                            console.log("提交审核" + productCode);
                             $.post(home.urls.product.updateAuditByCode(), {
                                 code: productCode,
-                                auditorCode: home.user.code,     // 此处需要读取用户编号
+                                auditorCode: "001",     // 此处需要读取用户编号
                                 statusCode: 2
                             }, function (result) {
                                 if (result.code == 0) {
@@ -234,8 +233,6 @@ var product_audit = {
                             layer.close(index)
                         }
                     })
-                    product_audit.funcs.bindLeftBtn($('#model-li-hide-left-20'))
-                    product_audit.funcs.bindRightBtn($('#model-li-hide-right-20'))
                 })
             })
         },
@@ -246,7 +243,6 @@ var product_audit = {
             detailBtns.on('click', function () {
                 var _selfBtn = $(this)
                 var productCode = _selfBtn.attr('id').substr(6)
-                product_audit.currId = "product-audit-" + productCode
                 console.log("查看" + productCode)
                 $.post(home.urls.product.getByCode(), {code: productCode}, function (result) {
                     var product = result.data
@@ -261,8 +257,7 @@ var product_audit = {
                             layer.close(index);
                         }
                     })
-                    product_audit.funcs.bindLeftBtn($('#model-li-hide-left-20'))
-                    product_audit.funcs.bindRightBtn($('#model-li-hide-right-20'))
+
                 })
             })
         },
@@ -299,30 +294,20 @@ var product_audit = {
         },
 
         /**
-         * 查看数据，不含表格
+         * 查看数据
          * @param product
          * @returns {string}
          */
         getData: function (product) {
-            var data = "<div id='auditModal'>" +
+            return (
+                "<div id='auditModal'>" +
                 "<div class='arrow_div_left'>" +
                 "<span id='model-li-hide-left-20'><a href=\"#\"><i class=\"layui-icon\" style='font-size: 40px'>&#xe603;</i></a></span>" +
                 "</div>" +
                 "<div class='arrow_div_right'>" +
                 "<span id='model-li-hide-right-20'><a href=\"#\"><i class=\"layui-icon\" style='font-size: 40px'>&#xe602;</i></a></span>" +
                 "</div>" +
-                product_audit.funcs.getTale(product);
-            return data
-        },
-
-        /**
-         * 返回表格
-         * @param product
-         * @returns {string}
-         */
-        getTale: function (product){
-            return (
-                "<div id='div_table' class='table_scroll'>" +
+                "<div class='table_scroll'>" +
                 "<table id='audit_table_inner' class='table_inner' align='center'>" +
                 "<thead>" +
                 "<tr><td colspan='2'>批号</td><td>检测日期</td><td>数量(t)</td><td>判定</td></tr>" +
@@ -380,68 +365,19 @@ var product_audit = {
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
-                "</div>"
-            )
+                "</div>");
         },
 
         bindLeftBtn: function (leftBtn) {
             leftBtn.off('click');
             leftBtn.on('click', function () {
                 console.log("左");
-                var $table = $('#product_table');
-                var firstId = $($table.children('tbody').children('tr')[0]).attr('id');
-                if (firstId != product_audit.currId){
-                    var prevCode = $('#' + product_audit.currId).prev('tr').attr('id').substr(14);
-                    console.log(prevCode);
-                    $.post(home.urls.product.getByCode(), {code: prevCode}, function (result) {
-                        product_audit.currId = "product-audit-" + prevCode;
-                        var product = result.data;
-                        const $div = $("#div_table");
-                        product_audit.funcs.changeTable($div, product);
-                    })
-                }
-                else {
-                    console.log("First one");
-                    layer.msg('已经是页面第一项', {
-                        time: 1000
-                    })
-                }
             })
         },
 
-        bindRightBtn: function (rightBtn) {
-            rightBtn.off('click');
-            rightBtn.on('click', function () {
-                console.log("右");
-                var $table = $('#product_table');
-                var lastId = $($table.children('tbody').children('tr')[9]).attr('id');
-                if (lastId != product_audit.currId) {
-                    var nextCode = $('#' + product_audit.currId).next('tr').attr('id').substr(14);
-                    console.log(nextCode);
-                    $.post(home.urls.product.getByCode(), {code: nextCode}, function (result) {
-                        product_audit.currId = "product-audit-" + nextCode;
-                        var product = result.data;
-                        const $div = $("#div_table");
-                        product_audit.funcs.changeTable($div, product);
-                    })
-                }
-                else{
-                    console.log("Last one");
-                    layer.msg('已经是页面最后一项', {
-                        time: 1000
-                    })
-                }
-            })
-        },
+        bindRightBtn: function () {
 
-        /**
-         * 更新表
-         * @param $div
-         * @param product
-         */
-        changeTable: function ($div, product) {
-            $div.empty();
-            $div.append(product_audit.funcs.getTale(product));
         }
+
     }
 }
