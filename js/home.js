@@ -8,6 +8,17 @@ var home = {
                 return servers.backup() + 'energyReadData/getByInoAndStartDateTimeAndEndDateTime'
             }
         },
+        fileUpload:{
+            getAllFileType:function(){
+                return servers.backup() + 'fileUpload/getAllFileType'
+            },
+            open:function(){
+                return servers.backup() + 'fileUpload/open'
+            },
+            submit:function(){
+                return servers.backup() + 'fileUpload/submit'
+            }
+        },
         menus: {
             getAllMenu1: function () {
                 return servers.backup() + 'menu1/getAll'
