@@ -818,12 +818,11 @@ var home = {
             }
         },
         rawPresoma:{
-
             // 金弛622 前驱体
             updatePublishByCode: function () {
                 return servers.backup() + 'rawPresoma/updatePublishByCode'
             },
-            updateAuditByCodeL: function () {
+            updateAuditByCode: function () {
                 return servers.backup() + 'rawPresoma/updateAuditByCode'
             },
             getByCode: function () {
@@ -837,6 +836,27 @@ var home = {
             },
             getByLikeBatchNumberByPage: function () {
                 return servers.backup() + 'rawPresoma/getByLikeBatchNumberByPage'
+            }
+        },
+        rawLithium:{
+            // 碳酸锂
+            updatePublishByCode: function () {
+                return servers.backup() + 'rawLithium/updatePublishByCode'
+            },
+            updateAuditByCode: function () {
+                return servers.backup() + 'rawLithium/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'rawLithium/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'rawLithium/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'rawLithium/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'rawLithium/getByLikeBatchNumberByPage'
             }
         }
     }
@@ -871,6 +891,7 @@ var home = {
     , monitor_data: null
     , realdata_interval: []
     , singlePage_interval: []
+    , user: null
 
     /** end */
     /**
@@ -889,6 +910,7 @@ var home = {
 
         /** 获取session用户信息 */
         const user = userJson
+        home.user = userJson
         var roles = user.roles //获取用户角色
 
         var menu1codes = []//用户一级菜单去重
