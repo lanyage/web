@@ -33,12 +33,23 @@ var inputData_manage = {
              /** 获取提交选项 */
              var submitBtn = $('#submitBtn')
              inputData_manage.funcs.bindSubmitData(submitBtn)
+
+             /** 选择不同的typeCode显示相应的表头 */
+             var tabTop = $('#openBtn')
+             inputData_manage.funcs.bindShowtabTitle(tabTop)
          },
 
 
           
-       
+        /** 选择不同的typeCode显示相应的表头 */
+         bindShowtabTitle:function(tabTop){
+             console.log(tabTop)
+             console.log('aaaa')
+             var ID = 'table'+$("#selectoption option:selected").attr('id')
+            $('#model-li-hide-19 table').addClass('hide')
 
+            $(ID).removeClass('hide')
+         },
 
          /** 点击选择Excle文件按钮 弹出文件框，让选择文件 */
         bindOpendialog : function(fileUploadBtn){
@@ -115,46 +126,47 @@ var inputData_manage = {
                 " <td>"+ batchNumber +"</td>"+
                 " <td>"+ judge_name +"</td>"+
                 " <td>"+ number +"</td>"+
-                " <td>"+ c1 +"</td>"+
+                " <td style='width:90px;'>"+ c1 +"</td>"+
                 " <td>"+ c2 +"</td>"+
                 " <td>"+ c3 +"</td>"+
                 " <td>"+ c4 +"</td>"+
+                
+               
+                " <td></td>"+
+                " <td></td>"+
+                " <td></td>"+
                 " <td>"+ c5 +"</td>"+
                 " <td>"+ c6 +"</td>"+
                 " <td>"+ c7 +"</td>"+
                 " <td>"+ c8 +"</td>"+
                 " <td>"+ c9 +"</td>"+
-                " <td>"+ c10 +"</td>"+
+                " <td></td>"+
                 " <td>"+ c11 +"</td>"+
                 " <td>"+ c12 +"</td>"+
                 " <td>"+ c13 +"</td>"+
                 " <td>"+ c14 +"</td>"+
                 " <td>"+ c15 +"</td>"+
-                " <td>"+ c16 +"</td>"+
+                " <td></td>"+
+                " <td></td>"+
+                " <td></td>"+
+                " <td></td>"+
                 " <td>"+ c17 +"</td>"+
                 " <td>"+ c18 +"</td>"+
                 " <td>"+ c19 +"</td>"+
+    
                 " <td>"+ c20 +"</td>"+
                 " <td>"+ c21 +"</td>"+
                 " <td>"+ c22 +"</td>"+
                 " <td>"+ c23 +"</td>"+
                 " <td>"+ c24 +"</td>"+
-                " <td>"+ c25 +"</td>"+
                 " <td>"+ c26 +"</td>"+
-                " <td>"+ c27 +"</td>"+
-                " <td>"+ c28 +"</td>"+
-                " <td>"+ c29 +"</td>"+
-                " <td>"+ c30 +"</td>"+
-                " <td>"+ c31 +"</td>"+
-                " <td>"+ c32 +"</td>"+
-                " <td>"+ c33 +"</td>"+
-                " <td>"+ c34 +"</td>"+
-                " <td>"+ c35 +"</td>"+
-                " <td>"+ c36 +"</td>"+
-                " <td>"+ c37 +"</td>"+
-                " <td>"+ c38 +"</td>"+
-                " <td>"+ c39 +"</td>"+
-                " <td>"+ c40 +"</td>"+
+                " <td></td>"+
+                " <td></td>"+
+                " <td></td>"+
+                " <td></td>"+
+                " <td></td>"+
+                " <td></td>"+
+               
                "</tr> ")
 
 
@@ -192,13 +204,20 @@ var inputData_manage = {
             submitBtn.on('click',function(){
                 var typeCode = $("#selectoption option:selected").val();
                 $.post(home.urls.fileUpload.submit(),{typeCode:typeCode},function(result){
-                    layer.open({
-                        type: 1,
-                        title: '添加成功',
-                        content: "<h5 style='text-align: center;padding-top: 8px'>添加成功！！！</h5>",
-                        area: ['190px', '130px'],
-                        offset: ['40%', '55%'],
-                    });
+                    console.log(result)
+                    
+                        layer.msg('添加成功', {
+                            offset: ['40%', '55%'],
+                            time: 700
+                        })
+                    // layer.open({
+                    //     type: 1,
+                    //     title: '添加成功',
+                    //     content: "<h5 style='text-align: center;padding-top: 8px'>添加成功！！！</h5>",
+                    //     area: ['190px', '130px'],
+                    //     offset: ['40%', '55%'],
+                    //     time: 700
+                    // });
                 })
             })
          }

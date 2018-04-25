@@ -12,6 +12,7 @@ var material_publish = {
             clickSpans.on('click', function(){
                 $('.select_span').removeClass('select_span')
                 $('#model-li-hide-24 table').addClass('hide')
+                console.log( $('.'+$(this).attr('id')+'_table'))
                 $('.'+$(this).attr('id')+'_table').removeClass('hide')
                 $(this).addClass('select_span')
             })

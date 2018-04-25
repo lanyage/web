@@ -1,33 +1,65 @@
-<div id='model-li-hide-19' class="display-component-container">
+<div id='model-li-hide-19' class="display-component-container" style="margin-left:20px;">
         <style>
-                #inputData_ltable{
-                    display:inline
-                }
-                #inputData_rtable{
-                    display:inline
-                }
-                td{
+
+               td{
                     border:1px gray solid;
                     white-space: nowrap;
                     height: 30px;
                    font-size: 14px;
                 }
+                #inputData_top{
+                    width:100%;
+                    height:50px;
+                    background:#F8F8F8;
+                    line-height:50px;
+                    position: fixed;
+                    margin-bottom: 10px;
+                }
+                #div1{
+                    overflow-x: scroll;
+                   
+                }
+               
+                #inputData_body2{
+                    max-height: 400px;
+                    width: 100%;
+                    height: 400px;
+                    overflow-x: scroll;
+
+                }
+
+                table{
+                    border-collapse:collapse;
+                    text-align:center;
+                }
+                
+        .dark-grey1 {
+            background: rgba(75, 75, 75, 0.9);
+        }
+
+        .light-grey1 {
+            background: rgba(102, 102, 102, 0.9);
+        }
+
             </style>
 
 
-<div id="inputData_top" style="width:100%;height:30px;background:#F8F8F8;line-height:30px;">
+<div id="inputData_top" >
         <label id="" style="color:#00A99D;border:0px;float:left;"for="file-input-name">选择Excle文件：</label>
         <form action="" id='uploadForm' enctype="multipart/form-data" style="float:left">
             <input type="file" name="file"/>
             <select name="" id="selectoption">   
             </select>
-            <Button type="button" id="openBtn" onclick="turnPage()" style="background:#00A99D;color:white;border:0px;">打开</Button>
+            <Button type="button" id="openBtn" onclick="turnPage()" style="background:#00A99D;color:white;border:0px;width:50px;height:30px;">打开</Button>
 
         </form>    
        
        
     </div>
 
+
+    <div class="whitespace"></div>
+    <div class="whitespace"></div>
     <div class="whitespace"></div>
 
     <div id="div1">
@@ -36,29 +68,28 @@
     </div>
     </div>
 
-    <div id="inputData_body3" style="display:none">
-    <div id="inputData_body2" style=" overflow-x: scroll;">
-       
-    <table id="inputData_rtable" class="table_style" style="border-collapse:collapse;text-align:center;">
-        <thead style="color:white;font-weight:bold;font-size:12px;">
-            <tr style="background:#4B4B4B; height:30px;">
-                <td  rowspan="2"  > 检测日期</td>
-                <td  rowspan="2"  >批号</td>
-                <td  rowspan="2" >判定</td>
-                <td fixed='left'>数量</td>         
+
+    <div id="inputData_body2" > 
+    <table id="table2" class="_table_2" >
+        <!--金持622的表头-->
+        <thead style="font-weight:bold;font-size:12px;">
+             <!--第一行-->
+        <tr class="dark-grey1" style="font-weight: bold;">
+                <td rowspan="2">操作</td>
+                <td rowspan="2">发布人</td>
+                <td rowspan="2">检测日期</td>
+                <td rowspan="2">厂家批号</td>
+                <td rowspan="2">内部编号</td>
+                <td rowspan="2">生产日期</td>
+                <td>数量</td>
+                <td rowspan="2">判定</td>
                 <td>振实密度</td>
                 <td>水分</td>
                 <td>SSA</td>
-                <td>PH值</td>
-                <td>Li2CO3</td>
-                <td>LiOH</td>
-                <td>总Li含量</td>
-                <td colspan="6">粒度（µm）</td>
-                <td colspan="5">磁性物质检测ppb</td>
-                <td>Co</td>
-                <td>Mn</td>
-                <td>Ni</td>
-                <td>Li</td>
+                <td>pH值</td>
+                <td>粒度（µm）</td>
+                <td>筛上物</td>
+                <td>Ni+Cu+Mn</td>
                 <td>Co</td>
                 <td>Mn</td>
                 <td>Ni</td>
@@ -67,142 +98,303 @@
                 <td>Ca</td>
                 <td>Fe</td>
                 <td>Cu</td>
-                <td>Zn</td>
-                <td>S</td>
-                <td>Al</td>
-                <td>0.1C首次放电容量</td>
-                <td>0.1C首次效率</td>
-                <td>1C首次放电容量</td>
-                <td rowspan="2">主原料</td>
             </tr>
-
-            <tr style="background:#4B4B4B;height:30px;">
-                 <td >t</td>
+            <!--第二行-->
+            <tr class="dark-grey1" style="font-weight: bold;">
+                <td>t</td>
                 <td>g/cm3</td>
-                <td>ppm</td>
+                <td>%</td>
                 <td>m2/g</td>
                 <td>/</td>
+                <td>D50</td>
                 <td>%</td>
                 <td>%</td>
-                <td>10ppm</td>
+                <td>%</td>
+                <td>%</td>
+                <td>%</td>
+                <td>ppm</td>
+                <td>ppm</td>
+                <td>ppm</td>
+                <td>ppm</td>
+                <td>ppm</td>
+            </tr>
+            <!--第3行-->
+            <tr class="light-grey1">
+                <td></td>
+                <td colspan="7">控制采购标准-2016-11-21</td>
+                <td>>=2.0</td>
+                <td><=1.0</td>
+                <td>4.0~7.0</td>
+                <td>7.0~9.0</td>
+                <td>9.8~10.5</td>
+                <td><=0.3</td>
+                <td>60-64</td>
+                <td>12.2-13.0</td>
+                <td>11.6-12.2</td>
+                <td>37.6-38.8</td>
+                <td>≤120</td>
+                <td>≤100</td>
+                <td>≤200</td>
+                <td>≤50</td>
+                <td>≤50</td>
+            </tr>
+            <!--第4行-->
+            <tr class="light-grey1">
+                <td></td>
+                <td colspan="7">2017.07.01采购标准</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+
+       
+
+        <tbody id="tbody_page2">
+
+        </tbody>
+    </table>
+     <!--碳酸锂的表头-->
+    <table id="table3" style="width:100%;" class="_table_3">
+            <thead>
+            <!--第一行-->
+            <tr class="dark-grey1" style="font-weight: bold;">
+                <td rowspan="2">操作</td>
+                <td rowspan="2">发布人</td>
+                <td rowspan="2">检测日期</td>
+                <td rowspan="2">厂家批号</td>
+                <td rowspan="2">生产日期</td>
+                <td rowspan="2">判定</td>
+                <td>数量</td>
+                <td>水分</td>
+                <td colspan="5">粒度（µm）</td>
+                <td>筛上物</td>
+                <td colspan="5">磁性物质检测ppb</td>
+                <td>Li2CO3</td>
+                <td>Na</td>
+                <td>Mg</td>
+                <td>Ca</td>
+                <td>Fe</td>
+            </tr>
+            <!--第二行-->
+            <tr class="dark-grey1" style="font-weight: bold;">
+                <td>t</td>
+                <td>%</td>
                 <td>D1</td>
                 <td>D10</td>
                 <td>D50</td>
                 <td>D90</td>
                 <td>D99</td>
-                <td>粒度宽度系数</td>
+                <td>%</td>
                 <td>Fe</td>
                 <td>Ni</td>
                 <td>Cr</td>
                 <td>Zn</td>
                 <td>总量</td>
-                <td>mol%</td>
-                <td>mol%</td>
-                <td>mol%</td>
-                <td>%</td>
-                <td>%</td>
-                <td>%</td>
                 <td>%</td>
                 <td>ppm</td>
                 <td>ppm</td>
                 <td>ppm</td>
                 <td>ppm</td>
-                <td>ppm</td>
-                <td>ppm</td>
-                <td>ppm</td>
-                <td>ppm</td>
-                <td>mAh/g</td>
-                <td>%</td>
-                <td>mAh%</td>
             </tr>
-
-            <tr style="background:#666666;height:30px;">
-                <td colspan="4" >三级控制标准</td>
-                <td>>=2.00</td>
-                <td><=500</td>
-                <td>0.20~0.40</td>
-                <td><=11.80</td>
+            <!--第3行-->
+            <tr class="light-grey1">
                 <td></td>
-                <td></td>
-                <td><=100</td>
-                <td></td>
-                <td>>=6.00</td>
-                <td>11.00~14.00</td>
-                <td><=30.00</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><=50</td>
-                <td></td>
-                <td>7.0±0.5</td>
-                <td>12.2±1.0</td>
-                <td>11.4±1.0</td>
-                <td>12.2±1.0</td>
-                <td>11.4±1.0</td>
-                <td>36.2±1.0</td>
-                <td>≤200</td>
-                <td>≤200</td>
-                <td>≤200</td>
-                <td>≤50</td>
-                <td>≤50</td>
-                <td>≤50</td>
-                <td></td>
-                <td>100±300</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-
-            <tr style="background:#666666;height:30px;">
-                <td colspan="4" fixed:'left'>2016-3-2三级控制标准</td>       
-                <td>2.3-2.7</td>
-                <td><=500</td>
-                <td>0.22~0.38</td>
-                <td><=11.80</td>
+                <td colspan="6">控制采购标准-2016-11-21</td>
                 <td><=0.25</td>
-                <td><=0.20</td>
-                <td><=120</td>
-                <td>>=3.00</td>
-                <td>>=5.00</td>
-                <td>11.30~13.30</td>
-                <td><=30.00</td>
-                <td><=40.00</td>
+                <td></td>
+                <td></td>
+                <td>3-7</td>
+                <td><=30></td>
+                <td>9.8~10.5</td>
+                <td><=0.3</td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td><=50</td>
-                <td>19.7±0.5</td>
-                <td>7.0±0.5</td>
-                <td>12.2±1.0</td>
-                <td>11.4±1.0</td>
-                <td>12.2±1.0</td>
-                <td>11.4±1.0</td>
-                <td>36.2±1.0</td>
-                <td>≤200</td>
-                <td>≤200</td>
-                <td>≤200</td>
-                <td>≤30</td>
-                <td>≤20</td>
-                <td>≤30</td>
-                <td>≤1500</td>                
-                <td>100±200</td>
-                <td>≥177.5</td>
-                <td>≥88.0</td>
-                <td>≥162</td>
-                <td></td>
+                <td><=800</td>
+                <td>≥18.66</td>
+                <td>≤250</td>
+                <td>≤80</td>
+                <td>≤50</td>
+                <td>≤10</td>
             </tr>
-        </thead>
+            <!--第4行-->
+            <tr class="light-grey1">
+                <td></td>
+                <td colspan="6">2017.07.01采购标准</td>
+                <td><=0.25</td>
+                <td></td>
+                <td></td>
+                <td>3-7</td>
+                <td><=30></td>
+                <td></td>
+                <td><=0.3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><=5800</td>
+                <td>≥18.66</td>
+                <td>≤250</td>
+                <td>≤80</td>
+                <td>≤50</td>
+                <td>≤10</td>
+            </tr>
+            </thead>
 
-        <tbody id="tbody_page">
+            <tbody id="tbody_page3"></tbody>
+        </table>
 
-        </tbody>
-    </table>
+        <!--预混表头-->
+        <table id="_25table1" style="width: 100%;" class="yuhun_table">
+                <thead style="position:fixed;">
+                <tr class="dark-grey1" style="font-weight: bold;">
+                    <td>操作</td>
+                    <td>发布人</td>
+                    <td>检测日期</td>
+                    <td>编号</td>
+                    <td>预混</td>
+                    <td>可溶锂 %</td>
+                    <td>主原料厂家</td>
+                    <td>配比</td>
+                    <td>锂的理论含量 %</td>
+                    <td>锂的理论%下限</td>
+                    <td>锂的理论%上限</td>
+                    <td>Me%</td>
+                    <td>L/M（实际）</td>
+                    <td>L/M（理论）</td>
+                    <td>备注</td>
+    
+                </tr>
+                <tr class="light-grey1">
+                    <td></td>
+                    <td colspan="3">三级文件控制标准</td>
+                    <td></td>
+                    <td></td>
+                    <td>理论含量±0.08</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+    
+                </tr>
+                </thead>
+                <tbody>
+    
+                </tbody>
+            </table>
+
+            <!--粉碎粒度-->
+            <table id="table6" style="width: 100%;" class="_table_6">
+                    <thead>
+                    <tr class="dark-grey1" style="font-weight: bold;">
+                        <td rowspan="2">操作</td>
+                        <td rowspan="2">发布人</td>
+                        <td rowspan="2">检测日期</td>
+                        <td rowspan="2">编号</td>
+                        <td rowspan="2">炉号</td>
+                        <td colspan="9">振筛粒度%</td>
+                        <td rowspan="2">宽度系数</td>
+                        <td rowspan="2">宽度系数</td>
+        
+        
+                    </tr>
+                    <tr class="dark-grey1">
+                        <td>D0</td>
+                        <td>D1</td>
+                        <td>D5</td>
+                        <td>D10</td>
+                        <td>D50</td>
+                        <td>D90</td>
+                        <td>D95</td>
+                        <td>D99</td>
+                        <td>D99.99</td>
+                    </tr>
+                    <tr class="light-grey1">
+                        <td></td>
+                        <td colspan="4">三级文件控制标准</td>
+                        <td></td>
+                        <td colspan="8">12.5±1.5</td>
+                        <td>(D90-D10)/D50</td>
+                        <td>(D90-D10)/D50</td>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody_page6">
+        
+                    </tbody>
+                </table>
+
+                <!--粉碎总锂-->
+                <table id="table7" style="width: 100%;" class="_table_7">
+                        <thead>
+                        <tr class="dark-grey1" style="font-weight: bold;">
+                            <td></td>
+                            <td></td>
+                            <td colspan="5">11#炉</td>
+                            <td></td>
+                            <td colspan="5">15#炉</td>
+                        </tr>
+            
+                        <tr class="dark-grey1" style="font-weight: bold;">
+                            <td rowspan="2">操作</td>
+                            <td rowspan="2">发布人</td>
+                            <td rowspan="2">检测日期</td>
+                            <td rowspan="2">编号</td>
+                            <td>Li2CO3</td>
+                            <td>LiOH</td>
+                            <td>总Li含量</td>
+                            <td rowspan="2"></td>
+                            <td rowspan="2">检测日期</td>
+                            <td rowspan="2">编号</td>
+                            <td>Li2CO3</td>
+                            <td>LiOH</td>
+                            <td>总Li含量</td>
+                        </tr>
+            
+                        <tr class="dark-grey1">
+                            <td>%</td>
+                            <td>%</td>
+                            <td>10ppm</td>
+                            <td>%</td>
+                            <td>%</td>
+                            <td>10ppm</td>
+                        </tr>
+            
+                        <tr class="light-grey1">
+                            <td></td>
+                            <td colspan="3">三级文件控制标准</td>
+                            <td></td>
+                            <td></td>
+                            <td>≤100</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>≤120</td>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody_page7">
+            
+                        </tbody>
+                    </table>
 </div>
 
 <div style="margin-top:30px;width:100%;text-align:center;">
@@ -213,33 +405,21 @@
 
 <script>
     function turnPage () {
-                    console.log('hhhh')
-                    var div1 = document.getElementById('div1')
-                    var div2 = document.getElementById('inputData_body3')
-                    div1.style.display = 'none';
-                    div2.style.display = 'block'; 
+                    //console.log('hhhh')
+                //var hh = '_table_'+$("#selectoption option:selected").attr('id')
+               // console.log(hh)
+                var div1 = document.getElementById('inputData_body1')
+                div1.style.display = 'none'
+                $('#model-li-hide-19 table').addClass('hide')
+                console.log($('#model-li-hide-19 table'))
+                console.log($('._table_'+$("#selectoption option:selected").attr('id')))
+                $('._table_'+$("#selectoption option:selected").attr('id')).removeClass('hide')
+                console.log($('._table_'+$("#selectoption option:selected").attr('id')).removeClass('hide'))
+               // $('._table_'+$("#selectoption option:selected").attr('id')).style.display = 'block'
+                //div1.style.display = 'block'
+               
                 }
     
-    function doUpload(){
-        var formData = new FormData($('#uploadForm')[0]);
-        var typeCode = $("#selectoption option:selected").val();
-        formData.append('typeCode',typeCode)
-        $.ajax({
-            url:'http://localhost:8080/mes/fileUpload/open',
-            type:'POST',
-            data:formData,
-            async:false,
-            cache:false,
-            contentType:false,
-            processData:false,
-            success:function(returndata){
-                alert(returndata)
-            },
-            error:function(returndata){
-                alert(returndata)
-            }
-        });
-    }
     
 </script>
 
