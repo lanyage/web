@@ -23,7 +23,7 @@ var raw_audit = {
     }
     , raw_type: 0   // choose material type: 0-personma, 1-lithium
     , pageSize: 0
-    , currId: null
+    , currId: null  // current chosen Id
     , funcs: {
         renderTable: function () {
             /** 获取所有记录 */

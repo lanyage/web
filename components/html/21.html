@@ -4,7 +4,7 @@
     <style type="text/css">
         .table_style thead td {
             margin: 0;
-            padding: 2px;
+            padding: 0px;
             border: 1px darkgrey solid;
             font-size: 12px;
             color: white;
@@ -14,7 +14,7 @@
 
         .table_style tbody td {
             margin: 0;
-            padding: 2px;
+            padding: 0px;
             border: 1px darkgrey solid;
             font-size: 10px;
             color: black;
@@ -55,15 +55,58 @@
             width: 50px;
         }
 
+        .label_selected {
+            border-bottom: #62a49a 3px solid;
+            padding-bottom: 5px;
+            color: #62a49a;
+        }
+
+        .label_not_selected:hover {
+            border-bottom: #777777 3px solid;
+            padding-bottom: 5px;
+        }
+
+        .arrow_div_left {
+            width: 40px;
+            height: 40px;
+            margin: 0 0 0 0;
+            float: left;
+            position: absolute;
+            top: 50%;
+            left: 0;
+        }
+
+        .arrow_div_right {
+            width: 40px;
+            height: 40px;
+            margin: 0 0 0 0;
+            float: right;
+            position: absolute;
+            top: 50%;
+            right: 0;
+        }
+
+        .table_scroll {
+            overflow-y: auto;
+            height: 600px;
+        }
+
+        .align_middle {
+            position: relative;
+            top: 50%;
+            text-align: center;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
             <p style="font-size: 14px;">
-                <span id="presoma" style="border-bottom:#62a49a 3px solid;padding-bottom: 10px;color: #62a49a;">
-                    <a href="#">金弛622</a>
+                <span id="select-presoma" class="label_selected">
+                    金弛622
                 </span>
                 &nbsp;&nbsp;
-                <span id="lithium"><a href="#">天齐碳酸锂</a></span>
+                <span id="select-lithium" class="label_not_selected">
+                    <a href="#">天齐碳酸锂</a>
+                </span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="model-li-hide-select-21">
                     <select id="status">
@@ -81,7 +124,7 @@
             </p>
         </div>
     </div>
-    <div class="whitespace"></div>
+    <div class="whitespace"> </div>
     <table id="presoma_table" class="table_style" style="width: 100%">
         <thead>
         <tr style="background: #484848">
