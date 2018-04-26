@@ -1,0 +1,68 @@
+@import url(/resources/commons/css/fonts.css);
+/* Base */
+* {margin:0; padding:0; font-family:"Nanum Gothic", "돋움", Dotum, "굴림", Gulim, AppleGothic, Sans-serif, Arial;}
+ul, ol, dl, li, dt, dd {list-style: none; margin:0; padding:0;}
+h1, h2, h3, h4, h5, h6 {padding:0; margin:0;}
+p {text-align:justify; padding:0; margin:0;}
+img {border:none;}
+form, fieldset, button {border:none; margin:0; padding:0;}
+a {text-decoration:none;}
+a:link, a:visited {color:#444444; text-decoration: none; }
+a:hover, a:active, a:focus {text-decoration:underline;}
+hr {display:none; margin:0; padding:0;}
+html:first-child select {padding-right:6px; height:20px;} /* Opera 9 & Below Fix */ 
+option {padding-right:6px;} /* Firefox Fix */
+
+body {height:100%;width:100%;}
+html {height:100%;width:100%;}
+.outer-layout-west {overflow: auto;}
+.inner-layout-center {overflow: auto;}
+.inner-layout-south {
+	padding: 0 !important;
+	text-align: center;
+	overflow: hidden;
+}
+.header { 
+	background: #000000;
+	border-bottom: 1px solid #777;
+	font-weight: bold;
+	font-size: 11px;
+	text-align: center;
+	padding: 5px;
+	position: relative;
+	overflow: hidden;
+	color: #fff
+}
+
+.menu-selectable { list-style-type: none; margin: 0; padding: 0;}
+.menu-selectable .ui-selecting { border: 1px solid #0073ea; background: #0073ea url(/resources/commons/css/flick/images/ui-bg_highlight-soft_25_0073ea_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff;}
+.menu-selectable .ui-selected { background: #0073ea url(/resources/commons/css/flick/images/ui-bg_highlight-soft_25_0073ea_1x100.png) 50% 50% repeat-x; color: #ffffff; text-decoration: none; }
+.menu-selectable li { margin: 1px 0; padding: 8px 0; font-size: 11px; vertical-align: middle; min-width: 200px; text-align: left; border: 1px solid #eaeaea;}
+#plans>li { margin: 1px 0; padding: 0; font-size: 11px; vertical-align: middle; min-width: 200px; text-align: left; border: 1px solid #eaeaea;}
+#plan-group li { margin: 1px 0; padding: 8px 0; font-size: 11px; vertical-align: middle; min-width: 200px; text-align: left; border: 1px solid #eaeaea;}
+.menu-selectable li #menu-groups { display: none; }
+.console {
+	width: 100%;
+	height: auto;
+	overflow : scroll;
+}
+.console_table  {border-collapse:collapse; width:100%; text-align:center; border-bottom:1px solid #000000;table-layout:fixed}
+.console_zonename {text-align:left;padding-left:10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.console_table  td{border-left:1px solid #000000;font-size: 12px}
+
+#tags li i {
+	position : absolute;
+	left : 160px;
+	cursor : pointer;
+}
+/*$ 开始 $*/
+#plan-group {
+	padding: 0 ;
+	overflow: hidden;
+	height: auto !important;
+}
+/*$ 结束 $*/
+
+
+
+

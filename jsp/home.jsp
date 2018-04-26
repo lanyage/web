@@ -19,7 +19,7 @@
 <div class="parent">
     <div class="top">
         <div class="top-left">
-            <div class="top-left-text">长远锂科MES系统beta-3.0.0.126<i class="fa fa-chevron-square-left"></i></div>
+            <div class="top-left-text">长远锂科MES系统beta-3.0.0l1<i class="fa fa-chevron-square-left"></i></div>
         </div>
         <div class="top-right">
             <div id='user-info-hover' style="position:relative; padding: 10px;font-size: 15px;"><a href="#">管理员<i class="fa fa-chevron-down"></i></a></div>
@@ -30,12 +30,12 @@
         </div>
     </div>
     <div class="left">
-        <div class="menus1" style="max-height: 100%;overflow-y: auto;">
+        <div class="menus1" style="min-height: 100%;overflow-y: auto;">
             <ul>
 
             </ul>
         </div>
-        <div class="menus2">
+        <div class="menus2" style="height:100%;overflow-y: auto;">
             <div>
                 <i class="fa fa-bars"></i><span>&nbsp;&nbsp;菜单</span>
             </div>
@@ -50,6 +50,7 @@
 </div>
 
 <script src="../js/jquery.min.js"></script>
+
 <script src="../layui/layui.all.js" charset="utf-8"></script>
 <script src="../layer/layer/layer.js"></script>
 <script src="../js/jquerysession.js"></script>

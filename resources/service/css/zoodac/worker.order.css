@@ -1,0 +1,66 @@
+* {
+	font-family: "Microsoft YaHei" ;
+}
+table {
+	border: 1px solid white;
+}
+table tr {
+	height: 45px;
+	border: 1px solid white;
+}
+table tr>td {
+	border: 1px solid white;
+	text-align: left;
+	color: #ff8000;
+}
+.order-title {
+	text-align: left;
+    padding-left: 54px;
+}
+.order-c {
+	text-align: center;
+	vertical-align: top;
+	padding-top: 10px;
+}
+.order-button {
+	text-align: right;
+}
+#layout .footer {
+    margin: 0;
+    height: 40px;
+}
+#layout .header {
+    text-align: left;
+    position: relative; 
+    height: 57px;
+}
+#layout .container {
+    overflow: hidden;
+    background: -webkit-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: -o-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: -moz-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    min-height: 600px;
+}
+#contents {
+	height: 100%;
+    width: 100%;
+    font-size: 75%;
+    line-height: 18px;
+    background-color: rgba(0,0,8,0.5);;
+    text-align: center;
+}
+.jobContent span {
+	position: absolute;
+}
+.jobContent textarea {
+	margin-top: 25px;
+	margin-left: 65px;
+	height: 70px;
+	width: 300px;
+}     
+table tr td p {
+	padding-left: 70px;
+}
+
+

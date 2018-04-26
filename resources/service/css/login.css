@@ -1,0 +1,54 @@
+/* Base */
+* {margin:0; padding:0; font-family:"돋움", Dotum, "굴림", Gulim, AppleGothic, Sans-serif, Arial;}
+body {font-size:75%; line-height:18px; color:#7e7e7e; text-align:center;}
+ul, ol, dl, li, dt, dd {list-style: none; margin:0; padding:0;}
+h1, h2, h3, h4, h5, h6 {padding:0; margin:0;}
+p {text-align:justify; padding:0; margin:0;}
+img {vertical-align:top; border:none;}
+textarea {overflow:auto; padding:5px;} 
+form, fieldset, button {border:none; margin:0; padding:0;}
+a {text-decoration:none;}
+a:link, a:visited {color:#444444; text-decoration: none; }
+a:hover, a:active, a:focus {text-decoration:underline;}
+hr {display:none; margin:0; padding:0;}
+label {cursor:pointer;}
+address, em {font-style:normal; font-weight:normal;}
+html:first-child select {padding-right:6px; height:20px;} /* Opera 9 & Below Fix */ 
+option {padding-right:6px;} /* Firefox Fix */
+
+/* hidden contents */
+#accessibility,
+.skip, 
+hr, 
+legend, 
+caption {position:absolute; width:0; height:0; font-size:0; line-height:0; overflow:hidden; visibility:hidden; z-index:-1;}
+
+
+body {height:100%;width:100%; background-color: #ffffff; text-align: center; overflow: hidden;}
+html {height:100%;width:100%; }
+#wrap_bg{
+	position:absolute;
+	height:500px; width : 100%;
+	top:200px;
+	background-image: url('/resources/service/images/login_bg.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	text-align:center;
+}
+#wrap {position:relative; width:100%; text-align: center; vertical-align: middle; margin: 0 auto; top:250px}
+#login_wrap {width:400px; margin:0 auto; background:url(/resources/service/images/login_form_bg.png) no-repeat 0 0; position:relative; height:334px;}
+#login_wrap .login_sec {position:relative; left:0px; top:140px; text-align:left;}
+#login_wrap .login_sec dl {clear:both;}
+#login_wrap .login_sec dt {float:left; width:70px; padding-top:4px; height:23px;}
+#login_wrap .login_sec dd {position:relative; float:left; left:150px; padding-top: 6px}
+#login_wrap p.btn {position:absolute; top:80px; left:150px;}
+
+/* form */
+.form_gray {border:1px solid #c3c3c3; color:#6c6c6d; background:#fff; padding:2px;}
+.form_login {border:1px solid #d5d5d5; background:#ffffff; width:200px; height:25px; color:#3d3d3d; margin-right: 4px; text-align: center; font-size: 16px}
+
+#logo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }

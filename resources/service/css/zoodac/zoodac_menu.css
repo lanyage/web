@@ -1,0 +1,131 @@
+/*menu 导航栏样式*/
+*{
+	margin: 0px;
+	padding: 0px;
+}
+/*修改 退出  */
+#layout .header .topleft {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    z-index: 101;
+}
+#menu{ list-style-type: none; margin: 0; padding: 0; width: 100%; position:absolute; border-top:1px solid #d7d7d7;top:0px;}
+.menu_background{  /*导航栏背景*/
+	color:#1e1e1e;
+	position: relative;
+	padding: 0;
+    /*background-color: #F7F7F7;*/
+    background-color: #ffffff;
+    background-image: -moz-linear-gradient(top, #ffffff, #eaeaea));
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#eaeaea)));
+    background-image: -webkit-linear-gradient(top, #ffffff, #eaeaea));
+    background-image: -o-linear-gradient(top, #ffffff, #eaeaea));
+    background-image: linear-gradient(to bottom, #ffffff, #eaeaea));
+    background-repeat: repeat-x;
+    margin: 0px;
+    height: 51px;
+    border-bottom: 5px solid #004080;
+    display: block;
+    width: 100%;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+    z-index: 100;
+}
+ul.menu_background > li{  /**/
+	float:left;
+	position:relative;
+	margin-top: 0px;
+	
+	
+}
+ul.menu_background > li > span{  /**/
+	float:left;
+	color:#1e1e1e;
+	font-size : 13px;
+	font-family: "Microsoft YaHei";
+	background-color:transparent;
+	height:50.5px;
+	line-height:50px;
+	cursor:default;
+	padding:0px 30px;
+	text-shadow:0px 0px 1px #fff;
+	border-right:0px solid #63666a;
+	border-left:0px solid #63666a;
+	margin-bottom: 10px;
+}
+
+ul.menu_background > li >a> img{  /**/
+	padding:10px 30px;
+}
+
+.ldd_submenu{  /**/
+
+	z-index : 99999999;
+	position:absolute;
+	top:44px;
+	margin-top: 10px;
+	width:100%;
+	display:none;
+	opacity:0.95;
+	left:0px;
+	/*font-size:10px;*/
+	text-align : center;
+	background: #474443;
+	border-top:1px solid #3c3c3c;
+	/*
+	-moz-box-shadow:0px 3px 4px #3c3c3c inset;
+	-webkit-box-shadow:0px 3px 4px #3c3c3c inset;
+	-box-shadow:0px 3px 4px #3c3c3c inset;*/
+}
+ul#ldd_menu ul li a:hover{
+
+	color: #ffffff;
+}
+ul#ldd_menu ul li a{
+
+	color: #ffffff;
+}
+ul#ldd_menu ul li {
+	height: 30px;
+	line-height: 30px;
+	width: 100%;
+}
+ul#ldd_menu ul li:hover{
+	background-color: #000008;
+	color: #ffffff;
+
+}
+#ldd_menu a { /**/
+	text-decoration: none;
+}
+a.ldd_subfoot {
+    background-color: #03A9F4;
+    color: #444;
+    display: block;
+    clear: both;
+    padding: 1px 1px;
+    text-transform: uppercase;
+    font-family: Nanum Gothic, 굴림;
+    font-size: 12px;
+    text-shadow: 0px 0px 1px #fff;
+    -moz-box-shadow: 0px 0px 2px #777 inset;
+    -webkit-box-shadow: 0px 0px 2px #777 inset;
+    -box-shadow: 0px 0px 2px #777 inset;
+}
+/*$ 添加地图分组开始 $*/
+#menu-groups {
+    line-height: 30px;
+    width: 100%;
+    position: relative; 
+    top: -30px; left: 112px;
+    background-color: #474443; 
+    display: none;
+}
+.ldd_submenu ul li span {
+	color: #fff;
+}
+/*$ 结束 $*/

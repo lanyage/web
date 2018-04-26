@@ -1,0 +1,313 @@
+/*按钮样式  */
+button.button-small {
+	color: #00A2E9; background-color: white;
+	border: solid 1.9px #00A2E9;
+	padding: 0 15px; margin: 0 2px;
+	line-height: 27px; font-weight: bold;
+}
+button.button-primary:hover {
+	color: white; background-color: #00A2E9; 
+}
+button.button-rounded {
+	border-radius: 6px;
+}
+.button:active, .button.active, .button.is-active, .button:focus {
+	background-color: white; border-color: #00A2E9; color: #00A2E9;
+}
+/*地图导航样式  */
+.ui-widget-header {
+	background: none;
+}
+.ui-dialog {
+	border-radius: 6px;
+}
+.ui-dialog, .ui-dialog-buttonpane {
+	/* background: linear-gradient(#fff, #FDFDFD, #F7F7F7); 
+	   background: webkit-linear-gradient(#fff, #FDFDFD, #F7F7F7) */
+	background: linear-gradient(to bottom, #fcfcfc 0%,#eeeeef 100%); 
+	border: none;
+}
+.ui-dialog .ui-widget-header {
+	background: none; border: none; 
+}
+.ui-dialog .ui-dialog-title {
+	color: #00A2E9; font-weight: bold; font-size: 15px;
+	width: 150%; padding-bottom: 0.7em; 
+	border-bottom: solid 3px #00A2E9;
+}
+.ui-dialog-buttonset button {
+	border-radius: 4px; width:55px; height:25px; outline: none;
+	background-color: transparent; color: #000;  font-weight: bold; font-size: 15px;
+}
+.ui-dialog-buttonset button:hover {
+	background-color: #00A2E9; color: white;
+}
+#tab {
+	padding: 0 14px 14px 14px;
+    background: none;
+    border: 0;
+}
+#fields {
+	border: none;
+}
+.button-border.button-primary, .button-primary.button-border-thin, .button-primary.button-border-thick, .button-border-thin.button-primary, .button-border-thick.button-primary {
+	color: #000; 
+}
+/*导航  */
+#tab li {
+	padding: 0;  border: 0; 
+	margin: 0; position: relative; top: -6px; left: -5px; min-width: 0;
+}
+#contents .con_top .top_right {
+	padding-bottom: 10px;
+}
+/* .ui-dialog .ui-dialog-content {
+	overflow: initial;
+} */
+.ui-dialog .ui-dialog-titlebar-close {
+	background: none; outline: none; cursor: pointer;
+}
+.ui-dialog .ui-dialog-titlebar-close:hover {
+	background: #00A2E9; outline: none; color: #fff; 
+}
+* {
+	font-family: Microsoft YaHei; font-size: 11px;
+}
+#layout .header {
+	height: 55px;
+}
+/*修改 退出  */
+#layout .header .topleft {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    z-index: 9999;
+}
+#map-gruler-top {
+	pointer-events: none;
+}
+/*报警信息  */
+#text_list { /*首页面信息列表样式*/
+  padding: 15px;
+}
+.table_list th {  /*首页面列表信息样式*/
+  height:30px; font-size:11px; 
+  border:0px solid #d1d1d1;
+  color: #ffffff; 
+  background: transparent;
+
+}
+#rap-sync>thead>tr { /*首页面基站信息列表头部样式*/
+    background-color: #00A2E9;  
+    height: 40px;
+}
+#tag-statistics>thead {/*首页面标签信息列表头部样式*/
+  background-color: #00A2E9;    
+}
+#rap-sync>tbody>tr:nth-child(even) {/*首页面基站信息列表中部偶数行样式*/
+  background: #C9CACA;
+}
+#tag-statistics>tbody>tr:nth-child(even) {/*首页面标签信息列表中部偶数行样式*/
+  background: #C9CACA;
+}
+#tag-statistics>tbody>tr:nth-child(odd) {/*首页面标签信息列表中部奇数行样式*/
+
+  color: #474443;
+}
+#tag-statistics>tfoot>tr { /*首页面标签中部列表信息样式*/
+  background-color: #474443;
+}
+#layout .footer { /*页脚*/
+  display: block;
+  margin:0 0 0 0; height:40px;
+  background-color: #474443;
+  color: #ffffff;
+}
+.text-count {
+	text-align: center;
+}
+/*  */
+#contents {
+	margin: 10px 10px 0 10px;
+}
+#fields>:nth-child(5) a, #fields>:nth-child(6) a, #fields>:nth-child(7) a, #fields>:nth-child(8) a, #fields>:nth-child(9) a,
+#fields>:nth-child(10) a, #fields>:nth-child(11) a, #fields>:nth-child(12) a, #fields>:nth-child(13) a, #fields>:nth-child(14) a {
+	height: 35px; color: #fff;
+}
+/*导航+背景  */
+#tab li {
+	padding: 0 20px 0 20px; 
+	border: 0; 
+	margin: 0; position: relative; top: -1px; left: -1px; min-width: 0;
+	height: 35px;
+	line-height: 35px;
+	margin-right: 10px;
+	margin-top: 10px;
+    -moz-border-radius: 3px 3px 0px 0px;      /* Gecko browsers */
+    -webkit-border-radius: 3px 3px 0px 0px;   /* Webkit browsers */
+    border-radius: 3px 3px 0px 0px;            /* W3C syntax */
+    width: 135px;
+
+}
+#tab li a{
+	padding: 0;
+
+}
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    
+    text-decoration: none;
+    background-color: transparent;
+    border-bottom: white;
+}
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+    
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    border: 1px solid #dddddd;
+    background: #f6f6f6 url("") 50% 50% repeat-x; 
+    font-weight: bold;
+    color: #0073ea;
+    background-color: rgba(0,0,8,0.35);
+}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	background: url("/resources/service/images/zoodac/map_page_title.png") no-repeat;
+    background-color: rgba(0,0,8,0.5);
+    background-position-y: initial;
+    background-position-x: -1px;
+}
+.con_box>div>:first-of-type {
+	background-color: rgba(0,0,8,0.5);
+	min-height: 50px; 
+}
+#layout .header {
+	height: 55px;
+}
+#layout .footer {
+	height: 55px;
+	background-color: rgba(0,0,8,0.8);
+	width: 100%;
+	margin: 0px 0 0 0px;
+}
+#layout .container {
+    overflow: hidden;
+    background: -webkit-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: -o-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: -moz-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    min-height: 600px;
+}
+#mapview {
+	width: 100%;
+	height: 821px;
+	overflow: auto;
+	background-color: transparent;
+}
+#map-gruler-top {
+/*     position: absolute;
+    border-left: solid 1px #000000;
+    border-top: solid 1px #000000;
+    border-bottom: solid 1px #000000;
+    padding: 2px 0 0 0;
+    margin: 0px;
+    left: 27px;
+    top: 0px;
+    height: 23px;
+    z-index: 99; */
+    background-color: #fff;
+}
+#map-gruler-left {
+/*     position: absolute;
+    border-top: solid 1px #000000;
+    border-left: solid 1px #000000;
+    border-right: solid 1px #000000;
+    padding: 0px 0px 0 10px;
+    margin: 0px;
+    left: 0px;
+    top: 27px;
+    width: 16px;
+    z-index: 100; */
+    background-color: #fff;
+}
+#map-viewport {
+/*     position: absolute;
+    padding: 0px;
+    margin: 0px;
+    left: 27px;
+    top: 27px; */
+    background-color: #fff;
+}
+#contents .con_box {
+    border: 0px solid #dedede;
+    padding: 0px 0px;
+}
+#contents .con_body {
+    padding: 0 15px;
+    overflow: inherit;
+}
+#viewport {
+	top: -20px;
+}
+#contents {
+    text-align: left;
+    margin: 10px 10px 0 10px;
+}
+.ui-tabs .ui-tabs-nav {
+    position: relative;
+    top: 1px;
+    z-index: 1;
+    left: 0px;
+    background: transparent;
+    border-color: transparent;
+}
+
+.con_title {
+    position: absolute;
+    right: 30px;
+    top: 70px;
+    font-size: 11px;
+    color: #FFFFFF;
+    font-weight: normal;
+    display: none;
+}
+/*  */
+#contents .con_top .top_left {
+	display: none;
+}
+#fields input[type="text"] {
+	background: #fff;
+	font-size: 14px;
+	margin: 0;
+}
+#layout .header .topleft {
+	display: none;
+}
+#fields p {
+	/* clear: none; */
+	color: black;
+}
+#items thead tr {
+    height: 40px;
+    font-size: 14px;
+    border-right: 2px #00a2e9 solid;
+}
+#dialog {
+	overflow: initial;
+}
+/*页签选中效果*/
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+    color: #737373;
+    text-decoration: none;
+}
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    color: #00a2e9;
+    text-decoration: none;
+}
+.ui-state-hover a:hover {
+	color: #ffffff;
+    text-decoration: none;
+}

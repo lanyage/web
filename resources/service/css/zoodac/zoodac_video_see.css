@@ -1,0 +1,85 @@
+/*视频联动标签查看页面样式修改*/
+#layout .header { /*页首修改*/
+    height: 55px;
+}
+#layout .container { /*主背景*/
+    overflow: hidden;
+    background: -webkit-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: -o-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: -moz-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    min-height: 600px;
+}
+#tab li { /*日 月 年*/
+    padding: 0 20px 0 20px;
+    border: 0;
+    margin: 0;
+    position: relative;
+    min-width: 0;
+    height: 35px;
+    line-height: 35px;
+    margin-right: 10px;
+    margin-top: 10px;
+    -moz-border-radius: 3px 3px 0px 0px;
+    -webkit-border-radius: 3px 3px 0px 0px;
+    border-radius: 3px 3px 0px 0px;
+    width: 135px;
+}
+
+.tabSelect-active { /*选中状态标签页*/
+    background: url(/resources/service/images/zoodac/map_page_title.png) no-repeat;
+    background-color: rgba(0,0,8,0.5);
+    background-position-y: initial;
+    background-position-x: -1px;
+}
+
+.tabSelect-default { /*未选中状态标签页*/
+    font-weight: normal;
+    background-color: rgba(0,0,8,0.35);
+}
+
+.tabSelect-default a {
+	color: #737373;
+	text-decoration: none;
+}
+.tab-hover a {
+	color: #fff;
+	text-decoration: none;
+}
+.textColor a {
+	color: #00a2e9;
+}
+#tab a {
+	font-size: 16px;
+	font-family: "Microsoft YaHei", "돋움", Dotum, "굴림", Gulim, AppleGothic, Sans-serif, Arial;
+	font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.con_box>div>:first-of-type {
+    background-color: rgba(0,0,8,0.5);
+    width: 100%;
+    height: calc;
+    min-height: 50px;
+}
+#chartIframe { /*防止没有数据时，日期插件不被强制hidden*/
+	min-height: 221px;
+}
+#tab { /*旧样式覆盖移除*/
+    padding: 0 14px;
+    background: none;
+    border: 0px;
+}
+.ui-tabs .ui-tabs-nav { /*旧样式覆盖移除*/
+    position: relative;
+    top: 0px;
+    z-index: 1;
+    left: -2px;
+    background: transparent;
+    border-color: transparent;
+}
+#contents .con_box { /*旧样式覆盖移除*/
+    border: 0px solid;
+}
+.con_title { /*旧样式覆盖移除*/
+	display: none;
+}

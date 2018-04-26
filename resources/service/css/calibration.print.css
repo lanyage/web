@@ -1,0 +1,108 @@
+@page {
+    size: A4;
+    margin: 0;
+}
+@media print {
+    html, body {
+        width: 210mm;
+        height: 297mm;        
+    }
+    .page {
+        margin: 0;
+        border: initial;
+        border-radius: initial;
+        width: initial;
+        min-height: initial;
+        box-shadow: initial;
+        background: initial;
+        page-break-after: always;
+    }
+}
+.printable { padding : 10px}
+h1 {font-size: 40px; font-weight: bold; text-align: center;}
+h2 {font-size: 20px; font-weight: bold; padding-left: 10px; padding-bottom: 10px;}
+h3 {font-size: 16px; font-weight: bold; padding-left: 20px; padding-bottom: 15px;}
+.report-table {border-collapse:collapse; width:100%; text-align:center;}
+.report-table th {
+	height:30px; font-size:11px; 
+	border:1px solid #d1d1d1;
+	color: #2c2c2c; 
+	background: #f9f9f9; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f9f9f9 0%, #efefef 49%, #e1e1e1 50%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(49%,#efefef), color-stop(50%,#e1e1e1)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f9f9f9 0%,#efefef 49%,#e1e1e1 50%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f9f9f9 0%,#efefef 49%,#e1e1e1 50%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f9f9f9 0%,#efefef 49%,#e1e1e1 50%); /* IE10+ */
+	background: linear-gradient(to bottom,  #f9f9f9 0%,#efefef 49%,#e1e1e1 50%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#e1e1e1',GradientType=0 ); /* IE6-9 */
+}
+.report-table td {border:1px solid #e1e1e1; padding:3px 0 ;}
+.page{
+	width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    margin: 10mm auto;
+    background: white;
+    
+}
+
+.icon-rap-ethernet-master{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_ethernet_master_20x20.png) no-repeat; width:20px; height:20px;
+}
+.icon-rap-ethernet-slave{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_ethernet_slave_20x20.png) no-repeat; width:20px; height:20px;
+}
+.icon-rap-ethernet-dead{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_ethernet_dead_20x20.png) no-repeat; width:20px; height:20px;
+}
+.icon-rap-ethernet-selected{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_ethernet_selected_20x20.png) no-repeat;width:20px;height:20px;
+}
+.icon-rap-ethernet-error{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_ethernet_error_20x20.png) no-repeat;width:20px;height:20px;
+}
+.icon-rap-wifi-master{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_wifi_master_20x20.png) no-repeat; width:20px; height:20px;
+}
+.icon-rap-wifi-slave{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_wifi_slave_20x20.png) no-repeat; width:20px; height:20px;
+}
+.icon-rap-wifi-dead{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_wifi_dead_20x20.png) no-repeat; width:20px; height:20px;
+}
+.icon-rap-wifi-selected{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_wifi_selected_20x20.png) no-repeat;width:20px;height:20px;
+}
+.icon-rap-wifi-error{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_wifi_error_20x20.png) no-repeat;width:20px;height:20px;
+}
+.icon-rap-lte-master{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_lte_master_20x20.png) no-repeat; width:20px; height:20px;
+}
+.icon-rap-lte-slave{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_lte_slave_20x20.png) no-repeat; width:20px; height:20px;
+}
+.icon-rap-lte-dead{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_lte_dead_20x20.png) no-repeat; width:20px; height:20px;
+}
+.icon-rap-lte-selected{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_lte_selected_20x20.png) no-repeat;width:20px;height:20px;
+}
+.icon-rap-lte-error{
+	position:absolute;
+	background:url(/resources/commons/images/map/icon_rap_lte_selected_20x20.png) no-repeat;width:20px;height:20px;
+}

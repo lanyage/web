@@ -1,0 +1,31 @@
+/*统计数据页面区域日志子页面样式修改*/
+#layout .header { /*页首修改*/
+    height: 55px;
+}
+#layout .container { /*主背景*/
+    overflow: hidden;
+    background: -webkit-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: -o-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: -moz-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    min-height: 600px;
+}
+#contents {
+	margin: 10px;
+
+}
+
+#items thead {
+	background-color: #00A2E9;
+} 
+#items thead tr th{
+	color: #fff;
+} 
+#items th{
+	background: transparent;
+}
+#items>tbody>tr:nth-child(even) {/*信息列表中部偶数行样式*/
+  background: #C9CACA;
+}
+#items>tbody>tr:nth-child(odd) {/*信息列表中部奇数行样式*/
+  background: #fff;

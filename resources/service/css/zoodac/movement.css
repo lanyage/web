@@ -1,0 +1,51 @@
+#contents .con_top {
+    padding: 15px;
+}
+/*标尺*/
+#map-gruler-top {
+    position: absolute;
+    border-left: solid 1px #000000;
+    border-top: solid 1px #000000;
+    border-bottom: solid 1px #000000;
+    padding: 2px 0 0 0;
+    margin: 0px;
+    left: 27px;
+    top: 0px;
+    height: 24px;
+    z-index: 99;
+    background-color: #fff;
+}
+#map-gruler-left {
+    position: absolute;
+    border-top: solid 1px #000000;
+    border-left: solid 1px #000000;
+    border-right: solid 1px #000000;
+    padding: 0px 0px 0 10px;
+    margin: 0px;
+    left: 0px;
+    top: 27px;
+    width: 16px;
+    z-index: 100;
+    background-color: #fff;
+}
+#map-viewport {
+    position: absolute;
+    padding: 0px;
+    margin: 0px;
+    left: 27px;
+    top: 27px;
+    background-color: #fff;
+}
+#map-gruler-top>svg {
+	top: 7.1875px !important;
+}
+#map-viewport>svg {
+	left: 1px;
+}
+#viewport {
+    top: -30px;
+}
+.con_box>div>:first-of-type {
+    background-color: rgba(0,0,8,0.5);
+    min-height: 55px;
+}

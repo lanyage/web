@@ -1,0 +1,96 @@
+#menu{ list-style-type: none; margin: 0; padding: 0; width: 100%; position:absolute; border-top:1px solid #d7d7d7;top:61px;}
+
+ul.ldd_menu{
+	margin:0px;
+	padding:0;
+	display:block;
+	height:30px;
+	background-color:#f73335;
+	list-style:none;
+	font-family:"굴림", sans-serif;
+	border-top:1px solid #f73335;
+	border-bottom:1px solid #f73335;
+	border-left:10px solid #df0000;
+	-moz-box-shadow:0px 3px 4px #df0000;
+	-webkit-box-shadow:0px 3px 4px #df0000;
+	-box-shadow:0px 3px 4px #ff0000;
+}
+ul.ldd_menu a{
+	text-decoration:none;
+}
+ul.ldd_menu > li{
+	float:left;
+	position:relative;
+}
+ul.ldd_menu > li > span{
+	float:left;
+	color:#fff;
+	font-size : 12px;
+	background-color:#f73335;
+	height:30px;
+	line-height:30px;
+	cursor:default;
+	padding:0px 30px;
+	text-shadow:0px 0px 1px #fff;
+	border-right:1px solid #ff8471;
+	border-left:1px solid #b8000c;
+}
+ul.ldd_menu .ldd_submenu{
+	z-index : 99999999;
+	position:absolute;
+	top:30px;
+	width:250px;
+	display:none;
+	opacity:0.95;
+	left:0px;
+	font-size:10px;
+	text-align : left;
+	background: #f73335;
+	border-top:1px solid #591E12;
+	-moz-box-shadow:0px 3px 4px #591E12 inset;
+	-webkit-box-shadow:0px 3px 4px #591E12 inset;
+	-box-shadow:0px 3px 4px #591E12 inset;
+}
+a.ldd_subfoot{
+	background-color:#EF593B;
+	color:#444;
+	display:block;
+	clear:both;
+	padding:1px 1px;
+	text-transform:uppercase;
+	font-family: 굴림, 돋음;
+	font-size:12px;
+	text-shadow:0px 0px 1px #fff;
+	-moz-box-shadow:0px 0px 2px #777 inset;
+	-webkit-box-shadow:0px 0px 2px #777 inset;
+	-box-shadow:0px 0px 2px #777 inset;
+}
+ul.ldd_menu ul{
+	list-style:none;
+	float:left;
+	border-left:1px solid #8d0000;
+	margin:20px 0px 10px 30px;
+	padding:10px;
+}
+li.ldd_heading{
+	font-family: 굴림, 돋움, serif;
+	font-size: 12px;
+	font-style: normal;
+	font-weight:bold;
+	color:#8d0000;
+	text-shadow:0px 0px 1px #ffffff;
+	padding:0px 0px 10px 0px;
+}
+ul.ldd_menu ul li a{
+	font-family: 굴림, 돋움;
+	font-size:12px;
+	line-height:20px;
+	color:#fff;
+	padding:1px 5px;
+}
+ul.ldd_menu ul li a:hover{
+	-moz-box-shadow:0px 0px 2px #333;
+	-webkit-box-shadow:0px 0px 2px #333;
+	box-shadow:0px 0px 2px #333;
+	background:#ff8000;
+}

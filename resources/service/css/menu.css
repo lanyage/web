@@ -1,0 +1,97 @@
+@import url(/resources/commons/css/fonts.css);
+#menu{ list-style-type: none; margin: 0; padding: 0; width: 100%; position:absolute; border-top:1px solid #d7d7d7;top:61px;}
+
+ul.ldd_menu{
+	margin:0px;
+	padding:0;
+	display:block;
+	height:30px;
+	background-color:#b1319e;
+	list-style:none;
+	font-family:Nanum Gothic, sans-serif;
+	border-top:1px solid #b1319e;
+	border-bottom:1px solid #b1319e;
+	border-left:10px solid #9e1a8d;
+	-moz-box-shadow:0px 3px 4px #9e1a8d;
+	-webkit-box-shadow:0px 3px 4px #9e1a8d;
+	-box-shadow:0px 3px 4px #ff0000;
+}
+ul.ldd_menu a{
+	text-decoration:none;
+}
+ul.ldd_menu > li{
+	float:left;
+	position:relative;
+}
+ul.ldd_menu > li > span{
+	float:left;
+	color:#fff;
+	font-size : 12px;
+	background-color:#b1319e;
+	height:30px;
+	line-height:30px;
+	cursor:default;
+	padding:0px 30px;
+	text-shadow:0px 0px 1px #fff;
+	border-right:1px solid #b1319e;
+	border-left:1px solid #9e1a8d;
+}
+ul.ldd_menu .ldd_submenu{
+	z-index : 99999999;
+	position:absolute;
+	top:30px;
+	width:250px;
+	display:none;
+	opacity:0.95;
+	left:0px;
+	font-size:10px;
+	text-align : left;
+	background: #b1319e;
+	border-top:1px solid #591E12;
+	-moz-box-shadow:0px 3px 4px #591E12 inset;
+	-webkit-box-shadow:0px 3px 4px #591E12 inset;
+	-box-shadow:0px 3px 4px #591E12 inset;
+}
+a.ldd_subfoot{
+	background-color:#ff8471;
+	color:#444;
+	display:block;
+	clear:both;
+	padding:1px 1px;
+	text-transform:uppercase;
+	font-family:Nanum Gothic, 굴림;
+	font-size:12px;
+	text-shadow:0px 0px 1px #fff;
+	-moz-box-shadow:0px 0px 2px #777 inset;
+	-webkit-box-shadow:0px 0px 2px #777 inset;
+	-box-shadow:0px 0px 2px #777 inset;
+}
+ul.ldd_menu ul{
+	list-style:none;
+	float:left;
+	border-left:1px solid #8d0000;
+	margin:20px 0px 10px 30px;
+	padding:10px;
+}
+li.ldd_heading{
+	font-family:Nanum Gothic, 굴림, serif;
+	font-size: 12px;
+	font-style: normal;
+	font-weight:bold;
+	color:#bbd833;
+	text-shadow:0px 0px 1px #6a8a00;
+	padding:10px 0px 5px 0px;
+}
+ul.ldd_menu ul li a{
+	font-family:Nanum Gothic, 굴림;
+	font-size:12px;
+	line-height:20px;
+	color:#fff;
+	padding:1px 5px;
+}
+ul.ldd_menu ul li a:hover{
+	-moz-box-shadow:0px 0px 2px #333;
+	-webkit-box-shadow:0px 0px 2px #333;
+	box-shadow:0px 0px 2px #333;
+	background:#910080;
+}

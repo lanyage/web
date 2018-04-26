@@ -1,0 +1,166 @@
+/*统计数据页面错误信息子页面样式修改*/
+#layout .header { /*页首修改*/
+    height: 55px;
+}
+#layout .container { /*主背景*/
+    overflow: hidden;
+    background: -webkit-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: -o-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: -moz-radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    background: radial-gradient(circle, #00A2E9 5%, #183A6A 100%);
+    min-height: 600px;
+}
+.con_box>div>:first-of-type {
+    background-color: rgba(0,0,8,0.5);
+    width: 100%;
+    height: calc;
+    min-height: 50px;
+}
+/*统计数据-服务子页面成功率项样式修改*/
+#search-form {
+	padding: 15px;
+}
+#search-fields label { /*日期样式*/
+    width: 45px;
+    float: left;
+    height: 20px;
+    border: 0px solid #dddddd; 
+    background: rgba(0,0,8,0.35);
+    -moz-border-radius: 5px 0px 0px 5px;
+    -webkit-border-radius: 5px 0px 0px 5px;
+    border-radius: 5px 0px 0px 5px;
+	font-weight: normal;
+    color: #00A2E9;
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+    margin-right: 4px;
+}
+#search-fields .input-readonly { /*日期选择样式*/
+    background-color: rgba(0,0,8,0.35);
+    border: 0px solid #dcdcdc;
+    color: #fff;
+    font-size: 12px;
+    height: 20px;
+    padding: 5px;
+}
+#but-search {
+    background: #f6f6f6 url(../../../commons/css/flick/images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
+    font-weight: bold;
+    color: #0073ea;
+    border: 0px solid #dddddd;
+    background: rgba(0,0,8,0.35);
+    font-weight: normal;
+    -moz-border-radius: 0px 5px 5px 0px;
+    -webkit-border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 5px 5px 0px;
+    height: 30px;
+    color: #00A2E9;
+    padding: 0 10px 0 10px;
+}
+#but-search:hover {
+    border: 0px solid #0073ea;
+    background: #00A2E9;
+	font-weight: normal;
+    color: #ffffff;
+    -moz-border-radius: 0px 5px 5px 0px;
+    -webkit-border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 5px 5px 0px;
+}
+#but-tag {
+	background: #f6f6f6 url(../../../commons/css/flick/images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
+    font-weight: bold;
+    color: #0073ea;
+    border: 0px solid #dddddd;
+    background: rgba(0,0,8,0.35);
+    font-weight: normal;
+    -moz-border-radius: 0px 5px 5px 0px;
+    -webkit-border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 5px 5px 0px;
+    height: 30px;
+    color: #00A2E9;
+    padding: 0 10px 0 10px;
+}
+#but-tag:hover {
+    border: 0px solid #0073ea;
+    background: #00A2E9;
+	font-weight: normal;
+    color: #ffffff;
+    -moz-border-radius: 0px 5px 5px 0px;
+    -webkit-border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 5px 5px 0px;
+}
+#all { /*全部按钮图标*/
+	font-size: 17px;
+	float: left;
+    margin-right: 5px;
+}
+#ui-datepicker-div{ /*日历插件背景保持不变*/
+	border: 1px solid #dddddd;
+    background: #ffffff url(../../../commons/css/flick/images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x;
+    color: #444444;
+}
+
+.ui-selectable li {
+    margin-left: 2px;
+    font-size: 11px;
+    float: left;
+    vertical-align: middle;
+    min-width: 40px;
+    cursor: pointer;
+    text-align: center;
+    padding: 6px;
+}
+
+.ui-selectable .ui-selected {
+    background: #0073ea ;
+    color: #ffffff;
+    text-decoration: none;
+}
+.ui-selectable .ui-selecting {
+	border: 0px solid #dddddd;
+    background: #0073ea ;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: normal;
+}
+.map-li-active{
+	background-color: #00A2E9;
+	color: #fff;
+	border: 0px solid;
+}
+.map-li{
+	background-color: rgba(0,0,8,0.5);
+	color: #00A2E9;
+	border: 0px solid;
+}
+#items thead {
+	background-color: #00A2E9;   
+}
+#items thead th {
+	background: transparent;
+	border: 0px solid #dddddd;
+	color: #ffffff;
+}
+#items tbody th {
+	background: transparent;
+	border: 0px solid #dddddd;
+	color: #ffffff;
+}
+#items tfoot th {
+	background: transparent;
+	border: 0px solid #dddddd;
+	color: #ffffff;
+}
+#items>tbody>tr:nth-child(even) {/*信息列表中部偶数行样式*/
+  background: #C9CACA;
+}
+#items>tbody>tr:nth-child(odd) {/*信息列表中部奇数行样式*/
+  background: #fff;
+}
+#items>tfoot>tr { /*总计和列表信息样式*/
+  background-color: #474443;
+}
+#contents .con_box {
+    border: 0px solid #dedede;
+    padding: 15px 0;
+}

@@ -1,34 +1,37 @@
 <div id='model-li-hide-74' class="display-component-container layui-row"
      style="min-width: 800px;padding: 10% 40px 40px 40px;">
     <meta charset='UTF-8'>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
     <title>test</title>
     <canvas id="myChart" style="width: 100%;height: 70%"></canvas>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../layui/layui.all.js" charset="utf-8"></script>
+    <script src="../layer/layer/layer.js"></script>
     <script src="../js/Chart.js"></script>
+    <script src="../js/home.js"></script>
     <script type="application/javascript">
-        Date.prototype.format = function(fmt) {
-            var o = {
-                "M+" : this.getMonth()+1,                 //月份
-                "d+" : this.getDate(),                    //日
-                "h+" : this.getHours(),                   //小时
-                "m+" : this.getMinutes(),                 //分
-                "s+" : this.getSeconds(),                 //秒
-                "q+" : Math.floor((this.getMonth()+3)/3), //季度
-                "S"  : this.getMilliseconds()             //毫秒
-            };
-            if(/(y+)/.test(fmt)) {
-                fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        layer.open({
+            type: 2,
+            title: false,
+            closeBtn: 0, //不显示关闭按钮
+            shade: [0],
+            area: ['0', '0'],
+            offset: 'rb', //右下角弹出
+            time: 500, //2秒后自动关闭
+            anim: 1,
+            content: ['test/guodu.html', 'no'], //iframe的url，no代表不显示滚动条
+            end: function(){ //此处用于演示
+                layer.open({
+                    type: 2,
+                    title: '很多时候，我们想最大化看，比如像这个页面。',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['90%', '90%'],
+                    content: 'http://218.77.105.241:60080/service/user.action?pages=service.user'
+                });
             }
-            for(var k in o) {
-                if(new RegExp("("+ k +")").test(fmt)){
-                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
-                }
-            }
-            return fmt;
-        }
-
-        $(function () {
-            console.log(new Date().format('yyyy-MM-dd'))
-        })
+        });
     </script>
 </div>

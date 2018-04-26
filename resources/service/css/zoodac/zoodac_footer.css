@@ -1,0 +1,13 @@
+#layout .footer { /*页脚*/
+  display: block;
+  margin:50% 0 0 0; height:40px;
+  background-color: #474443;
+  color: #ffffff;
+  position: absolute;
+  width: 100%;
+
+}
+.footer p {
+	text-align: center;
+	line-height: 40px;
+}
