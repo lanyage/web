@@ -68,121 +68,176 @@ var inputData_manage = {
             contentType:false,
             processData:false,
             success:function(returndata){
+                
                // console.log('aaaaaaaaaaaaaaa')
+               var a 
+               var code = $("#selectoption option:selected").attr('id')
+               code = parseInt(code)
+               console.log(code)
+              
                 console.log(returndata)
                 var length = returndata.data['length']
                 console.log(length)
-                var bb = $('#tbody_page')
-                for(var i=0;i<length;i++){
-                var c1 = returndata.data[i]['c1']
-                var c2 = returndata.data[i]['c2']
-                var c3 = returndata.data[i]['c3']
-                var c4 = returndata.data[i]['c4']
-                var c5 = returndata.data[i]['c5']
-                var c6 = returndata.data[i]['c6']
-                var c7 = returndata.data[i]['c7']
-                var c8 = returndata.data[i]['c8']
-                var c9 = returndata.data[i]['c9']
-                var c10 = returndata.data[i]['c10']
-                var c11= returndata.data[i]['c11']
-                var c12 = returndata.data[i]['c12']
-                var c13 = returndata.data[i]['c13']
-                var c14= returndata.data[i]['c14']
-                var c15 = returndata.data[i]['c15']
-                var c16 = returndata.data[i]['c16']
-                var c17 = returndata.data[i]['c17']
-                var c18 = returndata.data[i]['c18']
-                var c19 = returndata.data[i]['c19']
-                var c20 = returndata.data[i]['c20']
-                var c21 = returndata.data[i]['c21']
-                var c22 = returndata.data[i]['c22']
-                var c23 = returndata.data[i]['c23']
-                var c24= returndata.data[i]['c24']
-                var c25= returndata.data[i]['c25']
-                var c26= returndata.data[i]['c26']
-                var c27= returndata.data[i]['c27']
-                var c28= returndata.data[i]['c28']
-                var c29= returndata.data[i]['c29']
-                var c30= returndata.data[i]['c30']
-                var c31= returndata.data[i]['c31']
-                var c32= returndata.data[i]['c32']
-                var c33= returndata.data[i]['c33']
-                var c34= returndata.data[i]['c34']
-                var c35= returndata.data[i]['c35']
-                var c36= returndata.data[i]['c36']
-                var c37= returndata.data[i]['c37']
-                var c38= returndata.data[i]['c38']
-                var c39= returndata.data[i]['c39']
-                var c40= returndata.data[i]['c40']
-                var testDate = returndata.data[i]['testDate']
-                var batchNumber = returndata.data[i]['batchNumber']
-                var judge_name = returndata.data[i]['judge']?returndata.data[i]['judge']['name']:'null'
-                var number = returndata.data[i]['number']
-                //console.log(judge_name)
-
-               
-                bb.append(" <tr>"+
-                " <td>"+(new Date(testDate).Format('yyyy/MM/dd')) +"</td>"+
-                " <td>"+ batchNumber +"</td>"+
-                " <td>"+ judge_name +"</td>"+
-                " <td>"+ number +"</td>"+
-                " <td style='width:90px;'>"+ c1 +"</td>"+
-                " <td>"+ c2 +"</td>"+
-                " <td>"+ c3 +"</td>"+
-                " <td>"+ c4 +"</td>"+
-                
-               
-                " <td></td>"+
-                " <td></td>"+
-                " <td></td>"+
-                " <td>"+ c5 +"</td>"+
-                " <td>"+ c6 +"</td>"+
-                " <td>"+ c7 +"</td>"+
-                " <td>"+ c8 +"</td>"+
-                " <td>"+ c9 +"</td>"+
-                " <td></td>"+
-                " <td>"+ c11 +"</td>"+
-                " <td>"+ c12 +"</td>"+
-                " <td>"+ c13 +"</td>"+
-                " <td>"+ c14 +"</td>"+
-                " <td>"+ c15 +"</td>"+
-                " <td></td>"+
-                " <td></td>"+
-                " <td></td>"+
-                " <td></td>"+
-                " <td>"+ c17 +"</td>"+
-                " <td>"+ c18 +"</td>"+
-                " <td>"+ c19 +"</td>"+
-    
-                " <td>"+ c20 +"</td>"+
-                " <td>"+ c21 +"</td>"+
-                " <td>"+ c22 +"</td>"+
-                " <td>"+ c23 +"</td>"+
-                " <td>"+ c24 +"</td>"+
-                " <td>"+ c26 +"</td>"+
-                " <td></td>"+
-                " <td></td>"+
-                " <td></td>"+
-                " <td></td>"+
-                " <td></td>"+
-                " <td></td>"+
-               
-               "</tr> ")
-
-
+                var tbody_page = 'tbody_page'+code
+                console.log(tbody_page)
+                var bb = $('#tbody_page'+code)
+                console.log(bb)
+                switch(code){
+                    case 1: a = 'p';
+                    break;
+                    case 2: inputData_manage.funcs.bindJinchi622(returndata,bb) ;
+                    break;
+                    case 3: inputData_manage.funcs.bindTianQi(returndata,bb);
+                    break;
+                    case 4: a = 'pc';
+                    break;
+                    case 5: a = 'pc';
+                    break;
+                    case 6: a = 'pc';
+                    break;
+                    case 7: a = 'pc';
+                    break;
+                    default:
+                    console.log('没有和以上的匹配上！！！')
                 }
-
-                //console.log(c23)
-               
-                //console.log(testDate)
             },
-            error:function(returndata){
+            error:function(returndata,Ccode){
                 console.log(returndata)
             }
         });
 
     })
          },
+
+        /** 天齐碳酸锂添加Tbody */
+        bindTianQi:function(result,Tcode){
+            var length = result.data['length']
+            console.log(length)
+            for(var i=0;i<length;i++){
+                var operation = result.data[i]['operation']
+                var publisher = result.data[i]['publisher']
+                var auditDate = result.data[i]['auditDate']
+                var batchNumber = result.data[i]['batchNumber']
+                var productDate = result.data[i]['productDate'] 
+                var judge = result.data[i]['judge']?result.data[i]['judge']['name']:'null'
+                var number = result.data[i]['number'] 
+                var c1 = result.data[i]['c1']//水分
+                var c2 = result.data[i]['c2']//D1
+                var c3 = result.data[i]['c3']//D10
+                var c4 = result.data[i]['c4']//D50
+                var c5 = result.data[i]['c5']//D90
+                var c6 = result.data[i]['c6']//D99
+                var c7 = result.data[i]['c7']//筛上物
+                var c8 = result.data[i]['c8']//Fe
+                var c9 = result.data[i]['c9']//Ni
+                var c10 = result.data[i]['c10']//Cr
+                var c11 = result.data[i]['c11']//Zn
+                var c12 = result.data[i]['c12']//总量
+                var c13 = result.data[i]['c13']//LiCo3
+                var c14 = result.data[i]['c14']//Na
+                var c15 = result.data[i]['c15']//Mg
+                var c16 = result.data[i]['c16']//Ca
+                var c17 = result.data[i]['c17']//Fe
+
+                Tcode.append("<tr>"+
+                    "<td>"+ operation +"</td>"+
+                    "<td>"+ publisher +"</td>"+
+                    "<td>"+ auditDate +"</td>"+
+                    "<td>"+ batchNumber +"</td>"+
+                    "<td>"+ productDate +"</td>"+
+                    "<td>"+ judge +"</td>"+
+                    "<td>"+ number +"</td>"+
+                    "<td>"+ c1 +"</td>"+
+                    "<td>"+ c2 +"</td>"+
+                    "<td>"+ c3 +"</td>"+
+                    "<td>"+ c4 +"</td>"+
+                    "<td>"+ c5 +"</td>"+
+                    "<td>"+ c6 +"</td>"+
+                    "<td>"+ c7 +"</td>"+
+                    "<td>"+ c8 +"</td>"+
+                    "<td>"+ c9 +"</td>"+
+                    "<td>"+ c10 +"</td>"+
+                    "<td>"+ c11 +"</td>"+
+                    "<td>"+ c12 +"</td>"+
+                    "<td>"+ c13 +"</td>"+
+                    "<td>"+ c14 +"</td>"+
+                    "<td>"+ c15 +"</td>"+
+                    "<td>"+ c16 +"</td>"+
+                    "<td>"+ c17 +"</td>"+
+                    "</tr>"
+                )
+            }
+        },
+
+
+        /** 金弛622添加Tbody */
+        bindJinchi622:function(result,Tcode){
+            var length = result.data['length']
+            console.log(length)
+            for(var i=0;i<length;i++){
+                var operation = result.data[i]['operation']
+                var publisher = result.data[i]['publisher']
+                var auditDate = result.data[i]['auditDate']
+                var batchNumber = result.data[i]['batchNumber']
+                var insideCode = result.data[i]['insideCode']
+                var productDate = result.data[i]['productDate']   
+                var number = result.data[i]['number']  
+                var judge = result.data[i]['judge']?result.data[i]['judge']['name']:'null'     
+                var c1 = result.data[i]['c1']//振实密度
+                var c2 = result.data[i]['c2']//水分
+                var c3 = result.data[i]['c3']//SSA
+                var c4 = result.data[i]['c4']//ph
+                //var c5 = result.data[i]['c5']//D1
+                //var c6 = result.data[i]['c6']//D10
+                var c7 = result.data[i]['c7']//D50
+                //var c8 = result.data[i]['c8']//D90
+                //var c9 = result.data[i]['c9']//D99
+                var c10 = result.data[i]['c10']//筛上物
+                var c16 = result.data[i]['c16']//Ni+Mn+Co
+                var c17 = result.data[i]['c17']//Co
+                var c18 = result.data[i]['c18']//Mn
+                var c19 = result.data[i]['c19']//Ni
+                var c20 = result.data[i]['c20']//Na
+                var c21 = result.data[i]['c21']//Mg
+                var c22 = result.data[i]['c22']//Ca
+                var c23 = result.data[i]['c23']//Fe
+                var c24 = result.data[i]['c24']//Cu
+                //var c11 = result.data[i]['c11']//Fe
+                //var c12 = result.data[i]['c12']//Ni
+               // var c13 = result.data[i]['c13']//Cr
+                //var c14 = result.data[i]['c14']//Zn
+                //var c15 = result.data[i]['c15']//总量
+                
+                Tcode.append("<tr>"+
+                    "<td>"+ operation +"</td>"+
+                    "<td>"+ publisher +"</td>"+
+                    "<td>"+ auditDate +"</td>"+
+                    "<td>"+ batchNumber +"</td>"+
+                    "<td>"+ insideCode +"</td>"+
+                    "<td>"+ productDate +"</td>"+
+                    "<td>"+ number +"</td>"+
+                    "<td>"+ judge +"</td>"+
+                    "<td>"+ c1 +"</td>"+
+                    "<td>"+ c2 +"</td>"+
+                    "<td>"+ c3 +"</td>"+
+                    "<td>"+ c4 +"</td>"+
+                    "<td>"+ c7 +"</td>"+
+                    "<td>"+ c10 +"</td>"+
+                    "<td>"+ c16 +"</td>"+
+                    "<td>"+ c17 +"</td>"+
+                    "<td>"+ c18 +"</td>"+
+                    "<td>"+ c19 +"</td>"+
+                    "<td>"+ c20 +"</td>"+
+                    "<td>"+ c21 +"</td>"+
+                    "<td>"+ c22 +"</td>"+
+                    "<td>"+ c23 +"</td>"+
+                    "<td>"+ c24 +"</td>"+
+                    "</tr>"
+                )
+                      
+
+            }
+        },
 
          /** 监听下拉菜单的option */
          bindCreatoption:function(){
