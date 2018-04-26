@@ -19,7 +19,7 @@
 <div class="parent">
     <div class="top">
         <div class="top-left">
-            <div class="top-left-text">长远锂科MES系统<i class="fa fa-chevron-square-left"></i></div>
+            <div class="top-left-text">长远锂科MES系统beta-3.0.0.126<i class="fa fa-chevron-square-left"></i></div>
         </div>
         <div class="top-right">
             <div id='user-info-hover' style="position:relative; padding: 10px;font-size: 15px;"><a href="#">管理员<i class="fa fa-chevron-down"></i></a></div>
