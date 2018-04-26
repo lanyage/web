@@ -40,7 +40,6 @@
                 <i class="fa fa-bars"></i><span>&nbsp;&nbsp;菜单</span>
             </div>
             <ul>
-
             </ul>
         </div>
     </div>
@@ -50,6 +49,10 @@
 </div>
 
 <script src="../js/jquery.min.js"></script>
+
+<script src="../resources/commons/js/jquery/jquery.window.min.js"></script>
+<script src="../resources/commons/js/idolink/ido.hashmap.js"></script>
+<script src="../personel/panel.js"></script>
 
 <script src="../layui/layui.all.js" charset="utf-8"></script>
 <script src="../layer/layer/layer.js"></script>

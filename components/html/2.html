@@ -1,21 +1,16 @@
-<div id='model-li-hide-2' class="display-component-container" style="line-height:700px;">
-    <script src="../resources/commons/js/jquery/jquery.window.min.js"></script>
-    <script src="../resources/commons/js/idolink/ido.hashmap.js"></script>
-    <script src="../personel/panel.js"></script>
+<div id='model-li-hide-2' class="display-component-container">
+
     <script type="application/javascript">
-        console.log(Panel)
-        Panel.window.open(1,'一层', 0)
-//        $(function () {
-//            console.log(Panel)
-//            layer.open({
-//                type: 2,
-//                title: '很多时候，我们想最大化看，比如像这个页面。',
-//                shadeClose: true,
-//                shade: false,
-//                maxmin: true, //开启最大化最小化按钮
-//                area: ['90%', '90%'],
-//                content:
-//            })
-//        })
+        $(function() {
+            layer.open({
+                type: 2,
+                title: '一层',
+                shadeClose: true,
+                shade: false,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['99%', '99%'],
+                content: "http://218.77.105.241:60080/service/panel.action?pages=service.panel&planId="+1+"&index="+0
+            });
+        })
     </script>
 </div>
