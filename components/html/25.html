@@ -54,17 +54,17 @@
             <span id="fensuizl" >粉碎总锂</span>&nbsp;&nbsp;&nbsp;&nbsp;
             <span id="fensuiSSA" >粉碎SSA</span>&nbsp;&nbsp;&nbsp;&nbsp;
 
-            <select>
-                <option>未发布</option>
-                <option>已发布</option>
+            <select id="model-li-hide-select-25">
+                <option value="1">未发布</option>
+                <option value="0">已发布</option>
             </select>
         </div>
         <!--右边-->
         <div class="fr">
             <p>
-                <a href="#"><i class="layui-icon">&#x1002;</i>刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input placeholder="请输入编号"/>
-                <a href="#">搜索</a>
+                <a href="#" id="model-li-hide-refresh-25"><i class="layui-icon">&#x1002;</i>刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input placeholder="请输入编号" id="product_batch_number_input"/>
+                <a href="#" id="model-li-hide-search-25">搜索</a>
             </p>
         </div>
     </div>
@@ -109,7 +109,7 @@
 
             </tr>
             </thead>
-            <tbody>
+            <tbody style="color:black">
 
             </tbody>
         </table>
@@ -152,7 +152,7 @@
                 <td>(D90-D10)/D50</td>
             </tr>
             </thead>
-            <tbody>
+            <tbody style="color:black">
 
             </tbody>
         </table>
@@ -209,7 +209,7 @@
                 <td>≤120</td>
             </tr>
             </thead>
-            <tbody>
+            <tbody style="color:black">
 
             </tbody>
         </table>
@@ -241,14 +241,14 @@
                 <td></td>
             </tr>
             </thead>
-            <tbody>
+            <tbody style="color:black">
 
             </tbody>
         </table>
     </div>
 
     <!--下-->
-    <div>
+    <div id="_25page">
     </div>
 
     <script src="../components/js/Production_process.js"></script>

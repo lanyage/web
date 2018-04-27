@@ -8,6 +8,39 @@ var home = {
                 return servers.backup() + 'energyReadData/getByInoAndStartDateTimeAndEndDateTime'
             }
         },
+        processPremix:{//预混
+            getAllByStatusCodeByPage:function(){
+                return servers.backup() + 'processPremix/getAllByStatusCodeByPage'
+            },
+            getAll:function(){
+                return servers.backup() + 'processPremix/getAll'
+            },
+        },
+        processSize:{//粒度
+            getAllByStatusCodeByPage:function(){
+                return servers.backup() +'processSize/getAllByStatusCodeByPage'
+            },
+            getAll:function(){
+                return servers.backup() + 'processSize/getAll'
+            },
+        },
+        processLithium:{//总锂
+            getAllByStatusCodeByPage:function(){
+                return servers.backup() + 'processLithium/getAllByStatusCodeByPage'
+            },
+            getAll:function(){
+                return servers.backup() + 'processLithium/getAll'
+            },
+        },
+        processBuckle:{//扣电
+            getAllByStatusCodeByPage:function(){
+                return servers.backup() +'processBuckle/getAllByStatusCodeByPage'
+            },
+            getAll:function(){
+                return servers.backup() + 'processBuckle/getAll'
+            },
+        },
+
         fileUpload:{
             getAllFileType:function(){
                 return servers.backup() + 'fileUpload/getAllFileType'
