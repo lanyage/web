@@ -858,6 +858,90 @@ var home = {
             getByLikeBatchNumberByPage: function () {
                 return servers.backup() + 'rawLithium/getByLikeBatchNumberByPage'
             }
+        },
+        processPremix:{
+            // 预混
+            updatePublishByCode: function () {
+                return servers.backup() + 'processPremix/updatePublishByCode'
+            },
+            updateAuditByCode: function () {
+                return servers.backup() + 'processPremix/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'processPremix/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'processPremix/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'processPremix/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'processPremix/getByLikeBatchNumberByPage'
+            }
+        },
+        processSize:{
+            // 粉碎粒度
+            updatePublishByCode: function () {
+                return servers.backup() + 'processSize/updatePublishByCode'
+            },
+            updateAuditByCode: function () {
+                return servers.backup() + 'processSize/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'processSize/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'processSize/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'processSize/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'processSize/getByLikeBatchNumberByPage'
+            }
+        },
+        processLithium:{
+            // 粉碎总锂
+            updatePublishByCode: function () {
+                return servers.backup() + 'processLithium/updatePublishByCode'
+            },
+            updateAuditByCode: function () {
+                return servers.backup() + 'processLithium/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'processLithium/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'processLithium/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'processLithium/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'processLithium/getByLikeBatchNumberByPage'
+            }
+        },
+        processBuckle:{
+            // 扣电
+            updatePublishByCode: function () {
+                return servers.backup() + 'processBuckle/updatePublishByCode'
+            },
+            updateAuditByCode: function () {
+                return servers.backup() + 'processBuckle/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'processBuckle/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'processBuckle/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'processBuckle/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'processBuckle/getByLikeBatchNumberByPage'
+            }
         }
     }
     /** start */
