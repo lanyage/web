@@ -173,11 +173,11 @@ var process_audit = {
                     "<td>" + process_audit.funcs.getName(e.supplier) + "</td>" +
                     "<td>" + e.pc1 + "</td>" +
                     "<td>" + e.pc2 + "</td>" +
-                    "<td>" + e.boundCode + "</td>" +
-                    "<td>" + e.pc3 + "</td>" +
                     "<td>" + e.pc4 + "</td>" +
+                    "<td>" + e.pc5 + "</td>" +
+                    "<td>" + e.pc6 + "</td>" +
                     "<td>" + e.pc7 + "</td>" +
-                    "<td>" + e.pc10 + "</td>" +
+                    "<td> </td>" +
                     "</tr>"
                 )
             });
@@ -196,13 +196,16 @@ var process_audit = {
                     "<td>" + process_audit.funcs.getName(e.auditor) + "</td>" +
                     "<td>" + process_audit.funcs.formatDate(e.testDate) + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
-                    "<td>" + e.type + "</td>" +
-                    "<td>" + e.lithiumSoluble + "</td>" +
-                    "<td>" + process_audit.funcs.getName(e.supplier) + "</td>" +
+                    "<td>" + e.furnaceNum + "</td>" +
                     "<td>" + e.pc1 + "</td>" +
                     "<td>" + e.pc2 + "</td>" +
-                    "<td>" + e.boundCode + "</td>" +
                     "<td>" + e.pc3 + "</td>" +
+                    "<td>" + e.pc4 + "</td>" +
+                    "<td>" + e.pc5 + "</td>" +
+                    "<td>" + e.pc6 + "</td>" +
+                    "<td>" + e.pc7 + "</td>" +
+                    "<td>" + e.pc8 + "</td>" +
+                    "<td>" + e.pc9 + "</td>" +
                     "<td>" + e.pc10 + "</td>" +
                     "</tr>"
                 )
@@ -222,14 +225,10 @@ var process_audit = {
                     "<td>" + process_audit.funcs.getName(e.auditor) + "</td>" +
                     "<td>" + process_audit.funcs.formatDate(e.testDate) + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
-                    "<td>" + e.type + "</td>" +
-                    "<td>" + e.lithiumSoluble + "</td>" +
-                    "<td>" + process_audit.funcs.getName(e.supplier) + "</td>" +
+                    "<td>" + e.furnaceNum + "</td>" +
                     "<td>" + e.pc1 + "</td>" +
                     "<td>" + e.pc2 + "</td>" +
-                    "<td>" + e.boundCode + "</td>" +
                     "<td>" + e.pc3 + "</td>" +
-                    "<td>" + e.pc10 + "</td>" +
                     "</tr>"
                 )
             });
@@ -248,16 +247,10 @@ var process_audit = {
                     "<td>" + process_audit.funcs.getName(e.auditor) + "</td>" +
                     "<td>" + process_audit.funcs.formatDate(e.testDate) + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
-                    "<td>" + e.type + "</td>" +
-                    "<td>" + e.lithiumSoluble + "</td>" +
-                    "<td>" + process_audit.funcs.getName(e.supplier) + "</td>" +
+                    "<td>" + e.furnaceNum + "</td>" +
                     "<td>" + e.pc1 + "</td>" +
                     "<td>" + e.pc2 + "</td>" +
-                    "<td>" + e.boundCode + "</td>" +
                     "<td>" + e.pc3 + "</td>" +
-                    "<td>" + e.pc4 + "</td>" +
-                    "<td>" + e.pc7 + "</td>" +
-                    "<td>" + e.pc10 + "</td>" +
                     "</tr>"
                 )
             });
@@ -553,19 +546,28 @@ var process_audit = {
                 "<div id='div_table' class='table_scroll'>" +
                 "<table id='audit_table_inner' class='table_inner' align='center'>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
+                "<tr> <td>批号</td> <td>检测日期</td> <td>预混</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                //"<tr> <td colspan='2'>" + premix.batchNumber + "</td> <td>" + process_audit.funcs.formatDate(premix.testDate) + "</td> <td>" + premix.number + "</td> <td>" + premix.judge.name + "</td></tr>" +
+                "<tr> <td>" + premix.batchNumber + "</td> <td>" + process_audit.funcs.formatDate(premix.testDate) + "</td> <td>" + premix.type + "</td> </tr>" +
                 "</tbody>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
+                "<tr> <td>审核状态</td> <td>审核人</td> <td></td> </tr>" +
                 "</thead>" +
-                "<tr> <td colspan='2'>" + premix.status.name + "</td> <td>" + process_audit.funcs.getName(premix.auditor) + "</td> <td></td> <td></td></tr>" +
+                "<tr> <td>" + premix.status.name + "</td> <td>" + process_audit.funcs.getName(premix.auditor) + "</td> <td></td> </tr>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>检测项目</td> <td>控制采购标准-2016-11-21</td> <td>2017.07.01采购标准</td> <td>" + premix.batchNumber + "</td></tr>" +
+                "<tr> <td>检测项目</td> <td>控制标准</td> <td>" + premix.batchNumber + "</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
+                "<tr> <td>可溶锂 %</td> <td>理论含量&plusmn;0.08</td> <td>" + premix.lithiumSoluble + "</td> </tr>" +
+                "<tr> <td>主原料厂家</td> <td></td> <td>" + process_audit.funcs.getName(premix.supplier) + "</td> </tr>" +
+                "<tr> <td>配比</td> <td></td> <td>" + premix.pc1 + "</td> </tr>" +
+                "<tr> <td>锂的理论含量 %</td> <td></td> <td>" + premix.pc2 + "</td> </tr>" +
+                "<tr> <td>锂的理论下限 %</td> <td></td> <td>" + premix.pc3 + "</td> </tr>" +
+                "<tr> <td>锂的理论上限 %</td> <td></td> <td>" + premix.pc4 + "</td> </tr>" +
+                "<tr> <td>Me%</td> <td></td> <td>" + premix.pc5 + "</td> </tr>" +
+                "<tr> <td>L/M（实际）</td> <td></td> <td>" + premix.pc6 + "</td> </tr>" +
+                "<tr> <td>L/M（理论）</td> <td></td> <td>" + premix.pc7 + "</td> </tr>" +
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
@@ -577,19 +579,29 @@ var process_audit = {
                 "<div id='div_table' class='table_scroll'>" +
                 "<table id='audit_table_inner' class='table_inner' align='center'>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
+                "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>炉号</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + size.batchNumber + "</td> <td>" + process_audit.funcs.formatDate(size.testDate) + "</td> <td>" + size.number + "</td> <td>" + size.judge.name + "</td></tr>" +
+                "<tr> <td colspan='2'>" + size.batchNumber + "</td> <td>" + process_audit.funcs.formatDate(size.testDate) + "</td> <td>" + size.furnaceNum + "</td> </tr>" +
                 "</tbody>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
+                "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> </tr>" +
                 "</thead>" +
-                "<tr> <td colspan='2'>" + size.status.name + "</td> <td>" + process_audit.funcs.getName(size.auditor) + "</td> <td></td> <td></td></tr>" +
+                "<tr> <td colspan='2'>" + size.status.name + "</td> <td>" + process_audit.funcs.getName(size.auditor) + "</td> <td></td> </tr>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>检测项目</td> <td>控制采购标准-2016-11-21</td> <td>2017.07.01采购标准</td> <td>" + size.batchNumber + "</td></tr>" +
+                "<tr> <td colspan='2'>检测项目</td> <td>三级文件控制标准</td> <td>" + size.batchNumber + "</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
+                "<tr> <td rowspan='9'>振筛粒度</td> <td>D0</td> <td rowspan='9'>12.5&plusmn;1.5</td> <td>" + size.pc1 + "</td> </tr>" +
+                "<tr> <td>D1</td> <td>" + size.pc2 + "</td> </tr>" +
+                "<tr> <td>D5</td> <td>" + size.pc3 + "</td> </tr>" +
+                "<tr> <td>D10</td> <td>" + size.pc4 + "</td> </tr>" +
+                "<tr> <td>D50</td> <td>" + size.pc5 + "</td> </tr>" +
+                "<tr> <td>D90</td> <td>" + size.pc6 + "</td> </tr>" +
+                "<tr> <td>D95</td> <td>" + size.pc7 + "</td> </tr>" +
+                "<tr> <td>D99</td> <td>" + size.pc8 + "</td> </tr>" +
+                "<tr> <td>D99.99</td> <td>" + size.pc9 + "</td> </tr>" +
+                "<tr> <td colspan='2'>宽度系数</td> <td>(D90-D10)/D50</td> <td>" + size.pc10 + "</td> </tr>" +
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
@@ -601,19 +613,22 @@ var process_audit = {
                 "<div id='div_table' class='table_scroll'>" +
                 "<table id='audit_table_inner' class='table_inner' align='center'>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
+                "<tr> <td>批号</td> <td>检测日期</td> <td>炉号</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + lithium.batchNumber + "</td> <td>" + process_audit.funcs.formatDate(lithium.testDate) + "</td> <td>" + lithium.number + "</td> <td>" + lithium.judge.name + "</td></tr>" +
+                "<tr> <td>" + lithium.batchNumber + "</td> <td>" + process_audit.funcs.formatDate(lithium.testDate) + "</td> <td>" + lithium.furnaceNum + "</td> </tr>" +
                 "</tbody>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
+                "<tr> <td>审核状态</td> <td>审核人</td> <td></td> </tr>" +
                 "</thead>" +
-                "<tr> <td colspan='2'>" + lithium.status.name + "</td> <td>" + process_audit.funcs.getName(lithium.auditor) + "</td> <td></td> <td></td></tr>" +
+                "<tr> <td>" + lithium.status.name + "</td> <td>" + process_audit.funcs.getName(lithium.auditor) + "</td> <td></td> </tr>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>检测项目</td> <td>控制采购标准-2016-11-21</td> <td>2017.07.01采购标准</td> <td>" + lithium.batchNumber + "</td></tr>" +
+                "<tr> <td>检测项目</td> <td>三级文件控制标准</td> <td>" + lithium.batchNumber + "</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
+                "<tr> <td>Li2CO3</td> <td></td> <td>" + lithium.pc1 + "</td> </tr>" +
+                "<tr> <td>LiOH</td> <td></td> <td>" + lithium.pc2 + "</td> </tr>" +
+                "<tr> <td>总Li含量</td> <td></td> <td>" + lithium.pc3 + "</td> </tr>" +
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
@@ -625,19 +640,22 @@ var process_audit = {
                 "<div id='div_table' class='table_scroll'>" +
                 "<table id='audit_table_inner' class='table_inner' align='center'>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
+                "<tr> <td>批号</td> <td>检测日期</td> <td>炉号</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + buckle.batchNumber + "</td> <td>" + process_audit.funcs.formatDate(buckle.testDate) + "</td> <td>" + buckle.number + "</td> <td>" + buckle.judge.name + "</td></tr>" +
+                "<tr> <td>" + buckle.batchNumber + "</td> <td>" + process_audit.funcs.formatDate(buckle.testDate) + "</td> <td>" + buckle.furnaceNum + "</td> </tr>" +
                 "</tbody>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
+                "<tr> <td>审核状态</td> <td>审核人</td> <td></td> </tr>" +
                 "</thead>" +
-                "<tr> <td colspan='2'>" + buckle.status.name + "</td> <td>" + process_audit.funcs.getName(buckle.auditor) + "</td> <td></td> <td></td></tr>" +
+                "<tr> <td>" + buckle.status.name + "</td> <td>" + process_audit.funcs.getName(buckle.auditor) + "</td> <td></td> </tr>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>检测项目</td> <td>控制采购标准-2016-11-21</td> <td>2017.07.01采购标准</td> <td>" + buckle.batchNumber + "</td></tr>" +
+                "<tr> <td>检测项目</td> <td>三级文件控制标准</td> <td>" + buckle.batchNumber + "</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
+                "<tr> <td>SSA</td> <td>0.30&plusmn;0.08</td> <td>" + buckle.pc1 + "</td> </tr>" +
+                "<tr> <td>扣电</td> <td>&ge;177.5</td> <td>" + buckle.pc2 + "</td> </tr>" +
+                "<tr> <td>XRD<br>FWHM(104)</td> <td></td> <td>" + buckle.pc3 + "</td> </tr>" +
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
