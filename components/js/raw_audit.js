@@ -104,7 +104,7 @@ var raw_audit = {
                                 }, function (result) {
                                     var lithiums = result.data.content //获取数据
                                     const $tbody = $("#lithium_table").children('tbody')
-                                    raw_audit.funcs.renderHandler($tbody, lithiums)
+                                    raw_audit.funcs.renderHandlerLithium($tbody, lithiums)
                                     raw_audit.pageSize = result.data.content.length
                                 })
                             }

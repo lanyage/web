@@ -106,7 +106,7 @@ var material_publish = {
                                 }, function (result) {
                                     var lithiums = result.data.content //获取数据
                                     const $tbody = $("#lithium_table").children('tbody')
-                                    material_publish.funcs.renderHandler($tbody, lithiums)
+                                    material_publish.funcs.renderHandlerLithium($tbody, lithiums)
                                     material_publish.pageSize = result.data.content.length
                                 })
                             }
