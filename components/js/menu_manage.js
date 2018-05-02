@@ -429,17 +429,33 @@ var menu_manage = {
                             $("#operations_table_wrapper").css('display', 'none')
                         }
                     })
-                    var $tbody = $("#operations_table").children("tbody")
-                    $tbody.empty()
-                    // console.log(menu_manage.operations)
-                    // console.log(menu_manage.currentOperations)
+                    $("#operations_table").children("tbody").empty()
                     menu_manage.operations.forEach(function (e) {
-                        $tbody.append("<tr>" +
-                            "<td><input type='checkbox' class='operation_box'></td>" +
-                            "<td>" + (e.code) + "</td>" +
-                            "<td>" + (e.name) + "</td>" +
-                            "</tr>")
+                        var contains = menu_manage.currentOperations.find(function (ele) {
+                            return ele.code == e.code
+                        })
+                        if (contains) {
+                            $("#operations_table").children("tbody").append("<tr>" +
+                                "<td><input type='checkbox' class='operation_box' checked></td>" +
+                                "<td>" + (e.code) + "</td>" +
+                                "<td>" + (e.name) + "</td>" +
+                                "</tr>")
+                        } else {
+                            $("#operations_table").children("tbody").append("<tr>" +
+                                "<td><input type='checkbox' class='operation_box'></td>" +
+                                "<td>" + (e.code) + "</td>" +
+                                "<td>" + (e.name) + "</td>" +
+                                "</tr>")
+                        }
                     })
+                    /** 如果说包含了所有的operations那么必须要把checkAll点亮 */
+                    $("#operations_checkAll").prop('checked', false)
+                    var $tbody = $("#operations_table").children('tbody')
+                    var $operationsItems = $tbody.children("tr")
+                    var pageSize = $operationsItems.length
+                    if ($('.operation_box:checked').length === pageSize) {
+                        $("#operations_checkAll").prop('checked', true)
+                    }
                     /** 绑定全选事件 */
                     menu_manage.funcs.bindSelectAll($("#operations_checkAll"))
                     /** 绑定非全选事件 */
@@ -448,6 +464,106 @@ var menu_manage = {
             })
 
         }//$ bindAddEventListener——end$
+        , bindClickForEdits : function(items) {
+            items.off('click').on('click',function() {
+                var code = $(this).attr('id').substr(5)
+                var value = $("#name-"+code)[0].innerHTML
+                layer.open({
+                    type: 1,
+                    title: '操作管理',
+                    content: ("<div id='addModal'>" +
+                    "<div style='text-align: center;padding:10px 30px 10px 20px;'>" +
+                    "<p style='padding: 5px 0px 5px 0px;'><div class='fl' style='text-align: right;width: 30%'>操作名称:</div><div class='fl' style='padding-left: 3%'><input type='text' id='op_name' value='"+(value)+"'/></div></p>" +
+                    "</div>" +
+                    "</div>"),
+                    area: ['380px', '150px'],
+                    btn: ['确认', '取消'],
+                    offset: ['44%', '42%'],
+                    closeBtn: 0,
+                    yes: function (index) {
+                        var newName = $("#op_name").val()
+                        /** 填充name-inp的值 */
+                        $("#name-"+code)[0].innerHTML = newName
+                        //然后将更新该请求提交到后端 todo
+                        //然后将更新该请求提交到后端 todo
+                        //然后将更新该请求提交到后端 todo
+
+
+                        //更新operations
+                        menu_manage.funcs.storeOperations()
+                        layer.close(index)
+                    },
+                    btn2: function (index) {
+                        layer.close(index)
+                    }
+                })
+            })
+        }
+        , bindClickForDels : function(items) {
+            items.off('click').on('click',function() {
+                var code = $(this).attr('id').substr(4)
+                $(this).parent('td').parent('tr').remove()
+                //然后将删除该请求提交到后端 todo
+                //然后将删除该请求提交到后端 todo
+                //然后将删除该请求提交到后端 todo
+
+
+                //更新operations
+                menu_manage.funcs.storeOperations()
+            })
+        }
+        , bindAllEvent: function () {
+            $("#op_manageBtn").off('click').on('click', function () {
+                var $tbody = $("#operations_table2").children("tbody")
+                $tbody.empty()
+                menu_manage.operations.forEach(function (e, index) {
+                    $tbody.append("<tr>" +
+                        "<td>" + (index + 1) + "</td>" +
+                        "<td id='name-" + (e.code) + "'>" + (e.name) + "</td>" +
+                        "<td>" + (e.code) + "</td>" +
+                        "<td><a href='#' class='editOperation' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                        "<td><a href='#' class='deleteOperation' id='del-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                        "</tr>")
+                })
+                //此处需要给编辑和删除按钮绑定点击事件
+                menu_manage.funcs.bindClickForEdits($(".editOperation"))
+                menu_manage.funcs.bindClickForDels($(".deleteOperation"))
+                layer.open({
+                    type: 1,
+                    title: '操作管理',
+                    content: $('#operations_table_wrapper2'),
+                    area: ['580px', '300px'],
+                    btn: ['退出'],
+                    offset: ['35%', '35%'],
+                    closeBtn: 0,
+                    yes: function (index) {
+                        $("#operations_table_wrapper2").css('display', 'none')
+                        layer.close(index)
+                    }
+                })
+            })
+            $("#op_addBtn").off('click').on('click', function () {
+                layer.open({
+                    type: 1,
+                    title: '操作管理',
+                    content: ("<div id='addModal'>" +
+                    "<div style='text-align: center;padding:10px 30px 10px 20px;'>" +
+                    "<p style='padding: 5px 0px 5px 0px;'><div class='fl' style='text-align: right;width: 30%'>操作名称:</div><div class='fl' style='padding-left: 3%'><input type='text' id='op_name'/></div></p>" +
+                    "</div>" +
+                    "</div>"),
+                    area: ['380px', '150px'],
+                    btn: ['确认', '取消'],
+                    offset: ['44%', '42%'],
+                    closeBtn: 0,
+                    yes: function (index) {
+                        layer.close(index)
+                    },
+                    btn2: function (index) {
+                        layer.close(index)
+                    }
+                })
+            })
+        }
         /** 编辑事件 */
         , bindEditEventListener: function (editBtns) {
             editBtns.off('click')
@@ -635,48 +751,6 @@ var menu_manage = {
             $.get(home.urls.menus.listOperations(), {}, function (result) {
                 menu_manage.operations = result.data.sort(function (a, b) {
                     return a.code - b.code
-                })
-            })
-        }
-        , bindAllEvent: function () {
-            $("#op_manageBtn").off('click').on('click', function () {
-                layer.open({
-                    type: 1,
-                    title: '操作管理',
-                    content: $('#operations_table_wrapper2'),
-                    area: ['580px', '300px'],
-                    btn: ['确认', '取消'],
-                    offset: ['35%', '35%'],
-                    closeBtn: 0,
-                    yes: function (index) {
-                        layer.close(index)
-                        $("#operations_table_wrapper2").css('display', 'none')
-                    },
-                    btn2: function (index) {
-                        layer.close(index)
-                        $("#operations_table_wrapper2").css('display', 'none')
-                    }
-                })
-            })
-            $("#op_addBtn").off('click').on('click', function () {
-                layer.open({
-                    type: 1,
-                    title: '操作管理',
-                    content: ("<div id='addModal'>" +
-                    "<div style='text-align: center;padding:10px 30px 10px 20px;'>" +
-                    "<p style='padding: 5px 0px 5px 0px;'><div class='fl' style='text-align: right;width: 30%'>操作名称:</div><div class='fl' style='padding-left: 3%'><input type='text' id='op_name'/></div></p>" +
-                    "</div>" +
-                    "</div>"),
-                    area: ['380px', '150px'],
-                    btn: ['确认', '取消'],
-                    offset: ['44%', '42%'],
-                    closeBtn: 0,
-                    yes: function (index) {
-                        layer.close(index)
-                    },
-                    btn2: function (index) {
-                        layer.close(index)
-                    }
                 })
             })
         }
