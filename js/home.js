@@ -106,6 +106,15 @@ var home = {
             },
             menu3Shift: function () {
                 return servers.backup() + 'model/shift'
+            },
+            listOperations : function() {
+                return servers.backup() + 'operation/getAll'
+            },
+            getOperationsByModel : function() {
+                return servers.backup() + 'modelOperation/getByModelCode'
+            },
+            deleteOperationModel : function() {
+                return servers.backup() + 'modelOperation/deleteByModelCodeAndOperationCode'
             }
         },
         reviewprocess: {

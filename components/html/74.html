@@ -38,7 +38,7 @@
 
         .md4 {
             float: left;
-            width: 33.15%;
+            width: 24.8%;
             height: 410px;
             border: #949494 solid 1px;
             overflow-y: scroll
@@ -52,7 +52,7 @@
         header {
             text-align: center;
             float: left;
-            width: 33.15%;
+            width: 24.8%;
             border: #949494 solid 1px;
             position: relative;
             top: 1px;
@@ -63,7 +63,7 @@
             font-size: 15px;
             font-weight: 600;
             float: left;
-            width: 33.15%;
+            width: 24.8%;
             border: #949494 solid 1px;
             position: relative;
             bottom: 1px;
@@ -94,7 +94,16 @@
         .md4 .selected-menu2 {
             background: #f2f2f2;
         }
-
+        .md4 .selected-model {
+            background: #f2f2f2;
+        }
+        .left-border-none {
+            border-left: none;
+        }
+        .op td{
+            text-align: center;
+            border: 1px darkgrey solid;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -109,11 +118,14 @@
         <header>
             <li class="menu-head">一级菜单</li>
         </header>
-        <header class="middle">
+        <header class="left-border-none">
             <li class="menu-head">二级菜单</li>
         </header>
-        <header>
+        <header class="left-border-none">
             <li class="menu-head">三级菜单</li>
+        </header>
+        <header class="left-border-none">
+            <li class="menu-head">操作</li>
         </header>
     </div>
 
@@ -122,12 +134,17 @@
         <ul id="menu1List">
         </ul>
     </div>
-    <div class="md4 middle">
+    <div class="md4 left-border-none">
         <ul id="menu2List">
         </ul>
     </div>
-    <div class="md4">
+    <div class="md4 left-border-none">
         <ul id="menu3List">
+        </ul>
+    </div>
+
+    <div class="md4 left-border-none">
+        <ul id="operationList">
         </ul>
     </div>
     <div class="clear"></div>
@@ -135,11 +152,14 @@
         <footer>
             <a href="#" class="addBtn" id="add-1">+添加一级菜单</a>
         </footer>
-        <footer class="middle">
+        <footer class="left-border-none">
             <a href="#" class="addBtn" id="add-2">+添加二级菜单</a>
         </footer>
-        <footer>
+        <footer class="left-border-none">
             <a href="#" class="addBtn" id="add-3">+添加三级菜单</a>
+        </footer>
+        <footer class="left-border-none">
+            <a href="#" class="addBtn" id="operation_manage">操作管理</a>
         </footer>
     </div>
     <script src="../components/js/menu_manage.js"></script>
@@ -148,4 +168,92 @@
             menu_manage.init()
         })
     </script>
+</div>
+
+<div id="operations_table_wrapper" style="padding: 0px 20px 0px 20px;" class="hide op">
+    <div class="whitespace"></div>
+    <div style="text-align: right;">
+        <button id="op_manageBtn">&nbsp;操作管理&nbsp;</button>
+    </div>
+    <div style="padding: 3px;"></div>
+    <table id="operations_table" style="width: 100%;">
+        <thead style="background: #f2f2f2;">
+        <tr>
+            <td><input id="operations_checkAll" type="checkbox"></td>
+            <td>序号</td>
+            <td>操作名称</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input type="checkbox" class="operation_box"></td>
+            <td>1</td>
+            <td>新增</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" class="operation_box"></td>
+            <td>2</td>
+            <td>查询</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" class="operation_box"></td>
+            <td>3</td>
+            <td>编辑</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" class="operation_box"></td>
+            <td>4</td>
+            <td>删除</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="operations_table_wrapper2" style="padding: 0px 20px 0px 20px;" class="hide op">
+    <div class="whitespace"></div>
+    <div style="text-align: left;">
+        <button id="op_addBtn">&nbsp;新增&nbsp;</button>
+    </div>
+    <div style="padding: 3px;"></div>
+    <table id="operations_table2" style="width: 100%;">
+        <thead style="background: #f2f2f2;">
+        <tr>
+            <td>序号</td>
+            <td>操作名称</td>
+            <td>code</td>
+            <td>编辑</td>
+            <td>删除</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>新增</td>
+            <td>1</td>
+            <td>编辑</td>
+            <td>删除</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>查询</td>
+            <td>2</td>
+            <td>编辑</td>
+            <td>删除</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>编辑</td>
+            <td>3</td>
+            <td>编辑</td>
+            <td>删除</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>删除</td>
+            <td>4</td>
+            <td>编辑</td>
+            <td>删除</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
