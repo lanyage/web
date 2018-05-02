@@ -171,9 +171,9 @@
 </div>
 
 <div id="operations_table_wrapper" style="padding: 0px 20px 0px 20px;" class="hide op">
-    <div class="whitespace"></div>
+    <div style="padding: 3px;"></div>
     <div style="text-align: right;">
-        <button id="op_manageBtn">&nbsp;操作管理&nbsp;</button>
+        <button id="op_manageBtn" style="background: #569196;color: #fff;">&nbsp;操作管理&nbsp;</button>
     </div>
     <div style="padding: 3px;"></div>
     <table id="operations_table" style="width: 100%;">
@@ -185,34 +185,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td><input type="checkbox" class="operation_box"></td>
-            <td>1</td>
-            <td>新增</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class="operation_box"></td>
-            <td>2</td>
-            <td>查询</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class="operation_box"></td>
-            <td>3</td>
-            <td>编辑</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class="operation_box"></td>
-            <td>4</td>
-            <td>删除</td>
-        </tr>
         </tbody>
     </table>
 </div>
 
 <div id="operations_table_wrapper2" style="padding: 0px 20px 0px 20px;" class="hide op">
-    <div class="whitespace"></div>
+    <div style="padding: 3px;"></div>
     <div style="text-align: left;">
-        <button id="op_addBtn">&nbsp;新增&nbsp;</button>
+        <button id="op_addBtn" style="background: #569196;color: #fff;">&nbsp;新增&nbsp;</button>
     </div>
     <div style="padding: 3px;"></div>
     <table id="operations_table2" style="width: 100%;">
@@ -230,29 +210,29 @@
             <td>1</td>
             <td>新增</td>
             <td>1</td>
-            <td>编辑</td>
-            <td>删除</td>
+            <td><a href='#' class='editDepartment' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>
+            <td><a href='#' class='deleteDepartment' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>
         </tr>
         <tr>
             <td>2</td>
             <td>查询</td>
             <td>2</td>
-            <td>编辑</td>
-            <td>删除</td>
+            <td><a href='#' class='editDepartment' ><i class='layui-icon'>&#xe642;</i></a></td>
+            <td><a href='#' class='deleteDepartment'><i class='layui-icon'>&#xe640;</i></a></td>
         </tr>
         <tr>
             <td>3</td>
             <td>编辑</td>
             <td>3</td>
-            <td>编辑</td>
-            <td>删除</td>
+            <td><a href='#' class='editDepartment' ><i class='layui-icon'>&#xe642;</i></a></td>
+            <td><a href='#' class='deleteDepartment'><i class='layui-icon'>&#xe640;</i></a></td>
         </tr>
         <tr>
             <td>4</td>
             <td>删除</td>
             <td>4</td>
-            <td>编辑</td>
-            <td>删除</td>
+            <td><a href='#' class='editDepartment' ><i class='layui-icon'>&#xe642;</i></a></td>
+            <td><a href='#' class='deleteDepartment'><i class='layui-icon'>&#xe640;</i></a></td>
         </tr>
         </tbody>
     </table>

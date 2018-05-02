@@ -431,8 +431,8 @@ var menu_manage = {
                     })
                     var $tbody = $("#operations_table").children("tbody")
                     $tbody.empty()
-                    console.log(menu_manage.operations)
-                    console.log(menu_manage.currentOperations)
+                    // console.log(menu_manage.operations)
+                    // console.log(menu_manage.currentOperations)
                     menu_manage.operations.forEach(function (e) {
                         $tbody.append("<tr>" +
                             "<td><input type='checkbox' class='operation_box'></td>" +
