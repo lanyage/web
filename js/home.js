@@ -115,6 +115,12 @@ var home = {
             },
             deleteOperationModel : function() {
                 return servers.backup() + 'modelOperation/deleteByModelCodeAndOperationCode'
+            },
+            updateOperation : function() {
+                return servers.backup() + 'operation/update'
+            },
+            deleteOperation : function() {
+                return servers.backup() + 'operation/deleteByCode'
             }
         },
         reviewprocess: {

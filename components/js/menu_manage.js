@@ -487,7 +487,9 @@ var menu_manage = {
                         //然后将更新该请求提交到后端 todo
                         //然后将更新该请求提交到后端 todo
                         //然后将更新该请求提交到后端 todo
-
+                        $.post(home.urls.menus.updateOperation(),{code : code, name : newName}, function(res) {
+                            console.log(res)
+                        })
 
                         //更新operations
                         menu_manage.funcs.storeOperations()
@@ -506,7 +508,9 @@ var menu_manage = {
                 //然后将删除该请求提交到后端 todo
                 //然后将删除该请求提交到后端 todo
                 //然后将删除该请求提交到后端 todo
-
+                $.post(home.urls.menus.deleteOperation(),{code : code}, function(res) {
+                    console.log(res)
+                })
 
                 //更新operations
                 menu_manage.funcs.storeOperations()
@@ -763,6 +767,7 @@ var menu_manage = {
                 })
             })
         }
+
         , disselectAll: function (operation_boxes, selectAllBox) {
             var $tbody = $("#operations_table").children('tbody')
             var $operationsItems = $tbody.children("tr")
