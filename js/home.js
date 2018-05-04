@@ -121,6 +121,12 @@ var home = {
             },
             deleteOperation : function() {
                 return servers.backup() + 'operation/deleteByCode'
+            },
+            updateModelOperationBatch : function() {
+                return servers.backup() + 'modelOperation/updateBatch'
+            },
+            addOperation : function() {
+                return servers.backup() + 'operation/add'
             }
         },
         reviewprocess: {

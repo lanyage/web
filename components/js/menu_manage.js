@@ -136,23 +136,58 @@ var menu_manage = {
                 $('.md4 .selected-model').removeClass('selected-model')
                 $(this).parent('li').addClass('selected-model')
                 var currentModelCode = $(this).parent('li').attr('id').substr(6)
-                /** 获取所有的operations */
-                $.post(home.urls.menus.getOperationsByModel(), {modelCode: currentModelCode}, function (result) {
-                    menu_manage.currentOperations.splice(0, menu_manage.currentOperations.length)
-
-                    /** 获取了所有的operations 然后需要给东西填充*/
-                    $('#operationList').empty()
-                    result.data.forEach(function (e) {
-                        var currentOperation = menu_manage.operations.filter(function (ele) {
-                            return ele.code == e.operationCode
-                        })[0]
-                        menu_manage.currentOperations.push(currentOperation)
-                        $('#operationList').append("<li class='item' id='operation-" + (currentOperation.code) + "'><a href='#' class='mainClick'>" + (currentOperation.name) + "</a>&nbsp;<a href='#' class='rm-circle'><i class='fa fa-times-circle-o'></i></a></li>")
-                    })
-                    //所有的三级菜单添加好之后,要给删除按钮绑定事件
-                    menu_manage.funcs.bindRemoveClickfor($('.rm-circle'));
-                })
+                menu_manage.funcs.renderCurrentOperations(currentModelCode)
             })
+        }
+        /** 根据三级菜单来渲染当前菜单下的所有的operations */
+        , renderCurrentOperations: function (currentModelCode) {
+            /** 获取所有的operations */
+            $.post(home.urls.menus.getOperationsByModel(), {modelCode: currentModelCode}, function (result) {
+                menu_manage.currentOperations.splice(0, menu_manage.currentOperations.length)
+                /** 获取了所有的operations 然后需要给东西填充*/
+                $('#operationList').empty()
+                result.data.forEach(function (e) {
+                    var currentOperation = menu_manage.operations.filter(function (ele) {
+                        return ele.code == e.operationCode
+                    })[0]
+                    menu_manage.currentOperations.push(currentOperation)
+                    $('#operationList').append("<li class='item' style='color: #2c2e35;' id='operation-" + (currentOperation.code) + "'>" + currentOperation.name + "</li>")
+                })
+                //所有的三级菜单添加好之后,要给删除按钮绑定事件
+                menu_manage.funcs.bindRemoveClickfor($('.rm-circle'));
+            })
+        }
+        , renderAllOperations: function (tbody, operations) {
+            tbody.empty()
+            operations.forEach(function (e) {
+                var contains = menu_manage.currentOperations.find(function (ele) {
+                    return ele.code == e.code
+                })
+                if (contains) {
+                    tbody.append("<tr>" +
+                        "<td><input type='checkbox' class='operation_box' checked></td>" +
+                        "<td>" + (e.code) + "</td>" +
+                        "<td>" + (e.name) + "</td>" +
+                        "</tr>")
+                } else {
+                    tbody.append("<tr>" +
+                        "<td><input type='checkbox' class='operation_box'></td>" +
+                        "<td>" + (e.code) + "</td>" +
+                        "<td>" + (e.name) + "</td>" +
+                        "</tr>")
+                }
+            })
+            /** 如果说包含了所有的operations那么必须要把checkAll点亮 */
+            $("#operations_checkAll").prop('checked', false)
+            var $operationsItems = tbody.children("tr")
+            var pageSize = $operationsItems.length
+            if ($('.operation_box:checked').length === pageSize) {
+                $("#operations_checkAll").prop('checked', true)
+            }
+            /** 绑定全选事件 */
+            menu_manage.funcs.bindSelectAll($("#operations_checkAll"))
+            /** 绑定非全选事件 */
+            menu_manage.funcs.disselectAll($(".operation_box"), $("#operations_checkAll"))
         }
         /** 移除click事件的绑定 */
         , bindRemoveClickfor: function (items) {
@@ -278,8 +313,7 @@ var menu_manage = {
 
         /** 添加事件 */
         , bindAddEventListener: function (addBtn) {
-            addBtn.off('click')
-            addBtn.on('click', function () {
+            addBtn.off('click').on('click', function () {
                 /** 弹出一个询问框 */
                 var _this = $(this)
                 /** 如果是点击三级菜单的添加必须要先选定二级菜单,否则就要弹出相应的提示框 */
@@ -421,6 +455,29 @@ var menu_manage = {
                         offset: ['35%', '35%'],
                         closeBtn: 0,
                         yes: function (index) {
+                            var addData = []
+                            var code = $('.selected-model').attr('id').substr(6)
+                            $('.operation_box:checked').each(function (e, ele) {
+                                var operationCode = $(ele).parent('td').next()[0].innerHTML
+                                addData.push({modelCode: code, operationCode: operationCode})
+                            })
+                            $.ajax({
+                                url: home.urls.menus.updateModelOperationBatch(),
+                                contentType: 'application/json',
+                                data: JSON.stringify(addData),
+                                dataType: 'json',
+                                type: 'post',
+                                success: function (result) {
+                                    if (result.code === 0) {
+                                        menu_manage.funcs.renderAll()
+                                    }
+                                    layer.msg(result.message, {
+                                        offset: ['40%', '55%'],
+                                        time: 700
+                                    })
+                                }
+                            })
+
                             layer.close(index)
                             $("#operations_table_wrapper").css('display', 'none')
                         },
@@ -430,50 +487,22 @@ var menu_manage = {
                         }
                     })
                     $("#operations_table").children("tbody").empty()
-                    menu_manage.operations.forEach(function (e) {
-                        var contains = menu_manage.currentOperations.find(function (ele) {
-                            return ele.code == e.code
-                        })
-                        if (contains) {
-                            $("#operations_table").children("tbody").append("<tr>" +
-                                "<td><input type='checkbox' class='operation_box' checked></td>" +
-                                "<td>" + (e.code) + "</td>" +
-                                "<td>" + (e.name) + "</td>" +
-                                "</tr>")
-                        } else {
-                            $("#operations_table").children("tbody").append("<tr>" +
-                                "<td><input type='checkbox' class='operation_box'></td>" +
-                                "<td>" + (e.code) + "</td>" +
-                                "<td>" + (e.name) + "</td>" +
-                                "</tr>")
-                        }
-                    })
-                    /** 如果说包含了所有的operations那么必须要把checkAll点亮 */
-                    $("#operations_checkAll").prop('checked', false)
-                    var $tbody = $("#operations_table").children('tbody')
-                    var $operationsItems = $tbody.children("tr")
-                    var pageSize = $operationsItems.length
-                    if ($('.operation_box:checked').length === pageSize) {
-                        $("#operations_checkAll").prop('checked', true)
-                    }
-                    /** 绑定全选事件 */
-                    menu_manage.funcs.bindSelectAll($("#operations_checkAll"))
-                    /** 绑定非全选事件 */
-                    menu_manage.funcs.disselectAll($(".operation_box"), $("#operations_checkAll"))
+                    menu_manage.funcs.renderAllOperations($("#operations_table").children("tbody"), menu_manage.operations)
                 }
             })
 
         }//$ bindAddEventListener——end$
-        , bindClickForEdits : function(items) {
-            items.off('click').on('click',function() {
+        , bindClickForEdits: function (items) {
+            //更新operations
+            items.off('click').on('click', function () {
                 var code = $(this).attr('id').substr(5)
-                var value = $("#name-"+code)[0].innerHTML
+                var value = $("#name-" + code)[0].innerHTML
                 layer.open({
                     type: 1,
                     title: '操作管理',
                     content: ("<div id='addModal'>" +
                     "<div style='text-align: center;padding:10px 30px 10px 20px;'>" +
-                    "<p style='padding: 5px 0px 5px 0px;'><div class='fl' style='text-align: right;width: 30%'>操作名称:</div><div class='fl' style='padding-left: 3%'><input type='text' id='op_name' value='"+(value)+"'/></div></p>" +
+                    "<p style='padding: 5px 0px 5px 0px;'><div class='fl' style='text-align: right;width: 30%'>操作名称:</div><div class='fl' style='padding-left: 3%'><input type='text' id='op_name' value='" + (value) + "'/></div></p>" +
                     "</div>" +
                     "</div>"),
                     area: ['380px', '150px'],
@@ -483,16 +512,10 @@ var menu_manage = {
                     yes: function (index) {
                         var newName = $("#op_name").val()
                         /** 填充name-inp的值 */
-                        $("#name-"+code)[0].innerHTML = newName
-                        //然后将更新该请求提交到后端 todo
-                        //然后将更新该请求提交到后端 todo
-                        //然后将更新该请求提交到后端 todo
-                        $.post(home.urls.menus.updateOperation(),{code : code, name : newName}, function(res) {
-                            console.log(res)
+                        $("#name-" + code)[0].innerHTML = newName
+                        $.post(home.urls.menus.updateOperation(), {code: code, name: newName}, function (res) {
+                            menu_manage.funcs.renderAll()
                         })
-
-                        //更新operations
-                        menu_manage.funcs.storeOperations()
                         layer.close(index)
                     },
                     btn2: function (index) {
@@ -501,28 +524,31 @@ var menu_manage = {
                 })
             })
         }
-        , bindClickForDels : function(items) {
-            items.off('click').on('click',function() {
+        , bindClickForDels: function (items) {
+            items.off('click').on('click', function () {
                 var code = $(this).attr('id').substr(4)
-                $(this).parent('td').parent('tr').remove()
-                //然后将删除该请求提交到后端 todo
-                //然后将删除该请求提交到后端 todo
-                //然后将删除该请求提交到后端 todo
-                $.post(home.urls.menus.deleteOperation(),{code : code}, function(res) {
-                    console.log(res)
+                var _this = $(this)
+                $.post(home.urls.menus.deleteOperation(), {code: code}, function (res) {
+                    if (res.code == 0) {
+                        _this.parent('td').parent('tr').remove()
+                        menu_manage.funcs.renderAll()
+                    } else {
+                        layer.msg(res.message, {
+                            offset: ['40%', '55%'],
+                            time: 700
+                        })
+                    }
                 })
 
-                //更新operations
-                menu_manage.funcs.storeOperations()
             })
         }
         , bindAllEvent: function () {
             $("#op_manageBtn").off('click').on('click', function () {
                 var $tbody = $("#operations_table2").children("tbody")
                 $tbody.empty()
-                menu_manage.operations.forEach(function (e, index) {
-                    $tbody.append("<tr>" +
-                        "<td>" + (index + 1) + "</td>" +
+                menu_manage.operations.forEach(function (e,index) {
+                    $tbody.append("<tr <tr id='" + ("tr-" + e.code) + "'>>" +
+                        "<td>" + (e.code) + "</td>" +
                         "<td id='name-" + (e.code) + "'>" + (e.name) + "</td>" +
                         "<td>" + (e.code) + "</td>" +
                         "<td><a href='#' class='editOperation' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
@@ -542,24 +568,58 @@ var menu_manage = {
                     closeBtn: 0,
                     yes: function (index) {
                         $("#operations_table_wrapper2").css('display', 'none')
+                        menu_manage.funcs.renderAllOperations($("#operations_table").children("tbody"), menu_manage.operations)
                         layer.close(index)
                     }
                 })
             })
             $("#op_addBtn").off('click').on('click', function () {
+                /** table2中所有的列*/
+                var trs = $("#operations_table2").children("tbody").children('tr')
+                /** 最后一列的序号 */
+                var len = trs.length - 1
+                /** 最后一列的元素的code + 1,类似与自增 */
+                var maxCode = parseInt($(trs[len]).attr('id').substr(3)) + 1
                 layer.open({
                     type: 1,
                     title: '操作管理',
                     content: ("<div id='addModal'>" +
                     "<div style='text-align: center;padding:10px 30px 10px 20px;'>" +
-                    "<p style='padding: 5px 0px 5px 0px;'><div class='fl' style='text-align: right;width: 30%'>操作名称:</div><div class='fl' style='padding-left: 3%'><input type='text' id='op_name'/></div></p>" +
+                    "<p style='padding: 3px 0px 3px 0px;'><div class='fl' style='text-align: right;width: 30%'>操作ID&nbsp;:</div><div class='fl' style='padding-left: 3%'><input type='text' id='op_id' value='" + (maxCode) + "'/></div></p>" +
+                    "<div style='padding: 2px;clear: both;'></div>" +
+                    "<p style='padding: 3px 0px 3px 0px;'><div class='fl' style='text-align: right;width: 30%'>操作名称:</div><div class='fl' style='padding-left: 3%'><input type='text' id='op_name' placeholder='请输入操作名'/></div></p>" +
                     "</div>" +
                     "</div>"),
-                    area: ['380px', '150px'],
+                    area: ['380px', '200px'],
                     btn: ['确认', '取消'],
                     offset: ['44%', '42%'],
                     closeBtn: 0,
                     yes: function (index) {
+                        var code = $('#op_id').val()
+                        var name = $('#op_name').val()
+                        $.post(home.urls.menus.addOperation(), {code: code, name: name}, function (res) {
+                            if (res.code == 0) {
+                                var $tbody = $("#operations_table2").children("tbody")
+                                $tbody.append("<tr id='" + ("tr-" + code) + "'>" +
+                                    "<td>" + (code) + "</td>" +
+                                    "<td id='name-" + (code) + "'>" + (name) + "</td>" +
+                                    "<td>" + (code) + "</td>" +
+                                    "<td><a href='#' class='editOperation' id='edit-" + (code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                                    "<td><a href='#' class='deleteOperation' id='del-" + (code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                                    "</tr>")
+                                //此处需要给编辑和删除按钮绑定点击事件
+                                menu_manage.funcs.bindClickForEdits($(".editOperation"))
+                                menu_manage.funcs.bindClickForDels($(".deleteOperation"))
+
+                                menu_manage.funcs.storeOperations()
+                                /** 重新渲染所有的弹出框 */
+                                menu_manage.funcs.renderAll()
+                            }
+                            layer.msg(res.message, {
+                                offset: ['40%', '55%'],
+                                time: 700
+                            })
+                        })
                         layer.close(index)
                     },
                     btn2: function (index) {
@@ -567,6 +627,16 @@ var menu_manage = {
                     }
                 })
             })
+        }
+        /** 重新渲染所有的弹出框 */
+        , renderAll: function () {
+            menu_manage.funcs.storeOperations()
+            var time = setTimeout(function () {
+                var currentModelCode = parseInt($(".selected-model").attr('id').substr(6))
+                menu_manage.funcs.renderCurrentOperations(currentModelCode)
+                menu_manage.funcs.renderAllOperations($("#operations_table").children("tbody"), menu_manage.operations)
+                clearTimeout(time)
+            }, 150)
         }
         /** 编辑事件 */
         , bindEditEventListener: function (editBtns) {
