@@ -1,4 +1,5 @@
-<div id='model-li-hide-23' class="display-component-container" style="padding: 20px 20px 0px 20px;max-height: 100%;overflow-y: scroll;">
+<div id='model-li-hide-23' class="display-component-container"
+     style="padding: 20px 20px 0px 20px;max-height: 100%;overflow-y: scroll;">
     <style type="text/css">
         .select-span {
             color: #569196;
@@ -6,20 +7,92 @@
             padding-bottom: 15px;
             cursor: hand;
         }
+
         #_23table thead tr td {
-            color : #fff;
+            color: #fff;
             font-size: 12px;
             font-weight: 400;
             padding: 0;
         }
+
         .dark-greg {
             background: rgba(75, 75, 75, 0.9);
         }
+
         .light-grey {
             background: rgba(102, 102, 102, 0.9);
         }
-        #_23table tbody td{
+
+        #_23table tbody td {
             padding: 3px;
+        }
+
+        #audit_table_inner thead td {
+            padding: 0px;
+            border: 1px darkgrey solid;
+            font-size: 14px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            font-size: 12px;
+        }
+
+        #audit_table_inner tbody td {
+            padding: 0px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            font-size: 12px;
+        }
+        #audit_table_inner thead td {
+            color: #fff;
+            background: #777777;
+        }
+
+        .table_style thead td {
+            margin: 0;
+            padding: 0px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .table_style tbody td {
+            margin: 0;
+            padding: 0px;
+            border: 1px darkgrey solid;
+            font-size: 10px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            height: 35px;
+            width: 30px;
+        }
+        .arrows-l {
+            float: left;
+            position: absolute;
+            top: 48%;
+            left: 0;
+        }
+        .arrows-r {
+            float: right;
+            position: absolute;
+            top: 48%;
+            right: 0;
+        }
+
+        .table_scroll {
+            overflow-y: auto;
+            height: 600px;
+        }
+        .align_middle {
+            position: relative;
+            top: 50%;
+            text-align: center;
         }
     </style>
     <!--上-->
@@ -29,7 +102,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
             <select id="model-li-hide-select-23">
                 <option value="1">未发布</option>
-                <option value="0">已发布</option>
+                <option value="2">已发布</option>
             </select>
         </div>
         <div class="fr">
@@ -42,7 +115,7 @@
     </div>
     <div class="whitespace"></div>
     <!--中-->
-    <table id="_23table" style="width: 100%;max-height: 526px;overflow-y: scroll" >
+    <table id="_23table" style="width: 100%;max-height: 526px;overflow-y: scroll">
         <thead>
         <tr class="dark-greg">
             <td rowspan="2">操作</td>
@@ -137,7 +210,7 @@
     </div>
     <script src="../components/js/product_publish.js"></script>
     <script type="application/javascript">
-        $(function() {
+        $(function () {
             product_publish.init()
         })
     </script>

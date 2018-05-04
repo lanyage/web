@@ -1,9 +1,7 @@
 var product_audit = {
     init: function () {
-        console.log('user = ', home.user.code)
         // display
         product_audit.funcs.renderTable()
-
         var out = $('#product_audit_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
