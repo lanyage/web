@@ -30,7 +30,8 @@ var product_publish = {
                         if (!first) {
                             $.post(home.urls.productPublish.getAllByPage(), {
                                 page: obj.curr - 1,
-                                size: obj.limit
+                                size: obj.limit,
+                                statusCode: status
                             }, function (result) {
                                 var records = result.data.content //获取数据
                                 const $tbody = $("#_23table").children('tbody')
