@@ -631,7 +631,17 @@ var home = {
             },
             deleteByBatchCode: function () {
                 return servers.backup() + 'material/deleteByBatchCode'
-            },
+            }
+        },
+        materialIn : {
+          getAllByPage : function() {
+              return servers.backup() + 'godownEntryHeader/getAllByPage'
+          }
+        },
+        materialOut : {
+            getAllByPage : function() {
+                return servers.backup() + 'sendEntryHeader/getAllByPage'
+            }
         },
         equipment: {
             getAllByPage: function () {
