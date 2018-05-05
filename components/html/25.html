@@ -15,6 +15,19 @@
             font-size: 14px;
             font-weight: 600;
         }
+        .label_selected {
+            color: rgb(51, 51, 51);
+            border-bottom: 3px solid #569196;
+            padding-bottom: 13px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .label_not_selected:hover {
+            border-bottom: #777777 3px solid;
+            padding-bottom: 5px;
+        }
+
 
         #_25table1 tr td, #_25table2 tr td, #_25table3 tr td, #_25table4 tr td {
             color: #fff;
@@ -49,15 +62,30 @@
     <div class="block-quote">
         <!--左边-->
         <div class="fl">
-            <span id="yuhun" class="select_span">预混</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span id="fensuild" >粉碎粒度</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span id="fensuizl" >粉碎总锂</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span id="fensuiSSA" >粉碎SSA</span>&nbsp;&nbsp;&nbsp;&nbsp;
-
-            <select id="model-li-hide-select-25">
-                <option value="1">未发布</option>
-                <option value="0">已发布</option>
-            </select>
+            <p style="font-size: 14px;">
+                <span id="select-premix" class="label_selected">
+                    预混
+                </span>
+                &nbsp;&nbsp;
+                <span id="select-size" class="label_not_selected">
+                    <a href="#">粉碎粒度</a>
+                </span>
+                &nbsp;&nbsp;
+                <span id="select-lithium" class="label_not_selected">
+                    <a href="#">粉碎总锂</a>
+                </span>
+                &nbsp;&nbsp;
+                <span id="select-buckle" class="label_not_selected">
+                    <a href="#">粉碎SSA</a>
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="model-li-hide-select-25">
+                    <select id="status">
+                        <option value="1">未发布</option>
+                        <option value="2">已发布</option>
+                    </select>
+                </span>
+            </p>
         </div>
         <!--右边-->
         <div class="fr">
@@ -72,7 +100,7 @@
     <!--中-->
     <!--1表预混-->
     <div>
-        <table id="_25table1" style="width:100%;" class="yuhun_table">
+        <table id="premix_table" style="width:100%;" class="table_style">
             <thead>
             <tr class="dark-gray" style="font-weight: bold;">
                 <td>操作</td>
@@ -118,7 +146,7 @@
 
     <!--2表粉碎粒度-->
     <div>
-        <table id="_25table2" style="width: 100%;" class="hide fensuild_table">
+        <table id="size_table" style="width: 100%;" class="table_style">
             <thead>
             <tr class="dark-gray" style="font-weight: bold;">
                 <td rowspan="2">操作</td>
@@ -160,7 +188,7 @@
 
     <!--3表粉碎总锂-->
     <div>
-        <table id="_25table3" style="width: 100%;" class="hide fensuizl_table">
+        <table id="lithium_table" style="width: 100%;" class="table_style">
             <thead>
             <tr class="dark1-gray" style="font-weight: bold;">
                 <td></td>
@@ -217,7 +245,7 @@
 
     <!--4表粉碎SSA-->
     <div>
-        <table id="_25table4" style="width: 100%;" class="hide fensuiSSA_table">
+        <table id="buckle_table" style="width: 100%;" class="table_style">
             <thead>
             <tr class="dark-gray" style="font-weight: bold;">
                 <td rowspan="2">操作</td>

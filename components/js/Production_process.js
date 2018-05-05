@@ -1,96 +1,199 @@
 var Production_process = {
+    
     init:function(){
-        
-       
-        Production_process.funcs.renderTable(1)
-        Production_process.funcs.bindClickForSpanInBlockQuote($('.block-quote span'))
-        //console.log('LLLL')
-        //console.log($('.block-quote span'))
-        /** 使表格居中显示 */
+
+        Production_process.funcs.renderTable();
+        Production_process.funcs.hideTable();
+
         var out = $('#_25page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
             $('#_25page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
-        }, 30)
-    },
+        }, 50)
+    }
+    , process_type: 0   // choose material type: 0-premix, 1-size, 2-lithium, 3-buckle
+    , pageSize: 0
+    , currId: null  // current chosen Id
 
-    funcs : {
+    ,funcs : {
 
-            renderTable:function(statusCode){
-            //     /** 追加预混表格的添加 */
-            //     var yuhun = $('#_25table1')
-            //     //console.log('aaaaaaaaaaaaaaaaaa')
-            //     //console.log(yuhun)
-            //     Production_process.funcs.bindZhichengYunhun(yuhun,statusCode)
-                /** 追加粉碎粒度表格的添加 */
-                // var lidu = $('#fensuild')
-                // Production_process.funcs.bindZhichengLidu(lidu,statusCode)
-                /** 追加粉碎总锂表格的添加 */
-                // var zongli = $('#fensuizl')
-                // Production_process.funcs.bindZhichengZongli(zongli,statusCode)
-                /** 追加粉碎SSA表格的添加 */
-                // var SSA = $('#fensuiSSA')
-                // Production_process.funcs.bindZhichengSSA(SSA,statusCode)
-                /** 追加状态下拉框事件 */
-                var statusSelect = $('#model-li-hide-select-25');
-                Production_process.funcs.bindSelectEventListener(statusSelect);
-                /** 追加刷新事件 */
-                // var refreshBtn = $('#model-li-hide-refresh-25');
-                // Production_process.funcs.bindRefreshEventListener(refreshBtn);//追加刷新事件
-                /** 追加搜索事件 */
-                // var searchBtn = $('#model-li-hide-search-25');
-                // Production_process.funcs.b       indSearchEventListener(searchBtn);
+         /**
+         * 页面渲染-已完成
+         */
+        renderTable: function () {
+            Production_process.funcs.hideTable();
+            console.log(Production_process.process_type);
+            var status = $('#status').val()
+            // POST
+            $.post(Production_process.funcs.chooseUrl(), {
+                page: 0,
+                statusCode: status
+            }, function (result) {
+                var process = result.data.content;
+                var $tbody = $(Production_process.funcs.chooseTable()).children('tbody');
+                Production_process.pageSize = result.data.content.length;
+                Production_process.funcs.chooseHandler($tbody, process);
 
-            },
-
-            /** 具体添加粉碎SSA的表格 */
-            renderHandler4:function($tbody,records){
-                $tbody.empty()
-                records.forEach(function(e){
-                    $tbody.append("<tr>"+
-                        "<td style='color:black'>"+ e.operation +"</td>"+
-                        "<td style='color:black'>"+ e.publisher +"</td>"+
-                        "<td style='color:black'>"+ e.testDate +"</td>"+
-                        "<td style='color:black'>"+ e.batchNumber +"</td>"+
-                        "<td style='color:black'>"+ e.furnaceNum +"</td>"+
-                        "<td style='color:black'>"+ e.pc1 +"</td>"+
-                        "<td style='color:black'>"+ e.pc2 +"</td>"+
-                        "<td style='color:black'>"+ e.pc3 +"</td>"+
-                        "<td></td>"+
-                        "</tr>"
-                    )
+                var page = result.data;
+                /** @namespace page.totalPages 这是返回数据的总页码数 */
+                /** 分页信息 */
+                layui.laypage.render({
+                    elem: 'Production_process_page'
+                    , count: 10 * page.totalPages//数据总数
+                    /** 页面变化后的逻辑 */
+                    , jump: function (obj, first) {
+                        if (!first) {
+                            console.log('不是首次,可以执行');
+                            var status = $('#status').val();
+                            $.post(Production_process.funcs.chooseUrl(), {
+                                page: obj.curr - 1,
+                                size: obj.limit,
+                                statusCode: status
+                            }, function (result) {
+                                var process = result.data.content;//获取数据
+                                var $tbody = $(Production_process.funcs.chooseTable()).children('tbody');
+                                Production_process.pageSize = result.data.content.length;
+                                Production_process.funcs.chooseHandler($tbody, process);
+                            })
+                        }
+                    }
                 })
-            },
+            });
 
-            /** 具体添加粉碎总锂的表格 */
-            renderHandler3:function($tbody,records){
-                $tbody.empty()
-                records.forEach(function(e){
-                    $tbody.append( "<tr>"+
-                       "<td style='color:black'>"+ e.operation +"</td>"+
-                       "<td style='color:black'>"+ e.publisher +"</td>"+
-                       "<td style='color:black'>"+ e.testDate +"</td>"+
-                       "<td style='color:black'>"+ e.batchNumber +"</td>"+
-                       "<td style='color:black'>"+ e.pc1 +"</td>"+
-                       "<td style='color:black'>"+ e.pc2 +"</td>"+
-                       "<td style='color:black'>"+ e.pc3 +"</td>"+
-                       "<td style='color:black'>"+ e.testDate +"</td>"+
-                       "<td style='color:black'>"+ e.batchNumber +"</td>"+
-                       "<td style='color:black'>"+ e.pc1 +"</td>"+
-                       "<td style='color:black'>"+ e.pc2 +"</td>"+
-                       "<td style='color:black'>"+ e.pc3 +"</td>"+
-                       "</tr>"
-                    )
-                })
-            },
+            // 追加刷新事件
+            Production_process.funcs.bindRefreshEventListener($('#model-li-hide-refresh-25'));//追加刷新事件
+            // 追加搜索事件
+            Production_process.funcs.bindSearchEventListener($('#model-li-hide-search-25'));
+            // 追加状态下拉框事件
+            Production_process.funcs.bindSelectEventListener($('#model-li-hide-select-25'));
+            // 追加类别选择事件
+            Production_process.funcs.selectPremix($('#select-premix'));
+            Production_process.funcs.selectSize($('#select-size'));
+            Production_process.funcs.selectLithium($('#select-lithium'));
+            Production_process.funcs.selectBuckle($('#select-buckle'));
+        },
 
-            /** 具体添加粉碎粒度的表格 */
-            renderHandler2:function($tbody,records){
-                $tbody.empty()
-                records.forEach(function(e){
-                    $tbody.append("<tr>"+
-                        "<td style='color:black'>"+ e.operation +"</td>"+
+          /**
+         * 四个选择标签响应函数-已完成
+         */
+        selectPremix: function (premixSelect) {
+            premixSelect.off('click');
+            premixSelect.on('click', function () {
+                console.log("premixSelect");
+                var select_premix = $('#select-premix');
+                var select_size = $('#select-size');
+                var select_lithium = $('#select-lithium');
+                var select_buckle = $('#select-buckle');
+                select_premix.html("预混");
+                select_premix.removeClass("label_not_selected").addClass("label_selected");
+                select_size.html("<a href='#'>粉碎粒度</a>");
+                select_size.removeClass("label_selected").addClass("label_not_selected");
+                select_lithium.html("<a href='#'>粉碎总锂</a>");
+                select_lithium.removeClass("label_selected").addClass("label_not_selected");
+                select_buckle.html("<a href='#'>粉碎SSA</a>");
+                select_buckle.removeClass("label_selected").addClass("label_not_selected");
+                Production_process.process_type = 0;
+                Production_process.funcs.renderTable();
+            })
+        },
+        selectSize: function (sizeSelect) {
+            sizeSelect.off('click');
+            sizeSelect.on('click', function () {
+                console.log("sizeSelect");
+                var select_premix = $('#select-premix');
+                var select_size = $('#select-size');
+                var select_lithium = $('#select-lithium');
+                var select_buckle = $('#select-buckle');
+                select_premix.html("<a href='#'>预混</a>");
+                select_premix.removeClass("label_selected").addClass("label_not_selected");
+                select_size.html("粉碎粒度");
+                select_size.removeClass("label_not_selected").addClass("label_selected");
+                select_lithium.html("<a href='#'>粉碎总锂</a>");
+                select_lithium.removeClass("label_selected").addClass("label_not_selected");
+                select_buckle.html("<a href='#'>粉碎SSA</a>");
+                select_buckle.removeClass("label_selected").addClass("label_not_selected");
+                Production_process.process_type = 1;
+                Production_process.funcs.renderTable();
+            })
+        },
+        selectLithium: function (lithiumSelect) {
+            lithiumSelect.off('click');
+            lithiumSelect.on('click', function () {
+                console.log("lithiumSelect");
+                var select_premix = $('#select-premix');
+                var select_size = $('#select-size');
+                var select_lithium = $('#select-lithium');
+                var select_buckle = $('#select-buckle');
+                select_premix.html("<a href='#'>预混</a>");
+                select_premix.removeClass("label_selected").addClass("label_not_selected");
+                select_size.html("<a href='#'>粉碎粒度</a>");
+                select_size.removeClass("label_selected").addClass("label_not_selected");
+                select_lithium.html("粉碎总锂");
+                select_lithium.removeClass("label_not_selected").addClass("label_selected");
+                select_buckle.html("<a href='#'>粉碎SSA</a>");
+                select_buckle.removeClass("label_selected").addClass("label_not_selected");
+                Production_process.process_type = 2;
+                Production_process.funcs.renderTable();
+            })
+        },
+        selectBuckle: function (buckleSelect) {
+            buckleSelect.off('click');
+            buckleSelect.on('click', function () {
+                console.log("premixSelect");
+                var select_premix = $('#select-premix');
+                var select_size = $('#select-size');
+                var select_lithium = $('#select-lithium');
+                var select_buckle = $('#select-buckle');
+                select_premix.html("<a href='#'>预混</a>");
+                select_premix.removeClass("label_selected").addClass("label_not_selected");
+                select_size.html("<a href='#'>粉碎粒度</a>");
+                select_size.removeClass("label_selected").addClass("label_not_selected");
+                select_lithium.html("<a href='#'>粉碎总锂</a>");
+                select_lithium.removeClass("label_selected").addClass("label_not_selected");
+                select_buckle.html("粉碎SSA");
+                select_buckle.removeClass("label_not_selected").addClass("label_selected");
+                Production_process.process_type = 3;
+                Production_process.funcs.renderTable();
+            })
+        },
+
+        /**
+         * 四个表格渲染函数-需要修改
+         * @param $tbody
+         */
+        renderHandlerPremix: function ($tbody, premix) {
+            $tbody.empty();
+            premix.forEach(function (e) {
+                var status = $('#status').val();
+                $tbody.append(
+                    "<tr id='Production-process-" + (e.code) + "'>" +
+                    "<td style='color:black'>"+ e.operation +"</td>"+
+                    "<td style='color:black'>"+ e.publisher +"</td>"+
+                    "<td style='color:black'>"+e.testDate +"</td>"+
+                    "<td style='color:black'>"+ e.batchNumber +"</td>"+
+                    "<td style='color:black'></td>"+
+                    "<td style='color:black'>"+e.lithiumSoluble +"</td>"+
+                    "<td style='color:black'>"+ e.supplier +"</td>"+
+                    "<td style='color:black'>"+ e.pc1 +"</td>"+
+                    "<td style='color:black'>"+ e.pc2 +"</td>"+
+                    "<td style='color:black'>"+ e.pc3 +"</td>"+
+                    "<td style='color:black'>"+ e.pc4 +"</td>"+
+                    "<td style='color:black'>"+ e.pc5 +"</td>"+
+                    "<td style='color:black'>"+ e.pc6 +"</td>"+
+                    "<td style='color:black'>"+ e.pc7 +"</td>"+
+                    "<td style='color:black'></td>"+
+                    "</tr>"
+                )
+            });
+        },
+        renderHandlerSize: function ($tbody, size) {
+            $tbody.empty();
+            size.forEach(function (e) {
+                var status = $('#status').val();
+                $tbody.append(
+                    "<tr id='Production-process-" + (e.code) + "'>" +
+                    "<td style='color:black'>"+ e.operation +"</td>"+
                         "<td style='color:black'>"+ e.publisher +"</td>"+
                         "<td style='color:black'>"+ e.testDate +"</td>"+
                         "<td style='color:black'>"+ e.batchNumber +"</td>"+
@@ -106,255 +209,107 @@ var Production_process = {
                         "<td style='color:black'>"+ e.pc9 +"</td>"+
                         "<td style='color:black'>"+ e.pc10 +"</td>"+
                         "<td style='color:black'>"+ e.pc10 +"</td>"+
-                        "</tr>"
-                    )
-                })
-            },
-
-
-            /** 具体添加预混的表格 */
-            renderHandler1:function($tbody,records){
-                $tbody.empty()
-                records.forEach(function(e){
-                    $tbody.append("<tr>"+
-                        "<td style='color:black'>"+ e.operation +"</td>"+
+                    "</tr>"
+                )
+            });
+        },
+        renderHandlerLithium: function ($tbody, lithium) {
+            $tbody.empty();
+            lithium.forEach(function (e) {
+                var status = $('#status').val();
+                $tbody.append(
+                    "<tr id='Production-process-" + (e.code) + "'>" +
+                       "<td style='color:black'>"+ e.operation +"</td>"+
+                       "<td style='color:black'>"+ e.publisher +"</td>"+
+                       "<td style='color:black'>"+ e.testDate +"</td>"+
+                       "<td style='color:black'>"+ e.batchNumber +"</td>"+
+                       "<td style='color:black'>"+ e.pc1 +"</td>"+
+                       "<td style='color:black'>"+ e.pc2 +"</td>"+
+                       "<td style='color:black'>"+ e.pc3 +"</td>"+
+                       "<td></td>"+
+                       "<td style='color:black'>"+ e.testDate +"</td>"+
+                       "<td style='color:black'>"+ e.batchNumber +"</td>"+
+                       "<td style='color:black'>"+ e.pc1 +"</td>"+
+                       "<td style='color:black'>"+ e.pc2 +"</td>"+
+                       "<td style='color:black'>"+ e.pc3 +"</td>"+
+                    "</tr>"
+                )
+            });
+        },
+        renderHandlerBuckle: function ($tbody, buckle) {
+            $tbody.empty();
+            buckle.forEach(function (e) {
+                var status = $('#status').val();
+                $tbody.append(
+                    "<tr id='process-audit-" + (e.code) + "'>" +
+                    "<td style='color:black'>"+ e.operation +"</td>"+
                         "<td style='color:black'>"+ e.publisher +"</td>"+
-                        "<td style='color:black'>"+e.testDate +"</td>"+
+                        "<td style='color:black'>"+ e.testDate +"</td>"+
                         "<td style='color:black'>"+ e.batchNumber +"</td>"+
-                        "<td style='color:black'>"+ +"</td>"+
-                        "<td style='color:black'>"+e.lithiumSoluble +"</td>"+
-                        "<td style='color:black'>"+ e.supplier +"</td>"+
+                        "<td style='color:black'>"+ e.furnaceNum +"</td>"+
                         "<td style='color:black'>"+ e.pc1 +"</td>"+
                         "<td style='color:black'>"+ e.pc2 +"</td>"+
                         "<td style='color:black'>"+ e.pc3 +"</td>"+
-                        "<td style='color:black'>"+ e.pc4 +"</td>"+
-                        "<td style='color:black'>"+ e.pc5 +"</td>"+
-                        "<td style='color:black'>"+ e.pc6 +"</td>"+
-                        "<td style='color:black'>"+ e.pc7 +"</td>"+
-                        "<td style='color:black'>"+ +"</td>"+
-                        "</tr>"
-
-                    )
-                })
-            },
-
-
-            bindClickForSpanInBlockQuote:function(clickSpans){
-                clickSpans.off('click')
-                clickSpans.on('click',function(){
-                    $('.select_span').removeClass('select_span')
-                    $('#model-li-hide-25 table').addClass('hide')
-                    $('.'+$(this).attr('id')+'_table').removeClass('hide')
-                    $(this).addClass('select_span')
-                    if($(this).attr('id') === "fensuild"){
-                        var lidu = $('#fensuild')
-                        //console.log('HHHHHHH')
-                        var statusCode = $("#model-li-hide-select-25 option:selected").val()
-                        //console.log(statusCode)
-                        Production_process.funcs.bindZhichengLidu(lidu,statusCode)
-                    }else if($(this).attr('id') === "fensuizl"){
-                        var zongli = $('#fensuizl')
-                        var statusCode = $("#model-li-hide-select-25 option:selected").val()
-                        Production_process.funcs.bindZhichengZongli(zongli,statusCode)
-                    }else if($(this).attr('id') ==="fensuiSSA"){
-                        var SSA = $('#fensuiSSA')
-                        var statusCode = $("#model-li-hide-select-25 option:selected").val()
-                        Production_process.funcs.bindZhichengSSA(SSA,statusCode)
-                    }else if($(this).attr('id') === "yuhun")
-                    var yuhun = $('#yuhun')
-                    var statusCode = $("#model-li-hide-select-25 option:selected").val()
-                    Production_process.funcs.bindZhichengYunhun(yuhun,statusCode)
-
-                })
-            },
-            /** 制程SSA的窗体的添加 */
-            bindZhichengSSA:function(SSA,statusCode){
-                    $.post(home.urls.processBuckle.getAllByStatusCodeByPage(), {statusCode: statusCode}, function (result) {
-                        var records = result.data.content //获取数据
-                        const $tbody = $("#_25table4").children('tbody')
-                        Production_process.funcs.renderHandler4($tbody, records)
-                        Production_process.pageSize = result.data.content.length
-                        var page = result.data
-                        /** @namespace page.totalPages 这是返回数据的总页码数 */
-                        /** 分页信息 */
-                        layui.laypage.render({
-                            elem: '_25page'
-                            , count: 10 * page.totalPages//数据总数
-                            /** 页面变化后的逻辑 */
-                            , jump: function (obj, first) {
-                                if (!first) {
-                                    console.log('不是首次,可以执行')
-                                    $.post(home.urls.processBuckle.getAll(), {
-                                        page: obj.curr - 1,
-                                        size: obj.limit
-                                    }, function (result) {
-                                        var records = result.data.content //获取数据
-                                        const $tbody = $("#_25table4").children('tbody')
-                                        Production_process.funcs.renderHandler3($tbody, records)
-                                        Production_process.pageSize = result.data.content.length
-                                    })
-                                }
-                            }
-                        })
-                    })//$数据渲染完毕
-            
-            },
-            /** 制程总锂的窗体添加 */
-            bindZhichengZongli:function(zongli,statusCode){
-                    $.post(home.urls.processLithium.getAllByStatusCodeByPage(), {statusCode: statusCode}, function (result) {
-                        var records = result.data.content //获取数据
-                        const $tbody = $("#_25table3").children('tbody')
-                        Production_process.funcs.renderHandler3($tbody, records)
-                        Production_process.pageSize = result.data.content.length
-                        var page = result.data
-                        /** @namespace page.totalPages 这是返回数据的总页码数 */
-                        /** 分页信息 */
-                        layui.laypage.render({
-                            elem: '_25page'
-                            , count: 10 * page.totalPages//数据总数
-                            /** 页面变化后的逻辑 */
-                            , jump: function (obj, first) {
-                                if (!first) {
-                                    console.log('不是首次,可以执行')
-                                    $.post(home.urls.processLithium.getAll(), {
-                                        page: obj.curr - 1,
-                                        size: obj.limit
-                                    }, function (result) {
-                                        var records = result.data.content //获取数据
-                                        const $tbody = $("#_25table3").children('tbody')
-                                        Production_process.funcs.renderHandler3($tbody, records)
-                                        Production_process.pageSize = result.data.content.length
-                                    })
-                                }
-                            }
-                        })
-                    })//$数据渲染完毕
-            },
-            /** 制程粒度窗体的添加 */
-            bindZhichengLidu:function(lidu,statusCode){
-                    $.post(home.urls.processSize.getAllByStatusCodeByPage(), {statusCode: statusCode}, function (result) {
-                        var records = result.data.content //获取数据
-                        const $tbody = $("#_25table2").children('tbody')
-                        Production_process.funcs.renderHandler2($tbody, records)
-                        Production_process.pageSize = result.data.content.length
-                        var page = result.data
-                        /** @namespace page.totalPages 这是返回数据的总页码数 */
-                        /** 分页信息 */
-                        layui.laypage.render({
-                            elem: '_25page'
-                            , count: 10 * page.totalPages//数据总数
-                            /** 页面变化后的逻辑 */
-                            , jump: function (obj, first) {
-                                if (!first) {
-                                    console.log('不是首次,可以执行')
-                                    $.post(home.urls.processSize.getAll(), {
-                                        page: obj.curr - 1,
-                                        size: obj.limit
-                                    }, function (result) {
-                                        var records = result.data.content //获取数据
-                                        const $tbody = $("#_25table2").children('tbody')
-                                        Production_process.funcs.renderHandler2($tbody, records)
-                                        Production_process.pageSize = result.data.content.length
-                                    })
-                                }
-                            }
-                        })
-                    })//$数据渲染完毕
-            },
-
-            /** 制程预混窗体的添加 */
-            bindZhichengYunhun:function(yuhun,statusCode){
-                //console.log('bbbbbbbbbbbbb')
-                 /** 获取所有的记录 */
-            $.post(home.urls.processPremix.getAllByStatusCodeByPage(), {statusCode: statusCode}, function (result) {
-                var records = result.data.content //获取数据
-                const $tbody = $("#_25table1").children('tbody')
-                Production_process.funcs.renderHandler1($tbody, records)
-                Production_process.pageSize = result.data.content.length
-                var page = result.data
-                /** @namespace page.totalPages 这是返回数据的总页码数 */
-                /** 分页信息 */
-                layui.laypage.render({
-                    elem: '_25page'
-                    , count: 10 * page.totalPages//数据总数
-                    /** 页面变化后的逻辑 */
-                    , jump: function (obj, first) {
-                        if (!first) {
-                            console.log('不是首次,可以执行')
-                            $.post(home.urls.processPremix.getAll(), {
-                                page: obj.curr - 1,
-                                size: obj.limit
-                            }, function (result) {
-                                var records = result.data.content //获取数据
-                                const $tbody = $("#_25table1").children('tbody')
-                                Production_process.funcs.renderHandler1($tbody, records)
-                                Production_process.pageSize = result.data.content.length
-                            })
-                        }
-                    }
-                })
-            })//$数据渲染完毕
-            },
-
-             /** 监听状态下拉选框 */
-        bindSelectEventListener: function (statusSelect) {
-            statusSelect.off('change')
-            statusSelect.on('change', function () {
-                var status = $(this).val()
-                Production_process.funcs.renderTable(status)
-            })
+                    "</tr>"
+                )
+            });
         },
-         /** 刷新事件 */
-         bindRefreshEventListener: function (refreshBtn) {
+
+        /**
+         * 刷新事件-已完成
+         * @param refreshBtn
+         */
+        bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
             refreshBtn.on('click', function () {
-                $('#product_batch_number_input').val('')
                 var index = layer.load(2, {offset: ['40%', '58%']});
                 var time = setTimeout(function () {
                     layer.msg('刷新成功', {
                         offset: ['40%', '55%'],
                         time: 700
                     })
-                    product_publish.init()
+                    Production_process.init()
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
             })
         },
-        /** 搜索事件 */
+
+         /**
+         * 搜索事件-已完成
+         * @param searchBtn
+         */
         bindSearchEventListener: function (searchBtn) {
-            console.log('search')
             searchBtn.off('click')
             searchBtn.on('click', function () {
-
-                var product_batch_number = $('#product_batch_number_input').val()
-                var status = $('#model-li-hide-select-25').val()
-                console.log('status', status)
-                $.post(home.urls.productPublish.getByLikeBatchNumberByPage(), {
-                    batchNumber: product_batch_number,
+                console.log('search')
+                var process_batch_number = $('#product_batch_number_input').val()
+                console.log(process_batch_number)
+                var status = $('#status').val()
+                $.post(Production_process.funcs.chooseUrlSearch(), {
+                    batchNumber: process_batch_number,
                     statusCode: status
                 }, function (result) {
-                    console.log(result)
                     var page = result.data
-                    var products = result.data.content //获取数据
-                    var status = $('#model-li-hide-select-23').val()
-                    const $tbody = $("#_23table").children('tbody')
-                    product_publish.funcs.renderHandler($tbody, products)
+                    var process = result.data.content //获取数据
+                    var status = $('#status').val()
+                    const $tbody = $(Production_process.funcs.chooseTable()).children('tbody')
+                    Production_process.funcs.chooseHandler($tbody, process)
                     layui.laypage.render({
-                        elem: '_23page'
+                        elem: 'process_audit_page'
                         , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.product.getByLikeBatchNumberByPage(), {
-                                    batchNumber: product_batch_number,
+                                $.post(Production_process.funcs.chooseUrlSearch(), {
+                                    batchNumber: process_batch_number,
                                     statusCode: status,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {
-                                    var products = result.data.content //获取数据
-                                    const $tbody = $("#_23table").children('tbody')
-                                    product_publish.funcs.renderHandler($tbody, products)
-                                    product_publish.pageSize = result.data.content.length
+                                    var process = result.data.content //获取数据
+                                    const $tbody = $(Production_process.funcs.chooseTable()).children('tbody')
+                                    Production_process.funcs.chooseHandler($tbody, process)
+                                    Production_process.pageSize = result.data.content.length
                                 })
                             }
                         }
@@ -362,5 +317,114 @@ var Production_process = {
                 })
             })
         },
+
+         /**
+         * 隐藏/显示表格
+         */
+        hideTable: function () {
+            var premix_table = $('#premix_table');
+            var size_table = $('#size_table');
+            var lithium_table = $('#lithium_table');
+            var buckle_table = $('#buckle_table');
+            switch (Production_process.process_type) {
+                case 0:
+                    premix_table.show();
+                    size_table.hide();
+                    lithium_table.hide();
+                    buckle_table.hide();
+                    break;
+                case 1:
+                    premix_table.hide();
+                    size_table.show();
+                    lithium_table.hide();
+                    buckle_table.hide();
+                    break;
+                case 2:
+                    premix_table.hide();
+                    size_table.hide();
+                    lithium_table.show();
+                    buckle_table.hide();
+                    break;
+                case 3:
+                    premix_table.hide();
+                    size_table.hide();
+                    lithium_table.hide();
+                    buckle_table.show();
+                    break;
+            }
+        },
+
+
+        chooseUrl: function () {
+            switch (Production_process.process_type) {
+                case 0:
+                    return home.urls.processPremix.getAllByStatusCodeByPage();
+                case 1:
+                    return home.urls.processSize.getAllByStatusCodeByPage();
+                case 2:
+                    return home.urls.processLithium.getAllByStatusCodeByPage();
+                case 3:
+                    return home.urls.processBuckle.getAllByStatusCodeByPage();
+            }
+        },
+
+         /**
+         * 更新表格
+         * @returns {string}
+         */
+        chooseTable: function () {
+            switch (Production_process.process_type) {
+                case 0:
+                    return "#premix_table";
+                case 1:
+                    return "#size_table";
+                case 2:
+                    return "#lithium_table";
+                case 3:
+                    return "#buckle_table";
+            }
+        },
+
+        /**
+         * 监听状态下拉选框-已完成
+         * @param statusSelect
+         */
+        bindSelectEventListener: function (statusSelect) {
+            statusSelect.off('change')
+            statusSelect.on('change', function () {
+                Production_process.funcs.renderTable()
+            })
+        },
+
+        chooseUrlSearch: function () {
+            switch (Production_process.process_type) {
+                case 0:
+                    return home.urls.processPremix.getByLikeBatchNumberByPage();
+                case 1:
+                    return home.urls.processSize.getByLikeBatchNumberByPage();
+                case 2:
+                    return home.urls.processLithium.getByLikeBatchNumberByPage();
+                case 3:
+                    return home.urls.processBuckle.getByLikeBatchNumberByPage();
+            }
+        },
+
+        chooseHandler: function ($tbody, process) {
+            switch (Production_process.process_type) {
+                case 0:
+                    Production_process.funcs.renderHandlerPremix($tbody, process);
+                    break;
+                case 1:
+                    Production_process.funcs.renderHandlerSize($tbody, process);
+                    break;
+                case 2:
+                    Production_process.funcs.renderHandlerLithium($tbody, process);
+                    break;
+                case 3:
+                    Production_process.funcs.renderHandlerBuckle($tbody, process);
+                    break;
+            }
+        }
+       
     }
 }
