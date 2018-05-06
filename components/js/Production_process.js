@@ -39,7 +39,7 @@ var Production_process = {
                 /** @namespace page.totalPages 这是返回数据的总页码数 */
                 /** 分页信息 */
                 layui.laypage.render({
-                    elem: 'Production_process_page'
+                    elem: '_25page'
                     , count: 10 * page.totalPages//数据总数
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
@@ -169,8 +169,8 @@ var Production_process = {
                 $tbody.append(
                     "<tr id='Production-process-" + (e.code) + "'>" +
                     "<td style='color:black'>"+ e.operation +"</td>"+
-                    "<td style='color:black'>"+ e.publisher +"</td>"+
-                    "<td style='color:black'>"+e.testDate +"</td>"+
+                    "<td style='color:black'>"+ (e.publisher ? e.publisher.name : '无') +"</td>"+
+                    "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy/MM/dd'))  +"</td>"+
                     "<td style='color:black'>"+ e.batchNumber +"</td>"+
                     "<td style='color:black'></td>"+
                     "<td style='color:black'>"+e.lithiumSoluble +"</td>"+
@@ -194,8 +194,8 @@ var Production_process = {
                 $tbody.append(
                     "<tr id='Production-process-" + (e.code) + "'>" +
                     "<td style='color:black'>"+ e.operation +"</td>"+
-                        "<td style='color:black'>"+ e.publisher +"</td>"+
-                        "<td style='color:black'>"+ e.testDate +"</td>"+
+                        "<td style='color:black'>"+ (e.publisher ? e.publisher.name : '无') +"</td>"+
+                        "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy/MM/dd'))  +"</td>"+
                         "<td style='color:black'>"+ e.batchNumber +"</td>"+
                         "<td style='color:black'>"+ e.furnaceNum +"</td>"+
                         "<td style='color:black'>"+ e.pc1 +"</td>"+
@@ -220,14 +220,14 @@ var Production_process = {
                 $tbody.append(
                     "<tr id='Production-process-" + (e.code) + "'>" +
                        "<td style='color:black'>"+ e.operation +"</td>"+
-                       "<td style='color:black'>"+ e.publisher +"</td>"+
-                       "<td style='color:black'>"+ e.testDate +"</td>"+
+                       "<td style='color:black'>"+ (e.publisher ? e.publisher.name : '无') +"</td>"+
+                       "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy/MM/dd'))  +"</td>"+
                        "<td style='color:black'>"+ e.batchNumber +"</td>"+
                        "<td style='color:black'>"+ e.pc1 +"</td>"+
                        "<td style='color:black'>"+ e.pc2 +"</td>"+
                        "<td style='color:black'>"+ e.pc3 +"</td>"+
                        "<td></td>"+
-                       "<td style='color:black'>"+ e.testDate +"</td>"+
+                       "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy/MM/dd'))  +"</td>"+
                        "<td style='color:black'>"+ e.batchNumber +"</td>"+
                        "<td style='color:black'>"+ e.pc1 +"</td>"+
                        "<td style='color:black'>"+ e.pc2 +"</td>"+
@@ -243,8 +243,8 @@ var Production_process = {
                 $tbody.append(
                     "<tr id='process-audit-" + (e.code) + "'>" +
                     "<td style='color:black'>"+ e.operation +"</td>"+
-                        "<td style='color:black'>"+ e.publisher +"</td>"+
-                        "<td style='color:black'>"+ e.testDate +"</td>"+
+                        "<td style='color:black'>"+ (e.publisher ? e.publisher.name : '无') +"</td>"+
+                        "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy/MM/dd'))  +"</td>"+
                         "<td style='color:black'>"+ e.batchNumber +"</td>"+
                         "<td style='color:black'>"+ e.furnaceNum +"</td>"+
                         "<td style='color:black'>"+ e.pc1 +"</td>"+
@@ -296,7 +296,7 @@ var Production_process = {
                     const $tbody = $(Production_process.funcs.chooseTable()).children('tbody')
                     Production_process.funcs.chooseHandler($tbody, process)
                     layui.laypage.render({
-                        elem: 'process_audit_page'
+                        elem: '_25page'
                         , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
