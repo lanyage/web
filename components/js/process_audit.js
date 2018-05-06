@@ -506,6 +506,7 @@ var process_audit = {
                 console.log("右");
                 var $table = $(process_audit.funcs.chooseTable());
                 var lastId = $($table.children('tbody').children('tr')[9]).attr('id');
+                console.log(lastId)
                 if (lastId != process_audit.currId) {
                     var nextCode = $('#' + process_audit.currId).next('tr').attr('id').substr(14);
                     console.log(nextCode);
