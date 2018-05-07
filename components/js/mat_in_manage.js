@@ -47,7 +47,7 @@ var mat_in_manage = {
             })
         }
         , renderHandler: function ($tbody, items) {
-            $tbody.empty() //清空表格
+            // $tbody.empty() //清空表格
             items.forEach(function (e) {
                 var sendEntries = e.sendEntries
                 var sender = e.sender
