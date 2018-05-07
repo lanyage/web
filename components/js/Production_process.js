@@ -253,7 +253,7 @@ var Production_process = {
             buckle.forEach(function (e) {
                 var status = $('#status').val();
                 $tbody.append(
-                    "<tr id='process-audit-" + (e.code) + "'>" +
+                    "<tr id='Production-process-" + (e.code) + "'>" +
                     "<td style='color:black'>"+  Production_process.funcs.getIcon(status, e.code) +"</td>"+
                         "<td style='color:black'>"+ (e.publisher ? e.publisher.name : '无') +"</td>"+
                         "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy/MM/dd'))  +"</td>"+
@@ -783,9 +783,10 @@ var Production_process = {
             rightBtn.on('click', function () {
                 console.log("右");
                 var $table = $(Production_process.funcs.chooseTable());
-               var rows = $table.children('tbody').children('tr').length-1
+               var rows = $table.children('tbody').children('tr').length-1;
                 var lastId = $($table.children('tbody').children('tr')[rows]).attr('id');
                 if (lastId != Production_process.currId) {
+                    console.log( $('#' + Production_process.currId).next('tr').attr('id'))
                     var nextCode = $('#' + Production_process.currId).next('tr').attr('id').substr(19);
                     console.log(nextCode);
                     $.post(Production_process.funcs.chooseUrlCode(), {code: nextCode}, function (result) {
