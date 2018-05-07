@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7169eba0-046d-42f0-8862-c41dda084c74" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/components/html/114.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/components/html/49.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/html/113.html" afterPath="$PROJECT_DIR$/components/html/113.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/html/48.html" afterPath="$PROJECT_DIR$/components/html/48.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/html/51.html" afterPath="$PROJECT_DIR$/components/html/51.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/html/52.html" afterPath="$PROJECT_DIR$/components/html/52.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/html/54.html" afterPath="$PROJECT_DIR$/components/html/54.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/components/html/49.html" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="51.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="51.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/html/51.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="591">
-              <caret line="78" column="86" lean-forward="false" selection-start-line="78" selection-start-column="12" selection-end-line="78" selection-end-column="86" />
+            <state relative-caret-position="336">
+              <caret line="61" column="25" lean-forward="true" selection-start-line="61" selection-start-column="25" selection-end-line="61" selection-end-column="25" />
               <folding>
                 <element signature="n#style#0;n#span#1;n#p#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#select#0;n#p#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -46,6 +39,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="4575">
               <caret line="305" column="0" lean-forward="true" selection-start-line="305" selection-start-column="0" selection-end-line="305" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="49.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/components/html/49.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="366">
+              <caret line="32" column="23" lean-forward="true" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -180,6 +183,11 @@
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/components/html" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -639,12 +647,12 @@
       <workItem from="1525234284506" duration="378000" />
       <workItem from="1525502578514" duration="2479000" />
       <workItem from="1525676490594" duration="10026000" />
-      <workItem from="1525687628729" duration="208000" />
+      <workItem from="1525687628729" duration="415000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13127000" />
+    <option name="totallyTimeSpent" value="13334000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="43" y="23" width="1393" height="877" extended-state="6" />
@@ -709,7 +717,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="780">
           <caret line="52" column="6" lean-forward="true" selection-start-line="52" selection-start-column="6" selection-end-line="52" selection-end-column="6" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -868,22 +878,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/html/113.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4575">
-          <caret line="305" column="0" lean-forward="true" selection-start-line="305" selection-start-column="0" selection-end-line="305" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/html/49.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-609">
-          <caret line="60" column="24" lean-forward="true" selection-start-line="60" selection-start-column="24" selection-end-line="60" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/components/html/54.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -895,10 +889,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/components/html/51.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="61" column="25" lean-forward="true" selection-start-line="61" selection-start-column="25" selection-end-line="61" selection-end-column="25" />
+          <folding>
+            <element signature="n#style#0;n#span#1;n#p#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#p#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/components/html/52.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="43" column="22" lean-forward="true" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
+        <state relative-caret-position="291">
+          <caret line="36" column="25" lean-forward="true" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#table#0;n#div#0;n#!!top" expanded="true" />
@@ -906,14 +911,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/html/51.html">
+    <entry file="file://$PROJECT_DIR$/components/html/113.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="78" column="86" lean-forward="false" selection-start-line="78" selection-start-column="12" selection-end-line="78" selection-end-column="86" />
-          <folding>
-            <element signature="n#style#0;n#span#1;n#p#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#select#0;n#p#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="4575">
+          <caret line="305" column="0" lean-forward="true" selection-start-line="305" selection-start-column="0" selection-end-line="305" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/html/49.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="32" column="23" lean-forward="true" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
