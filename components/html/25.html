@@ -1,8 +1,355 @@
-<div id='model-li-hide-25' class="display-component-container" style="line-height:700px;">
-    <h1 style="text-align: center">页面还在火速开发中...</h1>
+<div id='model-li-hide-25' class="display-component-container" style="padding: 20px 20px 0px 20px;">
+
+    <style type="text/css">
+        td {
+            color: #0b0b13;
+
+        }
+        .block-quote span{
+            cursor: hand;
+        }
+        .select_span {
+            color: rgb(51, 51, 51);
+            border-bottom: 3px solid #569196;
+            padding-bottom: 13px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .label_selected {
+            color: rgb(51, 51, 51);
+            border-bottom: 3px solid #569196;
+            padding-bottom: 13px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .label_not_selected:hover {
+            border-bottom: #777777 3px solid;
+            padding-bottom: 5px;
+        }
+
+
+         .table_style thead td {
+            margin: 0px;
+            padding: 2px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .table_style tbody td {
+            margin: 0px;
+            padding: 2px;;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+        }
+        .table_inner thead td {
+            background-color: #777777;
+            margin: 0;
+            padding: 2px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .table_inner tbody td {
+            margin: 0;
+            padding: 2px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            width: 150px;
+        }
+        .arrow_div_left {
+            width: 40px;
+            height: 40px;
+            margin: 0 0 0 0;
+            float: left;
+            position: absolute;
+            top: 50%;
+            left: 0;
+        }
+
+        .arrow_div_right {
+            width: 40px;
+            height: 40px;
+            margin: 0 0 0 0;
+            float: right;
+            position: absolute;
+            top: 50%;
+            right: 0;
+        }
+
+        .table_scroll {
+            overflow-y: auto;
+            height: 600px;
+        }
+
+        .align_middle {
+            position: relative;
+            top: 50%;
+            text-align: center;
+        }
+        #model-li-hide-25 tbody td {
+            padding: 3px;
+        }
+
+
+        .dark-gray {
+            background: rgba(75, 75, 75, 0.9);
+        }
+
+        .light-gray {
+            background: rgba(102, 102, 102, 0.9);
+        }
+
+        .dark1-gray {
+            background: rgba(54, 54, 54, 0.9);
+        }
+
+        #_25table1, #_25table2, #_25table3, #_25table3 {
+            border-collapse: collapse;
+
+        }
+
+    </style>
+
+
+    <!--上-->
+    <div class="block-quote">
+        <!--左边-->
+        <div class="fl">
+            <p style="font-size: 14px;">
+                <span id="select-premix" class="label_selected">
+                    预混
+                </span>
+                &nbsp;&nbsp;
+                <span id="select-size" class="label_not_selected">
+                    <a href="#">粉碎粒度</a>
+                </span>
+                &nbsp;&nbsp;
+                <span id="select-lithium" class="label_not_selected">
+                    <a href="#">粉碎总锂</a>
+                </span>
+                &nbsp;&nbsp;
+                <span id="select-buckle" class="label_not_selected">
+                    <a href="#">粉碎SSA</a>
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="model-li-hide-select-25">
+                    <select id="status">
+                        <option value="1">未发布</option>
+                        <option value="2">已发布</option>
+                    </select>
+                </span>
+            </p>
+        </div>
+        <!--右边-->
+        <div class="fr">
+            <p>
+                <a href="#" id="model-li-hide-refresh-25"><i class="layui-icon">&#x1002;</i>刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input placeholder="请输入编号" id="product_batch_number_input"/>
+                <a href="#" id="model-li-hide-search-25">搜索</a>
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <!--中-->
+    <!--1表预混-->
+    <div>
+        <table id="premix_table" style="width:100%;" class="table_style">
+            <thead>
+            <tr class="dark-gray" style="font-weight: bold;">
+                <td>操作</td>
+                <td>发布人</td>
+                <td>检测日期</td>
+                <td>编号</td>
+                <td>预混</td>
+                <td>可溶锂 %</td>
+                <td>主原料厂家</td>
+                <td>配比</td>
+                <td>锂的理论含量 %</td>
+                <td>锂的理论%下限</td>
+                <td>锂的理论%上限</td>
+                <td>Me%</td>
+                <td>L/M（实际）</td>
+                <td>L/M（理论）</td>
+                <td>备注</td>
+
+            </tr>
+            <tr class="light-gray">
+                <td></td>
+                <td colspan="3">三级文件控制标准</td>
+                <td></td>
+                <td></td>
+                <td>理论含量±0.08</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+            </thead>
+            <tbody style="color:black">
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <!--2表粉碎粒度-->
+    <div>
+        <table id="size_table" style="width: 100%;" class="table_style">
+            <thead>
+            <tr class="dark-gray" style="font-weight: bold;">
+                <td rowspan="2">操作</td>
+                <td rowspan="2">发布人</td>
+                <td rowspan="2">检测日期</td>
+                <td rowspan="2">编号</td>
+                <td rowspan="2">炉号</td>
+                <td colspan="9">振筛粒度%</td>
+                <td rowspan="2">宽度系数</td>
+                <td rowspan="2">宽度系数</td>
+
+
+            </tr>
+            <tr class="dark-gray">
+                <td>D0</td>
+                <td>D1</td>
+                <td>D5</td>
+                <td>D10</td>
+                <td>D50</td>
+                <td>D90</td>
+                <td>D95</td>
+                <td>D99</td>
+                <td>D99.99</td>
+            </tr>
+            <tr class="light-gray">
+                <td></td>
+                <td colspan="4">三级文件控制标准</td>
+                <td></td>
+                <td colspan="8">12.5±1.5</td>
+                <td>(D90-D10)/D50</td>
+                <td>(D90-D10)/D50</td>
+            </tr>
+            </thead>
+            <tbody style="color:black">
+
+            </tbody>
+        </table>
+    </div>
+
+    <!--3表粉碎总锂-->
+    <div>
+        <table id="lithium_table" style="width: 100%;" class="table_style">
+            <thead>
+            <tr class="dark1-gray" style="font-weight: bold;">
+                <td></td>
+                <td></td>
+                <td colspan="5">11#炉</td>
+                <td></td>
+                <td colspan="5">15#炉</td>
+            </tr>
+
+            <tr class="dark-gray" style="font-weight: bold;">
+                <td rowspan="2">操作</td>
+                <td rowspan="2">发布人</td>
+                <td rowspan="2">检测日期</td>
+                <td rowspan="2">编号</td>
+                <td>Li2CO3</td>
+                <td>LiOH</td>
+                <td>总Li含量</td>
+                <td rowspan="2"></td>
+                <td rowspan="2">检测日期</td>
+                <td rowspan="2">编号</td>
+                <td>Li2CO3</td>
+                <td>LiOH</td>
+                <td>总Li含量</td>
+            </tr>
+
+            <tr class="dark-gray">
+                <td>%</td>
+                <td>%</td>
+                <td>10ppm</td>
+                <td>%</td>
+                <td>%</td>
+                <td>10ppm</td>
+            </tr>
+
+            <tr class="light-gray">
+                <td></td>
+                <td colspan="3">三级文件控制标准</td>
+                <td></td>
+                <td></td>
+                <td>≤100</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>≤120</td>
+            </tr>
+            </thead>
+            <tbody style="color:black">
+
+            </tbody>
+        </table>
+    </div>
+
+    <!--4表粉碎SSA-->
+    <div>
+        <table id="buckle_table" style="width: 100%;" class="table_style">
+            <thead>
+            <tr class="dark-gray" style="font-weight: bold;">
+                <td rowspan="2">操作</td>
+                <td rowspan="2">发布人</td>
+                <td rowspan="2">检测日期</td>
+                <td rowspan="2">编号</td>
+                <td rowspan="2">炉号</td>
+                <td>SSA</td>
+                <td>扣电</td>
+                <td rowspan="2">XRDFWHM(104)</td>
+            </tr>
+            <tr class="dark-gray" style="font-weight: bold;">
+                <td>0.30±0.08</td>
+                <td>mAh/g</td>
+            </tr>
+            <tr class="light-gray">
+                <td></td>
+                <td colspan="4">三级文件控制标准</td>
+                <td>m2/g</td>
+                <td>≧177.5</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody style="color:black">
+
+            </tbody>
+        </table>
+    </div>
+
+    <!--下-->
+    <div id="_25page">
+    </div>
+
+    <script src="../components/js/Production_process.js"></script>
     <script type="application/javascript">
-        $(function() {
-            console.log( $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>'))
+        $(function(){
+            Production_process.init()
         })
     </script>
+
 </div>

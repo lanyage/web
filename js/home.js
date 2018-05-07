@@ -8,6 +8,50 @@ var home = {
                 return servers.backup() + 'energyReadData/getByInoAndStartDateTimeAndEndDateTime'
             }
         },
+        processPremix:{//预混
+            getAllByStatusCodeByPage:function(){
+                return servers.backup() + 'processPremix/getAllByStatusCodeByPage'
+            },
+            getAll:function(){
+                return servers.backup() + 'processPremix/getAll'
+            },
+        },
+        processSize:{//粒度
+            getAllByStatusCodeByPage:function(){
+                return servers.backup() +'processSize/getAllByStatusCodeByPage'
+            },
+            getAll:function(){
+                return servers.backup() + 'processSize/getAll'
+            },
+        },
+        processLithium:{//总锂
+            getAllByStatusCodeByPage:function(){
+                return servers.backup() + 'processLithium/getAllByStatusCodeByPage'
+            },
+            getAll:function(){
+                return servers.backup() + 'processLithium/getAll'
+            },
+        },
+        processBuckle:{//扣电
+            getAllByStatusCodeByPage:function(){
+                return servers.backup() +'processBuckle/getAllByStatusCodeByPage'
+            },
+            getAll:function(){
+                return servers.backup() + 'processBuckle/getAll'
+            },
+        },
+
+        fileUpload:{
+            getAllFileType:function(){
+                return servers.backup() + 'fileUpload/getAllFileType'
+            },
+            open:function(){
+                return servers.backup() + 'fileUpload/open'
+            },
+            submit:function(){
+                return servers.backup() + 'fileUpload/submit'
+            }
+        },
         menus: {
             getAllMenu1: function () {
                 return servers.backup() + 'menu1/getAll'
@@ -62,6 +106,27 @@ var home = {
             },
             menu3Shift: function () {
                 return servers.backup() + 'model/shift'
+            },
+            listOperations : function() {
+                return servers.backup() + 'operation/getAll'
+            },
+            getOperationsByModel : function() {
+                return servers.backup() + 'modelOperation/getByModelCode'
+            },
+            deleteOperationModel : function() {
+                return servers.backup() + 'modelOperation/deleteByModelCodeAndOperationCode'
+            },
+            updateOperation : function() {
+                return servers.backup() + 'operation/update'
+            },
+            deleteOperation : function() {
+                return servers.backup() + 'operation/deleteByCode'
+            },
+            updateModelOperationBatch : function() {
+                return servers.backup() + 'modelOperation/updateBatch'
+            },
+            addOperation : function() {
+                return servers.backup() + 'operation/add'
             }
         },
         reviewprocess: {
@@ -566,7 +631,17 @@ var home = {
             },
             deleteByBatchCode: function () {
                 return servers.backup() + 'material/deleteByBatchCode'
-            },
+            }
+        },
+        materialIn : {
+          getAllByPage : function() {
+              return servers.backup() + 'godownEntryHeader/getAllByPage'
+          }
+        },
+        materialOut : {
+            getAllByPage : function() {
+                return servers.backup() + 'sendEntryHeader/getAllByPage'
+            }
         },
         equipment: {
             getAllByPage: function () {
@@ -798,12 +873,23 @@ var home = {
                 return servers.backup() + 'product/getByLikeBatchNumberByPage'
             }
         },
-        presoma:{
+        productPublish : {
+            getAllByPage : function() {
+                return servers.backup() + 'product/getAllByStatusCodeByPage'
+            }
+            ,getByLikeBatchNumberByPage : function() {
+                return servers.backup() + 'product/getByLikeBatchNumberByPage'
+            }
+            ,productPublish : function() {
+                return servers.backup() + 'product/updatePublishByCode'
+            }
+        },
+        rawPresoma:{
             // 金弛622 前驱体
             updatePublishByCode: function () {
                 return servers.backup() + 'rawPresoma/updatePublishByCode'
             },
-            updateAuditByCodeL: function () {
+            updateAuditByCode: function () {
                 return servers.backup() + 'rawPresoma/updateAuditByCode'
             },
             getByCode: function () {
@@ -817,6 +903,111 @@ var home = {
             },
             getByLikeBatchNumberByPage: function () {
                 return servers.backup() + 'rawPresoma/getByLikeBatchNumberByPage'
+            }
+        },
+        rawLithium:{
+            // 碳酸锂
+            updatePublishByCode: function () {
+                return servers.backup() + 'rawLithium/updatePublishByCode'
+            },
+            updateAuditByCode: function () {
+                return servers.backup() + 'rawLithium/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'rawLithium/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'rawLithium/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'rawLithium/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'rawLithium/getByLikeBatchNumberByPage'
+            }
+        },
+        processPremix:{
+            // 预混
+            updatePublishByCode: function () {
+                return servers.backup() + 'processPremix/updatePublishByCode'
+            },
+            updateAuditByCode: function () {
+                return servers.backup() + 'processPremix/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'processPremix/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'processPremix/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'processPremix/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'processPremix/getByLikeBatchNumberByPage'
+            }
+        },
+        processSize:{
+            // 粉碎粒度
+            updatePublishByCode: function () {
+                return servers.backup() + 'processSize/updatePublishByCode'
+            },
+            updateAuditByCode: function () {
+                return servers.backup() + 'processSize/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'processSize/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'processSize/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'processSize/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'processSize/getByLikeBatchNumberByPage'
+            }
+        },
+        processLithium:{
+            // 粉碎总锂
+            updatePublishByCode: function () {
+                return servers.backup() + 'processLithium/updatePublishByCode'
+            },
+            updateAuditByCode: function () {
+                return servers.backup() + 'processLithium/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'processLithium/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'processLithium/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'processLithium/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'processLithium/getByLikeBatchNumberByPage'
+            }
+        },
+        processBuckle:{
+            // 扣电
+            updatePublishByCode: function () {
+                return servers.backup() + 'processBuckle/updatePublishByCode'
+            },
+            updateAuditByCode: function () {
+                return servers.backup() + 'processBuckle/updateAuditByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'processBuckle/getByCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'processBuckle/getAll'
+            },
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'processBuckle/getAllByStatusCodeByPage'
+            },
+            getByLikeBatchNumberByPage: function () {
+                return servers.backup() + 'processBuckle/getByLikeBatchNumberByPage'
             }
         }
     }
@@ -851,6 +1042,7 @@ var home = {
     , monitor_data: null
     , realdata_interval: []
     , singlePage_interval: []
+    , user: null
 
     /** end */
     /**
@@ -869,6 +1061,7 @@ var home = {
 
         /** 获取session用户信息 */
         const user = userJson
+        home.user = userJson
         var roles = user.roles //获取用户角色
 
         var menu1codes = []//用户一级菜单去重

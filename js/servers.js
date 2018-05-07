@@ -1,13 +1,13 @@
 servers = {
-    backup : function () {
-        return "http://218.77.105.241:30080/mes/"
-    },
+    // backup : function () {
+    //     return "http://218.77.105.241:30080/mes/"
+    // },
     // backup : function() {
     //     return "http://localhost:8082/mes/"
     // },
-    // backup : function() {
-    //     return "http://115.157.192.47:8080/mes/"
-    // },
+    backup : function() {
+        return "http://115.157.192.47:8080/mes/"
+    },
     // backup : function() {
     //     return 'http://192.168.100.181:8080/mes/'
     // }

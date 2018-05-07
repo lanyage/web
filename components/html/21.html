@@ -4,7 +4,7 @@
     <style type="text/css">
         .table_style thead td {
             margin: 0;
-            padding: 2px;
+            padding: 0px;
             border: 1px darkgrey solid;
             font-size: 12px;
             color: white;
@@ -14,14 +14,12 @@
 
         .table_style tbody td {
             margin: 0;
-            padding: 2px;
+            padding: 3px;
             border: 1px darkgrey solid;
-            font-size: 10px;
+            font-size: 12px;
             color: black;
             text-align: center;
             font-weight: 400;
-            height: 35px;
-            width: 30px;
         }
 
         .table_style a {
@@ -48,21 +46,68 @@
             margin: 0;
             padding: 2px;
             border: 1px darkgrey solid;
-            font-size: 10px;
+            font-size: 12px;
             color: black;
             text-align: center;
             font-weight: 400;
+            width: 50px;
         }
 
+        .label_selected {
+            border-bottom: #62a49a 3px solid;
+            padding-bottom: 5px;
+            color: #62a49a;
+        }
+
+        .label_not_selected:hover {
+            border-bottom: #777777 3px solid;
+            padding-bottom: 5px;
+        }
+
+        .arrow_div_left {
+            width: 40px;
+            height: 40px;
+            margin: 0 0 0 0;
+            float: left;
+            position: absolute;
+            top: 50%;
+            left: 0;
+        }
+
+        .arrow_div_right {
+            width: 40px;
+            height: 40px;
+            margin: 0 0 0 0;
+            float: right;
+            position: absolute;
+            top: 50%;
+            right: 0;
+        }
+
+        .table_scroll {
+            overflow-y: auto;
+            height: 600px;
+        }
+
+        .align_middle {
+            position: relative;
+            top: 50%;
+            text-align: center;
+        }
+        #presoma_table tbody td {
+            padding: 3px;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
             <p style="font-size: 14px;">
-                <span id="presoma" style="border-bottom:#62a49a 3px solid;padding-bottom: 10px;color: #62a49a;">
-                    <a href="#">金弛622</a>
+                <span id="select-presoma" class="label_selected">
+                    金弛622
                 </span>
                 &nbsp;&nbsp;
-                <span id="lithium"><a href="#">天齐碳酸锂</a></span>
+                <span id="select-lithium" class="label_not_selected">
+                    <a href="#">天齐碳酸锂</a>
+                </span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="model-li-hide-select-21">
                     <select id="status">
@@ -75,23 +120,23 @@
         <div class="fr">
             <p style="color: #62a49a; font-size: 14px;">
                 <span id="model-li-hide-refresh-21"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
-                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="product_batch_number_input"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="raw_batch_number_input"/>
                 <span id="model-li-hide-search-21"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
         </div>
     </div>
-    <div class="whitespace"></div>
+    <div class="whitespace"> </div>
     <table id="presoma_table" class="table_style" style="width: 100%">
         <thead>
         <tr style="background: #484848">
             <td rowspan="2">操作</td>
             <td rowspan="2">审核人</td>
-            <td rowspan="2">检测日期</td>
-            <td rowspan="2">厂家批号</td>
+            <td rowspan="2" style="min-width: 68px;">检测日期</td>
+            <td rowspan="2" style="min-width: 122px;">厂家批号</td>
             <td rowspan="2">内部编号</td>
-            <td rowspan="2">生产日期</td>
+            <td rowspan="2" style="min-width: 68px;">生产日期</td>
             <td>数量</td>
-            <td rowspan="2">判定</td>
+            <td rowspan="2" style="min-width: 45px;">判定</td>
             <td>振实密度</td>
             <td>水分</td>
             <td>SSA</td>

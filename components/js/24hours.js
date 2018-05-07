@@ -41,13 +41,12 @@ var _24hours = {
         bindLoadDataEvent: function () {
             _24hours.realDataIntervals.push(setInterval(function () {
                 _24hours.funcs.loadDataAndRender()
-            }, 30000))
+            }, 5000))
         },
         bindSelectChangeEvent: function (select) {
             select.on('change', function () {
                 _24hours.ino = $(this).val()
                 _24hours.funcs.loadDataAndRender()
-                console.log('_24hours.ino', _24hours.ino)
             })
         },
         createChart: function (labels, data) {
@@ -75,7 +74,7 @@ var _24hours = {
                         // pointHoverBackgroundColor: "rgba(75,192,192,1)",
                         // pointHoverBorderColor: "rgba(220,220,220,1)",
                         // pointHoverBorderWidth: 2,
-                        pointRadius: 0,
+                        pointRadius: 3,
                         // pointHitRadius: 10,
                         // spanGaps: true,
                         /** 纵坐标 */
@@ -114,7 +113,11 @@ var _24hours = {
                     }
                 }
             }
+            $('.canvas-container').empty();
+            $('.canvas-container').append("<canvas id='myChart' style='width: 100%;height: 74%;min-width: 800px;min-height: 500px;'></canvas>")
             var ctx = document.getElementById("myChart").getContext("2d");
+            var width = $("#myChart").width()
+            var height = $("#myChart").height()
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: data
@@ -129,6 +132,7 @@ var _24hours = {
             })
         },
         loadDataAndRender: function () {
+            console.log('render')
             $.get(home.urls.energyMonitor.load24HoursData(), {
                 ino: _24hours.ino,
                 curDateTime: new Date().getTime()

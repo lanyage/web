@@ -1,8 +1,219 @@
-<div id='model-li-hide-23' class="display-component-container" style="line-height:700px;">
-    <h1 style="text-align: center">页面还在火速开发中...</h1>
+<div id='model-li-hide-23' class="display-component-container"
+     style="padding: 20px 20px 0px 20px;max-height: 100%;overflow-y: scroll;">
+    <style type="text/css">
+        .select-span {
+            color: #569196;
+            border-bottom: 3px solid #569196;
+            padding-bottom: 15px;
+            cursor: hand;
+        }
+
+        #_23table thead tr td {
+            color: #fff;
+            font-size: 12px;
+            font-weight: 400;
+            padding: 0;
+        }
+
+        .dark-greg {
+            /*background: rgba(75, 75, 75, 0.9);*/
+            background: #484848;
+        }
+
+        .light-grey {
+            /*background: rgba(102, 102, 102, 0.9);*/
+            background: #666666;
+        }
+
+        #_23table tbody td {
+            padding: 3px;
+        }
+
+        #audit_table_inner thead td {
+            padding: 0px;
+            border: 1px darkgrey solid;
+            font-size: 14px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            font-size: 12px;
+        }
+
+        #audit_table_inner tbody td {
+            padding: 0px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            font-size: 12px;
+        }
+        #audit_table_inner thead td {
+            color: #fff;
+            background: #777777;
+        }
+
+        .table_style thead td {
+            margin: 0;
+            padding: 0px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .table_style tbody td {
+            margin: 0;
+            padding: 0px;
+            border: 1px darkgrey solid;
+            font-size: 10px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            height: 35px;
+            width: 30px;
+        }
+        .arrows-l {
+            float: left;
+            position: absolute;
+            top: 48%;
+            left: 0;
+        }
+        .arrows-r {
+            float: right;
+            position: absolute;
+            top: 48%;
+            right: 0;
+        }
+
+        .table_scroll {
+            overflow-y: auto;
+            height: 600px;
+        }
+        .align_middle {
+            position: relative;
+            top: 50%;
+            text-align: center;
+        }
+    </style>
+    <!--上-->
+    <div class="block-quote">
+        <div class="fl">
+            <span class="select-span">LY306E</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <select id="model-li-hide-select-23">
+                <option value="1">未发布</option>
+                <option value="2">已发布</option>
+            </select>
+        </div>
+        <div class="fr">
+            <p>
+                <a href="#" id="model-li-hide-refresh-23"><i class="layui-icon">&#x1002;</i>刷新</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input placeholder="请输入批号" id="product_batch_number_input"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#" id="model-li-hide-search-23">搜索</a>
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <!--中-->
+    <table id="_23table" style="width: 100%;max-height: 526px;overflow-y: scroll">
+        <thead>
+        <tr class="dark-greg">
+            <td rowspan="2">操作</td>
+            <td rowspan="2">发布人</td>
+            <td rowspan="2">检测日期</td>
+            <td rowspan="2">批号</td>
+            <td rowspan="2" style="min-width: 60px;">判定</td>
+            <td>数量</td>
+            <td>振实密度</td>
+            <td>水分</td>
+            <td>SSA</td>
+            <td>pH值</td>
+            <td>总Li含量</td>
+            <td colspan="2">粒度（µm）</td>
+            <td>Co</td>
+            <td>Mn</td>
+            <td>Ni</td>
+            <td>Li</td>
+            <td>Co</td>
+            <td>Mn</td>
+            <td>0.1C首次放电容量</td>
+            <td>0.1C首次效率</td>
+            <td>1C首次放电容量</td>
+        </tr>
+        <tr class="dark-greg">
+            <td>t</td>
+            <td>g/cm3</td>
+            <td>ppm</td>
+            <td>m2/g</td>
+            <td>/</td>
+            <td>10ppm</td>
+            <td>D50</td>
+            <td>粒度宽度系数</td>
+            <td>mol%</td>
+            <td>mol%</td>
+            <td>mol%</td>
+            <td>%</td>
+            <td>%</td>
+            <td>%</td>
+            <td>mAh/g</td>
+            <td>%</td>
+            <td>mAh%</td>
+        </tr>
+        <tr class="light-grey">
+            <td></td>
+            <td colspan="5">三级控制标准</td>
+            <td>>=2.00</td>
+            <td><=500</td>
+            <td>0.20~0.40</td>
+            <td><=11.80</td>
+            <td><=100</td>
+            <td>11.00~14.00</td>
+            <td></td>
+            <td></td>
+            <td>7.0±0.5</td>
+            <td>12.2±1.0</td>
+            <td>11.4±1.0</td>
+            <td>12.2±1.0</td>
+            <td>11.4±1.0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="light-grey">
+            <td></td>
+            <td colspan="5">2016-3-2三级控制标准</td>
+            <td>2.3-2.7</td>
+            <td><=500</td>
+            <td>0.22~0.38</td>
+            <td><=11.80</td>
+            <td><=120</td>
+            <td>11.30~13.30</td>
+            <td></td>
+            <td>19.7±0.5</td>
+            <td>7.0±0.5</td>
+            <td>12.2±1.0</td>
+            <td>11.4±1.0</td>
+            <td>12.2±1.0</td>
+            <td>11.4±1.0</td>
+            <td>≥177.5</td>
+            <td>≥88.0</td>
+            <td>≥162</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <!--下-->
+    <div id="_23page">
+
+    </div>
+    <script src="../components/js/product_publish.js"></script>
     <script type="application/javascript">
-        $(function() {
-            console.log( $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>'))
+        $(function () {
+            product_publish.init()
         })
     </script>
 </div>

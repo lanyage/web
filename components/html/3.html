@@ -1,8 +1,16 @@
-<div id='model-li-hide-3' class="display-component-container" style="line-height:700px;">
-    <h1 style="text-align: center">页面还在火速开发中...</h1>
+<div id='model-li-hide-3' class="display-component-container">
+
     <script type="application/javascript">
         $(function() {
-           $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>')
+            layer.open({
+                type: 2,
+                title: '三层',
+                shadeClose: true,
+                shade: false,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['99%', '99%'],
+                content: "http://218.77.105.241:60080/service/panel.action?pages=service.panel&planId="+4+"&index="+0
+            });
         })
     </script>
 </div>

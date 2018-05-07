@@ -53,27 +53,6 @@ var fenshiduibi = {
         home.funcs.clearIntervals(fenshiduibi.realDataIntervals)
     },
     funcs: {
-        // updateDate: function () {
-        //     Date.prototype.Format = function (fmt) { //author: meizz
-        //         var o = {
-        //             "M+": this.getMonth() + 1, //月份
-        //             "d+": this.getDate(), //日
-        //             "h+": this.getHours(), //小时
-        //             "m+": this.getMinutes(), //分
-        //             "s+": this.getSeconds(), //秒
-        //             "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-        //             "S": this.getMilliseconds() //毫秒
-        //         };
-        //         if (/(y+)/.test(fmt)) {
-        //             fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        //         }
-        //         for (var k in o)
-        //             if (new RegExp("(" + k + ")").test(fmt))
-        //                 fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        //         return fmt;
-        //
-        //     }
-        // },
         addHourAndRender: function (date, gap) {
             return new Date(date.year, date.month - 1, date.date, date.hours + gap, date.minutes, date.seconds)
         },
@@ -125,8 +104,6 @@ var fenshiduibi = {
         },
         bindSelectChangeEvent: function (select) {
             select.on('change', function () {
-                // fenshiduibi.ino = $(this).val()
-                // fenshiduibi.funcs.loadDataAndRender()
                 console.log($(this).val())
             })
         },
@@ -141,51 +118,25 @@ var fenshiduibi = {
                     {
                         label: "时间段1能耗值曲线",
                         fill: false,
-                        // lineTension: 0.1,
                         backgroundColor: "rgba(54, 162, 235,1)",
                         borderColor: "rgba(54, 162, 235,1)",
-                        borderCapStyle: 'butt',
-                        borderDash: [],
-                        borderDashOffset: 0.0,
-                        borderJoinStyle: 'miter',
-                        pointBorderColor: "rgba(75,192,192,1)",
-                        pointBackgroundColor: "#fff",
-                        pointBorderWidth: 5,
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 1,
-                        // pointHitRadius: 10,
-                        // spanGaps: true,
+                        pointRadius: 3,
                         /** 纵坐标 */
                         data : data1
                     },
                     {
                         label: "时间段2能耗值曲线",
                         fill: false,
-                        // lineTension: 0.1,
                         backgroundColor: "rgba(255, 99, 132,1)",
                         borderColor: "rgba(255, 99, 132,1)",
-                        borderCapStyle: 'butt',
-                        borderDash: [],
-                        borderDashOffset: 0.0,
-                        borderJoinStyle: 'miter',
-                        pointBorderColor: "rgba(75,140,192,1)",
-                        pointBackgroundColor: "#fff",
-                        pointBorderWidth: 5,
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 1,
-                        // pointHitRadius: 10,
-                        // spanGaps: true,
+                        pointRadius: 3,
                         /** 纵坐标 */
                         data : data2
                     }
                 ]
             }
+            $('.canvas-container').empty();
+            $('.canvas-container').append("<canvas id='myChart' style='width: 100%;height: 64%;min-width: 800px;min-height: 500px;'></canvas>")
             var ctx = document.getElementById("myChart").getContext("2d");
             var myChart = new Chart(ctx, {
                 type: 'line',
