@@ -13,23 +13,31 @@
             <p style="color: #62a49a; font-size: 14px;">
                 <span id="model-li-hide-refresh-50"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
                 &nbsp;&nbsp;
-                <span style="color: #6b6b6b;">状态</span>&nbsp;<select name="mat_name" style="border-radius: 0;">
+                <span style="color: #6b6b6b;">领料部门</span>&nbsp;
+                <select name="mat_name" style="border-radius: 0;">
+                    <option value="1" selected>部门1</option>
+                    <option value="2">部门2</option>
+                    <option value="3">部门3</option>
+                </select>&nbsp;&nbsp;
+                <span style="color: #6b6b6b;">领料状态</span>&nbsp;
+                <select name="mat_name" style="border-radius: 0;">
                     <option value="1" selected>状态1</option>
                     <option value="2">状态2</option>
                     <option value="3">状态3</option>
                 </select>&nbsp;&nbsp;
-                <span style="color: #6b6b6b;">流程类型</span>&nbsp;<select name="mat_name" style="border-radius: 0;">
-                <option value="1" selected>流程类型1</option>
-                <option value="2">流程类型2</option>
-                <option value="3">流程类型3</option>
-            </select>&nbsp;&nbsp;
+                <span style="color: #6b6b6b;">流程类型</span>&nbsp;
+                <select name="mat_name" style="border-radius: 0;">
+                    <option value="1" selected>流程类型1</option>
+                    <option value="2">流程类型2</option>
+                    <option value="3">流程类型3</option>
+                </select>&nbsp;&nbsp;
                 <span id="model-li-hide-search-50"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
         </div>
     </div>
     <div class="whitespace"></div>
 
-    <table id= "material_out_table" style="width: 100%;">
+    <table id="material_out_table" style="width: 100%;">
         <thead style="background: #666666;">
         <tr>
             <td>序号</td>
@@ -42,24 +50,26 @@
         </tr>
         </thead>
         <tbody>
-        <!--<tr>-->
+        <tr>
             <!--<td><input type="checkbox" class="mat_out_checkbox"></td>-->
-            <!--<td>领料一部</td>-->
-            <!--<td>2017-1-12</td>-->
-            <!--<td>已审核</td>-->
-            <!--<td>已审核</td>-->
-            <!--<td>领料状态</td>-->
-            <!--<td><a href="#" class='detail'><i class="layui-icon">&#xe60a;</i></a></td>-->
-        <!--</tr>-->
-        <!--<tr>-->
+            <td>1</td>
+            <td>领料一部</td>
+            <td>2017-1-12</td>
+            <td>已审核</td>
+            <td>已审核</td>
+            <td>领料状态</td>
+            <td><a href="#" class='detail'><i class="layui-icon">&#xe60a;</i></a></td>
+        </tr>
+        <tr>
             <!--<td><input type="checkbox" class="mat_out_checkbox"></td>-->
-            <!--<td>领料一部</td>-->
-            <!--<td>2017-1-12</td>-->
-            <!--<td>已审核</td>-->
-            <!--<td>已审核</td>-->
-            <!--<td>领料状态</td>-->
-            <!--<td><a href="#" class='detail'><i class="layui-icon">&#xe60a;</i></a></td>-->
-        <!--</tr>-->
+            <td>2</td>
+            <td>领料一部</td>
+            <td>2017-1-12</td>
+            <td>已审核</td>
+            <td>已审核</td>
+            <td>领料状态</td>
+            <td><a href="#" class='detail'><i class="layui-icon">&#xe60a;</i></a></td>
+        </tr>
         </tbody>
     </table>
     <div id="material_out_page">

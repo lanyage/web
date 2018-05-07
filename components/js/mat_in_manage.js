@@ -1,12 +1,10 @@
 var mat_in_manage = {
-    pageSize : null,
+    pageSize: null,
     init: function () {
         /** 渲染表格 */
         mat_in_manage.funcs.renderTable()
-        /** 绑定全选事件 */
-        mat_in_manage.funcs.checkboxEventBinding()
-        /** 详情按钮点击 */
-        mat_in_manage.funcs.bindDetailClick($('.detail'))
+        /** 需要给刷新按钮和搜索按钮绑定点击事件 */
+
         /** 将分页居中 */
         var out = $('#material_in_page').width()
         var time = setTimeout(function () {
@@ -48,73 +46,53 @@ var mat_in_manage = {
         }
         , renderHandler: function ($tbody, items) {
             // $tbody.empty() //清空表格
+            console.log(items)
             items.forEach(function (e) {
-                var sendEntries = e.sendEntries
-                var sender = e.sender
-                var supplier = e.supplier
-                $('#dep_checkAll').prop('checked', false)
-                sendEntries.forEach(function(sendEntry) {
-                    console.log(e.code)
-                    var content = (
-                        "<tr>" +
-                        "<td><input type='checkbox' class='mat_in_checkbox'></td>" +
-                        "<td>" + (sendEntry.batchNumber) + "</td>" +
-                        "<td>" + (supplier.name) + "</td>" +
-                        "<td>" + (e.date) + "</td>" +
-                        "<td>" + (e.creatTime) + "</td>" +
-                        "<td>" + (e.createUser) + "</td>" +
-                        "<td><a href='#' class='detail' id='detail-"+(e.code)+"'><i class='layui-icon'>&#xe60a;</i></a></td>" +
-                        "</tr>"
-                    )
-                    $tbody.append(content)
-                })
+                // $('#dep_checkAll').prop('checked', false)
+                console.log(e.code)
+                var content = (
+                    "<tr>" +
+                    "<td>" + (e.code) + "</td>" +
+                    "<td>" + (e.batchNumber) + "</td>" +
+                    "<td>" + (e.supplier ? e.supplier.name : null) + "</td>" +
+                    "<td>" + (e.date) + "</td>" +
+                    "<td>" + (e.creatTime) + "</td>" +
+                    "<td>" + (e.createUser ? e.createUser.name : null) + "</td>" +
+                    "<td><a href='#' class='detail' id='detail-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
+                    "</tr>"
+                )
+                $tbody.append(content)
             })
-            /** 绑定全选事件 */
-            mat_in_manage.funcs.checkboxEventBinding()
+            // /** 绑定全选事件 */
+            // mat_in_manage.funcs.checkboxEventBinding()
             /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
             var detailBtns = $(".detail")
             mat_in_manage.funcs.bindDetailClick(detailBtns)
         }
-        , bindDetailClick: function(detailBtns) {
-            detailBtns.off('click').on('click',function() {
+        , bindDetailClick: function (detailBtns) {
+            detailBtns.off('click').on('click', function () {
                 console.log($(this).attr('id'))
                 //点击的时候需要弹出一个模态框
                 layer.open({
                     type: 1,
                     title: '原料入库单',
-                    content: "<div><h1>Hello World!</h1></div>",
-                    area: ['350px', '200px'],
+                    content: $("#detail_modal"),
+                    area: ['800px', '430px'],
                     btn: ['打印', '返回'],
-                    offset: ['40%', '45%'],
+                    offset: "auto",
                     yes: function (index) {
-                        var code = $('#dep_code').val()
-                        var name = $('#dep_name').val()
-                        var info = $('#dep_info').val()
-                        $.post(home.urls.department.add(), {
-                            code: code,
-                            name: name,
-                            info: info
-                        }, function (result) {
-                            layer.msg(result.message, {
-                                offset: ['40%', '55%'],
-                                time: 700
-                            })
-                            if (result.code === 0) {
-                                var time = setTimeout(function () {
-                                    department_manage.init()
-                                    clearTimeout(time)
-                                }, 500)
-                            }
-                            layer.close(index)
-                        })
+                        //点击确定之后必须打印当前表单,推荐第三方插件 printthis.js todo
+                        $("#detail_modal").css('display', 'none')
+                        layer.close(index)
                     },
                     btn2: function (index) {
+                        $("#detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                 });
             })
         }
-        , getData : function() {
+        , getData: function () {
 
         }
         /** 全选逻辑 */

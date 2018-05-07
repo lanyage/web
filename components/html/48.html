@@ -24,10 +24,11 @@
         </div>
     </div>
     <div class="whitespace"></div>
-    <table id= "material_in_table" style="width: 100%;">
+    <table id="material_in_table" style="width: 100%;">
         <thead style="background: #666666;">
         <tr>
-            <td><input id="mat_in_checkAll" type="checkbox"></td>
+            <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
+            <td>序号</td>
             <td>收货单编号</td>
             <td>生产厂家</td>
             <td>到库日期</td>
@@ -37,24 +38,26 @@
         </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><input type="checkbox" class="mat_in_checkbox"></td>
-                <td>JCCL/QEO-1706-CYLK-2102</td>
-                <td>金驰能源材料有限公司</td>
-                <td>2017-8-25</td>
-                <td>2017-8-25 10:08:11</td>
-                <td>刘庆代</td>
-                <td><a href="#" class='detail' id='detail-7'><i class="layui-icon">&#xe60a;</i></a></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" class="mat_in_checkbox"></td>
-                <td>JCCL/QEO-1706-CYLK-2102</td>
-                <td>金驰能源材料有限公司</td>
-                <td>2017-8-25</td>
-                <td>2017-8-25 10:08:11</td>
-                <td>刘庆代</td>
-                <td><a href="#" class='detail' id='detail-8'><i class="layui-icon">&#xe60a;</i></a></td>
-            </tr>
+        <tr>
+            <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
+            <td>1</td>
+            <td>JCCL/QEO-1706-CYLK-2102</td>
+            <td>金驰能源材料有限公司</td>
+            <td>2017-8-25</td>
+            <td>2017-8-25 10:08:11</td>
+            <td>刘庆代</td>
+            <td><a href="#" class='detail' id='detail-7'><i class="layui-icon">&#xe60a;</i></a></td>
+        </tr>
+        <tr>
+            <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
+            <td>2</td>
+            <td>JCCL/QEO-1706-CYLK-2102</td>
+            <td>金驰能源材料有限公司</td>
+            <td>2017-8-25</td>
+            <td>2017-8-25 10:08:11</td>
+            <td>刘庆代</td>
+            <td><a href="#" class='detail' id='detail-8'><i class="layui-icon">&#xe60a;</i></a></td>
+        </tr>
         </tbody>
     </table>
 
@@ -66,4 +69,58 @@
             mat_in_manage.init()
         })
     </script>
+    <div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
+            <tr>
+                <td class="grey" width="20%">收货编号</td>
+                <td width="40%"></td>
+                <td class="grey" width="20%">品名</td>
+                <td width="20%"></td>
+            </tr>
+            <tr>
+                <td class="grey">生产厂家</td>
+                <td></td>
+                <td class="grey">数量</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="grey">倒库日期</td>
+                <td></td>
+                <td class="grey"></td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <div class="whitespace"></div>
+        <table width="100%">
+            <tr class="grey">
+                <td>序号</td>
+                <td>批号</td>
+                <td>单位</td>
+                <td>重量</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>170108046906</td>
+                <td>kg</td>
+                <td>200.00</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>170108046906</td>
+                <td>kg</td>
+                <td>200.00</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>170108046906</td>
+                <td>kg</td>
+                <td>200.00</td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <div style="text-align: right;">
+            <span><strong>制单人:</strong>&nbsp;刘庆代 &nbsp;&nbsp;&nbsp;<strong>制单时间:</strong>&nbsp;2018年4月30日 10:08:11</span>
+        </div>
+    </div>
 </div>
