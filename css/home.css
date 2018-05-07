@@ -272,3 +272,6 @@ body .layui-ext-yourskin .layui-layer-btn {
 .grey {
     background: #f2f2f2;
 }
+.roundBtn {
+    border-radius: 8%;
+}

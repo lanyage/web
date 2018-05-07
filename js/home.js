@@ -1780,5 +1780,24 @@ var home = {
                 window.location.href = '../login.jsp'
             })
         }//$funcs
+
+        /** 绑定全选事件 */
+       , bindSelectAll: function (selectAllBox, subCheckBoxes, checkedBoxLen, $table) {
+            selectAllBox.off('change').on('change', function () {
+                var status = selectAllBox.prop('checked')
+                subCheckBoxes.each(function () {
+                    $(this).prop('checked', status)
+                })
+            })
+            subCheckBoxes.off('change').on('change', function () {
+                var statusNow = $(this).prop('checked')
+                if (statusNow === false) {
+                    selectAllBox.prop('checked', false)
+                } else if (statusNow === true && checkedBoxLen.length === $table.children('tbody').children('tr').length) {
+
+                    selectAllBox.prop('checked', true)
+                }
+            })
+        }
     }
 }
