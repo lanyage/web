@@ -185,7 +185,7 @@ var raw_audit = {
                     "<td>" + e.insideCode + "</td>" +
                     "<td>" + raw_audit.funcs.formatDate(e.productDate) + "</td>" +
                     "<td>" + e.number + "</td>" +
-                    "<td>" + e.judge.name + "</td>" +
+                    "<td>" + (e.judge?e.judge.name:'无') + "</td>" +
                     "<td>" + e.c1 + "</td>" +
                     "<td>" + e.c2 + "</td>" +
                     "<td>" + e.c3 + "</td>" +
@@ -503,7 +503,7 @@ var raw_audit = {
                 "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + presoma.batchNumber + "</td> <td>" + raw_audit.funcs.formatDate(presoma.testDate) + "</td> <td>" + presoma.number + "</td> <td>" + presoma.judge.name + "</td></tr>" +
+                "<tr> <td colspan='2'>" + presoma.batchNumber + "</td> <td>" + raw_audit.funcs.formatDate(presoma.testDate) + "</td> <td>" + presoma.number + "</td> <td>" + (presoma.judge?presoma.judge.name:'无')+ "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
@@ -626,7 +626,8 @@ var raw_audit = {
             rightBtn.on('click', function () {
                 console.log("右");
                 var $table = $(raw_audit.raw_type === 0 ? '#presoma_table' : '#lithium_table');
-                var lastId = $($table.children('tbody').children('tr')[9]).attr('id');
+                var raws1 = $table.children('tbody').children('tr').length-1;
+                var lastId = $($table.children('tbody').children('tr')[raws1]).attr('id');
                 if (lastId != raw_audit.currId) {
                     var nextCode = $('#' + raw_audit.currId).next('tr').attr('id').substr(10);
                     console.log(nextCode);

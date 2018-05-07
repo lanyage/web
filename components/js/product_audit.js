@@ -79,7 +79,7 @@ var product_audit = {
                     "<td>" + product_audit.funcs.getAuditor(e.auditor) + "</td>" +
                     "<td>" + product_audit.funcs.formatDate(e.testDate) + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
-                    "<td>" + e.judge.name + "</td>" +
+                    "<td>" + (e.judge?e.judge.name:'无') + "</td>" +
                     "<td>" + e.number + "</td>" +
                     "<td>" + e.p1 + "</td>" +
                     "<td>" + e.p2 + "</td>" +
@@ -327,7 +327,7 @@ var product_audit = {
                 "<tr><td colspan='2'>批号</td><td>检测日期</td><td>数量(t)</td><td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr><td colspan='2'>" + product.batchNumber + "</td><td>" + product_audit.funcs.formatDate(product.testDate) + "</td><td>" + product.number + "</td><td>" + product.judge.name + "</td></tr>" +
+                "<tr><td colspan='2'>" + product.batchNumber + "</td><td>" + product_audit.funcs.formatDate(product.testDate) + "</td><td>" + product.number + "</td><td>" + (product.judge?product.judge.name:'无') + "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr><td colspan='2'>审核状态</td><td>审核人</td><td></td><td></td></tr>" +
@@ -413,7 +413,8 @@ var product_audit = {
             rightBtn.on('click', function () {
                 console.log("右");
                 var $table = $('#product_table');
-                var lastId = $($table.children('tbody').children('tr')[9]).attr('id');
+                var raws = $table.children('tbody').children('tr').length-1;
+                var lastId = $($table.children('tbody').children('tr')[raws]).attr('id');
                 if (lastId != product_audit.currId) {
                     var nextCode = $('#' + product_audit.currId).next('tr').attr('id').substr(14);
                     console.log(nextCode);

@@ -3,6 +3,7 @@ var material_publish = {
         material_publish.funcs.renderTable();
 
         //display and show
+        //var arr=new Array();
         var presoma_table = $('#presoma_table');   //取到金驰622表的id
         var lithium_table = $('#lithium_table');   //取到天齐碳酸锂的id号
         if (material_publish.material_type === 0) {
@@ -44,7 +45,7 @@ var material_publish = {
                     const $tbody = $("#presoma_table").children('tbody')
                     material_publish.funcs.renderHandlerPresoma($tbody, presomas)
                     material_publish.pageSize = result.data.content.length
-
+                    
                     var page = result.data
                     /** @namespace page.totalPages 这是返回数据的总页码数 */
                     /** 分页信息 */
@@ -511,7 +512,7 @@ var material_publish = {
                 "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + presoma.batchNumber + "</td> <td>" + material_publish.funcs.formatDate(presoma.testDate) + "</td> <td>" + presoma.number + "</td> <td>" + presoma.judge + "</td></tr>" +
+                "<tr> <td colspan='2'>" + presoma.batchNumber + "</td> <td>" + material_publish.funcs.formatDate(presoma.testDate) + "</td> <td>" + presoma.number + "</td> <td>" + (presoma.judge?presoma.judge.name:'无') + "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
@@ -609,7 +610,7 @@ var material_publish = {
             leftBtn.on('click', function () {
                 console.log("左");
                 var $table = $(material_publish.material_type === 0 ? '#presoma_table' : '#lithium_table');
-                var firstId = $($table.children('tbody').children('tr')[0]).attr('id');
+                var firstId = $([0]).attr('id');
                 console.log(firstId);
                 if (firstId != material_publish.currId) {
                     var prevCode = $('#' + material_publish.currId).prev('tr').attr('id').substr(17);
@@ -635,7 +636,8 @@ var material_publish = {
             rightBtn.on('click', function () {
                 console.log("右"); 
                 var $table = $(material_publish.material_type === 0 ? '#presoma_table' : '#lithium_table');
-                var lastId = $($table.children('tbody').children('tr')[9]).attr('id');
+                var raws1 = $table.children('tbody').children('tr').length-1;
+                var lastId = $($table.children('tbody').children('tr')[raws1]).attr('id');
                 console.log(lastId);
                 if (lastId != material_publish.currId) {
                     var nextCode = $('#' + material_publish.currId).next('tr').attr('id').substr(17);
