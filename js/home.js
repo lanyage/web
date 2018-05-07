@@ -1125,6 +1125,9 @@ var home = {
         /** 填充二级菜单并且携带3级菜单 */
         home.funcs.appendMenu2sToWrapperAndCarryModels(menu2ToSelected)
 
+
+        /** 获取所有的operations并用远足存储起来 */
+
         /** 绑定退出登录时间 */
         var $exit = $('#exit')
         home.funcs.handleLogout($exit)

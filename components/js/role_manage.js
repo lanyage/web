@@ -1,7 +1,9 @@
 var role_manage = {
     init: function () {
-        // console.log('init')
+        /////////////////////
+        //Table Rendering
         role_manage.funcs.renderTable()
+        /////////////////////
         var out = $('#role_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
@@ -12,17 +14,23 @@ var role_manage = {
     /** 当前总记录数,用户控制全选逻辑 */
     , pageSize: 0
 
-    , operationsLength: $.get(home.urls.role.getAllOperations(), function (result) { return result.data.length })
+    , operationsLength: $.get(home.urls.role.getAllOperations(), function (result) {
+        return result.data.length
+    })
 
     /** 逻辑方法 */
     , funcs: {
         /** 渲染页面 */
         renderTable: function () {
             /** 获取所有的记录 */
-            $.post(home.urls.role.getAllByPage(), { page: 0 }, function (result) {
+            $.post(home.urls.role.getAllByPage(), {page: 0}, function (result) {
+
                 var roles = result.data.content //获取数据
                 const $tbody = $("#role_table").children('tbody')
+                /////////////////
+                //RenderHandler
                 role_manage.funcs.renderHandler($tbody, roles)
+                ////////////////
                 role_manage.pageSize = result.data.content.length
                 var page = result.data
                 /** @namespace page.totalPages 这是返回数据的总页码数 */
@@ -66,12 +74,12 @@ var role_manage = {
                     type: 1,
                     title: '新增',
                     content: "<div id='addModal'>" +
-                        "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>角色名称:<input type='text' id='role_name'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>角色编码:<input type='text' id='role_code'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>角色描述:<input type='text' id='role_description'/></p>" +
-                        "</div>" +
-                        "</div>",
+                    "<div style='text-align: center;padding-top: 10px;'>" +
+                    "<p style='padding: 5px 0px 5px 0px;'>角色名称:<input type='text' id='role_name'/></p>" +
+                    "<p style='padding: 5px 0px 5px 0px;'>角色编码:<input type='text' id='role_code'/></p>" +
+                    "<p style='padding: 5px 0px 5px 0px;'>角色描述:<input type='text' id='role_description'/></p>" +
+                    "</div>" +
+                    "</div>",
                     area: ['350px', '200px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
@@ -119,7 +127,7 @@ var role_manage = {
                     yes: function (index) {
                         // console.log('yes')
                         var roleCode = _this.attr('id').substr(3)
-                        $.post(home.urls.role.deleteByCode(), { code: roleCode }, function (result) {
+                        $.post(home.urls.role.deleteByCode(), {code: roleCode}, function (result) {
                             // console.log(result.message)
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
@@ -146,7 +154,7 @@ var role_manage = {
             searchBtn.on('click', function () {
                 // console.log('search')
                 var role_name = $('#role_name_input').val()
-                $.post(home.urls.role.getAllByLikeNameByPage(), { name: role_name }, function (result) {
+                $.post(home.urls.role.getAllByLikeNameByPage(), {name: role_name}, function (result) {
                     var page = result.data
                     var roles = result.data.content //获取数据
                     const $tbody = $("#role_table").children('tbody')
@@ -178,7 +186,7 @@ var role_manage = {
         , bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
             refreshBtn.on('click', function () {
-                var index = layer.load(2, { offset: ['40%', '58%'] });
+                var index = layer.load(2, {offset: ['40%', '58%']});
                 var time = setTimeout(function () {
                     layer.msg('刷新成功', {
                         offset: ['40%', '55%'],
@@ -219,7 +227,7 @@ var role_manage = {
                             var roleCodes = []
                             $('.role_checkbox').each(function () {
                                 if ($(this).prop('checked')) {
-                                    roleCodes.push({ code: $(this).val() })
+                                    roleCodes.push({code: $(this).val()})
                                 }
                             })
                             $.ajax({
@@ -257,17 +265,17 @@ var role_manage = {
             editBtns.on('click', function () {
                 var _selfBtn = $(this)
                 var roleCode = _selfBtn.attr('id').substr(5)
-                $.post(home.urls.role.getByCode(), { code: roleCode }, function (result) {
+                $.post(home.urls.role.getByCode(), {code: roleCode}, function (result) {
                     var roles = result.data
                     layer.open({
                         type: 1,
                         content: "<div id='addModal'>" +
-                            "<div style='text-align: center;padding-top: 10px;'>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>角色名称:<input type='text' id='role_name' value='" + (roles.name) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>角色编码:<input type='text' id='role_code' disabled='true' value='" + (roles.code) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>角色描述:<input type='text' id='role_description' value='" + (roles.description) + "'/></p>" +
-                            "</div>" +
-                            "</div>",
+                        "<div style='text-align: center;padding-top: 10px;'>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>角色名称:<input type='text' id='role_name' value='" + (roles.name) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>角色编码:<input type='text' id='role_code' disabled='true' value='" + (roles.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>角色描述:<input type='text' id='role_description' value='" + (roles.description) + "'/></p>" +
+                        "</div>" +
+                        "</div>",
                         area: ['350px', '200px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '45%'],
@@ -303,135 +311,246 @@ var role_manage = {
 
         /** 编辑权限 */
         , bindEditLimitListener: function (limitBtns) {
-            limitBtns.off('click')
-            limitBtns.on('click', function () {
-                $('#right_body_table').empty()
+            limitBtns.off('click').on('click', function () {
+                var $innerTable = $('#right_body_table')
+                $innerTable.empty()
+
                 var _selfBtn = $(this)
                 var roleCode = _selfBtn.attr('id').substr(6)
-                var operations = []
-                $('#right_body_table').append(
-                    "<tr style='background:#F2F2F2'>" +
+
+                $innerTable.append(
+                    "<tr style='background:#f8f8f8'>" +
                     "<td style='text-align: center'>导航名称</td>" +
-                    "<td style='text-align: center'>选择</td><td>" +
-                    "</td></tr>"
+                    "<td style='text-align: center'>选择</td>" +
+                    "<td style='text-align: center'>操作</td>" +
+                    "</tr>"
                 )
-                $.get(home.urls.role.getAllOperations(), function (op) {
-                    operations = op.data
-                    $.post(home.urls.role.getByCode(), { code: roleCode }, function (result) {
-                        var models = result.data.models
-                        models.sort(function (a, b) {
-                            return a.code - b.code
-                        })
-                        var flag1 = models[0].menu1.code
-                        var flag2 = models[0].menu2.code
-                        models.forEach(function (e) {
-                            if (e.menu1.code == flag1) {
-                                flag1++
-                                $('#right_body_table').append(
-                                    "<tr><td>" +
-                                    "<i class='layui-icon' style='color:rgb(134,134,134)'>&#xe7a0;</i>" +
-                                    "<span>" + (e.menu1.name) + "</span>" +
-                                    "</td><td></td><td></td></tr>"
-                                )
-                            }
-                            if (e.menu2.code == flag2) {
-                                flag2++
-                                $('#right_body_table').append(
-                                    "<tr><td>" +
-                                    "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 15px'>&#xe625;</i>" +
-                                    "<span>" + (e.menu2.name) + "</span>" +
-                                    "</td><td></td><td></td></tr>"
-                                )
-                            }
-                            $('#right_body_table').append(
-                                "<tr id='model_" + (e.code) + "' class='the_models'><td>" +
-                                "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
-                                "<span>" + (e.name) + "</span>" +
-                                "<td style='text-align: center'><input id='all_operations_" + (e.code) + "' class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
-                                "</td><td id='add_operation_" + (e.code) + "'>" +
-                                "</td></tr>"
+                home.menu3s.sort(function (a, b) {
+                    return a.code - b.code
+                })
+                $.post(home.urls.role.getByCode(), {code: roleCode}, function (result) {
+                    var role = result.data
+                    //////////////////
+                    //所有的models
+                    var role_models = role.models
+                    var all_models = home.menu3s
+                    var role_model_codes = []
+                    var all_model_codes = []
+                    role_models.forEach(function(ele,index) {
+                        role_model_codes.push(ele.code)
+                    })
+                    all_models.forEach(function(ele,index){
+                        all_model_codes.push(ele.code)
+                    })
+                    all_models.sort(function (a, b) {
+                        return a.code - b.code
+                    })
+                    var flag1 = all_models[0].menu1.code
+                    var flag2 = all_models[0].menu2.code
+                    //////////////////
+                    //遍历所有的models
+                    /////////////////
+                    all_models.forEach(function (e) {
+                        if (e.menu1.code == flag1) {
+                            flag1++
+                            $innerTable.append(
+                                "<tr><td>" +
+                                "<i class='layui-icon' style='color:rgb(134,134,134)'>&#xe7a0;</i>" +
+                                "<span>" + (e.menu1.name) + "</span>" +
+                                "</td><td></td><td></td></tr>"
                             )
+                        }
+                        if (e.menu2.code == flag2) {
+                            flag2++
+                            $innerTable.append(
+                                "<tr><td>" +
+                                "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 15px'>&#xe625;</i>" +
+                                "<span>" + (e.menu2.name) + "</span>" +
+                                "</td><td></td><td></td></tr>"
+                            )
+                        }
+                        $innerTable.append(
+                            "<tr id='model_" + (e.code) + "' class='the_models'><td>" +
+                            "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
+                            "<span>" + (e.name) + "</span>" +
+                            "<td style='text-align: center'><input id='all_operations_" + (e.code) + "' class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
+                            "</td><td id='add_operation_" + (e.code) + "'>" +
+                            "</td></tr>"
+                        )
+                        //////////////////////////////////////
+                        //Get All Operations of The Model
+                        /////////////////////////////////////
+                        //todo
+                        $.get(home.urls.menus.getOperationsByModel(),{modelCode : e.code}, function(result) {
+                            var operations = result.data
                             operations.forEach(function (ele) {
+                                console.log(ele)
                                 $('#add_operation_' + e.code).append(
-                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input class='a_operation' type='checkbox' value='" + (ele.code) + "'/>&nbsp;" + (ele.name) + ""
+                                    "&nbsp;&nbsp;&nbsp;&nbsp;<input class='a_operation' type='checkbox' value='" + (ele.operationCode) + "'/>&nbsp;" + (ele.name) + ""
                                 )
                             })
-                            var the_operations = e.operations
-                            if (the_operations != null) {
-                                the_operations.forEach(function (a_op) {
-                                    $('#add_operation_' + e.code).children("[value= " + (a_op.code) + "]").prop('checked', true)
-                                })
-                                if (the_operations.length == operations.length) {
-                                    $('#all_operations_' + e.code).prop('checked', true)
-                                }
-                            }
-
-                        })
-
-                        /** 全选权限框 */
-                        $('.all_operations').on('change', function () {
-                            var _selfBtn = $(this)
-                            var status = _selfBtn.prop('checked')
-                            var model = _selfBtn.val()
-                            $('#add_operation_' + model).children().prop('checked', status)
-                        })
-                        /** 单选权限框 */
-                        $('.a_operation').on('change', function () {
-                            var _selfBtn = $(this)
-                            var statusNow = _selfBtn.prop('checked')
-                            var model = _selfBtn.parent().attr('id').substr(14)
-                            var op_num = 0
-                            $('#add_operation_' + model).children().each(function () {
-                                if ($(this).prop('checked'))
-                                    op_num++
-                            })
-                            if (statusNow === false) {
-                                $('#all_operations_' + model).prop('checked', false)
-                            } else if (statusNow === true && op_num === operations.length) {
-                                $('#all_operations_' + model).prop('checked', true)
-                            }
-                        })
-
-                        layer.open({
-                            type: 1,
-                            content: $('#right_body'),
-                            area: ['700px', '650px'],
-                            btn: ['确认', '取消'],
-                            offset: ['12%', '30%'],
-                            closeBtn: 0,
-                            yes: function (index) {
-                                var RoleModelOperations = []
-                                $('.the_models').each(function () {
-                                    var model = $(this).attr('id').substr(6)
-                                    $('.a_operation:checked').each(function () {
-                                        RoleModelOperations.push({ roleCode: roleCode, modelCode: model, operationCode: $(this).val() })
-                                    })
-                                })
-                                $.ajax({
-                                    url: home.urls.role.updateRoleModelOperations(),
-                                    contentType: 'application/json',
-                                    data: JSON.stringify(RoleModelOperations),
-                                    dataType: 'json',
-                                    type: 'post',
-                                    success: function (result) {
-                                        if (result.code === 0) {
-                                            layer.msg(result.message, {
-                                                offset: ['40%', '55%'],
-                                                time: 700
-                                            })
-                                        }
-                                    }
-                                })
-                                layer.close(index)
-                                $("#right_body").css('display', 'none')
-                            },
-                            btn2: function (index) {
-                                layer.close(index)
-                                $("#right_body").css('display', 'none')
-                            }
                         })
                     })
+                    layer.open({
+                        type: 1,
+                        content: $('#right_body'),
+                        area: ['700px', '650px'],
+                        btn: ['确认', '取消'],
+                        offset: ['12%', '30%'],
+                        closeBtn: 0,
+                        yes: function (index) {
+                            var RoleModelOperations = []
+                            $('.the_models').each(function () {
+                                var model = $(this).attr('id').substr(6)
+                                $('.a_operation:checked').each(function () {
+                                    RoleModelOperations.push({
+                                        roleCode: roleCode,
+                                        modelCode: model,
+                                        operationCode: $(this).val()
+                                    })
+                                })
+                            })
+                            $.ajax({
+                                url: home.urls.role.updateRoleModelOperations(),
+                                contentType: 'application/json',
+                                data: JSON.stringify(RoleModelOperations),
+                                dataType: 'json',
+                                type: 'post',
+                                success: function (result) {
+                                    if (result.code === 0) {
+                                        layer.msg(result.message, {
+                                            offset: ['40%', '55%'],
+                                            time: 700
+                                        })
+                                    }
+                                }
+                            })
+                            layer.close(index)
+                            $("#right_body").css('display', 'none')
+                        },
+                        btn2: function (index) {
+                            layer.close(index)
+                            $("#right_body").css('display', 'none')
+                        }
+                    })
                 })
+                // $.get(home.urls.role.getAllOperations(), function (op) {
+                //     operations = op.data
+                //     $.post(home.urls.role.getByCode(), { code: roleCode }, function (result) {
+                //         var models = result.data.models
+                //         models.sort(function (a, b) {
+                //             return a.code - b.code
+                //         })
+                //         var flag1 = models[0].menu1.code
+                //         var flag2 = models[0].menu2.code
+                //         models.forEach(function (e) {
+                //             if (e.menu1.code == flag1) {
+                //                 flag1++
+                //                 $('#right_body_table').append(
+                //                     "<tr><td>" +
+                //                     "<i class='layui-icon' style='color:rgb(134,134,134)'>&#xe7a0;</i>" +
+                //                     "<span>" + (e.menu1.name) + "</span>" +
+                //                     "</td><td></td><td></td></tr>"
+                //                 )
+                //             }
+                //             if (e.menu2.code == flag2) {
+                //                 flag2++
+                //                 $('#right_body_table').append(
+                //                     "<tr><td>" +
+                //                     "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 15px'>&#xe625;</i>" +
+                //                     "<span>" + (e.menu2.name) + "</span>" +
+                //                     "</td><td></td><td></td></tr>"
+                //                 )
+                //             }
+                //             $('#right_body_table').append(
+                //                 "<tr id='model_" + (e.code) + "' class='the_models'><td>" +
+                //                 "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
+                //                 "<span>" + (e.name) + "</span>" +
+                //                 "<td style='text-align: center'><input id='all_operations_" + (e.code) + "' class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
+                //                 "</td><td id='add_operation_" + (e.code) + "'>" +
+                //                 "</td></tr>"
+                //             )
+                //             operations.forEach(function (ele) {
+                //                 $('#add_operation_' + e.code).append(
+                //                     "&nbsp;&nbsp;&nbsp;&nbsp;<input class='a_operation' type='checkbox' value='" + (ele.code) + "'/>&nbsp;" + (ele.name) + ""
+                //                 )
+                //             })
+                //             var the_operations = e.operations
+                //             if (the_operations != null) {
+                //                 the_operations.forEach(function (a_op) {
+                //                     $('#add_operation_' + e.code).children("[value= " + (a_op.code) + "]").prop('checked', true)
+                //                 })
+                //                 if (the_operations.length == operations.length) {
+                //                     $('#all_operations_' + e.code).prop('checked', true)
+                //                 }
+                //             }
+                //
+                //         })
+                //
+                //         /** 全选权限框 */
+                //         $('.all_operations').on('change', function () {
+                //             var _selfBtn = $(this)
+                //             var status = _selfBtn.prop('checked')
+                //             var model = _selfBtn.val()
+                //             $('#add_operation_' + model).children().prop('checked', status)
+                //         })
+                //         /** 单选权限框 */
+                //         $('.a_operation').on('change', function () {
+                //             var _selfBtn = $(this)
+                //             var statusNow = _selfBtn.prop('checked')
+                //             var model = _selfBtn.parent().attr('id').substr(14)
+                //             var op_num = 0
+                //             $('#add_operation_' + model).children().each(function () {
+                //                 if ($(this).prop('checked'))
+                //                     op_num++
+                //             })
+                //             if (statusNow === false) {
+                //                 $('#all_operations_' + model).prop('checked', false)
+                //             } else if (statusNow === true && op_num === operations.length) {
+                //                 $('#all_operations_' + model).prop('checked', true)
+                //             }
+                //         })
+                //
+                //         layer.open({
+                //             type: 1,
+                //             content: $('#right_body'),
+                //             area: ['700px', '650px'],
+                //             btn: ['确认', '取消'],
+                //             offset: ['12%', '30%'],
+                //             closeBtn: 0,
+                //             yes: function (index) {
+                //                 var RoleModelOperations = []
+                //                 $('.the_models').each(function () {
+                //                     var model = $(this).attr('id').substr(6)
+                //                     $('.a_operation:checked').each(function () {
+                //                         RoleModelOperations.push({ roleCode: roleCode, modelCode: model, operationCode: $(this).val() })
+                //                     })
+                //                 })
+                //                 $.ajax({
+                //                     url: home.urls.role.updateRoleModelOperations(),
+                //                     contentType: 'application/json',
+                //                     data: JSON.stringify(RoleModelOperations),
+                //                     dataType: 'json',
+                //                     type: 'post',
+                //                     success: function (result) {
+                //                         if (result.code === 0) {
+                //                             layer.msg(result.message, {
+                //                                 offset: ['40%', '55%'],
+                //                                 time: 700
+                //                             })
+                //                         }
+                //                     }
+                //                 })
+                //                 layer.close(index)
+                //                 $("#right_body").css('display', 'none')
+                //             },
+                //             btn2: function (index) {
+                //                 layer.close(index)
+                //                 $("#right_body").css('display', 'none')
+                //             }
+                //         })
+                //     })
+                // })
             })
         }
 
@@ -451,12 +570,16 @@ var role_manage = {
                     "<td><a href='#' class='deleteRole' id='de-" + (e.code) + "'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
                     "</tr>")
             })//$数据渲染完毕
+
             var editBtns = $('.editRole')
             var deleteBtns = $('.deleteRole')
             var limitBtns = $('.editLimit')
             role_manage.funcs.bindDeleteEventListener(deleteBtns)
             role_manage.funcs.bindEditEventListener(editBtns)
+            ///////////////////////////////////
+            //Re-allocate Operations For Roles
             role_manage.funcs.bindEditLimitListener(limitBtns)
+            ///////////////////////////////////
             var selectAllBox = $('#role_checkAll')
             role_manage.funcs.bindSelectAll(selectAllBox)
             var deleteBatchBtn = $('#model-li-hide-delete-77')

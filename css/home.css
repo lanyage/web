@@ -240,7 +240,22 @@ body .layui-ext-yourskin .layui-layer-btn {
     text-align: center;
     font-weight: 400;
 }
-
+/*覆盖部分内容*/
+.display-component-container .checkBox_td {
+    padding: 5px 0px 5px 0px;
+    max-width: 30px;
+    width: 30px;
+}
+.display-component-container .edit_td {
+    padding: 5px 0px 5px 0px;
+    max-width: 30px;
+    width: 33px;
+}
+.display-component-container .delete_td {
+    padding: 5px 0px 5px 0px;
+    max-width: 30px;
+    width: 33px;
+}
 .display-component-container tbody td {
     padding: 5px;
     border: 1px darkgrey solid;
