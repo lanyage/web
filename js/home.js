@@ -127,6 +127,9 @@ var home = {
             },
             addOperation : function() {
                 return servers.backup() + 'operation/add'
+            },
+            getAllModelOperations: function() {
+                return servers.backup() + 'modelOperation/getAll'
             }
         },
         reviewprocess: {
@@ -1010,6 +1013,11 @@ var home = {
                 return servers.backup() + 'processBuckle/getByLikeBatchNumberByPage'
             }
         }
+        ,operation: {
+            getAll : function() {
+                return servers.backup() + 'operation/getAll'
+            }
+        }
     }
     /** start */
     , menu3Clicks: null  //所有的一级菜单点击栏
@@ -1043,7 +1051,7 @@ var home = {
     , realdata_interval: []
     , singlePage_interval: []
     , user: null
-
+    , operations : []
     /** end */
     /**
      *  初始化函数
@@ -1127,7 +1135,9 @@ var home = {
 
 
         /** 获取所有的operations并用远足存储起来 */
-
+        $.get(home.urls.operation.getAll(), {}, function (result) {
+            home.operations = result.data
+        })
         /** 绑定退出登录时间 */
         var $exit = $('#exit')
         home.funcs.handleLogout($exit)
