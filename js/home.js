@@ -1094,9 +1094,13 @@ var home = {
 
         /** 遍历一级菜单,然后给一级菜单的容器填充一级菜单,并且给selected菜单添加样式 */
         home.menu1s.forEach(function (element, index) {
-            home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
+            var path = element.path
+            if(path.indexOf('10') > -1)
+                home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><div class='fl'><img src='../"+(path)+"' alt='' width='25px' height='25px' style='position:relative;top: -2px;left: 10px;'></div><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
+            else {
+                home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><div class='fl'><img src='../"+(path)+"' alt='' width='20px' height='20px' style='position:relative;top: -2px;left: 10px;'></div><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
+            }
         })
-
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/

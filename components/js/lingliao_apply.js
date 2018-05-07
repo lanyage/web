@@ -42,12 +42,34 @@ var lingliao_apply = {
             //////////////////////////////////
             lingliao_apply.funcs.bindAddClick($("#edit_addBtn"))
 
+            //////////////////////////////////
+            //bind detailBtn clicks in addModal
+            //////////////////////////////////
+            lingliao_apply.funcs.bindDetailClickInAddModal($(".addModal_detail"))
+
+
+        }
+        ,bindDetailClickInAddModal : function(detailBtns) {
+            detailBtns.off('click').on('click', function() {
+                layer.open({
+                    type: 1,
+                    title: '详情',
+                    content: "<div>todo...</div>",
+                    area: ['800px', '400px'],
+                    btn: ['返回'],
+                    offset: "auto",
+                    closeBtn: 0,
+                    yes: function (index) {
+                        layer.close(index)
+                    }
+                });
+            })
         }
         , bindAddClick: function (addBtn) {
             addBtn.off('click').on('click', function() {
                 layer.open({
                     type: 1,
-                    title: '原料出库单',
+                    title: '新增',
                     content: $("#addModal"),
                     area: ['800px', '400px'],
                     btn: ['返回'],
@@ -66,7 +88,7 @@ var lingliao_apply = {
             detailBtns.off('click').on('click', function () {
                 layer.open({
                     type: 1,
-                    title: '原料出库单',
+                    title: '详情',
                     content: $("#detail_modal"),
                     area: ['800px', '400px'],
                     btn: ['返回'],
@@ -83,7 +105,7 @@ var lingliao_apply = {
             editBtns.off('click').on('click', function () {
                 layer.open({
                     type: 1,
-                    title: '原料出库单',
+                    title: '编辑',
                     content: $("#edit_modal"),
                     area: ['800px', '400px'],
                     btn: ['保存', '提交', '返回'],
