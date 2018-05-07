@@ -145,7 +145,8 @@ var product_publish = {
         , bindRightBtn: function (btn) {
             btn.off('click').on('click', function () {
                 var $table = $("#_23table")
-                var lastId = $($table.children('tbody').children('tr')[9]).attr('id')
+                var rows = $table.children('tbody').children("tr").length - 1
+                var lastId = $($table.children('tbody').children('tr')[rows]).attr('id')
                 if (lastId != product_publish.currId) {
                     var nextCode = $('#' + product_publish.currId).next('tr').attr('id').substr(16)
                     $.post(home.urls.product.getByCode(), {code: nextCode}, function (res) {
