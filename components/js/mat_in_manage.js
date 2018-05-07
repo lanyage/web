@@ -80,6 +80,7 @@ var mat_in_manage = {
                     area: ['800px', '430px'],
                     btn: ['打印', '返回'],
                     offset: "auto",
+                    closeBtn:0,
                     yes: function (index) {
                         //点击确定之后必须打印当前表单,推荐第三方插件 printthis.js todo
                         $("#detail_modal").css('display', 'none')

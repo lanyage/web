@@ -71,47 +71,21 @@ var mat_out_manage = {
         , bindDetailClick: function (detailBtns) {
             detailBtns.off('click').on('click', function () {
                 //点击的时候需要弹出一个模态框
+                // 而且要填充模态框里面的内容 todo
                 layer.open({
                     type: 1,
                     title: '原料出库单',
-                    content: "<div><h1>Hello World!</h1></div>",
-                    area: ['350px', '200px'],
-                    btn: ['打印', '返回'],
-                    offset: ['40%', '45%'],
+                    content: $("#detail_modal"),
+                    area: ['800px', '400px'],
+                    btn: ['返回'],
+                    offset: "auto",
+                    closeBtn: 0,
                     yes: function (index) {
-                        var code = $('#dep_code').val()
-                        var name = $('#dep_name').val()
-                        var info = $('#dep_info').val()
-                        $.post(home.urls.department.add(), {
-                            code: code,
-                            name: name,
-                            info: info
-                        }, function (result) {
-                            layer.msg(result.message, {
-                                offset: ['40%', '55%'],
-                                time: 700
-                            })
-                            if (result.code === 0) {
-                                var time = setTimeout(function () {
-                                    department_manage.init()
-                                    clearTimeout(time)
-                                }, 500)
-                            }
-                            layer.close(index)
-                        })
-                    },
-                    btn2: function (index) {
+                        $("#detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                 });
             })
-        }
-        /** 全选逻辑 */
-        , checkboxEventBinding: function () {
-            var selectAllBox = $('#mat_out_checkAll')
-            mat_out_manage.funcs.bindSelectAll(selectAllBox)
-            var dep_checkboxes = $('.mat_out_checkbox')
-            mat_out_manage.funcs.disselectAll(dep_checkboxes, selectAllBox)
         }
         , bindSelectAll: function (selectAllBox) {
             selectAllBox.off('change').on('change', function () {
