@@ -1,0 +1,21 @@
+{
+  "contractNumber":"111",
+  "supplier":{
+    "code": "001"
+  },
+  "sender":{
+    "code":"1"
+  },
+  "sendDate":"2018-02-12 12:21:12",
+  "contact":"1888888888",
+  "name":"物料",
+  "weight":11.21,
+  "status":0,
+  "sendEntries":[{
+    "batchNumber":"batch",
+    "unit":"kg",
+    "weight": 10,
+    "status":0
+  }
+  ]
+}

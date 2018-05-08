@@ -223,25 +223,31 @@ var home = {
         },
         supplyman: {
             getAllByPage: function () {
-                return servers.backup() + 'supplyInfo/listInfo'
+                //    return servers.backup() + 'supplyInfo/listInfo'
+                return servers.backup() + 'sendEntryHeader/getAllByPage'
             },
             add: function () {
-                return servers.backup() + 'supplyInfo/addSupplyInfo'
+                return servers.backup() + '/sendEntryHeader/add'
+                //return servers.backup() + 'supplyInfo/addSupplyInfo'
             },
             deleteByCode: function () {
-                return servers.backup() + 'supplyInfo/deleteSupplyInfo'
+               // return servers.backup() + 'supplyInfo/deleteSupplyInfo'
+                return servers.backup() + 'sendEntryHeader/deleteByCode'
             },
             update: function () {
-                return servers.backup() + 'supplyInfo/updateInfo'
+                //return servers.backup() + 'supplyInfo/updateInfo'
+                return servers.backup() + 'sendEntryHeader/update'
             },
             getByCode: function () {
-                return servers.backup() + 'supplyInfo/infoDetail'
+                //    return servers.backup() + 'supplyInfo/infoDetail'
+                return servers.backup() + 'sendEntryHeader/getByCode'
             },
             getAllByLikeNameByPage: function () {
                 return servers.backup() + 'supplyInfo/findByCompany'
             },
             deleteByBatchCode: function () {
-                return servers.backup() + 'supplyInfo/deleteSupplyInfoInBatch'
+                //return servers.backup() + 'supplyInfo/deleteSupplyInfoInBatch'
+                return servers.backup() +  'sendEntryHeader/deleteByCodeBatch'
             },
             getAllInfo: function () {
                 return servers.backup() + 'supplyInfo/getSupplyInfosByHeadCode'

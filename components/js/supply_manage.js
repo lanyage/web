@@ -13,6 +13,7 @@ var supply_manage = {
     , funcs: {
         renderTable: function () {
             $.post(home.urls.supplyman.getAllByPage(), {page: 0}, function (result) {
+
                 var supplymans = result.data.content //获取数据
                 const $tbody = $("#supplier_table").children('tbody')
                 supply_manage.funcs.renderHandler($tbody, supplymans)
@@ -48,54 +49,63 @@ var supply_manage = {
             var searchBtn = $('#model-li-hide-search-80')
             supply_manage.funcs.bindSearchEventListener(searchBtn)
         }
-
         /**新增*/
         , bindAddEventListener: function (addBtn) {
+            var flag = 0
             addBtn.off('click')
             addBtn.on('click', function () {
-                /** 新增默认输入框为空*/
-                $('#header_inp').val('')
-                $('#dilivery_time_inp').val('')
-                $('#diliverer_inp').val('')
-                $('#contact_inp').val('')
-                $('#total_inp').val('')
+                if (flag == 0){//初始化
+                    /** 新增默认输入框为空*/
+                    $('#header_inp').val('')
+                    $('#dilivery_time_inp').val('')
+                    $('#diliverer_inp').val('')
+                    $('#contact_inp').val('')
+                    $('#total_inp').val('')
 
-                $('#name_inp').val('')
-                $('#specifications_inp').val('')
-                $('#number_inp').val('')
-                $('#batch_number_inp').val('')
+                    $('#name_inp').val('')
+                    $('#specifications_inp').val('')
+                    $('#number_inp').val('')
+                    $('#batch_number_inp').val('')
 
-                /** 初始化输入栏 */
-                var trcount = $('#provider_body_downtable tr').length
-                if(trcount > 3){
-                    var temp = 0
-                    $('#provider_body_downtable tr').each(function(){
-                        if(temp!=0 && temp!=1 && temp!=(trcount-1)){
-                            $(this).remove()
-                        }
-                        temp++
-                    })
-                    trcount = 3
-                }
-                else if(trcount == 2){
-                    $('#addb').before("<tr id='inputcontent' class='addline'><td><input class='provider_input'></td>" +
-                        "<td style='padding: 0;'><input class='provider_input'></td>" +
-                        "<td><input class='provider_input'></td>" +
-                        "<td><input class='provider_input'></td>" +
+                    /** 初始化输入栏 */
+                    var trcount = $('#provider_body_downtable tr').length
+                    if(trcount > 2){
+                        var temp = 0
+                        $('#provider_body_downtable tr').each(function(){
+                            if(temp!=0 && temp!=1){
+                                $(this).remove()
+                            }
+                            temp++
+                        })
+                    }
+                    else if(trcount == 1){
+                        $('#provider_body_downtable').append("<tr id='inputcontent"+ trcount+"' class='addline'><td><input class='provider_input' id='batch_number_inp'></td>" +
+                        "<td><input class='provider_input' id='specifications_inp'></td>" +
+                        "<td><input class='provider_input' id='number_inp'></td>" +
                         "<td>" +
-                        "<button type='button' id='close_btn' onclick='del()' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
-                        " &times;  "
+                        "<button type='button' id='close_btn' onclick='delTab("+trcount+")' style='border:none;outline:none;color:#00A99D;background:white;'>" +
+                        "<i class='layui-icon'>&#x1006;</i>"
                         + " </button>" + "</td></tr>")
+                    }
+                }
+               else if(flag == 1){//保存上一次输入
+
                 }
                 layer.open({
                     type: 1,
                     title: '新增',
                     content: $('#provider_info'),
-                    area: ['800px', '600px'],
-                    btn: ['确认', '取消'],
+                    area: ['700px', '600px'],
+                    btn: ['保存','提交','取消'],
                     offset: ['20%', '28%'],
                     closeBtn : 0,
-                    yes: function (index) {
+                    yes: function (index){
+                        flag = 1
+                        layer.close(index)
+                        $("#provider_info").css('display', 'none')
+                    },
+                    btn2: function (index) {
+                        flag = 0
                         var code = $('#header_inp').val()
                         var customerName = $('#diliverer_inp').val()
                         var supplyTime = $('#dilivery_time_inp').val()
@@ -103,32 +113,29 @@ var supply_manage = {
                         var total = $('#total_inp').val()
 
                         var data = []
-                        $('.addline').each(function () {
-                            var row = $(this)
-                                var valsContainer = row.children('td').children('.provider_input')
-                                var batchNumber =  $(valsContainer[0]).val()
-                                var  name = $(valsContainer[1]).val()
-                                var specifications = $(valsContainer[2]).val()
-                                var number = $(valsContainer[3]).val()
-
-                            data.push({
-                                header: {
-                                    code: code,
-                                    supplyTime: supplyTime,
-                                    total: total,
-                                    contact: contact,
-                                    customer:{
-                                        name: customerName,
-                                    }
-                                },
-                                batchNumber : batchNumber,
-                                name : name,
-                                specifications : specifications,
-                                number : number
-                            })
+                        data.push({
+                            contractNumber: code,
+                            supplier:{
+                                code:"001"
+                            },
+                            sender:{
+                                code:"1"
+                            },
+                            sendDate:supplyTime,
+                            contact:contact,
+                            name:"物料",
+                            weight: 100,
+                            status: 0,
+                            snedEntries:[{
+                                batchNumber:"批号",
+                                unit:"kg",
+                                weight:100,
+                                status:0
+                            }]
                         })
                         $.ajax({
-                            url: home.urls.supplyman.saveInBatch(),
+                            //url: home.urls.supplyman.saveInBatch(),
+                            url: home.urls.supplyman.add(),
                             contentType: 'application/json',
                             data: JSON.stringify(data),
                             type: 'post',
@@ -148,14 +155,66 @@ var supply_manage = {
                             }
                         })
                     },
-                    btn2: function (index) {
+                        //var data = []
+                        //data.push({
+                        //
+                        //})
+                        //$('.addline').each(function () {
+                        //    var row = $(this)
+                        //        var valsContainer = row.children('td').children('.provider_input')
+                        //        var batchNumber =  $(valsContainer[0]).val()
+                        //        var  name = $(valsContainer[1]).val()
+                        //        var specifications = $(valsContainer[2]).val()
+                        //        var number = $(valsContainer[3]).val()
+                        //
+                        //    data.push({
+                        //        header: {
+                        //            code: code,
+                        //            supplyTime: supplyTime,
+                        //            total: total,
+                        //            contact: contact,
+                        //            customer:{
+                        //                name: customerName,
+                        //            }
+                        //        },
+                        //        batchNumber : batchNumber,
+                        //        name : name,
+                        //        specifications : specifications,
+                        //        number : number
+                        //    })
+                        //})
+
+                    //    $.ajax({
+                    //        //url: home.urls.supplyman.saveInBatch(),
+                    //        url: home.urls.supplyman.add(),
+                    //        contentType: 'application/json',
+                    //        data: JSON.stringify(data),
+                    //        type: 'post',
+                    //        success: function (result) {
+                    //            if (result.code === 0) {
+                    //                var time = setTimeout(function () {
+                    //                    supply_manage.init()
+                    //                    clearTimeout(time)
+                    //                }, 500)
+                    //            }
+                    //            layer.msg(result.message, {
+                    //                offset: ['40%', '55%'],
+                    //                time: 700
+                    //            })
+                    //            layer.close(index)
+                    //            $("#provider_info").css('display', 'none')
+                    //        }
+                    //    })
+                    //},
+                    btn3: function (index) {
+                        flag =0
                         layer.close(index)
                         $("#provider_info").css('display', 'none')
                     }
                 });
-                $('#close_btn').click(function(){
-                    $('.addline').remove()
-                })
+                //$('#close_btn').click(function(){
+                //    $('.addline').remove()
+                //})
 
 
             })
@@ -175,7 +234,9 @@ var supply_manage = {
                     btn: ['确认', '取消'],
                     offset: ['40%', '55%'],
                     yes: function (index) {
+                        console.log( _this.attr('id'))
                         var supplymanCode = _this.attr('id').substr(3)
+                        console.log(supplymanCode)
                         $.post(home.urls.supplyman.deleteByCode(), {code: supplymanCode}, function (result) {
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
@@ -309,74 +370,80 @@ var supply_manage = {
         }
         /** 编辑*/
         , bindEditEventListener: function (editBtns) {
-            var add_btn_number = 1
+            var flag = 0
             editBtns.off('click')
             editBtns.on('click', function () {
                 var _selfBtn = $(this)
                 var supplymanCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.supplyman.getByCode(), {code: supplymanCode}, function (result) {
+                    var page = result.data
+                    if( flag == 0 ){//初始化
+                        var trcount = $('#provider_body_downtable tr').length
+                        if(trcount > 2){//删除多的tr行,只剩两行
+                            var temp = 0
+                            $('#provider_body_downtable tr').each(function(){
+                                if(temp!=0 && temp!=1){
+                                    $(this).remove()
+                                }
+                                temp++
+                            })
+                        }
+                        else if(trcount == 1){//当只有行首时,需加一行tr
+                            /**新增初始化*/
+                            $('#provider_body_downtable').append("<tr id='inputcontent"+ trcount+"' class='addline'><td><input class='provider_input' id='batch_number_inp'></td>" +
+                                "<td><input class='provider_input' id='specifications_inp'></td>" +
+                                "<td><input class='provider_input' id='number_inp'></td>" +
+                                "<td>" +
+                                "<button type='button' id='close_btn' onclick='delTab("+trcount+")' style='border:none;outline:none;color:#00A99D;background:white;'>" +
+                                "<i class='layui-icon'>&#x1006;</i>"
+                                + " </button>" + "</td></tr>")
+                        }
+                        else if(trcount == 2){//删除修改后tr那一行的数据,
+                            var temp = 0
+                            $('#provider_body_downtable tr').each(function(){
+                                if(temp==1){
+                                    $(this).remove()
+                                }
+                                temp++
+                            })
+                            $('#provider_body_downtable').append("<tr id='inputcontent' class='addline'><td><input class='provider_input' id='batch_number_inp'></td>" +
+                                "<td><input class='provider_input' id='specifications_inp'></td>" +
+                                "<td><input class='provider_input' id='number_inp'></td>" +
+                                "<td>" +
+                                "<button type='button' id='close_btn' onclick='del()' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
+                                "<i class='layui-icon'>&#x1006;</i>"
+                                + " </button>" + "</td></tr>")
+                        }
+                        /** 编辑框默认值*/
+                        $('#header_inp').val(page.contractNumber)
+                        $('#diliverer_inp').val(page.sender.name)
+                        $('#dilivery_time_inp').val(page.sendDate)
+                        $('#contact_inp').val(page.contact)
+                        $('#total_inp').val(page.weight)
+                        $('#name_inp').val(page.name)
 
-                    var trcount = $('#provider_body_downtable tr').length
-                    if(trcount > 3){
-                        var temp = 0
-                        $('#provider_body_downtable tr').each(function(){
-                            if(temp!=0 && temp!=1 && temp!=(trcount-1)){
-                                $(this).remove()
-                            }
-                            temp++
-                        })
-                        trcount = 3
+                        $('#specifications_inp').val(page.name)
+                        $('#number_inp').val(page.sendEntries[0].weight)
+                        $('#batch_number_inp').val(page.sendEntries[0].batchNumber)
                     }
-                    else if(trcount == 2){
-                        /**新增初始化*/
-                        $('#addb').before("<tr id='inputcontent' class='addline'><td><input class='provider_input' id='batch_number_inp'></td>" +
-                            "<td style='padding: 0;'><input class='provider_input' id='name_inp'></td>" +
-                            "<td><input class='provider_input' id='specifications_inp'></td>" +
-                            "<td><input class='provider_input' id='number_inp'></td>" +
-                            "<td>" +
-                            "<button type='button' id='close_btn' title='close it' onclick='del()' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
-                            " &times;  "
-                            + " </button>" + "</td></tr>")
-                    }
-                    else if(trcount == 3){
-                        var temp = 0
-                        $('#provider_body_downtable tr').each(function(){
-                            if(temp==1){
-                                $(this).remove()
-                            }
-                            temp++
-                        })
-                        $('#addb').before("<tr id='inputcontent' class='addline'><td><input class='provider_input' id='batch_number_inp'></td>" +
-                            "<td style='padding: 0;'><input class='provider_input' id='name_inp'></td>" +
-                            "<td><input class='provider_input' id='specifications_inp'></td>" +
-                            "<td><input class='provider_input' id='number_inp'></td>" +
-                            "<td>" +
-                            "<button type='button' id='close_btn' title='close it' onclick='del()' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
-                            " &times;  "
-                            + " </button>" + "</td></tr>")
-                    }
-                    var dt = new Date(result.data.header.supplyTime).Format("yyyy/MM/dd")
-                    /** 编辑框默认值*/
-                    $('#header_inp').val(result.data.header.code)
-                    $('#diliverer_inp').val(result.data.header.customer.name)
-                    $('#dilivery_time_inp').val(dt.toLocaleString())
-                    $('#contact_inp').val(result.data.header.contact)
-                    $('#total_inp').val(result.data.header.total)
+                    else if (flag == 1 ){//保留之前输入
 
-                    $('#name_inp').val(result.data.name)
-                    $('#specifications_inp').val(result.data.specifications)
-                    $('#number_inp').val(result.data.number)
-                    $('#batch_number_inp').val(result.data.batchNumber)
+                    }
                     /**初始化新增框*/
                     layer.open({
                         type: 1,
                         title: '编辑',
                         content: $('#provider_info'),
-                        area: ['800px', '600px'],
-                        btn: ['确认', '取消'],
+                        area: ['700px', '600px'],
+                        btn: ['保存','提交','取消'],
                         offset: ['20%', '28%'],
                         closeBtn : 0,
-                        yes: function (index) {
+                        yes: function(index) {
+                            flag = 1
+                            layer.close(index)
+                            $("#provider_info").css('display', 'none')
+                        },
+                        btn2: function (index) {
                             var codeBefore = result.data.code
                             var code = $('#header_inp').val()
                             var customerName = $('#diliverer_inp').val()
@@ -469,7 +536,8 @@ var supply_manage = {
                                 })
                             }
                         },
-                        btn2: function (index) {
+                        btn3: function (index) {
+                            flag = 0
                             layer.close(index)
                             $("#provider_info").css('display', 'none')
                         }
@@ -486,24 +554,24 @@ var supply_manage = {
                 var _selfBtn = $(this)
                 var supplymanCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.supplyman.getByCode(), {code: supplymanCode}, function (result) {
+                    console.log(result)
                     var page = result.data
-                    var dt = new Date(page.header.supplyTime).Format("yyyy-MM-dd")
                     /** 详情框默认值*/
-                    $('#header_inp1').val(page.header.code)
-                    $('#diliverer_inp1').val(page.header.customer.name)
-                    $('#dilivery_time_inp1').val(dt.toLocaleString())
-                    $('#contact_inp1').val(page.header.contact)
-                    $('#total_inp1').val(page.header.total)
-
+                    $('#header_inp1').val(page.contractNumber)
+                    $('#diliverer_inp1').val(page.sender.name)
+                    $('#dilivery_time_inp1').val(page.sendDate)
+                    $('#contact_inp1').val(page.contact)
+                    $('#total_inp1').val(page.weight)
                     $('#name_inp1').val(page.name)
-                    $('#specifications_inp1').val(page.specifications)
-                    $('#number_inp1').val(page.number)
-                    $('#batch_number_inp1').val(page.batchNumber)
+
+                    $('#specifications_inp1').val(page.name)
+                    $('#number_inp1').val(page.sendEntries[0].weight)
+                    $('#batch_number_inp1').val(page.sendEntries[0].batchNumber)
                     layer.open({
                         type: 1,
                         title: '详情',
                         content: $('#provider_info1'),
-                        area: ['800px', '600px'],
+                        area: ['700px', '600px'],
                         btn: ['确认', '取消'],
                         offset: ['20%', '28%'],
                         closeBtn : 0,
@@ -523,15 +591,39 @@ var supply_manage = {
             $tbody.empty() //清空表格
             supplymans.forEach(function (e) {
                 $('#sup_checkAll').prop('checked', false)
-                var dt = new Date(e.header.supplyTime).Format("yyyy-MM-dd")
+                //var dt = new Date(e.header.supplyTime).Format("yyyy-MM-dd")
+                //$tbody.append(
+                //    "<tr>" +
+                //    "<td><input type='checkbox' class='sup_checkbox' value='" + (e.code) + "'></td>" +
+                //    "<td>" + (e.header.code) + "</td>" +
+                //    "<td>" + dt.toLocaleString() + "</td>" +
+                //    "<td>" + (e.header.total) + "</td>" +
+                //    "<td>" + (e.header.customer.name) + "</td>" +
+                //    "<td>" + (e.header.contact) + "</td>" +
+                //    "<td><a href='#' class='detailSupplyman' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe63c;</i></a></td>" +
+                //    "<td><a href='#' class='editSupplyman' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                //    "<td><a href='#' class='deleteSupplyman' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                //    "</tr>")
+                var estatus
+                if(e.status == 0){
+                    estatus = "待收货"
+                }
+                else if(e.status == 1){
+                    estatus = "已发货"
+                }
+                else if(e.status == 2){
+                    estatus = "已收货"
+                }
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='sup_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + (e.header.code) + "</td>" +
-                    "<td>" + dt.toLocaleString() + "</td>" +
-                    "<td>" + (e.header.total) + "</td>" +
-                    "<td>" + (e.header.customer.name) + "</td>" +
-                    "<td>" + (e.header.contact) + "</td>" +
+                    "<td>" + (e.contractNumber) + "</td>" +
+                    "<td>" + (e.sender.name) + "</td>" +
+                    "<td>" + (e.sendDate) + "</td>" +
+                    "<td>" + (e.contact) + "</td>" +
+                    "<td>" + (e.name) + "</td>" +
+                    "<td>" + (e.weight) + "</td>" +
+                    "<td>" + (estatus) + "</td>" +
                     "<td><a href='#' class='detailSupplyman' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe63c;</i></a></td>" +
                     "<td><a href='#' class='editSupplyman' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "<td><a href='#' class='deleteSupplyman' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
