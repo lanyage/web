@@ -4,12 +4,6 @@ var material_manage = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
         material_manage.funcs.renderTable()
-        var out = $('#material_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#material_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 30)
     } //$init end$
     ,
     pageSize: 0,
@@ -43,6 +37,7 @@ var material_manage = {
                         }
                     }
                 })
+                $('#material_page').css('padding-left', '37%')
             })
             //$数据渲染完毕
             var addBtn = $("#model-li-hide-add-60")

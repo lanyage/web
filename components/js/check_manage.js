@@ -1,12 +1,6 @@
 var check_manage = {
     init: function () {
         check_manage.funcs.renderTable()
-        var out = $('#checkprocess_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#checkprocess_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 50)
     } //$init end$
     ,
     pageSize: 0,
@@ -39,6 +33,7 @@ var check_manage = {
                         }
                     }
                 })
+                $('#checkprocess_page').css('padding-left', '37%')
             })
             //$数据渲染完毕
             var addBtn = $("#model-li-hide-add-75")

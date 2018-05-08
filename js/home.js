@@ -1075,6 +1075,8 @@ var home = {
         home.user = userJson
         var roles = user.roles //获取用户角色
 
+        $('#user-id').text('ID:'+user.code)
+
         var menu1codes = []//用户一级菜单去重
         var menu2codes = []//用于二级菜单去重
 
@@ -1136,22 +1138,6 @@ var home = {
         /** 填充二级菜单并且携带3级菜单 */
         home.funcs.appendMenu2sToWrapperAndCarryModels(menu2ToSelected)
 
-        // /** 获取所有的权限 */
-        // $.get(home.urls.menus.getAllModelOperations(), {}, function (result) {
-        //     home.modelOperations = result.data
-        // })
-        // $.get(home.urls.role.getAllRoleModelOperation(), {}, function (result) {
-        //     home.roleModelOperation = result.data
-        // })
-        //
-        // /** 获取所有的operations并用远足存储起来 */
-        // $.get(home.urls.operation.getAll(), {}, function (result) {
-        //     home.operations = result.data.sort(function(a,b) {
-        //         return a.code - b.code
-        //     })
-        //     window.localStorage.setItem('operations',JSON.stringify(home.operations))
-        //     console.log(JSON.parse(window.localStorage.getItem('operations')))
-        // })
         /** 绑定退出登录时间 */
         var $exit = $('#exit')
         home.funcs.handleLogout($exit)
@@ -1252,7 +1238,8 @@ var home = {
                 var modelWrapper = selectedTabBarItem.next().children('ul')
                 modelWrapper.empty()
                 Menu3List.forEach(function (element, index) {
-                    modelWrapper.append("<li id='menu3-li-" + (element.code) + "' class='menu3-tab-bar whiteFontMenu3'><a href='#'>" + Menu3List[index].name + "</a></li>", null)
+                    //todo 给所有的三级菜单前面添加一个小园点
+                    modelWrapper.append("<li id='menu3-li-" + (element.code) + "' class='menu3-tab-bar whiteFontMenu3'><a href='#'><i class='fa fa-dot-circle-o'></i>" + Menu3List[index].name + "</a></li>", null)
                 })
                 $('#menu3-li-' + localStorage.getItem('selectedMenu3')).addClass('chosenMenu3')
                 /** 三级菜单都添加完毕,需要把后面html加载进来*/

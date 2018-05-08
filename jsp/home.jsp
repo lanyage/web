@@ -18,14 +18,14 @@
 <body>
 <div class="parent">
     <div class="top">
-        <div class="top-left" style="padding-left: 10px;">
-            <div class="fl" style="position: relative;top: 12px;"><img src="../dist/images/login/logo.png" width="37px" height="37px"></div>
+        <div class="top-left" style="padding-left: 12px;">
+            <div class="fl" style="position: relative;top: 10px;"><img src="../dist/images/login/logo.png" width="37px" height="37px"></div>
             <div class="top-left-text">长远锂科MES系统-18/05/08<i class="fa fa-chevron-square-left"></i></div>
         </div>
         <div class="top-right">
-            <div id='user-info-hover' style="position:relative; padding: 10px;font-size: 15px;"><a href="#">管理员<i class="fa fa-chevron-down"></i></a></div>
+            <div id='user-info-hover' style="position:relative; padding: 10px 20px 10px 10px;font-size: 14px;"><a href="#">管理员<i class="fa fa-chevron-down"></i></a></div>
             <div id="hover-body" class="hide">
-                <p><span>ID:123456</span></p>
+                <p><span id='user-id'>ID:123456</span></p>
                 <p><a href="#"><i class="fa fa-user-o"></i>&nbsp;进入个人中心</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="exit">退出</a></p>
             </div>
         </div>
