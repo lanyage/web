@@ -323,8 +323,11 @@ var home = {
             updateRoleModelOperations: function () {
                 return servers.backup() + 'role/updateRoleModelOperations'
             },
-            getAllOperations: function () {
-                return servers.backup() + 'operation/getAll'
+            getAllRoleModelOperation : function() {
+                return servers.backup() + 'role/getAllRoleModelOperation'
+            },
+            getOperationsByRoleCodeAndModelCode : function() {
+                return servers.backup() + 'role/getOperationsByRoleCodeAndModelCode'
             }
         },
         user: {
@@ -1133,10 +1136,19 @@ var home = {
         /** 填充二级菜单并且携带3级菜单 */
         home.funcs.appendMenu2sToWrapperAndCarryModels(menu2ToSelected)
 
+        /** 获取所有的权限 */
+        $.get(home.urls.menus.getAllModelOperations(), {}, function (result) {
+            home.modelOperations = result.data
+        })
+        $.get(home.urls.role.getAllRoleModelOperation(), {}, function (result) {
+            home.roleModelOperation = result.data
+        })
 
         /** 获取所有的operations并用远足存储起来 */
         $.get(home.urls.operation.getAll(), {}, function (result) {
-            home.operations = result.data
+            home.operations = result.data.sort(function(a,b) {
+                return a.code - b.code
+            })
         })
         /** 绑定退出登录时间 */
         var $exit = $('#exit')

@@ -1,11 +1,15 @@
 var role_manage = {
-    modelOperations : [],
+    modelOperations: [],
+    roleModelOperation: [],
+    operationMap: [],
     init: function () {
+        home.operations.forEach(function (e) {
+            role_manage.operationMap[e.code] = e
+        })
         /////////////////////
         //Table Rendering
         role_manage.funcs.renderTable()
         /////////////////////
-
         var out = $('#role_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
@@ -258,8 +262,7 @@ var role_manage = {
 
         /** 编辑事件 */
         , bindEditEventListener: function (editBtns) {
-            editBtns.off('click')
-            editBtns.on('click', function () {
+            editBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var roleCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.role.getByCode(), {code: roleCode}, function (result) {
@@ -329,11 +332,12 @@ var role_manage = {
                 $.post(home.urls.role.getByCode(), {code: roleCode}, function (result) {
                     /** 当前角色并且携带所有的三级菜单 */
                     var role = result.data
-
+                    var roleCode = role.code
                     /** 获取当前角色所写带的三级菜单,并且按照code排序*/
                     var role_models = role.models.sort(function (a, b) {
                         return a.code - b.code
                     })
+
                     // console.log(role)
                     // console.log(role_models)
                     /** 存储当前Role下的所有三级菜单的code,用于后期做比较 */
@@ -345,7 +349,7 @@ var role_manage = {
                     // console.log(role_model_codes)
 
                     /** 获取实际存在的所有的三级菜单*/
-                    $.get(home.urls.menus.getAllMenu3(),{},function(result) {
+                    $.get(home.urls.menus.getAllMenu3(), {}, function (result) {
                         /** 获取所有的三级菜单 */
                         var all_models = result.data.sort(function (a, b) {
                             return a.code - b.code
@@ -360,6 +364,8 @@ var role_manage = {
                         var flag1 = all_models[0].menu1.code
                         var flag2 = all_models[0].menu2.code
 
+                        // console.log(home.operations)
+                        // console.log(role_manage.roleModelOperation)
                         /** 遍历所有的三级菜单 */
                         all_models.forEach(function (e) {
                             /** 获取当前三级菜单的code */
@@ -403,28 +409,60 @@ var role_manage = {
                                     "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
                                     "<span>" + (e.name) + "</span>" +
                                     "<td style='text-align: center'><input id='all_operations_" + (e.code) + "' class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
-                                    "</td><td id='add_operation_" + (e.code) + "'>" +
+                                    "</td><td class = 'add_operation' id='add_operation_" + (e.code) + "'>" +
                                     "</td></tr>"
                                 )
                             }
-
-                            /** 添加当前三级菜单下的所有operations */
-                            //todo 可以联合home.operations[i]获取operations,其中i是modelOperations中的operationCode
-                            $.get(home.urls.menus.getOperationsByModel(), {modelCode: e.code}, function (result) {
-                                var operations = result.data
-                                operations.forEach(function (ele) {
-                                    var operation = home.operations.find(function (e) {
-                                        return e.code == ele.operationCode
+                            $.get(home.urls.role.getOperationsByRoleCodeAndModelCode(), {
+                                roleCode: roleCode,
+                                modelCode: modelCode
+                            }, function (result) {
+                                var roleModelOperations = result.data
+                                /** 添加当前三级菜单下的所有operations */
+                                var the_modelOperations = home.modelOperations.filter(function (e) {
+                                    return e.modelCode == modelCode
+                                })
+                                the_modelOperations.forEach(function (ele) {
+                                    var operation = role_manage.operationMap[ele.operationCode]
+                                    /** 获取到role下的三级菜单下的所有operations后然后去查找是否存在,存在就打勾 */
+                                    var theOperation = roleModelOperations.find(function (e) {
+                                        return e.code == operation.code
                                     })
-                                    //todo
-                                    $('#add_operation_' + e.code).append(
-                                        "&nbsp;&nbsp;&nbsp;&nbsp;<input class='a_operation' type='checkbox' value='" + (operation.code) + "'/>&nbsp;" + (operation.name) + ""
-                                    )
+                                    if (theOperation) {
+                                        $('#add_operation_' + e.code).append(
+                                            "&nbsp;&nbsp;&nbsp;&nbsp;<input class='a_operation_box' type='checkbox' value='" + (operation.code) + "' checked/>&nbsp;" + (operation.name) + ""
+                                        )
+                                    } else {
+                                        $('#add_operation_' + e.code).append(
+                                            "&nbsp;&nbsp;&nbsp;&nbsp;<input class='a_operation_box' type='checkbox' value='" + (operation.code) + "'/>&nbsp;" + (operation.name) + ""
+                                        )
+                                    }
+                                })
+                                /////////////////////////////////
+                                //绑定checkbox事件
+                                ////////////////////////////////
+                                $('.all_operations').off('change').on('change', function () {
+                                    var _selfBtn = $(this)
+                                    var statusNow = _selfBtn.prop('checked')
+                                    var modelCode = _selfBtn.val()
+                                    $('#add_operation_' + modelCode).children(".a_operation_box").prop('checked', statusNow)
+                                })
+                                /** 单选权限框 */
+                                $('.a_operation_box').off('change').on('change', function () {
+                                    var _selfBtn = $(this)
+                                    var statusNow = _selfBtn.prop('checked')
+                                    var modelCode = _selfBtn.parent().attr('id').substr(14)
+                                    if (statusNow) {
+                                        $('#all_operations_' + modelCode).prop('checked', true)
+                                    } else if (_selfBtn.parent().children('.a_operation_box:checked').length == 0) {
+                                        $('#all_operations_' + modelCode).prop('checked', false)
+                                    }
+
                                 })
                             })
-                        })
+                        })//$forEach
                     })
-                    var time = setTimeout(function() {
+                    var time = setTimeout(function () {
                         layer.open({
                             type: 1,
                             content: $('#right_body'),
@@ -434,16 +472,24 @@ var role_manage = {
                             closeBtn: 0,
                             yes: function (index) {
                                 var RoleModelOperations = []
-                                $('.the_models').each(function () {
-                                    var model = $(this).attr('id').substr(6)
-                                    $('.a_operation:checked').each(function () {
+
+                                var container = []
+                                $('.all_operations:checked').each(function () {
+                                    container.push($(this).parent('td').next('td'))
+                                })
+                                // console.log(container.length)
+                                container.forEach(function (ele) {
+                                    var modelCode = ele.attr('id').substr(14)
+                                    var subCheckedBox = ele.children('.a_operation_box:checked')
+                                    subCheckedBox.each(function () {
                                         RoleModelOperations.push({
                                             roleCode: roleCode,
-                                            modelCode: model,
+                                            modelCode: modelCode,
                                             operationCode: $(this).val()
                                         })
                                     })
                                 })
+                                // console.log(RoleModelOperations)
                                 $.ajax({
                                     url: home.urls.role.updateRoleModelOperations(),
                                     contentType: 'application/json',
@@ -468,7 +514,7 @@ var role_manage = {
                             }
                         })
                         clearTimeout(time)
-                    },200)
+                    }, 100)
                 })
                 // $.get(home.urls.role.getAllOperations(), function (op) {
                 //     operations = op.data
@@ -610,12 +656,16 @@ var role_manage = {
             var editBtns = $('.editRole')
             var deleteBtns = $('.deleteRole')
             var limitBtns = $('.editLimit')
-            role_manage.funcs.bindDeleteEventListener(deleteBtns)
+            var time = setTimeout(function () {
+                ///////////////////////////////////
+                //Re-allocate Operations For Roles
+                role_manage.funcs.bindEditLimitListener(limitBtns)
+                ///////////////////////////////////
+                clearTimeout(time)
+            }, 0)
             role_manage.funcs.bindEditEventListener(editBtns)
-            ///////////////////////////////////
-            //Re-allocate Operations For Roles
-            role_manage.funcs.bindEditLimitListener(limitBtns)
-            ///////////////////////////////////
+            role_manage.funcs.bindDeleteEventListener(deleteBtns)
+
             var selectAllBox = $('#role_checkAll')
             role_manage.funcs.bindSelectAll(selectAllBox)
             var deleteBatchBtn = $('#model-li-hide-delete-77')
