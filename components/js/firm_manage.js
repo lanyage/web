@@ -2,12 +2,6 @@ var firm_manage = {
     init: function () {
         /** 获取公司管理分页显示并展示s */
         firm_manage.funcs.renderTable()
-        var out = $('#firmman_page').width()
-        var time = setTimeout(function(){
-            var inside = $('.layui-laypage').width()
-            $('#firmman_page').css('padding-left', 100 * ((out- inside) / 2 / out) > 33 ? 100 * ((out- inside) / 2 / out)+'%' : '35.5%')
-            clearTimeout(time)
-        },30)
     }//$init end$
 
     /** 当前总记录数,用户控制全选逻辑 */
@@ -44,6 +38,7 @@ var firm_manage = {
                         }
                     }
                 })
+                $('#firmman_page').css('padding-left', '37%')
             })//$数据渲染完毕
         }
         /** 公司信息编辑事件 */
