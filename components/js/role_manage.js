@@ -3,7 +3,8 @@ var role_manage = {
     roleModelOperation: [],
     operationMap: [],
     init: function () {
-        home.operations.forEach(function (e) {
+        var operations = JSON.parse(localStorage.getItem('operations'))
+        operations.forEach(function (e) {
             role_manage.operationMap[e.code] = e
         })
         /////////////////////
@@ -361,51 +362,86 @@ var role_manage = {
                         })
                         // console.log(all_models_codes)
 
-                        var flag1 = all_models[0].menu1.code
-                        var flag2 = all_models[0].menu2.code
+                        // var flag1 = all_models[0].menu1.code
+                        // var flag2 = all_models[0].menu2.code
 
-                        // console.log(home.operations)
-                        // console.log(role_manage.roleModelOperation)
-                        /** 遍历所有的三级菜单 */
+                        /** 获取所有的一级菜单和二级菜单 */
+                        var menu1codes = []//用户一级菜单去重
+                        var menu2codes = []//用于二级菜单去重
+                        var menu1s = []
+                        var menu2s = []
+                        all_models.forEach(function (ele) {
+                            var menu1code = ele.menu1.code
+                            var menu2code = ele.menu2.code
+                            /**去重menu1*/
+                            if (menu1codes.indexOf(menu1code) == -1) {
+                                menu1codes.push(menu1code)
+                                menu1s.push(ele.menu1)
+                            }
+                            /**去重menu2*/
+                            if (menu2codes.indexOf(menu2code) == -1) {
+                                menu2codes.push(menu2code)
+                                menu2s.push(ele.menu2)
+                            }
+                        })
+                        menu2s = menu2s.sort(function (a, b) {
+                            return a.menu1.rank - b.menu1.rank
+                        })
+                        // console.log(menu2s)
+                        menu2s.forEach(function (menu2) {
+                            var menu1 = menu2.menu1;
+                            var menu1Code = menu2.menu1.code
+                            var menu1Row = $innerTable.children('#modal-menu1-' + menu1Code)[0]
+                            if (!menu1Row) {
+                                //添加一级菜单
+                                $innerTable.append(
+                                    "<tr id='modal-menu1-" + (menu1Code) + "'+><td>" +
+                                    "<i class='layui-icon' style='color:rgb(134,134,134)'>&#xe7a0;</i>" +
+                                    "<span>" + (menu1.name) + "</span>" +
+                                    "</td><td></td><td></td></tr>"
+                                )
+                                //以及菜单后面添加二级菜单
+                                $("#modal-menu1-" + (menu1Code)).after(
+                                    "<tr id='modal-menu2-" + (menu2.code) + "' class='modal-menu1-" + (menu1Code) + "-sub'><td>" +
+                                    "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 15px'>&#xe625;</i>" +
+                                    "<span>" + (menu2.name) + "</span>" +
+                                    "</td><td></td><td></td></tr>"
+                                )
+                            } else {
+                                //给一级菜单下的二级菜单的后面追加新的二级菜单
+                                var subs = $(".modal-menu1-" + (menu1Code) + "-sub")
+                                var subLen = subs.length
+                                var last = $(subs[subLen - 1])
+                                last.after("<tr id='modal-menu2-" + (menu2.code) + "' class='modal-menu1-" + (menu1Code) + "-sub'><td>" +
+                                    "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 15px'>&#xe625;</i>" +
+                                    "<span>" + (menu2.name) + "</span>" +
+                                    "</td><td></td><td></td></tr>")
+                            }
+                        })
+                        /** 遍历所有的三级菜单,把三级菜单添加到二级菜单的后面去 */
                         all_models.forEach(function (e) {
                             /** 获取当前三级菜单的code */
                             var modelCode = e.code
-                            /** 渲染一级菜单 */
-                            if (e.menu1.code == flag1) {
-                                flag1++
-                                $innerTable.append(
-                                    "<tr><td>" +
-                                    "<i class='layui-icon' style='color:rgb(134,134,134)'>&#xe7a0;</i>" +
-                                    "<span>" + (e.menu1.name) + "</span>" +
-                                    "</td><td></td><td></td></tr>"
-                                )
-                            }
-                            /** 渲染二级菜单 */
-                            if (e.menu2.code == flag2) {
-                                flag2++
-                                $innerTable.append(
-                                    "<tr><td>" +
-                                    "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 15px'>&#xe625;</i>" +
-                                    "<span>" + (e.menu2.name) + "</span>" +
-                                    "</td><td></td><td></td></tr>"
-                                )
-                            }
+                            var menu2Code = e.menu2.code
 
+
+                            var subs = $('.modal-menu2-' + menu2Code + 'sub')
+                            var subLen = subs.length
+                            // console.log(subLen)
+                            var menu3Bar = subLen == 0 ? $("#modal-menu2-" + menu2Code) : $(subs[subLen - 1])
                             /** 如果当前角色的所包含的三级菜单包含当前三级菜单 */
                             if (role_model_codes.indexOf(modelCode) > -1) {
-                                $innerTable.append(
-                                    "<tr id='model_" + (e.code) + "' class='the_models'><td>" +
+                                menu3Bar.after("<tr id='model_" + (e.code) + "' class='the_models modal-menu2-" + (menu2Code) + "-sub'><td>" +
                                     "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
                                     "<span>" + (e.name) + "</span>" +
                                     "<td style='text-align: center'><input id='all_operations_" + (e.code) + "' class='all_operations' value='" + (e.code) + "' type='checkbox' checked/>" +
                                     "</td><td id='add_operation_" + (e.code) + "'>" +
-                                    "</td></tr>"
-                                )
+                                    "</td></tr>")
                             }
                             /** 如果当前角色的所包含的三级菜单不包含当前三级菜单 */
                             else {
-                                $innerTable.append(
-                                    "<tr id='model_" + (e.code) + "' class='the_models'><td>" +
+                                menu3Bar.after(
+                                    "<tr id='model_" + (e.code) + "' class='the_models modal-menu2-" + (menu2Code) + "-sub'><td>" +
                                     "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
                                     "<span>" + (e.name) + "</span>" +
                                     "<td style='text-align: center'><input id='all_operations_" + (e.code) + "' class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
@@ -413,13 +449,18 @@ var role_manage = {
                                     "</td></tr>"
                                 )
                             }
+                            var subs = $('.modal-menu2-' + menu2Code + 'sub')
+                            var subLen = subs.length
+                            // console.log(subLen)
+
                             $.get(home.urls.role.getOperationsByRoleCodeAndModelCode(), {
                                 roleCode: roleCode,
                                 modelCode: modelCode
                             }, function (result) {
                                 var roleModelOperations = result.data
                                 /** 添加当前三级菜单下的所有operations */
-                                var the_modelOperations = home.modelOperations.filter(function (e) {
+                                var modelOperations = JSON.parse(localStorage.getItem('modelOperations'))
+                                var the_modelOperations = modelOperations.filter(function (e) {
                                     return e.modelCode == modelCode
                                 })
                                 the_modelOperations.forEach(function (ele) {
@@ -457,64 +498,60 @@ var role_manage = {
                                     } else if (_selfBtn.parent().children('.a_operation_box:checked').length == 0) {
                                         $('#all_operations_' + modelCode).prop('checked', false)
                                     }
-
                                 })
                             })
                         })//$forEach
                     })
-                    var time = setTimeout(function () {
-                        layer.open({
-                            type: 1,
-                            content: $('#right_body'),
-                            area: ['700px', '650px'],
-                            btn: ['确认', '取消'],
-                            offset: ['12%', '30%'],
-                            closeBtn: 0,
-                            yes: function (index) {
-                                var RoleModelOperations = []
+                    layer.open({
+                        type: 1,
+                        content: $('#right_body'),
+                        area: ['700px', '650px'],
+                        btn: ['确认', '取消'],
+                        offset: "auto",
+                        closeBtn: 0,
+                        yes: function (index) {
+                            var RoleModelOperations = []
 
-                                var container = []
-                                $('.all_operations:checked').each(function () {
-                                    container.push($(this).parent('td').next('td'))
-                                })
-                                // console.log(container.length)
-                                container.forEach(function (ele) {
-                                    var modelCode = ele.attr('id').substr(14)
-                                    var subCheckedBox = ele.children('.a_operation_box:checked')
-                                    subCheckedBox.each(function () {
-                                        RoleModelOperations.push({
-                                            roleCode: roleCode,
-                                            modelCode: modelCode,
-                                            operationCode: $(this).val()
-                                        })
+                            var container = []
+                            $('.all_operations:checked').each(function () {
+                                container.push($(this).parent('td').next('td'))
+                            })
+                            // console.log(container.length)
+                            container.forEach(function (ele) {
+                                var modelCode = ele.attr('id').substr(14)
+                                var subCheckedBox = ele.children('.a_operation_box:checked')
+                                subCheckedBox.each(function () {
+                                    RoleModelOperations.push({
+                                        roleCode: roleCode,
+                                        modelCode: modelCode,
+                                        operationCode: $(this).val()
                                     })
                                 })
-                                // console.log(RoleModelOperations)
-                                $.ajax({
-                                    url: home.urls.role.updateRoleModelOperations(),
-                                    contentType: 'application/json',
-                                    data: JSON.stringify(RoleModelOperations),
-                                    dataType: 'json',
-                                    type: 'post',
-                                    success: function (result) {
-                                        if (result.code === 0) {
-                                            layer.msg(result.message, {
-                                                offset: ['40%', '55%'],
-                                                time: 700
-                                            })
-                                        }
+                            })
+                            // console.log(RoleModelOperations)
+                            $.ajax({
+                                url: home.urls.role.updateRoleModelOperations(),
+                                contentType: 'application/json',
+                                data: JSON.stringify(RoleModelOperations),
+                                dataType: 'json',
+                                type: 'post',
+                                success: function (result) {
+                                    if (result.code === 0) {
+                                        layer.msg(result.message, {
+                                            offset: ['40%', '55%'],
+                                            time: 700
+                                        })
                                     }
-                                })
-                                layer.close(index)
-                                $("#right_body").css('display', 'none')
-                            },
-                            btn2: function (index) {
-                                layer.close(index)
-                                $("#right_body").css('display', 'none')
-                            }
-                        })
-                        clearTimeout(time)
-                    }, 100)
+                                }
+                            })
+                            layer.close(index)
+                            $("#right_body").css('display', 'none')
+                        },
+                        btn2: function (index) {
+                            layer.close(index)
+                            $("#right_body").css('display', 'none')
+                        }
+                    })
                 })
                 // $.get(home.urls.role.getAllOperations(), function (op) {
                 //     operations = op.data
