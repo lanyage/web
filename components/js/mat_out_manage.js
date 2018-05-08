@@ -4,7 +4,7 @@ var mat_out_manage = {
         /** 渲染表格 */
         mat_out_manage.funcs.renderTable()
         // mat_out_manage.funcs.checkboxEventBinding()
-        /** 将分页居中 */
+        /** 将分页居中 */ 
         var out = $('#material_out_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
