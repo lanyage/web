@@ -19,14 +19,24 @@
 <div class="parent">
     <div class="top">
         <div class="top-left" style="padding-left: 12px;">
-            <div class="fl" style="position: relative;top: 10px;"><img src="../dist/images/login/logo.png" width="37px" height="37px"></div>
-            <div class="top-left-text">长远锂科MES系统-18/05/08<i class="fa fa-chevron-square-left"></i></div>
+            <div class="fl" style="position: relative;top: 12px;"><img src="../dist/images/login/logo.png" width="30px"
+                                                                       height="30px"></div>
+            <div class="top-left-text">长远锂科MES系统<i class="fa fa-chevron-square-left"></i></div>
         </div>
         <div class="top-right">
-            <div id='user-info-hover' style="position:relative; padding: 10px 20px 10px 10px;font-size: 14px;"><a href="#">管理员<i class="fa fa-chevron-down"></i></a></div>
-            <div id="hover-body" class="hide">
-                <p><span id='user-id'>ID:123456</span></p>
-                <p><a href="#"><i class="fa fa-user-o"></i>&nbsp;进入个人中心</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="exit">退出</a></p>
+            <div id='user-info-hover' style="position:relative; padding: 10px 0px 10px 10px;font-size: 14px;"><a
+                    href="#">管理员<i class="fa fa-chevron-down"></i></a></div>
+            <div id="hover-body" class="hide" style="text-align: center;">
+                <div style="position: relative;top: 12px;display: inline-block">
+                    <p>
+                        <div class="fl">&nbsp;<a href="#"><i class="fa fa-sign-in"></i>&nbsp;进入个人中心</a></div>
+                    </p>
+                    <div style="clear: both;padding: 3px;"></div>
+                    <p style="padding: 0px 30px 0px 20px;">
+                        <div class="fl">&nbsp;<i class="fa fa-id-badge"></i>&nbsp;<span id='user-id'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="fl"><a href="#" id="exit">退出</a></div>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -60,10 +70,37 @@
 <script src="../js/Chart.js"></script>
 <script type="application/javascript">
     $(function () {
+        (function () {
+            Date.prototype.Format = function (fmt) { //author: meizz
+                var o = {
+                    "M+": this.getMonth() + 1, //月份
+                    "d+": this.getDate(), //日
+                    "h+": this.getHours(), //小时
+                    "m+": this.getMinutes(), //分
+                    "s+": this.getSeconds(), //秒
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                    "S": this.getMilliseconds() //毫秒
+                };
+                if (/(y+)/.test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                }
+                for (var k in o)
+                    if (new RegExp("(" + k + ")").test(fmt))
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                return fmt;
+
+            }
+        })()
+        /** 日期显示 */
+        $('.top-left-text').text('长远锂科MES系统-' + new Date().Format("yyyy/MM/dd hh:mm:ss").substr(2))
+        setInterval(function () {
+            $('.top-left-text').text('长远锂科MES系统-' + new Date().Format("yyyy/MM/dd hh:mm:ss").substr(2))
+        }, 1000)
+
         var userStr = $.session.get('user')
-        if(!userStr){
+        if (!userStr) {
             console.log('用户已经失去登录，请重新登录')
-            document.location='../login.jsp';
+            document.location = '../login.jsp';
         }
         var userJson = JSON.parse(userStr)
         var menu1Wrapper = $('.menus1 ul')

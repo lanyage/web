@@ -9,16 +9,16 @@ html, body, parent {
     top: 0;
     left: 0;
     right: 0;
-    height: 54px;
+    height: 50px;
     background: #333333;
     color: #fff;
 }
 
 .left {
     position: absolute;
-    top: 54px;
+    top: 50px;
     left: 0;
-    width: 220px;
+    width: 230px;
     height: 100%;
     font-weight: 400;
 }
@@ -26,16 +26,16 @@ html, body, parent {
 .right {
     position: absolute;
     overflow: auto;
-    left: 220px;
+    left: 230px;
     right: 0;
-    top: 54px;
+    top: 50px;
     height: 100%;
     background: #ffffff;
     min-width: 695px;
 }
 
 .menus1 {
-    width: 100px;
+    width: 110px;
     height: 100%;
     background: #20232b;
     color: #fff;
@@ -58,14 +58,14 @@ html, body, parent {
     left: 10px;
     bottom: 0px;
     line-height: 54px;
-    font-size: 16px;
+    font-size: 15px;
     color: #fff;
     float: left;
 }
 
 .top-right {
     position: absolute;
-    line-height: 32px;
+    line-height: 28px;
     right: 0;
 }
 
@@ -105,17 +105,19 @@ ul {
 .menus2 div {
     color: #fff;
     text-align: center;
-    line-height: 40px;
     font-size: 13px;
+    line-height: 40px;
     font-weight: 400;
 }
-
+.menus2 .menu3-tab-bar{
+    padding: 1px;
+}
 .menus2 ul .menu2-tab-bar li {
     text-align: center;
     font-size: 13px;
     background: #515151;
-    padding-top: 1.2px;
-    padding-bottom: 1.2px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .menus2 ul .menu2-tab-bar li a {
@@ -151,13 +153,11 @@ body .layui-ext-yourskin .layui-layer-btn {
 
 .parent .top-right #hover-body {
     position: absolute;
-    width: 179px;
-    height: 80px;
-    top: 54.5px;
-    right: 1px;
+    min-width: 150px;
+    min-height: 79px;
+    top: 50px;
+    right: 0px;
     background: #333333;
-    border: #333333 solid 0.1px;
-    border-top: 0.1px solid #ffffff;
     z-index: 100;
     opacity: 1;
 }
@@ -172,15 +172,18 @@ body .layui-ext-yourskin .layui-layer-btn {
 }
 
 #hover-body {
-    border-left: #ffffff solid 1px;
-    border-right: #ffffff solid 0.5px;
+    border-left: white solid 1px;
+    border-right: white solid 1px;
+    border-top: white solid 1px;
     border-radius: 1%;
+    align-items: center;
+    text-align: center;
 }
 
-#hover-body p {
-    padding-left: 10px;
+/*#hover-body p {*/
+    /*padding-left: 10px;*/
 
-}
+/*}*/
 
 #user-info-hover a {
     padding: 15px;
@@ -289,4 +292,7 @@ body .layui-ext-yourskin .layui-layer-btn {
 }
 .roundBtn {
     border-radius: 8%;
+}
+.green {
+    background: #419398;
 }

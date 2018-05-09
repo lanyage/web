@@ -8,47 +8,47 @@ var home = {
                 return servers.backup() + 'energyReadData/getByInoAndStartDateTimeAndEndDateTime'
             }
         },
-        processPremix:{//预混
-            getAllByStatusCodeByPage:function(){
+        processPremix: {//预混
+            getAllByStatusCodeByPage: function () {
                 return servers.backup() + 'processPremix/getAllByStatusCodeByPage'
             },
-            getAll:function(){
+            getAll: function () {
                 return servers.backup() + 'processPremix/getAll'
             },
         },
-        processSize:{//粒度
-            getAllByStatusCodeByPage:function(){
-                return servers.backup() +'processSize/getAllByStatusCodeByPage'
+        processSize: {//粒度
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'processSize/getAllByStatusCodeByPage'
             },
-            getAll:function(){
+            getAll: function () {
                 return servers.backup() + 'processSize/getAll'
             },
         },
-        processLithium:{//总锂
-            getAllByStatusCodeByPage:function(){
+        processLithium: {//总锂
+            getAllByStatusCodeByPage: function () {
                 return servers.backup() + 'processLithium/getAllByStatusCodeByPage'
             },
-            getAll:function(){
+            getAll: function () {
                 return servers.backup() + 'processLithium/getAll'
             },
         },
-        processBuckle:{//扣电
-            getAllByStatusCodeByPage:function(){
-                return servers.backup() +'processBuckle/getAllByStatusCodeByPage'
+        processBuckle: {//扣电
+            getAllByStatusCodeByPage: function () {
+                return servers.backup() + 'processBuckle/getAllByStatusCodeByPage'
             },
-            getAll:function(){
+            getAll: function () {
                 return servers.backup() + 'processBuckle/getAll'
             },
         },
 
-        fileUpload:{
-            getAllFileType:function(){
+        fileUpload: {
+            getAllFileType: function () {
                 return servers.backup() + 'fileUpload/getAllFileType'
             },
-            open:function(){
+            open: function () {
                 return servers.backup() + 'fileUpload/open'
             },
-            submit:function(){
+            submit: function () {
                 return servers.backup() + 'fileUpload/submit'
             }
         },
@@ -107,28 +107,28 @@ var home = {
             menu3Shift: function () {
                 return servers.backup() + 'model/shift'
             },
-            listOperations : function() {
+            listOperations: function () {
                 return servers.backup() + 'operation/getAll'
             },
-            getOperationsByModel : function() {
+            getOperationsByModel: function () {
                 return servers.backup() + 'modelOperation/getByModelCode'
             },
-            deleteOperationModel : function() {
+            deleteOperationModel: function () {
                 return servers.backup() + 'modelOperation/deleteByModelCodeAndOperationCode'
             },
-            updateOperation : function() {
+            updateOperation: function () {
                 return servers.backup() + 'operation/update'
             },
-            deleteOperation : function() {
+            deleteOperation: function () {
                 return servers.backup() + 'operation/deleteByCode'
             },
-            updateModelOperationBatch : function() {
+            updateModelOperationBatch: function () {
                 return servers.backup() + 'modelOperation/updateBatch'
             },
-            addOperation : function() {
+            addOperation: function () {
                 return servers.backup() + 'operation/add'
             },
-            getAllModelOperations: function() {
+            getAllModelOperations: function () {
                 return servers.backup() + 'modelOperation/getAll'
             }
         },
@@ -249,7 +249,7 @@ var home = {
             getAllInfo: function () {
                 return servers.backup() + 'supplyInfo/getSupplyInfosByHeadCode'
             },
-            saveInBatch: function (){
+            saveInBatch: function () {
                 return servers.backup() + 'supplyInfo/saveInBatch'
             }
         },
@@ -323,10 +323,10 @@ var home = {
             updateRoleModelOperations: function () {
                 return servers.backup() + 'role/updateRoleModelOperations'
             },
-            getAllRoleModelOperation : function() {
+            getAllRoleModelOperation: function () {
                 return servers.backup() + 'role/getAllRoleModelOperation'
             },
-            getOperationsByRoleCodeAndModelCode : function() {
+            getOperationsByRoleCodeAndModelCode: function () {
                 return servers.backup() + 'role/getOperationsByRoleCodeAndModelCode'
             }
         },
@@ -639,13 +639,13 @@ var home = {
                 return servers.backup() + 'material/deleteByBatchCode'
             }
         },
-        materialIn : {
-          getAllByPage : function() {
-              return servers.backup() + 'godownEntryHeader/getAllByPage'
-          }
+        materialIn: {
+            getAllByPage: function () {
+                return servers.backup() + 'godownEntryHeader/getAllByPage'
+            }
         },
-        materialOut : {
-            getAllByPage : function() {
+        materialOut: {
+            getAllByPage: function () {
                 return servers.backup() + 'sendEntryHeader/getAllByPage'
             }
         },
@@ -879,18 +879,18 @@ var home = {
                 return servers.backup() + 'product/getByLikeBatchNumberByPage'
             }
         },
-        productPublish : {
-            getAllByPage : function() {
+        productPublish: {
+            getAllByPage: function () {
                 return servers.backup() + 'product/getAllByStatusCodeByPage'
             }
-            ,getByLikeBatchNumberByPage : function() {
+            , getByLikeBatchNumberByPage: function () {
                 return servers.backup() + 'product/getByLikeBatchNumberByPage'
             }
-            ,productPublish : function() {
+            , productPublish: function () {
                 return servers.backup() + 'product/updatePublishByCode'
             }
         },
-        rawPresoma:{
+        rawPresoma: {
             // 金弛622 前驱体
             updatePublishByCode: function () {
                 return servers.backup() + 'rawPresoma/updatePublishByCode'
@@ -911,7 +911,7 @@ var home = {
                 return servers.backup() + 'rawPresoma/getByLikeBatchNumberByPage'
             }
         },
-        rawLithium:{
+        rawLithium: {
             // 碳酸锂
             updatePublishByCode: function () {
                 return servers.backup() + 'rawLithium/updatePublishByCode'
@@ -932,7 +932,7 @@ var home = {
                 return servers.backup() + 'rawLithium/getByLikeBatchNumberByPage'
             }
         },
-        processPremix:{
+        processPremix: {
             // 预混
             updatePublishByCode: function () {
                 return servers.backup() + 'processPremix/updatePublishByCode'
@@ -953,7 +953,7 @@ var home = {
                 return servers.backup() + 'processPremix/getByLikeBatchNumberByPage'
             }
         },
-        processSize:{
+        processSize: {
             // 粉碎粒度
             updatePublishByCode: function () {
                 return servers.backup() + 'processSize/updatePublishByCode'
@@ -974,7 +974,7 @@ var home = {
                 return servers.backup() + 'processSize/getByLikeBatchNumberByPage'
             }
         },
-        processLithium:{
+        processLithium: {
             // 粉碎总锂
             updatePublishByCode: function () {
                 return servers.backup() + 'processLithium/updatePublishByCode'
@@ -995,7 +995,7 @@ var home = {
                 return servers.backup() + 'processLithium/getByLikeBatchNumberByPage'
             }
         },
-        processBuckle:{
+        processBuckle: {
             // 扣电
             updatePublishByCode: function () {
                 return servers.backup() + 'processBuckle/updatePublishByCode'
@@ -1016,8 +1016,8 @@ var home = {
                 return servers.backup() + 'processBuckle/getByLikeBatchNumberByPage'
             }
         }
-        ,operation: {
-            getAll : function() {
+        , operation: {
+            getAll: function () {
                 return servers.backup() + 'operation/getAll'
             }
         }
@@ -1054,7 +1054,7 @@ var home = {
     , realdata_interval: []
     , singlePage_interval: []
     , user: null
-    , operations : []
+    , operations: []
     /** end */
     /**
      *  初始化函数
@@ -1064,7 +1064,6 @@ var home = {
      * @hides 代表所有三级菜单点击后显示的内容的id
      */
     , init: function (userJson, menu1Wrapper, menu2Wrapper) {
-        home.funcs.updateDatePrototype()
         /** 头像显示事件绑定 */
         home.funcs.bindClickEventForAvatar($('#user-info-hover'), $("#hover-body"))
         home.menu1Wrapper = menu1Wrapper
@@ -1075,7 +1074,7 @@ var home = {
         home.user = userJson
         var roles = user.roles //获取用户角色
 
-        $('#user-id').text('ID:'+user.code)
+        $('#user-id').text(user.code)
 
         var menu1codes = []//用户一级菜单去重
         var menu2codes = []//用于二级菜单去重
@@ -1108,10 +1107,10 @@ var home = {
         /** 遍历一级菜单,然后给一级菜单的容器填充一级菜单,并且给selected菜单添加样式 */
         home.menu1s.forEach(function (element, index) {
             var path = element.path
-            if(path.indexOf('10') > -1)
-                home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><div class='fl'><img src='../"+(path)+"' alt='' width='25px' height='25px' style='position:relative;top: -2px;left: 10px;'></div><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
+            if (path.indexOf('10') > -1)
+                home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><div class='fl'><img src='../" + (path) + "' alt='' width='25px' height='25px' style='position:relative;top: -2px;left: 10px;'></div><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
             else {
-                home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><div class='fl'><img src='../"+(path)+"' alt='' width='20px' height='20px' style='position:relative;top: -2px;left: 10px;'></div><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
+                home.menu1Wrapper.append("<li id='menu1-li-" + (element.code) + "'class='menu1-tab-bar'><div class='fl'><img src='../" + (path) + "' alt='' width='20px' height='20px' style='position:relative;top: -2px;left: 10px;'></div><a href='#'>" + home.menu1s[index].name + "</a></li>", null)
             }
         })
         /** ########这里是记录123级菜单的关键,########*/
@@ -1130,7 +1129,7 @@ var home = {
         $('#menu1-li-' + selectedMenu1).addClass('li-selected')
         home.menu1Clicks = home.menu1Wrapper.children('.menu1-tab-bar')
         /** 绑定一级菜单点击事件 */
-        home.funcs.bindClickForMenu1s()
+        home.funcs.bindClickAndMouseEventForMenu1s()
         /** 给selected状态的一级菜单设置默认状态,包括填充2级菜单、给其所有的二级菜单追加三级菜单和绑定事件*/
         var selectedMenu1Code = $('.li-selected').attr('id').substr(9)
         /**获取selected状态的一级菜单的二级菜单*/
@@ -1144,30 +1143,14 @@ var home = {
     }
     ,//$init()
     funcs: {
-        updateDatePrototype : function() {
-            Date.prototype.Format = function (fmt) { //author: meizz
-                var o = {
-                    "M+": this.getMonth() + 1, //月份
-                    "d+": this.getDate(), //日
-                    "h+": this.getHours(), //小时
-                    "m+": this.getMinutes(), //分
-                    "s+": this.getSeconds(), //秒
-                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-                    "S": this.getMilliseconds() //毫秒
-                };
-                if (/(y+)/.test(fmt)) {
-                    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-                }
-                for (var k in o)
-                    if (new RegExp("(" + k + ")").test(fmt))
-                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-                return fmt;
-
-            }
-        },
         /** 给一级菜单绑定点击事件 */
-        bindClickForMenu1s: function () {
-            home.menu1Clicks.on('click', function () {
+
+        bindClickAndMouseEventForMenu1s: function () {
+            home.menu1Clicks.on('mouseenter', function () {
+                $(this).addClass('green')
+            }).on('mouseleave', function () {
+                $(this).removeClass('green')
+            }).on('click', function () {
                 /** 首先清除interval */
                 home.funcs.clearIntervals(home.realdata_interval)
                 /** 点击二级菜单必须要把所有的展示框移除 */
@@ -1239,7 +1222,7 @@ var home = {
                 modelWrapper.empty()
                 Menu3List.forEach(function (element, index) {
                     //todo 给所有的三级菜单前面添加一个小园点
-                    modelWrapper.append("<li id='menu3-li-" + (element.code) + "' class='menu3-tab-bar whiteFontMenu3'><a href='#'><i class='fa fa-dot-circle-o'></i>" + Menu3List[index].name + "</a></li>", null)
+                    modelWrapper.append("<li id='menu3-li-" + (element.code) + "' class='menu3-tab-bar whiteFontMenu3'><a href='#'>" + Menu3List[index].name + "</a></li>", null)
                 })
                 $('#menu3-li-' + localStorage.getItem('selectedMenu3')).addClass('chosenMenu3')
                 /** 三级菜单都添加完毕,需要把后面html加载进来*/
@@ -1417,7 +1400,7 @@ var home = {
                 /** 填充三级菜单 */
                 modelWrapper.empty()
                 Menu3List.forEach(function (element, index) {
-                    modelWrapper.append("<li id='menu3-li-" + (element.code) + "' class='menu3-tab-bar whiteFontMenu3'><a href='#'>" + Menu3List[index].name + "</a></li>", null)
+                    modelWrapper.append("<li id='menu3-li-" + (element.code) + "'  class='menu3-tab-bar whiteFontMenu3'><a href='#'>" + Menu3List[index].name + "</a></li>", null)
                 })
                 /** $$ 此处3级菜单已经填充完毕 */
                 home.menu3Clicks = modelWrapper.children('li')
@@ -1800,7 +1783,7 @@ var home = {
         }//$funcs
 
         /** 绑定全选事件 */
-       , bindSelectAll: function (selectAllBox, subCheckBoxes, checkedBoxLen, $table) {
+        , bindSelectAll: function (selectAllBox, subCheckBoxes, checkedBoxLen, $table) {
             selectAllBox.off('change').on('change', function () {
                 var status = selectAllBox.prop('checked')
                 subCheckBoxes.each(function () {
