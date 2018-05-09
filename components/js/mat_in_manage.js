@@ -18,6 +18,7 @@ var mat_in_manage = {
             $.post(home.urls.materialIn.getAllByPage(), {}, function (res) {
                 var $tbody = $("#material_in_table").children('tbody')
                 var items = res.data.content
+                mat_in_manage.funcs.fillData1($("#model-li-select-48"),items)
                 mat_in_manage.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 mat_in_manage.pageSize = res.data.content.length //该页的记录数
@@ -43,6 +44,8 @@ var mat_in_manage = {
                     }
                 })
             })
+
+
 
              // 追加刷新事件
              var refreshBtn = $('#model-li-hide-refresh-48');
@@ -77,6 +80,17 @@ var mat_in_manage = {
             /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
             var detailBtns = $(".detail")
             mat_in_manage.funcs.bindDetailClick(detailBtns)
+        }
+        ,fillData1: function(select,items){
+            console.log(items)
+            select.empty()
+            items.forEach(function (e) {
+                console.log(e)
+                select.append(
+                    "<option>"+(e.supplier ? e.supplier.name : null)+"</option>" 
+                )
+            })     
+            
         }
         ,fillData: function(table,items) {
             
