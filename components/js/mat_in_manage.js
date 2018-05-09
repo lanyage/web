@@ -4,14 +4,6 @@ var mat_in_manage = {
         /** 渲染表格 */
         mat_in_manage.funcs.renderTable()
         /** 需要给刷新按钮和搜索按钮绑定点击事件 */
-
-        /** 将分页居中 */
-        var out = $('#material_in_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#material_in_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 30)
     },
     funcs: {
         renderTable: function () {
@@ -43,6 +35,7 @@ var mat_in_manage = {
                         }
                     }
                 })
+                $('#material_in_page').css('padding-left', '37%')
             })
 
 
