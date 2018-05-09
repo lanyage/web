@@ -639,10 +639,17 @@ var home = {
                 return servers.backup() + 'material/deleteByBatchCode'
             }
         },
-        materialIn: {
-            getAllByPage: function () {
-                return servers.backup() + 'godownEntryHeader/getAllByPage'
-            }
+   
+        materialIn : {
+          getAllByPage : function() {
+              return servers.backup() + 'godownEntryHeader/getAllByPage'
+          },
+          getAllByCode : function() {
+              return servers.backup() + 'godownEntryHeader/getByCode'
+          } ,
+          getByBatchNumber: function() {
+              return servers.backup() + 'godownEntryHeader/getByBatchNumber'
+          } 
         },
         materialOut: {
             getAllByPage: function () {
