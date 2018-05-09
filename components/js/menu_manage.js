@@ -88,6 +88,7 @@ var menu_manage = {
             }) //一级菜单排序
             return menu2ToMenu1
         }
+
         /**
          * 获取当前二级菜单下的三级菜单
          * @param candidates 三级菜单候选项
@@ -103,6 +104,7 @@ var menu_manage = {
             })
             return menu3ToMenu2
         }
+
         /** 为一级菜单绑定点击事件 */
         , bindClickForMenu1s: function (items) {
             items.off('click').on('click', function () {
@@ -118,15 +120,19 @@ var menu_manage = {
                 menu_manage.funcs.renderMenu2()
             })
         }
+
         , renderMenu3: function (items) {
             $('#operationList').empty()
             $('#menu3List').empty()
+            menu_manage.funcs.sortMenus(items)
             items.forEach(function (e) {
                 $('#menu3List').append("<li class='item' id='menu3-" + (e.code) + "'><div class='fl'><a href='#' class='mainClick'>" + (e.name) + "</a></div><div class='fr' style='position: relative;top: 2px;'>&nbsp;&nbsp;<a href='#' class='shift-up' id='menu3-move-up-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-up'></i></a>&nbsp;&nbsp;<a href='#' class='shift-down' id='menu3-move-down-tab-" + (e.code) + "'><i class='fa fa-arrow-circle-down'></i></a>&nbsp;&nbsp;<a href='#' class='editBtn' id='menu3-edit-tab-" + (e.code) + "'><i class='fa fa-edit'></i></a>&nbsp;&nbsp;<a href='#' class='deleteBtn' id='menu3-del-tab-" + (e.code) + "'><i class='fa fa-trash-o'></i></a></div></li>")
             })
+            menu_manage.funcs.bindCrubEvent()
             /** 在此处的话已经完全渲染了当前二级菜单下的menu3了,然后要给所有的存在的menu3绑定点击事件 */
             menu_manage.funcs.bindClickForModels($('#menu3List .item .mainClick'))
         }
+
         /** 给models绑定点击事件 */
         , bindClickForModels: function (items) {
             items.off('click')
@@ -137,6 +143,7 @@ var menu_manage = {
                 menu_manage.funcs.renderCurrentOperations(currentModelCode)
             })
         }
+
         /** 根据三级菜单来渲染当前菜单下的所有的operations */
         , renderCurrentOperations: function (currentModelCode) {
             /** 获取所有的operations */
@@ -155,6 +162,7 @@ var menu_manage = {
                 menu_manage.funcs.bindRemoveClickfor($('.rm-circle'));
             })
         }
+
         , renderAllOperations: function (tbody, operations) {
             tbody.empty()
             operations.forEach(function (e) {
@@ -187,10 +195,10 @@ var menu_manage = {
             /** 绑定非全选事件 */
             menu_manage.funcs.disselectAll($(".operation_box"), $("#operations_checkAll"))
         }
+
         /** 移除click事件的绑定 */
         , bindRemoveClickfor: function (items) {
-            items.off("click")
-            items.on('click', function () {
+            items.off("click").on('click', function () {
                 var operationCode = $(this).parent('li').attr('id').substr(10)
                 var modelCode = $('.selected-model').attr('id').substr(6)
                 $(this).parent('li').remove()
@@ -206,10 +214,10 @@ var menu_manage = {
                 })
             })
         }
+
         /** 给二级菜单绑定点击事件 */
         , bindClickForMenu2: function (items) {
-            items.off('click')
-            items.on('click', function () {
+            items.off('click').on('click', function () {
                 $('.md4 .selected-menu2').removeClass('selected-menu2')
                 $(this).parent('div').parent('li').addClass('selected-menu2')
                 /** 获取三级菜单 */
@@ -281,7 +289,7 @@ var menu_manage = {
                                     menu_manage.menu3s = result.data //存储三级菜单
                                     menu_manage.funcs.bindClickForMenu2($('#menu2List .item .mainClick'))
                                 })
-                                $('#menu3List').children('#' + _this.parent('li').attr('id')).remove()
+                                $('#menu3List').children('#' + _this.parent('div').parent('li').attr('id')).remove()
                             }
                             /** 如果删除二级菜单成功 */
                             if (result.code == 0 && deleteUrl.indexOf('menu2') > -1) {
@@ -290,7 +298,7 @@ var menu_manage = {
                                 $('.selected-menu2') ? $('.selected-menu2').removeClass('selected-menu2') : (function () {
                                 })()
                                 /** 在二级菜单中删除指定的元素 */
-                                $('#menu2List').children('#' + _this.parent('li').attr('id')).remove()
+                                $('#menu2List').children('#' + _this.parent('div').parent('li').attr('id')).remove()
                             }
                             /** 如果删除一级菜单成功 */
                             if (result.code == 0 && deleteUrl.indexOf('menu1') > -1) {
@@ -747,10 +755,9 @@ var menu_manage = {
                 var _this = $(this)
                 /** 点击向上的箭头会交换和上一个菜单的rank值 */
                 var menuType = $(this).attr('id').charAt(4)
-                console.log($(this).parent('div'))
+                // console.log($(this).parent('div'))
                 var beforeCode = $(this).parent('div').parent('li').prev('li')[0] ? $(this).parent('div').parent('li').prev('li').attr('id').substr(6) : undefined
                 var currentCode = $(this).parent('div').parent('li').attr('id').substr(6)
-                // console.log(beforeCode,currentCode)
                 var shiftUrl
                 switch (menuType) {
                     case '1':
@@ -769,11 +776,15 @@ var menu_manage = {
                         })();
                         break;
                 }
-                console.log(beforeCode)
                 if (beforeCode != undefined) {
                     $.post(shiftUrl, {code1: beforeCode, code2: currentCode}, function (result) {
                         if (result.code === 0) {
-                            console.log(_this)
+                            console.log(result)
+                            $.get(home.urls.menus.getAllMenu3(), {sort: 'rank'}, function (result) {
+                                menu_manage.funcs.sortMenus(result.data)
+                                menu_manage.menu3s = result.data //存储三级菜单
+                                menu_manage.funcs.bindClickForMenu2($('#menu2List .item .mainClick'))
+                            })
                             /** 当你修改数据成功之后,需要将一级菜单当前元素移除，然后在前一个元素的前面添加当前元素 */
                             var beforeOne = _this.parent('div').parent('li').prev('li').detach()
                             var currentOne = _this.parent('div').parent('li')
@@ -814,6 +825,11 @@ var menu_manage = {
                     $.post(shiftUrl, {code1: afterCode, code2: currentCode}, function (result) {
                         if (result.code === 0) {
                             /** 当你修改数据成功之后,需要将一级菜单当前元素移除，然后在前一个元素的前面添加当前元素 */
+                            $.get(home.urls.menus.getAllMenu3(), {sort: 'rank'}, function (result) {
+                                menu_manage.funcs.sortMenus(result.data)
+                                menu_manage.menu3s = result.data //存储三级菜单
+                                menu_manage.funcs.bindClickForMenu2($('#menu2List .item .mainClick'))
+                            })
                             var afterOne = _this.parent('div').parent('li').next('li').detach()
                             var currentOne = _this.parent('div').parent('li')
                             currentOne.before(afterOne)
