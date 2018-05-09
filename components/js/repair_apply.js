@@ -3,12 +3,6 @@ var repair_apply = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
         repair_apply.funcs.renderTable()
-        var out = $('#repair_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#repair_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 30)
     }//$init end$
 
     /** 当前总记录数,用户控制全选逻辑 */
@@ -45,6 +39,7 @@ var repair_apply = {
                         }
                     }
                 })
+                $('#repair_page').css('padding-left', '37%')
             })//$数据渲染完毕
 
             /** 追加刷新事件 */
