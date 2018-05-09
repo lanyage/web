@@ -1,15 +1,55 @@
 <div id='model-li-hide-74' class='display-component-container layui-row'
-     style='min-width: 800px;padding: 10% 40px 40px 40px;'>
+     style='padding: 10% 40px 40px 40px;background: #eb7350'>
     <meta charset='UTF-8'>
     <link rel='stylesheet' href='../layui/css/layui.css' media='all'>
     <title>test</title>
     <style type='text/css'>
 
     </style>
-    <div>
-        <h1>Hello world5.7!</h1>
+    <!--水平居中,指定宽度然后设置margin或者设置display为table,然后设置margin: width: 100%;margin: 0 auto;-->
+    <div style="width: 100%;margin: 0 auto;background: #ccc;text-align: center;">垂直水平居中</div>
+    <div style="height: 100px;background: #2D93CA;display: flex;align-items: center;text-align: center;">
+        <div style="background: chartreuse;width: 50%;margin: 0 auto;">
+            <div style="width: 50%;float: left;height: 20px;background: red;"></div>
+            <div style="width: 40%;float: left;height: 20px;background: #000000;"></div>
+            <div style="clear: both;padding: 10px;background: #ccc;"></div>
+        </div>
     </div>
-    <script src='https://cdn.bootcss.com/jquery/3.3.1/jquery.js'></script>
+    <div style="padding: 50px;"></div>
+    <!--头像摆放-->
+    <div>
+        <div style="width: 30%;margin:0 auto;box-shadow: #c2c2c2 1px;border-radius: 10%;">
+            <div style="min-width: 280px;max-width: 280px;">
+                <div style="height: 80px;background-image:url(//img.t.sinajs.cn/t6/skin/skin053/images/profile_cover_s.jpg?version=ba698e6b25f25ada)">
+                    <div style="display: table;margin: 0 auto;">
+                        <img style="border-radius: 50%;position: relative;top: 40px;"
+                             src="https://tvax2.sinaimg.cn/crop.0.0.512.512.180/69e273f8ly8fr3qffljhwj20e80e8t90.jpg" alt=""
+                             width="80" height="80"/>
+                    </div>
+                </div>
+                <div style="background: #FBFBFB;">
+                    <div style="text-align: center;font-size: 14px;font-weight: 500;padding-top:50px;">iamabigcolorwolf</div>
+                    <div style="padding: 10px 20px 10px 20px;">
+                        <div style="float: left;width: 33%">
+                            <div style="font-size: 15px;display: table;margin: 0 auto;">173</div>
+                            <div style="font-size: 12px;display: table;margin: 0 auto;">关注</div>
+                        </div>
+                        <div style="float: left;width: 33%">
+                            <div style="font-size: 15px;display: table;margin: 0 auto;">256</div>
+                            <div style="font-size: 12px;display: table;margin: 0 auto;">粉丝</div>
+                        </div>
+                        <div style="float: left;width: 33%">
+                            <div style="font-size: 15px;display: table;margin: 0 auto;">1328</div>
+                            <div style="font-size: 12px;display: table;margin: 0 auto;">微博</div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<script src='https://cdn.bootcss.com/jquery/3.3.1/jquery.js'></script>-->
     <script src='../js/jquery.min.js'></script>
     <script src='../layui/layui.all.js' charset='utf-8'></script>
     <script src='../layer/layer/layer.js'></script>
