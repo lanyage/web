@@ -639,7 +639,13 @@ var home = {
         materialIn : {
           getAllByPage : function() {
               return servers.backup() + 'godownEntryHeader/getAllByPage'
-          }
+          },
+          getAllByCode : function() {
+              return servers.backup() + 'godownEntryHeader/getByCode'
+          } ,
+          getByBatchNumber: function() {
+              return servers.backup() + 'godownEntryHeader/getByBatchNumber'
+          } 
         },
         materialOut : {
             getAllByPage : function() {

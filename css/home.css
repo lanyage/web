@@ -241,8 +241,20 @@ body .layui-ext-yourskin .layui-layer-btn {
     font-weight: 400;
 }
 /*覆盖部分内容*/
+.display-component-container .normal_td{
+    color: black;
+}
+.display-component-container .normal1_td{
+    font:15px bold;
+    
+}
+.display-component-container .normal11_td{
+    font:15px bold;
+    width:90px;
+}
+
 .display-component-container .checkBox_td {
-    padding: 5px 0px 5px 0px;
+    padding: 5px 0px 5px 0pdx;
     max-width: 30px;
     width: 30px;
 }
@@ -256,6 +268,7 @@ body .layui-ext-yourskin .layui-layer-btn {
     max-width: 30px;
     width: 33px;
 }
+
 .display-component-container tbody td {
     padding: 5px;
     border: 1px darkgrey solid;
