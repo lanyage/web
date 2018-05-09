@@ -68,6 +68,8 @@ var pro_out_manage = {
             // /** 绑定全选事件 */
             // pro_out_manage.funcs.checkboxEventBinding()
             /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
+            var addBtns = $('#model-li-hide-add-51')
+            pro_out_manage.funcs.bindAddClick(addBtns)
             var verifyBtns = $(".verify")
             pro_out_manage.funcs.bindVerifyClick(verifyBtns)
             var detailBtns = $(".detail")
@@ -76,6 +78,26 @@ var pro_out_manage = {
             pro_out_manage.funcs.bindEditorClick(editorBtns)
             var deleteBtns = $(".delete")
             pro_out_manage.funcs.bindDeleteClick(deleteBtns)
+        }
+        ,bindAddClick:function(addBtns){
+            addBtns.off('click')
+            addBtns.on('click',function(){
+                //点击的时候需要弹出一个模态框
+                // 而且要填充模态框里面的内容 todo
+                layer.open({
+                    type: 1,
+                    title: '新增',
+                    content: $("#add_modal"),
+                    area: ['800px', '400px'],
+                    btn: ['返回'],
+                    offset: "auto",
+                    closeBtn: 0,
+                    yes: function (index) {
+                        $("#add_modal").css('display', 'none')
+                        layer.close(index)
+                    }
+                });
+            })
         }
         ,bindVerifyClick:function(verifyBtns){
             verifyBtns.off('click')
