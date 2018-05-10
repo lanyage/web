@@ -2,13 +2,6 @@ var product_audit = {
     init: function () {
         // display
         product_audit.funcs.renderTable()
-
-        var out = $('#product_audit_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#product_audit_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 50)
     }
     /** 当前总记录数,用户控制全选逻辑 */
     , pageSize: 0
@@ -55,6 +48,7 @@ var product_audit = {
                         }
                     }
                 })
+                $('#product_audit_page').css('padding-left', '37%')
             })
 
             /** 追加状态下拉框事件 */

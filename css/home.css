@@ -9,26 +9,26 @@ html, body, parent {
     top: 0;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 50px;
     background: #333333;
     color: #fff;
 }
 
 .left {
     position: absolute;
-    top: 60px;
+    top: 50px;
     left: 0;
-    width: 260px;
+    width: 230px;
     height: 100%;
-
+    font-weight: 400;
 }
 
 .right {
     position: absolute;
     overflow: auto;
-    left: 260px;
+    left: 230px;
     right: 0;
-    top: 60px;
+    top: 50px;
     height: 100%;
     background: #ffffff;
     min-width: 695px;
@@ -40,18 +40,16 @@ html, body, parent {
     background: #20232b;
     color: #fff;
     border-right: 1px #0b0b13 solid;
-    border-top: 1px #0b0b13 solid;
 }
 
 .menus2 {
     position: absolute;
-    width: 150px;
+    width: 120px;
     height: 100%;
     bottom: 0;
     right: 0;
     top: 0px;
     background: #2b2e36;
-    border-top: 1px #0b0b13 solid;
 }
 
 .top-left-text {
@@ -59,15 +57,15 @@ html, body, parent {
     top: 0px;
     left: 10px;
     bottom: 0px;
-    line-height: 60px;
-    font-size: large;
+    line-height: 54px;
+    font-size: 15px;
     color: #fff;
     float: left;
 }
 
 .top-right {
     position: absolute;
-    line-height: 40px;
+    line-height: 28px;
     right: 0;
 }
 
@@ -78,7 +76,6 @@ ul {
 
 .menus1 ul {
     list-style: none;
-
     padding-top: 40px;
     font-size: 14px;
     font-weight: 400;
@@ -88,8 +85,7 @@ ul {
     display: none;
 }
 
-.menus2 {
-}
+
 
 .menus1 ul li {
     position: relative;
@@ -97,27 +93,30 @@ ul {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: center;
-
 }
 
 .menus1 ul li a {
     text-decoration: none;
     color: #fff;
+    font-size: 13px;
 }
 
 .menus2 div {
     color: #fff;
     text-align: center;
+    font-size: 13px;
     line-height: 40px;
-    font-size: 14px;
+    font-weight: 400;
 }
-
+.menus2 .menu3-tab-bar{
+    padding: 1px;
+}
 .menus2 ul .menu2-tab-bar li {
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
     background: #515151;
-    padding-top: 2.5px;
-    padding-bottom: 2.5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .menus2 ul .menu2-tab-bar li a {
@@ -136,6 +135,7 @@ ul {
 
 .menus2 .models ul li a {
     text-decoration: none;
+    position: relative;
 }
 
 body .layui-ext-yourskin .layui-layer-btn {
@@ -152,13 +152,11 @@ body .layui-ext-yourskin .layui-layer-btn {
 
 .parent .top-right #hover-body {
     position: absolute;
-    width: 179px;
-    height: 94px;
-    top: 60.5px;
-    right: 1px;
+    min-width: 150px;
+    min-height: 79px;
+    top: 50px;
+    right: 0px;
     background: #333333;
-    border: #333333 solid 0.1px;
-    border-top: 0.1px solid #ffffff;
     z-index: 100;
     opacity: 1;
 }
@@ -173,15 +171,18 @@ body .layui-ext-yourskin .layui-layer-btn {
 }
 
 #hover-body {
-    border-left: #ffffff solid 1px;
-    border-right: #ffffff solid 0.5px;
+    border-left: white solid 1px;
+    border-right: white solid 1px;
+    border-top: white solid 1px;
     border-radius: 1%;
+    align-items: center;
+    text-align: center;
 }
 
-#hover-body p {
-    padding-left: 10px;
+/*#hover-body p {*/
+    /*padding-left: 10px;*/
 
-}
+/*}*/
 
 #user-info-hover a {
     padding: 15px;
@@ -230,15 +231,44 @@ body .layui-ext-yourskin .layui-layer-btn {
 .fr {
     float: right;
 }
-
-
+.display-component-container {
+    min-width: 880px;
+}
 .display-component-container thead td {
     padding: 5px;
     border: 1px darkgrey solid;
-    font-size: 14px;
+    font-size: 13px;
     color: white;
     text-align: center;
     font-weight: 400;
+}
+/*覆盖部分内容*/
+.display-component-container .normal_td{
+    color: black;
+}
+.display-component-container .normal1_td{
+    font:15px bold;
+    
+}
+.display-component-container .normal11_td{
+    font:15px bold;
+    width:90px;
+}
+
+.display-component-container .checkBox_td {
+    padding: 5px 0px 5px 0px;
+    max-width: 30px;
+    width: 30px;
+}
+.display-component-container .edit_td {
+    padding: 5px 0px 5px 0px;
+    max-width: 30px;
+    width: 33px;
+}
+.display-component-container .delete_td {
+    padding: 5px 0px 5px 0px;
+    max-width: 30px;
+    width: 33px;
 }
 
 .display-component-container tbody td {
@@ -274,4 +304,7 @@ body .layui-ext-yourskin .layui-layer-btn {
 }
 .roundBtn {
     border-radius: 8%;
+}
+.green {
+    background: #419398;
 }

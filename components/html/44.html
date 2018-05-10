@@ -73,7 +73,8 @@
                                                           class="provider_input" disabled></textarea>
                     </td>
                     <td class="repair_td_text" id="re_appcon">联系电话</td>
-                    <td class="repair_td_blank" colspan="3"><input type="text" id="repair_input_appcontact" class="provider_input"
+                    <td class="repair_td_blank" colspan="3"><input type="text" id="repair_input_appcontact"
+                                                                   class="provider_input"
                                                                    class="provider_input" disabled></td>
                 </tr>
                 <tr>
@@ -148,44 +149,44 @@
             repair_apply.init()
         })
     </script>
-        <script type="application/javascript">
-            layui.use('laydate', function () {
-                var laydate = layui.laydate;
-                //执行一个laydate实例
-                laydate.render({
-                    elem: '#model-li-hide-searchbytime-44',//指定元素
-                    btns:['now'],
-                    done: function (value, date) {
-                        var date = value.split('-').join('/')
-                        $.post(home.urls.repair.findByApplicationTimeInPages(), {date: date}, function (result) {
+    <script type="application/javascript">
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#model-li-hide-searchbytime-44',//指定元素
+                btns: ['now'],
+                done: function (value, date) {
+                    var date = value.split('-').join('/')
+                    $.post(home.urls.repair.findByApplicationTimeInPages(), {date: date}, function (result) {
 
-                            $("#repair_table").children('tbody').empty()
-                            repair_apply.funcs.renderHandler($("#repair_table").children('tbody'),result.data.content)
+                        $("#repair_table").children('tbody').empty()
+                        repair_apply.funcs.renderHandler($("#repair_table").children('tbody'), result.data.content)
 
-                            if (result.data.totalPages != 0){
-                                layui.laypage.render({
-                                    elem: 'repair_page'
-                                    , count: 10 * result.data.totalPages//数据总数
-                                    , jump: function (obj, first) {
-                                        if(!first) {
-                                            $.post(home.urls.repair.findByApplicationTimeInPages(), {
-                                                page: obj.curr - 1,
-                                                size: obj.limit,
-                                                date: date
-                                            }, function (result) {
-                                                var repairs = result.data.content //获取数据
-                                                const $tbody = $("#repair_table").children('tbody')
-                                                repair_apply.funcs.renderHandler($tbody, repairs)
-                                                repair_apply.pageSize = result.data.content.length
-                                            })
-                                        }
+                        if (result.data.totalPages != 0) {
+                            layui.laypage.render({
+                                elem: 'repair_page'
+                                , count: 10 * result.data.totalPages//数据总数
+                                , jump: function (obj, first) {
+                                    if (!first) {
+                                        $.post(home.urls.repair.findByApplicationTimeInPages(), {
+                                            page: obj.curr - 1,
+                                            size: obj.limit,
+                                            date: date
+                                        }, function (result) {
+                                            var repairs = result.data.content //获取数据
+                                            const $tbody = $("#repair_table").children('tbody')
+                                            repair_apply.funcs.renderHandler($tbody, repairs)
+                                            repair_apply.pageSize = result.data.content.length
+                                        })
                                     }
-                                })
-                            }
-                        })
+                                }
+                            })
+                        }
+                    })
 
-                    }
-                });
+                }
             });
+        });
     </script>
 </div>

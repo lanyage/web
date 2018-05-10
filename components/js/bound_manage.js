@@ -8,12 +8,6 @@ var bound_manage = {
 	init: function() {
 		/** 获取部门信息分页显示并展示 */
 		bound_manage.funcs.renderTable()
-        var out = $('#bound_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#bound_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 30)
 	},
 	pageSize: 0,
 	funcs: {
@@ -46,6 +40,7 @@ var bound_manage = {
 							}
 						}
 					})
+                    $('#bound_page').css('padding-left', '37%')
 				})
 				//$数据渲染完毕
 				var addBtn = $("#model-li-hide-add-60")

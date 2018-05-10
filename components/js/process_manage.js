@@ -2,12 +2,6 @@ var process_manage = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
         process_manage.funcs.renderTable()
-        var out = $('#process_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#process_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 30)
     } //$init end$
     ,
     pageSize: 0,
@@ -41,6 +35,7 @@ var process_manage = {
                         }
                     }
                 })
+                $('#process_page').css('padding-left', '37%')
             })
             //$数据渲染完毕
             var addBtn = $("#model-li-hide-add-60")

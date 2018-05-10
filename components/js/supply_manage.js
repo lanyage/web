@@ -2,12 +2,6 @@ var supply_manage = {
     init: function () {
         /** 获取供应商信息分页显示并展示 */
         supply_manage.funcs.renderTable()
-        var out = $('#supplyman_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#supplyman_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 30)
     }//$init end$
     , pageSize: 0
     , funcs: {
@@ -36,6 +30,7 @@ var supply_manage = {
                         }
                     }
                 })
+                $('#supplyman_page').css('padding-left','37%')
             })
             //$数据渲染完毕
             /** 新增*/

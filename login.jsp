@@ -93,6 +93,23 @@
                 }
             })
         })
+
+        /** 获取所有的权限 */
+        $.get(servers.backup() + 'modelOperation/getAll', {}, function (result) {
+            var modelOperations = result.data
+            window.localStorage.setItem('modelOperations', JSON.stringify(modelOperations))
+        })
+        $.get(servers.backup() + 'role/getAllRoleModelOperation', {}, function (result) {
+            var roleModelOperation = result.data
+            window.localStorage.setItem('roleModelOperation', JSON.stringify(roleModelOperation))
+        })
+        /** 获取所有的operations并用远足存储起来 */
+        $.get(servers.backup() + 'operation/getAll', {}, function (result) {
+            var operations = result.data.sort(function (a, b) {
+                return a.code - b.code
+            })
+            window.localStorage.setItem('operations', JSON.stringify(operations))
+        })
     })
 </script>
 </body>

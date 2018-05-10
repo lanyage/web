@@ -4,12 +4,6 @@ var product_publish = {
     currId: null,
     init: function () {
         product_publish.funcs.renderTable(product_publish.status)
-        var out = $('#_23page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#_23page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 30)
     },
     funcs: {
         renderTable: function (status) {
@@ -41,6 +35,7 @@ var product_publish = {
                         }
                     }
                 })
+                $('#_23page').css('padding-left','37%')
             })//$数据渲染完毕
 
             /** 追加状态下拉框事件 */

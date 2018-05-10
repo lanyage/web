@@ -2,12 +2,6 @@ var staff_manage = {
     init: function () {
         /** 获取人员管理分页显示并展示 */
         staff_manage.funcs.renderTable()
-        var out = $('#staffman_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#staffman_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 30)
     }//$init end$
 
     /** 当前总记录数,用户控制全选逻辑 */
@@ -44,6 +38,7 @@ var staff_manage = {
                         }
                     }
                 })
+                $('#staffman_page').css('padding-left','37%')
             })//$数据渲染完毕
         }
         /** 人员信息编辑事件 */

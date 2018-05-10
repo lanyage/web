@@ -2,13 +2,6 @@ var department_manage = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
         department_manage.funcs.renderTable()
-
-        var out = $('#department_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#department_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 30)
     }//$init end$
     /** 当前总记录数,用户控制全选逻辑 */
     , pageSize: 0
@@ -46,6 +39,7 @@ var department_manage = {
                         }
                     }
                 })
+                $('#department_page').css('padding-left', '37%')
             })//$数据渲染完毕
 
             /** 追加添加事件 */

@@ -2,13 +2,6 @@ var process_audit = {
     init: function () {
         process_audit.funcs.renderTable();
         process_audit.funcs.hideTable();
-
-        var out = $('#process_audit_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#process_audit_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 50)
     }
     , process_type: 0   // choose material type: 0-premix, 1-size, 2-lithium, 3-buckle
     , pageSize: 0
@@ -55,6 +48,7 @@ var process_audit = {
                         }
                     }
                 })
+                $('#process_audit_page').css('padding-left', '37%')
             });
 
             // 追加刷新事件

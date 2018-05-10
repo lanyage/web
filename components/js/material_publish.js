@@ -14,13 +14,6 @@ var material_publish = {
             presoma_table.hide();
             lithium_table.show();
         }
-
-        var out = $('#_24page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('_24page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 50)
     }
     , material_type: 0   // choose material type: 0-personma, 1-lithium
     , pageSize: 0
@@ -70,6 +63,7 @@ var material_publish = {
                             }
                         }
                     })
+                    $('_24page').css('padding-left', '37%')
                 })
             }
             else {

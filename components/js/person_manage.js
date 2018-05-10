@@ -5,7 +5,7 @@ var person_manage = {
         var out = $('#personman_page').width()
         var time = setTimeout(function(){
             var inside = $('.layui-laypage').width()
-            $('#personman_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+
             clearTimeout(time)
         },30)
     }//$init end$
@@ -44,6 +44,7 @@ var person_manage = {
                        }
                     }
                 })
+                $('#personman_page').css('padding-left','37%')
             })//$数据渲染完毕
         }
         /** 人员信息编辑事件 */
