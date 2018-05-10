@@ -46,7 +46,7 @@
             <td>XX物料</td>
             <td>10</td>
             <td>待审核</td>
-            <td><a href="#" class='detail'><i class="layui-icon">&#xe6b2;</i></a></td>
+            <td><a href="#" class='edit'><i class="layui-icon">&#xe6b2;</i></a></td>
         </tr>
         <tr>
             <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
@@ -59,4 +59,69 @@
         </tr>
         </tbody>
     </table>
+    <script src="../components/js/plate_manage.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            plate_manage.init()
+        })
+    </script>
+    <div id="edit_modal" class="hide" style="padding: 30px 30px 30px 30px;">
+        <table width="100%">
+            <tr>
+                <td class="grey" width="20%">报损单编号</td>
+                <td width="30%">系统生成</td>
+                <td class="grey" width="20%">物料类型</td>
+                <td width="30%">继承</td>
+            </tr>
+            <tr>
+                <td class="grey">物料名称</td>
+                <td>继承</td>
+                <td class="grey">盘库数量</td>
+                <td>继承</td>
+            </tr>
+            <tr>
+                <td class="grey">总量</td>
+                <td>根据明细求和</td>
+                <td class="grey">流程类型</td>
+                <td><select>
+                    <option>流程1</option>
+                    <option>流程2</option>
+                    <option>流程3</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td class="grey">报损人</td>
+                <td>当前用户</td>
+                <td class="grey">审核状态</td>
+                <td>待审核</td>
+            </tr>
+            <tr>
+                <td class="grey">报损时间</td>
+                <td>2018年5月4日16：26：28</td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <input type="button" value="新增">
+        <div class="whitespace"></div>
+        <table width="100%">
+            <tr class="grey">
+                <td>序号</td>
+                <td>入库编号</td>
+                <td>报损数量</td>
+                <td>删除</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>382333333</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>382333334</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
 </div>
