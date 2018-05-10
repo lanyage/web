@@ -21,7 +21,7 @@
         <div class="top-left" style="padding-left: 12px;">
             <div class="fl" style="position: relative;top: 12px;"><img src="../dist/images/login/logo.png" width="30px"
                                                                        height="30px"></div>
-            <div class="top-left-text">长远锂科MES系统<i class="fa fa-chevron-square-left"></i></div>
+            <div class="top-left-text">长远锂科MES系统</div>
         </div>
         <div class="top-right">
             <div id='user-info-hover' style="position:relative; padding: 10px 0px 10px 10px;font-size: 14px;"><a
@@ -29,12 +29,13 @@
             <div id="hover-body" class="hide" style="text-align: center;">
                 <div style="position: relative;top: 12px;display: inline-block">
                     <p>
-                        <div class="fl">&nbsp;<a href="#"><i class="fa fa-sign-in"></i>&nbsp;进入个人中心</a></div>
+                    <div class="fl">&nbsp;<a href="#"><i class="fa fa-sign-in"></i>&nbsp;进入个人中心</a></div>
                     </p>
-                    <div style="clear: both;padding: 3px;"></div>
+                    <div style="clear: both;padding: 1px;"></div>
                     <p style="padding: 0px 30px 0px 20px;">
-                        <div class="fl">&nbsp;<i class="fa fa-id-badge"></i>&nbsp;<span id='user-id'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        <div class="fl">&nbsp;<a href="#" id="exit">&nbsp;退出&nbsp;</a></div>
+                    <div class="fl">&nbsp;<i class="fa fa-id-badge"></i>&nbsp;<span id='user-id'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="fl">&nbsp;<a href="#" id="exit">&nbsp;退出&nbsp;</a></div>
                     </p>
                 </div>
             </div>
@@ -92,11 +93,7 @@
             }
         })()
         /** 日期显示 */
-        $('.top-left-text').text('长远锂科MES系统-' + new Date().Format("yyyy/MM/dd hh:mm:ss").substr(2))
-        setInterval(function () {
-            $('.top-left-text').text('长远锂科MES系统-' + new Date().Format("yyyy/MM/dd hh:mm:ss").substr(2))
-        }, 1000)
-
+        $('.top-left-text')[0].innerHTML = "长远锂科MES系统&nbsp;<i class='fa fa-clock-o' style='color: #1E9FFF;font-size:13px; font-weight: 600;'>&nbsp;" + new Date().Format("MM月dd号") + "</i>"
         var userStr = $.session.get('user')
         if (!userStr) {
             console.log('用户已经失去登录，请重新登录')

@@ -62,16 +62,16 @@
         <thead style="background: #666666;">
         <tr>
             <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
-            <td><input id="product_out_checkAll" type="checkbox"></td>
+            <td class="checkBox_td"><input id="product_out_checkAll" type="checkbox"></td>
             <td>序号</td>
             <td>产品型号</td>
             <td>开单日期</td>
             <td>接收单位</td>
             <td>审批状态</td>
-            <td>审核</td>
-            <td>详情</td>
-            <td>编辑</td>
-            <td>删除</td>
+            <td class="edit_td">审核</td>
+            <td class="edit_td">详情</td>
+            <td class="edit_td">编辑</td>
+            <td class="delete_td">删除</td>
         </tr>
         </thead>
         <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
@@ -369,7 +369,7 @@
     <div class="whitespace" style="clear: both"></div>
     <table width="100%" id="add_modal_table">
         <tr class="grey">
-            <td><input type="checkbox" id='add_checkAll'/></td>
+            <td><input id='add_checkAll'/></td>
             <td>序号</td>
             <td>成品批号</td>
             <td>单位</td>
@@ -449,7 +449,7 @@
     <div class="whitespace" style="clear: both"></div>
     <table width="100%" id="edit_modal_table">
         <tr class="grey">
-            <td><input type="checkbox" id='edit_checkAll'/></td>
+            <td class="checkBox_td"><input type="checkbox" id='edit_checkAll'/></td>
             <td>序号</td>
             <td>成品批号-周玉凯</td>
             <td>单位</td>
@@ -489,7 +489,7 @@
             <td>已入库</td>
         </tr>
     </table>
-    
+
 </div>
 </div>
 <!--
