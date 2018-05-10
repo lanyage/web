@@ -3,6 +3,8 @@ var mat_out_manage = {
     init: function () {
         /** 渲染表格 */
         mat_out_manage.funcs.renderTable()
+        /** 渲染下拉菜单 */
+        mat_out_manage.funcs.bindCreatoption()
         // mat_out_manage.funcs.checkboxEventBinding()
         /** 将分页居中 */ 
         var out = $('#material_out_page').width()
@@ -16,10 +18,12 @@ var mat_out_manage = {
 
         renderTable: function () {
             $.post(home.urls.materialOut.getAllByPage(), {}, function (res) {
-                console.log(res.data.content)
+                //console.log(res.data.content)
                 var $tbody = $("#material_out_table").children('tbody')
                 /** 过滤返回的数据 */
                 var items = res.data.content
+                //console.log('AAAAAAAAAAAAAAAAAAAAAAAA')
+                //console.log(items)
                 mat_out_manage.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 mat_out_manage.pageSize = res.data.content.length //该页的记录数
@@ -44,19 +48,27 @@ var mat_out_manage = {
                     }
                 })
             })
-        }
+             // 追加刷新事件
+             var refreshBtn = $('#model-li-hide-refresh-50');
+             mat_out_manage.funcs.bindRefreshEventListener(refreshBtn);//追加刷新事件
+
+             /** 追加搜索事件 */
+           var searchBtn = $('#model-li-hide-search-50');
+           mat_out_manage.funcs.bindSearchEventListener(searchBtn);
+             
+        } 
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
             items.forEach(function (e) {
                 var code = e.code
                 var content = (
                     "<tr>" +
-                    "<td>" + 1 + "</td>" +
-                    "<td>" + 2 + "</td>" +
-                    "<td>" + 3 + "</td>" +
-                    "<td>" + 4 + "</td>" +
-                    "<td>" + 5 + "</td>" +
-                    "<td>" + 6 + "</td>" +
+                    "<td>" + e.code + "</td>" +
+                    "<td>" + e.department.name  + "</td>" +
+                    "<td>" + (new Date(e.applyDate).Format('yyyy/MM/dd')) + "</td>" +
+                    "<td>" + e.processManage.code + "</td>" +
+                    "<td>" + e.auditStatus+ "</td>" +
+                    "<td>" + e.pickingStatus+ "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "</tr>"
                 )
@@ -68,6 +80,36 @@ var mat_out_manage = {
             var detailBtns = $(".detail")
             mat_out_manage.funcs.bindDetailClick(detailBtns)
         }
+
+         /** 监听下拉菜单的option */
+         ,bindCreatoption:function(){
+            $.get(home.urls.department.getAll(),{},function(result){
+                var value = result.data
+                //console.log('AAAAAAAAAAAAAAAAAAAAAAAAA')
+                //console.log(value)
+                var length = value.length
+                //console.log('BBBBBBBBBBBBBBBBB')
+                //console.log(length)
+                for(var i=0;i<length;i++){
+                   // console.log(value[i].code)
+                    var text = value[i].name
+                $("#depmartment-1").append("<option id='"+ value[i].code +"' value='"+value[i].code+"'>"+text+"</option>");
+               }
+            })
+            ,$.get(home.urls.check.getAll(),{},function(result){
+                var value = result.data
+                //console.log('AAAAAAAAAAAAAAAAAAAAAAAAA')
+                //console.log(value)
+                var length = value.length
+                //console.log('BBBBBBBBBBBBBBBBB')
+                //console.log(length)
+                for(var i=0;i<length;i++){
+                    //console.log(value[i].code)
+                    var text = value[i].name
+                $("#depmartment-3").append("<option id='"+value[i].code+"' value='"+value[i].code+"'>"+text+"</option>");
+               }
+            })
+         }
         , bindDetailClick: function (detailBtns) {
             detailBtns.off('click').on('click', function () {
                 //点击的时候需要弹出一个模态框
@@ -107,6 +149,67 @@ var mat_out_manage = {
                 }
             })
         }
-        /** $全选逻辑结束$ */
+        /** $全选逻辑结束$ 
+         * 刷新逻辑
+        */
+        ,bindRefreshEventListener: function (refreshBtn) {
+            refreshBtn.off('click')
+            refreshBtn.on('click', function () { 
+                
+                var index = layer.load(2, {offset: ['40%', '58%']});
+                var time = setTimeout(function () {
+                    layer.msg('刷新成功', {
+                        offset: ['40%', '55%'],
+                        time: 700
+                    }) 
+                    mat_out_manage.init()
+                    layer.close(index)
+                    clearTimeout(time)
+                }, 200)
+               
+            })
+        }
+          /** 搜索事件 */
+          ,bindSearchEventListener: function (searchBtn) {
+            searchBtn.off('click')
+            searchBtn.on('click', function () {
+                var department = $('#depmartment-1 option:selected').val();
+                var status = $('#depmartment-2').val()
+                var process = $('#depmartment-3 option:selected').val();
+                console.log(department)
+                console.log(status)
+                console.log(process)
+                $.post(home.urls.materialOut.getByDepartmentAndProcessManageAndPickingStatusByPage(), {
+                    departmentCode: department,
+                    pickingStatus:status,
+                    processManageCode:process
+                }, function (result) {
+                    var items = result.data.content //获取数据
+                    console.log('AAAAAAAAAAAAAAAAAAAAAAAAA')
+                    console.log(items)
+                    ///var status = $('#model-li-select-48').val()
+                    var page = result.data
+                    const $tbody = $("#material_out_table").children('tbody')
+                    mat_out_manage.funcs.renderHandler($tbody, items)
+                    layui.laypage.render({
+                        elem: 'material_out_page'
+                        , count: 10 * page.totalPages//数据总数
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                $.post(home.urls.materialout.getAllByPage(), {
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var manage = result.data.content //获取数据
+                                    const $tbody = $("#material_out_table").children('tbody')
+                                    mat_out_manage.funcs.renderHandler($tbody, items)
+                                    mat_out_manage.pageSize = result.data.content.length
+                                })
+                            }
+                        }
+                    })
+                })
+            })
+        }
     }
 }

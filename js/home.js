@@ -168,6 +168,9 @@ var home = {
             getAllByLikeNameByPage: function () {
                 return servers.backup() + 'check/getAllByLikeNameByPage'
             },
+            getAll:function () {
+                return servers.backup() + 'check/getAll'
+            }
 
         },
         department: {
@@ -653,8 +656,15 @@ var home = {
         },
         materialOut: {
             getAllByPage: function () {
-                return servers.backup() + 'sendEntryHeader/getAllByPage'
+                return servers.backup() + 'pickingApplyHeader/getAllByPage'
+            },
+            getByDepartmentAndProcessManageAndPickingStatusByPage:function(){
+                return servers.backup() + 'pickingApplyHeader/getByDepartmentAndProcessManageAndPickingStatusByPage'
+            },
+            getByCode:function(){
+                return servers.backup() + 'pickingApplyHeader/getByCode'
             }
+
         },
         equipment: {
             getAllByPage: function () {
