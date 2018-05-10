@@ -34,7 +34,7 @@
                     <div style="clear: both;padding: 3px;"></div>
                     <p style="padding: 0px 30px 0px 20px;">
                         <div class="fl">&nbsp;<i class="fa fa-id-badge"></i>&nbsp;<span id='user-id'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        <div class="fl"><a href="#" id="exit">退出</a></div>
+                        <div class="fl">&nbsp;<a href="#" id="exit">&nbsp;退出&nbsp;</a></div>
                     </p>
                 </div>
             </div>

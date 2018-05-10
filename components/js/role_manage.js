@@ -11,12 +11,6 @@ var role_manage = {
         //Table Rendering
         role_manage.funcs.renderTable()
         /////////////////////
-        var out = $('#role_page').width()
-        var time = setTimeout(function () {
-            var inside = $('.layui-laypage').width()
-            $('#role_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
-            clearTimeout(time)
-        }, 30)
     }
     /** 当前总记录数,用户控制全选逻辑 */
     , pageSize: 0
@@ -55,6 +49,7 @@ var role_manage = {
                         }
                     }
                 })
+                $('#role_page').css('padding-left', '37%')
             })//$数据渲染完毕
 
             /** 追加添加事件 */
@@ -314,7 +309,7 @@ var role_manage = {
         , bindEditLimitListener: function (limitBtns) {
             limitBtns.off('click').on('click', function () {
                 var $innerTable = $('#right_body_table')
-                $innerTable.empty()
+                $innerTable.empty().hide()
                 /** 获取当前角色的code */
                 var _selfBtn = $(this)
                 var roleCode = _selfBtn.attr('id').substr(6)
@@ -339,15 +334,12 @@ var role_manage = {
                         return a.code - b.code
                     })
 
-                    // console.log(role)
-                    // console.log(role_models)
                     /** 存储当前Role下的所有三级菜单的code,用于后期做比较 */
                     var role_model_codes = []
                     role_models.forEach(function (ele) {
                         var modelCode = ele.code
                         role_model_codes.push(modelCode)
                     })
-                    // console.log(role_model_codes)
 
                     /** 获取实际存在的所有的三级菜单*/
                     $.get(home.urls.menus.getAllMenu3(), {}, function (result) {
@@ -360,11 +352,6 @@ var role_manage = {
                             var modelCode = ele.code
                             all_models_codes.push(modelCode)
                         })
-                        // console.log(all_models_codes)
-
-                        // var flag1 = all_models[0].menu1.code
-                        // var flag2 = all_models[0].menu2.code
-
                         /** 获取所有的一级菜单和二级菜单 */
                         var menu1codes = []//用户一级菜单去重
                         var menu2codes = []//用于二级菜单去重
@@ -387,7 +374,6 @@ var role_manage = {
                         menu2s = menu2s.sort(function (a, b) {
                             return a.menu1.rank - b.menu1.rank
                         })
-                        // console.log(menu2s)
                         menu2s.forEach(function (menu2) {
                             var menu1 = menu2.menu1;
                             var menu1Code = menu2.menu1.code
@@ -479,6 +465,10 @@ var role_manage = {
                                         )
                                     }
                                 })
+                                var time = setTimeout(function() {
+                                    $innerTable.show(0)
+                                    clearTimeout(time)
+                                },350)
                                 /////////////////////////////////
                                 //绑定checkbox事件
                                 ////////////////////////////////
@@ -553,123 +543,6 @@ var role_manage = {
                         }
                     })
                 })
-                // $.get(home.urls.role.getAllOperations(), function (op) {
-                //     operations = op.data
-                //     $.post(home.urls.role.getByCode(), { code: roleCode }, function (result) {
-                //         var models = result.data.models
-                //         models.sort(function (a, b) {
-                //             return a.code - b.code
-                //         })
-                //         var flag1 = models[0].menu1.code
-                //         var flag2 = models[0].menu2.code
-                //         models.forEach(function (e) {
-                //             if (e.menu1.code == flag1) {
-                //                 flag1++
-                //                 $('#right_body_table').append(
-                //                     "<tr><td>" +
-                //                     "<i class='layui-icon' style='color:rgb(134,134,134)'>&#xe7a0;</i>" +
-                //                     "<span>" + (e.menu1.name) + "</span>" +
-                //                     "</td><td></td><td></td></tr>"
-                //                 )
-                //             }
-                //             if (e.menu2.code == flag2) {
-                //                 flag2++
-                //                 $('#right_body_table').append(
-                //                     "<tr><td>" +
-                //                     "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 15px'>&#xe625;</i>" +
-                //                     "<span>" + (e.menu2.name) + "</span>" +
-                //                     "</td><td></td><td></td></tr>"
-                //                 )
-                //             }
-                //             $('#right_body_table').append(
-                //                 "<tr id='model_" + (e.code) + "' class='the_models'><td>" +
-                //                 "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 30px'>&#xe623;</i>" +
-                //                 "<span>" + (e.name) + "</span>" +
-                //                 "<td style='text-align: center'><input id='all_operations_" + (e.code) + "' class='all_operations' value='" + (e.code) + "' type='checkbox' />" +
-                //                 "</td><td id='add_operation_" + (e.code) + "'>" +
-                //                 "</td></tr>"
-                //             )
-                //             operations.forEach(function (ele) {
-                //                 $('#add_operation_' + e.code).append(
-                //                     "&nbsp;&nbsp;&nbsp;&nbsp;<input class='a_operation' type='checkbox' value='" + (ele.code) + "'/>&nbsp;" + (ele.name) + ""
-                //                 )
-                //             })
-                //             var the_operations = e.operations
-                //             if (the_operations != null) {
-                //                 the_operations.forEach(function (a_op) {
-                //                     $('#add_operation_' + e.code).children("[value= " + (a_op.code) + "]").prop('checked', true)
-                //                 })
-                //                 if (the_operations.length == operations.length) {
-                //                     $('#all_operations_' + e.code).prop('checked', true)
-                //                 }
-                //             }
-                //
-                //         })
-                //
-                //         /** 全选权限框 */
-                //         $('.all_operations').on('change', function () {
-                //             var _selfBtn = $(this)
-                //             var status = _selfBtn.prop('checked')
-                //             var model = _selfBtn.val()
-                //             $('#add_operation_' + model).children().prop('checked', status)
-                //         })
-                //         /** 单选权限框 */
-                //         $('.a_operation').on('change', function () {
-                //             var _selfBtn = $(this)
-                //             var statusNow = _selfBtn.prop('checked')
-                //             var model = _selfBtn.parent().attr('id').substr(14)
-                //             var op_num = 0
-                //             $('#add_operation_' + model).children().each(function () {
-                //                 if ($(this).prop('checked'))
-                //                     op_num++
-                //             })
-                //             if (statusNow === false) {
-                //                 $('#all_operations_' + model).prop('checked', false)
-                //             } else if (statusNow === true && op_num === operations.length) {
-                //                 $('#all_operations_' + model).prop('checked', true)
-                //             }
-                //         })
-                //
-                //         layer.open({
-                //             type: 1,
-                //             content: $('#right_body'),
-                //             area: ['700px', '650px'],
-                //             btn: ['确认', '取消'],
-                //             offset: ['12%', '30%'],
-                //             closeBtn: 0,
-                //             yes: function (index) {
-                //                 var RoleModelOperations = []
-                //                 $('.the_models').each(function () {
-                //                     var model = $(this).attr('id').substr(6)
-                //                     $('.a_operation:checked').each(function () {
-                //                         RoleModelOperations.push({ roleCode: roleCode, modelCode: model, operationCode: $(this).val() })
-                //                     })
-                //                 })
-                //                 $.ajax({
-                //                     url: home.urls.role.updateRoleModelOperations(),
-                //                     contentType: 'application/json',
-                //                     data: JSON.stringify(RoleModelOperations),
-                //                     dataType: 'json',
-                //                     type: 'post',
-                //                     success: function (result) {
-                //                         if (result.code === 0) {
-                //                             layer.msg(result.message, {
-                //                                 offset: ['40%', '55%'],
-                //                                 time: 700
-                //                             })
-                //                         }
-                //                     }
-                //                 })
-                //                 layer.close(index)
-                //                 $("#right_body").css('display', 'none')
-                //             },
-                //             btn2: function (index) {
-                //                 layer.close(index)
-                //                 $("#right_body").css('display', 'none')
-                //             }
-                //         })
-                //     })
-                // })
             })
         }
 
