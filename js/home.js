@@ -652,7 +652,13 @@ var home = {
           } ,
           getByBatchNumber: function() {
               return servers.backup() + 'godownEntryHeader/getByBatchNumber'
-          } 
+          } ,
+          getAllSupplier: function() {
+            return servers.backup() + 'supplier/getAll'
+          } ,
+          getBySupplierByPage: function() {
+            return servers.backup() + 'godownEntryHeader/getBySupplierByPage'
+          }
         },
         materialOut: {
             getAllByPage: function () {
@@ -664,6 +670,14 @@ var home = {
             getByCode:function(){
                 return servers.backup() + 'pickingApplyHeader/getByCode'
             }
+  
+        },
+        productIn:{ 
+            getAllByPage: function(){
+                return servers.backup() + 'productGodownHeader/getAllByPage'
+
+        }
+           
 
         },
         equipment: {

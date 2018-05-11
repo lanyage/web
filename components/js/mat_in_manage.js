@@ -3,6 +3,7 @@ var mat_in_manage = {
     init: function () {
         /** 渲染表格 */
         mat_in_manage.funcs.renderTable()
+        mat_in_manage.funcs.getSupplier()
         /** 需要给刷新按钮和搜索按钮绑定点击事件 */
     },
     funcs: {
@@ -10,7 +11,7 @@ var mat_in_manage = {
             $.post(home.urls.materialIn.getAllByPage(), {}, function (res) {
                 var $tbody = $("#material_in_table").children('tbody')
                 var items = res.data.content
-                mat_in_manage.funcs.fillData1($("#model-li-select-48"),items)
+               
                 mat_in_manage.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 mat_in_manage.pageSize = res.data.content.length //该页的记录数
@@ -74,17 +75,52 @@ var mat_in_manage = {
             var detailBtns = $(".detail")
             mat_in_manage.funcs.bindDetailClick(detailBtns)
         }
-        ,fillData1: function(select,items){
+       /**获取搜索的数据 */
+      /**  , renderHandler1: function ($tbody, items,supplierCode) {
+            $tbody.empty() //清空表格
             console.log(items)
-            select.empty()
             items.forEach(function (e) {
-                console.log(e)
-                select.append(
-                    "<option>"+(e.supplier ? e.supplier.name : null)+"</option>" 
+                // $('#dep_checkAll').prop('checked', false)
+                console.log(e.code)
+                if( supplierCode === e.code ){
+                var content = (
+                    "<tr>" +
+                    "<td>" + (e.code) + "</td>" +
+                    "<td>" + (e.batchNumber) + "</td>" +
+                    "<td>" + (e.name ) + "</td>" +
+                    "<td>" + (e.date) + "</td>" +
+                    "<td>" + (e.creatTime) + "</td>" +
+                    "<td>" + (e.name) + "</td>" +
+                    "<td><a href='#' class='detail' id='detail-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
+                    "</tr>"
                 )
+                $tbody.append(content)
+            }
+            })    var detailBtns = $(".detail")
+            mat_in_manage.funcs.bindDetailClick(detailBtns)
+            // /** 绑定全选事件 */
+            // mat_in_manage.funcs.checkboxEventBinding()
+            /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
+        
+    
+
+
+        ,getSupplier: function(){
+            $.get(home.urls.materialIn.getAllSupplier(), {}, function (res) {
+            select = $("#model-li-select-48")
+            items = res.data
+          //  console.log(items)
+            select.html("<option>选择生产厂家</option>");
+            items.forEach(function (e) {
+                
+                select.append(
+                    "<option value="+e.code+">"+(e.name)+"</option>" 
+                )
+                console.log(e)
             })     
-            
+        })
         }
+
         ,fillData: function(table,items) {
             
             console.log(items)
@@ -194,35 +230,33 @@ var mat_in_manage = {
                
             })
         }
-
-      
-      
-
-       
+   
           /** 搜索事件 */
           ,bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
-                var status = $('#model-li-select-48').val()
-                console.log(status)
-                $.post(home.urls.materialIn.getAllByPage(), {
-                    code: status,
+                var code = $('#model-li-select-48').val()
+                console.log(code)
+                $.post(home.urls.materialIn.getBySupplierByPage(), {
+                    supplierCode: code,
                 }, function (result) {
-                    var items = result.data //获取数据
-                    var status = $('#model-li-select-48').val()
+                    var items = result.data.content //获取数据
+                    console.log(items)
+                    var code = $('#model-li-select-48').val()
                     const $tbody = $("#material_in_table").children('tbody')
                     mat_in_manage.funcs.renderHandler($tbody, items)
                     layui.laypage.render({
                         elem: 'material_in_page'
-                        , count: 10 * page.totalPages//数据总数
+                        , count: 10 * items.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.materialIn.getAllByPage(), {
-                                    code: status,
+                                $.post(home.urls.materialIn.getBySupplierByPage(), {
+                                    supplierCode: code,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {
-                                    var manage = result.data.content //获取数据
+                                    var items = result.data.content //获取数据
+                                   // var code = $('#model-li-select-48').val()
                                     const $tbody = $("#material_in_table").children('tbody')
                                     mat_in_manage.funcs.renderHandler($tbody, items)
                                     mat_in_manage.pageSize = result.data.content.length
