@@ -20,10 +20,7 @@
                 </select>
                 &nbsp;&nbsp;
                 <span style="color:#666666;">流程类型:</span>&nbsp;
-                <select>
-                    <option value="">类型1</option>
-                    <option value="">类型2</option>
-                    <option value="">类型3</option>
+                <select id="processtype">
                 </select>
                 &nbsp;
                 <span id="model-li-hide-search-113"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
@@ -41,13 +38,13 @@
             <td>流程类型</td>
             <td>审核状态</td>
             <td>领料状态</td>
-            <td class="edit_td">详情</td>
+            <td class="edit_td">详情</td> 
             <td class="edit_td">编辑</td>
             <td class="delete_td">删除</td>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <!-- <tr>
             <td><input type='checkbox' class='lingliao_apply_checkbox' value='" + (e.code) + "'></td>
             <td>1</td>
             <td>领料一部</td>
@@ -70,10 +67,10 @@
             <td><a href='#' class='detailLingdaoApply'><i class='layui-icon'>&#xe60a;</i></a></td>
             <td><a href='#' class='editLingdaoApply'><i class='layui-icon'>&#xe642;</i></a></td>
             <td><a href='#' class='deleteLingdaoApply'><i class='fa fa-times-circle-o'></i></a></td>
-        </tr>
+        </tr> -->
         </tbody>
     </table>
-    <div id="department_page">
+    <div id="lingLiao_page">
     </div>
     <script src="../components/js/lingliao_apply.js"></script>
     <script type="application/javascript">
@@ -93,51 +90,28 @@
             </span>
         </div>
         <div class="whitespace"></div>
-        <table width="100%">
+        <table id="detail-table" width="100%">
+            <thead>
             <tr class="grey">
-                <td>原料类型</td>
-                <td>批号</td>
-                <td>库存单位</td>
-                <td>库存可用数量</td>
-                <td>申请单位</td>
-                <td>申请数量</td>
+                <td class="normal_td">原料类型</td>
+                <td class="normal_td">批号</td>
+                <td class="normal_td">库存单位</td>
+                <td class="normal_td">库存可用数量</td>
+                <td class="normal_td">申请单位</td>
+                <td class="normal_td">申请数量</td>
             </tr>
-            <tr>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+        </thead>
+        <tbody></tbody>
         </table>
         <div class="whitespace"></div>
-        <div style="position: relative;text-align: right;bottom: 0px;">
-            <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
+        <div style="float: right;">
+                <table style="border:none" >
+                        <tr>
+                            <td style="border:none" class="normal1_td">日期: <span id="DtaeTime" width="10px" style="border:none" class="normal11_td"></span></td>
+                            <td style="border:none" class="normal1_td"> 领料部门: <span id="department" style="border:none" width="30px" class="normal11_td"></span></td>
+                            <td style="border:none" class="normal1_td"> 申请人: <span id="applyPerson" style="border:none" width="30px" class="normal11_td"></span></td>
+                    </table>
+            <!-- <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span> -->
         </div>
     </div>
 

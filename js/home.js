@@ -666,6 +666,25 @@ var home = {
             }
 
         },
+        productOut:{
+            getAllByPage:function(){
+                return servers.backup() + 'pickingApplyHeader/getAllByPage'
+            },
+        },
+        lingLiao:{
+            getAllByPage:function(){
+                return servers.backup() + 'pickingApplyHeader/getAllByPage'
+            },
+            getAll:function(){
+                return servers.backup() + 'processManage/getAll'
+            },
+            deleteByCode:function(){
+                return servers.backup() + 'pickingApplyHeader/deleteByCode'
+            },
+            getByCode:function(){
+                return servers.backup() + 'pickingApplyHeader/getByCode'
+            }
+        },
         equipment: {
             getAllByPage: function () {
                 return servers.backup() + 'equipment/getAllByPage'

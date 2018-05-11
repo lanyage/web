@@ -2,6 +2,10 @@ var pro_out_manage = {
     pageSize: null,
     init:function(){
 
+         /** 渲染表格 */
+         pro_out_manage.funcs.renderTable()
+         /** 渲染下拉菜单 */
+         pro_out_manage.funcs.bindCreatoption()
         //////////////////////////////////
         //bind SelectAll for addModal checkBoxes 
         //////////////////////////////////
@@ -26,6 +30,38 @@ var pro_out_manage = {
 
     funcs:{
         renderTable: function () {
+
+            $.post(home.urls.productOut.getAllByPage(), {}, function (res) {
+                console.log(res.data.content)
+                var $tbody = $("#product_out_table").children('tbody')
+                /** 过滤返回的数据 */
+                var items = res.data.content
+                //console.log('AAAAAAAAAAAAAAAAAAAAAAAA')
+                //console.log(items)
+                pro_out_manage.funcs.renderHandler($tbody, items)
+                /** 渲染表格结束之后 */
+                pro_out_manage.pageSize = res.data.content.length //该页的记录数
+                var page = res.data //分页json
+                /** 分页信息 */
+                layui.laypage.render({
+                    elem: 'product_out_page',
+                    count: 10 * page.totalPages,//数据总数
+                    /** 页面变化后的逻辑 */
+                    jump: function (obj, first) {
+                        if (!first) {
+                            $.post(home.urls.department.getAllByPage(), {
+                                page: obj.curr - 1,
+                                size: obj.limit
+                            }, function (result) {
+                                var items = result.data.content //获取数据
+                                const $tbody = $("#product_out_page").children('tbody')
+                                pro_out_manage.funcs.renderHandler($tbody, items)
+                                pro_out__manage.pageSize = result.data.content.length
+                            })
+                        }
+                    }
+                })
+            })
            
             // /** 绑定全选事件 */
             // pro_out_manage.funcs.checkboxEventBinding()
@@ -119,7 +155,7 @@ var pro_out_manage = {
                     title: '编辑',
                     content: $("#editor_modal"),
                     area: ['800px', '400px'],
-                    btn: ['保存', '提交', '返回'],
+                    btn: ['保存', '提交', '返回'], 
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
