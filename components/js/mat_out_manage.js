@@ -85,11 +85,7 @@ var mat_out_manage = {
          ,bindCreatoption:function(){
             $.get(home.urls.department.getAll(),{},function(result){
                 var value = result.data
-                //console.log('AAAAAAAAAAAAAAAAAAAAAAAAA')
-                //console.log(value)
                 var length = value.length
-                //console.log('BBBBBBBBBBBBBBBBB')
-                //console.log(length)
                 for(var i=0;i<length;i++){
                    // console.log(value[i].code)
                     var text = value[i].name
@@ -98,13 +94,8 @@ var mat_out_manage = {
             })
             ,$.get(home.urls.check.getAll(),{},function(result){
                 var value = result.data
-                //console.log('AAAAAAAAAAAAAAAAAAAAAAAAA')
-                //console.log(value)
                 var length = value.length
-                //console.log('BBBBBBBBBBBBBBBBB')
-                //console.log(length)
                 for(var i=0;i<length;i++){
-                    //console.log(value[i].code)
                     var text = value[i].name
                 $("#depmartment-3").append("<option id='"+value[i].code+"' value='"+value[i].code+"'>"+text+"</option>");
                }
@@ -112,8 +103,15 @@ var mat_out_manage = {
          }
         , bindDetailClick: function (detailBtns) {
             detailBtns.off('click').on('click', function () {
-                //点击的时候需要弹出一个模态框
-                // 而且要填充模态框里面的内容 todo
+                //console.log($(this).attr('id'))
+                var _selfBtn = $(this)
+                var codeNumber = _selfBtn.attr('id').substr(7)
+                $.post(home.urls.materialOut.getByCode(), {
+                    code: codeNumber
+                }, function (result) {
+                    var items = result.data//获取数据
+        
+                mat_out_manage.funcs.fillData($("#detail_modal"),items)   //将获取的数据传到#detail_modal中
                 layer.open({
                     type: 1,
                     title: '原料出库单',
@@ -128,6 +126,34 @@ var mat_out_manage = {
                     }
                 });
             })
+                //点击的时候需要弹出一个模态框
+                // 而且要填充模态框里面的内容 todo
+                
+            })
+        }
+        , fillData: function($table,items) {
+            // console.log('AAAAAAAAAAAAAAAAAAA') 
+            // console.log(items.number)
+            
+            var pickingApplies = items.pickingApplies
+            //console.log('AAAAAAAAAAAAAAAAAAA')
+            //console.log(godownEntries)
+            var $tbody = $('#detail_table').children('tbody')
+            $tbody.empty() //清空表格
+            pickingApplies.forEach(function(ele) {
+                console.log(ele)
+                $tbody.append(
+                    "<tr>"+
+                    " <td>"+(ele.rawType.code)+"</td>"+
+                    "<td>"+(ele.batchNumber)+"</td>"+
+                    "<td>"+(!ele.unit?'kg':ele.unit)+"</td>"+
+                    "<td>"+(!ele.weight?0:ele.weight)+"</td>"+
+                    "<td></td>"+
+                    "<td></td>"+
+                    "</tr>"
+                )
+            }) 
+            
         }
         , bindSelectAll: function (selectAllBox) {
             selectAllBox.off('change').on('change', function () {
@@ -185,8 +211,8 @@ var mat_out_manage = {
                     processManageCode:process
                 }, function (result) {
                     var items = result.data.content //获取数据
-                    console.log('AAAAAAAAAAAAAAAAAAAAAAAAA')
-                    console.log(items)
+                    //console.log('AAAAAAAAAAAAAAAAAAAAAAAAA')
+                    //console.log(items)
                     ///var status = $('#model-li-select-48').val()
                     var page = result.data
                     const $tbody = $("#material_out_table").children('tbody')
