@@ -110,7 +110,7 @@ var mat_out_manage = {
                     code: codeNumber
                 }, function (result) {
                     var items = result.data//获取数据
-        
+
                 mat_out_manage.funcs.fillData($("#detail_modal"),items)   //将获取的数据传到#detail_modal中
                 layer.open({
                     type: 1,
@@ -152,8 +152,20 @@ var mat_out_manage = {
                     "<td></td>"+
                     "</tr>"
                 )
-            }) 
-            
+            })
+            var userStr = $.session.get('user')
+            var userJson = JSON.parse(userStr)
+            //todo
+            $.get(servers.backup()+"check/getAll",{},function(res) {
+                res.data.forEach(function(e,index) {
+                    $("#process_type").append(
+                        "<option value='"+(e.code)+"'>"+(e.name)+"</option>"
+                    )
+                })
+            })
+            $("#appl_date").text(new Date().Format("yyyy-MM-dd hh:mm:ss"))
+            $("#app_dep").text(userJson.department.name)
+            $("#cur_user").text(userJson.name)
         }
         , bindSelectAll: function (selectAllBox) {
             selectAllBox.off('change').on('change', function () {
