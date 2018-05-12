@@ -5,7 +5,7 @@
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
                 <!--&#xe608;-->
-                <span id='model-li-hide-add-49'><a href="#"><i class="layui-icon"></i>产品入库</a></span>&nbsp;&nbsp;
+                <span id='model-li-hide-add-49'><i class="layui-icon"></i>产品入库</span>&nbsp;&nbsp;
                 <!--<span id="model-li-hide-delete-48"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>-->
             </p>
         </div>
@@ -14,11 +14,11 @@
                 <span id="model-li-hide-refresh-49"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
                 &nbsp;&nbsp;
                 <span style="color: #6b6b6b;">入库状态</span>
-                <select name="inlib_status_name" style="border-radius: 0;">
+                <select id="model-li-hide-select-49" name="inlib_status_name" style="border-radius: 0;">
                     <option>选择入库状态</option>
-                    <option value="1">状态1</option>
-                    <option value="2">状态2</option>
-                    <option value="3">状态3</option>
+                    <option value="0">未入库</option>
+                    <option value="1">已入库</option>
+                   
                 </select>&nbsp;&nbsp;
                 <span id="model-li-hide-search-49"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
@@ -26,7 +26,7 @@
     </div>
 
     <div class="whitespace"></div>
-    <table id="product_inlib_table" style="width: 100%;">
+    <table id="product_in_table" style="width: 100%;">
         <thead style="background: #666666;">
         <tr>
             <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
@@ -46,7 +46,7 @@
             <td>制造一部</td>
             <td>2018-1-12</td>
             <td>已入库</td>
-            <td><a href="#" class='detail'><i class="layui-icon">&#xe60a;</i></a></td>
+            <td><a href="#" class='detail' id='detail-1'><i class="layui-icon">&#xe60a;</i></a></td>
         </tr>
         </tbody>
     </table>
@@ -59,4 +59,71 @@
             product_in_manage.init()
         })
     </script>
+
+<div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+    <table width="100%" style="border-left: 0px;border-right: 0px;">
+        <tr>
+            <td class="grey" width="20%" >入库单编号</td>
+            <td width="40%" id="batchNumber"></td>
+            <td class="grey" width="20%" >产品型号</td>
+            <td width="20%" id="model"></td>
+        </tr>
+        <tr>
+            <td class="grey" >制造部门</td>
+            <td id="department"></td>
+            <td class="grey">总量</td>
+            <td id="weight"></td>
+        </tr>
+        <tr>
+            <td class="grey">缴库人</td>
+            <td id="payer"></td>
+            <td class="grey">入库人</td>
+            <td id="godowner"></td>
+        </tr>
+        <tr>
+            <td class="grey">缴库时间</td>
+            <td id="payTime"></td>
+            <td class="grey">入库时间</td>
+            <td id="godownTime"></td>
+        </tr>
+    </table>
+    <div class="whitespace"></div>
+    <table id="down_table" width="100%" id='down_table' style="border:none">
+           
+        <thead>
+              <tr class="grey" style="color:#000000">
+                      <td id="code" class="normal_td">序号</td>
+                      <td id="batchCode" class="normal_td">成品批号</td>
+                      <td id="unit" class="normal_td">单位</td>
+                      <td id="number" class="normal_td">数量</td>
+                      <td id="weight" class="normal_td">状态</td>
+                  </tr>
+        </thead>
+         <tr>
+              <td>1</td>
+              <td>170108046906</td>
+              <td>t</td>
+              <td>200.00</td>
+              <td>已入库</td>
+          </tr>
+          <tr>
+              <td>2</td>
+              <td>170108046906</td>
+              <td>t</td>
+              <td>200.00</td>
+              <td>已入库</td>
+          </tr>
+          <tr>
+              <td>3</td>
+              <td>170108046906</td>
+              <td>t</td>
+              <td>200.00</td>
+              <td>已入库</td>
+          </tr>
+          <tbody>
+
+          </tbody>
+
+      </table>
+</div>
 </div>

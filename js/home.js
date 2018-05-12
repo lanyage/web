@@ -675,9 +675,14 @@ var home = {
         productIn:{ 
             getAllByPage: function(){
                 return servers.backup() + 'productGodownHeader/getAllByPage'
-
-        }
-           
+        },
+        
+        getByCode: function(){
+            return servers.backup() + 'productGodownHeader/getByCode'
+        }, 
+        getByStatusByPage: function(){
+            return servers.backup() + 'productGodownHeader/getByStatusByPage'
+        }, 
 
         },
         equipment: {
