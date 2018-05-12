@@ -8,15 +8,44 @@ var lingliao_apply = {
         //////////////////////////////////
         //bind SelectAll for editModal checkBoxes
         //////////////////////////////////
-        var checkedBoxLen = $('.edit_checkbox:checked').length
+        var checkedBoxLen =$(".add_checkbox:checked").length
+        home.funcs.bindSelectAll($("#add_checkAll"), $(".add_checkbox"),checkedBoxLen,$("#add_modal_table"))
+        checkedBoxLen = $('.edit_checkbox:checked').length
         home.funcs.bindSelectAll($("#edit_checkAll"), $('.edit_checkbox'), checkedBoxLen, $("#edit_modal_table"))
-        var checkedBoxLen = $('.lingliao_apply_checkbox:checked').length
+        checkedBoxLen = $('.lingliao_apply_checkbox:checked').length
         home.funcs.bindSelectAll($("#lingliao_apply_checkAll"), $('.lingliao_apply_checkbox'), checkedBoxLen, $("#lingliao_apply_table"))
 
+        /////////////////////////////////
+        //bind addBtn click
+        /////////////////////////////////
+        $("#model-li-hide-add-113").click(function() {
+            layer.open({
+                type: 1,
+                title: '编辑',
+                content: $("#add_modal"),
+                area: ['800px', '400px'],
+                btn: ['保存', '提交', '返回'],
+                offset: "auto",
+                closeBtn: 0,
+                yes: function (index) {
+                    $("#add_modal").css('display', 'none')
+                    layer.close(index)
+                }
+                , btn2: function (index) {
+                    $("#add_modal").css('display', 'none')
+                    layer.close(index)
+                }
+                , btn3: function (index) {
+                    $("#add_modal").css('display', 'none')
+                    layer.close(index)
+                }
+            })
+            lingliao_apply.funcs.bindAddClick($("#add_addBtn"))
+        })
         //////////////////////////////////
         //render table
         //////////////////////////////////
-        /** 将分页居中 */ 
+        /** 将分页居中 */
         var out = $('#lingLiao_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
@@ -37,7 +66,7 @@ var lingliao_apply = {
                 //console.log(items)
                 lingliao_apply.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
-               lingliao_apply.pageSize = res.data.content.length //该页的记录数
+                lingliao_apply.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
                 /** 分页信息 */
                 layui.laypage.render({
@@ -65,14 +94,14 @@ var lingliao_apply = {
             //////////////////////////////////
 
             //bind selectAll
-           
+
             var checkedBoxLen = $('.addModal_checkbox:checked').length
             home.funcs.bindSelectAll($("#addModal_checkALl"), $('.addModal_checkbox'), checkedBoxLen, $("#addModal_table"))
 
             //////////////////////////////////
             //bind detailModal
             //////////////////////////////////
-           
+
             //////////////////////////////////
             //bind editModal
             //////////////////////////////////
@@ -101,11 +130,11 @@ var lingliao_apply = {
                     "<tr>" +
                     "<td><input type='checkbox' class='lingliao_apply_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + e.code + "</td>" +
-                    "<td>" + e.department.name  + "</td>" +
+                    "<td>" + e.department.name + "</td>" +
                     "<td>" + (new Date(e.applyDate).Format('yyyy/MM/dd')) + "</td>" +
                     "<td>" + e.processManage.code + "</td>" +
-                    "<td>" + e.auditStatus+ "</td>" +
-                    "<td>" + e.pickingStatus+ "</td>" +
+                    "<td>" + e.auditStatus + "</td>" +
+                    "<td>" + e.pickingStatus + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
                     "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
@@ -123,73 +152,73 @@ var lingliao_apply = {
             var deleteBtns = $('.delete')
             lingliao_apply.funcs.bindDeleteClick(deleteBtns)
         }
-         /** 监听下拉菜单的option */
-         ,bindCreatoption:function(){
-            $.get(home.urls.check.getAll(),{},function(result){
+        /** 监听下拉菜单的option */
+        , bindCreatoption: function () {
+            $.get(home.urls.check.getAll(), {}, function (result) {
                 var value = result.data
                 var length = value.length
-                for(var i=0;i<length;i++){
+                for (var i = 0; i < length; i++) {
                     var text = value[i].name
-                $("#processtype").append("<option id='"+value[i].code+"' value='"+value[i].code+"'>"+text+"</option>");
-               }
+                    $("#processtype").append("<option id='" + value[i].code + "' value='" + value[i].code + "'>" + text + "</option>");
+                }
             })
-         }
-         /** 刷新事件 */
-         ,bindRefreshEventListener: function (refreshBtn) {
+        }
+        /** 刷新事件 */
+        , bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
-            refreshBtn.on('click', function () { 
-                
+            refreshBtn.on('click', function () {
+
                 var index = layer.load(2, {offset: ['40%', '58%']});
                 var time = setTimeout(function () {
                     layer.msg('刷新成功', {
                         offset: ['40%', '55%'],
                         time: 700
-                    }) 
+                    })
                     lingliao_apply.init()
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
-               
+
             })
         }
-        ,bindDeleteClick: function(deleteBtns) {
-			deleteBtns.off('click')
-			deleteBtns.on('click', function() {
-				//首先弹出一个询问框
-				var _this = $(this)
-				layer.open({
-					type: 1,
-					title: '删除',
-					content: "<h5 style='text-align: center;padding-top: 8px'>确认要删除该记录?</h5>",
-					area: ['180px', '130px'],
-					btn: ['确认', '取消'],
-					offset: ['40%', '55%'],
-					yes: function(index) {
-						var Code = _this.attr('id').substr(7)
-						$.post(home.urls.productOut.deleteByCode(), {
-							code: Code
-						}, function(result) {
-							layer.msg(result.message, {
-								offset: ['40%', '55%'],
-								time: 700
-							})
-							if(result.code === 0) {
-								var time = setTimeout(function() {
-									lingliao_apply.init()
-									clearTimeout(time)
-								}, 500)
-							}
-							layer.close(index)
-						})
-					},
-					btn2: function(index) {
-						layer.close(index)
-					}
-				})
-			})
-		}
-        ,bindDetailClickInAddModal : function(detailBtns) {
-            detailBtns.off('click').on('click', function() {
+        , bindDeleteClick: function (deleteBtns) {
+            deleteBtns.off('click')
+            deleteBtns.on('click', function () {
+                //首先弹出一个询问框
+                var _this = $(this)
+                layer.open({
+                    type: 1,
+                    title: '删除',
+                    content: "<h5 style='text-align: center;padding-top: 8px'>确认要删除该记录?</h5>",
+                    area: ['180px', '130px'],
+                    btn: ['确认', '取消'],
+                    offset: ['40%', '55%'],
+                    yes: function (index) {
+                        var Code = _this.attr('id').substr(7)
+                        $.post(home.urls.productOut.deleteByCode(), {
+                            code: Code
+                        }, function (result) {
+                            layer.msg(result.message, {
+                                offset: ['40%', '55%'],
+                                time: 700
+                            })
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
+                                    lingliao_apply.init()
+                                    clearTimeout(time)
+                                }, 500)
+                            }
+                            layer.close(index)
+                        })
+                    },
+                    btn2: function (index) {
+                        layer.close(index)
+                    }
+                })
+            })
+        }
+        , bindDetailClickInAddModal: function (detailBtns) {
+            detailBtns.off('click').on('click', function () {
                 layer.open({
                     type: 1,
                     title: '详情',
@@ -205,7 +234,7 @@ var lingliao_apply = {
             })
         }
         , bindAddClick: function (addBtn) {
-            addBtn.off('click').on('click', function() {
+            addBtn.off('click').on('click', function () {
                 layer.open({
                     type: 1,
                     title: '新增',
@@ -227,28 +256,28 @@ var lingliao_apply = {
                 var _selfBtn = $(this)
                 var codeNumber = _selfBtn.attr('id').substr(7)
                 $.post(home.urls.lingLiao.getByCode(), {
-                    code: codeNumber   
+                    code: codeNumber
                 }, function (result) {
                     var items = result.data//获取数据
-                //点击的时候需要弹出一个模态框
-               lingliao_apply.funcs.fillData($("#detail_modal"),items)  //将获取的数据传到#detail_modal中
-                layer.open({
-                    type: 1,
-                    title: '详情',
-                    content: $("#detail_modal"),
-                    area: ['800px', '400px'],
-                    btn: ['返回'],
-                    offset: "auto",
-                    closeBtn: 0,
-                    yes: function (index) {
-                        $("#detail_modal").css('display', 'none')
-                        layer.close(index)
-                    }
-                });
+                    //点击的时候需要弹出一个模态框
+                    lingliao_apply.funcs.fillData($("#detail_modal"), items)  //将获取的数据传到#detail_modal中
+                    layer.open({
+                        type: 1,
+                        title: '详情',
+                        content: $("#detail_modal"),
+                        area: ['800px', '400px'],
+                        btn: ['返回'],
+                        offset: "auto",
+                        closeBtn: 0,
+                        yes: function (index) {
+                            $("#detail_modal").css('display', 'none')
+                            layer.close(index)
+                        }
+                    });
+                })
             })
-        })
         }
-        ,fillData: function(table,items) {
+        , fillData: function (table, items) {
             $("#DtaeTime").text((new Date(items.applyDate).Format('yyyy/MM/dd')))
             $("#department").text(items.department.name)
             $("#applyPerson").text(items.user.name)
@@ -256,19 +285,19 @@ var lingliao_apply = {
             var pickingApplies = items.pickingApplies
             var $tbody = $('#detail-table').children('tbody')
             $tbody.empty() //清空表格
-            pickingApplies.forEach(function(ele) {
+            pickingApplies.forEach(function (ele) {
                 console.log(ele)
                 $tbody.append(
-                    "<tr>"+
-                    " <td>"+(ele.rawType.name)+"</td>"+
-                    "<td>"+(ele.batchNumber)+"</td>"+
-                    "<td>"+(!ele.unit?'kg':ele.unit)+"</td>"+
-                    "<td>"+(!ele.weight?0:ele.weight)+"</td>"+
-                    "<td></td>"+
-                    "<td></td>"+
-                    "</tr>"                    
+                    "<tr>" +
+                    " <td>" + (ele.rawType.name) + "</td>" +
+                    "<td>" + (ele.batchNumber) + "</td>" +
+                    "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
+                    "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>" +
+                    "<td></td>" +
+                    "<td></td>" +
+                    "</tr>"
                 )
-            }) 
+            })
         }
         , bindEditorClick: function (editBtns) {
             editBtns.off('click').on('click', function () {
@@ -292,7 +321,7 @@ var lingliao_apply = {
                         $("#edit_modal").css('display', 'none')
                         layer.close(index)
                     }
-                });
+                })
             })
         }
     }

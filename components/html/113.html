@@ -78,7 +78,76 @@
             lingliao_apply.init()
         })
     </script>
-
+    <!--点击新增按钮后弹出来的弹窗-->
+    <div id='add_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <div style="text-align: left;" class="fl">
+            <span><strong>审批流程:</strong>&nbsp;
+                <select>
+                    <option>流程1</option>
+                    <option>流程2</option>
+                    <option>流程3</option>
+                </select>
+            </span>
+        </div>
+        <div class="fr">
+            <button id="add_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
+            &nbsp;&nbsp;
+            <button class="roundBtn">&nbsp;删除&nbsp;</button>
+        </div>
+        <div class="whitespace" style="clear: both"></div>
+        <table width="100%" id="add_modal_table">
+            <tr class="grey">
+                <td><input type="checkbox" id='add_checkAll'/></td>
+                <td>原料类型</td>
+                <td>批号</td>
+                <td>库存单位</td>
+                <td>库存可用数量</td>
+                <td>申请单位</td>
+                <td>申请数量</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='add_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='add_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='add_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='add_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <div style="position: relative;text-align: right;bottom: 0px;">
+            <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
+        </div>
+    </div>
+    <!--点击详情按钮后弹出来的弹窗-->
     <div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
         <div style="text-align: left;">
             <span><strong>审批流程:</strong>&nbsp;
@@ -114,7 +183,7 @@
             <!-- <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span> -->
         </div>
     </div>
-
+    <!--点击编辑按钮后要弹出的弹窗 -->
     <div id='edit_modal' class="hide" style="padding: 30px 30px 30px 30px;">
         <div style="text-align: left;" class="fl">
             <span><strong>审批流程:</strong>&nbsp;
@@ -183,7 +252,7 @@
             <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
         </div>
     </div>
-
+    <!--点击弹窗里面的新增要弹出来的窗口 -->
     <div id='addModal' class="hide" style="padding: 30px 30px 30px 30px;">
         <div class="block-quote">
             <div style="text-align: left;" class="fl">
