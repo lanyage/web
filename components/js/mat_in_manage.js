@@ -130,7 +130,7 @@ var mat_in_manage = {
             $("#number").text(!items.number?'无':items.number)
             $("#date").text(items.date)
             $("#creatUser").text(items.createUser?items.createUser.name:'无')
-            $("#creatTime").text(items.date)
+            $("#creatTime").text(new Date().Format("yyyy-MM-dd hh:mm:ss"))
             var godownEntries = items.godownEntries
             var $tbody = $('#down_table').children('tbody')
             $tbody.empty() //清空表格
@@ -241,13 +241,14 @@ var mat_in_manage = {
                     supplierCode: code,
                 }, function (result) {
                     var items = result.data.content //获取数据
+                    page = result.data 
                     console.log(items)
                     var code = $('#model-li-select-48').val()
                     const $tbody = $("#material_in_table").children('tbody')
                     mat_in_manage.funcs.renderHandler($tbody, items)
                     layui.laypage.render({
                         elem: 'material_in_page'
-                        , count: 10 * items.totalPages//数据总数
+                        , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
                                 $.post(home.urls.materialIn.getBySupplierByPage(), {
