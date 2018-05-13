@@ -10,11 +10,13 @@ var lingliao_apply = {
         //////////////////////////////////
         var checkedBoxLen =$(".add_checkbox:checked").length
         home.funcs.bindSelectAll($("#add_checkAll"), $(".add_checkbox"),checkedBoxLen,$("#add_modal_table"))
+        
         checkedBoxLen = $('.edit_checkbox:checked').length
         home.funcs.bindSelectAll($("#edit_checkAll"), $('.edit_checkbox'), checkedBoxLen, $("#edit_modal_table"))
-        var  checkedBoxLen1 = $('.lingliao_apply_checkbox:checked').length
-        home.funcs.bindSelectAll($("#lingliao_apply_checkAll"), $('.lingliao_apply_checkbox'), checkedBoxLen1, $("#lingliao_apply_table"))
+        
+        
 
+       
         /////////////////////////////////
         //bind addBtn click
         /////////////////////////////////
@@ -108,7 +110,9 @@ var lingliao_apply = {
             // 追加刷新事件
             var refreshBtn = $('#model-li-hide-refresh-113');
             lingliao_apply.funcs.bindRefreshEventListener(refreshBtn);//追加刷新事件
-
+            //追加搜索事件
+            var searchBtn  = $('#model-li-hide-search-113')
+            lingliao_apply.funcs.bindSearchEventListener(searchBtn)
             //////////////////////////////////
             //bind editModal's addBtn click
             //////////////////////////////////
@@ -126,6 +130,7 @@ var lingliao_apply = {
             $tbody.empty() //清空表格
             items.forEach(function (e) {
                 var code = e.code
+                //console.log(code)
                 var content = (
                     "<tr>" +
                     "<td><input type='checkbox' class='lingliao_apply_checkbox' value='" + (e.code) + "'></td>" +
@@ -151,6 +156,7 @@ var lingliao_apply = {
             lingliao_apply.funcs.bindEditorClick(editorBtns)
             var deleteBtns = $('.delete')
             lingliao_apply.funcs.bindDeleteClick(deleteBtns)
+            lingliao_apply.funcs.checkboxEventBinding()
         }
         /** 监听下拉菜单的option */
         , bindCreatoption: function () {
@@ -195,7 +201,7 @@ var lingliao_apply = {
                     offset: ['40%', '55%'],
                     yes: function (index) {
                         var Code = _this.attr('id').substr(7)
-                        $.post(home.urls.productOut.deleteByCode(), {
+                        $.post(home.urls.lingLiao.deleteByCode(), {
                             code: Code
                         }, function (result) {
                             layer.msg(result.message, {
@@ -250,6 +256,138 @@ var lingliao_apply = {
                 });
             })
         }
+       /**填充详情表格的弹出表格 */
+        , fillData_detail: function (table, items) {
+            //console.log(items)
+            var pickingApplies = items.pickingApplies
+            var $tbody = $('#detail-table').children('tbody')
+            $tbody.empty() //清空表格
+            pickingApplies.forEach(function (ele) {
+                //console.log(ele)
+                $tbody.append(
+                    "<tr>" +
+                    " <td>" + (ele.rawType.name) + "</td>" +
+                    "<td>" + (ele.batchNumber) + "</td>" +
+                    "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
+                    "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>" +
+                    "<td></td>" +
+                    "<td></td>" +
+                    "</tr>"
+                )
+            })
+             var userStr = $.session.get('user')
+            var userJson = JSON.parse(userStr)
+            //todo
+            $.get(servers.backup()+"check/getAll",{},function(res) {
+                res.data.forEach(function(e,index) {
+                    $("#process_type").append(
+                        "<option value='"+(e.code)+"'>"+(e.name)+"</option>"
+                    )
+                })
+            })
+            $("#appl_date").text(new Date().Format("yyyy-MM-dd hh:mm:ss"))
+            $("#app_dep").text(userJson.department.name)
+            $("#cur_user").text(userJson.name)
+        }
+        /** 填充编辑按钮的表格 */
+        , fillData_editor: function (table, items) {
+            //console.log(items)
+            var pickingApplies = items.pickingApplies
+            var $tbody = $('#edit_modal_table').children('tbody')
+            $tbody.empty() //清空表格
+            pickingApplies.forEach(function (ele) {
+                //console.log(ele)
+                $tbody.append(
+                    "<tr>" +
+                    "<td><input type='checkbox' class='edit_checkbox' value='" + (ele.code) + "'></td>" +
+                    " <td>" + (ele.rawType.name) + "</td>" +
+                    "<td>" + (ele.batchNumber) + "</td>" +
+                    "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
+                    "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>" +
+                    "<td></td>" +
+                    "<td></td>" +
+                    "</tr>"
+                )
+            })
+            var userStr = $.session.get('user')
+            var userJson = JSON.parse(userStr)
+            //todo
+            $.get(servers.backup()+"check/getAll",{},function(res) {
+                res.data.forEach(function(e,index) {
+                    $("#process_type").append(
+                        "<option value='"+(e.code)+"'>"+(e.name)+"</option>"
+                    )
+                })
+            })
+            $("#appl_date").text(new Date().Format("yyyy-MM-dd hh:mm:ss"))
+            $("#app_dep").text(userJson.department.name)
+            $("#cur_user").text(userJson.name)
+        }
+             /** 全选逻辑 */
+             , checkboxEventBinding: function () {
+                var selectAllBox = $('#lingliao_apply_checkAll')
+                lingliao_apply.funcs.bindSelectAll(selectAllBox)
+                var checkboxes = $('.lingliao_apply_checkbox')
+                //console.log('AAAAAAAAAAAAAAAAAAAAAA')
+                //console.log(checkboxes)
+                lingliao_apply.funcs.disselectAll(checkboxes, selectAllBox)
+            }
+            , bindSelectAll: function (selectAllBox) {
+                selectAllBox.off('change').on('change', function () {
+                    var status = selectAllBox.prop('checked')
+                    $('.lingliao_apply_checkbox').each(function () {
+                        $(this).prop('checked', status)
+                    })
+                })
+            }
+            , disselectAll: function (checkboxes, selectAllBox) {
+                checkboxes.off('change')
+                checkboxes.on('change', function () {
+                    var statusNow = $(this).prop('checked')
+                    if (statusNow === false) {
+                        selectAllBox.prop('checked', false)
+                    } else if (statusNow === true && $('.lingliao_apply_checkbox:checked').length === $("#lingliao_apply_table").children('tbody').children('tr').length) {
+                        selectAllBox.prop('checked', true)
+                    }
+                })
+            }
+            /** $全选逻辑结束$ */
+        , bindEditorClick: function (editBtns) {
+            editBtns.off('click').on('click', function () {
+                console.log($(this).attr('id'))
+                var _selfBtn = $(this)
+                var codeNumber = _selfBtn.attr('id').substr(7)
+                $.post(home.urls.lingLiao.getByCode(), {
+                    code: codeNumber
+                }, function (result) {
+                    var items = result.data//获取数据
+                    //点击的时候需要弹出一个模态框
+                    lingliao_apply.funcs.fillData_editor($("#editor_modal"), items)  //将获取的数据传到#detail_modal中
+                    layer.open({
+                        type: 1,
+                        title: '编辑',
+                        content: $("#edit_modal"),
+                        area: ['800px', '400px'],
+                        btn: ['保存', '提交', '返回'],
+                        offset: "auto",
+                        closeBtn: 0,
+                        yes: function (index) {
+                            $("#edit_modal").css('display', 'none')
+                            layer.close(index)
+                        }
+                        , btn2: function (index) {
+                            $("#edit_modal").css('display', 'none')
+                            layer.close(index)
+                        }
+                        , btn3: function (index) {
+                            $("#edit_modal").css('display', 'none')
+                            layer.close(index)
+                        }
+                    })
+                })
+                
+            })
+        }
         , bindDetailClick: function (detailBtns) {
             detailBtns.off('click').on('click', function () {
                 console.log($(this).attr('id'))
@@ -260,7 +398,7 @@ var lingliao_apply = {
                 }, function (result) {
                     var items = result.data//获取数据
                     //点击的时候需要弹出一个模态框
-                    lingliao_apply.funcs.fillData($("#detail_modal"), items)  //将获取的数据传到#detail_modal中
+                    lingliao_apply.funcs.fillData_detail($("#detail_modal"), items)  //将获取的数据传到#detail_modal中
                     layer.open({
                         type: 1,
                         title: '详情',
@@ -277,52 +415,41 @@ var lingliao_apply = {
                 })
             })
         }
-        , fillData: function (table, items) {
-            $("#DtaeTime").text((new Date(items.applyDate).Format('yyyy/MM/dd')))
-            $("#department").text(items.department.name)
-            $("#applyPerson").text(items.user.name)
-            console.log(items)
-            var pickingApplies = items.pickingApplies
-            var $tbody = $('#detail-table').children('tbody')
-            $tbody.empty() //清空表格
-            pickingApplies.forEach(function (ele) {
-                console.log(ele)
-                $tbody.append(
-                    "<tr>" +
-                    " <td>" + (ele.rawType.name) + "</td>" +
-                    "<td>" + (ele.batchNumber) + "</td>" +
-                    "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
-                    "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>" +
-                    "<td></td>" +
-                    "<td></td>" +
-                    "</tr>"
-                )
-            })
-        }
-        , bindEditorClick: function (editBtns) {
-            editBtns.off('click').on('click', function () {
-                layer.open({
-                    type: 1,
-                    title: '编辑',
-                    content: $("#edit_modal"),
-                    area: ['800px', '400px'],
-                    btn: ['保存', '提交', '返回'],
-                    offset: "auto",
-                    closeBtn: 0,
-                    yes: function (index) {
-                        $("#edit_modal").css('display', 'none')
-                        layer.close(index)
-                    }
-                    , btn2: function (index) {
-                        $("#edit_modal").css('display', 'none')
-                        layer.close(index)
-                    }
-                    , btn3: function (index) {
-                        $("#edit_modal").css('display', 'none')
-                        layer.close(index)
-                    }
+          /** 搜索事件 */
+          ,bindSearchEventListener: function (searchBtn) {
+            searchBtn.off('click')
+            searchBtn.on('click', function () {
+                var status = $('#status').val()
+                var process = $('#processtype option:selected').val();
+                $.post(home.urls.lingLiao.getByProcessManageByPage(), {
+                    auditStatus: status,
+                    processManageCode:process
+                }, function (result) {
+                    var items = result.data.content //获取数据
+                    page = result.data 
+                    const $tbody = $("#lingliao_apply_table").children('tbody')
+                    lingliao_apply.funcs.renderHandler($tbody, items)
+                    layui.laypage.render({
+                        elem: 'lingLiao_page'
+                        , count: 10 * page.totalPages//数据总数
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                $.post(home.urls.lingLiao.getAllByPage(), {
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var items = result.data.content //获取数据
+                                   // var code = $('#model-li-select-48').val()
+                                    const $tbody = $("#lingLiao_page").children('tbody')
+                                    lingliao_apply.funcs.renderHandler($tbody, items)
+                                    lingliao_apply.pageSize = result.data.content.length
+                                })
+                            }
+                        }
+                    })
                 })
             })
         }
+
     }
 }
