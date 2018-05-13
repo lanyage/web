@@ -12,8 +12,8 @@ var lingliao_apply = {
         home.funcs.bindSelectAll($("#add_checkAll"), $(".add_checkbox"),checkedBoxLen,$("#add_modal_table"))
         checkedBoxLen = $('.edit_checkbox:checked').length
         home.funcs.bindSelectAll($("#edit_checkAll"), $('.edit_checkbox'), checkedBoxLen, $("#edit_modal_table"))
-        checkedBoxLen = $('.lingliao_apply_checkbox:checked').length
-        home.funcs.bindSelectAll($("#lingliao_apply_checkAll"), $('.lingliao_apply_checkbox'), checkedBoxLen, $("#lingliao_apply_table"))
+        var  checkedBoxLen1 = $('.lingliao_apply_checkbox:checked').length
+        home.funcs.bindSelectAll($("#lingliao_apply_checkAll"), $('.lingliao_apply_checkbox'), checkedBoxLen1, $("#lingliao_apply_table"))
 
         /////////////////////////////////
         //bind addBtn click
