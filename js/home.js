@@ -705,6 +705,12 @@ var home = {
             },
             getByProcessManageByPage:function(){
                 return servers.backup() + 'pickingApplyHeader/getByProcessManageByPage'
+            },
+            update:function(){
+                return servers.backup() + 'pickingApplyHeader/update'
+            },
+            deleteByBatchCode:function(){
+                return servers.backup() + 'pickingApplyHeader/deleteByBatchCode'
             }
         },
         equipment: {

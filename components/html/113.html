@@ -4,7 +4,8 @@
     <div class="block-quote">
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
-                <span id='model-li-hide-add-113'><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                <span id='model-li-hide-normal_add-113'><a href="#"><i class="layui-icon">&#xe608;</i>正常申请</a></span>&nbsp;&nbsp;
+                <span id='model-li-hide-urgent_add-113'><a href="#"><i class="layui-icon">&#xe608;</i>紧急申请</a></span>&nbsp;&nbsp;
                 <span id="model-li-hide-delete-113"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
             </p>
         </div>
@@ -78,8 +79,42 @@
             lingliao_apply.init()
         })
     </script>
-    <!--点击新增按钮后弹出来的弹窗-->
-    <div id='add_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+    <!--点击正常申请按钮后弹出来的弹窗-->
+    <div id='normal_add_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <div style="text-align: left;" class="fl">
+            <span><strong>审批流程:</strong>&nbsp;
+                <select>
+                    <option>金弛622</option>
+                    <option>流程2</option>
+                    <option>流程3</option>
+                </select>
+            </span>
+        </div>
+        <div class="fr">
+            <button id="normal_add_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
+            &nbsp;&nbsp;
+            <button class="roundBtn">&nbsp;删除&nbsp;</button>
+        </div>
+        <div class="whitespace" style="clear: both"></div>
+        <table width="100%" id="normal_add_modal_table">
+            <tr class="grey">
+                <td><input type="checkbox" id='normal_add_checkAll'/></td>
+                <td>原料类型</td>
+                <td>批号</td>
+                <td>库存单位</td>
+                <td>库存可用数量</td>
+                <td>申请单位</td>
+                <td>申请数量</td>
+            </tr>
+           
+        </table>
+        <div class="whitespace"></div>
+        <div style="position: relative;text-align: right;bottom: 0px;">
+            <span><strong>日期:</strong>&nbsp;<span id="nor_appl_date"></span> &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;<span id="nor_app_dep"></span>&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;<span id="nor_cur_user"></span></span>
+        </div>
+    </div>
+      <!--点击紧急申请按钮后弹出来的弹窗-->
+      <div id='urgent_add_modal' class="hide" style="padding: 30px 30px 30px 30px;">
         <div style="text-align: left;" class="fl">
             <span><strong>审批流程:</strong>&nbsp;
                 <select>
@@ -90,14 +125,14 @@
             </span>
         </div>
         <div class="fr">
-            <button id="add_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
+            <button id="urgent_add_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
             &nbsp;&nbsp;
             <button class="roundBtn">&nbsp;删除&nbsp;</button>
         </div>
         <div class="whitespace" style="clear: both"></div>
-        <table width="100%" id="add_modal_table">
+        <table width="100%" id="urgent_add_modal_table">
             <tr class="grey">
-                <td><input type="checkbox" id='add_checkAll'/></td>
+                <td><input type="checkbox" id='urgent_add_checkAll'/></td>
                 <td>原料类型</td>
                 <td>批号</td>
                 <td>库存单位</td>
@@ -144,7 +179,7 @@
         </table>
         <div class="whitespace"></div>
         <div style="position: relative;text-align: right;bottom: 0px;">
-            <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
+            <span><strong>日期:</strong>&nbsp;<span id="urg_appl_date"></span> &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;<span id="urg_app_dep"></span>&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;<span id="urg_cur_user"></span></span>
         </div>
     </div>
     <!--点击详情按钮后弹出来的弹窗-->
@@ -210,7 +245,7 @@
         </table>
         <div class="whitespace"></div>
         <div style="position: relative;text-align: right;bottom: 0px;">
-            <span><strong>日期:</strong>&nbsp;<span id="appl_date"></span> &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;<span id="app_dep"></span>&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;<span id="cur_user"></span></span>
+            <span><strong>日期:</strong>&nbsp;<span id="ed_appl_date"></span> &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;<span id="ed_app_dep"></span>&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;<span id="ed_cur_user"></span></span>
         </div>
     </div>
     <!--点击弹窗里面的新增要弹出来的窗口 -->
@@ -283,6 +318,145 @@
             <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
         </div>
     </div>
+
+     <!--点击正常申请弹窗里面的新增要弹出来的窗口 -->
+     <div id='nor_addModal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <div class="block-quote">
+            <div style="text-align: left;" class="fl">
+            <span>
+                <strong>原料类型</strong>&nbsp;
+                <select>
+                    <option>类型1</option>
+                    <option>类型2</option>
+                    <option>类型3</option>
+                </select>
+            </span>
+                &nbsp;
+                <span>
+                    <strong>批号</strong>&nbsp;
+                    <input type="input"/>
+            </span>
+            </div>
+            <div class="fr">
+                <button id="nor_addModal_search" class="roundBtn">&nbsp;搜索&nbsp;</button>
+            </div>
+        </div>
+        <div class="whitespace" style="clear: both"></div>
+        <table width="100%" id="nor_addModal_table">
+            <tr class="grey">
+                <td><input type="checkbox" id='nor_addModal_checkALl'/></td>
+                <td>批号</td>
+                <td>可用数量</td>
+                <td>单位</td>
+                <td>检验状态</td>
+                <td>详情</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='addModal_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='addModal_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='addModal_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='addModal_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <div style="position: relative;text-align: right;bottom: 0px;">
+            <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
+        </div>
+        <!--点击紧急申请弹窗里面的新增要弹出来的窗口 -->
+     <div id='urg_addModal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <div class="block-quote">
+            <div style="text-align: left;" class="fl">
+            <span>
+                <strong>原料类型</strong>&nbsp;
+                <select>
+                    <option>类型1</option>
+                    <option>类型2</option>
+                    <option>类型3</option>
+                </select>
+            </span>
+                &nbsp;
+                <span>
+                    <strong>批号</strong>&nbsp;
+                    <input type="input"/>
+            </span>
+            </div>
+            <div class="fr">
+                <button id="urg_addModal_search" class="roundBtn">&nbsp;搜索&nbsp;</button>
+            </div>
+        </div>
+        <div class="whitespace" style="clear: both"></div>
+        <table width="100%" id="urg_addModal_table">
+            <tr class="grey">
+                <td><input type="checkbox" id='urg_addModal_checkALl'/></td>
+                <td>批号</td>
+                <td>可用数量</td>
+                <td>单位</td>
+                <td>检验状态</td>
+                <td>详情</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='addModal_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='addModal_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='addModal_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='addModal_checkbox'/></td>
+                <td></td>
+                <td>38233333</td>
+                <td></td>
+                <td></td>
+                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <div style="position: relative;text-align: right;bottom: 0px;">
+            <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
+        </div>
 </div>
 
 
