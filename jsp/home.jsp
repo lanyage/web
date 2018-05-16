@@ -25,7 +25,7 @@
         </div>
         <div class="top-right">
             <div id='user-info-hover' style="position:relative; padding: 10px 0px 10px 10px;font-size: 14px;"><a
-                    href="#">管理员<i class="fa fa-chevron-down"></i></a></div>
+                    href="#"><span id="currentUser"></span><i class="fa fa-chevron-down"></i></a></div>
             <div id="hover-body" class="hide" style="text-align: center;">
                 <div style="position: relative;top: 12px;display: inline-block">
                     <p>
@@ -71,6 +71,7 @@
 <script src="../js/Chart.js"></script>
 <script type="application/javascript">
     $(function () {
+
         (function () {
             Date.prototype.Format = function (fmt) { //author: meizz
                 var o = {
@@ -92,8 +93,14 @@
 
             }
         })()
+
+        function createVersion() {
+            var date = new Date();
+            return "v4.275."+( date.getMonth() + 1) + date.getDate()+ ".BETA";
+        }
+
         /** 日期显示 */
-        $('.top-left-text')[0].innerHTML = "长远锂科MES系统&nbsp;<i class='fa fa-clock-o' style='color: #1E9FFF;font-size:13px; font-weight: 600;'>&nbsp;" + new Date().Format("MM月dd号") + "</i>"
+        $('.top-left-text')[0].innerHTML = "<span>长远锂科MES系统&nbsp;<strong id='version' style='color: #1E9FFF;font-size:13px; font-weight: 600;'>&nbsp;" + createVersion() + "</strong></span>"
         var userStr = $.session.get('user')
         if (!userStr) {
             console.log('用户已经失去登录，请重新登录')
@@ -104,6 +111,7 @@
         var menu2Wrapper = $('.menus2 ul')
         home.init(userJson, menu1Wrapper, menu2Wrapper)
     })
+
 </script>
 </body>
 </html>

@@ -1137,7 +1137,7 @@ var home = {
         const user = userJson
         home.user = userJson
         var roles = user.roles //获取用户角色
-
+        $("#currentUser").text(home.user.name + " ")
         $('#user-id').text(user.code)
 
         var menu1codes = []//用户一级菜单去重
@@ -1181,7 +1181,6 @@ var home = {
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
-        console.log($(home.menu1Wrapper.children('li')[0]))
         var selectedMenu1 = localStorage.getItem('selectedMenu1') || $(home.menu1Wrapper.children('li')[0]).attr('id').substr(9)   //选中的一级菜单ID 默认为1
         var selectedMenu2 = localStorage.getItem('selectedMenu2') || null //选中的二级菜单ID
         var selectedMenu3 = localStorage.getItem('selectedMenu3') || null  //选中三级菜单ID
@@ -1210,9 +1209,9 @@ var home = {
         /** 给一级菜单绑定点击事件 */
         bindClickAndMouseEventForMenu1s: function () {
             home.menu1Clicks.on('mouseenter', function () {
-                $(this).addClass('green')
+                $(this).addClass('blue')
             }).on('mouseleave', function () {
-                $(this).removeClass('green')
+                $(this).removeClass('blue')
             }).on('click', function () {
                 /** 首先清除interval */
                 home.funcs.clearIntervals(home.realdata_interval)
@@ -1608,7 +1607,7 @@ var home = {
             $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                 home.funcs.storeData(result)
                 /** 开始打印数据 */
-                // console.log("signal", signal)
+                console.log("signal", signal)
                 switch (signal) {
                     case 0 :
                         (function () {
@@ -1771,24 +1770,84 @@ var home = {
             $("#TI_1007_R")[0].innerHTML = parseFloat(home.RI1s[6].value).toFixed(2)
         }
         , render7: function () {
-            $("#BFS_VD24")[0].innerHTML = parseFloat(home.Bfs[4].value).toFixed(2)
-            $("#BFS_VD6")[0].innerHTML = parseFloat(home.Bfs[1].value).toFixed(2)
-            $("#BFS_VD12")[0].innerHTML = parseFloat(home.Bfs[2].value).toFixed(2)
-            $("#BFS_VD30")[0].innerHTML = parseFloat(home.Bfs[5].value).toFixed(2)
-            $("#BFS_VD18")[0].innerHTML = parseFloat(home.Bfs[3].value).toFixed(2)
-            $("#BFS_VD536")[0].innerHTML = parseFloat(home.Bfs[10].value).toFixed(2)
-            $("#BFS_VD544")[0].innerHTML = parseFloat(home.Bfs[11].value).toFixed(2)
-            $("#BFS_VD552")[0].innerHTML = parseFloat(home.Bfs[12].value).toFixed(2)
-            $("#BFS_VD560")[0].innerHTML = parseFloat(home.Bfs[13].value).toFixed(2)
-            $("#BFS_VD520")[0].innerHTML = parseFloat(home.Bfs[8].value).toFixed(2)
-            $("#BFS_VD528")[0].innerHTML = parseFloat(home.Bfs[9].value).toFixed(2)
-            $("#BFS_VD504")[0].innerHTML = parseFloat(home.Bfs[6].value).toFixed(2)
-            $("#BFS_VD512")[0].innerHTML = parseFloat(home.Bfs[1].value).toFixed(2)
-            $("#WI_1008_W")[0].innerHTML = parseFloat(home.WI1s[7].value).toFixed(2)
-            $("#WI_1010_W")[0].innerHTML = parseFloat(home.WI1s[9].value).toFixed(2)
-            $("#WI_1012")[0].innerHTML = parseFloat(home.WI1s[11].value).toFixed(2)
-            $("#TI_1008_T")[0].innerHTML = parseFloat(home.TI1s[7].value).toFixed(2)
-            $("#TI_1008_R")[0].innerHTML = parseFloat(home.RI1s[7].value).toFixed(2)
+            var vd0 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD0';
+            })[0]
+            var vd24 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD24';
+            })[0]
+            var vd6 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD6';
+            })[0]
+            var vd12 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD12';
+            })[0]
+            var vd30 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD30';
+            })[0]
+            var vd18 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD18';
+            })[0]
+            var vd536 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD536';
+            })[0]
+            var vd544 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD544';
+            })[0]
+            var vd552 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD552';
+            })[0]
+            var vd560 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD560';
+            })[0]
+            var vd520 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD520';
+            })[0]
+            var vd528 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD528';
+            })[0]
+
+            var vd504 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD504';
+            })[0]
+            var vd512 = home.Bfs.filter(function(e) {
+                return e.weihao === 'BFS_VD512';
+            })[0]
+            var  WI_1008_W = home.WI1s.filter(function(e) {
+                return e.weihao === 'WI_1008';
+            })[0]
+            var  WI_1010_W = home.WI1s.filter(function(e) {
+                return e.weihao === 'WI_1010';
+            })[0]
+            var  WI_1012 = home.WI1s.filter(function(e) {
+                return e.weihao === 'WI_1012';
+            })[0]
+            var  TI_1008_T = home.TI1s.filter(function(e) {
+                return e.weihao === 'TI_1008';
+            })[0]
+            var  TI_1008_R = home.RI1s.filter(function(e) {
+                return e.weihao === 'RI_1008';
+            })[0]
+
+            $("#BFS_VD24")[0].innerHTML = parseFloat(vd24.value).toFixed(2)
+            $("#BFS_VD0")[0].innerHTML = parseFloat(vd0.value).toFixed(2)
+            $("#BFS_VD6")[0].innerHTML = parseFloat(vd6.value).toFixed(2)
+            $("#BFS_VD12")[0].innerHTML = parseFloat(vd12.value).toFixed(2)
+            $("#BFS_VD30")[0].innerHTML = parseFloat(vd30.value).toFixed(2)
+            $("#BFS_VD18")[0].innerHTML = parseFloat(vd18.value).toFixed(2)
+            $("#BFS_VD536")[0].innerHTML = parseFloat(vd536.value).toFixed(2)
+            $("#BFS_VD544")[0].innerHTML = parseFloat(vd544.value).toFixed(2)
+            $("#BFS_VD552")[0].innerHTML = parseFloat(vd552.value).toFixed(2)
+            $("#BFS_VD560")[0].innerHTML = parseFloat(vd560.value).toFixed(2)
+            $("#BFS_VD520")[0].innerHTML = parseFloat(vd520.value).toFixed(2)
+            $("#BFS_VD528")[0].innerHTML = parseFloat(vd528.value).toFixed(2)
+            $("#BFS_VD504")[0].innerHTML = parseFloat(vd504.value).toFixed(2)
+            $("#BFS_VD512")[0].innerHTML = parseFloat(vd512.value).toFixed(2)
+            $("#WI_1008_W")[0].innerHTML = parseFloat(WI_1008_W.value).toFixed(2)
+            $("#WI_1010_W")[0].innerHTML = parseFloat(WI_1010_W.value).toFixed(2)
+            $("#WI_1012")[0].innerHTML = parseFloat(WI_1012.value).toFixed(2)
+            $("#TI_1008_T")[0].innerHTML = parseFloat(TI_1008_T.value).toFixed(2)
+            $("#TI_1008_R")[0].innerHTML = parseFloat(TI_1008_R.value).toFixed(2)
         }
         /** 清除intervals */
         , clearIntervals: function (intervals) {
