@@ -702,6 +702,15 @@ var home = {
             },
             getByCode: function () {
                 return servers.backup() + 'pickingApplyHeader/getByCode'
+            },
+            getByProcessManageByPage:function(){
+                return servers.backup() + 'pickingApplyHeader/getByProcessManageByPage'
+            },
+            update:function(){
+                return servers.backup() + 'pickingApplyHeader/update'
+            },
+            deleteByBatchCode:function(){
+                return servers.backup() + 'pickingApplyHeader/deleteByBatchCode'
             }
         },
         equipment: {
