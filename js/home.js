@@ -168,7 +168,7 @@ var home = {
             getAllByLikeNameByPage: function () {
                 return servers.backup() + 'check/getAllByLikeNameByPage'
             },
-            getAll:function () {
+            getAll: function () {
                 return servers.backup() + 'check/getAll'
             }
 
@@ -642,65 +642,65 @@ var home = {
                 return servers.backup() + 'material/deleteByBatchCode'
             }
         },
-   
-        materialIn : {
-          getAllByPage : function() {
-              return servers.backup() + 'godownEntryHeader/getAllByPage'
-          },
-          getAllByCode : function() {
-              return servers.backup() + 'godownEntryHeader/getByCode'
-          } ,
-          getByBatchNumber: function() {
-              return servers.backup() + 'godownEntryHeader/getByBatchNumber'
-          } ,
-          getAllSupplier: function() {
-            return servers.backup() + 'supplier/getAll'
-          } ,
-          getBySupplierByPage: function() {
-            return servers.backup() + 'godownEntryHeader/getBySupplierByPage'
-          }
+
+        materialIn: {
+            getAllByPage: function () {
+                return servers.backup() + 'godownEntryHeader/getAllByPage'
+            },
+            getAllByCode: function () {
+                return servers.backup() + 'godownEntryHeader/getByCode'
+            },
+            getByBatchNumber: function () {
+                return servers.backup() + 'godownEntryHeader/getByBatchNumber'
+            },
+            getAllSupplier: function () {
+                return servers.backup() + 'supplier/getAll'
+            },
+            getBySupplierByPage: function () {
+                return servers.backup() + 'godownEntryHeader/getBySupplierByPage'
+            }
         },
         materialOut: {
             getAllByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getAllByPage'
             },
-            getByDepartmentAndProcessManageAndPickingStatusByPage:function(){
+            getByDepartmentAndProcessManageAndPickingStatusByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getByDepartmentAndProcessManageAndPickingStatusByPage'
             },
-            getByCode:function(){
+            getByCode: function () {
                 return servers.backup() + 'pickingApplyHeader/getByCode'
             }
-  
-        },
-        productIn:{ 
-            getAllByPage: function(){
-                return servers.backup() + 'productGodownHeader/getAllByPage'
-        },
-        
-        getByCode: function(){
-            return servers.backup() + 'productGodownHeader/getByCode'
-        }, 
-        getByStatusByPage: function(){
-            return servers.backup() + 'productGodownHeader/getByStatusByPage'
-        }, 
 
         },
-        productOut:{
-            getAllByPage:function(){
+        productIn: {
+            getAllByPage: function () {
+                return servers.backup() + 'productGodownHeader/getAllByPage'
+            },
+
+            getByCode: function () {
+                return servers.backup() + 'productGodownHeader/getByCode'
+            },
+            getByStatusByPage: function () {
+                return servers.backup() + 'productGodownHeader/getByStatusByPage'
+            },
+
+        },
+        productOut: {
+            getAllByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getAllByPage'
             },
         },
-        lingLiao:{
-            getAllByPage:function(){
+        lingLiao: {
+            getAllByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getAllByPage'
             },
-            getAll:function(){
+            getAll: function () {
                 return servers.backup() + 'processManage/getAll'
             },
-            deleteByCode:function(){
+            deleteByCode: function () {
                 return servers.backup() + 'pickingApplyHeader/deleteByCode'
             },
-            getByCode:function(){
+            getByCode: function () {
                 return servers.backup() + 'pickingApplyHeader/getByCode'
             }
         },
@@ -1172,6 +1172,7 @@ var home = {
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
+        console.log($(home.menu1Wrapper.children('li')[0]))
         var selectedMenu1 = localStorage.getItem('selectedMenu1') || $(home.menu1Wrapper.children('li')[0]).attr('id').substr(9)   //选中的一级菜单ID 默认为1
         var selectedMenu2 = localStorage.getItem('selectedMenu2') || null //选中的二级菜单ID
         var selectedMenu3 = localStorage.getItem('selectedMenu3') || null  //选中三级菜单ID
@@ -1195,11 +1196,9 @@ var home = {
         /** 绑定退出登录时间 */
         var $exit = $('#exit')
         home.funcs.handleLogout($exit)
-    }
-    ,//$init()
-    funcs: {
+    }//$init()
+    , funcs: {
         /** 给一级菜单绑定点击事件 */
-
         bindClickAndMouseEventForMenu1s: function () {
             home.menu1Clicks.on('mouseenter', function () {
                 $(this).addClass('green')
@@ -1276,7 +1275,6 @@ var home = {
                 var modelWrapper = selectedTabBarItem.next().children('ul')
                 modelWrapper.empty()
                 Menu3List.forEach(function (element, index) {
-                    //todo 给所有的三级菜单前面添加一个小园点
                     modelWrapper.append("<li id='menu3-li-" + (element.code) + "' class='menu3-tab-bar whiteFontMenu3'><a href='#'>" + Menu3List[index].name + "</a></li>", null)
                 })
                 $('#menu3-li-' + localStorage.getItem('selectedMenu3')).addClass('chosenMenu3')
