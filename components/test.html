@@ -2,6 +2,7 @@
      style='padding: 10% 40px 40px 40px;background: #eb7350'>
     <meta charset='UTF-8'>
     <link rel='stylesheet' href='../layui/css/layui.css' media='all'>
+    <link href="../fontawesome/css/font-awesome.css" rel="stylesheet">
     <title>test</title>
     <style type='text/css'>
 
@@ -23,12 +24,15 @@
                 <div style="height: 80px;background-image:url(//img.t.sinajs.cn/t6/skin/skin053/images/profile_cover_s.jpg?version=ba698e6b25f25ada)">
                     <div style="display: table;margin: 0 auto;">
                         <img style="border-radius: 50%;position: relative;top: 40px;"
-                             src="https://tvax2.sinaimg.cn/crop.0.0.512.512.180/69e273f8ly8fr3qffljhwj20e80e8t90.jpg" alt=""
+                             src="https://tvax2.sinaimg.cn/crop.0.0.512.512.180/69e273f8ly8fr3qffljhwj20e80e8t90.jpg"
+                             alt=""
                              width="80" height="80"/>
                     </div>
                 </div>
                 <div style="background: #FBFBFB;">
-                    <div style="text-align: center;font-size: 14px;font-weight: 500;padding-top:50px;">iamabigcolorwolf</div>
+                    <div style="text-align: center;font-size: 14px;font-weight: 500;padding-top:50px;">
+                        iamabigcolorwolf
+                    </div>
                     <div style="padding: 10px 20px 10px 20px;">
                         <div style="float: left;width: 33%">
                             <div style="font-size: 15px;display: table;margin: 0 auto;">173</div>
@@ -50,8 +54,49 @@
         </div>
     </div>
     <div style="padding: 50px;"></div>
+
     <!--居中-->
     <div style="display: flex;"></div>
+
+    <style type="text/css">
+        .vertical_center {
+            display: flex;
+            align-items: center;
+        }
+
+        .horizontal_center {
+            margin: 0 auto;
+        }
+
+        .text_center {
+            text-align: center;
+        }
+
+        .fl {
+            float: left;
+        }
+    </style>
+    <!--右上角-->
+    <div style="float: right;height: 200px;width: 100%;background: #cccccc;">
+        <div style="width: 30%;height: 100%;" class="vertical_center fl">
+            <div style="width: 30%;" class="horizontal_center text_center"><a href="#"><i class="fa fa-cog fa-4x"></i></a></div>
+        </div>
+        <div style="width: 40%;height: 100%;" class="fl">
+            <div style="height: 100%;width: 70%;" class="vertical_center horizontal_center text_center">
+                <div class="fl horizontal_center">
+                    <img src="https://tvax2.sinaimg.cn/crop.0.0.512.512.180/69e273f8ly8fr3qffljhwj20e80e8t90.jpg"
+                         alt=""
+                         width="100" height="100"
+                         style="border-radius: 50%;"/>
+                    <span>&nbsp;&nbsp;&nbsp;管理员</span>
+                </div>
+            </div>
+        </div>
+        <div style="width: 30%;height: 100%;" class="vertical_center fl">
+            <div style="width: 30%;" class="horizontal_center text_center"><a href="#"><i class="fa fa-sign-out fa-4x"></i></a></div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
     <!--<script src='https://cdn.bootcss.com/jquery/3.3.1/jquery.js'></script>-->
     <script src='../js/jquery.min.js'></script>
     <script src='../layui/layui.all.js' charset='utf-8'></script>

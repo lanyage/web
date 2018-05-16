@@ -1129,7 +1129,7 @@ var home = {
      */
     , init: function (userJson, menu1Wrapper, menu2Wrapper) {
         /** 头像显示事件绑定 */
-        home.funcs.bindClickEventForAvatar($('#user-info-hover'), $("#hover-body"))
+        // home.funcs.bindClickEventForAvatar($('#user-info-hover'), $("#hover-body"))
         home.menu1Wrapper = menu1Wrapper
         home.menu2Wrapper = menu2Wrapper
 
@@ -1865,32 +1865,32 @@ var home = {
         /** -------------------------------------------------------------------------------------*/
 
         /** 绑定右上角用户头像点击事件 */
-        , bindClickEventForAvatar: function (hover, body) {
-            hover.off('click')
-            hover.on('click', function () {
-                if (body.attr('class').indexOf('hide') > -1) {
-                    body.removeClass('hide')
-                    $('#user-info-hover i').removeClass('fa-chevron-down').addClass('fa-chevron-up')
-                } else {
-                    body.addClass('hide')
-                    $('#user-info-hover i').removeClass('fa-chevron-up').addClass('fa-chevron-down')
-                }
-            })
-            $('.right').on('click', function () {
-                body.addClass('hide')
-                $('#user-info-hover i').attr('class').indexOf('up') > -1
-                    ? $('#user-info-hover i').removeClass('fa-chevron-up').addClass('fa-chevron-down')
-                    : (function () {
-                })()
-            })
-            $('.left').on('click', function () {
-                body.addClass('hide')
-                $('#user-info-hover i').attr('class').indexOf('up') > -1
-                    ? $('#user-info-hover i').removeClass('fa-chevron-up').addClass('fa-chevron-down')
-                    : (function () {
-                })()
-            })
-        }
+        // , bindClickEventForAvatar: function (hover, body) {
+        //     hover.off('click')
+        //     hover.on('click', function () {
+        //         if (body.attr('class').indexOf('hide') > -1) {
+        //             body.removeClass('hide')
+        //             $('#user-info-hover i').removeClass('fa-chevron-down').addClass('fa-chevron-up')
+        //         } else {
+        //             body.addClass('hide')
+        //             $('#user-info-hover i').removeClass('fa-chevron-up').addClass('fa-chevron-down')
+        //         }
+        //     })
+        //     $('.right').on('click', function () {
+        //         body.addClass('hide')
+        //         $('#user-info-hover i').attr('class').indexOf('up') > -1
+        //             ? $('#user-info-hover i').removeClass('fa-chevron-up').addClass('fa-chevron-down')
+        //             : (function () {
+        //         })()
+        //     })
+        //     $('.left').on('click', function () {
+        //         body.addClass('hide')
+        //         $('#user-info-hover i').attr('class').indexOf('up') > -1
+        //             ? $('#user-info-hover i').removeClass('fa-chevron-up').addClass('fa-chevron-down')
+        //             : (function () {
+        //         })()
+        //     })
+        // }
         /** 用户退出登录逻辑 */
         , handleLogout: function ($exit) {
             $exit.on('click', function () {

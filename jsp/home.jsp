@@ -23,22 +23,47 @@
                                                                        height="30px"></div>
             <div class="top-left-text">长远锂科MES系统</div>
         </div>
-        <div class="top-right">
-            <div id='user-info-hover' style="position:relative; padding: 10px 0px 10px 10px;font-size: 14px;"><a
-                    href="#"><span id="currentUser"></span><i class="fa fa-chevron-down"></i></a></div>
-            <div id="hover-body" class="hide" style="text-align: center;">
-                <div style="position: relative;top: 12px;display: inline-block">
-                    <p>
-                    <div class="fl">&nbsp;<a href="#"><i class="fa fa-sign-in"></i>&nbsp;进入个人中心</a></div>
-                    </p>
-                    <div style="clear: both;padding: 1px;"></div>
-                    <p style="padding: 0px 30px 0px 20px;">
-                    <div class="fl">&nbsp;<i class="fa fa-id-badge"></i>&nbsp;<span id='user-id'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </div>
-                    <div class="fl">&nbsp;<a href="#" id="exit">&nbsp;退出&nbsp;</a></div>
-                    </p>
+        <div class="fr vertical_center" style="height: auto;">
+            <%--<div id='user-info-hover' style="position:relative; padding: 10px 0px 10px 10px;font-size: 14px;"><a--%>
+            <%--href="#"><span id="currentUser"></span><i class="fa fa-chevron-down"></i></a></div>--%>
+            <!--右上角-->
+            <div class="vertical_center fl" style="height: 100%;border-left: 1px #ffffff dotted;">
+                <div style="padding: 0 13px 0 13px;">
+                    <a class="text_center" href="#" style="color: white;font-size: 22px;">
+                        <i class="fa fa-cog"></i>
+                    </a>
                 </div>
             </div>
+            <div style="border-left: 1px #ffffff dotted;border-right: 1px #ffffff dotted;" class="fl">
+                <div style="padding: 0 10px 0 10px;height: 100%;" class="vertical_center">
+                    <img src="https://tvax2.sinaimg.cn/crop.0.0.512.512.180/69e273f8ly8fr3qffljhwj20e80e8t90.jpg"
+                         alt=""
+                         width="45" height="45"
+                         style="border-radius: 50%;"/>
+                    <span>&nbsp;管理员</span>
+                </div>
+            </div>
+            <div class="vertical_center fl" style="height: 100%;">
+                <div style="padding: 0 13px 0 13px;">
+                    <a href="#" id="exit" style="color: white;font-size: 22px;">
+                        <i class="fa fa-sign-out"></i>
+                    </a>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <%--<div id="hover-body" class="hide" style="text-align: center;">--%>
+            <%--<div style="position: relative;top: 12px;display: inline-block">--%>
+            <%--<p>--%>
+            <%--<div class="fl">&nbsp;<a href="#"><i class="fa fa-sign-in"></i>&nbsp;进入个人中心</a></div>--%>
+            <%--</p>--%>
+            <%--<div style="clear: both;padding: 1px;"></div>--%>
+            <%--<p style="padding: 0px 30px 0px 20px;">--%>
+            <%--<div class="fl">&nbsp;<i class="fa fa-id-badge"></i>&nbsp;<span id='user-id'></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <%--</div>--%>
+            <%--<div class="fl">&nbsp;<a href="#" id="exit">&nbsp;退出&nbsp;</a></div>--%>
+            <%--</p>--%>
+            <%--</div>--%>
+            <%--</div>--%>
         </div>
     </div>
     <div class="left">
@@ -96,7 +121,7 @@
 
         function createVersion() {
             var date = new Date();
-            return "v4.275."+( date.getMonth() + 1) + date.getDate()+ ".BETA";
+            return "<span>v</span>4.275." + ( date.getMonth() + 1) + date.getDate() + ".BETA";
         }
 
         /** 日期显示 */
