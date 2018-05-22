@@ -60,7 +60,7 @@ funcs: {
     },
 
     renderHandler: function ($tbody, items) {
-       // $tbody.empty() //清空表格
+        $tbody.empty() //清空表格
         console.log(items)
         items.forEach(function (e) {
             // $('#dep_checkAll').prop('checked', false)
@@ -94,9 +94,9 @@ funcs: {
                code:codeNumber
            },function(result) {
                var items = result.data  //获取数  /** */
-           
+               console.log(items)
             //点击的时候需要弹出一个模态框
-           //product_in_manage.funcs.fillData($("#detail_modal"),items)  //将获取的数据传到#detail_modal中
+            product_in_manage.funcs.fillData($("#detail_modal"),items)  //将获取的数据传到#detail_modal中
             layer.open({
                 type: 1,
                 title: '成品入库详情',
@@ -142,14 +142,14 @@ funcs: {
     fillData: function(table,items) {
             
         //  console.log(items)
-          $("#batchNumber").text(items.batchNumber?items.batchNumber:'无')
+          $("#batchNumber").text(items.batchNumber?items.batchNumber:'null')
           $("#model").text(items.model?items.model:'null')
-          $("#department").text(!items.department?null:items.department.name)
-          $("#weight").text(items.weight)
-          $("#payer").text(items.payer)
-          $("#godowner").text(items.godowner)
-          $("#payTime").text(items.payTime)
-          $("#godownTime").text(items.godownTime)
+          $("#department").text(items.department?items.department.name:'null')
+          $("#weight").text(items.weight?items.weight:'kg')
+          $("#payer").text(items.payer?items.payer.name:'null')
+          $("#godowner").text(items.godowner?items.godowner:'null')
+          $("#payTime").text(items.payTime?items.payTime:'null')
+          $("#godownTime").text(items.godownTime?items.godownTime:'null')
          /** $("#batchNumber").text('12345')
           $("#model").text('1')
           $("#department").text('部门')
@@ -158,10 +158,10 @@ funcs: {
           $("#godowner").text('李四')
           $("#payTime").text('2017-10-20')
           $("#godownTime").text('2018-01-01')*/
-          var productGodown = items.productGodown
+          var productGodowns = items.productGodowns 
           var $tbody = $('#down_table').children('tbody')
           $tbody.empty() //清空表格
-          godownEntries.forEach(function(ele) {
+          productGodowns.forEach(function(ele) {
            //   console.log(ele)
               $tbody.append(
                   "<tr>"+

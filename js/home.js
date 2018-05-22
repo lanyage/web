@@ -712,6 +712,7 @@ var home = {
             deleteByBatchCode:function(){
                 return servers.backup() + 'pickingApplyHeader/deleteByBatchCode'
             }
+            
         },
         equipment: {
             getAllByPage: function () {
