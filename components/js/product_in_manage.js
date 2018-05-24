@@ -113,44 +113,6 @@ var product_in_manage = {
             })
 
         },
-
-
-<<<<<<< HEAD
-    fillData: function(table,items) {
-            
-        //  console.log(items)
-          $("#batchNumber").text(items.batchNumber?items.batchNumber:'null')
-          $("#model").text(items.model?items.model:'null')
-          $("#department").text(items.department?items.department.name:'null')
-          $("#weight").text(items.weight?items.weight:'kg')
-          $("#payer").text(items.payer?items.payer.name:'null')
-          $("#godowner").text(items.godowner?items.godowner:'null')
-          $("#payTime").text(items.payTime?items.payTime:'null')
-          $("#godownTime").text(items.godownTime?items.godownTime:'null')
-         /** $("#batchNumber").text('12345')
-          $("#model").text('1')
-          $("#department").text('部门')
-          $("#weight").text('22')
-          $("#payer").text('张安')
-          $("#godowner").text('李四')
-          $("#payTime").text('2017-10-20')
-          $("#godownTime").text('2018-01-01')*/
-          var productGodowns = items.productGodowns 
-          var $tbody = $('#down_table').children('tbody')
-          $tbody.empty() //清空表格
-          productGodowns.forEach(function(ele) {
-              console.log(ele)
-              $tbody.append(
-                  "<tr>"+
-                  "<td>"+(ele.code)+"</td>"+
-                  "<td>"+(ele.batchNumber)+"</td>"+
-                  "<td>"+(!ele.unit?'kg':ele.unit)+"</td>"+
-                  "<td>"+(!ele.weight?0:ele.weight)+"</td>"+
-                  " <td>"+(ele.status)+"</td>"
-              )
-          }) 
-      },
-=======
         /** 刷新事件 */
         bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
@@ -193,7 +155,6 @@ var product_in_manage = {
                 )
             })
         },
->>>>>>> 804375bd61d0f610a74ec7d73f9d66d1d220417d
 
         /** 搜索事件 */
         bindSearchEventListener: function (searchBtn) {

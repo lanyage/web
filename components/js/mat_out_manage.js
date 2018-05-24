@@ -67,7 +67,7 @@ var mat_out_manage = {
                     "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
                     "<td>" + e.auditStatus + "</td>" +
                     "<td>" + e.pickingStatus + "</td>" +
-                    "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
+                    "<td><a href=\"#\" class='detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "</tr>"
                 )
             }
@@ -126,9 +126,6 @@ var mat_out_manage = {
                         }
                     });
                 })
-                //点击的时候需要弹出一个模态框
-                // 而且要填充模态框里面的内容 todo
-
             })
         }
         , fillData: function ($table, items) {
