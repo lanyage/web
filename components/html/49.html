@@ -18,7 +18,7 @@
                     <option>选择入库状态</option>
                     <option value="0">未入库</option>
                     <option value="1">已入库</option>
-                   
+
                 </select>&nbsp;&nbsp;
                 <span id="model-li-hide-search-49"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
@@ -29,7 +29,6 @@
     <table id="product_in_table" style="width: 100%;">
         <thead style="background: #666666;">
         <tr>
-            <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
             <td>序号</td>
             <td>入库单编号</td>
             <td>制造部门</td>
@@ -38,20 +37,11 @@
             <td>详情</td>
         </tr>
         </thead>
-        <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>13948483</td>
-            <td>制造一部</td>
-            <td>2018-1-12</td>
-            <td>已入库</td>
-            <td><a href="#" class='detail' id='detail-1'><i class="layui-icon">&#xe60a;</i></a></td>
-        </tr>
         </tbody>
     </table>
 
-    <div id="material_in_page">
+    <div id="product_in_page">
     </div>
     <script src="../components/js/product_in_manage.js"></script>
     <script type="application/javascript">
@@ -60,70 +50,69 @@
         })
     </script>
 
-<div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
-    <table width="100%" style="border-left: 0px;border-right: 0px;">
-        <tr>
-            <td class="grey" width="20%" >入库单编号</td>
-            <td width="40%" id="batchNumber"></td>
-            <td class="grey" width="20%" >产品型号</td>
-            <td width="20%" id="model"></td>
-        </tr>
-        <tr>
-            <td class="grey" >制造部门</td>
-            <td id="department"></td>
-            <td class="grey">总量</td>
-            <td id="weight"></td>
-        </tr>
-        <tr>
-            <td class="grey">缴库人</td>
-            <td id="payer"></td>
-            <td class="grey">入库人</td>
-            <td id="godowner"></td>
-        </tr>
-        <tr>
-            <td class="grey">缴库时间</td>
-            <td id="payTime"></td>
-            <td class="grey">入库时间</td>
-            <td id="godownTime"></td>
-        </tr>
-    </table>
-    <div class="whitespace"></div>
-    <table id="down_table" width="100%" id='down_table' style="border:none">
-           
-        <thead>
-              <tr class="grey" style="color:#000000">
-                      <td id="code" class="normal_td">序号</td>
-                      <td id="batchCode" class="normal_td">成品批号</td>
-                      <td id="unit" class="normal_td">单位</td>
-                      <td id="number" class="normal_td">数量</td>
-                      <td id="weight" class="normal_td">状态</td>
-                  </tr>
-        </thead>
-         <tr>
-              <td>1</td>
-              <td>170108046906</td>
-              <td>t</td>
-              <td>200.00</td>
-              <td>已入库</td>
-          </tr>
-          <tr>
-              <td>2</td>
-              <td>170108046906</td>
-              <td>t</td>
-              <td>200.00</td>
-              <td>已入库</td>
-          </tr>
-          <tr>
-              <td>3</td>
-              <td>170108046906</td>
-              <td>t</td>
-              <td>200.00</td>
-              <td>已入库</td>
-          </tr>
-          <tbody>
+    <div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
+            <tr>
+                <td class="grey" width="20%">入库单编号</td>
+                <td width="40%" id="batchNumber"></td>
+                <td class="grey" width="20%">产品型号</td>
+                <td width="20%" id="model"></td>
+            </tr>
+            <tr>
+                <td class="grey">制造部门</td>
+                <td id="department"></td>
+                <td class="grey">总量</td>
+                <td id="detail_weight"></td>
+            </tr>
+            <tr>
+                <td class="grey">缴库人</td>
+                <td id="payer"></td>
+                <td class="grey">入库人</td>
+                <td id="godowner"></td>
+            </tr>
+            <tr>
+                <td class="grey">缴库时间</td>
+                <td id="payTime"></td>
+                <td class="grey">入库时间</td>
+                <td id="godownTime"></td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <table id="down_table" width="100%" id='down_table' style="border:none">
+            <thead>
+            <tr class="grey" style="color:#000000">
+                <td class="normal_td">序号</td>
+                <td class="normal_td">成品批号</td>
+                <td class="normal_td">单位</td>
+                <td class="normal_td">数量</td>
+                <td class="normal_td">状态</td>
+            </tr>
+            </thead>
+            <!--<tr>-->
+                <!--<td>1</td>-->
+                <!--<td>170108046906</td>-->
+                <!--<td>t</td>-->
+                <!--<td>200.00</td>-->
+                <!--<td>已入库</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>2</td>-->
+                <!--<td>170108046906</td>-->
+                <!--<td>t</td>-->
+                <!--<td>200.00</td>-->
+                <!--<td>已入库</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>3</td>-->
+                <!--<td>170108046906</td>-->
+                <!--<td>t</td>-->
+                <!--<td>200.00</td>-->
+                <!--<td>已入库</td>-->
+            <!--</tr>-->
+            <tbody>
 
-          </tbody>
+            </tbody>
 
-      </table>
-</div>
+        </table>
+    </div>
 </div>

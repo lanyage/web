@@ -6,7 +6,7 @@ var mat_out_manage = {
         /** 渲染下拉菜单 */
         mat_out_manage.funcs.bindCreatoption()
         // mat_out_manage.funcs.checkboxEventBinding()
-        /** 将分页居中 */ 
+        /** 将分页居中 */
         var out = $('#material_out_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
@@ -18,12 +18,10 @@ var mat_out_manage = {
 
         renderTable: function () {
             $.post(home.urls.materialOut.getAllByPage(), {}, function (res) {
-                //console.log(res.data.content)
                 var $tbody = $("#material_out_table").children('tbody')
                 /** 过滤返回的数据 */
                 var items = res.data.content
-                //console.log('AAAAAAAAAAAAAAAAAAAAAAAA')
-                //console.log(items)
+
                 mat_out_manage.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 mat_out_manage.pageSize = res.data.content.length //该页的记录数
@@ -48,15 +46,15 @@ var mat_out_manage = {
                     }
                 })
             })
-             // 追加刷新事件
-             var refreshBtn = $('#model-li-hide-refresh-50');
-             mat_out_manage.funcs.bindRefreshEventListener(refreshBtn);//追加刷新事件
+            // 追加刷新事件
+            var refreshBtn = $('#model-li-hide-refresh-50');
+            mat_out_manage.funcs.bindRefreshEventListener(refreshBtn);//追加刷新事件
 
-             /** 追加搜索事件 */
-           var searchBtn = $('#model-li-hide-search-50');
-           mat_out_manage.funcs.bindSearchEventListener(searchBtn);
-             
-        } 
+            /** 追加搜索事件 */
+            var searchBtn = $('#model-li-hide-search-50');
+            mat_out_manage.funcs.bindSearchEventListener(searchBtn);
+
+        }
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
             for( var i=1;i<items.length;i++){
@@ -64,12 +62,12 @@ var mat_out_manage = {
                 $tbody.append(
                     "<tr>" +
                     "<td>" + e.code + "</td>" +
-                    "<td>" + e.department.name  + "</td>" +
+                    "<td>" + (e.department != null ? e.department.name : null) + "</td>" +
                     "<td>" + (new Date(e.applyDate).Format('yyyy/MM/dd')) + "</td>" +
-                    "<td>" + e.processManage.code + "</td>" +
-                    "<td>" + e.auditStatus+ "</td>" +
-                    "<td>" + e.pickingStatus+ "</td>" +
-                    "<td><a href=\"#\" class='detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
+                    "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
+                    "<td>" + e.auditStatus + "</td>" +
+                    "<td>" + e.pickingStatus + "</td>" +
+                    "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "</tr>"
                 )
             }
@@ -83,26 +81,26 @@ var mat_out_manage = {
             mat_out_manage.funcs.bindDetailClick(detailBtns)
         }
 
-         /** 监听下拉菜单的option */
-         ,bindCreatoption:function(){
-            $.get(home.urls.department.getAll(),{},function(result){
+        /** 监听下拉菜单的option */
+        , bindCreatoption: function () {
+            $.get(home.urls.department.getAll(), {}, function (result) {
                 var value = result.data
                 var length = value.length
-                for(var i=0;i<length;i++){
-                   // console.log(value[i].code)
+                for (var i = 0; i < length; i++) {
+                    // console.log(value[i].code)
                     var text = value[i].name
-                $("#depmartment-1").append("<option id='"+ value[i].code +"' value='"+value[i].code+"'>"+text+"</option>");
-               }
+                    $("#depmartment-1").append("<option id='" + value[i].code + "' value='" + value[i].code + "'>" + text + "</option>");
+                }
             })
-            ,$.get(home.urls.check.getAll(),{},function(result){
+                , $.get(home.urls.check.getAll(), {}, function (result) {
                 var value = result.data
                 var length = value.length
-                for(var i=0;i<length;i++){
+                for (var i = 0; i < length; i++) {
                     var text = value[i].name
-                $("#depmartment-3").append("<option id='"+value[i].code+"' value='"+value[i].code+"'>"+text+"</option>");
-               }
+                    $("#depmartment-3").append("<option id='" + value[i].code + "' value='" + value[i].code + "'>" + text + "</option>");
+                }
             })
-         }
+        }
         , bindDetailClick: function (detailBtns) {
             detailBtns.off('click').on('click', function () {
                 //console.log($(this).attr('id'))
@@ -113,55 +111,54 @@ var mat_out_manage = {
                 }, function (result) {
                     var items = result.data//获取数据
 
-                mat_out_manage.funcs.fillData($("#detail_modal"),items)   //将获取的数据传到#detail_modal中
-                layer.open({
-                    type: 1,
-                    title: '原料出库单',
-                    content: $("#detail_modal"),
-                    area: ['800px', '400px'],
-                    btn: ['返回'],
-                    offset: "auto",
-                    closeBtn: 0,
-                    yes: function (index) {
-                        $("#detail_modal").css('display', 'none')
-                        layer.close(index)
-                    }
-                });
-            })
+                    mat_out_manage.funcs.fillData($("#detail_modal"), items)   //将获取的数据传到#detail_modal中
+                    layer.open({
+                        type: 1,
+                        title: '原料出库单',
+                        content: $("#detail_modal"),
+                        area: ['800px', '400px'],
+                        btn: ['返回'],
+                        offset: "auto",
+                        closeBtn: 0,
+                        yes: function (index) {
+                            $("#detail_modal").css('display', 'none')
+                            layer.close(index)
+                        }
+                    });
+                })
                 //点击的时候需要弹出一个模态框
                 // 而且要填充模态框里面的内容 todo
-                
+
             })
         }
-        , fillData: function($table,items) {
+        , fillData: function ($table, items) {
             // console.log('AAAAAAAAAAAAAAAAAAA') 
             // console.log(items.number)
-            
+
             var pickingApplies = items.pickingApplies
             //console.log('AAAAAAAAAAAAAAAAAAA')
             //console.log(godownEntries)
             var $tbody = $('#detail_table').children('tbody')
             $tbody.empty() //清空表格
-            pickingApplies.forEach(function(ele) {
-                console.log(ele)
+            pickingApplies.forEach(function (ele) {
                 $tbody.append(
-                    "<tr>"+
-                    " <td>"+(ele.rawType.code)+"</td>"+
-                    "<td>"+(ele.batchNumber)+"</td>"+
-                    "<td>"+(!ele.unit?'kg':ele.unit)+"</td>"+
-                    "<td>"+(!ele.weight?0:ele.weight)+"</td>"+
-                    "<td></td>"+
-                    "<td></td>"+
+                    "<tr>" +
+                    " <td>" + (ele.rawType.code) + "</td>" +
+                    "<td>" + (ele.batchNumber) + "</td>" +
+                    "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
+                    "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>" +
+                    "<td></td>" +
+                    "<td></td>" +
                     "</tr>"
                 )
             })
             var userStr = $.session.get('user')
             var userJson = JSON.parse(userStr)
             //todo
-            $.get(servers.backup()+"check/getAll",{},function(res) {
-                res.data.forEach(function(e,index) {
+            $.get(servers.backup() + "check/getAll", {}, function (res) {
+                res.data.forEach(function (e, index) {
                     $("#process_type").append(
-                        "<option value='"+(e.code)+"'>"+(e.name)+"</option>"
+                        "<option value='" + (e.code) + "'>" + (e.name) + "</option>"
                     )
                 })
             })
@@ -189,28 +186,28 @@ var mat_out_manage = {
                 }
             })
         }
-        /** $全选逻辑结束$ 
+        /** $全选逻辑结束$
          * 刷新逻辑
-        */
-        ,bindRefreshEventListener: function (refreshBtn) {
+         */
+        , bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
-            refreshBtn.on('click', function () { 
-                
+            refreshBtn.on('click', function () {
+
                 var index = layer.load(2, {offset: ['40%', '58%']});
                 var time = setTimeout(function () {
                     layer.msg('刷新成功', {
                         offset: ['40%', '55%'],
                         time: 700
-                    }) 
+                    })
                     mat_out_manage.init()
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
-               
+
             })
         }
-          /** 搜索事件 */
-          ,bindSearchEventListener: function (searchBtn) {
+        /** 搜索事件 */
+        , bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var department = $('#depmartment-1 option:selected').val();
@@ -221,8 +218,8 @@ var mat_out_manage = {
                 console.log(process)
                 $.post(home.urls.materialOut.getByDepartmentAndProcessManageAndPickingStatusByPage(), {
                     departmentCode: department,
-                    pickingStatus:status,
-                    processManageCode:process
+                    pickingStatus: status,
+                    processManageCode: process
                 }, function (result) {
                     var items = result.data.content //获取数据
                     //console.log('AAAAAAAAAAAAAAAAAAAAAAAAA')
