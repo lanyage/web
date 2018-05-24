@@ -1,10 +1,11 @@
 <div id='model-li-hide-51' class="display-component-container" style="padding: 20px 20px 20px 20px;">
     <meta charset="utf-8">
     <style>
-        #verifytable td{
+        #verifytable td {
             border-top-style: none;
         }
-        #verifytable{
+
+        #verifytable {
             border: 1px;
         }
     </style>
@@ -21,7 +22,6 @@
                     <a href="#">
                         <i class="layui-icon">&#xe640;</i>删除</a>
                 </span>
-                <!--<span id="model-li-hide-delete-48"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>-->
             </p>
         </div>
         <div class="fr">
@@ -74,32 +74,7 @@
             <td class="delete_td">删除</td>
         </tr>
         </thead>
-        <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
         <tbody>
-        <tr>
-            <td><input type='checkbox' class='product_out_checkbox' value='" + (e.code) + "'></td>
-            <td>1</td>
-            <td>7980345780</td>
-            <td>2017-1-12</td>
-            <td>XX单位</td>
-            <td>在审</td>
-            <td><a href="#" class='verify'><i class="layui-icon">&#xe6b2;</i></a></td>
-            <td><a href="#" class='detail'><i class="layui-icon">&#xe60a;</i></a></td>
-            <td><a href="#" class='editor'><i class="layui-icon">&#xe642;</i></a></td>
-            <td><a href="#" class='delete-1'><i class="layui-icon">&#xe640;</i></a></td>
-            </tr>
-            <tr>
-                <td><input type='checkbox' class='product_out_checkbox' value='" + (e.code) + "'></td>
-                <td>2</td>
-                <td>7980345780</td>
-                <td>2017-1-12</td>
-                <td>XX单位</td>
-                <td>在审-周玉凯</td>
-                <td><a href="#" class='verify'><i class="layui-icon">&#xe6b2;</i></a></td>
-                <td><a href="#" class='detail'><i class="layui-icon">&#xe60a;</i></a></td>
-                <td><a href="#" class='editor'><i class="layui-icon">&#xe642;</i></a></td>
-                <td><a href="#" id='delete-2'><i class="layui-icon">&#xe640;</i></a></td>
-                </tr>
         </tbody>
     </table>
 
@@ -136,192 +111,85 @@
                 <td class="grey">缴库时间</td>
                 <td></td>
                 <td class="grey">入库时间</td>
-<!--=======
-            <td><a href="#" class='auditBtn'><i class="layui-icon">&#xe6b2;</i></a></td>
-            <td><a href="#" class='detailBtn'><i class="layui-icon">&#xe60a;</i></a></td>
-            <td><a href="#" class='editBtn'><i class="layui-icon">&#xe642;</i></a></td>
-            <td><a href="#" class='deleteBtn'><i class="layui-icon">&#xe640;</i></a></td>
-        </tbody>
-    </table>
-    <script src="../components/js/product_out.js"></script>
-    <script type="application/javascript">
-        $(function () {
-            product_out.init()
-        })
-    </script>
-
-    <div id="add_Modal" class="hide" style="padding: 30px 30px 30px 30px;">
-        <table width="100%">
-            <tr>
-                <td class="grey" width="20%">出库单编号</td>
-                <td width="30%">不可编辑文本</td>
-                <td class="grey" width="20%">产品型号</td>
-                <td width="30%">
-                    <select>
-                        <option>选项1</option>
-                        <option>选项2</option>
-                        <option>选项3</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="grey">运输方式</td>
-                <td><input type="text" name="trans_method"/></td>
-                <td class="grey">总量</td>
-                <td>
-                    <select>
-                    <option>选项1</option>
-                    <option>选项2</option>
-                    <option>选项3</option>
-                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="grey">流程类型</td>
-                <td>
-                    <select>
-                        <option>选项1</option>
-                        <option>选项2</option>
-                        <option>选项3</option>
-                    </select>
-                </td>
-                <td class="grey">/</td>
                 <td></td>
             </tr>
-            <tr>
-                <td class="grey">申请时间</td>
-                <td>2018年5月4日16：26：28</td>
-                <td class="grey">入库时间</td>
-                <td>2018年5月4日16：26：39</td>
-            </tr>
         </table>
         <div class="whitespace"></div>
-        <div style="text-align: right">
-        <input type="button" value="新增" id="add"/>
-        <input type="button" value="删除" id="del"/>
-        </div>
+
         <div class="whitespace"></div>
-        <table width="100%">
-            <tr class="grey">
-                <td>选择</td>
-                <td>序号</td>
-                <td>成品编号</td>
-                <td>单位</td>
-                <td>数量</td>
-                <td>状态</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>1</td>
-                <td>382333333</td>
-                <td>t</td>
-                <td>32</td>
-                <td>已入库</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>2</td>
-                <td>382333334</td>
-                <td>t</td>
-                <td>32</td>
-                <td>已入库</td>
-            </tr>
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
+            <thead>
+            <td style="color:black">序号</td>
+            <td style="color:black">成品批号</td>
+            <td style="color:black">单位</td>
+            <td style="color:black">数量</td>
+            <td style="color:black">状态</td>
+            </thead>
+            <tbody>
+
+            </tbody>
         </table>
+        <div class="whitespace"></div>
+        <div class="whitespace"></div>
+        <table width="100%" style="border-left: 0px;border-right: 0px;border:1px solid #000000;" border="1"
+               cellpadding="0" cellspacing="0"></table>
+        <tr>
+            <td>审批人：</td>
+            <td></td>
+            <td>审批结果：</td>
+            <td></td>
+            <td>审批时间：</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>审批意见:</td>
+            <td></td>
+        </tr>
+        </table>
+        <div class="whitespace"></div>
+        <p>
+            <span>审批意见：</span>
+            <span><textarea name="" id="" style="width:100%;height:100px;" cols="5" rows="5"></textarea></span>
+        </p>
     </div>
-    <div id="add_add_Modal" class="hide"  style="padding: 30px 30px 30px 30px;"></div>
-    <div id="audit_Modal" class="hide" style="padding: 30px 30px 30px 30px;">
-        <table width="100%">
+    <div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
             <tr>
                 <td class="grey" width="20%">入库单编号</td>
-                <td width="30%"></td>
+                <td width="40%"></td>
                 <td class="grey" width="20%">产品型号</td>
-                <td width="30%"></td>
+                <td width="20%"></td>
             </tr>
             <tr>
-                <td>制造部门</td>
+                <td class="grey">制造部门</td>
                 <td></td>
-                <td>总量</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>缴库人</td>
-                <td></td>
-                <td>入库人</td>
+                <td class="grey">总量</td>
                 <td></td>
             </tr>
             <tr>
-                <td>缴库时间</td>
+                <td class="grey">缴库人</td>
                 <td></td>
-                <td>入库时间</td>
->>>>>>> wangzhihao-581-->
+                <td class="grey">入库人</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="grey">缴库时间</td>
+                <td></td>
+                <td class="grey">入库时间</td>
                 <td></td>
             </tr>
         </table>
+
         <div class="whitespace"></div>
-
-    <div class="whitespace"></div>
-    <table width="100%" style="border-left: 0px;border-right: 0px;">
-        <thead>
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
+            <thead>
             <td style="color:black">序号</td>
             <td style="color:black">成品批号</td>
             <td style="color:black">单位</td>
             <td style="color:black">数量</td>
             <td style="color:black">状态</td>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
-    <div class="whitespace"></div>
-    <div class="whitespace"></div>
-    <table width="100%" style="border-left: 0px;border-right: 0px;border:1px solid #000000;"border="1" cellpadding="0" cellspacing="0"></table>
-        <tr><td>审批人：</td><td></td><td>审批结果：</td><td></td><td>审批时间：</td><td></td></tr>
-        <tr><td>审批意见:</td><td></td></tr>
-    </table>
-    <div class="whitespace"></div>
-    <p>
-        <span>审批意见：</span>
-        <span><textarea name="" id="" style="width:100%;height:100px;" cols="5" rows="5"></textarea></span>
-    </p>
-    </div>
-<div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
-    <table width="100%" style="border-left: 0px;border-right: 0px;">
-        <tr>
-            <td class="grey" width="20%">入库单编号</td>
-            <td width="40%"></td>
-            <td class="grey" width="20%">产品型号</td>
-            <td width="20%"></td>
-        </tr>
-        <tr>
-            <td class="grey">制造部门</td>
-            <td></td>
-            <td class="grey">总量</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="grey">缴库人</td>
-            <td></td>
-            <td class="grey">入库人</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="grey">缴库时间</td>
-            <td></td>
-            <td class="grey">入库时间</td>
-            <td></td>
-        </tr>
-    </table>
-  
-    <div class="whitespace"></div>
-    <table width="100%" style="border-left: 0px;border-right: 0px;">
-        <thead>
-            <td style="color:black">序号</td>
-            <td style="color:black">成品批号</td>
-            <td style="color:black">单位</td>
-            <td style="color:black">数量</td>
-            <td style="color:black">状态</td>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <tr>
                 <td style="color:black">1</td>
                 <td style="color:black">170m108046906</td>
@@ -330,453 +198,242 @@
                 <td style="color:black">已入库</td>
             </tr>
             <tr>
-                    <td style="color:black">1</td>
-                    <td style="color:black">170m108046907</td>
-                    <td style="color:black">t</td>
-                    <td style="color:black">200.00</td>
-                    <td style="color:black">已入库</td>
-                </tr>
-        </tbody>
-    </table>
-    <div class="whitespace"></div>
-
-    <table  width="100%" style="border-left: 0px;border-right: 0px;">
-        <tr >
-            <td >审批人：</td>
-            <td>周玉凯</td>
-            <td>审批结果：</td>
-            <td>正常</td>
-            <td>审批时间：</td>
-            <td>2018-01-01</td>
-        </tr>
-        <tr class="no_border">
-            <td>审批意见：</td>
-            <td colspan="5"></td>
-        </tr>
-    </table>
-</div>
-
-<div id='add_modal' class="hide" style="padding: 30px 30px 30px 30px;">
-    <table width="100%" style="border-left: 0px;border-right: 0px;">
-        <tr>
-            <td class="grey" width="20%">出库单编号</td>
-            <td width="40%"></td>
-            <td class="grey" width="20%">产品型号</td>
-            <td width="20%"></td>
-        </tr>
-        <tr>
-            <td class="grey">运输方式</td>
-            <td></td>
-            <td class="grey">总量</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="grey">流程类型</td>
-            <td></td>
-            <td class="grey">/</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="grey">申请时间</td>
-            <td></td>
-            <td class="grey">入库时间</td>
-            <td></td>
-        </tr>
-    </table>
-    <div class="whitespace" style="clear: both"></div>
-    <div class="fr">
-        <button id="add_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
-        &nbsp;&nbsp;
-        <button class="roundBtn">&nbsp;删除&nbsp;</button>
-    </div>
-    <div class="whitespace" style="clear: both"></div>
-    <table width="100%" id="add_modal_table">
-        <tr class="grey">
-            <td ><input type="checkbox" id='add_checkAll'/></td>
-            <td>序号</td>
-            <td>成品批号</td>
-            <td>单位</td>
-            <td>数量</td>
-            <td>状态</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class='add_checkbox'/></td>
-            <td>1</td>
-            <td>38233333</td>
-            <td>t</td>
-            <td>32</td>
-            <td>已入库</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class='add_checkbox'/></td>
-            <td>2</td>
-            <td>38233333</td>
-            <td>t</td>
-            <td>32</td>
-            <td>已入库</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class='add_checkbox'/></td>
-            <td>3</td>
-            <td>38233333</td>
-            <td>t</td>
-            <td>32</td>
-            <td>已入库</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class='add_checkbox'/></td>
-            <td>4</td>
-            <td>38233333</td>
-            <td>t</td>
-            <td>32</td>
-            <td>已入库</td>
-        </tr>
-    </table>
-</div>
-<!--新增界面里面的新增-->
-<div id='add_modal1' class="hide" style="padding: 30px 30px 30px 30px;">
-        <div class="block-quote">
-                <div class="fl">
-                        <p style="color: #62a49a; font-size: 14px;">
-                                <span style="color: black;" >原料类型</span>
-                                <select name="material_type" style="border-radius: 0;">
-                                    <option >选择原料类型</option>
-                                    <option value="1">类型1</option>
-                                    <option value="2">类型2</option>
-                                    <option value="3">类型3</option>
-                                </select>&nbsp;&nbsp;
-
-                               <span style="color: black;">批号 <input placeholder="请输入批号" id="product_batch_number_input"/></span>     
-                        </p>
-                </div>
-                <div class="fr">
-                    <p style="color: #62a49a; font-size: 14px;">
-                        <input type="button" value="查询">
-                    </p>
-                </div>
-            </div>
-    
-    <div class="whitespace" style="clear: both"></div>
-
-    <table width="100%" id="add_modal1_table">
-        <thead>
-        <tr class="grey">
-            <td><input type="checkbox" id='add1_checkAll' /></td>
-            <td class="normal_td">批号</td>
-            <td class="normal_td">可用数量</td>
-            <td class="normal_td">单位</td>
-            <td class="normal_td">检验状态</td>
-            <td class="normal_td">详情</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-            <td><input type="checkbox" class='add1_checkbox'/></td>
-            <td>38233333</td>
-            <td>100</td>
-            <td>kg</td>
-            <td>已检验</td>
-            <td><a href="#" class='detail' id='detail-1'><i class="layui-icon">&#xe60a;</i></a></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class='add1_checkbox'/></td>
-            <td>38233334</td>
-            <td>33</td>
-            <td>kg</td>
-            <td>已检验</td>
-            <td><a href="#" class='detail' id='detail-2'><i class="layui-icon">&#xe60a;</i></a></td>
-        </tr>
-    </tbody>
-    </table>
-</div>
-
-<div id='editor_modal' class="hide" style="padding: 30px 30px 30px 30px;">
-    <table width="100%" style="border-left: 0px;border-right: 0px;">
-        <tr>
-            <td class="grey" width="20%">出库单编号</td>
-            <td width="40%"></td>
-            <td class="grey" width="20%">产品型号</td>
-            <td width="20%"></td>
-        </tr>
-        <tr>
-            <td class="grey">运输方式</td>
-            <td></td>
-            <td class="grey">总量</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="grey">流程类型</td>
-            <td></td>
-            <td class="grey">/</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="grey">申请时间</td>
-            <td></td>
-            <td class="grey">入库时间</td>
-            <td></td>
-        </tr>
-    </table>
-    <div class="whitespace"></div>
-    <div class="fr">
-        <button id="edit_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
-        &nbsp;&nbsp;
-        <button  id="edit_deleteBtn" class="roundBtn">&nbsp;删除&nbsp;</button>
-    </div>
-    <div class="whitespace" style="clear: both"></div>
-    <table width="100%" id="edit_modal_table">
-        <tr class="grey">
-            <td class="checkBox_td"><input type="checkbox" id='edit_checkAll'/></td>
-            <td>序号</td>
-            <td>成品批号-周玉凯</td>
-            <td>单位</td>
-            <td>数量</td>
-            <td>状态</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class='edit_checkbox'/></td>
-            <td>1</td>
-            <td>38233333</td>
-            <td>t</td>
-            <td>32</td>
-            <td>已入库</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class='edit_checkbox'/></td>
-            <td>2</td>
-            <td>38233333</td>
-            <td>t</td>
-            <td>32</td>
-            <td>已入库</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class='edit_checkbox'/></td>
-            <td>3</td>
-            <td>38233333</td>
-            <td>t</td>
-            <td>32</td>
-            <td>已入库</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" class='edit_checkbox'/></td>
-            <td>4</td>
-            <td>38233333</td>
-            <td>t</td>
-            <td>32</td>
-            <td>已入库</td>
-        </tr>
-    </table>
-
-</div>
-</div>
-<!--
-=======
-        <table width="100%">
-            <tr class="grey">
-                <td>序号</td>
-                <td>成品编号</td>
-                <td>单位</td>
-                <td>数量</td>
-                <td>状态</td>
+                <td style="color:black">1</td>
+                <td style="color:black">170m108046907</td>
+                <td style="color:black">t</td>
+                <td style="color:black">200.00</td>
+                <td style="color:black">已入库</td>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>170m108046906</td>
-                <td>t</td>
-                <td>200.00</td>
-                <td>已入库</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>170m108046906</td>
-                <td>t</td>
-                <td>200.00</td>
-                <td>已入库</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>170m108046906</td>
-                <td>t</td>
-                <td>200.00</td>
-                <td>已入库</td>
-            </tr>
+            </tbody>
         </table>
         <div class="whitespace"></div>
-        <div style="border: 1px solid #9F9F9F">
-            <table width="100%" style="border: none"> 
-                <tr>
-                    <td>审批人：</td>
-                    <td class="grey">张经理</td>
-                    <td>审批结果：</td>
-                    <td class="grey">通过</td>
-                    <td>审批时间：</td>
-                    <td class="grey">2018年1月31日12：21：23</td>
-                </tr>
-                <tr>
-                    <td>审批意见：</td>
-                    <td class="grey">数据正常，已经审核</td>
-                </tr>
-            </table>
-        </div>
-        <div class="whitespace"></div>
-        <span style="vertical-align:top">审批意见：</span>
-        <textarea style=" width:88%;height:20%"></textarea>
-    </div>
-    <div id="detail_Modal" class="hide" style="padding: 30px 30px 30px 30px;">
-        <table width="100%">
+
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
             <tr>
-                <td class="grey" width="20%">入库单编号</td>
-                <td width="30%"></td>
-                <td class="grey" width="20%">产品型号</td>
-                <td width="30%"></td>
+                <td>审批人：</td>
+                <td>周玉凯</td>
+                <td>审批结果：</td>
+                <td>正常</td>
+                <td>审批时间：</td>
+                <td>2018-01-01</td>
             </tr>
-            <tr>
-                <td>制造部门</td>
-                <td></td>
-                <td>总量</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>缴库人</td>
-                <td></td>
-                <td>入库人</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>缴库时间</td>
-                <td></td>
-                <td>入库时间</td>
-                <td></td>
+            <tr class="no_border">
+                <td>审批意见：</td>
+                <td colspan="5"></td>
             </tr>
         </table>
-        <div class="whitespace"></div>
-        <table width="100%">
-            <tr class="grey">
-                <td>序号</td>
-                <td>成品编号</td>
-                <td>单位</td>
-                <td>数量</td>
-                <td>状态</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>170m108046906</td>
-                <td>t</td>
-                <td>200.00</td>
-                <td>已入库</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>170m108046906</td>
-                <td>t</td>
-                <td>200.00</td>
-                <td>已入库</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>170m108046906</td>
-                <td>t</td>
-                <td>200.00</td>
-                <td>已入库</td>
-            </tr>
-        </table>
-        <div class="whitespace"></div>
-        <div style="border: 1px solid #9F9F9F">
-            <table width="100%" style="border: none">
-                <tr>
-                    <td>审批人：</td>
-                    <td class="grey">张经理</td>
-                    <td>审批结果：</td>
-                    <td class="grey">通过</td>
-                    <td>审批时间：</td>
-                    <td class="grey">2018年1月31日12：21：23</td>
-                </tr>
-                <tr>
-                    <td>审批意见：</td>
-                    <td class="grey">数据正常，已经审核</td>
-                </tr>
-            </table>
-        </div>
     </div>
-    <div id="edit_Modal" class="hide" style="padding: 30px 30px 30px 30px;">
-        <table width="100%">
+
+    <div id='add_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
             <tr>
                 <td class="grey" width="20%">出库单编号</td>
-                <td width="30%">不可编辑文本</td>
+                <td width="40%"></td>
                 <td class="grey" width="20%">产品型号</td>
-                <td width="30%">
-                    <select>
-                        <option>选项1</option>
-                        <option>选项2</option>
-                        <option>选项3</option>
-                    </select>
-                </td>
+                <td width="20%"></td>
             </tr>
             <tr>
                 <td class="grey">运输方式</td>
-                <td><input type="text" name="trans_method"/></td>
+                <td></td>
                 <td class="grey">总量</td>
-                <td>
-                    <select>
-                        <option>选项1</option>
-                        <option>选项2</option>
-                        <option>选项3</option>
-                    </select>
-                </td>
+                <td></td>
             </tr>
             <tr>
                 <td class="grey">流程类型</td>
-                <td>
-                    <select>
-                        <option>选项1</option>
-                        <option>选项2</option>
-                        <option>选项3</option>
-                    </select>
-                </td>
+                <td></td>
                 <td class="grey">/</td>
                 <td></td>
             </tr>
             <tr>
                 <td class="grey">申请时间</td>
-                <td>2018年5月4日16：26：28</td>
+                <td></td>
                 <td class="grey">入库时间</td>
-                <td>2018年5月4日16：26：39</td>
+                <td></td>
             </tr>
         </table>
-        <div class="whitespace"></div>
-        <div style="text-align: right">
-            <input type="button" value="新增" id="add1"/>
-            <input type="button" value="删除" id="del1"/>
+        <div class="whitespace" style="clear: both"></div>
+        <div class="fr">
+            <button id="add_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
+            &nbsp;&nbsp;
+            <button class="roundBtn">&nbsp;删除&nbsp;</button>
         </div>
-        <div class="whitespace"></div>
-        <table width="100%">
+        <div class="whitespace" style="clear: both"></div>
+        <table width="100%" id="add_modal_table">
             <tr class="grey">
-                <td>选择</td>
+                <td><input type="checkbox" id='add_checkAll'/></td>
                 <td>序号</td>
-                <td>成品编号</td>
+                <td>成品批号</td>
                 <td>单位</td>
                 <td>数量</td>
                 <td>状态</td>
             </tr>
             <tr>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" class='add_checkbox'/></td>
                 <td>1</td>
-                <td>382333333</td>
+                <td>38233333</td>
                 <td>t</td>
                 <td>32</td>
                 <td>已入库</td>
             </tr>
             <tr>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" class='add_checkbox'/></td>
                 <td>2</td>
-                <td>382333334</td>
+                <td>38233333</td>
+                <td>t</td>
+                <td>32</td>
+                <td>已入库</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='add_checkbox'/></td>
+                <td>3</td>
+                <td>38233333</td>
+                <td>t</td>
+                <td>32</td>
+                <td>已入库</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='add_checkbox'/></td>
+                <td>4</td>
+                <td>38233333</td>
                 <td>t</td>
                 <td>32</td>
                 <td>已入库</td>
             </tr>
         </table>
     </div>
+    <!--新增界面里面的新增-->
+    <div id='add_modal1' class="hide" style="padding: 30px 30px 30px 30px;">
+        <div class="block-quote">
+            <div class="fl">
+                <p style="color: #62a49a; font-size: 14px;">
+                    <span style="color: black;">原料类型</span>
+                    <select name="material_type" style="border-radius: 0;">
+                        <option>选择原料类型</option>
+                        <option value="1">类型1</option>
+                        <option value="2">类型2</option>
+                        <option value="3">类型3</option>
+                    </select>&nbsp;&nbsp;
 
+                    <span style="color: black;">批号 <input placeholder="请输入批号" id="product_batch_number_input"/></span>
+                </p>
+            </div>
+            <div class="fr">
+                <p style="color: #62a49a; font-size: 14px;">
+                    <input type="button" value="查询">
+                </p>
+            </div>
+        </div>
+
+        <div class="whitespace" style="clear: both"></div>
+
+        <table width="100%" id="add_modal1_table">
+            <thead>
+            <tr class="grey">
+                <td><input type="checkbox" id='add1_checkAll'/></td>
+                <td class="normal_td">批号</td>
+                <td class="normal_td">可用数量</td>
+                <td class="normal_td">单位</td>
+                <td class="normal_td">检验状态</td>
+                <td class="normal_td">详情</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="checkbox" class='add1_checkbox'/></td>
+                <td>38233333</td>
+                <td>100</td>
+                <td>kg</td>
+                <td>已检验</td>
+                <td><a href="#" class='detail' id='detail-1'><i class="layui-icon">&#xe60a;</i></a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='add1_checkbox'/></td>
+                <td>38233334</td>
+                <td>33</td>
+                <td>kg</td>
+                <td>已检验</td>
+                <td><a href="#" class='detail' id='detail-2'><i class="layui-icon">&#xe60a;</i></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id='editor_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
+            <tr>
+                <td class="grey" width="20%">出库单编号</td>
+                <td width="40%"></td>
+                <td class="grey" width="20%">产品型号</td>
+                <td width="20%"></td>
+            </tr>
+            <tr>
+                <td class="grey">运输方式</td>
+                <td></td>
+                <td class="grey">总量</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="grey">流程类型</td>
+                <td></td>
+                <td class="grey">/</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="grey">申请时间</td>
+                <td></td>
+                <td class="grey">入库时间</td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <div class="fr">
+            <button id="edit_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
+            &nbsp;&nbsp;
+            <button id="edit_deleteBtn" class="roundBtn">&nbsp;删除&nbsp;</button>
+        </div>
+        <div class="whitespace" style="clear: both"></div>
+        <table width="100%" id="edit_modal_table">
+            <tr class="grey">
+                <td class="checkBox_td"><input type="checkbox" id='edit_checkAll'/></td>
+                <td>序号</td>
+                <td>成品批号-周玉凯</td>
+                <td>单位</td>
+                <td>数量</td>
+                <td>状态</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='edit_checkbox'/></td>
+                <td>1</td>
+                <td>38233333</td>
+                <td>t</td>
+                <td>32</td>
+                <td>已入库</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='edit_checkbox'/></td>
+                <td>2</td>
+                <td>38233333</td>
+                <td>t</td>
+                <td>32</td>
+                <td>已入库</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='edit_checkbox'/></td>
+                <td>3</td>
+                <td>38233333</td>
+                <td>t</td>
+                <td>32</td>
+                <td>已入库</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class='edit_checkbox'/></td>
+                <td>4</td>
+                <td>38233333</td>
+                <td>t</td>
+                <td>32</td>
+                <td>已入库</td>
+            </tr>
+        </table>
+    </div>
 </div>
->>>>>>> wangzhihao-581
--->
+

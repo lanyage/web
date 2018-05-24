@@ -102,8 +102,7 @@ var department_manage = {
 
         /** 删除事件 */
         , bindDeleteEventListener: function (deleteBtns) {
-            deleteBtns.off('click')
-            deleteBtns.on('click', function () {
+            deleteBtns.off('click').on('click', function () {
                 //首先弹出一个询问框
                 var _this = $(this)
                 layer.open({
@@ -124,7 +123,7 @@ var department_manage = {
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    department_manage.init()
+                                    _this.parent('td').parent('tr').remove();
                                     clearTimeout(time)
                                 }, 500)
                             }

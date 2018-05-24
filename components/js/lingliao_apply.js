@@ -8,17 +8,14 @@ var lingliao_apply = {
         //////////////////////////////////
         //bind SelectAll for editModal checkBoxes
         //////////////////////////////////
-        var checkedBoxLen =$(".add_checkbox:checked").length
-        home.funcs.bindSelectAll($("#add_checkAll"), $(".add_checkbox"),checkedBoxLen,$("#add_modal_table"))
-        
-        
-        
+        var checkedBoxLen = $(".add_checkbox:checked").length
+        home.funcs.bindSelectAll($("#add_checkAll"), $(".add_checkbox"), checkedBoxLen, $("#add_modal_table"))
 
-       
+
         /////////////////////////////////
         //bind addBtn click
         /////////////////////////////////
-        $("#model-li-hide-add-113").click(function() {
+        $("#model-li-hide-add-113").click(function () {
             layer.open({
                 type: 1,
                 title: '编辑',
@@ -56,14 +53,13 @@ var lingliao_apply = {
     }
     , funcs: {
         renderTable: function () {
-            //post here to getAll     $todo
+            //post here to getAll
             $.post(home.urls.lingLiao.getAllByPage(), {}, function (res) {
                 //console.log(res.data.content)
                 var $tbody = $("#lingliao_apply_table").children('tbody')
                 /** 过滤返回的数据 */
                 var items = res.data.content
-                //console.log('AAAAAAAAAAAAAAAAAAAAAAAA')
-                //console.log(items)
+
                 lingliao_apply.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 lingliao_apply.pageSize = res.data.content.length //该页的记录数
@@ -109,7 +105,7 @@ var lingliao_apply = {
             var refreshBtn = $('#model-li-hide-refresh-113');
             lingliao_apply.funcs.bindRefreshEventListener(refreshBtn);//追加刷新事件
             //追加搜索事件
-            var searchBtn  = $('#model-li-hide-search-113')
+            var searchBtn = $('#model-li-hide-search-113')
             lingliao_apply.funcs.bindSearchEventListener(searchBtn)
             //////////////////////////////////
             //bind editModal's addBtn click
@@ -140,15 +136,15 @@ var lingliao_apply = {
         }
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
-            for(var i=1;i<items.length;i++){
-                e=items[i];
+            for (var i = 0; i < items.length; i++) {
+                e = items[i];
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='lingliao_apply_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + e.code + "</td>" +
-                    "<td>" + e.department.name + "</td>" +
+                    "<td>" + (e.department ? e.department.name : null) + "</td>" +
                     "<td>" + (new Date(e.applyDate).Format('yyyy/MM/dd')) + "</td>" +
-                    "<td>" + e.processManage.code + "</td>" +
+                    "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
                     "<td>" + e.auditStatus + "</td>" +
                     "<td>" + e.pickingStatus + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
@@ -157,11 +153,11 @@ var lingliao_apply = {
                     "</tr>"
                 )
             }
-            
-               
-                //console.log(code)
-               
-             
+
+
+            //console.log(code)
+
+
             // /** 绑定全选事件 */
             // mat_out_manage.funcs.checkboxEventBinding()
             /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
@@ -174,7 +170,7 @@ var lingliao_apply = {
             //lingliao_apply.funcs.checkboxEventBinding()
             var checkedBoxLen = $('.lingliao_apply_checkbox:checked').length
             home.funcs.bindSelectAll($("#lingliao_apply_checkAll"), $('.lingliao_apply_checkbox'), checkedBoxLen, $("#lingliao_apply_table"))
-            
+
             var deleteBatchBtn = $('#model-li-hide-delete-113')
             lingliao_apply.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
         }
@@ -190,7 +186,7 @@ var lingliao_apply = {
                 }
             })
         }
-       
+
         /** 删除事件 */
         , bindDeleteClick: function (deleteBtns) {
             deleteBtns.off('click')
@@ -229,7 +225,7 @@ var lingliao_apply = {
             })
         }
         /** 正常申请事件 */
-        ,bindNorApplyModel:function(norApplyBtns){
+        , bindNorApplyModel: function (norApplyBtns) {
             norApplyBtns.off('click').on('click', function () {
                 layer.open({
                     type: 1,
@@ -247,21 +243,21 @@ var lingliao_apply = {
             })
         }
         /** 正常申请页面里的新增按钮 */
-        ,bindNorApplyAddModel:function(norApplyAddBtns){
-            norApplyAddBtns.off('click').on('click',function(){
+        , bindNorApplyAddModel: function (norApplyAddBtns) {
+            norApplyAddBtns.off('click').on('click', function () {
                 layer.open({
                     type: 1,
                     title: '正常申请-新增',
                     content: $("#nor_addModal"),
                     area: ['800px', '400px'],
-                    btn: ['确认','返回'],
+                    btn: ['确认', '返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
                         $("#nor_addModal").css('display', 'none')
                         layer.close(index)
                     },
-                    btn2:function(index){
+                    btn2: function (index) {
                         $("#nor_addModal").css('display', 'none')
                         layer.close(index)
                     }
@@ -269,18 +265,18 @@ var lingliao_apply = {
             })
         }
         /** 正常申请页面里的新增页面里的搜索事件 */
-        
-        ,bindNorApplyAddSearchModel:function(norApplyAddSearchBtns){
+
+        , bindNorApplyAddSearchModel: function (norApplyAddSearchBtns) {
             norApplyAddSearchBtns.off('click')
             norApplyAddSearchBtns.on('click', function () {
                 var status = $('#status').val()
                 var process = $('#processtype option:selected').val();
                 $.post(home.urls.lingLiao.getByProcessManageByPage(), {
                     auditStatus: status,
-                    processManageCode:process
+                    processManageCode: process
                 }, function (result) {
                     var items = result.data.content //获取数据
-                    page = result.data 
+                    page = result.data
                     const $tbody = $("#lingliao_apply_table").children('tbody')
                     lingliao_apply.funcs.renderHandler($tbody, items)
                     layui.laypage.render({
@@ -293,7 +289,7 @@ var lingliao_apply = {
                                     size: obj.limit
                                 }, function (result) {
                                     var items = result.data.content //获取数据
-                                   // var code = $('#model-li-select-48').val()
+                                    // var code = $('#model-li-select-48').val()
                                     const $tbody = $("#lingLiao_page").children('tbody')
                                     lingliao_apply.funcs.renderHandler($tbody, items)
                                     lingliao_apply.pageSize = result.data.content.length
@@ -305,7 +301,7 @@ var lingliao_apply = {
             })
         }
         /** 紧急申请事件 */
-        ,bindUrgApplyModel:function(urgApplyBtns){
+        , bindUrgApplyModel: function (urgApplyBtns) {
             urgApplyBtns.off('click').on('click', function () {
                 layer.open({
                     type: 1,
@@ -323,21 +319,21 @@ var lingliao_apply = {
             })
         }
         /** 紧急申请页面里的新增按钮 */
-        ,bindUrgApplyAddModel:function(urgApplyAddBtns){
-            urgApplyAddBtns.off('click').on('click',function(){
+        , bindUrgApplyAddModel: function (urgApplyAddBtns) {
+            urgApplyAddBtns.off('click').on('click', function () {
                 layer.open({
                     type: 1,
                     title: '紧急申请-新增',
                     content: $("#urg_addModal"),
                     area: ['800px', '400px'],
-                    btn: ['确认','返回'],
+                    btn: ['确认', '返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
                         $("#urg_addModal").css('display', 'none')
                         layer.close(index)
                     },
-                    btn2:function(index){
+                    btn2: function (index) {
                         $("#urg_addModal").css('display', 'none')
                         layer.close(index)
                     }
@@ -360,18 +356,18 @@ var lingliao_apply = {
                 });
             })
         }
-       
-       /**填充详情表格的弹出表格 */
+
+        /**填充详情表格的弹出表格 */
         , fillData_detail: function (table, items) {
-            
-            $.get(home.urls.check.getAll(),{},function(result){
+
+            $.get(home.urls.check.getAll(), {}, function (result) {
                 item = result.data
                 console.log(item)
                 $("#detail_select").html("<option>请选择审批流程</option>");
-                item.forEach(function(e) {
-                    $("#detail_select").append("<option value="+e.code+">"+(e.name)+"</option>");
+                item.forEach(function (e) {
+                    $("#detail_select").append("<option value=" + e.code + ">" + (e.name) + "</option>");
                 })
-                
+
             })
             var pickingApplies = items.pickingApplies
             var $tbody = $('#detail-table').children('tbody')
@@ -389,13 +385,13 @@ var lingliao_apply = {
                     "</tr>"
                 )
             })
-             var userStr = $.session.get('user')
+            var userStr = $.session.get('user')
             var userJson = JSON.parse(userStr)
             //todo
-            $.get(servers.backup()+"check/getAll",{},function(res) {
-                res.data.forEach(function(e,index) {
+            $.get(servers.backup() + "check/getAll", {}, function (res) {
+                res.data.forEach(function (e, index) {
                     $("#process_type").append(
-                        "<option value='"+(e.code)+"'>"+(e.name)+"</option>"
+                        "<option value='" + (e.code) + "'>" + (e.name) + "</option>"
                     )
                 })
             })
@@ -405,14 +401,14 @@ var lingliao_apply = {
         }
         /** 填充编辑按钮的表格 */
         , fillData_editor: function (table, items) {
-            $.get(home.urls.check.getAll(),{},function(result){
+            $.get(home.urls.check.getAll(), {}, function (result) {
                 item = result.data
                 console.log(item)
                 $("#edit_select").html("<option>请选择审批流程</option>");
-                item.forEach(function(e) {
-                    $("#edit_select").append("<option value="+e.code+">"+(e.name)+"</option>");
+                item.forEach(function (e) {
+                    $("#edit_select").append("<option value=" + e.code + ">" + (e.name) + "</option>");
                 })
-                
+
             })
             console.log(items)
             var pickingApplies = items.pickingApplies
@@ -435,21 +431,21 @@ var lingliao_apply = {
             //实现全选
             var checkedBoxLen = $('.edit_checkbox:checked').length
             home.funcs.bindSelectAll($("#edit_checkAll"), $('.edit_checkbox'), checkedBoxLen, $("#edit_modal_table"))
-           
+
             var userStr = $.session.get('user')
             var userJson = JSON.parse(userStr)
             //todo
-            $.get(servers.backup()+"check/getAll",{},function(res) {
-                res.data.forEach(function(e,index) {
+            $.get(servers.backup() + "check/getAll", {}, function (res) {
+                res.data.forEach(function (e, index) {
                     $("#process_type").append(
-                        "<option value='"+(e.code)+"'>"+(e.name)+"</option>"
+                        "<option value='" + (e.code) + "'>" + (e.name) + "</option>"
                     )
                 })
             })
             $("#ed_appl_date").text(new Date().Format("yyyy-MM-dd hh:mm:ss"))
             $("#ed_app_dep").text(userJson.department.name)
             $("#ed_cur_user").text(userJson.name)
-            
+
         }
         , bindEditorClick: function (editBtns) {
             editBtns.off('click').on('click', function () {
@@ -470,7 +466,7 @@ var lingliao_apply = {
                         btn: ['保存', '提交', '返回'],
                         offset: "auto",
                         closeBtn: 0,
-                       //保存 
+                        //保存
                         yes: function (index) {
                             $("#edit_modal").css('display', 'none')
                             layer.close(index)
@@ -478,8 +474,7 @@ var lingliao_apply = {
                         //提交
                         btn2: function (index) {
                             //var Code = _selfBtn.attr('id').substr(7)
-                            var department = _selfBtn.pickingApplies.
-                            $.post(home.urls.lingLiao.update(), {
+                            var department = _selfBtn.pickingApplies.$.post(home.urls.lingLiao.update(), {
                                 code: codeNumber
 
                             }, function (result) {
@@ -503,10 +498,10 @@ var lingliao_apply = {
                         }
                     })
                 })
-                
+
             })
         }
-       //编辑里面的新增按钮
+        //编辑里面的新增按钮
         , bindAddClick: function (addBtn) {
             addBtn.off('click').on('click', function () {
                 layer.open({
@@ -514,7 +509,7 @@ var lingliao_apply = {
                     title: '新增',
                     content: $("#addModal"),
                     area: ['800px', '400px'],
-                    btn: ['确认','返回'],
+                    btn: ['确认', '返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
@@ -557,8 +552,8 @@ var lingliao_apply = {
                 })
             })
         }
-         /** 刷新事件 */
-         , bindRefreshEventListener: function (refreshBtn) {
+        /** 刷新事件 */
+        , bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
             refreshBtn.on('click', function () {
 
@@ -628,17 +623,17 @@ var lingliao_apply = {
             })
         }
         /** 搜索事件 */
-        ,bindSearchEventListener: function (searchBtn) {
+        , bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var status = $('#status').val()
                 var process = $('#processtype option:selected').val();
                 $.post(home.urls.lingLiao.getByProcessManageByPage(), {
                     auditStatus: status,
-                    processManageCode:process
+                    processManageCode: process
                 }, function (result) {
                     var items = result.data.content //获取数据
-                    page = result.data 
+                    page = result.data
                     console.log(items)
                     const $tbody = $("#lingliao_apply_table").children('tbody')
                     lingliao_apply.funcs.renderHandler($tbody, items)
@@ -652,7 +647,7 @@ var lingliao_apply = {
                                     size: obj.limit
                                 }, function (result) {
                                     var items = result.data.content //获取数据
-                                   // var code = $('#model-li-select-48').val()
+                                    // var code = $('#model-li-select-48').val()
                                     const $tbody = $("#lingLiao_page").children('tbody')
                                     lingliao_apply.funcs.renderHandler($tbody, items)
                                     lingliao_apply.pageSize = result.data.content.length

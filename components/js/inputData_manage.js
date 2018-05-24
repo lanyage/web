@@ -440,9 +440,6 @@ var inputData_manage = {
             }
         },
 
-
-      
-
          /** 监听下拉菜单的option */
          bindCreatoption:function(){
             $.get(home.urls.fileUpload.getAllFileType(),{},function(result){

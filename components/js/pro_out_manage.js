@@ -1,23 +1,21 @@
 var pro_out_manage = {
     pageSize: null,
-    init:function(){
+    init: function () {
 
-         /** 渲染表格 */
-         pro_out_manage.funcs.renderTable()
-         /** 渲染下拉菜单 */
-         pro_out_manage.funcs.bindCreatoption()
+        /** 渲染下拉菜单 */
+        pro_out_manage.funcs.bindCreatoption()
         //////////////////////////////////
         //bind SelectAll for addModal checkBoxes  增加按钮里面的全选
         //////////////////////////////////
-      /**  var checkedBoxLen = $('.add_checkbox:checked').length
-        home.funcs.bindSelectAll($("#add_checkAll"), $('.add_checkbox'), checkedBoxLen, $("#add_modal_table"))
+        /**  var checkedBoxLen = $('.add_checkbox:checked').length
+         home.funcs.bindSelectAll($("#add_checkAll"), $('.add_checkbox'), checkedBoxLen, $("#add_modal_table"))
 
-        //bind selectAll 产品出库全选实现
-        var checkedBoxLen = $('.product_out_checkbox:checked').length
-        home.funcs.bindSelectAll($("#product_out_checkAll"), $('.product_out_checkbox'), checkedBoxLen, $("#product_out_table"))
-        
-        var checkedBoxLen = $('.addModal_checkbox:checked').length
-        home.funcs.bindSelectAll($("#addModal_checkALl"), $('.addModal_checkbox'), checkedBoxLen, $("#addModal_table"))**/
+         //bind selectAll 产品出库全选实现
+         var checkedBoxLen = $('.product_out_checkbox:checked').length
+         home.funcs.bindSelectAll($("#product_out_checkAll"), $('.product_out_checkbox'), checkedBoxLen, $("#product_out_table"))
+
+         var checkedBoxLen = $('.addModal_checkbox:checked').length
+         home.funcs.bindSelectAll($("#addModal_checkALl"), $('.addModal_checkbox'), checkedBoxLen, $("#addModal_table"))**/
         /** 渲染表格 */
         pro_out_manage.funcs.renderTable()
         // pro_out_manage.funcs.checkboxEventBinding()
@@ -30,16 +28,15 @@ var pro_out_manage = {
         }, 30)
     },
 
-    funcs:{
+    funcs: {
+        bindCreatoption: function () {
+            //todo
+        },
         renderTable: function () {
-
             $.post(home.urls.productOut.getAllByPage(), {}, function (res) {
-                console.log(res.data.content)
                 var $tbody = $("#product_out_table").children('tbody')
                 /** 过滤返回的数据 */
                 var items = res.data.content
-                //console.log('AAAAAAAAAAAAAAAAAAAAAAAA')
-                //console.log(items)
                 pro_out_manage.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 pro_out_manage.pageSize = res.data.content.length //该页的记录数
@@ -58,13 +55,13 @@ var pro_out_manage = {
                                 var items = result.data.content //获取数据
                                 const $tbody = $("#product_out_page").children('tbody')
                                 pro_out_manage.funcs.renderHandler($tbody, items)
-                                pro_out__manage.pageSize = result.data.content.length
+                                pro_out_manage.pageSize = result.data.content.length
                             })
                         }
                     }
                 })
             })
-           
+
             // /** 绑定全选事件 */
             // pro_out_manage.funcs.checkboxEventBinding()
             /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
@@ -73,7 +70,7 @@ var pro_out_manage = {
 
 
             //增加按钮里面增加按钮
-            checkedBoxLen = $('.add1_checkbox:checked').length
+            var checkedBoxLen = $('.add1_checkbox:checked').length
             home.funcs.bindSelectAll($("#add1_checkAll"), $('.add1_checkbox'), checkedBoxLen, $("#add_modal1_table"))
 
             var verifyBtns = $(".verify")
@@ -86,10 +83,10 @@ var pro_out_manage = {
             pro_out_manage.funcs.bindDeleteClick(deleteBtns)
 
             //增加按钮全选
-         checkedBoxLen =$(".add_checkbox:checked").length
-         home.funcs.bindSelectAll($("#add_checkAll"), $(".add_checkbox"),checkedBoxLen,$("#add_modal_table"))
- 
-        
+            checkedBoxLen = $(".add_checkbox:checked").length
+            home.funcs.bindSelectAll($("#add_checkAll"), $(".add_checkbox"), checkedBoxLen, $("#add_modal_table"))
+
+
         }
 
         /**渲染表格 */
@@ -101,11 +98,11 @@ var pro_out_manage = {
                     "<tr>" +
                     "<td><input type='checkbox' class='product_out_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + e.code + "</td>" +
-                    "<td>" + e.department.name + "</td>" +
+                    "<td>" + (e.department ? e.department.name : null) + "</td>" +
                     "<td>" + (new Date(e.applyDate).Format('yyyy/MM/dd')) + "</td>" +
-                    "<td>" + e.processManage.code + "</td>" +
+                    "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
                     "<td>" + e.auditStatus + "</td>" +
-                    "<td><a href=\"#\" class='verify'id='verify-" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>"+
+                    "<td><a href=\"#\" class='verify'id='verify-" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
                     "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
@@ -124,16 +121,16 @@ var pro_out_manage = {
             pro_out_manage.funcs.bindEditorClick(editorBtns)
             var deleteBtns = $(".delete")
             pro_out_manage.funcs.bindDeleteClick(deleteBtns)
-             //产品出库全选
-             var checkBoxLen =  $(".product_out_checkbox:checked").length
-             home.funcs.bindSelectAll($("#product_out_checkAll"),$(".product_out_checkbox"),checkBoxLen,$("#product_out_table"))
+            //产品出库全选
+            var checkBoxLen = $(".product_out_checkbox:checked").length
+            home.funcs.bindSelectAll($("#product_out_checkAll"), $(".product_out_checkbox"), checkBoxLen, $("#product_out_table"))
         }
 
 
         /**新增 */
-        ,bindAddClick:function(addBtns){
+        , bindAddClick: function (addBtns) {
             addBtns.off('click')
-            addBtns.on('click',function(){
+            addBtns.on('click', function () {
                 //点击的时候需要弹出一个模态框
                 // 而且要填充模态框里面的内容 todo                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    xccccc                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            c 
                 layer.open({
@@ -141,7 +138,7 @@ var pro_out_manage = {
                     title: '新增',
                     content: $("#add_modal"),
                     area: ['800px', '400px'],
-                    btn: ['保存','提交','返回'],
+                    btn: ['保存', '提交', '返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
@@ -162,10 +159,10 @@ var pro_out_manage = {
             var add_addBtn = $('#add_addBtn')
             pro_out_manage.funcs.bindAddClick1(add_addBtn)
         }
-         /**新增里面的新增 */
-         ,bindAddClick1:function(add_addBtn){
+        /**新增里面的新增 */
+        , bindAddClick1: function (add_addBtn) {
             add_addBtn.off('click')
-            add_addBtn.on('click',function(){
+            add_addBtn.on('click', function () {
                 //点击的时候需要弹出一个模态框
                 // 而且要填充模态框里面的内容 todo                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    xccccc                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            c 
                 layer.open({
@@ -173,12 +170,12 @@ var pro_out_manage = {
                     title: '查询',
                     content: $("#add_modal1"),
                     area: ['800px', '400px'],
-                    btn: ['确定','取消'],
+                    btn: ['确定', '取消'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
                         $("#add_modal1").css('display', 'none')
-                        
+
                         layer.close(index)
                     }
                     , btn2: function (index) {
@@ -190,9 +187,9 @@ var pro_out_manage = {
 
         }
         /**审核 */
-        ,bindVerifyClick:function(verifyBtns){
+        , bindVerifyClick: function (verifyBtns) {
             verifyBtns.off('click')
-            verifyBtns.on('click',function(){
+            verifyBtns.on('click', function () {
                 //点击的时候需要弹出一个模态框
                 // 而且要填充模态框里面的内容 todo
                 layer.open({
@@ -200,7 +197,7 @@ var pro_out_manage = {
                     title: '审核',
                     content: $("#verify_modal"),
                     area: ['800px', '400px'],
-                    btn: ['通过','不通过'],
+                    btn: ['通过', '不通过'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
@@ -243,7 +240,7 @@ var pro_out_manage = {
                     title: '编辑',
                     content: $("#editor_modal"),
                     area: ['800px', '400px'],
-                    btn: ['保存', '提交', '返回'], 
+                    btn: ['保存', '提交', '返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
@@ -260,10 +257,10 @@ var pro_out_manage = {
                     }
                 });
             })
-             var edit_addBtn = $("#edit_addBtn")
-             pro_out_manage.funcs.bindEditAddClick(edit_addBtn)
+            var edit_addBtn = $("#edit_addBtn")
+            pro_out_manage.funcs.bindEditAddClick(edit_addBtn)
 
-             //编辑按钮全选
+            //编辑按钮全选
             checkedBoxLen = $('.edit_checkbox:checked').length
             home.funcs.bindSelectAll($("#edit_checkAll"), $('.edit_checkbox'), checkedBoxLen, $("#edit_modal_table"))
         },
@@ -288,7 +285,7 @@ var pro_out_manage = {
             })
         }
         /**删除对应记录 */
-        ,bindDeleteClick(deleteBtns){
+        , bindDeleteClick: function (deleteBtns) {
             deleteBtns.off('click')
             deleteBtns.on('click', function () {
                 console.log(1)
@@ -324,8 +321,6 @@ var pro_out_manage = {
                     }
                 })
             })
-
         }
-       
     }
 }
