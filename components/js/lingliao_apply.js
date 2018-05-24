@@ -114,7 +114,7 @@ var lingliao_apply = {
             //////////////////////////////////
             //bind editModal's addBtn click
             //////////////////////////////////
-
+            //编辑里面新增按钮事件
             lingliao_apply.funcs.bindAddClick($("#edit_addBtn"))
 
             //////////////////////////////////
@@ -140,10 +140,9 @@ var lingliao_apply = {
         }
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
-            items.forEach(function (e) {
-                var code = e.code
-                //console.log(code)
-                var content = (
+            for(var i=1;i<items.length;i++){
+                e=items[i];
+                $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='lingliao_apply_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + e.code + "</td>" +
@@ -152,13 +151,17 @@ var lingliao_apply = {
                     "<td>" + e.processManage.code + "</td>" +
                     "<td>" + e.auditStatus + "</td>" +
                     "<td>" + e.pickingStatus + "</td>" +
-                    "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
-                    "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
-                    "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
+                    "<td><a href=\"#\" class='detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
+                    "<td><a href=\"#\" class='editor' id='editor-" + (e.code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
+                    "<td><a href=\"#\" class='delete' id='delete-" + (e.code) + "'><i class='fa fa-times-circle-o'></a></td>" +
                     "</tr>"
                 )
-                $tbody.append(content)
-            })
+            }
+            
+               
+                //console.log(code)
+               
+             
             // /** 绑定全选事件 */
             // mat_out_manage.funcs.checkboxEventBinding()
             /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
@@ -180,6 +183,7 @@ var lingliao_apply = {
             $.get(home.urls.check.getAll(), {}, function (result) {
                 var value = result.data
                 var length = value.length
+                $("#processtype").html("<option>请选择流程类型</option>")
                 for (var i = 0; i < length; i++) {
                     var text = value[i].name
                     $("#processtype").append("<option id='" + value[i].code + "' value='" + value[i].code + "'>" + text + "</option>");
@@ -356,26 +360,19 @@ var lingliao_apply = {
                 });
             })
         }
-        , bindAddClick: function (addBtn) {
-            addBtn.off('click').on('click', function () {
-                layer.open({
-                    type: 1,
-                    title: '新增',
-                    content: $("#addModal"),
-                    area: ['800px', '400px'],
-                    btn: ['返回'],
-                    offset: "auto",
-                    closeBtn: 0,
-                    yes: function (index) {
-                        $("#addModal").css('display', 'none')
-                        layer.close(index)
-                    }
-                });
-            })
-        }
+       
        /**填充详情表格的弹出表格 */
         , fillData_detail: function (table, items) {
-            //console.log(items)
+            
+            $.get(home.urls.check.getAll(),{},function(result){
+                item = result.data
+                console.log(item)
+                $("#detail_select").html("<option>请选择审批流程</option>");
+                item.forEach(function(e) {
+                    $("#detail_select").append("<option value="+e.code+">"+(e.name)+"</option>");
+                })
+                
+            })
             var pickingApplies = items.pickingApplies
             var $tbody = $('#detail-table').children('tbody')
             $tbody.empty() //清空表格
@@ -408,6 +405,15 @@ var lingliao_apply = {
         }
         /** 填充编辑按钮的表格 */
         , fillData_editor: function (table, items) {
+            $.get(home.urls.check.getAll(),{},function(result){
+                item = result.data
+                console.log(item)
+                $("#edit_select").html("<option>请选择审批流程</option>");
+                item.forEach(function(e) {
+                    $("#edit_select").append("<option value="+e.code+">"+(e.name)+"</option>");
+                })
+                
+            })
             console.log(items)
             var pickingApplies = items.pickingApplies
             var $tbody = $('#edit_modal_table').children('tbody')
@@ -426,8 +432,10 @@ var lingliao_apply = {
                     "</tr>"
                 )
             })
+            //实现全选
             var checkedBoxLen = $('.edit_checkbox:checked').length
             home.funcs.bindSelectAll($("#edit_checkAll"), $('.edit_checkbox'), checkedBoxLen, $("#edit_modal_table"))
+           
             var userStr = $.session.get('user')
             var userJson = JSON.parse(userStr)
             //todo
@@ -462,11 +470,12 @@ var lingliao_apply = {
                         btn: ['保存', '提交', '返回'],
                         offset: "auto",
                         closeBtn: 0,
-                        
+                       //保存 
                         yes: function (index) {
                             $("#edit_modal").css('display', 'none')
                             layer.close(index)
                         },
+                        //提交
                         btn2: function (index) {
                             //var Code = _selfBtn.attr('id').substr(7)
                             var department = _selfBtn.pickingApplies.
@@ -497,6 +506,30 @@ var lingliao_apply = {
                 
             })
         }
+       //编辑里面的新增按钮
+        , bindAddClick: function (addBtn) {
+            addBtn.off('click').on('click', function () {
+                layer.open({
+                    type: 1,
+                    title: '新增',
+                    content: $("#addModal"),
+                    area: ['800px', '400px'],
+                    btn: ['确认','返回'],
+                    offset: "auto",
+                    closeBtn: 0,
+                    yes: function (index) {
+                        $("#addModal").css('display', 'none')
+                        layer.close(index)
+                    }
+                    , btn2: function (index) {
+                        $("#addModal").css('display', 'none')
+                        layer.close(index)
+                    }
+                });
+            })
+        }
+
+
         , bindDetailClick: function (detailBtns) {
             detailBtns.off('click').on('click', function () {
                 console.log($(this).attr('id'))
@@ -606,6 +639,7 @@ var lingliao_apply = {
                 }, function (result) {
                     var items = result.data.content //获取数据
                     page = result.data 
+                    console.log(items)
                     const $tbody = $("#lingliao_apply_table").children('tbody')
                     lingliao_apply.funcs.renderHandler($tbody, items)
                     layui.laypage.render({
@@ -613,7 +647,7 @@ var lingliao_apply = {
                         , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.lingLiao.getAllByPage(), {
+                                $.post(home.urls.lingLiao.getByProcessManageByPage(), {
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {

@@ -5,7 +5,7 @@
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
                 <!--&#xe608;-->
-                <span id='model-li-hide-add-50'><a href="#"><i class="layui-icon"></i>原料出库</a></span>&nbsp;&nbsp;
+                <span id='model-li-hide-add-50'><i class="layui-icon"></i>原料出库</span>&nbsp;&nbsp;
                 <!--<span id="model-li-hide-delete-48"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>-->
             </p>
         </div>
@@ -15,14 +15,17 @@
                 &nbsp;&nbsp;
                 <span style="color: #6b6b6b;">领料部门</span>&nbsp;
                 <select id="depmartment-1" name="mat_name" style="border-radius: 0;">
+                    <option>请选择领料部门</option>
                 </select>&nbsp;&nbsp;
                 <span style="color: #6b6b6b;">领料状态</span>&nbsp;
                 <select id="depmartment-2" name="mat_name" style="border-radius: 0;">
-                    <option value="0" selected>待出库</option>
-                    <option value="1">已出库</option>
+                    <option>请选择领料状态</option>
+                    <option value="1" >待出库</option>
+                    <option value="2">已出库</option>
                 </select>&nbsp;&nbsp;
                 <span style="color: #6b6b6b;">流程类型</span>&nbsp;
                 <select id="depmartment-3" name="mat_name" style="border-radius: 0;">
+                        <option>请选择流程类型</option>
                 </select>&nbsp;&nbsp;
                 <span id="model-li-hide-search-50"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
@@ -43,9 +46,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <!--<td><input type="checkbox" class="mat_out_checkbox"></td>-->
-            <td>1</td>
+      <!-- <tr>
+            <td><input type="checkbox" class="mat_out_checkbox"></td>-->
+          <!--   <td>1</td>
             <td>领料一部</td>
             <td>2017-1-12</td>
             <td>已审核</td>
@@ -54,7 +57,7 @@
             <td><a href="#" class='detail'><i class="layui-icon">&#xe60a;</i></a></td>
         </tr>
         <tr>
-            <!--<td><input type="checkbox" class="mat_out_checkbox"></td>-->
+            <!--<td><input type="checkbox" class="mat_out_checkbox"></td>
             <td>2</td>
             <td>领料一部</td>
             <td>2017-1-12</td>
@@ -62,7 +65,7 @@
             <td>已审核</td>
             <td>领料状态</td>
             <td><a href="#" class='detail'><i class="layui-icon">&#xe60a;</i></a></td>
-        </tr>
+        </tr>-->
         </tbody>
     </table>
     <div id="material_out_page">

@@ -59,9 +59,9 @@ var mat_out_manage = {
         } 
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
-            items.forEach(function (e) {
-                var code = e.code
-                var content = (
+            for( var i=1;i<items.length;i++){
+                e=items[i];
+                $tbody.append(
                     "<tr>" +
                     "<td>" + e.code + "</td>" +
                     "<td>" + e.department.name  + "</td>" +
@@ -69,11 +69,13 @@ var mat_out_manage = {
                     "<td>" + e.processManage.code + "</td>" +
                     "<td>" + e.auditStatus+ "</td>" +
                     "<td>" + e.pickingStatus+ "</td>" +
-                    "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
+                    "<td><a href=\"#\" class='detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "</tr>"
                 )
-                $tbody.append(content)
-            })
+            }
+            
+               
+               
             // /** 绑定全选事件 */
             // mat_out_manage.funcs.checkboxEventBinding()
             /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */

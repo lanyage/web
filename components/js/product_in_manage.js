@@ -162,10 +162,10 @@ funcs: {
           var $tbody = $('#down_table').children('tbody')
           $tbody.empty() //清空表格
           productGodowns.forEach(function(ele) {
-           //   console.log(ele)
+              console.log(ele)
               $tbody.append(
                   "<tr>"+
-                  " <td>"+(ele.code)+"</td>"+
+                  "<td>"+(ele.code)+"</td>"+
                   "<td>"+(ele.batchNumber)+"</td>"+
                   "<td>"+(!ele.unit?'kg':ele.unit)+"</td>"+
                   "<td>"+(!ele.weight?0:ele.weight)+"</td>"+

@@ -15,6 +15,7 @@
                 &nbsp;&nbsp;
                 <span style="color:#666666;">状态:</span>&nbsp;
                 <select id="status">
+                    <option>请选择状态</option>
                     <option value="0">未提交</option>
                     <option value="1">未审核</option>
                     <option value="2">已审核</option>
@@ -83,7 +84,7 @@
     <div id='normal_add_modal' class="hide" style="padding: 30px 30px 30px 30px;">
         <div style="text-align: left;" class="fl">
             <span><strong>审批流程:</strong>&nbsp;
-                <select>
+                <select id="normal_add_select">
                     <option>金弛622</option>
                     <option>流程2</option>
                     <option>流程3</option>
@@ -93,7 +94,7 @@
         <div class="fr">
             <button id="normal_add_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
             &nbsp;&nbsp;
-            <button class="roundBtn">&nbsp;删除&nbsp;</button>
+            <button id="normal_delete_Btn" class="roundBtn">&nbsp;删除&nbsp;</button>
         </div>
         <div class="whitespace" style="clear: both"></div>
         <table width="100%" id="normal_add_modal_table">
@@ -186,10 +187,8 @@
     <div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
         <div style="text-align: left;">
             <span><strong>审批流程:</strong>&nbsp;
-                <select>
-                    <option>流程1</option>
-                    <option>流程2</option>
-                    <option>流程3</option>
+                <select  id="detail_select">
+                    
                 </select>
             </span>
         </div>
@@ -216,17 +215,15 @@
     <div id='edit_modal' class="hide" style="padding: 30px 30px 30px 30px;">
         <div style="text-align: left;" class="fl">
             <span><strong>审批流程:</strong>&nbsp;
-                <select>
-                    <option>流程1</option>
-                    <option>流程2</option>
-                    <option>流程3</option>
+                <select id="edit_select">
+                   
                 </select>
             </span>
         </div>
         <div class="fr">
             <button id="edit_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
             &nbsp;&nbsp;
-            <button class="roundBtn">&nbsp;删除&nbsp;</button>
+            <button id="edit_deleteBtn" class="roundBtn">&nbsp;删除&nbsp;</button>
         </div>
         <div class="whitespace" style="clear: both"></div>
         <table width="100%" id="edit_modal_table">
@@ -313,10 +310,10 @@
                 <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
             </tr>
         </table>
-        <div class="whitespace"></div>
+       <!-- <div class="whitespace"></div>
         <div style="position: relative;text-align: right;bottom: 0px;">
             <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
-        </div>
+        </div>-->
     </div>
 
      <!--点击正常申请弹窗里面的新增要弹出来的窗口 -->

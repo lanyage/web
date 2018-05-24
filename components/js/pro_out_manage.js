@@ -94,7 +94,7 @@ var pro_out_manage = {
 
         /**渲染表格 */
         , renderHandler: function ($tbody, items) {
-            $tbody.empty() //清空表格
+            //$tbody.empty() //清空表格
             items.forEach(function (e) {
                 var code = e.code
                 var content = (
