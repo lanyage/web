@@ -57,7 +57,7 @@ var mat_out_manage = {
         }
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
-            for( var i=1;i<items.length;i++){
+            for( var i=0;i<items.length;i++){
                 e=items[i];
                 $tbody.append(
                     "<tr>" +
@@ -85,6 +85,7 @@ var mat_out_manage = {
         , bindCreatoption: function () {
             $.get(home.urls.department.getAll(), {}, function (result) {
                 var value = result.data
+                $("#depmartment-1").html("<option>请选择领料部门</option>");
                 var length = value.length
                 for (var i = 0; i < length; i++) {
                     // console.log(value[i].code)
@@ -94,6 +95,7 @@ var mat_out_manage = {
             })
                 , $.get(home.urls.check.getAll(), {}, function (result) {
                 var value = result.data
+                $("#depmartment-3").html("<option>请选择流程类型</option>");
                 var length = value.length
                 for (var i = 0; i < length; i++) {
                     var text = value[i].name
@@ -129,12 +131,7 @@ var mat_out_manage = {
             })
         }
         , fillData: function ($table, items) {
-            // console.log('AAAAAAAAAAAAAAAAAAA') 
-            // console.log(items.number)
-
             var pickingApplies = items.pickingApplies
-            //console.log('AAAAAAAAAAAAAAAAAAA')
-            //console.log(godownEntries)
             var $tbody = $('#detail_table').children('tbody')
             $tbody.empty() //清空表格
             pickingApplies.forEach(function (ele) {
@@ -152,7 +149,7 @@ var mat_out_manage = {
             var userStr = $.session.get('user')
             var userJson = JSON.parse(userStr)
             //todo
-            $.get(servers.backup() + "check/getAll", {}, function (res) {
+            $.get(servers.backup() + "process/getAll", {}, function (res) {
                 res.data.forEach(function (e, index) {
                     $("#process_type").append(
                         "<option value='" + (e.code) + "'>" + (e.name) + "</option>"
@@ -163,26 +160,7 @@ var mat_out_manage = {
             $("#app_dep").text(userJson.department.name)
             $("#cur_user").text(userJson.name)
         }
-        , bindSelectAll: function (selectAllBox) {
-            selectAllBox.off('change').on('change', function () {
-                var status = selectAllBox.prop('checked')
-                $('.mat_out_checkbox').each(function () {
-                    $(this).prop('checked', status)
-                })
-            })
-        }
-        , disselectAll: function (dep_checkboxes, selectAllBox) {
-            dep_checkboxes.off('change')
-            dep_checkboxes.on('change', function () {
-                var statusNow = $(this).prop('checked')
-                if (statusNow === false) {
-                    selectAllBox.prop('checked', false)
-                } else if (statusNow === true && $('.mat_out_checkbox:checked').length === $("#material_out_table").children('tbody').children('tr').length) {
-
-                    selectAllBox.prop('checked', true)
-                }
-            })
-        }
+       
         /** $全选逻辑结束$
          * 刷新逻辑
          */
@@ -208,7 +186,7 @@ var mat_out_manage = {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var department = $('#depmartment-1 option:selected').val();
-                var status = $('#depmartment-2').val()
+                var status = $('#depmartment-2 option:selected').val()
                 var process = $('#depmartment-3 option:selected').val();
                 console.log(department)
                 console.log(status)
@@ -219,9 +197,6 @@ var mat_out_manage = {
                     processManageCode: process
                 }, function (result) {
                     var items = result.data.content //获取数据
-                    //console.log('AAAAAAAAAAAAAAAAAAAAAAAAA')
-                    //console.log(items)
-                    ///var status = $('#model-li-select-48').val()
                     var page = result.data
                     const $tbody = $("#material_out_table").children('tbody')
                     mat_out_manage.funcs.renderHandler($tbody, items)

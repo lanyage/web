@@ -711,6 +711,12 @@ var home = {
             },
             deleteByBatchCodeBatchCode:function(){
                 return servers.backup() + 'pickingApplyHeader/deleteByBatchCode'
+            },
+            getAllrawType:function(){
+                return servers.backup() + 'rawType/getByMaterialCode'
+            },
+            getDetail:function(){
+                return servers.backup() + 'available/getDetailByRawTypeCodeAndBatchNumber'
             }
             
         },

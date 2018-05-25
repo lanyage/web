@@ -62,16 +62,14 @@
         <div style="text-align: left;" class="fl">
             <span><strong>审批流程:</strong>&nbsp;
                 <select id="normal_add_select">
-                    <option>金弛622</option>
-                    <option>流程2</option>
-                    <option>流程3</option>
+                    
                 </select>
             </span>
         </div>
         <div class="fr">
-            <button id="normal_add_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
+            <button id="normal_add_addBtn" class="add_roundBtn">&nbsp;新增&nbsp;</button>
             &nbsp;&nbsp;
-            <button id="normal_delete_Btn" class="roundBtn">&nbsp;删除&nbsp;</button>
+            <button id="normal_delete_Btn" class="delete_roundBtn">&nbsp;删除&nbsp;</button>
         </div>
         <div class="whitespace" style="clear: both"></div>
         <table width="100%" id="normal_add_modal_table">
@@ -84,15 +82,9 @@
                 <td>申请单位</td>
                 <td>申请数量</td>
             </tr>
-            <tr>
-                <td><input type="checkbox"/></td>
-                <td>原料类型</td>
-                <td>批号</td>
-                <td>库存单位</td>
-                <td>库存可用数量</td>
-                <td>申请单位</td>
-                <td>申请数量</td>
-            </tr>
+           <tbody>
+
+           </tbody>
         </table>
         <div class="whitespace"></div>
         <div style="position: relative;text-align: right;bottom: 0px;">
@@ -104,17 +96,15 @@
     <div id='urgent_add_modal' class="hide" style="padding: 30px 30px 30px 30px;">
         <div style="text-align: left;" class="fl">
             <span><strong>审批流程:</strong>&nbsp;
-                <select>
-                    <option>流程1</option>
-                    <option>流程2</option>
-                    <option>流程3</option>
+                <select id="urgent_add_select">
+                   
                 </select>
             </span>
         </div>
         <div class="fr">
-            <button id="urgent_add_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
+            <button id="urgent_add_addBtn" class="add_roundBtn">&nbsp;新增&nbsp;</button>
             &nbsp;&nbsp;
-            <button class="roundBtn">&nbsp;删除&nbsp;</button>
+            <button class="delete_roundBtn">&nbsp;删除&nbsp;</button>
         </div>
         <div class="whitespace" style="clear: both"></div>
         <table width="100%" id="urgent_add_modal_table">
@@ -127,6 +117,7 @@
                 <td>申请单位</td>
                 <td>申请数量</td>
             </tr>
+            <tbody>
             <tr>
                 <td><input type="checkbox" class='add_checkbox'/></td>
                 <td></td>
@@ -136,33 +127,7 @@
                 <td></td>
                 <td></td>
             </tr>
-            <tr>
-                <td><input type="checkbox" class='add_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" class='add_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" class='add_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            </tbody>
         </table>
         <div class="whitespace"></div>
         <div style="position: relative;text-align: right;bottom: 0px;">
@@ -242,20 +207,18 @@
             <div style="text-align: left;" class="fl">
             <span>
                 <strong>原料类型</strong>&nbsp;
-                <select>
-                    <option>类型1</option>
-                    <option>类型2</option>
-                    <option>类型3</option>
+                <select id="edit_add_select">
+                    
                 </select>
             </span>
                 &nbsp;
                 <span>
                     <strong>批号</strong>&nbsp;
-                    <input type="input"/>
+                    <input id ="edit_add_input" type="input" />
             </span>
             </div>
             <div class="fr">
-                <button id="addModal_search" class="roundBtn">&nbsp;搜索&nbsp;</button>
+                <button id="edit_addModal_search" class="roundBtn">&nbsp;搜索&nbsp;</button>
             </div>
         </div>
         <div class="whitespace" style="clear: both"></div>
@@ -268,46 +231,35 @@
                 <td>检验状态</td>
                 <td>详情</td>
             </tr>
+            <tbody>
             <tr>
                 <td><input type="checkbox" class='addModal_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+                <td>123441232</td>
+                <td>38233</td>
+                <td>kg</td>
+                <td>已检验</td>
+                <td><a href='#' id='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
             </tr>
             <tr>
                 <td><input type="checkbox" class='addModal_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+                <td>1223321232</td>
+                <td>38</td>
+                <td>kg</td>
+                <td>未检验</td>
+                <td><a href='#' id='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
             </tr>
-            <tr>
-                <td><input type="checkbox" class='addModal_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" class='addModal_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
-            </tr>
+
+            </tbody>
         </table>
+        <div id="lingLiao_edit_add_page">
+        </div>
         <!-- <div class="whitespace"></div>
          <div style="position: relative;text-align: right;bottom: 0px;">
              <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
          </div>-->
     </div>
-
-    <!--点击正常申请弹窗里面的新增要弹出来的窗口 -->
+</div>
+    <!--点击正常申请弹窗里面的新增要弹出来的窗口 
     <div id='nor_addModal' class="hide" style="padding: 30px 30px 30px 30px;">
         <div class="block-quote">
             <div style="text-align: left;" class="fl">
@@ -376,7 +328,8 @@
         <div style="position: relative;text-align: right;bottom: 0px;">
             <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
         </div>
-        <!--点击紧急申请弹窗里面的新增要弹出来的窗口 -->
+    </div>-->
+        <!--点击紧急申请弹窗里面的新增要弹出来的窗口 -
         <div id='urg_addModal' class="hide" style="padding: 30px 30px 30px 30px;">
             <div class="block-quote">
                 <div style="text-align: left;" class="fl">
@@ -445,7 +398,9 @@
             <div style="position: relative;text-align: right;bottom: 0px;">
                 <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
             </div>
-        </div>
+        </div>->
+
+</div>
 
 
 
