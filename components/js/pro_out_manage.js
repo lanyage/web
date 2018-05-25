@@ -34,6 +34,7 @@ var pro_out_manage = {
         },
         renderTable: function () {
             $.post(home.urls.productOut.getAllByPage(), {}, function (res) {
+                console.log(res)
                 var $tbody = $("#product_out_table").children('tbody')
                 /** 过滤返回的数据 */
                 var items = res.data.content
@@ -48,7 +49,7 @@ var pro_out_manage = {
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.department.getAllByPage(), {
+                            $.post(home.urls.productOut.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
@@ -91,7 +92,7 @@ var pro_out_manage = {
 
         /**渲染表格 */
         , renderHandler: function ($tbody, items) {
-            //$tbody.empty() //清空表格
+            $tbody.empty() //清空表格
             items.forEach(function (e) {
                 var code = e.code
                 var content = (

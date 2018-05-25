@@ -9,39 +9,7 @@ var lingliao_apply = {
 
         var checkedBoxLen = $(".add_checkbox:checked").length
         home.funcs.bindSelectAll($("#add_checkAll"), $(".add_checkbox"), checkedBoxLen, $("#add_modal_table"))
-
-
-        /////////////////////////////////
-        //bind addBtn click
-        /////////////////////////////////
-        $("#model-li-hide-add-113").click(function () {
-            layer.open({
-                type: 1,
-                title: '编辑',
-                content: $("#add_modal"),
-                area: ['800px', '400px'],
-                btn: ['保存', '提交', '返回'],
-                offset: "auto",
-                closeBtn: 0,
-                yes: function (index) {
-                    $("#add_modal").css('display', 'none')
-                    layer.close(index)
-                }
-                , btn2: function (index) {
-                    $("#add_modal").css('display', 'none')
-                    layer.close(index)
-                }
-                , btn3: function (index) {
-                    $("#add_modal").css('display', 'none')
-                    layer.close(index)
-                }
-            })
-            lingliao_apply.funcs.bindAddClick($("#add_addBtn"))
-        })
-        //////////////////////////////////
-        //render table
-        //////////////////////////////////
-        /** 将分页居中 */
+        //将分页居中
         var out = $('#lingLiao_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
@@ -54,11 +22,9 @@ var lingliao_apply = {
         renderTable: function () {
             //post here to getAll
             $.post(home.urls.lingLiao.getAllByPage(), {}, function (res) {
-                //console.log(res.data.content)
                 var $tbody = $("#lingliao_apply_table").children('tbody')
                 /** 过滤返回的数据 */
                 var items = res.data.content
-
                 lingliao_apply.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 lingliao_apply.pageSize = res.data.content.length //该页的记录数
@@ -83,9 +49,10 @@ var lingliao_apply = {
                     }
                 })
             })
-
+            
+            //编辑-新增-搜索-全选
             var checkedBoxLen = $('.addModal_checkbox:checked').length
-            home.funcs.bindSelectAll($("#addModal_checkALl"), $('.addModal_checkbox'), checkedBoxLen, $("#addModal_table"))
+            home.funcs.bindSelectAll($("#addModal_checkAll"), $('.addModal_checkbox'), checkedBoxLen, $("#addModal_table"))
 
             // 追加刷新事件
             var refreshBtn = $('#model-li-hide-refresh-113');
@@ -95,28 +62,18 @@ var lingliao_apply = {
             var searchBtn = $('#model-li-hide-search-113')
             lingliao_apply.funcs.bindSearchEventListener(searchBtn)
 
-            //
-            lingliao_apply.funcs.bindDetailClickInAddModal($(".addModal_detail"))
+             /** 正常申请的事件 */
+             var norApplyBtns = $('#model-li-hide-normal_add-113')
+             lingliao_apply.funcs.bindNorApplyModel(norApplyBtns)
 
-            /** 正常申请的事件 */
-            var norApplyBtns = $('#model-li-hide-normal_add-113')
-            lingliao_apply.funcs.bindNorApplyModel(norApplyBtns)
-            /** 紧急申请的事件 */
-            var urgApplyBtns = $('#model-li-hide-urgent_add-113')
-            lingliao_apply.funcs.bindUrgApplyModel(urgApplyBtns)
-            /** 正常申请页面里的新增按钮 */
-            var norApplyAddBtns = $('#normal_add_addBtn')
-            lingliao_apply.funcs.bindNorApplyAddModel(norApplyAddBtns)
+             /** 紧急申请的事件 */
+             var urgApplyBtns = $('#model-li-hide-urgent_add-113')
+             lingliao_apply.funcs.bindUrgApplyModel(urgApplyBtns)
 
-            var norApplyDeleteBtns = $('.delete_roundBtn')
-            lingliao_apply.funcs.bindNorApplyDeleteModel(norApplyDeleteBtns)
-
-            /** 紧急申请页面里的新增按钮 */
-            var urgApplyAddBtns = $('#urgent_add_addBtn')
-            lingliao_apply.funcs.bindUrgApplyAddModel(urgApplyAddBtns)
-            /** 正常申请页面里的新增页面里的搜索事件 */
-            var norApplyAddSearchBtns = $('#addModal_search')
-            lingliao_apply.funcs.bindNorApplyAddSearchModel(norApplyAddSearchBtns)
+             /** 批量删除 */
+             var norApplyDeleteBtns = $('.delete_roundBtn')
+             lingliao_apply.funcs.bindDeleteBatchEventListener(norApplyDeleteBtns)
+           
         }
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
@@ -146,7 +103,8 @@ var lingliao_apply = {
             lingliao_apply.funcs.bindEditorClick(editorBtns)
             var deleteBtns = $('.delete')
             lingliao_apply.funcs.bindDeleteClick(deleteBtns)
-            //lingliao_apply.funcs.checkboxEventBinding()
+            
+            //实现领料表的全选
             var checkedBoxLen = $('.lingliao_apply_checkbox:checked').length
             home.funcs.bindSelectAll($("#lingliao_apply_checkAll"), $('.lingliao_apply_checkbox'), checkedBoxLen, $("#lingliao_apply_table"))
 
@@ -206,7 +164,7 @@ var lingliao_apply = {
         /** 正常申请事件 */
         , bindNorApplyModel: function (norApplyBtns) {
             norApplyBtns.off('click').on('click', function () {
-                lingliao_apply.funcs.add_fillData();
+                lingliao_apply.funcs.add_fillData($("#normal_add_select"));
                 layer.open({
                     type: 1,
                     title: '正常申请',
@@ -227,14 +185,16 @@ var lingliao_apply = {
                     }
                 });
             })
+            lingliao_apply.funcs.bindEditAddClick($("#normal_add_addBtn"))
+            lingliao_apply.funcs.bindEditDeleteClick($("#normal_delete_Btn"))
         }
-        ,add_fillData:function(){
+        ,add_fillData:function(selectChoice){
             $.get(servers.backup() + "process/getAll", {}, function (result) {
                 item = result.data
                 console.log(item)
-                $("#normal_add_select").html("<option>请选择审批流程</option>");
+                selectChoice.html("<option>请选择审批流程</option>");
                 item.forEach(function (e) {
-                    $("#normal_add_select").append("<option value=" + e.code + ">" + (e.name) + "</option>");
+                    selectChoice.append("<option value=" + e.code + ">" + (e.name) + "</option>");
                 })
             })
              //实现全选
@@ -270,6 +230,9 @@ var lingliao_apply = {
                     }
                 });
             })
+             /** 正常申请页面里的新增页面里的搜索事件 */
+             var norApplyAddSearchBtns = $('#addModal_search')
+             lingliao_apply.funcs.bindNorApplyAddSearchModel(norApplyAddSearchBtns)
         }
         /** 正常申请页面里的新增页面里的搜索事件 */
 
@@ -329,7 +292,10 @@ var lingliao_apply = {
                     }
                 });
             })
+            lingliao_apply.funcs.bindEditAddClick($("#urgent_add_addBtn"))
+            lingliao_apply.funcs.bindEditDeleteClick($("#urgent_delete_btn"))
         }
+     
         ,urgent_add_fillData:function(){
             $.get(servers.backup() + "process/getAll", {}, function (result) {
                 item = result.data
@@ -350,7 +316,6 @@ var lingliao_apply = {
              $("#urg_app_dep").text(userJson.department.name)
              $("#urg_cur_user").text(userJson.name)
         }
-
         /** 紧急申请页面里的新增按钮 */
         , bindUrgApplyAddModel: function (urgApplyAddBtns) {
             urgApplyAddBtns.off('click').on('click', function () {
@@ -450,7 +415,7 @@ var lingliao_apply = {
             var $tbody = $('#edit_modal_table').children('tbody')
             $tbody.empty() //清空表格
             pickingApplies.forEach(function (ele) {
-                //console.log(ele)
+                console.log(ele)
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='edit_checkbox' value='" + (ele.code) + "'></td>" +
@@ -537,7 +502,7 @@ var lingliao_apply = {
             })
             //编辑里面新增按钮事件
             lingliao_apply.funcs.bindEditAddClick($("#edit_addBtn"))
-            lingliao_apply.funcs.bindEditDeleteClick($("#edit_deleteBtn"))
+            lingliao_apply.funcs.bindEditDeleteClick($("#edit_deleteBtn"));
 
         }
         //编辑里面的新增按钮
@@ -554,9 +519,21 @@ var lingliao_apply = {
                     closeBtn: 0,
                     yes: function (index) {
                          //编辑-增加-确定 将勾选的数据append到上一个界面中去
-                        $("#addModal").css('display', 'none')
-                        layer.close(index)
-                    }
+                        /** if($(".addModal_checkbox:checked").length === 0) {
+                             $("#addModal").css('display', 'none')
+                             layer.close(index)
+                         } else {
+                            $("#addModal").css('display', 'none')
+                            $('.addModal_checkbox').each(function () {
+                                if ($(this).prop('checked')) {
+                                    lingLiaoCodes.push({code: $(this).val()})
+                                }
+                            })*/
+                            $("#addModal").css('display', 'none')
+                            layer.close(index)
+                         }
+                        
+                    
                     , btn2: function (index) {
                         $("#addModal").css('display', 'none')
                         layer.close(index)
@@ -566,6 +543,8 @@ var lingliao_apply = {
             //编辑-增加-搜索
             var edit_add_searchBtns = $("#edit_addModal_search");
             lingliao_apply.funcs.edit_add_search(edit_add_searchBtns)
+
+            
         }
         //编辑里面的新增按钮数据读取操作
        ,fillData_to_edit_add:function(){
@@ -605,6 +584,7 @@ var lingliao_apply = {
                             var lingLiaoCodes = []
                             $('.edit_checkbox').each(function () {
                                 if ($(this).prop('checked')) {
+                                    console.log($(this).val())
                                     lingLiaoCodes.push({code: $(this).val()})
                                 }
                             })

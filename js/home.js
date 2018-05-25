@@ -687,8 +687,9 @@ var home = {
         },
         productOut: {
             getAllByPage: function () {
-                return servers.backup() + 'pickingApplyHeader/getAllByPage'
+                return servers.backup() + 'productSendHeader/getAllByPage'
             },
+            
         },
         lingLiao: {
             getAllByPage: function () {
