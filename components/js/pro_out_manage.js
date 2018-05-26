@@ -3,6 +3,7 @@ var pro_out_manage = {
     init: function () {
 
         /** 渲染下拉菜单 */
+        pro_out_manage.funcs.renderTable()
         pro_out_manage.funcs.bindCreatoption()
         //////////////////////////////////
         //bind SelectAll for addModal checkBoxes  增加按钮里面的全选
@@ -17,7 +18,7 @@ var pro_out_manage = {
          var checkedBoxLen = $('.addModal_checkbox:checked').length
          home.funcs.bindSelectAll($("#addModal_checkALl"), $('.addModal_checkbox'), checkedBoxLen, $("#addModal_table"))**/
         /** 渲染表格 */
-        pro_out_manage.funcs.renderTable()
+       
         // pro_out_manage.funcs.checkboxEventBinding()
         /** 将分页居中 */
         var out = $('#product_out_page').width()
@@ -33,11 +34,13 @@ var pro_out_manage = {
             //todo
         },
         renderTable: function () {
+             console.log(11111)
             $.post(home.urls.productOut.getAllByPage(), {}, function (res) {
-                console.log(res)
+                
                 var $tbody = $("#product_out_table").children('tbody')
                 /** 过滤返回的数据 */
                 var items = res.data.content
+               
                 pro_out_manage.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 pro_out_manage.pageSize = res.data.content.length //该页的记录数

@@ -36,7 +36,7 @@ var lingliao_apply = {
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.department.getAllByPage(), {
+                            $.post(home.urls.lingLiao.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
@@ -189,7 +189,7 @@ var lingliao_apply = {
             lingliao_apply.funcs.bindEditDeleteClick($("#normal_delete_Btn"))
         }
         ,add_fillData:function(selectChoice){
-            $.get(servers.backup() + "process/getAll", {}, function (result) {
+            $.get(servers.backup() + "check/getByProcessCode", { processCode:1 }, function (result) {
                 item = result.data
                 console.log(item)
                 selectChoice.html("<option>请选择审批流程</option>");
@@ -297,7 +297,7 @@ var lingliao_apply = {
         }
      
         ,urgent_add_fillData:function(){
-            $.get(servers.backup() + "process/getAll", {}, function (result) {
+            $.get(servers.backup() + "check/getByProcessCode", { processCode:0 }, function (result) {
                 item = result.data
                 console.log(item)
                 $("#urgent_add_select").html("<option>请选择审批流程</option>");
