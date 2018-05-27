@@ -35,7 +35,7 @@ var pro_out_manage = {
         },
         renderTable: function () {
              console.log(11111)
-            $.post(home.urls.productOut.getAllByPage(), {}, function (res) {
+            $.post(home.urls.lingLiao.getAllByPage(), {}, function (res) {
                 
                 var $tbody = $("#product_out_table").children('tbody')
                 /** 过滤返回的数据 */
@@ -52,7 +52,7 @@ var pro_out_manage = {
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.productOut.getAllByPage(), {
+                            $.post(home.urls.lingLiao.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {

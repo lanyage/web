@@ -687,7 +687,7 @@ var home = {
         },
         productOut: {
             getAllByPage: function () {
-                return servers.backup() + 'productSendHead/getAllByPage'
+                return servers.backup() + 'productSendHeader/getAllByPage'
             }
             
         },
