@@ -688,8 +688,38 @@ var home = {
         productOut: {
             getAllByPage: function () {
                 return servers.backup() + 'productSendHeader/getAllByPage'
+            },
+            getAllrawType: function () {
+                return servers.backup() + 'rawType/getAll'
+            },
+            getAllcreateDate: function () {
+                return servers.backup() + 'creatDate/getAll'
+            },
+            getByAuditStatusAndRawTypeAndCreateDateByPage: function () {
+                return servers.backup() + 'productSendHeader/getByAuditStatusAndRawTypeAndCreateDateByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'productSendHeader/deleteByCode'
+            },
+            deleteByCodeBatch: function () {
+                return servers.backup() + 'productSendHeader/deleteByCodeBatch'
+            },
+            getByCode: function () {
+                return servers.backup() + 'productSendHeader/getByCode'
+            },
+            update: function () {
+                return servers.backup() + 'productSendHeader/update'
+            },
+            getByProductSendHeader: function () {
+                return servers.backup() + 'productSendAudit/getByProductSendHeader'
+            },
+
+            getDetail:function(){
+                return servers.backup() + 'available/getByRawTypeCodeAndBatchNumberLikeByPage'
+            },
+            updateAuditStatusByCode:function(){
+                return servers.backup() + 'productSendHeader/updateAuditStatusByCode'
             }
-            
         },
         lingLiao: {
             getAllByPage: function () {
@@ -705,7 +735,7 @@ var home = {
                 return servers.backup() + 'pickingApplyHeader/getByCode'
             },
             getByProcessManageByPage:function(){
-                return servers.backup() + 'pickingApplyHeader/getByProcessManageByPage'
+                return servers.backup() + 'pickingApplyHeader/getByAuditStatusAndProcessManageByPage'
             },
             update:function(){
                 return servers.backup() + 'pickingApplyHeader/update'
@@ -714,10 +744,10 @@ var home = {
                 return servers.backup() + 'pickingApplyHeader/deleteByBatchCode'
             },
             getAllrawType:function(){
-                return servers.backup() + 'rawType/getByMaterialCode'
+                return servers.backup() + 'rawType/getAll'
             },
             getDetail:function(){
-                return servers.backup() + 'available/getDetailByRawTypeCodeAndBatchNumber'
+                return servers.backup() + 'available/getByRawTypeCodeAndBatchNumberLikeByPage'
             }
             
         },

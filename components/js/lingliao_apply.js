@@ -70,10 +70,12 @@ var lingliao_apply = {
              var urgApplyBtns = $('#model-li-hide-urgent_add-113')
              lingliao_apply.funcs.bindUrgApplyModel(urgApplyBtns)
 
-             /** 批量删除 */
-             var norApplyDeleteBtns = $('.delete_roundBtn')
-             lingliao_apply.funcs.bindDeleteBatchEventListener(norApplyDeleteBtns)
-           
+             /** 批量删除 也是根据code删除*/
+             var norApplyDeleteBtns = $('#model-li-hide-delete-113')
+             lingliao_apply.funcs.bindDeleteEventListener(norApplyDeleteBtns)
+
+             lingliao_apply.funcs.bindEditDeleteClick($(".delete_roundBtn"))
+             
         }
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
@@ -84,7 +86,7 @@ var lingliao_apply = {
                     "<td><input type='checkbox' class='lingliao_apply_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + e.code + "</td>" +
                     "<td>" + (e.department ? e.department.name : null) + "</td>" +
-                    "<td>" + (new Date(e.applyDate).Format('yyyy/MM/dd')) + "</td>" +
+                    "<td>" + (new Date(e.applyDate).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
                     "<td>" + e.auditStatus + "</td>" +
                     "<td>" + e.pickingStatus + "</td>" +
@@ -109,7 +111,7 @@ var lingliao_apply = {
             home.funcs.bindSelectAll($("#lingliao_apply_checkAll"), $('.lingliao_apply_checkbox'), checkedBoxLen, $("#lingliao_apply_table"))
 
             var deleteBatchBtn = $('#model-li-hide-delete-113')
-            lingliao_apply.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
+            lingliao_apply.funcs.bindDeleteEventListener(deleteBatchBtn)
         }
         /** 监听下拉菜单的option */
         , bindCreatoption: function () {
@@ -139,6 +141,7 @@ var lingliao_apply = {
                     offset: ['40%', '55%'],
                     yes: function (index) {
                         var Code = _this.attr('id').substr(7)
+                        console.log('删除',Code)
                         $.post(home.urls.lingLiao.deleteByCode(), {
                             code: Code
                         }, function (result) {
@@ -146,9 +149,11 @@ var lingliao_apply = {
                                 offset: ['40%', '55%'],
                                 time: 700
                             })
+                            console.log(result.code)
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    lingliao_apply.init()
+                                    _this.parent('td').parent('tr').remove();
+                                    //lingliao_apply.init()
                                     clearTimeout(time)
                                 }, 500)
                             }
@@ -173,9 +178,34 @@ var lingliao_apply = {
                     btn: ['确定','返回'],
                     offset: "auto",
                     closeBtn: 0,
-                    //确定按钮 实现批量增加
+                    //确定按钮 实现批量增加   问题：怎样将多条数据封装
                     yes: function(index) {
                         $("#normal_add_modal").css('display', 'none')
+                        var Addinfos = []
+                            $('.add_checkbox').each(function () {
+                                if ($(this).prop('checked')) {
+                                    lingLiaoCodes.push({code: $(this).val()})
+                                }
+                            })
+                        $.ajax({
+                            url: home.urls.lingLiao.update(),
+                            contentType: 'application/json',
+                            data: JSON.stringify(Addinfos),
+                            dataType: 'json',
+                            type: 'post',
+                            success: function (result) {
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        lingliao_apply.init()
+                                        clearTimeout(time)
+                                    }, 500)
+                                }
+                                layer.msg(result.message, {
+                                    offset: ['40%', '55%'],
+                                    time: 700
+                                })
+                            }
+                        })
                         layer.close(index)
                     },
                     //返回
@@ -186,7 +216,7 @@ var lingliao_apply = {
                 });
             })
             lingliao_apply.funcs.bindEditAddClick($("#normal_add_addBtn"))
-            lingliao_apply.funcs.bindEditDeleteClick($("#normal_delete_Btn"))
+           // lingliao_apply.funcs.bindEditDeleteClick($("#normal_delete_Btn"))
         }
         ,add_fillData:function(selectChoice){
             $.get(servers.backup() + "check/getByProcessCode", { processCode:1 }, function (result) {
@@ -198,8 +228,8 @@ var lingliao_apply = {
                 })
             })
              //实现全选
-             var checkedBoxLen = $('.edit_checkbox:checked').length
-             home.funcs.bindSelectAll($("#edit_checkAll"), $('.edit_checkbox'), checkedBoxLen, $("#edit_modal_table"))
+             var checkedBoxLen = $('.delete_checkbox:checked').length
+             home.funcs.bindSelectAll($("#normal_add_checkAll"), $('.delete_checkbox'), checkedBoxLen, $("#normal_add_modal_table"))
  
              var userStr = $.session.get('user')
              var userJson = JSON.parse(userStr)
@@ -221,6 +251,24 @@ var lingliao_apply = {
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
+                        //将选择的数据append到normal_add_modal_table表中  怎么将数据封装起来？？
+                        /***
+                         * var pickingApplies = items.pickingApplies
+                         * $tbody = $("normal_add_modal_table").tbody
+                         * $tbody.empty
+                         * pickingApplies.forEach(function(e){
+                         *      $tbody.append(
+                         *          "<tr>" +
+                         *          "<td><input type='checkbox' class='normal_add_checkbox' value='" + (ele.code) + "'></td>" +
+                                    "<td>" + (ele.rawType.name) + "</td>" +
+                                    "<td>" + (ele.batchNumber) + "</td>" +
+                                    "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
+                                    "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>" +
+                                    "<td></td>" +
+                                    "<td></td>" +
+                                    "</tr>"
+                         * )
+                         * }) */
                         $("#addModal").css('display', 'none')
                         layer.close(index)
                     },
@@ -293,7 +341,9 @@ var lingliao_apply = {
                 });
             })
             lingliao_apply.funcs.bindEditAddClick($("#urgent_add_addBtn"))
-            lingliao_apply.funcs.bindEditDeleteClick($("#urgent_delete_btn"))
+           // lingliao_apply.funcs.bindEditDeleteClick($("#urgent_delete_btn"))
+
+            //全选
         }
      
         ,urgent_add_fillData:function(){
@@ -306,8 +356,8 @@ var lingliao_apply = {
                 })
             })
              //实现全选
-             var checkedBoxLen = $('.edit_checkbox:checked').length
-             home.funcs.bindSelectAll($("#edit_checkAll"), $('.edit_checkbox'), checkedBoxLen, $("#edit_modal_table"))
+             var checkedBoxLen = $('.delete_checkbox:checked').length
+             home.funcs.bindSelectAll($("#urgent_add_checkAll"), $('.delete_checkbox'), checkedBoxLen, $("#urgent_add_modal_table"))
  
              var userStr = $.session.get('user')
              var userJson = JSON.parse(userStr)
@@ -329,6 +379,24 @@ var lingliao_apply = {
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
+                        //将选择的数据append到urgent_add_modal_table表中  怎么将数据封装起来？？
+                        /***
+                         * var pickingApplies = items.pickingApplies
+                         * $tbody = $("urgent_add_modal_table").tbody
+                         * $tbody.empty
+                         * pickingApplies.forEach(function(e){
+                         *      $tbody.append(
+                         *          "<tr>" +
+                         *          "<td><input type='checkbox' class='urgent_add_checkbox' value='" + (ele.code) + "'></td>" +
+                                    "<td>" + (ele.rawType.name) + "</td>" +
+                                    "<td>" + (ele.batchNumber) + "</td>" +
+                                    "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
+                                    "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>" +
+                                    "<td></td>" +
+                                    "<td></td>" +
+                                    "</tr>"
+                         * )
+                         * }) */
                         $("#addModal").css('display', 'none')
                         layer.close(index)
                     },
@@ -418,7 +486,7 @@ var lingliao_apply = {
                 console.log(ele)
                 $tbody.append(
                     "<tr>" +
-                    "<td><input type='checkbox' class='edit_checkbox' value='" + (ele.code) + "'></td>" +
+                    "<td><input type='checkbox' class='delete_checkbox' value='" + (ele.code) + "'></td>" +
                     "<td>" + (ele.rawType.name) + "</td>" +
                     "<td>" + (ele.batchNumber) + "</td>" +
                     "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
@@ -429,8 +497,8 @@ var lingliao_apply = {
                 )
             })
             //实现全选
-            var checkedBoxLen = $('.edit_checkbox:checked').length
-            home.funcs.bindSelectAll($("#edit_checkAll"), $('.edit_checkbox'), checkedBoxLen, $("#edit_modal_table"))
+            var checkedBoxLen = $('.delete_checkbox:checked').length
+            home.funcs.bindSelectAll($("#edit_checkAll"), $('.delete_checkbox'), checkedBoxLen, $("#edit_modal_table"))
 
             var userStr = $.session.get('user')
             var userJson = JSON.parse(userStr)
@@ -466,9 +534,12 @@ var lingliao_apply = {
                         btn: ['保存', '提交', '返回'],
                         offset: "auto",
                         closeBtn: 0,
-                        //保存
+                        //保存  对应更新，将此条数据更新，并使删除和button全失效
                         yes: function (index) {
                             $("#edit_modal").css('display', 'none')
+                            console.log($(this).find('td').eq(9).html())
+                            $(this).find('td').eq(0).removeClass('lingliao_apply_checkbox').addClass('grey')
+                            $(this).find('td').eq(9).removeClass('delete').addClass('grey')
                             layer.close(index)
                         },
                         //提交
@@ -502,17 +573,21 @@ var lingliao_apply = {
             })
             //编辑里面新增按钮事件
             lingliao_apply.funcs.bindEditAddClick($("#edit_addBtn"))
-            lingliao_apply.funcs.bindEditDeleteClick($("#edit_deleteBtn"));
+          //  lingliao_apply.funcs.bindEditDeleteClick($("#edit_deleteBtn"));
+
+            //实现全选
+            var checkedBoxLen = $('.edit_add_search_checkbox:checked').length
+            home.funcs.bindSelectAll($("#edit_add_search_checkAll"), $('.edit_add_search_checkbox'), checkedBoxLen, $("#edit_addModal_table"))
 
         }
         //编辑里面的新增按钮
         , bindEditAddClick: function (addBtn) {
             addBtn.off('click').on('click', function () {
-                lingliao_apply.funcs.fillData_to_edit_add("#addModal");
+                lingliao_apply.funcs.fillData_to_edit_add("#edit_addModal");
                 layer.open({
                     type: 1,
                     title: '新增',
-                    content: $("#addModal"),
+                    content: $("#edit_addModal"),
                     area: ['800px', '400px'],
                     btn: ['确认', '返回'],
                     offset: "auto",
@@ -529,13 +604,13 @@ var lingliao_apply = {
                                     lingLiaoCodes.push({code: $(this).val()})
                                 }
                             })*/
-                            $("#addModal").css('display', 'none')
+                            $("#edit_addModal").css('display', 'none')
                             layer.close(index)
                          }
                         
                     
                     , btn2: function (index) {
-                        $("#addModal").css('display', 'none')
+                        $("#edit_addModal").css('display', 'none')
                         layer.close(index)
                     }
                 });
@@ -544,12 +619,14 @@ var lingliao_apply = {
             var edit_add_searchBtns = $("#edit_addModal_search");
             lingliao_apply.funcs.edit_add_search(edit_add_searchBtns)
 
+            var edit_add_search_detailBtn =  $(".edit_add_detail")
+            lingliao_apply.funcs.edit_add_search_detail(edit_add_search_detailBtn);
+
             
         }
         //编辑里面的新增按钮数据读取操作
        ,fillData_to_edit_add:function(){
            $.get(home.urls.lingLiao.getAllrawType(),{
-               materialCode:1
            },function(result){
                var items = result.data //获取数据
                console.log(items);
@@ -567,7 +644,8 @@ var lingliao_apply = {
         ,bindEditDeleteClick:function(deleteBtns){
             deleteBtns.off('click')
             deleteBtns.on('click', function () {
-                if ($('.edit_checkbox:checked').length === 0) {
+                console.log('删除')
+                if ($('.delete_checkbox:checked').length === 0) {
                     layer.msg('亲,您还没有选中任何数据！', {
                         offset: ['40%', '55%'],
                         time: 700
@@ -581,31 +659,10 @@ var lingliao_apply = {
                         btn: ['确认', '取消'],
                         offset: ['40%', '55%'],
                         yes: function (index) {
-                            var lingLiaoCodes = []
-                            $('.edit_checkbox').each(function () {
+                            $('.delete_checkbox').each(function () {
                                 if ($(this).prop('checked')) {
                                     console.log($(this).val())
-                                    lingLiaoCodes.push({code: $(this).val()})
-                                }
-                            })
-                            $.ajax({
-                                url: home.urls.lingLiao.deleteByBatchCodeBatchCode(),
-                                contentType: 'application/json',
-                                data: JSON.stringify(lingLiaoCodes),
-                                dataType: 'json',
-                                type: 'post',
-                                success: function (result) {
-                                    if (result.code === 0) {
-                                        var time = setTimeout(function () {
-                                            //此处只需删除这条记录即可
-                                            _this.parent('td').parent('tr').remove();
-                                            clearTimeout(time)
-                                        }, 500)
-                                    }
-                                    layer.msg(result.message, {
-                                        offset: ['40%', '55%'],
-                                        time: 700
-                                    })
+                                    $(this).parent('td').parent('tr').remove();
                                 }
                             })
                             layer.close(index)
@@ -632,7 +689,7 @@ var lingliao_apply = {
                     var items = result.data //获取数据
                     page = result.data
                     console.log(items)
-                    const $tbody = $("#addModal_table").children('tbody')
+                    const $tbody = $("#edit_addModal_table").children('tbody')
                     lingliao_apply.funcs.edit_renderHandler($tbody, items)
                     layui.laypage.render({
                         elem: 'lingLiao_edit_add_page'
@@ -640,12 +697,14 @@ var lingliao_apply = {
                         , jump: function (obj, first) {
                             if (!first) {
                                 $.post(home.urls.lingLiao.getDetail(), {
+                                    rawTypeCode: rawType,
+                                    batchNumber: process,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {
                                     var items = result.data //获取数据
                                     // var code = $('#model-li-select-48').val()
-                                    const $tbody = $("#addModal_table").children('tbody')
+                                    const $tbody = $("#edit_addModal_table").children('tbody')
                                     lingliao_apply.funcs.edit_renderHandler($tbody, items)
                                     lingliao_apply.pageSize = result.data.length
                                 })
@@ -656,36 +715,42 @@ var lingliao_apply = {
             })
         } ,
         edit_renderHandler:function($tbody, items){
-            //$tbody.empty() //清空表格
-            for(var i = 0; i < items.length; i++) {
-                e = items[i];
+            $tbody.empty() //清空表格
+            items.forEach(function(e){
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='edit_add_search_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.batchNumber+ "</td>" +
-                    "<td>" + e.currentAvailableMaterials + "</td>" +
-                    "<td>" + e.meterialsUnit + "</td>" +
-                    "<td>" + e.judgeCode + "</td>" +
-                    "<td><a href=\"#\" class='detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
+                    "<td>" + (e.batchNumber?e.batchNumber:'null')+ "</td>" +
+                    "<td>" + (e.currentAvailableMaterials?e.currentAvailableMaterials:'null') + "</td>" +
+                    "<td>" + (e.meterialsUnit?e.meterialsUnit:'null') + "</td>" +
+                    "<td>" + (e.judgeCode?e.judgeCode:'null') + "</td>" +
+                    "<td><a href=\"#\" class='edit_add_detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "</tr>"
                 )
-            }
-            var edit_add_search_detailBtn =  $(".detail")
-            lingliao_apply.funcs.batchNumber.edit_add_search_detail(edit_add_search_detailBtn);
+            })
+                
+            
+            var edit_add_search_detailBtn =  $("#edit_add_detail")
+            lingliao_apply.funcs.edit_add_search_detail(edit_add_search_detailBtn);
+            
+            
         }
         //编辑-新增-搜索-详情
         ,edit_add_search_detail:function(detailBtns){
                 detailBtns.off('click')
                 detailBtns.on('click', function () {
+                    console.log(1111)
                     var _selfBtn = $(this)
-                    var code = _selfBtn.attr('id').substr(7)
+                    var Code = _selfBtn.attr('id').substr(7)
                     var currId =$('#edit_add_select option:selected').val()
-                    $.post(currId === 1 ? home.urls.rawPresoma.getByCode() : home.urls.rawLithium.getByCode(), {code: code}, function (result) {
-                        console.log("查看" + code)
+                    
+                    $.post(currId === 1 ? home.urls.rawPresoma.getByCode() : home.urls.rawLithium.getByCode(), {code: Code}, function (result) {
+                        console.log(currId)
+                        console.log("查看" + Code)
                         var items = result.data
                         layer.open({
                             type: 1,
-                            content:lingliao_apply.funcs.getData(items,currId),
+                            content:lingliao_apply.funcs.getData(items),
                             area: ['550px', '700px'],
                             btn: ['关闭'],
                             offset: 'auto',   // ['10%', '40%'],
@@ -697,7 +762,8 @@ var lingliao_apply = {
                     })
                 })
             },
-            getData: function (items,currId) {
+            getData: function (items) {
+                var currId =$('#edit_add_select option:selected').val()
                 var data =
                     "<div id='auditModal'>" +
                     "<div class='arrow_div_left'>" +
@@ -706,11 +772,14 @@ var lingliao_apply = {
                     "<div class='arrow_div_right'>" +
                     "<span id='model-li-hide-right-113'><a href=\"#\"><i class=\"layui-icon\" style='font-size: 40px'>&#xe602;</i></a></span>" +
                     "</div>";
-                if (currId === 1) {
-                    data += lingliao_apply.funcs.getTablePresoma(items);
+                if (currId === 2) {
+                    data += lingliao_apply.funcs.getTableLithium(items);
+                    console.log(currId)
+                    console.log('Lithium')
                 }
                 else {
-                    data += lingliao_apply.funcs.getTableLithium(items);
+                    data += lingliao_apply.funcs.getTablePresoma(items);
+                    console.log('Presoma')
                 }
                 return data;
             }
@@ -723,12 +792,12 @@ var lingliao_apply = {
                     "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                     "</thead>" +
                     "<tbody>" +
-                    "<tr> <td colspan='2'>" + presoma.batchNumber + "</td> <td>" + material_publish.funcs.formatDate(presoma.testDate) + "</td> <td>" + presoma.number + "</td> <td>" + (presoma.judge?presoma.judge.name:'无') + "</td></tr>" +
+                    "<tr> <td colspan='2'>" + presoma.batchNumber + "</td> <td>" + (new Date(presoma.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + presoma.number + "</td> <td>" + (presoma.judge?presoma.judge.name:'无') + "</td></tr>" +
                     "</tbody>" +
                     "<thead>" +
                     "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
                     "</thead>" +
-                    "<tr> <td colspan='2'>" + presoma.status.name + "</td> <td>" + material_publish.funcs.getPublisher(presoma.auditor) + "</td> <td></td> <td></td></tr>" +
+                    "<tr> <td colspan='2'>" + presoma.status.name + "</td> <td>" + (presoma.publisher?presoma.publisher:'无') + "</td> <td></td> <td></td></tr>" +
                     "<thead>" +
                     "<tr> <td colspan='2'>检测项目</td> <td>控制采购标准-2016-11-21</td> <td>2017.07.01采购标准</td> <td>" + presoma.batchNumber + "</td></tr>" +
                     "</thead>" +
@@ -790,12 +859,12 @@ var lingliao_apply = {
                     "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                     "</thead>" +
                     "<tbody>" +
-                    "<tr> <td colspan='2'>" + lithium.batchNumber + "</td> <td>" + material_publish.funcs.formatDate(lithium.testDate) + "</td> <td>" + lithium.number + "</td> <td>" + lithium.judge.name + "</td></tr>" +
+                    "<tr> <td colspan='2'>" + (lithium.batchNumber?lithium.batchNumber:'null') + "</td> <td>" + (new Date(lithium.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + lithium.number + "</td> <td>" + lithium.judge.name + "</td></tr>" +
                     "</tbody>" +
                     "<thead>" +
                     "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
                     "</thead>" +
-                    "<tr> <td colspan='2'>" + lithium.status.name + "</td> <td>" + material_publish.funcs.getPublisher(lithium.publisher) + "</td> <td></td> <td></td></tr>" +
+                    "<tr> <td colspan='2'>" + lithium.status.name + "</td> <td>" + (lithium.publisher?lithium.publisher:'无') + "</td> <td></td> <td></td></tr>" +
                     "<thead>" +
                     "<tr> <td colspan='2'>检测项目</td><td colspan='2'>原料技术标准<td>" + lithium.batchNumber + "</td></tr>" +
                     "</thead>" +
@@ -873,7 +942,7 @@ var lingliao_apply = {
             })
         }
         /** 批量删除事件 */
-        , bindDeleteBatchEventListener: function (deleteBatchBtn) {
+        , bindDeleteEventListener: function (deleteBatchBtn) {
             deleteBatchBtn.off('click')
             deleteBatchBtn.on('click', function () {
                 if ($('.lingliao_apply_checkbox:checked').length === 0) {
@@ -930,6 +999,8 @@ var lingliao_apply = {
             searchBtn.on('click', function () {
                 var status = $('#status').val()
                 var process = $('#processtype option:selected').val();
+                console.log(status)
+                console.log(process)
                 $.post(home.urls.lingLiao.getByProcessManageByPage(), {
                     auditStatus: status,
                     processManageCode: process
@@ -945,6 +1016,8 @@ var lingliao_apply = {
                         , jump: function (obj, first) {
                             if (!first) {
                                 $.post(home.urls.lingLiao.getByProcessManageByPage(), {
+                                    auditStatus: status,
+                                    processManageCode: process,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {

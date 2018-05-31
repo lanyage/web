@@ -63,7 +63,7 @@ var mat_out_manage = {
                     "<tr>" +
                     "<td>" + e.code + "</td>" +
                     "<td>" + (e.department != null ? e.department.name : null) + "</td>" +
-                    "<td>" + (new Date(e.applyDate).Format('yyyy/MM/dd')) + "</td>" +
+                    "<td>" + (new Date(e.applyDate).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
                     "<td>" + e.auditStatus + "</td>" +
                     "<td>" + e.pickingStatus + "</td>" +
@@ -131,6 +131,16 @@ var mat_out_manage = {
             })
         }
         , fillData: function ($table, items) {
+
+            $.get(servers.backup() + "process/getAll", {}, function (res) {
+                items = res.data
+                $("#process_type").html("<option>请选择审批流程</option>");
+                items.forEach(function(e) {
+                    $("#process_type").append(
+                        "<option value=" + (e.code) + ">" + (e.name) + "</option>"
+                    )
+                })
+            })
             var pickingApplies = items.pickingApplies
             var $tbody = $('#detail_table').children('tbody')
             $tbody.empty() //清空表格
@@ -149,13 +159,7 @@ var mat_out_manage = {
             var userStr = $.session.get('user')
             var userJson = JSON.parse(userStr)
             //todo
-            $.get(servers.backup() + "process/getAll", {}, function (res) {
-                res.data.forEach(function (e, index) {
-                    $("#process_type").append(
-                        "<option value='" + (e.code) + "'>" + (e.name) + "</option>"
-                    )
-                })
-            })
+            
             $("#appl_date").text(new Date().Format("yyyy-MM-dd hh:mm:ss"))
             $("#app_dep").text(userJson.department.name)
             $("#cur_user").text(userJson.name)

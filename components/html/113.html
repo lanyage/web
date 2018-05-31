@@ -1,6 +1,65 @@
 <div id='model-li-hide-113' class="display-component-container" style="padding: 20px 20px 20px 20px;">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style type="text/css">
+
+        .table_inner thead td {
+            background-color: #777777;
+            margin: 0;
+            padding: 2px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .table_inner tbody td {
+            margin: 0;
+            padding: 2px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            width: 50px;
+        }       
+
+        .arrow_div_left {
+            width: 40px;
+            height: 40px;
+            margin: 0 0 0 0;
+            float: left;
+            position: absolute;
+            top: 50%;
+            left: 0;
+        }
+
+        .arrow_div_right {
+            width: 40px;
+            height: 40px;
+            margin: 0 0 0 0;
+            float: right;
+            position: absolute;
+            top: 50%;
+            right: 0;
+        }
+
+        .table_scroll {
+            overflow-y: auto;
+            height: 700px;
+        }
+
+        .align_middle {
+            position: relative;
+            top: 50%;
+            text-align: center;
+        }
+        #presoma_table tbody td {
+            padding: 3px;
+        }
+        
+    </style>
     <div class="block-quote">
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
@@ -15,10 +74,11 @@
                 &nbsp;&nbsp;
                 <span style="color:#666666;">状态:</span>&nbsp;
                 <select id="status">
-                    <option>请选择状态</option>
+                    <option>选择审核状态</option>
                     <option value="0">未提交</option>
-                    <option value="1">未审核</option>
-                    <option value="2">已审核</option>
+                    <option value="1">在审</option>
+                    <option value="2">通过</option>
+                    <option value="3">不通过</option>
                 </select>
                 &nbsp;&nbsp;
                 <span style="color:#666666;">流程类型:</span>&nbsp;
@@ -75,23 +135,23 @@
         <table width="100%" id="normal_add_modal_table">
             <tr class="grey">
                 <td><input type="checkbox" id='normal_add_checkAll'/></td>
-                <td>原料类型</td>
-                <td>批号</td>
-                <td>库存单位</td>
-                <td>库存可用数量</td>
-                <td>申请单位</td>
-                <td>申请数量</td>
+                <td class="grey">原料类型</td>
+                <td class="grey">批号</td>
+                <td class="grey">库存单位</td>
+                <td class="grey">库存可用数量</td>
+                <td class="grey">申请单位</td>
+                <td class="grey">申请数量</td>
             </tr>
            <tbody>
                 <tr>
-                        <td><input type="checkbox" class='add_checkbox'/></td>
-                        <td>碳酸锂</td>
-                        <td>38233333</td>
-                        <td>kg</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
+                    <td><input type="checkbox" class='delete_checkbox'/></td>
+                    <td>碳酸锂</td>
+                    <td>38233333</td>
+                    <td>kg</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
 
            </tbody>
         </table>
@@ -113,22 +173,22 @@
         <div class="fr">
             <button id="urgent_add_addBtn" class="add_roundBtn">&nbsp;新增&nbsp;</button>
             &nbsp;&nbsp;
-            <button class="delete_roundBtn">&nbsp;删除&nbsp;</button>
+            <button id="urgent_delete_btn" class="delete_roundBtn">&nbsp;删除&nbsp;</button>
         </div>
         <div class="whitespace" style="clear: both"></div>
         <table width="100%" id="urgent_add_modal_table">
             <tr class="grey">
                 <td><input type="checkbox" id='urgent_add_checkAll'/></td>
-                <td>原料类型</td>
-                <td>批号</td>
-                <td>库存单位</td>
-                <td>库存可用数量</td>
-                <td>申请单位</td>
-                <td>申请数量</td>
+                <td class="grey">原料类型</td>
+                <td class="grey">批号</td>
+                <td class="grey" >库存单位</td>
+                <td class="grey">库存可用数量</td>
+                <td class="grey">申请单位</td>
+                <td class="grey">申请数量</td>
             </tr>
             <tbody>
             <tr>
-                <td><input type="checkbox" class='add_checkbox'/></td>
+                <td><input type="checkbox" class='delete_checkbox'/></td>
                 <td></td>
                 <td>38233333</td>
                 <td></td>
@@ -186,7 +246,7 @@
         <div class="fr">
             <button id="edit_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
             &nbsp;&nbsp;
-            <button id="edit_deleteBtn" class="roundBtn">&nbsp;删除&nbsp;</button>
+            <button id="edit_deleteBtn" class="delete_roundBtn">&nbsp;删除&nbsp;</button>
         </div>
         <div class="whitespace" style="clear: both"></div>
         <table width="100%" id="edit_modal_table">
@@ -211,7 +271,7 @@
         </div>
     </div>
     <!--点击弹窗里面的新增要弹出来的窗口 -->
-    <div id='addModal' class="hide" style="padding: 30px 30px 30px 30px;">
+    <div id='edit_addModal' class="hide" style="padding: 30px 30px 30px 30px;">
         <div class="block-quote">
             <div style="text-align: left;" class="fl">
             <span>
@@ -223,7 +283,7 @@
                 &nbsp;
                 <span>
                     <strong>批号</strong>&nbsp;
-                    <input id ="edit_add_input" type="input" />
+                    <input id ="edit_add_input" type="input"/>
             </span>
             </div>
             <div class="fr">
@@ -231,31 +291,33 @@
             </div>
         </div>
         <div class="whitespace" style="clear: both"></div>
-        <table width="100%" id="addModal_table">
+        <table width="100%" id="edit_addModal_table">
+        <thead>
             <tr class="grey">
-                <td><input type="checkbox" id='addModal_checkALl'/></td>
-                <td>批号</td>
-                <td>可用数量</td>
-                <td>单位</td>
-                <td>检验状态</td>
-                <td>详情</td>
+                <td class="normal_td"><input type="checkbox" id='edit_add_search_checkAll' /></td>
+                <td class="normal_td">批号</td>
+                <td class="normal_td">可用数量</td>
+                <td class="normal_td">单位</td>
+                <td class="normal_td">检验状态</td>
+                <td class="normal_td">详情</td>
             </tr>
+        </thead>
             <tbody>
             <tr>
-                <td><input type="checkbox" class='addModal_checkbox'/></td>
+                <td><input type="checkbox" class='edit_add_search_checkbox'/></td>
                 <td>123441232</td>
                 <td>38233</td>
                 <td>kg</td>
                 <td>已检验</td>
-                <td><a href='#' id='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+                <td><a href='#' class='edit_add_detail' id='detail-1290'><i class='layui-icon'>&#xe60a;</i></a></td>
             </tr>
             <tr>
-                <td><input type="checkbox" class='addModal_checkbox'/></td>
+                <td><input type="checkbox"  class='edit_add_search_checkbox'/></td>
                 <td>1223321232</td>
                 <td>38</td>
                 <td>kg</td>
                 <td>未检验</td>
-                <td><a href='#' id='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+                <td><a href='#' class='edit_add_detail' id='detail-1289'><i class='layui-icon'>&#xe60a;</i></a></td>
             </tr>
 
             </tbody>
@@ -268,7 +330,7 @@
          </div>-->
     </div>
 </div>
-    <!--点击正常申请弹窗里面的新增要弹出来的窗口 
+    <!--点击正常申请弹窗里面的新增要弹出来的窗口 -->
     <div id='nor_addModal' class="hide" style="padding: 30px 30px 30px 30px;">
         <div class="block-quote">
             <div style="text-align: left;" class="fl">
@@ -337,8 +399,8 @@
         <div style="position: relative;text-align: right;bottom: 0px;">
             <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
         </div>
-    </div>-->
-        <!--点击紧急申请弹窗里面的新增要弹出来的窗口 -
+    </div>
+        <!--点击紧急申请弹窗里面的新增要弹出来的窗口 -->
         <div id='urg_addModal' class="hide" style="padding: 30px 30px 30px 30px;">
             <div class="block-quote">
                 <div style="text-align: left;" class="fl">
@@ -407,7 +469,7 @@
             <div style="position: relative;text-align: right;bottom: 0px;">
                 <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
             </div>
-        </div>->
+        </div>
 
 </div>
 
