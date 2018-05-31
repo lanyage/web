@@ -721,6 +721,14 @@ var home = {
                 return servers.backup() + 'productSendHeader/updateAuditStatusByCode'
             }
         },
+        plateAlarm:{
+            getAllByPage:function(){
+                return servers.backup() + '/materialsTotal/getAllByPage'
+            },
+            getByWarnStatusByPage:function(){
+                return servers.backup() +  '/materialsTotal/getByWarmStatusByPage'
+            }
+        },
         lingLiao: {
             getAllByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getAllByPage'

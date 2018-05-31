@@ -41,7 +41,7 @@ var plate_manage={
                     type: 1,
                     title: '报损单申请',
                     content: $("#edit_modal"),
-                    area: ['800px', '400px'],
+                    area: ['800px', '500px'],
                     btn: ['提交', '取消'],
                     offset: "auto",
                     closeBtn: 0,
