@@ -1,6 +1,26 @@
 var lingliao_apply = {
     init: function () {
 
+        //
+            var apply = {
+                rawType:"",
+                department:"",
+                date:"",
+                applyType:"",
+                applyStatus:0,
+                applyStatus:0,
+                pickingApplies: [
+                    {
+
+                    },
+                    {
+
+                    }
+                ]
+            }
+        //
+
+
         /** 渲染表格 */
         lingliao_apply.funcs.renderTable()
         /** 渲染下拉菜单 */

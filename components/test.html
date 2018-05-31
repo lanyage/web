@@ -79,7 +79,8 @@
     <!--右上角-->
     <div style="float: right;height: 200px;width: 100%;background: #cccccc;">
         <div style="width: 30%;height: 100%;" class="vertical_center fl">
-            <div style="width: 30%;" class="horizontal_center text_center"><a href="#"><i class="fa fa-cog fa-4x"></i></a></div>
+            <div style="width: 30%;" class="horizontal_center text_center"><a href="#"><i
+                    class="fa fa-cog fa-4x"></i></a></div>
         </div>
         <div style="width: 40%;height: 100%;" class="fl">
             <div style="height: 100%;width: 70%;" class="vertical_center horizontal_center text_center">
@@ -93,7 +94,8 @@
             </div>
         </div>
         <div style="width: 30%;height: 100%;" class="vertical_center fl">
-            <div style="width: 30%;" class="horizontal_center text_center"><a href="#"><i class="fa fa-sign-out fa-4x"></i></a></div>
+            <div style="width: 30%;" class="horizontal_center text_center"><a href="#"><i
+                    class="fa fa-sign-out fa-4x"></i></a></div>
         </div>
         <div style="clear: both;"></div>
     </div>
@@ -103,6 +105,47 @@
     <script src='../layer/layer/layer.js'></script>
     <script src='../js/Chart.js'></script>
     <script src='../js/home.js'></script>
+    <script src="../js/servers.js"></script>
     <script type='application/javascript'>
+        $(function () {
+            var pickingApplies = [];
+            var applies = [[0,1,2,3],[1,2,3,4]];
+            applies.forEach(function(e) {
+                pickingApplies.push(
+                    {
+                        batchNumber : e[0],
+                        rawType : e[1],
+                        unit: e[2],
+                        status : e[3]
+                    }
+                )
+            })
+            console.log(pickingApplies)
+
+            var data = {
+                applyDate: new Date().getTime(),
+                processManage: {code: 9},
+                user: {code: "1001"},
+                pickingTime: new Date().getTime(),
+                process : {code : 0},
+                applicant: {code: "1001"},
+                auditStatus: 0,
+                pickingStatus: 1,
+                department: {code: "003"},
+                curAuditorCode: "1001",
+                pickingApplies: []
+            }
+
+            $.ajax({
+                url: servers.backup() + "pickingApplyHeader/add",
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                type: 'post',
+                success: function (result) {
+                    console.log("success");
+                }
+            })
+        })
     </script>
 </div>
