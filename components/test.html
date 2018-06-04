@@ -133,9 +133,9 @@
                 pickingStatus: 1,
                 department: {code: "003"},
                 curAuditorCode: "1001",
-                pickingApplies: []
+                pickingApplies: []   
             }
-
+            data.pickingApplies = pickingApplies;
             $.ajax({
                 url: servers.backup() + "pickingApplyHeader/add",
                 contentType: 'application/json',

@@ -19,8 +19,13 @@ var pro_out_manage = {
         bindCreatoption: function () {
             $.get(home.urls.productOut.getAllrawType(), {}, function (result) {
                 var items = result.data
+<<<<<<< HEAD
                 $("#rawType_Code").html("<option>请选择产品型号</option>")
                 items.forEach(function (e) {
+=======
+                $("#rawType_Code").html("<option>选择产品型号</option>")
+                items.forEach(function(e){
+>>>>>>> e50881ced5814f1990fec19fad97f4b45327e382
                     $("#rawType_Code").append(
                         "<option value=" + e.code + ">" + e.code + "</option>"
                     )
@@ -216,6 +221,7 @@ var pro_out_manage = {
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
+<<<<<<< HEAD
                         /**更新产品出库审批 */
                         var auditStatus = $("#code1").text()
                         var note = $("#verify_note").text()
@@ -230,6 +236,24 @@ var pro_out_manage = {
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
                                 time: 700
+=======
+                        /**更新产品出库审批 */ 
+                        var userStr = $.session.get('user')
+                        var userJson = JSON.parse(userStr)
+
+                        var note = $("#verify_note").text()
+                        var code = codeNumber
+                        var audit_Code = userJson.code
+                        $.post(home.urls.productOut.updateAuditStatusByCode(),{
+                            auditStatus : 1,
+                            note : note,
+                            code : code,
+                            auditCode : audit_Code
+                        }, function(result){
+                            layer.msg(result.message,{
+                                offset:['40%','55%'],
+                                time:700
+>>>>>>> e50881ced5814f1990fec19fad97f4b45327e382
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
@@ -242,6 +266,29 @@ var pro_out_manage = {
                         layer.close(index)
                     }
                     , btn2: function (index) {
+                        var userStr = $.session.get('user')
+                        var userJson = JSON.parse(userStr)
+
+                        var note = $("#verify_note").text()
+                        var code = codeNumber
+                        var audit_Code = userJson.code
+                        $.post(home.urls.productOut.updateAuditStatusByCode(),{
+                            auditStatus : 0,
+                            note : note,
+                            code : code,
+                            auditCode : audit_Code
+                        }, function(result){
+                            layer.msg(result.message,{
+                                offset:['40%','55%'],
+                                time:700
+                            })
+                            if(result.code === 0) {
+                                var time = setTimeout(function(){
+                                    pro_out_manage.init()
+                                    clearTimeout(time)
+                                },500)
+                            }
+                        })
                         $("#verify_modal").css('display', 'none')
                         layer.close(index)
                     }
@@ -249,6 +296,7 @@ var pro_out_manage = {
             })
         }
         /**审核界面读取数据 */
+<<<<<<< HEAD
         , fill_verify_data: function (div, items, codeNumber) {
             $("#code1").text(items.code)
             $("#rawType1").text(items.rawType ? items.rawType.code : 'null')
@@ -258,15 +306,46 @@ var pro_out_manage = {
             $("#applicant1").text(items.applicant ? items.applicant.name : 'null')
             $("#sendTime1").text(new Date(items.sendTime).Format('yyyy-MM-dd'))
             $("#applyTime1").text(new Date(items.applyTime).Format('yyyy-MM-dd'))
+=======
+        ,fill_verify_data:function(div,items,codeNumber){
+            var total_amount = 0
+            productSends = items.productSends
+            var $tbody = $("#verify_table").children('tbody')
+            $tbody.empty() //清空表格
+            productSends.forEach(function(e){
+                total_amount += e.weight
+                $tbody.append(
+                    "<tr>"+
+                    "<td>"+ (e.code?e.code:' ') +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
+                    "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td><td>" + (e.status?e.status:' ') + "</td>"+
+                    "</tr>"
+            );
+            })
+
+            $("#code1").text(items.code)
+            $("#rawType1").text(items.rawType?items.rawType.code:' ')
+            $("#department1").text(items.applicant?items.applicant.department.name:' ')
+            $("#weight1").text(total_amount)
+            $("#sender1").text(items.sender?items.sender.name:' ')
+            $("#applicant1").text(items.applicant?items.applicant.name:' ')
+            $("#sendTime1").text(items.sendTime?new Date(items.sendTime).Format('yyyy-MM-dd'):' ')
+            $("#applyTime1").text(items.applyTime?new Date(items.applyTime).Format('yyyy-MM-dd'):' ')
+>>>>>>> e50881ced5814f1990fec19fad97f4b45327e382
 
             productSends = items.productSends
             var $tbody = $("#verify_table").children('tbody')
             $tbody.empty() //清空表格
             productSends.forEach(function (e) {
                 $tbody.append(
+<<<<<<< HEAD
                     "<tr>" +
                     "<td>" + (e.code ? e.code : 'null') + "</td><td>" + (e.batchNumber ? e.batchNumber : 'null') + "</td>" +
                     "<td>" + (e.unit ? e.unit : 'null') + "</td>" + "<td>" + (e.weight ? e.weight : 'null') + "</td><td>" + (e.status ? e.status : 'null') + "</td>" +
+=======
+                    "<tr>"+
+                    "<td>"+ (e.code?e.code:' ') +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
+                    "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td><td>" + (e.status?e.status:' ') + "</td>"+
+>>>>>>> e50881ced5814f1990fec19fad97f4b45327e382
                     "</tr>"
                 );
             })
@@ -275,12 +354,21 @@ var pro_out_manage = {
                 productSendHeaderCode: codeNumber
             }, function (result) {
                 res = result.data
+<<<<<<< HEAD
                 console.log(res)
                 $("#audit_Name").text(res.auditor ? res.auditor : 'null')
                 $("#audit_result").text(res.auditResult ? res.auditResult : 'null')
                 $("#audit_time").text(new Date(items.auditTime).Format('yyyy-MM-dd'))
                 $("#audit_note").text((res.note ? res.note : 'null'))
 
+=======
+                //console.log(res)
+                $("#audit_Name").text(res[0].auditor?res[0].auditor.name:'null')
+                $("#audit_result").text(res[0].auditResult?res[0].auditResult:'null')
+                $("#audit_time").text(res[0].auditTime?new Date(res[0].auditTime).Format('yyyy-MM-dd'):' ')
+                $("#audit_note").text((res[0].note?res[0].note:' '))
+                
+>>>>>>> e50881ced5814f1990fec19fad97f4b45327e382
             })
 
 
@@ -316,6 +404,7 @@ var pro_out_manage = {
             })
         },
         //填充详情表格的弹出表格
+<<<<<<< HEAD
         fill_detail_data: function (div, items, codeNumber) {
             $("#code").text(items.code)
             $("#rawType").text(items.rawType ? items.rawType.code : 'null')
@@ -348,13 +437,37 @@ var pro_out_manage = {
                     "<tr>" +
                     "<td>" + (e.code ? e.code : 'null') + "</td><td>" + (e.batchNumber ? e.batchNumber : 'null') + "</td>" +
                     "<td>" + (e.unit ? e.unit : 'null') + "</td>" + "<td>" + (e.weight ? e.weight : 'null') + "</td><td>" + (e.status ? e.status : 'null') + "</td>" +
+=======
+        fill_detail_data:function(div,items,codeNumber){
+            var total_amount = 0
+            productSends = items.productSends
+            var $tbody = $("#detail_modal2").children('tbody')
+            $tbody.empty() //清空表格
+            productSends.forEach(function(e){
+                total_amount =+ e.weight
+                $tbody.append(
+                    "<tr>"+
+                    "<td>"+ (e.code?e.code:' ') +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
+                    "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td><td>" + (e.status?e.status:'null') + "</td>"+
+>>>>>>> e50881ced5814f1990fec19fad97f4b45327e382
                     "</tr>"
                 );
             })
+
+            $("#code").text(items.code)
+            $("#rawType").text(items.rawType?items.rawType.code:' ')
+            $("#department").text(items.department?items.department.name:' ')
+            $("#weight").text(total_amount)
+            $("#sender").text(items.sender?items.sender.name:' ')
+            $("#applicant").text(items.applicant?items.applicant.name:' ')
+            $("#sendTime").text(new Date(items.sendTime).Format('yyyy-MM-dd'))
+            $("#applyTime").text(new Date(items.applyTime).Format('yyyy-MM-dd'))
+
             console.log(codeNumber)
 
             $.post(home.urls.productOut.getByProductSendHeader(), {
                 productSendHeaderCode: codeNumber
+<<<<<<< HEAD
             }, function (result) {
                 res = result.data
                 console.log(res)
@@ -363,6 +476,18 @@ var pro_out_manage = {
                 $("#audit_time").text(new Date(items.auditTime).Format('yyyy-MM-dd'))
                 $("#audit_note").text((res.note ? res.note : 'null'))
 
+=======
+            }, function(result) {
+                var res = result.data
+                console.log(res)
+              
+                
+                $("#Detail_audit_Name").text(res[0].auditor?res[0].auditor.name:' ')
+                $("#Detail_audit_result").text(res[0].auditResult?res[0].auditResult:' ')
+                $("#Detail_audit_time").text(res[0].auditTime?new Date(res[0].auditTime).Format('yyyy-MM-dd'):' ')
+                $("#Detail_audit_note").text((res[0].note?res[0].note:' '))
+                
+>>>>>>> e50881ced5814f1990fec19fad97f4b45327e382
             })
         }
 
@@ -403,7 +528,8 @@ var pro_out_manage = {
                 });
             })
             var edit_addBtn = $("#edit_addBtn")
-            pro_out_manage.funcs.bindEditAddClick(edit_addBtn)
+            const $tbody = $("#editor_table2").children('tbody')
+            pro_out_manage.funcs.bindEditAddClick(edit_addBtn,$tbody)
 
             var edit_deleteBtn = $("#delete_addBtn")
             // pro_out_manage.funcs.bindEditDeleteClick(edit_deleteBtn)
@@ -411,7 +537,7 @@ var pro_out_manage = {
 
         },
         /**编辑里面的增加按钮 */
-        bindEditAddClick: function (detailBtns) {
+        bindEditAddClick: function (detailBtns,$tbody) {
             detailBtns.off('click').on('click', function () {
                 //点击的时候需要弹出一个模态框
                 // 而且要填充模态框里面的内容 todo
@@ -425,6 +551,29 @@ var pro_out_manage = {
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
+                        rawType_Code = $('#edit_add_select option:selected').val()
+                        if($('.edit_add_checkbox:checked').length === 0) {
+                            $("#edit_add_modal").css('display', 'none')
+                            layer.close(index)
+                        }
+                        else {
+                         //将选中的数据appen到上一个界面中去
+                         var length = $tbody.find("tr").length +1
+                         console.log(length)
+                         $('.edit_add_checkbox').each(function(){
+                             if($(this).prop('checked')) {
+                                 var e = $(this).parent('td').parent('tr').children('td')
+                                 $tbody.append(
+                                    "<tr>"+
+                                    "<td><input type='checkbox' class='delete_checkbox' /></td>" +
+                                    "<td>"+ (length) +"</td><td>"+ (e.eq(1).text()) + "</td>"+
+                                    "<td>"+(e.eq(3).text()) + "</td>"+ "<td>"+ (e.eq(2).text()) + "</td><td>" + (e.eq(4).text()) + "</td>"+
+                                    "</tr>"
+                                 )
+                                 length += 1
+                             }
+                         })
+                        }
                         $("#edit_add_modal").css('display', 'none')
                         layer.close(index)
                     }
@@ -447,10 +596,17 @@ var pro_out_manage = {
 
         }
 
+<<<<<<< HEAD
         , fill_edit_data: function (div, items) {
             $("#out_code").text(items.sender ? items.sender.code : 'null')
             $("#apply_time").text(new Date(items.applyTime).Format('yyyy-MM-dd'))
             $("#in_time").text(new Date(items.sendTime).Format('yyyy-MM-dd'))
+=======
+        ,fill_edit_data:function(div,items){
+            $("#out_code").text(items?items.code:' ')
+            $("#apply_time").text(items.applyTime?new Date(items.applyTime).Format('yyyy-MM-dd'):' ')
+            $("#in_time").text(items.sendTime?new Date(items.sendTime).Format('yyyy-MM-dd'):' ')
+>>>>>>> e50881ced5814f1990fec19fad97f4b45327e382
 
             $.get(home.urls.productOut.getAllrawType(), {}, function (result) {
                 var items = result.data
@@ -479,10 +635,17 @@ var pro_out_manage = {
             productSends.forEach(function (e) {
                 console.log(e)
                 $tbody.append(
+<<<<<<< HEAD
                     "<tr>" +
                     "<td><input type='checkbox' class='delete_checkbox' /></td>" +
                     "<td>" + (e.code ? e.code : 'null') + "</td><td>" + (e.batchNumber ? e.batchNumber : 'null') + "</td>" +
                     "<td>" + (e.unit ? e.unit : 'null') + "</td>" + "<td>" + (e.weight ? e.weight : 'null') + "</td><td>" + (e.status ? e.status : 'null') + "</td>" +
+=======
+                    "<tr>"+
+                    "<td><input type='checkbox' class='delete_checkbox' id='e.code'/></td>" +
+                    "<td>"+ (e.code?e.code:' ') +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
+                    "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td><td>" + (e.status?e.status:' ') + "</td>"+
+>>>>>>> e50881ced5814f1990fec19fad97f4b45327e382
                     "</tr>"
                 );
             })
@@ -890,9 +1053,15 @@ var pro_out_manage = {
                 console.log(createDate)
                 console.log(rawType_Code)
                 $.post(home.urls.productOut.getByAuditStatusAndRawTypeAndCreateDateByPage(), {
+<<<<<<< HEAD
                     auditStatus: audit_status === '选择审核状态' ? -1 : audit_status,
                     rawTypeCode: rawType_Code === '请选择产品型号' ? -1 : rawType_Code,
                     createDate: createDate
+=======
+                    auditStatus: audit_status==='选择审核状态'?audit_status:'-1',
+                    rawTypeCode: rawType_Code==='选择产品型号'?rawType_Code:'-1',
+                    createDate:createDate==='选择开单日期'?createDate:'-1'
+>>>>>>> e50881ced5814f1990fec19fad97f4b45327e382
                 }, function (result) {
                     var items = result.data.content //获取数据
                     page = result.data

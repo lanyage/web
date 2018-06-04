@@ -748,7 +748,10 @@ var home = {
             },
             getDetail:function(){
                 return servers.backup() + 'available/getByRawTypeCodeAndBatchNumberLikeByPage'
-            }
+            },
+            add:function(){
+                return servers.backup() + 'pickingApplyHeader/add'
+            },
             
         },
         equipment: {

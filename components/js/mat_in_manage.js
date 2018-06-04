@@ -57,7 +57,7 @@ var mat_in_manage = {
                     "<td>" + (e.batchNumber) + "</td>" +
                     "<td>" + (e.supplier ? e.supplier.name : null) + "</td>" +
                     "<td>" + (e.date) + "</td>" +
-                    "<td>" + (e.creatTime) + "</td>" +
+                    "<td>" + (e.createTime ? new Date(e.createTime).Format('yyyy-MM-dd hh:mm:ss'):' ') + "</td>" +
                     "<td>" + (e.createUser ? e.createUser.name : null) + "</td>" +
                     "<td><a href='#' class='detail' id='detail-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
                     "</tr>"
@@ -70,33 +70,6 @@ var mat_in_manage = {
             var detailBtns = $(".detail")
             mat_in_manage.funcs.bindDetailClick(detailBtns)
         }
-        /**获取搜索的数据 */
-        /**  , renderHandler1: function ($tbody, items,supplierCode) {
-            $tbody.empty() //清空表格
-            console.log(items)
-            items.forEach(function (e) {
-                // $('#dep_checkAll').prop('checked', false)
-                console.log(e.code)
-                if( supplierCode === e.code ){
-                var content = (
-                    "<tr>" +
-                    "<td>" + (e.code) + "</td>" +
-                    "<td>" + (e.batchNumber) + "</td>" +
-                    "<td>" + (e.name ) + "</td>" +
-                    "<td>" + (e.date) + "</td>" +
-                    "<td>" + (e.creatTime) + "</td>" +
-                    "<td>" + (e.name) + "</td>" +
-                    "<td><a href='#' class='detail' id='detail-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
-                    "</tr>"
-                )
-                $tbody.append(content)
-            }
-            })    var detailBtns = $(".detail")
-            mat_in_manage.funcs.bindDetailClick(detailBtns)
-            // /** 绑定全选事件 */
-        /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
-
-
         , getSupplier: function () {
             $.get(home.urls.materialIn.getAllSupplier(), {}, function (res) {
                 select = $("#model-li-select-48")
@@ -112,10 +85,23 @@ var mat_in_manage = {
         }
 
         , fillData: function (table, items) {
+            var godownEntries = items.godownEntries
+            var $tbody = $('#down_table').children('tbody')
+            $tbody.empty() //清空表格
+            godownEntries.forEach(function (ele) {
+                $tbody.append(
+                    "<tr>" +
+                    " <td>" + (ele.code) + "</td>" +
+                    "<td>" + (ele.batchNumber) + "</td>" +
+                    "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
+                    "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>"
+                )
+            })
+
             $("#batchNumber").text(items.batchNumber)
             $("#name").text(items.name)
             $("#productor").text(!items.supplier ? null : items.supplier.name)
-            $("#number").text(!items.number ? '无' : items.number)
+            $("#number").text(!items.weight ? '无' : items.weight)
             $("#date").text(items.date)
             $("#creatUser").text(items.createUser ? items.createUser.name : '无')
             $("#creatTime").text(new Date().Format("yyyy-MM-dd hh:mm:ss"))
