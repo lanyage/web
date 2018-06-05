@@ -65,8 +65,8 @@ var product_in_manage = {
                     "<tr>" +
                     "<td>" + (e.code) + "</td>" +
                     "<td>" + (e.batchNumber) + "</td>" +
-                    "<td>" + (e.department ? e.department.name : null) + "</td>" +
-                    "<td>" + (e.payTime) + "</td>" +
+                    "<td>" + (e.department ? e.department.name : ' ') + "</td>" +
+                    "<td>" + (e.payTime ? new Date(e.payTime).Format('yyyy-MM-dd'):' ') + "</td>" +
                     "<td>" + (e.status) + "</td>" +
                     "<td><a href='#' class='detail' id='detail-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
                     "</tr>"
@@ -117,7 +117,6 @@ var product_in_manage = {
         bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
             refreshBtn.on('click', function () {
-                console.log('AAAAAAAAAAAAAAAAAAAAAAaa')
                 var index = layer.load(2, {offset: ['40%', '58%']});
                 var time = setTimeout(function () {
                     layer.msg('刷新成功', {
@@ -133,14 +132,14 @@ var product_in_manage = {
 
         fillData: function (table, items) {
             //  console.log(items)
-            $("#batchNumber").text(items.batchNumber ? items.batchNumber : 'null')
-            $("#model").text(items.model ? items.model : 'null')
-            $("#department").text(items.department ? items.department.name : 'null')
+            $("#batchNumber").text(items.batchNumber ? items.batchNumber : ' ')
+            $("#model").text(items.model ? items.model : ' ')
+            $("#department").text(items.department ? items.department.name : ' ')
             $("#detail_weight").text(items.weight ? items.weight : 'kg')
-            $("#payer").text(items.payer ? items.payer.name : 'null')
-            $("#godowner").text(items.godowner ? items.godowner : 'null')
-            $("#payTime").text(items.payTime ? items.payTime : 'null')
-            $("#godownTime").text(items.godownTime ? items.godownTime : 'null')
+            $("#payer").text(items.payer ? items.payer.name : ' ')
+            $("#godowner").text(items.godowner ? items.godowner : ' ')
+            $("#payTime").text(items.payTime ? new Date(items.payTime).Format('yyyy-MM-dd') : ' ')
+            $("#godownTime").text(items.godownTime ? new Date(items.godownTime).Format('yyyy-MM-dd') : ' ')
             var productGodowns = items.productGodowns
             var $tbody = $('#down_table').children('tbody')
             $tbody.empty() //清空表格
