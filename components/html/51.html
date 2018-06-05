@@ -64,9 +64,6 @@
         #presoma_table tbody td {
             padding: 3px;
         }
-        .provider_input{
-            outline: none;  border: 0px;  margin: 0px;  width: 95%;  height: 100%;
-        }
     </style>
 
     <div class="block-quote">
@@ -195,15 +192,15 @@
                cellpadding="0" cellspacing="0">
         <tr>
             <td class="grey">审批人：</td>
-            <td id="audit_Name"></td>
+            <td></td>
             <td class="grey">审批结果：</td>
-            <td id="audit_result"></td>
+            <td></td>
             <td class="grey">审批时间：</td>
-            <td id="audit_time"></td>
+            <td ></td>
         </tr>
         <tr>
             <td class="grey">审批意见:</td>
-            <td colspan="5" id="audit_note"></td>
+            <td colspan="5"></td>
         </tr>
         </table>
         <div class="whitespace"></div>
@@ -259,15 +256,15 @@
         <table id = "detail_modal3" width="100%" style="border-left: 0px;border-right: 0px;">
             <tr>
                 <td class="grey">审批人：</td>
-                <td id="Detail_audit_Name"></td>
+                <td id="audit_Name"></td>
                 <td class="grey">审批结果：</td>
-                <td id="Detail_audit_result" ></td>
+                <td id="audit_result" ></td>
                 <td  class="grey">审批时间：</td>
-                <td id="Detail_audit_time"></td>
+                <td id="audit_time"></td>
             </tr>
             <tr class="no_border">
                 <td class="grey">审批意见：</td>
-                <td colspan="5" id="Detail_audit_note"></td>
+                <td colspan="5" id="audit_note"></td>
             </tr>
         </table>
     </div>
@@ -348,7 +345,7 @@
                         
                     </select>&nbsp;&nbsp;
 
-                    <span style="color: black;">批号 <input value="请输入批号" id="product_batch_number_input"/></span>
+                    <span style="color: black;">批号 <input placeholder="请输入批号" id="product_batch_number_input"/></span>
                 </p>
             </div>
             <div class="fr">
@@ -401,23 +398,22 @@
                 <td width="40%" id="out_code"></td>
                 <td class="grey" width="20%">产品型号</td>
                 <td width="20%">
-                    <input id="editor_select_rawType" class="provider_input"/>
+                    <select id="editor_select_rawType">
+                    </select>
                 </td>
             </tr>
             <tr>
                 <td class="grey">运输方式</td>
                 <td>
-                    <input id="transportWays" class="provider_input"/>
+                    <input id="transportWays"/>
                 </td>
                 <td class="grey">总量</td>
-                <td>
-                    <input id="total_amount" class="provider_input"/>
-                </td>
+                <td></td>
             </tr>
             <tr>
                 <td class="grey">流程类型</td>
                 <td>
-                    <select id="editor_select_processCode" class="provider_input">
+                    <select id="editor_select_processCode">
                     </select> 
                 </td>
                 <td class="grey">/</td>

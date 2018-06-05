@@ -122,7 +122,6 @@ var supply_manage = {
                                 number : number
                             })
                         })
-
                         $.ajax({
                             url: home.urls.supplyman.saveInBatch(),
                             contentType: 'application/json',
