@@ -948,25 +948,25 @@ var home = {
         },
         processstatus: {
             getAllByPage: function () {
-                return servers.backup() + 'processStatus/getAllByPage'
+                return servers.backup() + 'process/getAllByPage'
             },
             add: function () {
-                return servers.backup() + 'processStatus/add'
+                return servers.backup() + 'process/add'
             },
             deleteByCode: function () {
-                return servers.backup() + 'processStatus/deleteByCode'
+                return servers.backup() + 'process/deleteByCode'
             },
             update: function () {
-                return servers.backup() + 'processStatus/update'
+                return servers.backup() + 'process/update'
             },
             getByCode: function () {
-                return servers.backup() + 'processStatus/getByCode'
+                return servers.backup() + 'process/getByCode'
             },
             getAllByLikeNameByPage: function () {
-                return servers.backup() + 'processStatus/getAllByLikeNameByPage'
+                return servers.backup() + 'process/getAllByLikeNameByPage'
             },
             deleteByBatchCode: function () {
-                return servers.backup() + 'processStatus/deleteByBatchCode'
+                return servers.backup() + 'process/deleteByBatchCode'
             },
         },
         product: {

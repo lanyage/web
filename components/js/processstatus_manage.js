@@ -90,23 +90,17 @@ var processstatus_manage = {
 							"<div style='text-align: center;padding-top: 10px;'>" +
 							"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流程编码:<input type='text' id='code'/></p>" +
 							"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流程状态:<input type='text' id='status'/></p>" +
-							"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;当前负责人:<select id='curleader_code' style='width:174px;'></select></p>" +
-							"<p style='padding: 5px 0px 5px 0px; height:20px'><label class='layui-form-label inline'>上次审核时间</label><input type='text' style='width:174px;20px' class='layui-input'  id='last_review_time' placeholder='yyyy-MM-dd HH:mm:ss' lay-key='6'></p>" +
 							"</div>" +
 							"</div>",
-						area: ['400px', '250px'],
+						area: ['300px', '190px'],
 						btn: ['确认', '取消'],
-						offset: ['40%', '45%'],
+						offset: 'auto',
 						yes: function(index) {
 							var code = $('#code').val()
 							var status = $('#status').val()
-							var curleader_code = $('#curleader_code').val()
-							var last_review_time = $('#last_review_time').val()
 							$.post(home.urls.processstatus.add(), {
 								code: code,
-								status: status,
-								curLeaderCode: curleader_code,
-								//								lastReviewTime: last_review_time
+								name: status,
 							}, function(result) {
 								layer.msg(result.message, {
 									offset: ['40%', '55%'],
@@ -346,9 +340,7 @@ var processstatus_manage = {
 					"<tr>" +
 					"<td><input type='checkbox' class='checkbox' value='" + (e.code) + "'></td>" +
 					"<td>" + (e.code) + "</td>" +
-					"<td>" + (e.status) + "</td>" +
-					"<td>" + (e.curLeader && e.curLeader.name || '') + "</td>" +
-					"<td>" + (e.lastReviewTime == null ? '' : new Date(e.lastReviewTime).format('yyyy-MM-dd h:m:s')) + "</td>" +
+					"<td>" + (e.name) + "</td>" +
 					"<td><a href='#' class='editprocessstatus' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
 					"<td><a href='#' class='deleteprocessstatus' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
 					"</tr>")
