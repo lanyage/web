@@ -28,7 +28,7 @@ var plate_manage={
             //////////////////////////////////
             //bind editModal
             //////////////////////////////////
-            plate_manage.funcs.bindEditEventListener($('.edit'))
+            plate_manage.funcs.bindEditEventListener($('.detail'))
 
             //////////////////////////////////
             //bind editModal's addBtn click
@@ -40,21 +40,21 @@ var plate_manage={
                 layer.open({
                     type: 1,
                     title: '报损单申请',
-                    content: $("#edit_modal"),
+                    content: $("#detail_modal"),
                     area: ['800px', '500px'],
                     btn: ['提交', '取消'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#edit_modal").css('display', 'none')
+                        $("#detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                     , btn1: function (index) {
-                        $("#edit_modal").css('display', 'none')
+                        $("#detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                     , btn2: function (index) {
-                        $("#edit_modal").css('display', 'none')
+                        $("#detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                 });

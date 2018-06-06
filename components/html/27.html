@@ -1,8 +1,145 @@
-<div id='model-li-hide-27' class="display-component-container" style="line-height:700px;">
-    <h1 style="text-align: center">页面还在火速开发中...</h1>
+<div id='model-li-hide-27' class="display-component-container" style="padding: 20px 20px 20px 20px;">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <div class="block-quote">
+        <div class="fl">
+            <p style="color: #62a49a; font-size: 14px;">
+                <!--&#xe608;-->
+                <span id="model-li-hide-add-27"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
+                <span id="model-li-hide-delete-27"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+            </p>
+        </div>
+        <div class="fr">
+            <p style="color: #62a49a; font-size: 14px;">
+                <span id="model-li-hide-refresh-27"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+                &nbsp;&nbsp;
+                <input type="text" id="input_fire_batch_num" placeholder="请输入炉窑批号"/> &nbsp;&nbsp;
+                <span id="model-li-hide-search-27"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="whitespace"></div>
+    <table id="art_table" style="width: 100%;">
+        <thead style="background: #666666;">
+        <tr>
+            <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
+            <td>选择</td>
+            <td>窑炉编号</td>
+            <td>生效时间</td>
+            <td>编制时间</td>
+            <td>详情</td>
+            <td>编辑</td>
+            <td>删除</td>
+        </tr>
+        </thead>
+        <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
+        <tbody>
+        </tbody>
+    </table>
+
+    <div id="department_page">
+    </div>
+    <!--<script src="../components/js/plate_audit.js"></script>
     <script type="application/javascript">
-        $(function() {
-            console.log( $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>'))
+        $(function () {
+            plate_audit.init()
         })
-    </script>
+    </script>-->
+
+    <div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <div class="whitespace"></div>
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
+            <tr>
+                <td class="grey" width="20%">报损单编号</td>
+                <td width="30%">系统生成</td>
+                <td class="grey" width="20%">物料类型</td>
+                <td width="30%">继承</td>
+            </tr>
+            <tr>
+                <td class="grey">物料名称</td>
+                <td>继承</td>
+                <td class="grey">盘库数量</td>
+                <td>继承</td>
+            </tr>
+            <tr>
+                <td class="grey">总量</td>
+                <td>根据明细求和</td>
+                <td class="grey">流程类型</td>
+                <td><select>
+                    <option>流程1</option>
+                    <option>流程2</option>
+                    <option>流程3</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td class="grey">报损人</td>
+                <td>当前用户</td>
+                <td class="grey">审核状态</td>
+                <td>待审核</td>
+            </tr>
+            <tr >
+                <td class="grey">报损时间</td>
+                <td >继承</td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
+            <tr class="grey">
+                <td width="10%">序号</td>
+                <td width="45%">入库编号</td>
+                <td width="45%">报损数量</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>3823333333</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>3823333334</td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <!--审核人-->
+        <div style="border: 1px solid #9F9F9F">
+            <table width="100%" style="border-left: 0px;border-right: 0px;">
+                <tr>
+                    <td style="border: none">审批人：</td>
+                    <td style="border: none;color: #9F9F9F">张经理</td>
+                    <td style="border: none">审批结果：</td>
+                    <td style="border: none;color: #9F9F9F">通过</td>
+                    <td style="border: none">审批时间：</td>
+                    <td style="border: none;color: #9F9F9F">2018年1月31日 12：21：23</td>
+                </tr>
+                <tr>
+                    <td style="border: none">审批意见：</td>
+                    <td style="border: none;color: #9F9F9F">数据正常，已经审核</td>
+                </tr>
+            </table>
+        </div>
+        <div class="whitespace"></div>
+        <div id="a_result" >
+            <span>审核结果： </span>
+            <input type="radio" name="audit_result"/>同意&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="audit_result"/>不同意
+        </div>
+        <div class="whitespace"></div>
+        <div id="suggestion">
+            <span style="vertical-align: top">审核意见：</span>
+            <textarea style="width: 88%; height:20%;"></textarea>
+        </div>
+
+        <div class="whitespace"></div>
+        <div id="nextman" width="100%" style="border-left: 0px;border-right: 0px;">
+            <span>下一审核人：</span>
+            <select style="width: 20%">
+                <option>审核人1</option>
+                <option>审核人2</option>
+                <option>审核人3</option>
+            </select>
+        </div>
+        <div class="whitespace"></div>
+    </div>
 </div>
