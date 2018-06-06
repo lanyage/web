@@ -726,7 +726,10 @@ var home = {
                 return servers.backup() + '/materialsTotal/getAllByPage'
             },
             getByWarnStatusByPage:function(){
-                return servers.backup() +  '/materialsTotal/getByWarmStatusByPage'
+                return servers.backup() +  '/materialsTotal/getByWarnStatusByPage'
+            },
+            getAllWarnStatus(){
+                return　servers.backup() +  '/materialsTotal'
             }
         },
         lingLiao: {
