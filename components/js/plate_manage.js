@@ -46,15 +46,15 @@ var plate_manage={
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#edit_modal").css('display', 'none')
+                        $("#detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                     , btn1: function (index) {
-                        $("#edit_modal").css('display', 'none')
+                        $("#detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                     , btn2: function (index) {
-                        $("#edit_modal").css('display', 'none')
+                        $("#detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                 });
