@@ -52,29 +52,42 @@ var guide_manage = {
 
 
         , bindAddEventListener: function (addBtn) {
+            $.get(servers.backup() + "equipment/getAll",{},function(result) {
+                var eqs = result.data;
+                var select = $("#equipment_select_2")
+                eqs.forEach(function(e) {
+                    select.append("<option value='"+(e.code)+"'>"+(e.name)+"</option>")
+                })
+            })
             addBtn.off('click')
             addBtn.on('click', function () {
+                //点击页面的一瞬间之后,就要显示所有的设备
                 layer.open({
                     type: 1,
                     title: '添加',
-                    content: $('#edgudiebook_info'),
+                    content: $('#edgudiebook_info2'),
                     area: ['700px', '500px'],
                     btn: ['确认', '取消'],
-                    offset: ['40%', '45%'],
+                    offset: 'auto',
                     closeBtn : 0,
                     yes:function (index) {
-                        $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {}, function (result) {
-                            if (result.code === 0) {
-                                var time = setTimeout(function () {
-                                    clearTimeout(time)
-                                }, 500)
-                            }
-                            layer.close(index)
-                            $("#edgudiebook_info").css('display', 'none')
-                        })
+                        console.log($("#equipment_select_2").val())
+                        console.log($("#equipment_select_2").val())
+                        console.log($("#equipment_select_2").val())
+                        console.log($("#equipment_select_2").val())
+                        console.log($("#equipment_select_2").val())
+                        // $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {}, function (result) {
+                        //     if (result.code === 0) {
+                        //         var time = setTimeout(function () {
+                        //             clearTimeout(time)
+                        //         }, 500)
+                        //     }
+                        //     layer.close(index)
+                        //     $("#edgudiebook_info2").css('display', 'none')
+                        // })
                      }, btn2: function (index) {
                         layer.close(index)
-                        $("#edgudiebook_info").css('display', 'none')
+                        $("#edgudiebook_info2").css('display', 'none')
 
                     }
                 })

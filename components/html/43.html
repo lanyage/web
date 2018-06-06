@@ -218,51 +218,42 @@
     </div>
 
     <!-- 详情gudie 有很多图片的那个 -->
-    <div id="gudiebook_info" display:none; style="width:800px;height:100%; display:none; margin:0 auto;overflow: hidden;
-   ">
-
+    <div id="gudiebook_info"  style="width:800px;height:100%; display:none; margin:0 auto;overflow: hidden;">
         <div id="guidebook_body">
             <table id="guidebook_body_uptable">
                 <tr>
-                    <td id="guidebook_body_text" rowspan="3" colspan="6">气氛辊道炉日常巡检指导书</td>
-
-                    <td id="guidebook_body_text" style="width:15%;">编号</td>
+                    <td id="weizhi" rowspan="3" colspan="6">气氛辊道炉日常巡检指导书</td>
+                    <td id="bianhao" style="width:15%;">编号</td>
                     <td style="width:20%;"></td>
                 </tr>
 
                 <tr>
-                    <td id="guidebook_body_text">版次</td>
+                    <td id="banci">版次</td>
                     <td></td>
-
-
-
                 </tr>
 
                 <tr>
-                    <td id="guidebook_body_text">页次</td>
+                    <td id="yeci">页次</td>
                     <td></td>
-
-
-
                 </tr>
                 <tr>
-                    <td id="guidebook_body_text" style="width:10%;">编制</td>
+                    <td id="bianzhi" style="width:10%;">编制</td>
                     <td></td>
-                    <td id="guidebook_body_text" style="width:10%;">审核</td>
+                    <td id="shenpi" style="width:10%;">审核</td>
                     <td></td>
-                    <td id="guidebook_body_text" style="width:10%;">批准</td>
+                    <td id="pizhun" style="width:10%;">批准</td>
                     <td></td>
-                    <td id="guidebook_body_text" style="width:15%;">生效日期</td>
+                    <td id="shengxiaoriqi" style="width:15%;">生效日期</td>
                     <td></td>
                 </tr>
             </table>
 
             <table id="guidebook_body_middletable" style="background:#F2F2F2">
                 <tr style="width: calc( 100% - 1em )">
-                    <td id="guidebook_body_text" style="width:10%;">序号</td>
-                    <td id="guidebook_body_text" style="width:30%;">每日点检内容</td>
-                    <td id="guidebook_body_text" style="width:30%;">检查标准</td>
-                    <td id="guidebook_body_text" style="width:30%;">图片</td>
+                    <td id="xuhao" style="width:10%;">序号</td>
+                    <td id="meirijiandianneirong" style="width:30%;">每日点检内容</td>
+                    <td id="jianchabiaozhun" style="width:30%;">检查标准</td>
+                    <td id="tupian" style="width:30%;">图片</td>
                 </tr>
             </table>
 
@@ -652,7 +643,7 @@
 </div>
 
 <!-- 新增和编辑  没有图片的那个-->
-<div id="edgudiebook_info" style="width:600px;height:100%;display:none ;  margin:0 auto;border:1px solid black;">
+<div id="edgudiebook_info2" style="width:600px;height:100%;display:none ;  margin:0 auto;border:1px solid black;">
     <!-- <div id="edguidebook_top">
         <span style="padding-left:5px;color:white">编辑指导书</span>
         <button type="button" id="close" title="close it"
@@ -660,38 +651,43 @@
                     &times;
         </button>
     </div> -->
-
     <div id="edguidebook_body">
             <table id="edguidebook_body_uptable">
                     <tr >
-                        <td id="guidebook_body_text" rowspan="3" colspan="6">
-                            <select name="" id="guidebook_body_text" style="width:100%;height:100%;border:0px;">
-                                <option >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp气氛辊道炉日常巡检指导书</option>
-                                <option >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp气氛除湿机日常巡检指导书</option>
-                            </select>    
+                        <td class="guidebook_body_text" rowspan="3" colspan="6">
+                            <!--设备编码	archiveCode-->
+                            <select id="equipment_select_2" style="width:100%;height:100%;border:0px;text-align: center;">
+                            </select>
                         </td>
-                        <td id="guidebook_body_text" style="width:15%;">编号</td>
-                        <td style="width:20%;"><input type="text" style="width:100%;height:100%;border:0px;"></td>
+                        <!--编码	code todo 需要后端生成-->
+                        <!--编号	num-->
+                        <td class="guidebook_body_text" style="width:15%;">编号</td>
+                        <td style="width:20%;"><input type="text" id="_2_bianhao" style="width:100%;height:100%;border:0px;"></td>
                     </tr>
 
                     <tr>
-                        <td id="guidebook_body_text">版次</td>
-                        <td><input type="text" style="width:100%;height:100%;border:0px;"></td>     
+                        <td class="guidebook_body_text">版次</td>
+                        <!--版次	edition-->
+                        <td><input id="_2_banci" type="text" style="width:100%;height:100%;border:0px;"></td>
                     </tr>
 
                     <tr>
-                        <td id="guidebook_body_text">页次</td>
-                        <td><input type="text" style="width:100%;height:100%;border:0px;"></td>   
+                        <td class="guidebook_body_text">页次</td>
+                        <td><input type="text" id="_2_yeci" style="width:100%;height:100%;border:0px;"></td>
                     </tr>
                     <tr>
-                        <td id="guidebook_body_text" style="width:10%;">编制</td>
-                        <td><input type="text" style="width:100%;height:100%;border:0px;"></td>
-                        <td id="guidebook_body_text" style="width:10%;">审核</td>
-                        <td><input type="text" style="width:100%;height:100%;border:0px;"></td>
-                        <td id="guidebook_body_text" style="width:10%;">批准</td>
-                        <td><input type="text" style="width:100%;height:100%;border:0px;"></td>
-                        <td id="guidebook_body_text" style="width:15%;">生效日期</td>
-                        <td><input type="date" style="width:100%;height:100%;border:0px;"></td>
+                        <td class="guidebook_body_text" style="width:10%;">编制</td>
+                        <!--编制人编码	compactorCode-->
+                        <td><input type="text" id="_2_bianzhi"style="width:100%;height:100%;border:0px;"></td>
+                        <td class="guidebook_body_text" style="width:10%;">审核</td>
+                        <!--审核人编码	auditorCode-->
+                        <td><input type="text" id="_2_shenhe" style="width:100%;height:100%;border:0px;"></td>
+                        <!--批准人编码	approverCode-->
+                        <td class="guidebook_body_text" style="width:10%;">批准</td>
+                        <td><input type="text" id="_2_pizhun" tyle="width:100%;height:100%;border:0px;"></td>
+                        <!--生效日期	   effectiveDate-->
+                        <td class="guidebook_body_text" style="width:15%;">生效日期</td>
+                        <td><input type="date" id="_2_shengxiaoriqi" style="width:100%;height:100%;border:0px;"></td>
                     </tr>
             </table>
 
@@ -758,4 +754,5 @@ function addPlus(){
     var tabplus = '<tr id="s0" style="text-align:center;border:0px;"><td colspan="5" style="border:0px;"> <button onclick=" delTab(0),addTab(),addPlus()"style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;" >+</button></td></tr>'
     $("#tab1").append(tabplus)
 }
+
 </script>

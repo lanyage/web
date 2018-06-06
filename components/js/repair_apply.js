@@ -177,15 +177,23 @@ var repair_apply = {
         , bindDetailEventListener: function (detailBtns) {
             detailBtns.off('click')
             detailBtns.on('click', function () {
-                $.post(home.urls.repair.listApplicationsInPages(), {}, function (result) {
-                    var repairs=result.data.content[0]
-                    $('#repair_department_input').val(repairs.department.name)
-                    $('#repair_equipmentname_input').val(repairs.equipment.name)
-                    $('#repair_equipmentcode_input').val(repairs.eqArchive.code)
-                    $('#repair_productLine_input').val(repairs.productLine.name)
-                    $('#repair_duty_input').val(repairs.duty.name)
-                    $('#repair_applicationPerson_input').val(repairs.applicationPerson.name)
-                    $('#repair_input_appcontact').val(repairs.applicationPerson.Contact)
+                var code = $(this).attr("id").substr(3)
+                $.post(servers.backup()+"equipment/detail", {code:code}, function (result) {
+                    var repairs=result.data
+                    console.log(repairs)
+                    $('#repair_department_input').val(repairs.department?repairs.department.name:'')
+                    $('#repair_equipmentname_input').val(repairs.equipment?repairs.equipment.name:'')
+                    $('#repair_equipmentcode_input').val(repairs.eqArchive?repairs.eqArchive.code:'')
+                    $('#repair_productLine_input').val(repairs.productLine?repairs.productLine.name:'')
+                    $('#repair_duty_input').val(repairs.duty?repairs.duty.name:'')
+                    $('#repair_applicationPerson_input').val(repairs.applicationPerson?repairs.applicationPerson.name:'')
+                    $('#repair_input_appcontact').val(repairs.applicationPerson?repairs.applicationPerson.Contact:'')
+                    $("#repair_applicationTime_input").val(repairs.applicationTime)
+                    $("#repair_applicationDescription_input").val(repairs.applicationDescription)
+                    $("#repair_orderTime_input").val(repairs.orderTime)
+                    $("#repair_finishTime_input").val(repairs.finishTime)
+                    repairs.evaluation?(function(){$("#_"+repairs.evaluation.code).prop("checked",true)})():null
+                    $("#repair_repairmanDescription_input").val(repairs.repairmanDescription)
                 /** 弹出一个询问框 */
                 layer.open({
                     type: 1,
@@ -193,7 +201,7 @@ var repair_apply = {
                     content: $('#repair_info'),
                     area: ['900px', '550px'],
                     btn: ['确认', '取消'],
-                    offset: ['10%', '10%'],
+                    offset: 'auto',
                     closeBtn: 0,
                     yes: function (index) {
                             if (result.code === 0) {
