@@ -714,19 +714,19 @@ var home = {
                 return servers.backup() + 'productSendAudit/getByProductSendHeader'
             },
 
-            getDetail:function(){
+            getDetail: function () {
                 return servers.backup() + 'available/getByRawTypeCodeAndBatchNumberLikeByPage'
             },
-            updateAuditStatusByCode:function(){
+            updateAuditStatusByCode: function () {
                 return servers.backup() + 'productSendHeader/updateAuditStatusByCode'
             }
         },
-        plateAlarm:{
-            getAllByPage:function(){
+        plateAlarm: {
+            getAllByPage: function () {
                 return servers.backup() + '/materialsTotal/getAllByPage'
             },
-            getByWarnStatusByPage:function(){
-                return servers.backup() +  '/materialsTotal/getByWarmStatusByPage'
+            getByWarnStatusByPage: function () {
+                return servers.backup() + '/materialsTotal/getByWarmStatusByPage'
             }
         },
         lingLiao: {
@@ -742,22 +742,26 @@ var home = {
             getByCode: function () {
                 return servers.backup() + 'pickingApplyHeader/getByCode'
             },
-            getByProcessManageByPage:function(){
+            getByProcessManageByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getByAuditStatusAndProcessManageByPage'
             },
-            update:function(){
+            update: function () {
                 return servers.backup() + 'pickingApplyHeader/update'
             },
-            deleteByBatchCodeBatchCode:function(){
+            deleteByBatchCodeBatchCode: function () {
                 return servers.backup() + 'pickingApplyHeader/deleteByBatchCode'
             },
-            getAllrawType:function(){
+            getAllrawType: function () {
                 return servers.backup() + 'rawType/getAll'
             },
-            getDetail:function(){
+            getDetail: function () {
                 return servers.backup() + 'available/getByRawTypeCodeAndBatchNumberLikeByPage'
             }
-            
+        },
+        rawTpe: {
+            getAllByPage: function () {
+                return servers.backup() + 'rawType/getAllByPage'
+            }
         },
         equipment: {
             getAllByPage: function () {
@@ -1816,62 +1820,62 @@ var home = {
             $("#TI_1007_R")[0].innerHTML = parseFloat(home.RI1s[6].value).toFixed(2)
         }
         , render7: function () {
-            var vd0 = home.Bfs.filter(function(e) {
+            var vd0 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD0';
             })[0]
-            var vd24 = home.Bfs.filter(function(e) {
+            var vd24 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD24';
             })[0]
-            var vd6 = home.Bfs.filter(function(e) {
+            var vd6 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD6';
             })[0]
-            var vd12 = home.Bfs.filter(function(e) {
+            var vd12 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD12';
             })[0]
-            var vd30 = home.Bfs.filter(function(e) {
+            var vd30 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD30';
             })[0]
-            var vd18 = home.Bfs.filter(function(e) {
+            var vd18 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD18';
             })[0]
-            var vd536 = home.Bfs.filter(function(e) {
+            var vd536 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD536';
             })[0]
-            var vd544 = home.Bfs.filter(function(e) {
+            var vd544 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD544';
             })[0]
-            var vd552 = home.Bfs.filter(function(e) {
+            var vd552 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD552';
             })[0]
-            var vd560 = home.Bfs.filter(function(e) {
+            var vd560 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD560';
             })[0]
-            var vd520 = home.Bfs.filter(function(e) {
+            var vd520 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD520';
             })[0]
-            var vd528 = home.Bfs.filter(function(e) {
+            var vd528 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD528';
             })[0]
 
-            var vd504 = home.Bfs.filter(function(e) {
+            var vd504 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD504';
             })[0]
-            var vd512 = home.Bfs.filter(function(e) {
+            var vd512 = home.Bfs.filter(function (e) {
                 return e.weihao === 'BFS_VD512';
             })[0]
-            var  WI_1008_W = home.WI1s.filter(function(e) {
+            var WI_1008_W = home.WI1s.filter(function (e) {
                 return e.weihao === 'WI_1008';
             })[0]
-            var  WI_1010_W = home.WI1s.filter(function(e) {
+            var WI_1010_W = home.WI1s.filter(function (e) {
                 return e.weihao === 'WI_1010';
             })[0]
-            var  WI_1012 = home.WI1s.filter(function(e) {
+            var WI_1012 = home.WI1s.filter(function (e) {
                 return e.weihao === 'WI_1012';
             })[0]
-            var  TI_1008_T = home.TI1s.filter(function(e) {
+            var TI_1008_T = home.TI1s.filter(function (e) {
                 return e.weihao === 'TI_1008';
             })[0]
-            var  TI_1008_R = home.RI1s.filter(function(e) {
+            var TI_1008_R = home.RI1s.filter(function (e) {
                 return e.weihao === 'RI_1008';
             })[0]
 

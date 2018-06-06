@@ -130,28 +130,28 @@ var supplierType = {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var company_name = $('#company_name_input').val()
-                $.post(home.urls.company.getAllByLikeNameByPage(), {
+                $.post(servers.backup() + 'supplierType/getAllByLikeNameByPage', {
                     name: company_name
                 }, function (result) {
                     var page = result.data
                     var companyes = result.data.content //获取数据
                     const $tbody = $("#company_table").children('tbody')
-                    company_manage.funcs.renderHandler($tbody, companyes)
+                    supplierType.funcs.renderHandler($tbody, companyes)
                     layui.laypage.render({
                         elem: 'company_page',
                         count: 10 * page.totalPages //数据总数
                         ,
                         jump: function (obj, first) {
                             if(!first) {
-                                $.post(home.urls.company.getAllByLikeNameByPage(), {
+                                $.post(servers.backup() + 'supplierType/getAllByLikeNameByPage', {
                                     name: company_name,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {
                                     var companyes = result.data.content //获取数据
                                     const $tbody = $("#company_table").children('tbody')
-                                    company_manage.funcs.renderHandler($tbody, companyes)
-                                    company_manage.pageSize = result.data.content.length
+                                    supplierType.funcs.renderHandler($tbody, companyes)
+                                    supplierType.pageSize = result.data.content.length
                                 })
                             }
                         }
@@ -264,7 +264,6 @@ var supplierType = {
                         yes: function (index) {
                             var code = $('#code').val()
                             var type = $('#type').val()
-                            console.log(code,type)
                             $.post(servers.backup() + 'supplierType/update', {
                                 code: code,
                                 type: type,
