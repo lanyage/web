@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="mes:war">
+    <output-path>$USER_HOME$/IdeaProjects/mes/target</output-path>
+    <root id="archive" name="mes-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="mes:war exploded" />
+    </root>
+  </artifact>
+</component>

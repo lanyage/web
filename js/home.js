@@ -830,25 +830,25 @@ var home = {
         },
         company: {
             getAllByPage: function () {
-                return servers.backup() + 'company/getAllByPage'
+                return servers.backup() + 'supplier/getAllByPage'
             },
             add: function () {
-                return servers.backup() + 'company/add'
+                return servers.backup() + 'supplier/add'
             },
             deleteByCode: function () {
-                return servers.backup() + 'company/deleteByCode'
+                return servers.backup() + 'supplier/deleteByCode'
             },
             update: function () {
-                return servers.backup() + 'company/update'
+                return servers.backup() + 'supplier/update'
             },
             getByCode: function () {
-                return servers.backup() + 'company/getByCode'
+                return servers.backup() + 'supplier/getByCode'
             },
             getAllByLikeNameByPage: function () {
-                return servers.backup() + 'company/getAllByLikeNameByPage'
+                return servers.backup() + 'supplier/getAllByLikeNameByPage'
             },
             deleteByBatchCode: function () {
-                return servers.backup() + 'company/deleteByBatchCode'
+                return servers.backup() + 'supplier/deleteByBatchCode'
             },
         },
         workshop: {
