@@ -159,7 +159,7 @@ var company_manage = {
                         count: 10 * page.totalPages //数据总数
                         ,
                         jump: function (obj, first) {
-                            if(!first) {
+                            if (!first) {
                                 $.post(home.urls.company.getAllByLikeNameByPage(), {
                                     name: company_name,
                                     page: obj.curr - 1,
@@ -272,11 +272,11 @@ var company_manage = {
                         "<div style='text-align: center;padding-top: 10px;'>" +
                         "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司编号:<input type='text' id='code' value='" + (company.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司名称:<input type='text' id='name' value='" + (company.name) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>统一社会信用代码:<input type='text' id='cocode' value='" + (company.cocode) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>统一社会信用代码:<input type='text' id='cocode' value='" + (company.creditCode) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司地址:<input type='text' id='coaddress' value='" + (company.address) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系人:<input type='text' id='cokeeper' value='" + (company.contactPerson + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话:<input type='text' id='cophone' value='" + (company.contact) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司类型:<input type='text' id='cotype' value='" + (company.supplierType?company.supplierType.type:'')) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='hidden' id='typeCode' value='" + (company.supplierType ? company.supplierType.code : 1) + "'/>公司类型:<input type='text' id='cotype' value='" + (company.supplierType ? company.supplierType.type : '')) + "'/></p>" +
                         "</div>" +
                         "</div>",
                         area: ['350px', '320px'],
@@ -289,7 +289,7 @@ var company_manage = {
                             var coaddress = $('#coaddress').val()
                             var cokeeper = $('#cokeeper').val()
                             var cophone = $('#cophone').val()
-                            var cotype = $('#cotype').val()
+                            var cotype = $('#typeCode').val()
                             $.post(home.urls.company.update(), {
                                 code: code,
                                 name: name,
@@ -311,7 +311,9 @@ var company_manage = {
                                 }
                                 layer.close(index)
                             })
-                        },
+                        }
+
+                        ,
                         btn2: function (index) {
                             layer.close(index)
                         }
@@ -333,7 +335,7 @@ var company_manage = {
                     "<td>" + (e.address) + "</td>" +
                     "<td>" + (e.contactPerson) + "</td>" +
                     "<td>" + (e.contact) + "</td>" +
-                    "<td>" + (e.supplierType?e.supplierType.type : '') + "</td>" +
+                    "<td>" + (e.supplierType ? e.supplierType.type : '') + "</td>" +
                     "<td><a href='#' class='editcompany' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "<td><a href='#' class='deletecompany' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
                     "</tr>")

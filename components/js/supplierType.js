@@ -11,7 +11,6 @@ var supplierType = {
                 page: 0
             }, function (result) {
                 var supplierTypes = result.data.content //获取数据
-                console.log(supplierTypes)
                 const $tbody = $("#company_table").children('tbody')
                 supplierType.funcs.renderHandler($tbody, supplierTypes)
                 supplierType.pageSize = result.data.content.length
@@ -75,7 +74,7 @@ var supplierType = {
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    company_manage.init()
+                                    supplierType.init()
                                     clearTimeout(time)
                                 }, 500)
                             }
@@ -103,9 +102,9 @@ var supplierType = {
                     btn: ['确认', '取消'],
                     offset: ['40%', '55%'],
                     yes: function (index) {
-                        var companyCode = _this.attr('id').substr(3)
-                        $.post(home.urls.company.deleteByCode(), {
-                            code: companyCode
+                        var code = _this.attr('id').substr(3)
+                        $.post(servers.backup() + 'supplierType/deleteByCode', {
+                            code: code
                         }, function (result) {
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
@@ -113,7 +112,7 @@ var supplierType = {
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    company_manage.init()
+                                    supplierType.init()
                                     clearTimeout(time)
                                 }, 500)
                             }
@@ -169,10 +168,10 @@ var supplierType = {
                 });
                 var time = setTimeout(function () {
                     layer.msg('刷新成功', {
-                        offset: ['40%', '55%'],
-                        time: 700
+                        offset: 'auto',
+                        time: 700,
                     })
-                    company_manage.init()
+                    supplierType.init()
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -212,8 +211,9 @@ var supplierType = {
                                     })
                                 }
                             })
+                            console.log(companyCodes)
                             $.ajax({
-                                url: home.urls.company.deleteByBatchCode(),
+                                url: servers.backup() + 'supplierType/deleteByBatchCode',
                                 contentType: 'application/json',
                                 data: JSON.stringify(companyCodes),
                                 dataType: 'json',
@@ -221,7 +221,7 @@ var supplierType = {
                                 success: function (result) {
                                     if (result.code === 0) {
                                         var time = setTimeout(function () {
-                                            company_manage.init()
+                                            supplierType.init()
                                             clearTimeout(time)
                                         }, 500)
                                     }
@@ -244,39 +244,30 @@ var supplierType = {
             editBtns.off('click')
             editBtns.on('click', function () {
                 var _selfBtn = $(this)
-                var companyCode = _selfBtn.attr('id').substr(5)
-                $.post(home.urls.company.getByCode(), {
-                    code: companyCode
+                var typeCode = _selfBtn.attr('id').substr(5)
+                $.post(servers.backup() + 'supplierType/getByCode', {
+                    code: typeCode
                 }, function (result) {
-                    var company = result.data
+                    var supplyType = result.data
                     layer.open({
                         type: 1,
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司编号:<input type='text' id='code' value='" + (company.code) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司名称:<input type='text' id='name' value='" + (company.type) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;类型编号:<input type='text' id='code' value='" + (supplyType.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;类型名称:<input type='text' id='type' value='" + (supplyType.type) + "'/></p>" +
                         "</div>" +
                         "</div>",
-                        area: ['350px', '320px'],
+                        area: ['280px', '180px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '45%'],
                         yes: function (index) {
                             var code = $('#code').val()
-                            var name = $('#name').val()
-                            var cocode = $('#cocode').val()
-                            var coaddress = $('#coaddress').val()
-                            var cokeeper = $('#cokeeper').val()
-                            var cophone = $('#cophone').val()
-                            var cotype = $('#cotype').val()
-                            $.post(home.urls.company.update(), {
+                            var type = $('#type').val()
+                            console.log(code,type)
+                            $.post(servers.backup() + 'supplierType/update', {
                                 code: code,
-                                name: name,
-                                creditCode: cocode,
-                                address: coaddress,
-                                contactPerson: cokeeper,
-                                contact: cophone,
-                                "supplierType.code": cotype
+                                type: type,
                             }, function (result) {
                                 layer.msg(result.message, {
                                     offset: ['40%', '55%'],
@@ -284,7 +275,7 @@ var supplierType = {
                                 })
                                 if (result.code === 0) {
                                     var time = setTimeout(function () {
-                                        company_manage.init()
+                                        supplierType.init()
                                         clearTimeout(time)
                                     }, 500)
                                 }
@@ -318,7 +309,7 @@ var supplierType = {
             supplierType.funcs.bindEditEventListener(editBtns)
             var selectAllBox = $('#checkAll')
             supplierType.funcs.bindSelectAll(selectAllBox)
-            var deleteBatchBtn = $('#model-li-hide-delete-59')
+            var deleteBatchBtn = $('#model-li-hide-delete-116')
             supplierType.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
             var checkboxes = $('.checkbox')
             supplierType.funcs.disselectAll(checkboxes, selectAllBox)
@@ -329,7 +320,7 @@ var supplierType = {
                 var statusNow = $(this).prop('checked')
                 if (statusNow === false) {
                     selectAllBox.prop('checked', false)
-                } else if (statusNow === true && $('.checkbox:checked').length === company_manage.pageSize) {
+                } else if (statusNow === true && $('.checkbox:checked').length === supplierType.pageSize) {
                     selectAllBox.prop('checked', true)
                 }
             })
