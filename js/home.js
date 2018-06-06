@@ -640,6 +640,9 @@ var home = {
             },
             deleteByBatchCode: function () {
                 return servers.backup() + 'material/deleteByBatchCode'
+            },
+            getAll: function() {
+                return servers.backup() + 'material/getAll'
             }
         },
 
@@ -758,9 +761,18 @@ var home = {
                 return servers.backup() + 'available/getByRawTypeCodeAndBatchNumberLikeByPage'
             }
         },
-        rawTpe: {
+        rawType: {
             getAllByPage: function () {
                 return servers.backup() + 'rawType/getAllByPage'
+            },
+            add:function() {
+                return servers.backup() + "rawType/add"
+            },
+            deleteByCode: function() {
+                return servers.backup() + "rawType/deleteByCode"
+            },
+            deleteByBatchCode: function() {
+                return servers.backup() + "rawType/deleteByBatchCode" //todo this method is missing.
             }
         },
         equipment: {
