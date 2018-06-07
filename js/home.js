@@ -641,7 +641,7 @@ var home = {
             deleteByBatchCode: function () {
                 return servers.backup() + 'material/deleteByBatchCode'
             },
-            getAll: function() {
+            getAll: function () {
                 return servers.backup() + 'material/getAll'
             }
         },
@@ -765,14 +765,23 @@ var home = {
             getAllByPage: function () {
                 return servers.backup() + 'rawType/getAllByPage'
             },
-            add:function() {
+            add: function () {
                 return servers.backup() + "rawType/add"
             },
-            deleteByCode: function() {
+            deleteByCode: function () {
                 return servers.backup() + "rawType/deleteByCode"
             },
-            deleteByBatchCode: function() {
+            deleteByBatchCode: function () {
                 return servers.backup() + "rawType/deleteByBatchCode" //todo this method is missing.
+            },
+            getAllByLikeNameByPage: function () {
+                return servers.backup() + "rawType/getAllByLikeNameByPage"
+            },
+            getByCode: function () {
+                return servers.backup() + "rawType/getByCode"
+            },
+            update: function () {
+                return servers.backup() + "rawType/update"
             }
         },
         equipment: {

@@ -55,7 +55,6 @@ var rawType = {
         },        //append all records to the tbody
 
         bindAll: function ($tbody) {
-            console.log('bind all') // todo
             var editBtns = $('.edit')        //edit buttons
             var deleteBtns = $('.delete')        //delete buttons
             var deleteBatchBtn = $('#model-li-hide-delete-115')        //button for batch-deleting
@@ -93,7 +92,7 @@ var rawType = {
                         title: '添加',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>物料编码:<input type='text' id='rawType_code'/></p>" +
+                        // "<p style='padding: 5px 0px 5px 0px;'>物料编码:<input type='text' id='rawType_code'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>物料名称:<input type='text' id='rawType_name'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>材料:<select id='rawType_material' style='width: 150px;'>" + getOptions(data) + "</select></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>数据表名:<input type='text' id='rawType_dataTableName'/></p>" +
@@ -101,31 +100,18 @@ var rawType = {
                         "<p style='padding: 5px 0px 5px 0px;'>库存下限:<input type='text' id='rawType_stockBottom'/></p>" +
                         "</div>" +
                         "</div>",
-                        area: ['350px', '320px'],
+                        area: ['350px', '280px'],
                         btn: ['确认', '取消'],
                         offset: 'auto',
                         yes: function (index) {
-                            var code = $('#rawType_code').val()
+                            // var code = $('#rawType_code').val()
                             var name = $('#rawType_name').val()
                             var material_code = $('#rawType_material').val()
                             var dataTableName = $("#rawType_dataTableName").val()
                             var stockUpper = $("#rawType_stockUpper").val()
                             var stockBottom = $("#rawType_stockBottom").val()
-
-                            rawType.funcs.appendRecord($("#rawType_table").children('tbody'), {        //just append the record to the tbody
-                                code: code,
-                                name: name,
-                                material: rawType.materials.filter(function (e) {
-                                    return e.code = material_code
-                                })[0],
-                                dataTableName: dataTableName,
-                                stockBottom: stockBottom,
-                                stockUpper: stockUpper
-                            })
-                            rawType.funcs.bindAll($("#rawType_table").children('tbody'))        //the bind all sub event
-
                             $.post(home.urls.rawType.add(), {
-                                code: code,
+                                // code: code,
                                 name: name,
                                 'material.code': material_code,
                                 dataTableName: dataTableName,
@@ -136,6 +122,8 @@ var rawType = {
                                     offset: 'auto',
                                     time: 700
                                 })
+                                rawType.funcs.appendRecord($("#rawType_table").children('tbody'), result.data)        //just append the record to the tbody
+                                rawType.funcs.bindAll($("#rawType_table").children('tbody'))        //the bind all sub event
                                 layer.close(index)
                             })
                         },
@@ -145,11 +133,10 @@ var rawType = {
                     });
                 })
             })
-        },
+        },        //bind adding
 
-        bindRefreshEventListener: function (refreshBtn) {
-            refreshBtn.off('click')
-            refreshBtn.on('click', function () {
+        bindRefreshEventListener: function (refreshBtn) {        //reinitialize the page
+            refreshBtn.off('click').on('click', function () {
                 var index = layer.load(2, {offset: ['40%', '58%']});
                 var time = setTimeout(function () {
                     layer.msg('刷新成功', {
@@ -161,20 +148,107 @@ var rawType = {
                     clearTimeout(time)
                 }, 200)
             })
-        },
+        },        //bind refreshing
 
-        bindSearchEventListener: function () {
-            /** code,dataTableName,material {code: 1, name: "原料"},name,stockBottom,stockUpper */
-            //todo
-        },
+        bindSearchEventListener: function (searchBtn) {
+            searchBtn.off('click').on('click', function () {
+                console.log('search')
+                var rawtype_name = $('#rawtype_name_input').val()
+                $.post(home.urls.rawType.getAllByLikeNameByPage(), {name: rawtype_name}, function (result) {
+                    var page = result.data
+                    var rawTypes = result.data.content
+                    const $tbody = $("#rawType_table").children('tbody')
+                    rawType.funcs.renderHandler($tbody, rawTypes)
+                    layui.laypage.render({
+                        elem: 'department_page'
+                        , count: 10 * page.totalPages
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                $.post(home.urls.rawType.getAllByLikeNameByPage(), {
+                                    name: rawtype_name,
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var rawTypes = result.data.content
+                                    const $tbody = $("#department_table").children('tbody')
+                                    rawType.funcs.renderHandler($tbody, rawTypes)
+                                    rawType.pageSize = result.data.content.length
+                                })
+                            }
+                        }
+                    })
+                })
+            })
+        },        //bind searching
 
-        bindEditEventListener: function () {
-            /** code,dataTableName,material {code: 1, name: "原料"},name,stockBottom,stockUpper */
-            //todo
-        },
+        bindEditEventListener: function (editBtns) {
+            function getOptions(data) {        //get all materials
+                console.log(data)
+                var options = ""
+                data.forEach(function (e) {
+                    options += "<option value='" + e.code + "'>" + e.name + "</option>"
+                })
+                return options
+            }
+            editBtns.off('click').on('click', function () {
+                var _selfBtn = $(this)
+                var rawType_code = _selfBtn.attr('id').substr(5)
+                $.get(home.urls.material.getAll(), {}, function (result) {        //get all materials
+                    rawType.materials = result.data
+                    $.post(home.urls.rawType.getByCode(), {code: rawType_code}, function (result) {
+                        var one = result.data
+                        layer.open({
+                            type: 1,
+                            content: "<div id='addModal'>" +
+                            "<div style='text-align: center;padding-top: 10px;'>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>物料编码:<input type='text' id='rawType_code' value='" + (one.code) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>物料名称:<input type='text' id='rawType_name' value='" + (one.name) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>材料:<select id='rawType_material' style='width: 150px;'>" + getOptions(rawType.materials) + "</select></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>数据表名:<input type='text' id='rawType_dataTableName' value='" + (one.dataTableName) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>库存上限:<input type='text' id='rawType_stockUpper' value='" + (one.stockUpper) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>库存下限:<input type='text' id='rawType_stockBottom' value='" + (one.stockBottom) + "'/></p>" +
+                            "</div>" +
+                            "</div>",
+                            area: ['350px', '320px'],
+                            btn: ['确认', '取消'],
+                            offset: ['40%', '45%'],
+                            yes: function (index) {
+                                var code = $('#rawType_code').val()
+                                var name = $('#rawType_name').val()
+                                var material_code = $('#rawType_material').val()
+                                var dataTableName = $("#rawType_dataTableName").val()
+                                var stockUpper = $("#rawType_stockUpper").val()
+                                var stockBottom = $("#rawType_stockBottom").val()
+                                $.post(home.urls.rawType.update(), {
+                                    code: code,
+                                    name: name,
+                                    'material.code': material_code,
+                                    dataTableName: dataTableName,
+                                    stockUpper: stockUpper,
+                                    stockBottom: stockBottom
+                                }, function (result) {
+                                    layer.msg(result.message, {
+                                        offset: ['40%', '55%'],
+                                        time: 700
+                                    })
+                                    $('#edit-'+code).parent('td').parent('tr').remove()
+                                    rawType.funcs.appendRecord($("#rawType_table").children('tbody'), result.data)
+                                    rawType.funcs.bindAll($("#rawType_table").children('tbody'))        //the bind all sub event
+                                    layer.close(index)
+                                })
+                            },
+                            btn2: function (index) {
+                                layer.close(index)
+                            }
+                        })
+                    })
+                })
+
+            })
+        },        //bind editing
 
         bindDeleteEventListener: function (deleteBtns) {
-            deleteBtns.off('click').on('click', function() {
+            deleteBtns.off('click').on('click', function () {
                 var _this = $(this)
                 layer.open({
                     type: 1,
@@ -185,12 +259,12 @@ var rawType = {
                     offset: 'auto',
                     yes: function (index) {
                         var code = _this.attr('id').substr(3)
-                        _this.parent('td').parent('tr').remove();        //this is a fast way to delete
                         $.post(home.urls.rawType.deleteByCode(), {code: code}, function (result) {
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
                                 time: 700
                             })
+                            _this.parent('td').parent('tr').remove();        //this is a fast way to delete
                             layer.close(index)
                         })
                     },
@@ -199,12 +273,52 @@ var rawType = {
                     }
                 })
             })
-        },
+        },        //bind deleting
 
-        bindDeleteBatchEventListener: function () {
-            /** code,dataTableName,material {code: 1, name: "原料"},name,stockBottom,stockUpper */
-            //todo
-        },
-
+        bindDeleteBatchEventListener: function (deleteBatchBtn) {
+            deleteBatchBtn.off('click').on('click', function () {
+                if ($('.raw_type_checkbox:checked').length === 0) {
+                    layer.msg('亲,您还没有选中任何数据！', {
+                        offset: ['40%', '55%'],
+                        time: 700
+                    })
+                } else {
+                    layer.open({
+                        type: 1,
+                        title: '批量删除',
+                        content: "<h5 style='text-align: center;padding-top: 8px'>确认要删除所有记录吗?</h5>",
+                        area: ['190px', '130px'],
+                        btn: ['确认', '取消'],
+                        offset: ['40%', '55%'],
+                        yes: function (index) {
+                            var raw_type_codes = []
+                            $('.raw_type_checkbox').each(function () {
+                                if ($(this).prop('checked')) {
+                                    raw_type_codes.push({code: $(this).val()})
+                                    $(this).parent('td').parent('tr').remove();        //fast deleting
+                                }
+                            })
+                            $.ajax({
+                                url: home.urls.rawType.deleteByBatchCode(),
+                                contentType: 'application/json',
+                                data: JSON.stringify(raw_type_codes),
+                                dataType: 'json',
+                                type: 'post',
+                                success: function (result) {
+                                    layer.msg(result.message, {
+                                        offset: ['40%', '55%'],
+                                        time: 700
+                                    })
+                                }
+                            })
+                            layer.close(index)
+                        },
+                        btn2: function (index) {
+                            layer.close(index)
+                        }
+                    })
+                }
+            })
+        }        //bind deleting in batch
     }
 }
