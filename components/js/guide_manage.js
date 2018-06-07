@@ -19,7 +19,6 @@ var guide_manage = {
                 guide_manage.funcs.renderHandler($tbody, guides)
                 guide_manage.pageSize = result.data.content.length
                 var page = result.data
-
                 layui.laypage.render({
                     elem: 'guide_page'
                     , count: 10 * page.totalPages
@@ -52,29 +51,74 @@ var guide_manage = {
 
 
         , bindAddEventListener: function (addBtn) {
+            $.get(servers.backup() + "equipment/getAll",{},function(result) {
+                var eqs = result.data;
+                var select = $("#equipment_select_2")
+                eqs.forEach(function(e) {
+                    select.append("<option value='"+(e.code)+"'>"+(e.name+'-巡检指导书')+"</option>")
+                })
+            })
             addBtn.off('click')
             addBtn.on('click', function () {
+                //点击页面的一瞬间之后,就要显示所有的设备
                 layer.open({
                     type: 1,
                     title: '添加',
-                    content: $('#edgudiebook_info'),
-                    area: ['700px', '500px'],
+                    content: $('#edgudiebook_info2'),
+                    area: ['900px', '500px'],
                     btn: ['确认', '取消'],
-                    offset: ['40%', '45%'],
+                    offset: 'auto',
                     closeBtn : 0,
                     yes:function (index) {
-                        $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {}, function (result) {
-                            if (result.code === 0) {
-                                var time = setTimeout(function () {
-                                    clearTimeout(time)
-                                }, 500)
-                            }
-                            layer.close(index)
-                            $("#edgudiebook_info").css('display', 'none')
+                        var bianhao = $("#bianhao").val()
+                        var eq_code = $("#equipment_select_2").val()
+                        var banci = $("#_2_banci").val()
+                        var bianhao = $("#_2_bianhao").val()
+                        var bianzhi = $("#_2_bianzhi").val()
+                        var pizhun = $("#_2_pizhun").val()
+                        var shengxiaoriqi = $("#_2_shengxiaoriqi").val()
+                        var shenhe = $("#_2_shenhe").val()
+                        var yeci = $("#_2_yeci").val()
+                        var newLines= $('.newLine')
+                        var header = {
+                            bianhao:bianhao,
+                            eq_codde : eq_code,
+                            banci : banci,
+                            bianhao:bianhao,
+                            bianzhi:bianzhi,
+                            pizhun:pizhun,
+                            shengxiaoriqi:shengxiaoriqi,
+                            shenhe:shenhe,
+                            yeci:yeci,
+                            newLines:[]
+                        }
+                        newLines.each(function() {
+                            var _self_sub = $(this).children("td")
+                            var xuhao = $(_self_sub[0]).children("input").val()
+                            var meirijiandianneirong= $(_self_sub[1]).children("input").val()
+                            var jianchabiaozhun = $(_self_sub[2]).children("input").val()
+                            var tupian = $(_self_sub[3]).children("input").val()
+                            header.newLines.push({
+                                xuhao : xuhao,
+                                meirijiandianneirong : meirijiandianneirong,
+                                jianchabiaozhun : jianchabiaozhun,
+                                tupian : tupian
+                            })
                         })
+                        console.log(header)
+                        // $.post(home.urls.guideHeader.add(), {
+                        // }, function (result) {
+                        //     if (result.code === 0) {
+                        //         var time = setTimeout(function () {
+                        //             clearTimeout(time)
+                        //         }, 500)
+                        //     }
+                        //     layer.close(index)
+                        //     $("#edgudiebook_info2").css('display', 'none')
+                        // })
                      }, btn2: function (index) {
                         layer.close(index)
-                        $("#edgudiebook_info").css('display', 'none')
+                        $("#edgudiebook_info2").css('display', 'none')
 
                     }
                 })
@@ -82,8 +126,6 @@ var guide_manage = {
         }
     
         //$ bindAddEventListener——end$
-
-
         , bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
             deleteBtns.on('click', function () {
@@ -135,7 +177,7 @@ var guide_manage = {
                     guide_manage.funcs.renderHandler($tbody, guides)
                     layui.laypage.render({
                         elem: 'guide_page'
-                        , count: 10 * page.totalPages数据总数
+                        , count: 10 * page.totalPages
                         , jump: function (obj, first) {
                             $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {
                                 name: guide_name,
