@@ -481,7 +481,9 @@ var home = {
             getAll: function () {
                 return servers.backup() + 'guideHeader/getAll'
             },
-
+            update:function() {
+                return servers.backup() + 'guideHeader/update'
+            }
         },
         archive: {
             getAllByPage: function () {
@@ -1942,6 +1944,7 @@ var home = {
                 /** 清除浏览记录 */
                 localStorage.clear()
                 /** 清除用户登录信息 */
+                console.log($.session)
                 $.session.clear()
                 /** 返回登录页面 */
                 window.location.href = '../login.jsp'

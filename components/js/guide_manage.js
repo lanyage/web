@@ -69,7 +69,6 @@ var guide_manage = {
                 })
             })
             $.get(servers.backup() + "user/getAll", {}, function (result) {
-                var users = result.data;
                 guide_manage.users = result.data
                 var bianzhi_select = $("#_2_bianzhi")
                 guide_manage.users.forEach(function (e) {
@@ -87,7 +86,6 @@ var guide_manage = {
                 addBtn.off('click').on('click', function () {
                     guide_manage.images.splice(0, guide_manage.images.length)            //once you click the add button, you should do clear this thing
                     guide_manage.funcs.clearAddModal()              //clear the add modal
-                    //点击页面的一瞬间之后,就要显示所有的设备
                     layer.open({
                         type: 1,
                         title: '添加',
@@ -133,6 +131,7 @@ var guide_manage = {
                                     imageCode: tupian
                                 })
                             })
+                            console.log(header)
                             $.ajax({
                                 url: home.urls.guideHeader.add(),
                                 contentType: 'application/json',
@@ -249,33 +248,155 @@ var guide_manage = {
                     $(this).prop('checked', status)
                 })
             })
-        }
+        },
+        renderEdit: function (header) {
+            $("#bianhao").val(header.code)
+            console.log(guide_manage.equipments)
+            console.log(header)
+            var meName = guide_manage.equipments.filter(function(e) {
+                return e.name == header.name
+            })
+            $("#equipment_select_2").empty()
+            $("#equipment_select_2").append("<option value='" + meName[0].code + "'>" + meName[0].name + '-巡检指导书' + "</option>")
+            guide_manage.equipments.forEach(function (e) {
+               if (e.name != header.name)
+                    $("#equipment_select_2").append("<option value='" + e.code + "'>" + e.name + "</option>")
+            })
 
+            $("#_2_banci").val(header.edition)
+            $("#_2_bianhao").val(header.code)
+            $("#_2_yeci").val(header.num)
+            $("#_2_shengxiaoriqi").val(header.effectivedate)
+
+            var meComp = guide_manage.users.filter(function(e) {
+                return e.code == header.compactorcode.code
+            })[0]
+            $("#_2_bianzhi").empty()
+            $("#_2_bianzhi").append("<option value='"+meComp.code+"'>"+meComp.name+"</option>")
+            var meAud = guide_manage.users.filter(function(e) {
+                return e.code == header.auditorcode.code
+            })[0]
+
+            $("#_2_shenhe").empty()
+            $("#_2_shenhe").append("<option value='"+meAud.code+"'>"+meAud.name+"</option>")
+            var meAppr = guide_manage.users.filter(function(e) {
+                return e.code == header.approvercode.code
+            })[0]
+            $("#_2_pizhun").empty()
+            $("#_2_pizhun").append("<option value='"+meAppr.code+"'>"+meAppr.name+"</option>")
+
+            guide_manage.users.forEach(function(e) {
+                if (e.code != header.compactorcode.code)
+                    $("#_2_bianzhi").append("<option value='" + e.code + "'>" + e.name + "</option>")
+                if (e.code != header.auditorcode.code)
+                    $("#_2_shenhe").append("<option value='" + e.code + "'>" + e.name + "</option>")
+                if (e.code != header.approvercode.code)
+                    $("#_2_pizhun").append("<option value='" + e.code + "'>" + e.name + "</option>")
+            })
+            //after rendering head, then you should render the tbody
+            $("#tab").empty()
+            console.log(header.guides)
+            header.guides.forEach(function(e) {
+                var guide = e
+                $("#tab").append(
+                    "<tr class='newLine' id='s" + guide.code + "'>" +
+                    "<td><input style='text-align: center;' type='text' value='"+guide.code+"'></td>" +
+                    "<td><input type='text' value='"+guide.content+"'></td>" +
+                    "<td><input type='text' value='"+guide.standard+"'></td>" +
+                    "<td><form enctype='multipart/form-data'><input class='upload' type='file' placeholder='上传图片' id='shangchuan_"+guide.code+"'/></form></td>" +
+                    "<td><button onclick='delTab(" + guide.code + ")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
+                    "</tr>"
+                )
+                if(guide.imageCode != null) {
+                    var parent = $(".upload").parent("form").parent("td")
+                    parent[0].innerHTML=''
+                    parent.append("<input value='"+guide.imageCode+"' type='hidden'/><img style='width: 100%;height: 100px;' src='"+servers.backup()+'/image/'+guide.imageCode+"'/>")
+                }
+            })
+        }
         , bindEditEventListener: function (editBtns) {
             editBtns.off('click').on('click', function () {
-                layer.open({
-                    type: 1,
-                    title: '添加',
-                    content: $('#edgudiebook_info'),
-                    area: ['700px', '500px'],
-                    btn: ['确认', '取消'],
-                    offset: ['40%', '45%'],
-                    closeBtn: 0,
-                    yes: function (index) {
-                        $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {}, function (result) {
-                            if (result.code === 0) {
-                                var time = setTimeout(function () {
-                                    clearTimeout(time)
-                                }, 500)
+                var _self = $(this)
+                var headerCode = _self.attr("id").substr(3)
+                guide_manage.images.splice(0, guide_manage.images.length)            //once you click the add button, you should do clear this thing
+                guide_manage.funcs.clearAddModal()              //clear the add modal
+                $.post(home.urls.guideHeader.getByCode(), {code: headerCode}, function (result) {
+                    var header = result.data
+                    //firstly you need to render the table
+                    guide_manage.funcs.renderEdit(header)
+                    layer.open({
+                        type: 1,
+                        title: '添加',
+                        content: $('#edgudiebook_info2'),
+                        area: ['700px', '500px'],
+                        btn: ['确认', '取消'],
+                        offset: 'auto',
+                        closeBtn: 0,
+                        yes: function (index) {
+                            var bianhao = $("#bianhao").val()
+                            var eq_code = $("#equipment_select_2").val()
+                            var banci = $("#_2_banci").val()
+                            var bianhao = $("#_2_bianhao").val()
+                            var bianzhi = $("#_2_bianzhi").val()
+                            var pizhun = $("#_2_pizhun").val()
+                            var shengxiaoriqi = $("#_2_shengxiaoriqi").val()
+                            var shenhe = $("#_2_shenhe").val()
+                            var yeci = $("#_2_yeci").val()
+                            var header = {
+                                code: bianhao,
+                                name: guide_manage.equipments.filter(function (e) {
+                                    return e.code == eq_code
+                                })[0].name,
+                                num: yeci,
+                                edition: banci,
+                                effectivedate: shengxiaoriqi,
+                                approvercode: {code: pizhun},
+                                // archivecode: {},
+                                auditorcode: {code: shenhe},
+                                compactorcode: {code: bianzhi},
+                                guides: [],
                             }
+                            var newLines = $('.newLine')            //guiders
+                            newLines.each(function () {
+                                var _self_sub = $(this).children("td")
+                                // var xuhao = $(_self_sub[0]).children("input").val()
+                                var meirijiandianneirong = $(_self_sub[1]).children("input").val()
+                                var jianchabiaozhun = $(_self_sub[2]).children("input").val()
+                                var tupian = $(_self_sub[3]).children("input").val()
+                                header.guides.push({
+                                    content: meirijiandianneirong,
+                                    standard: jianchabiaozhun,
+                                    imageCode: tupian
+                                })
+                            })
+                            console.log(header)
+                            //todo
+                            $.ajax({
+                                url: home.urls.guideHeader.update(),
+                                contentType: 'application/json',
+                                data: JSON.stringify(header),
+                                type: 'post',
+                                success: function (result) {
+                                    layer.msg(result.message, {
+                                        offset: ['40%', '55%'],
+                                        time: 700
+                                    })
+                                    // if ($("#guide_table").children('tbody').children('tr').length < 10) {
+                                    //     guide_manage.funcs.appendRecord($("#guide_table").children('tbody'), result.data)
+                                    //     guide_manage.funcs.bindAll($("#guide_table").children('tbody'))
+                                    // }
+                                    layer.close(index)
+                                    $("#edgudiebook_info2").css('display', 'none')
+                                }
+                            })
                             layer.close(index)
-                            $("#edgudiebook_info").css('display', 'none')
-                        })
-                    }, btn2: function (index) {
-                        layer.close(index)
-                        $("#edgudiebook_info").css('display', 'none')
+                            $("#edgudiebook_info2").css('display', 'none')
+                        }, btn2: function (index) {
+                            layer.close(index)
+                            $("#edgudiebook_info2").css('display', 'none')
 
-                    }
+                        }
+                    })
                 })
             })
         }
