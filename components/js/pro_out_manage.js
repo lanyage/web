@@ -319,7 +319,7 @@ var pro_out_manage = {
                 }, function(result) {
                     var items = result.data
                     pro_out_manage.funcs.fill_verify_data($("#verify_modal"),items,codeNumber)
-                })
+                
                 layer.open({
                     type: 1,
                     title: '审核',
@@ -338,10 +338,13 @@ var pro_out_manage = {
                         var audit_Code = userJson.code
                         console.log(note)
                         $.post(home.urls.productOut.updateAuditStatusByCode(),{
-                            auditStatus : 1,
                             note : note,
-                            code : code,
-                            auditCode : audit_Code
+                            auditorCode : audit_Code,
+                            productSendHeaderCode:code,
+                            processManageCode:items.processManage.code,
+                            auditTime:new Date().getTime(),
+                            auditResult:22
+
                         }, function(result){
                             layer.msg(result.message,{
                                 offset:['40%','55%'],
@@ -361,11 +364,11 @@ var pro_out_manage = {
                         var userStr = $.session.get('user')
                         var userJson = JSON.parse(userStr)
 
-                        var note = $("#verify_note").text()
+                        var note = $("#verify_note").val()
                         var code = codeNumber
                         var audit_Code = userJson.code
                         $.post(home.urls.productOut.updateAuditStatusByCode(),{
-                            auditStatus : 0,
+                            auditStatus : 3,
                             note : note,
                             code : code,
                             auditCode : audit_Code
@@ -385,6 +388,7 @@ var pro_out_manage = {
                         layer.close(index)
                     }
                 });
+            })
             })
         }
         /**审核界面读取数据 */
