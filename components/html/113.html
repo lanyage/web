@@ -58,6 +58,16 @@
         #presoma_table tbody td {
             padding: 3px;
         }
+        .provider_input{
+            outline: none;  border: 0px;  margin: 0px;  width: 95%;  height: 100%;
+        }
+          /* "变灰"效果*/
+       .disableHref{
+           cursor:default;
+           background-color:grey;
+           text-decoration:none;
+           pointer-events: none;
+}
         
     </style>
     <div class="block-quote">
@@ -133,25 +143,19 @@
         </div>
         <div class="whitespace" style="clear: both"></div>
         <table width="100%" id="normal_add_modal_table">
+            <thead>
             <tr class="grey">
-                <td><input type="checkbox" id='normal_add_checkAll'/></td>
-                <td class="grey">原料类型</td>
-                <td class="grey">批号</td>
-                <td class="grey">库存单位</td>
-                <td class="grey">库存可用数量</td>
-                <td class="grey">申请单位</td>
-                <td class="grey">申请数量</td>
+                <td class="normal_td"><input type="checkbox" id='normal_add_checkAll'/></td>
+                <td class="normal_td">原料类型</td>
+                <td class="normal_td">批号</td>
+                <td class="normal_td">库存单位</td>
+                <td class="normal_td">库存可用数量</td>
+                <td class="normal_td">申请单位</td>
+                <td class="normal_td">申请数量</td>
             </tr>
+        </thead>
            <tbody>
-                <tr>
-                    <td><input type="checkbox" class='delete_checkbox'/></td>
-                    <td>碳酸锂</td>
-                    <td>38233333</td>
-                    <td>kg</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                </tr>
+            
 
            </tbody>
         </table>
@@ -177,25 +181,19 @@
         </div>
         <div class="whitespace" style="clear: both"></div>
         <table width="100%" id="urgent_add_modal_table">
+            <thead>
             <tr class="grey">
-                <td><input type="checkbox" id='urgent_add_checkAll'/></td>
-                <td class="grey">原料类型</td>
-                <td class="grey">批号</td>
-                <td class="grey" >库存单位</td>
-                <td class="grey">库存可用数量</td>
-                <td class="grey">申请单位</td>
-                <td class="grey">申请数量</td>
+                <td class="normal_td"><input type="checkbox" id='urgent_add_checkAll'/></td>
+                <td class="normal_td">原料类型</td>
+                <td class="normal_td">批号</td>
+                <td class="normal_td" >库存单位</td>
+                <td class="normal_td">库存可用数量</td>
+                <td class="normal_td">申请单位</td>
+                <td class="normal_td">申请数量</td>
             </tr>
+        </thead>
             <tbody>
-            <tr>
-                <td><input type="checkbox" class='delete_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+           
             </tbody>
         </table>
         <div class="whitespace"></div>
@@ -283,7 +281,7 @@
                 &nbsp;
                 <span>
                     <strong>批号</strong>&nbsp;
-                    <input id ="edit_add_input" type="input"/>
+                    <input id ="edit_add_input" type="input" value="请输入批号"/>
             </span>
             </div>
             <div class="fr">
@@ -336,16 +334,14 @@
             <div style="text-align: left;" class="fl">
             <span>
                 <strong>原料类型</strong>&nbsp;
-                <select>
-                    <option>类型1</option>
-                    <option>类型2</option>
-                    <option>类型3</option>
+                <select id="nor_add_select">
+                    
                 </select>
             </span>
                 &nbsp;
                 <span>
                     <strong>批号</strong>&nbsp;
-                    <input type="input"/>
+                    <input type="input" value="请输入批号" id="nor_add_input"/>
             </span>
             </div>
             <div class="fr">
@@ -354,50 +350,38 @@
         </div>
         <div class="whitespace" style="clear: both"></div>
         <table width="100%" id="nor_addModal_table">
+            <thead>
             <tr class="grey">
-                <td><input type="checkbox" id='nor_addModal_checkALl'/></td>
-                <td>批号</td>
-                <td>可用数量</td>
-                <td>单位</td>
-                <td>检验状态</td>
-                <td>详情</td>
+                <td class="normal_td"><input type="checkbox" id='nor_addModal_checkALl'/></td>
+                <td class="normal_td">批号</td>
+                <td class="normal_td">可用数量</td>
+                <td class="normal_td">单位</td>
+                <td class="normal_td">检验状态</td>
+                <td class="normal_td">详情</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tbody>
+            <tr>
+                <td><input type="checkbox" class='nor_add_search_checkbox'/></td>
+                <td>123441232</td>
+                <td>38233</td>
+                <td>kg</td>
+                <td>已检验</td>
+                <td><a href='#' class='nror_add_detail' id='detail-1290'><i class='layui-icon'>&#xe60a;</i></a></td>
             </tr>
             <tr>
-                <td><input type="checkbox" class='addModal_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
+                <td><input type="checkbox"  class='nor_add_search_checkbox'/></td>
+                <td>1223321232</td>
+                <td>38</td>
+                <td>kg</td>
+                <td>未检验</td>
+                <td><a href='#' class='nor_add_detail' id='detail-1289'><i class='layui-icon'>&#xe60a;</i></a></td>
             </tr>
-            <tr>
-                <td><input type="checkbox" class='addModal_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" class='addModal_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" class='addModal_checkbox'/></td>
-                <td></td>
-                <td>38233333</td>
-                <td></td>
-                <td></td>
-                <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
-            </tr>
+
+            </tbody>
         </table>
-        <div class="whitespace"></div>
-        <div style="position: relative;text-align: right;bottom: 0px;">
-            <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
+        <div id="lingLiao_nor_add_page">
         </div>
     </div>
         <!--点击紧急申请弹窗里面的新增要弹出来的窗口 -->
@@ -406,16 +390,14 @@
                 <div style="text-align: left;" class="fl">
             <span>
                 <strong>原料类型</strong>&nbsp;
-                <select>
-                    <option>类型1</option>
-                    <option>类型2</option>
-                    <option>类型3</option>
+                <select id="urg_add_select">
+                    
                 </select>
             </span>
                     &nbsp;
                     <span>
                     <strong>批号</strong>&nbsp;
-                    <input type="input"/>
+                    <input type="input" value="请输入批号" id="urg_add_input"/>
             </span>
                 </div>
                 <div class="fr">
@@ -424,51 +406,38 @@
             </div>
             <div class="whitespace" style="clear: both"></div>
             <table width="100%" id="urg_addModal_table">
+                <thead>
                 <tr class="grey">
-                    <td><input type="checkbox" id='urg_addModal_checkALl'/></td>
-                    <td>批号</td>
-                    <td>可用数量</td>
-                    <td>单位</td>
-                    <td>检验状态</td>
-                    <td>详情</td>
+                    <td class="normal_td"><input type="checkbox" id='urg_addModal_checkALl'/></td>
+                    <td class="normal_td">批号</td>
+                    <td class="normal_td">可用数量</td>
+                    <td class="normal_td">单位</td>
+                    <td class="normal_td">检验状态</td>
+                    <td class="normal_td">详情</td>
                 </tr>
-                <tr>
-                    <td><input type="checkbox" class='addModal_checkbox'/></td>
-                    <td></td>
-                    <td>38233333</td>
-                    <td></td>
-                    <td></td>
-                    <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" class='addModal_checkbox'/></td>
-                    <td></td>
-                    <td>38233333</td>
-                    <td></td>
-                    <td></td>
-                    <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" class='addModal_checkbox'/></td>
-                    <td></td>
-                    <td>38233333</td>
-                    <td></td>
-                    <td></td>
-                    <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" class='addModal_checkbox'/></td>
-                    <td></td>
-                    <td>38233333</td>
-                    <td></td>
-                    <td></td>
-                    <td><a href='#' class='addModal_detail'><i class='layui-icon'>&#xe60a;</i></a></td>
-                </tr>
+                </thead>
+                 <tbody>
+              <tr>
+                <td><input type="checkbox" class='urg_add_search_checkbox'/></td>
+                <td>123441232</td>
+                <td>38233</td>
+                <td>kg</td>
+                <td>已检验</td>
+                <td><a href='#' class='urg_add_detail' id='detail-1290'><i class='layui-icon'>&#xe60a;</i></a></td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"  class='urg_add_search_checkbox'/></td>
+                <td>1223321232</td>
+                <td>38</td>
+                <td>kg</td>
+                <td>未检验</td>
+                <td><a href='#' class='urg_add_detail' id='detail-1289'><i class='layui-icon'>&#xe60a;</i></a></td>
+             </tr>
+
+            </tbody>
             </table>
-            <div class="whitespace"></div>
-            <div style="position: relative;text-align: right;bottom: 0px;">
-                <span><strong>日期:</strong>&nbsp;系统当前时间 &nbsp;&nbsp;&nbsp;<strong>领料部门:</strong>&nbsp;当前用户所属部门&nbsp;&nbsp;&nbsp;<strong>申请人:</strong>&nbsp;当前用户</span>
-            </div>
+            <div id="lingLiao_urg_add_page">
+                </div>
         </div>
 
 </div>
