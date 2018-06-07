@@ -130,7 +130,7 @@ var guide_manage = {
                                 header.guides.push({
                                     content: meirijiandianneirong,
                                     standard: jianchabiaozhun,
-                                    imgCode: tupian
+                                    imageCode: tupian
                                 })
                             })
                             $.ajax({
