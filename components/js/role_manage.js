@@ -468,7 +468,7 @@ var role_manage = {
                                 var time = setTimeout(function() {
                                     $innerTable.show(0)
                                     clearTimeout(time)
-                                },350)
+                                },1000)
                                 /////////////////////////////////
                                 //绑定checkbox事件
                                 ////////////////////////////////
