@@ -123,11 +123,11 @@
             border-collapse: collapse;
         }
 
-        /*.guidebook_body_text {*/
-        /*font-weight: bold;*/
-        /*font-size: 14px;*/
-        /*width: 12%;*/
-        /*}*/
+        .guidebook_body_text {
+            font-weight: bold;
+            font-size: 14px;
+            width: 12%;
+        }
 
         /* input {
             width: 100%;
@@ -200,7 +200,7 @@
             <td>编制</td>
             <td>审核</td>
             <td>批准</td>
-            <td>巡检人</td>
+            <td>页次</td>
             <td>详情</td>
             <td>编辑</td>
             <td>删除</td>
@@ -212,63 +212,58 @@
     <!--3-->
     <div id="guide_page">
     </div>
-
+    <div id="hello"></div>
     <!-- 详情gudie 有很多图片的那个 -->
-    <div id="gudiebook_info" style="width:800px;height:100%; display:none; margin:0 auto;overflow: hidden;">
-        <div id="guidebook_body">
-            <table id="guidebook_body_uptable">
+    <div id='gudiebook_info' style='height:100%; display:none; margin:0 auto;overflow: hidden;'>
+        <div id='guidebook_body'>
+            <table id='guidebook_body_uptable'>
                 <tr>
-                    <td id="weizhi" rowspan="3" colspan="6">气氛辊道炉日常巡检指导书</td>
-                    <td id="bianhao" style="width:15%;">编号</td>
-                    <td style="width:20%;"></td>
+                    <td id='eq_name' rowspan='3' colspan='6'>气氛辊道炉日常巡检指导书</td>
+                    <td style='width:15%;'>编号</td>
+                    <td id='bianhao' style='width:20%;'></td>
                 </tr>
 
                 <tr>
-                    <td id="banci">版次</td>
-                    <td></td>
+                    <td>版次</td>
+                    <td id='banci'></td>
                 </tr>
 
                 <tr>
-                    <td id="yeci">页次</td>
-                    <td></td>
+                    <td>页次</td>
+                    <td id='yeci'></td>
                 </tr>
                 <tr>
-                    <td id="bianzhi" style="width:10%;">编制</td>
-                    <td></td>
-                    <td id="shenpi" style="width:10%;">审核</td>
-                    <td></td>
-                    <td id="pizhun" style="width:10%;">批准</td>
-                    <td></td>
-                    <td id="shengxiaoriqi" style="width:15%;">生效日期</td>
-                    <td></td>
+                    <td style='width:10%;'>编制</td>
+                    <td id='bianzhi'></td>
+                    <td style='width:10%;'>审核</td>
+                    <td id='shenpi'></td>
+                    <td style='width:10%;'>批准</td>
+                    <td id='pizhun'></td>
+                    <td style='width:15%;'>生效日期</td>
+                    <td id='shengxiaoriqi'></td>
                 </tr>
             </table>
 
-            <table id="guidebook_body_middletable" style="background:#F2F2F2">
-                <tr style="width: calc( 100% - 1em )">
-                    <td id="xuhao" style="width:10%;border: 1px solid black;">序号</td>
-                    <td id="meirijiandianneirong" style="width:30%;border: 1px solid black;">每日点检内容</td>
-                    <td id="jianchabiaozhun" style="width:30%;border: 1px solid black;">检查标准</td>
-                    <td id="tupian" style="width:30%;border: 1px solid black;">图片</td>
+            <table id='guidebook_body_middletable'>
+                <thead>
+                <tr style='width: calc( 100% - 1em );background:#F2F2F2;'>
+                    <td id='xuhao' style='width:10%;border: 1px solid black;'>序号</td>
+                    <td id='meirijiandianneirong' style='width:30%;border: 1px solid black;'>每日点检内容</td>
+                    <td id='jianchabiaozhun' style='width:30%;border: 1px solid black;'>检查标准</td>
+                    <td id='tupian' style='width:30%;border: 1px solid black;'>图片</td>
                 </tr>
+                </thead>
+                <tbody>
+                <tr style='height:80px;'>
+                    <td style='width:10%;'>1</td>
+                    <td style='width:30%;'>1</td>
+                    <td style='width:30%;'>1</td>
+                    <td style='width:30%;'>
+                        <img src='../dist/images/guidebook/11.png' alt='' style='width:150px;height:70px;'/>
+                    </td>
+                </tr>
+                </tbody>
             </table>
-
-            <div id="guidebook_bodyfoot" style=" height: 300px;  width: 800px; overflow-x: hidden; overflow-y: auto;">
-                <div style="height:100%; width: 817px;overflow-x: hidden;">
-                    <table id="guidebook_body_downtable">
-
-                        <tr style="height:80px;">
-                            <td style="width:10%;">1</td>
-                            <td style="width:30%;">1</td>
-                            <td style="width:30%;">1</td>
-                            <td style="width:30%;">
-                                <img src="../dist/images/guidebook/11.png" alt="" style="width:150px;height:70px;">
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-            </div>
         </div>
     </div>
     <script src="../components/js/guide_manage.js"></script>
@@ -280,7 +275,7 @@
 </div>
 
 <!-- 新增和编辑  没有图片的那个-->
-<div id="edgudiebook_info2" style="width:100%;height:100%;display:none ;  margin:0 auto;">
+<div id="edgudiebook_info2" style="height:100%;display:none ;  margin:0 auto;">
     <div id="edguidebook_body">
         <table id="edguidebook_body_uptable">
             <tr>
@@ -309,13 +304,13 @@
             <tr>
                 <td class="guidebook_body_text" style="width:10%;">编制</td>
                 <!--编制人编码	compactorCode-->
-                <td><input type="text" id="_2_bianzhi" style="width:100%;height:100%;border:0px;"></td>
+                <td><select id="_2_bianzhi" style="width: 100%;height: 100%;border: none;"></select></td>
                 <td class="guidebook_body_text" style="width:10%;">审核</td>
                 <!--审核人编码	auditorCode-->
-                <td><input type="text" id="_2_shenhe" style="width:100%;height:100%;border:0px;"></td>
+                <td><select id="_2_shenhe" style="width: 100%;height: 100%;border: none;"></select></td>
                 <!--批准人编码	approverCode-->
                 <td class="guidebook_body_text" style="width:10%;">批准</td>
-                <td><input type="text" id="_2_pizhun" style="width:100%;height:100%;border:0px;"></td>
+                <td><select id="_2_pizhun" style="width: 100%;height: 100%;border: none;"></select></td>
                 <!--生效日期	   effectiveDate-->
                 <td class="guidebook_body_text" style="width:15%;">生效日期</td>
                 <td><input type="date" id="_2_shengxiaoriqi" style="width:100%;height:100%;border:0px;"></td>
@@ -365,7 +360,7 @@
     function addTab() {
         var count = $("#tab tr").length + 1
         console.log(count)
-        var tabpl = "<tr class='newLine' id='s" + count + "'><td><input type='text'></td><td><input type='text'></td><td><input type='text'></td><td><input type='file' placeholder='上传图片'></td><td><button onclick='delTab(" + count + ")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td></tr>";
+        var tabpl = "<tr class='newLine' id='s" + count + "'><td><input style='text-align: center;' type='text' value='"+count+"'></td><td><input type='text'></td><td><input type='text'></td><td><input type='file' placeholder='上传图片'></td><td><button onclick='delTab(" + count + ")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td></tr>";
         $("#tab").append(tabpl);
     }
 

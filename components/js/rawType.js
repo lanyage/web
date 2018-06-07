@@ -1,9 +1,12 @@
 var rawType = {
     pageSize: 0,        //initial page size
+
     materials: [],
+
     init: function () {
         rawType.funcs.renderTable()
     },
+
     funcs: {
         renderTable: function () {        //render all records to the table
             $.post(home.urls.rawType.getAllByPage(), {page: 0}, function (result) {
@@ -31,6 +34,8 @@ var rawType = {
                 })
                 $('#rawType_page').css('padding-left', '37%')
             })        //$finishing rendering
+
+
             var addBtn = $("#model-li-hide-add-115")
             rawType.funcs.bindAddEventListener(addBtn)        //bind adding
             var refreshBtn = $('#model-li-hide-refresh-115')
@@ -38,6 +43,7 @@ var rawType = {
             var searchBtn = $('#model-li-hide-search-115')
             rawType.funcs.bindSearchEventListener(searchBtn)        //bind searching
         },
+
 
         appendRecord: function ($tbody, e) {
             $tbody.append(
@@ -54,6 +60,7 @@ var rawType = {
                 "</tr>")
         },        //append all records to the tbody
 
+
         bindAll: function ($tbody) {
             var editBtns = $('.edit')        //edit buttons
             var deleteBtns = $('.delete')        //delete buttons
@@ -65,6 +72,7 @@ var rawType = {
             home.funcs.bindSelectAll($('#checkAll'), $('.raw_type_checkbox'), $tbody.children('tr').length, $("#rawType_table"))        //bind selecting all
         },        //bind all event listener
 
+
         renderHandler: function ($tbody, rawTypes) {
             $tbody.empty()        //clear the tbody every time you attend to append
             rawTypes.forEach(function (e) {
@@ -73,6 +81,7 @@ var rawType = {
             })        //$rendering finished
             rawType.funcs.bindAll($tbody)
         },        //this is somewhere to truly append the records and bind all local events
+
 
         bindAddEventListener: function ($add) {
             function getOptions(data) {        //get all materials
@@ -138,6 +147,7 @@ var rawType = {
             })
         },        //bind adding
 
+
         bindRefreshEventListener: function (refreshBtn) {        //reinitialize the page
             refreshBtn.off('click').on('click', function () {
                 var index = layer.load(2, {offset: ['40%', '58%']});
@@ -152,6 +162,7 @@ var rawType = {
                 }, 200)
             })
         },        //bind refreshing
+
 
         bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click').on('click', function () {
@@ -183,6 +194,7 @@ var rawType = {
                 })
             })
         },        //bind searching
+
 
         bindEditEventListener: function (editBtns) {
             function getOptions(data) {        //get all materials
@@ -250,6 +262,7 @@ var rawType = {
             })
         },        //bind editing
 
+
         bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click').on('click', function () {
                 var _this = $(this)
@@ -277,6 +290,7 @@ var rawType = {
                 })
             })
         },        //bind deleting
+
 
         bindDeleteBatchEventListener: function (deleteBatchBtn) {
             deleteBatchBtn.off('click').on('click', function () {

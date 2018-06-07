@@ -73,9 +73,9 @@ var archive_manage = {
                     closeBtn: 0,
                     yes: function (index) {
                         //todo传入的参数
-                        var equipmentname = $('#arc_ecode').val()
-                        var installTime = $('#arc_intime').val()
-                        var defectPeriod = $('#arc_deadend').val()
+                        var equipmentname = $('#arc_eqname').val()
+                        var installTime = $('#arc_eqinstalltime').val()
+                        var defectPeriod = $('#arc_eqdeadline').val()
                         var repairFactory = $('#arc_ref').val()
                         var repairContact = $('#arc_refac').val()
                         var supplyFactory = $('#arc_supfac').val()
@@ -107,11 +107,11 @@ var archive_manage = {
                     console.log(result)
                     var archives = result.data
                     archives.forEach(function (e) {
-                        $('#arc_ecode').append(
+                        $('#arc_eqname').append(
                             "<option value='" + (e.code) + "'>" + (e.equipmentName) + "</option>")
-                        $('#arc_intime').append(
+                        $('#arc_eqinstalltime').append(
                             "<option value='" + (e.code) + "'>" + (e.installTime) + "</option>")
-                        $('#arc_deadend').append(
+                        $('#arc_eqdeadline').append(
                             "<option value='" + (e.code) + "'>" + (e.defectPeriod) + "</option>")
                         $('#arc_supfac').append(
                             "<option value='" + (e.code) + "'>" + (e.supplyFactory) + "</option>")
@@ -259,7 +259,7 @@ var archive_manage = {
                     offset: ['40%', '55%'],
                     yes: function (index) {
                         console.log('yes')
-                        var guideCode = _this.attr('id').substr(3)
+                        var archiveCode = _this.attr('id').substr(3)
                         $.post(home.urls.archive.deleteByCode(), {code: archiveCode}, function (result) {
                             console.log(result.message)
                             layer.msg(result.message, {

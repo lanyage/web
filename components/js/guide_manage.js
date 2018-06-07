@@ -1,6 +1,5 @@
 var guide_manage = {
     init: function () {
-        /** 获取部门信息分页显示并展示 */
         guide_manage.funcs.renderTable()
         var out = $('#guide_page').width()
         var time = setTimeout(function () {
@@ -8,10 +7,13 @@ var guide_manage = {
                 $('#guide_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
                 clearTimeout(time)
             }//$init end$50
-        ,30)
+            , 30)
     }//$init end$
     , pageSize: 0
+    , equipments: []
     , funcs: {
+
+
         renderTable: function () {
             $.post(home.urls.guideHeader.getAllByPage(), {page: 0}, function (result) {
                 var guides = result.data.content //获取数据
@@ -23,7 +25,7 @@ var guide_manage = {
                     elem: 'guide_page'
                     , count: 10 * page.totalPages
                     , jump: function (obj, first) {
-                        if(!first) {
+                        if (!first) {
                             $.post(home.urls.guideHeader.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
@@ -45,17 +47,34 @@ var guide_manage = {
             guide_manage.funcs.bindRefreshEventLisener(refreshBtn)//追加刷新事件
             var searchBtn = $('#model-li-hide-search-43')
             guide_manage.funcs.bindSearchEventListener(searchBtn)
-            
+
 
         }
 
 
         , bindAddEventListener: function (addBtn) {
-            $.get(servers.backup() + "equipment/getAll",{},function(result) {
+            $.get(servers.backup() + "equipment/getAll", {}, function (result) {
                 var eqs = result.data;
+                guide_manage.equipments = result.data
                 var select = $("#equipment_select_2")
-                eqs.forEach(function(e) {
-                    select.append("<option value='"+(e.code)+"'>"+(e.name+'-巡检指导书')+"</option>")
+                eqs.forEach(function (e) {
+                    select.append("<option value='" + (e.code) + "'>" + (e.name + '-巡检指导书') + "</option>")
+                })
+            })
+            $.get(servers.backup() + "user/getAll", {}, function (result) {
+                var users = result.data;
+                guide_manage.users = result.data
+                var bianzhi_select = $("#_2_bianzhi")
+                guide_manage.users.forEach(function (e) {
+                    bianzhi_select.append("<option value='" + (e.code) + "'>" + (e.name) + "</option>")
+                })
+                var shenhe_select = $("#_2_shenhe")
+                guide_manage.users.forEach(function (e) {
+                    shenhe_select.append("<option value='" + (e.code) + "'>" + (e.name) + "</option>")
+                })
+                var pizhun_select = $("#_2_pizhun")
+                guide_manage.users.forEach(function (e) {
+                    pizhun_select.append("<option value='" + (e.code) + "'>" + (e.name) + "</option>")
                 })
             })
             addBtn.off('click')
@@ -68,8 +87,18 @@ var guide_manage = {
                     area: ['900px', '500px'],
                     btn: ['确认', '取消'],
                     offset: 'auto',
-                    closeBtn : 0,
-                    yes:function (index) {
+                    closeBtn: 0,
+                    yes: function (index) {
+                        // code : "44"
+                        // name: 63"
+                        // num :  "5"
+                        // edition     : "5"
+                        // effectivedate: "2018-03-09"
+                        // approvercode : {code: "10002", name: "张三", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
+                        // archivecode  : null
+                        // auditorcode  : {code: "10001", name: "李四1", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
+                        // compactorcode :{code: "10002", name: "张三", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
+                        // guides:   []
                         var bianhao = $("#bianhao").val()
                         var eq_code = $("#equipment_select_2").val()
                         var banci = $("#_2_banci").val()
@@ -79,33 +108,37 @@ var guide_manage = {
                         var shengxiaoriqi = $("#_2_shengxiaoriqi").val()
                         var shenhe = $("#_2_shenhe").val()
                         var yeci = $("#_2_yeci").val()
-                        var newLines= $('.newLine')
                         var header = {
-                            bianhao:bianhao,
-                            eq_codde : eq_code,
-                            banci : banci,
-                            bianhao:bianhao,
-                            bianzhi:bianzhi,
-                            pizhun:pizhun,
-                            shengxiaoriqi:shengxiaoriqi,
-                            shenhe:shenhe,
-                            yeci:yeci,
-                            newLines:[]
+                            code: bianhao,
+                            name: guide_manage.equipments.filter(function (e) {
+                                return e.code == eq_code
+                            })[0].name,
+                            num: yeci,
+                            edition: banci,
+                            effectivedate: shengxiaoriqi,
+                            approvercode: {code: pizhun},
+                            archivecode: {},
+                            auditorcode: {code: shenhe},
+                            compactorcode: {code: bianzhi},
+                            guides: [],
                         }
-                        newLines.each(function() {
+                        console.log(header)
+                        var newLines = $('.newLine')            //guiders
+                        newLines.each(function () {
                             var _self_sub = $(this).children("td")
                             var xuhao = $(_self_sub[0]).children("input").val()
-                            var meirijiandianneirong= $(_self_sub[1]).children("input").val()
+                            var meirijiandianneirong = $(_self_sub[1]).children("input").val()
                             var jianchabiaozhun = $(_self_sub[2]).children("input").val()
                             var tupian = $(_self_sub[3]).children("input").val()
                             header.newLines.push({
-                                xuhao : xuhao,
-                                meirijiandianneirong : meirijiandianneirong,
-                                jianchabiaozhun : jianchabiaozhun,
-                                tupian : tupian
+                                xuhao: xuhao,
+                                meirijiandianneirong: meirijiandianneirong,
+                                jianchabiaozhun: jianchabiaozhun,
+                                tupian: tupian
                             })
                         })
                         console.log(header)
+
                         // $.post(home.urls.guideHeader.add(), {
                         // }, function (result) {
                         //     if (result.code === 0) {
@@ -116,20 +149,20 @@ var guide_manage = {
                         //     layer.close(index)
                         //     $("#edgudiebook_info2").css('display', 'none')
                         // })
-                     }, btn2: function (index) {
+                    }, btn2: function (index) {
                         layer.close(index)
                         $("#edgudiebook_info2").css('display', 'none')
 
                     }
                 })
-         })
+            })
         }
-    
+
         //$ bindAddEventListener——end$
         , bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
             deleteBtns.on('click', function () {
-    
+
                 var _this = $(this)
                 layer.open({
                     type: 1,
@@ -154,7 +187,7 @@ var guide_manage = {
                                 }, 500)
                             }
                             layer.close(index)
-                            
+
                         })
                     },
                     btn2: function (index) {
@@ -215,7 +248,7 @@ var guide_manage = {
             })
         }
         , bindSelectAll: function (selectAllBox) {
-            
+
             selectAllBox.off('change')
             selectAllBox.on('change', function () {
                 var status = selectAllBox.prop('checked')
@@ -224,7 +257,7 @@ var guide_manage = {
                 })
             })
         }
-        
+
         , bindEditEventListener: function (editBtns) {
             editBtns.off('click')
             editBtns.on('click', function () {
@@ -235,8 +268,8 @@ var guide_manage = {
                     area: ['700px', '500px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
-                    closeBtn : 0,
-                    yes:function (index) {
+                    closeBtn: 0,
+                    yes: function (index) {
                         $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {}, function (result) {
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
@@ -246,13 +279,13 @@ var guide_manage = {
                             layer.close(index)
                             $("#edgudiebook_info").css('display', 'none')
                         })
-                     }, btn2: function (index) {
+                    }, btn2: function (index) {
                         layer.close(index)
                         $("#edgudiebook_info").css('display', 'none')
 
                     }
                 })
-         })
+            })
         }
 
         , bindDeleteBatchEventListener: function (deleteBatchBtn) {
@@ -305,85 +338,100 @@ var guide_manage = {
                     })
                 }
             })
+        },
+        clearDetail: function () {
+            $("#eq_name")[0].innerHTML = ''
+            $("#bianhao")[0].innerHTML = ''
+            $("#banci")[0].innerHTML = ''
+            $("#yeci")[0].innerHTML = ''
+            $("#bianzhi")[0].innerHTML = ''
+            $("#shenpi")[0].innerHTML = ''
+            $("#pizhun")[0].innerHTML = ''
+            $("#shengxiaoriqi")[0].innerHTML = ''
+            $("#guidebook_body_middletable")[0].innerHTML = ''
+        },
+        renderDetail: function (header) {
+            $("#eq_name")[0].innerHTML = (header.archivecode ? header.archivecode.name : '')
+            $("#bianhao")[0].innerHTML = (header.code)
+            $("#banci")[0].innerHTML = (header.edition)
+            $("#yeci")[0].innerHTML = 'wtf'
+            $("#bianzhi")[0].innerHTML = (header.compactorcode ? header.compactorcode.name : '')
+            $("#shenpi")[0].innerHTML = (header.auditorcode ? header.auditorcode.name : '')
+            $("#pizhun")[0].innerHTML = (header.approvercode ? header.approvercode.name : '')
+            $("#shengxiaoriqi")[0].innerHTML = (header.effectivedate)
         }
         , bindDetailEventListener: function (detailBtns) {
-            detailBtns.off('click')
-            detailBtns.on('click', function () {
+            detailBtns.off('click').on('click', function () {
                 /** 弹出一个询问框 */
-                layer.open({
-                    type: 1,
-                    title: '添加',
-                    content: $('#gudiebook_info'),
-                    area: ['900px', '550px'],
-                    btn: ['确认', '取消'],
-                    offset: ['10%', '10%'],
-                    closeBtn: 0,
-                    yes: function (index) {
-                        $.get(home.urls.guideHeader.getAll(), {}, function (result) {
-                            var guides = result.data 
-
-
-                            if (result.code === 0) {
-                                var time = setTimeout(function () {
-                                    repair_apply.init()
-                                    clearTimeout(time)
-                                }, 500)
-                            }
+                var _self = $(this)
+                var headerCode = _self.attr("id").substr(5)
+                $.post(home.urls.guideHeader.getByCode(), {code: headerCode}, function (result) {
+                    var header = result.data
+                    guide_manage.funcs.clearDetail(header)          //clear this table first
+                    guide_manage.funcs.renderDetail(header)             //render is then
+                    layer.open({        //after you having rendered the detail table
+                        type: 1,
+                        title: '添加',
+                        content: $("#gudiebook_info"),
+                        area: ['800px', '550px'],
+                        btn: ['确认'],
+                        offset: 'auto',
+                        closeBtn: 0,
+                        yes: function (index) {
+                            //todo if the tbody is empty, you should add some problems for it
                             layer.close(index)
                             $("#gudiebook_info").css('display', 'none')
-                        })
-                    },
-                    btn2: function (index) {
-                        layer.close(index)
-                        $("#gudiebook_info").css('display', 'none')
-
-                    }
-                });
+                        }
+                    });
+                })
             })
-        }
+        },
+        appendRecord: function ($tbody, e) {
+            $tbody.append(
+                "<tr>" +
+                "<td><input type='checkbox' class='gui_checkbox' value='" + (e.code) + "'></td>" +
+                "<td>" + (e.code) + "</td>" +
+                "<td>" + (e.name) + "</td>" +
+                "<td>" + (e.effectivedate) + "</td>" +
+                "<td>" + (e.compactorcode ? e.compactorcode.name : '') + "</td>" +
+                "<td>" + (e.auditorcode ? e.auditorcode.name : '') + "</td>" +
+                "<td>" + (e.approvercode ? e.approvercode.name : '') + "</td>" +
+                "<td>" + (e.num) + "</td>" +
+                "<td><a href='#' class='detailGuide' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
+                "<td><a href='#' class='editGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                "<td><a href='#' class='deleteGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                "</tr>")
+        },        //append all records to the tbody
+
+
+        bindAll: function ($tbody) {
+            var editBtns = $('.editGuide')
+            var deleteBtns = $('.deleteGuide')
+            var deleteBatchBtn = $('#model-li-hide-delete-43')
+            var detailBtn = $('.detailGuide')
+            guide_manage.funcs.bindDetailEventListener(detailBtn)
+            guide_manage.funcs.bindDeleteEventListener(deleteBtns)
+            guide_manage.funcs.bindEditEventListener(editBtns)
+            guide_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
+            home.funcs.bindSelectAll($('#gui_checkAll'), $('.gui_checkbox'), $tbody.children('tr').length, $("#guide_table"))
+        }        //bind all event listener
 
         , renderHandler: function ($tbody, guides) {
             $tbody.empty() //清空表格
             guides.forEach(function (e) {
                 $('#gui_checkAll').prop('checked', false)
-                $tbody.append(
-                    "<tr>" +
-                    "<td><input type='checkbox' class='gui_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + (e.code) + "</td>" +
-                    "<td>" + (e.name) + "</td>" +
-                    "<td>" + (e.effectivedate) + "</td>" +
-                    "<td>" + (e.compactorcode ? e.compactorcode.name : 'null') + "</td>" +
-                    "<td>" + (e.auditorcode ? e.auditorcode.name : 'null') + "</td>" +
-                    "<td>" + (e.approvercode ? e.approvercode.name : 'null') + "</td>" +
-                    "<td>" + (e.roles ? e.roles.name : 'null') + "</td>" +
-                    "<td><a href='#' class='detailGuide' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
-                    "<td><a href='#' class='editGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='deleteGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
-                    "</tr>")
+                guide_manage.funcs.appendRecord($tbody, e)
             })//数据渲染完毕
-            var editBtns = $('.editGuide')
-            var deleteBtns = $('.deleteGuide')
-            guide_manage.funcs.bindDeleteEventListener(deleteBtns)
-            guide_manage.funcs.bindEditEventListener(editBtns)
-            var selectAllBox = $('#gui_checkAll')
-            guide_manage.funcs.bindSelectAll(selectAllBox)
-            var deleteBatchBtn = $('#model-li-hide-delete-43')
-            guide_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
-
-            var detaillBtns = $('.detailGuide')
-            guide_manage.funcs.bindDetailEventListener(detaillBtns)
-
-            var gui_checkboxes = $('.gui_checkbox')
-            guide_manage.funcs.disselectAll(gui_checkboxes, selectAllBox)
+            guide_manage.funcs.bindAll($tbody)
         }
 
         , disselectAll: function (gui_checkboxes, selectAllBox) {
             gui_checkboxes.off('change')
             gui_checkboxes.on('change', function () {
                 var statusNow = $(this).prop('checked')
-                     if (statusNow === false) {
-                     selectAllBox.prop('checked', false)
-                 } else if (statusNow === true && $('.gui_checkbox:checked').length === guide_manage.pageSize) {
+                if (statusNow === false) {
+                    selectAllBox.prop('checked', false)
+                } else if (statusNow === true && $('.gui_checkbox:checked').length === guide_manage.pageSize) {
                     selectAllBox.prop('checked', true)
                 }
             })
