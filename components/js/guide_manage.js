@@ -1,5 +1,6 @@
 var guide_manage = {
     init: function () {
+        $('.layui-layer-shade').remove()
         guide_manage.funcs.renderTable()
         var out = $('#guide_page').width()
         var time = setTimeout(function () {
@@ -11,6 +12,7 @@ var guide_manage = {
     }//$init end$
     , pageSize: 0
     , equipments: []
+    , images: []
     , funcs: {
 
 
@@ -49,9 +51,14 @@ var guide_manage = {
             guide_manage.funcs.bindSearchEventListener(searchBtn)
 
 
+        },
+        clearAddModal: function () {
+            $("#tab").empty()
+            $("#_2_banci").val('')
+            $("#_2_bianhao").val('')
+            $("#_2_shengxiaoriqi").val('')
+            $("#_2_yeci").val('')
         }
-
-
         , bindAddEventListener: function (addBtn) {
             $.get(servers.backup() + "equipment/getAll", {}, function (result) {
                 var eqs = result.data;
@@ -76,86 +83,91 @@ var guide_manage = {
                 guide_manage.users.forEach(function (e) {
                     pizhun_select.append("<option value='" + (e.code) + "'>" + (e.name) + "</option>")
                 })
-            })
-            addBtn.off('click')
-            addBtn.on('click', function () {
-                //点击页面的一瞬间之后,就要显示所有的设备
-                layer.open({
-                    type: 1,
-                    title: '添加',
-                    content: $('#edgudiebook_info2'),
-                    area: ['900px', '500px'],
-                    btn: ['确认', '取消'],
-                    offset: 'auto',
-                    closeBtn: 0,
-                    yes: function (index) {
-                        // code : "44"
-                        // name: 63"
-                        // num :  "5"
-                        // edition     : "5"
-                        // effectivedate: "2018-03-09"
-                        // approvercode : {code: "10002", name: "张三", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
-                        // archivecode  : null
-                        // auditorcode  : {code: "10001", name: "李四1", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
-                        // compactorcode :{code: "10002", name: "张三", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
-                        // guides:   []
-                        var bianhao = $("#bianhao").val()
-                        var eq_code = $("#equipment_select_2").val()
-                        var banci = $("#_2_banci").val()
-                        var bianhao = $("#_2_bianhao").val()
-                        var bianzhi = $("#_2_bianzhi").val()
-                        var pizhun = $("#_2_pizhun").val()
-                        var shengxiaoriqi = $("#_2_shengxiaoriqi").val()
-                        var shenhe = $("#_2_shenhe").val()
-                        var yeci = $("#_2_yeci").val()
-                        var header = {
-                            code: bianhao,
-                            name: guide_manage.equipments.filter(function (e) {
-                                return e.code == eq_code
-                            })[0].name,
-                            num: yeci,
-                            edition: banci,
-                            effectivedate: shengxiaoriqi,
-                            approvercode: {code: pizhun},
-                            archivecode: {},
-                            auditorcode: {code: shenhe},
-                            compactorcode: {code: bianzhi},
-                            guides: [],
-                        }
-                        console.log(header)
-                        var newLines = $('.newLine')            //guiders
-                        newLines.each(function () {
-                            var _self_sub = $(this).children("td")
-                            var xuhao = $(_self_sub[0]).children("input").val()
-                            var meirijiandianneirong = $(_self_sub[1]).children("input").val()
-                            var jianchabiaozhun = $(_self_sub[2]).children("input").val()
-                            var tupian = $(_self_sub[3]).children("input").val()
-                            header.newLines.push({
-                                xuhao: xuhao,
-                                meirijiandianneirong: meirijiandianneirong,
-                                jianchabiaozhun: jianchabiaozhun,
-                                tupian: tupian
+            }),
+                addBtn.off('click').on('click', function () {
+                    guide_manage.images.splice(0, guide_manage.images.length)            //once you click the add button, you should do clear this thing
+                    guide_manage.funcs.clearAddModal()              //clear the add modal
+                    //点击页面的一瞬间之后,就要显示所有的设备
+                    layer.open({
+                        type: 1,
+                        title: '添加',
+                        content: $('#edgudiebook_info2'),
+                        area: ['900px', '500px'],
+                        btn: ['确认', '取消'],
+                        offset: 'auto',
+                        closeBtn: 0,
+                        yes: function (index) {
+                            // code : "44"
+                            // name: 63"
+                            // num :  "5"
+                            // edition     : "5"
+                            // effectivedate: "2018-03-09"
+                            // approvercode : {code: "10002", name: "张三", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
+                            // archivecode  : null
+                            // auditorcode  : {code: "10001", name: "李四1", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
+                            // compactorcode :{code: "10002", name: "张三", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
+                            // guides:   []
+                            var bianhao = $("#bianhao").val()
+                            var eq_code = $("#equipment_select_2").val()
+                            var banci = $("#_2_banci").val()
+                            var bianhao = $("#_2_bianhao").val()
+                            var bianzhi = $("#_2_bianzhi").val()
+                            var pizhun = $("#_2_pizhun").val()
+                            var shengxiaoriqi = $("#_2_shengxiaoriqi").val()
+                            var shenhe = $("#_2_shenhe").val()
+                            var yeci = $("#_2_yeci").val()
+                            var header = {
+                                code: bianhao,
+                                name: guide_manage.equipments.filter(function (e) {
+                                    return e.code == eq_code
+                                })[0].name,
+                                num: yeci,
+                                edition: banci,
+                                effectivedate: shengxiaoriqi,
+                                approvercode: {code: pizhun},
+                                // archivecode: {},
+                                auditorcode: {code: shenhe},
+                                compactorcode: {code: bianzhi},
+                                guides: [],
+                            }
+                            var newLines = $('.newLine')            //guiders
+                            newLines.each(function () {
+                                var _self_sub = $(this).children("td")
+                                var xuhao = $(_self_sub[0]).children("input").val()
+                                var meirijiandianneirong = $(_self_sub[1]).children("input").val()
+                                var jianchabiaozhun = $(_self_sub[2]).children("input").val()
+                                var tupian = $(_self_sub[3]).children("input").val()
+                                header.guides.push({
+                                    content: meirijiandianneirong,
+                                    standard: jianchabiaozhun,
+                                    imgCode: tupian
+                                })
                             })
-                        })
-                        console.log(header)
+                            $.ajax({
+                                url: home.urls.guideHeader.add(),
+                                contentType: 'application/json',
+                                data: JSON.stringify(header),
+                                type: 'post',
+                                success: function (result) {
+                                    layer.msg(result.message, {
+                                        offset: ['40%', '55%'],
+                                        time: 700
+                                    })
+                                    if($("#guide_table").children('tbody').children('tr').length < 10){
+                                        guide_manage.funcs.appendRecord($("#guide_table").children('tbody'), result.data)
+                                        guide_manage.funcs.bindAll($("#guide_table").children('tbody'))
+                                    }
+                                    layer.close(index)
+                                    $("#edgudiebook_info2").css('display', 'none')
+                                }
+                            })
+                        }, btn2: function (index) {
+                            layer.close(index)
+                            $("#edgudiebook_info2").css('display', 'none')
 
-                        // $.post(home.urls.guideHeader.add(), {
-                        // }, function (result) {
-                        //     if (result.code === 0) {
-                        //         var time = setTimeout(function () {
-                        //             clearTimeout(time)
-                        //         }, 500)
-                        //     }
-                        //     layer.close(index)
-                        //     $("#edgudiebook_info2").css('display', 'none')
-                        // })
-                    }, btn2: function (index) {
-                        layer.close(index)
-                        $("#edgudiebook_info2").css('display', 'none')
-
-                    }
+                        }
+                    })
                 })
-            })
         }
 
         //$ bindAddEventListener——end$
@@ -172,23 +184,16 @@ var guide_manage = {
                     btn: ['确认', '取消'],
                     offset: ['40%', '55%'],
                     yes: function (index) {
-                        console.log('yes')
                         var guideCode = _this.attr('id').substr(3)
+                        _this.parent('td').parent('tr').remove()
                         $.post(home.urls.guideHeader.deleteByCode(), {code: guideCode}, function (result) {
-                            console.log(result.message)
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
                                 time: 700
                             })
-                            if (result.code === 0) {
-                                var time = setTimeout(function () {
-                                    guide_manage.init()
-                                    clearTimeout(time)
-                                }, 500)
-                            }
-                            layer.close(index)
 
                         })
+                        layer.close(index)
                     },
                     btn2: function (index) {
                         layer.close(index)
@@ -233,8 +238,7 @@ var guide_manage = {
 
 
         , bindRefreshEventLisener: function (refreshBtn) {
-            refreshBtn.off('click')
-            refreshBtn.on('click', function () {
+            refreshBtn.off('click').on('click', function () {
                 var index = layer.load(2, {offset: ['40%', '58%']});
                 var time = setTimeout(function () {
                     layer.msg('刷新成功', {
@@ -243,14 +247,13 @@ var guide_manage = {
                     })
                     guide_manage.init()
                     layer.close(index)
+                    location.reload();
                     clearTimeout(time)
                 }, 200)
             })
         }
         , bindSelectAll: function (selectAllBox) {
-
-            selectAllBox.off('change')
-            selectAllBox.on('change', function () {
+            selectAllBox.off('change').on('change', function () {
                 var status = selectAllBox.prop('checked')
                 $('.gui_checkbox').each(function () {
                     $(this).prop('checked', status)
@@ -259,8 +262,7 @@ var guide_manage = {
         }
 
         , bindEditEventListener: function (editBtns) {
-            editBtns.off('click')
-            editBtns.on('click', function () {
+            editBtns.off('click').on('click', function () {
                 layer.open({
                     type: 1,
                     title: '添加',
@@ -289,8 +291,7 @@ var guide_manage = {
         }
 
         , bindDeleteBatchEventListener: function (deleteBatchBtn) {
-            deleteBatchBtn.off('click')
-            deleteBatchBtn.on('click', function () {
+            deleteBatchBtn.off('click').on('click', function () {
                 if ($('.gui_checkbox:checked').length === 0) {
                     layer.msg('亲,您还没有选中任何数据！', {
                         offset: ['40%', '55%'],
@@ -311,6 +312,9 @@ var guide_manage = {
                                     guideCodes.push({code: $(this).val()})
                                 }
                             })
+                            guideCodes.forEach(function(e) {
+                                $("#de-"+e.code).parent('td').parent('tr').remove()
+                            })
                             $.ajax({
                                 url: home.urls.guideHeader.deleteByBatchCode(),
                                 contentType: 'application/json',
@@ -318,12 +322,6 @@ var guide_manage = {
                                 dataType: 'json',
                                 type: 'post',
                                 success: function (result) {
-                                    if (result.code === 0) {
-                                        var time = setTimeout(function () {
-                                            guide_manage.init()
-                                            clearTimeout(time)
-                                        }, 500)
-                                    }
                                     layer.msg(result.message, {
                                         offset: ['40%', '55%'],
                                         time: 700
@@ -387,7 +385,7 @@ var guide_manage = {
             })
         },
         appendRecord: function ($tbody, e) {
-            $tbody.append(
+            $tbody.prepend(
                 "<tr>" +
                 "<td><input type='checkbox' class='gui_checkbox' value='" + (e.code) + "'></td>" +
                 "<td>" + (e.code) + "</td>" +
@@ -401,6 +399,9 @@ var guide_manage = {
                 "<td><a href='#' class='editGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                 "<td><a href='#' class='deleteGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
                 "</tr>")
+            var len = $tbody.children('tr').length
+            if (len > 10)
+                $($tbody.children('tr')[len - 1]).remove()
         },        //append all records to the tbody
 
 

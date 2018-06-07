@@ -359,19 +359,45 @@
 <script>
     function addTab() {
         var count = $("#tab tr").length + 1
-        console.log(count)
-        var tabpl = "<tr class='newLine' id='s" + count + "'><td><input style='text-align: center;' type='text' value='"+count+"'></td><td><input type='text'></td><td><input type='text'></td><td><input type='file' placeholder='上传图片'></td><td><button onclick='delTab(" + count + ")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td></tr>";
+        var tabpl = "<tr class='newLine' id='s" + count + "'><td><input style='text-align: center;' type='text' value='"+count+"'></td><td><input type='text'></td><td><input type='text'></td><td><form enctype='multipart/form-data'><input class='upload' type='file' placeholder='上传图片' id='shangchuan_"+count+"'/></form></td><td><button onclick='delTab(" + count + ")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td></tr>";
         $("#tab").append(tabpl);
     }
 
     function delTab(x) {
-        console.log(x)
+        var imgCode =  $( $("#s" + x).children('td')[3]).children("input").val()
+        console.log(imgCode)
+        $.post(servers.backup()+"image/deleteByCode",{code:imgCode}, function() {
+        })
         $("#s" + x).remove();
     }
 
     function addPlus() {
         var tabplus = '<tr id="s0" style="text-align:center;border:0px;"><td colspan="5" style="border:0px;"> <button onclick=" delTab(0),addTab(),addPlus()"style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;" >+</button></td></tr>'
         $("#tab1").append(tabplus)
+        $(".upload").off('change').on('change',function(){
+            var _self = $(this)
+            if($(this).val() != null) {
+                var form = $(this).parent("form")
+                var formData = new FormData(form[0]);
+                var file = $(this)[0].files[0]
+                formData.append('file',file)
+                $.ajax({
+                    url:servers.backup()+"image/upload",
+                    type:'POST',
+                    data:formData,
+                    async:false,
+                    cache:false,
+                    contentType:false,
+                    processData:false,
+                    success:function(result) {
+                        guide_manage.images.push(result.data.code)
+                        var parent = _self.parent('form').parent('td');
+                        parent[0].innerHTML = ''
+                        parent.append("<input value='"+result.data.code+"' type='hidden'/><img style='width: 100%;height: 100px;' src='"+servers.backup()+'/image/'+result.data.code+"'/>")
+                    }
+                })
+            }
+        })
     }
 
 </script>
