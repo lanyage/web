@@ -122,8 +122,11 @@ var rawType = {
                                     offset: 'auto',
                                     time: 700
                                 })
-                                rawType.funcs.appendRecord($("#rawType_table").children('tbody'), result.data)        //just append the record to the tbody
-                                rawType.funcs.bindAll($("#rawType_table").children('tbody'))        //the bind all sub event
+                                $.post(home.urls.rawType.getByCode(),{code:result.data.code},function(result) {
+                                    console.log(result)
+                                    rawType.funcs.appendRecord($("#rawType_table").children('tbody'), result.data)        //just append the record to the tbody
+                                    rawType.funcs.bindAll($("#rawType_table").children('tbody'))        //the bind all sub event
+                                })
                                 layer.close(index)
                             })
                         },
