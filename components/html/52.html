@@ -14,11 +14,12 @@
                 <span id="model-li-hide-refresh-52"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
                 &nbsp;&nbsp;
                 <span style="color: #6b6b6b;">审核状态</span>
-                <select name="lib_manage_name" style="border-radius: 0;">
+                <select id="lib_manage_name" style="border-radius: 0;">
                     <option>选择审核状态</option>
-                    <option value="1">状态1</option>
-                    <option value="2">状态2</option>
-                    <option value="3">状态3</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
                 </select>&nbsp;&nbsp;
                 <span id="model-li-hide-search-52"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
@@ -40,25 +41,10 @@
         </thead>
         <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>XX类型</td>
-            <td>XX物料</td>
-            <td>10</td>
-            <td>待审核</td>
-            <td><a href="#" class='detail'><i class="layui-icon">&#xe6b2;</i></a></td>
-        </tr>
-        <tr>
-            <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
-            <td>2</td>
-            <td>XX类型</td>
-            <td>XX物料</td>
-            <td>20</td>
-            <td>待审核</td>
-            <td><a href="#" class='detail'><i class="layui-icon">&#xe6b2;</i></a></td>
-        </tr>
         </tbody>
     </table>
+    <div id="plate_manage_page">
+    </div>
     <script src="../components/js/plate_manage.js"></script>
     <script type="application/javascript">
         $(function () {

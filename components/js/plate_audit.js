@@ -75,7 +75,7 @@ var plate_audit = {
                 "<td>" + (e.rawType.name) + "</td>" +
                 "<td>" + (e.weight) + "</td>" +
                 "<td>" + e.status + "</td>" +
-                "<td><a href=\"#\" class='plate_detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
+                "<td><a href=\"#\" class='plate_detail' id='detail_" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
                 "</tr>"
             )
             $tbody.append(content)
