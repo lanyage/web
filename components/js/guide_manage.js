@@ -97,16 +97,6 @@ var guide_manage = {
                         offset: 'auto',
                         closeBtn: 0,
                         yes: function (index) {
-                            // code : "44"
-                            // name: 63"
-                            // num :  "5"
-                            // edition     : "5"
-                            // effectivedate: "2018-03-09"
-                            // approvercode : {code: "10002", name: "张三", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
-                            // archivecode  : null
-                            // auditorcode  : {code: "10001", name: "李四1", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
-                            // compactorcode :{code: "10002", name: "张三", password: "e10adc3949ba59abbe56e057f20f883e", inteCircCard: "",…}
-                            // guides:   []
                             var bianhao = $("#bianhao").val()
                             var eq_code = $("#equipment_select_2").val()
                             var banci = $("#_2_banci").val()
@@ -153,7 +143,7 @@ var guide_manage = {
                                         offset: ['40%', '55%'],
                                         time: 700
                                     })
-                                    if($("#guide_table").children('tbody').children('tr').length < 10){
+                                    if ($("#guide_table").children('tbody').children('tr').length < 10) {
                                         guide_manage.funcs.appendRecord($("#guide_table").children('tbody'), result.data)
                                         guide_manage.funcs.bindAll($("#guide_table").children('tbody'))
                                     }
@@ -312,8 +302,8 @@ var guide_manage = {
                                     guideCodes.push({code: $(this).val()})
                                 }
                             })
-                            guideCodes.forEach(function(e) {
-                                $("#de-"+e.code).parent('td').parent('tr').remove()
+                            guideCodes.forEach(function (e) {
+                                $("#de-" + e.code).parent('td').parent('tr').remove()
                             })
                             $.ajax({
                                 url: home.urls.guideHeader.deleteByBatchCode(),
@@ -346,10 +336,10 @@ var guide_manage = {
             $("#shenpi")[0].innerHTML = ''
             $("#pizhun")[0].innerHTML = ''
             $("#shengxiaoriqi")[0].innerHTML = ''
-            $("#guidebook_body_middletable")[0].innerHTML = ''
+            $("#detail_tbody").empty()
         },
         renderDetail: function (header) {
-            $("#eq_name")[0].innerHTML = (header.archivecode ? header.archivecode.name : '')
+            $("#eq_name")[0].innerHTML = (header.name + '-巡检指导书')
             $("#bianhao")[0].innerHTML = (header.code)
             $("#banci")[0].innerHTML = (header.edition)
             $("#yeci")[0].innerHTML = 'wtf'
@@ -367,16 +357,28 @@ var guide_manage = {
                     var header = result.data
                     guide_manage.funcs.clearDetail(header)          //clear this table first
                     guide_manage.funcs.renderDetail(header)             //render is then
+                    var $detail_tbody = $("#detail_tbody")
+                    header.guides.forEach(function (e) {
+                        $detail_tbody.append(
+                            "<tr style='height:80px;'>" +
+                            "<td style='width:10%;'>" + e.code + "</td>" +
+                            "<td style='width:30%;'>" + e.content + "</td>" +
+                            "<td style='width:30%;'>" + e.standard + "</td>" +
+                            "<td style='width:30%;'>" +
+                            "<img src='" + servers.backup() + 'image/' + e.code + "' alt='' style='width:150px;height:70px;'/>" +
+                            "</td>" +
+                            "</tr>"
+                        )
+                    })
                     layer.open({        //after you having rendered the detail table
                         type: 1,
                         title: '添加',
                         content: $("#gudiebook_info"),
-                        area: ['800px', '550px'],
+                        area: ['800px', '500px'],
                         btn: ['确认'],
                         offset: 'auto',
                         closeBtn: 0,
                         yes: function (index) {
-                            //todo if the tbody is empty, you should add some problems for it
                             layer.close(index)
                             $("#gudiebook_info").css('display', 'none')
                         }
