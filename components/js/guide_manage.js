@@ -365,7 +365,7 @@ var guide_manage = {
                             "<td style='width:30%;'>" + e.content + "</td>" +
                             "<td style='width:30%;'>" + e.standard + "</td>" +
                             "<td style='width:30%;'>" +
-                            "<img src='" + servers.backup() + 'image/' + e.code + "' alt='' style='width:150px;height:70px;'/>" +
+                            "<img alt='还没上传图片' src='" + servers.backup() + 'image/' + e.imageCode + "' alt='' style='width:150px;height:70px;'/>" +
                             "</td>" +
                             "</tr>"
                         )
