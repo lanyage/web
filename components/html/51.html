@@ -64,6 +64,17 @@
         #presoma_table tbody td {
             padding: 3px;
         }
+        .provider_input{
+            outline: none;  border: 0px;  margin: 0px;  width: 95%;  height: 100%;
+        }
+        .s_center {
+            width: auto;
+            padding: 0 2%;
+            margin: 0;
+        }
+        .s_center option{
+            text-align: center;
+         }
     </style>
 
     <div class="block-quote">
@@ -85,22 +96,15 @@
                 &nbsp;&nbsp;
                 <span style="color: #6b6b6b;">审核状态</span>
                 <select id="audit_status" style="border-radius: 0;">
-                    <option>选择审核状态</option>
+                    <option value="-1">选择审核状态</option>
                     <option value="0">未提交</option>
                     <option value="1">在审</option>
                     <option value="2">通过</option>
                     <option value="3">不通过</option>
                 </select>&nbsp;&nbsp;
 
-               <!-- <span style="color: #6b6b6b;">开单日期</span>
-                <select id="order_date" style="border-radius: 0;">
-                    <option>选择开单日期</option>
-                    <option value="1">2018-04-30</option>
-                    <option value="2">2018-05-22</option>
-                    <option value="3">2018-05-05</option>
-                </select>-->
                 <span style="color: #6b6b6b;">开单日期</span>
-                <input  type="date" id="order_date" value="请选择开单日期">
+                <input  type="date" id="order_date" value="-1">
                 &nbsp;&nbsp;
                 <span style="color: #6b6b6b;">产品型号</span>
                 <select id="rawType_Code" style="border-radius: 0;">
@@ -192,15 +196,15 @@
                cellpadding="0" cellspacing="0">
         <tr>
             <td class="grey">审批人：</td>
-            <td></td>
+            <td id="audit_Name"></td>
             <td class="grey">审批结果：</td>
-            <td></td>
+            <td id="audit_result"></td>
             <td class="grey">审批时间：</td>
-            <td ></td>
+            <td id="audit_time"></td>
         </tr>
         <tr>
             <td class="grey">审批意见:</td>
-            <td colspan="5"></td>
+            <td colspan="5" id="audit_note"></td>
         </tr>
         </table>
         <div class="whitespace"></div>
@@ -256,15 +260,15 @@
         <table id = "detail_modal3" width="100%" style="border-left: 0px;border-right: 0px;">
             <tr>
                 <td class="grey">审批人：</td>
-                <td id="audit_Name"></td>
+                <td id="Detail_audit_Name"></td>
                 <td class="grey">审批结果：</td>
-                <td id="audit_result" ></td>
+                <td id="Detail_audit_result" ></td>
                 <td  class="grey">审批时间：</td>
-                <td id="audit_time"></td>
+                <td id="Detail_audit_time"></td>
             </tr>
             <tr class="no_border">
                 <td class="grey">审批意见：</td>
-                <td colspan="5" id="audit_note"></td>
+                <td colspan="5" id="Detail_audit_note"></td>
             </tr>
         </table>
     </div>
@@ -275,25 +279,33 @@
                 <td class="grey" width="20%">出库单编号</td>
                 <td id="code" width="40%"></td>
                 <td class="grey" width="20%">产品型号</td>
-                <td width="20%"></td>
+                <td width="20%" >
+                    <select id="add_select_rawType" class="s_center">
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td class="grey">运输方式</td>
-                <td></td>
+                <td>
+                    <input id="add_transportWays" class="provider_input" style="text-align: center;"/>
+                </td>
                 <td class="grey">总量</td>
-                <td></td>
+                <td id="add_total_amount"></td>
             </tr>
             <tr>
                 <td class="grey">流程类型</td>
-                <td></td>
+                <td>
+                    <select id="add_select_processCode" class="s_center">
+                    </select> 
+                </td>
                 <td class="grey">/</td>
                 <td></td>
             </tr>
             <tr>
                 <td class="grey">申请时间</td>
-                <td></td>
+                <td id="add_applyTime"></td>
                 <td class="grey">入库时间</td>
-                <td></td>
+                <td id="add_inTime"></td>
             </tr>
         </table>
         <div class="whitespace" style="clear: both"></div>
@@ -316,22 +328,7 @@
             </thead>
             
             <tbody>
-           <tr>
-                <td><input type="checkbox" class='delete_checkbox'/></td>
-                <td>1</td>
-                <td>38233333</td>
-                <td>t</td>
-                <td>32</td>
-                <td>已入库</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" class='delete_checkbox'/></td>
-                <td>2</td>
-                <td>38243333</td>
-                <td>t</td>
-                <td>32</td>
-                <td>未入库</td>
-            </tr>
+           
             </tbody>
         </table>
     </div>
@@ -345,7 +342,7 @@
                         
                     </select>&nbsp;&nbsp;
 
-                    <span style="color: black;">批号 <input placeholder="请输入批号" id="product_batch_number_input"/></span>
+                    <span style="color: black;">批号 <input value="请输入批号" id="product_batch_number_input"/></span>
                 </p>
             </div>
             <div class="fr">
@@ -372,7 +369,7 @@
             <tr>
                 <td><input type="checkbox" class='edit_add_checkbox'/></td>
                 <td>123441232</td>
-                <td>38233</td>
+                <td>33</td>
                 <td>kg</td>
                 <td>已检验</td>
                 <td><a href='#' class='edit_add_detail' id='detail-1290'><i class='layui-icon'>&#xe60a;</i></a></td>
@@ -398,22 +395,23 @@
                 <td width="40%" id="out_code"></td>
                 <td class="grey" width="20%">产品型号</td>
                 <td width="20%">
-                    <select id="editor_select_rawType">
+                    <select id="editor_select_rawType" class="s_center">
                     </select>
                 </td>
             </tr>
             <tr>
                 <td class="grey">运输方式</td>
                 <td>
-                    <input id="transportWays"/>
+                    <input id="transportWays" class="provider_input" style="text-align: center;"/>
                 </td>
                 <td class="grey">总量</td>
-                <td></td>
+                <td id="total_amount" >
+                </td>
             </tr>
             <tr>
                 <td class="grey">流程类型</td>
                 <td>
-                    <select id="editor_select_processCode">
+                    <select id="editor_select_processCode" class="s_center">
                     </select> 
                 </td>
                 <td class="grey">/</td>

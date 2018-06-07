@@ -481,9 +481,7 @@ var home = {
             getAll: function () {
                 return servers.backup() + 'guideHeader/getAll'
             },
-            update:function() {
-                return servers.backup() + 'guideHeader/update'
-            }
+
         },
         archive: {
             getAllByPage: function () {
@@ -642,9 +640,6 @@ var home = {
             },
             deleteByBatchCode: function () {
                 return servers.backup() + 'material/deleteByBatchCode'
-            },
-            getAll: function () {
-                return servers.backup() + 'material/getAll'
             }
         },
 
@@ -697,9 +692,6 @@ var home = {
             getAllrawType: function () {
                 return servers.backup() + 'rawType/getAll'
             },
-            getAllcreateDate: function () {
-                return servers.backup() + 'creatDate/getAll'
-            },
             getByAuditStatusAndRawTypeAndCreateDateByPage: function () {
                 return servers.backup() + 'productSendHeader/getByAuditStatusAndRawTypeAndCreateDateByPage'
             },
@@ -715,23 +707,18 @@ var home = {
             update: function () {
                 return servers.backup() + 'productSendHeader/update'
             },
+            add: function () {
+                return servers.backup() + 'productSendHeader/add'
+            },
             getByProductSendHeader: function () {
                 return servers.backup() + 'productSendAudit/getByProductSendHeader'
             },
 
-            getDetail: function () {
+            getDetail:function(){
                 return servers.backup() + 'available/getByRawTypeCodeAndBatchNumberLikeByPage'
             },
-            updateAuditStatusByCode: function () {
+            updateAuditStatusByCode:function(){
                 return servers.backup() + 'productSendHeader/updateAuditStatusByCode'
-            }
-        },
-        plateAlarm: {
-            getAllByPage: function () {
-                return servers.backup() + '/materialsTotal/getAllByPage'
-            },
-            getByWarnStatusByPage: function () {
-                return servers.backup() + '/materialsTotal/getByWarmStatusByPage'
             }
         },
         lingLiao: {
@@ -747,44 +734,25 @@ var home = {
             getByCode: function () {
                 return servers.backup() + 'pickingApplyHeader/getByCode'
             },
-            getByProcessManageByPage: function () {
+            getByProcessManageByPage:function(){
                 return servers.backup() + 'pickingApplyHeader/getByAuditStatusAndProcessManageByPage'
             },
-            update: function () {
+            update:function(){
                 return servers.backup() + 'pickingApplyHeader/update'
             },
-            deleteByBatchCodeBatchCode: function () {
+            deleteByBatchCodeBatchCode:function(){
                 return servers.backup() + 'pickingApplyHeader/deleteByBatchCode'
             },
-            getAllrawType: function () {
+            getAllrawType:function(){
                 return servers.backup() + 'rawType/getAll'
             },
-            getDetail: function () {
+            getDetail:function(){
                 return servers.backup() + 'available/getByRawTypeCodeAndBatchNumberLikeByPage'
-            }
-        },
-        rawType: {
-            getAllByPage: function () {
-                return servers.backup() + 'rawType/getAllByPage'
             },
-            add: function () {
-                return servers.backup() + "rawType/add"
+            add:function(){
+                return servers.backup() + 'pickingApplyHeader/add'
             },
-            deleteByCode: function () {
-                return servers.backup() + "rawType/deleteByCode"
-            },
-            deleteByBatchCode: function () {
-                return servers.backup() + "rawType/deleteByBatchCode" //todo this method is missing.
-            },
-            getAllByLikeNameByPage: function () {
-                return servers.backup() + "rawType/getAllByLikeNameByPage"
-            },
-            getByCode: function () {
-                return servers.backup() + "rawType/getByCode"
-            },
-            update: function () {
-                return servers.backup() + "rawType/update"
-            }
+            
         },
         equipment: {
             getAllByPage: function () {
@@ -857,25 +825,25 @@ var home = {
         },
         company: {
             getAllByPage: function () {
-                return servers.backup() + 'supplier/getAllByPage'
+                return servers.backup() + 'company/getAllByPage'
             },
             add: function () {
-                return servers.backup() + 'supplier/add'
+                return servers.backup() + 'company/add'
             },
             deleteByCode: function () {
-                return servers.backup() + 'supplier/deleteByCode'
+                return servers.backup() + 'company/deleteByCode'
             },
             update: function () {
-                return servers.backup() + 'supplier/update'
+                return servers.backup() + 'company/update'
             },
             getByCode: function () {
-                return servers.backup() + 'supplier/getByCode'
+                return servers.backup() + 'company/getByCode'
             },
             getAllByLikeNameByPage: function () {
-                return servers.backup() + 'supplier/getAllByLikeNameByPage'
+                return servers.backup() + 'company/getAllByLikeNameByPage'
             },
             deleteByBatchCode: function () {
-                return servers.backup() + 'supplier/deleteByBatchCode'
+                return servers.backup() + 'company/deleteByBatchCode'
             },
         },
         workshop: {
@@ -975,25 +943,25 @@ var home = {
         },
         processstatus: {
             getAllByPage: function () {
-                return servers.backup() + 'process/getAllByPage'
+                return servers.backup() + 'processStatus/getAllByPage'
             },
             add: function () {
-                return servers.backup() + 'process/add'
+                return servers.backup() + 'processStatus/add'
             },
             deleteByCode: function () {
-                return servers.backup() + 'process/deleteByCode'
+                return servers.backup() + 'processStatus/deleteByCode'
             },
             update: function () {
-                return servers.backup() + 'process/update'
+                return servers.backup() + 'processStatus/update'
             },
             getByCode: function () {
-                return servers.backup() + 'process/getByCode'
+                return servers.backup() + 'processStatus/getByCode'
             },
             getAllByLikeNameByPage: function () {
-                return servers.backup() + 'process/getAllByLikeNameByPage'
+                return servers.backup() + 'processStatus/getAllByLikeNameByPage'
             },
             deleteByBatchCode: function () {
-                return servers.backup() + 'process/deleteByBatchCode'
+                return servers.backup() + 'processStatus/deleteByBatchCode'
             },
         },
         product: {
@@ -1843,62 +1811,62 @@ var home = {
             $("#TI_1007_R")[0].innerHTML = parseFloat(home.RI1s[6].value).toFixed(2)
         }
         , render7: function () {
-            var vd0 = home.Bfs.filter(function (e) {
+            var vd0 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD0';
             })[0]
-            var vd24 = home.Bfs.filter(function (e) {
+            var vd24 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD24';
             })[0]
-            var vd6 = home.Bfs.filter(function (e) {
+            var vd6 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD6';
             })[0]
-            var vd12 = home.Bfs.filter(function (e) {
+            var vd12 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD12';
             })[0]
-            var vd30 = home.Bfs.filter(function (e) {
+            var vd30 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD30';
             })[0]
-            var vd18 = home.Bfs.filter(function (e) {
+            var vd18 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD18';
             })[0]
-            var vd536 = home.Bfs.filter(function (e) {
+            var vd536 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD536';
             })[0]
-            var vd544 = home.Bfs.filter(function (e) {
+            var vd544 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD544';
             })[0]
-            var vd552 = home.Bfs.filter(function (e) {
+            var vd552 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD552';
             })[0]
-            var vd560 = home.Bfs.filter(function (e) {
+            var vd560 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD560';
             })[0]
-            var vd520 = home.Bfs.filter(function (e) {
+            var vd520 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD520';
             })[0]
-            var vd528 = home.Bfs.filter(function (e) {
+            var vd528 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD528';
             })[0]
 
-            var vd504 = home.Bfs.filter(function (e) {
+            var vd504 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD504';
             })[0]
-            var vd512 = home.Bfs.filter(function (e) {
+            var vd512 = home.Bfs.filter(function(e) {
                 return e.weihao === 'BFS_VD512';
             })[0]
-            var WI_1008_W = home.WI1s.filter(function (e) {
+            var  WI_1008_W = home.WI1s.filter(function(e) {
                 return e.weihao === 'WI_1008';
             })[0]
-            var WI_1010_W = home.WI1s.filter(function (e) {
+            var  WI_1010_W = home.WI1s.filter(function(e) {
                 return e.weihao === 'WI_1010';
             })[0]
-            var WI_1012 = home.WI1s.filter(function (e) {
+            var  WI_1012 = home.WI1s.filter(function(e) {
                 return e.weihao === 'WI_1012';
             })[0]
-            var TI_1008_T = home.TI1s.filter(function (e) {
+            var  TI_1008_T = home.TI1s.filter(function(e) {
                 return e.weihao === 'TI_1008';
             })[0]
-            var TI_1008_R = home.RI1s.filter(function (e) {
+            var  TI_1008_R = home.RI1s.filter(function(e) {
                 return e.weihao === 'RI_1008';
             })[0]
 
@@ -1944,7 +1912,6 @@ var home = {
                 /** 清除浏览记录 */
                 localStorage.clear()
                 /** 清除用户登录信息 */
-                console.log($.session)
                 $.session.clear()
                 /** 返回登录页面 */
                 window.location.href = '../login.jsp'
