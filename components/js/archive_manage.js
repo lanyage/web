@@ -226,7 +226,7 @@ var archive_manage = {
                                     clearTimeout(time)
                                 }, 500)
                             }
-                            $.get(home.)
+
                             // $.post(servers.backup() + "pdf/deleteByCode", {code: archive_manage.fileCode}, function (res) {
                             // })
                             layer.close(index)
