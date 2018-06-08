@@ -721,6 +721,22 @@ var home = {
                 return servers.backup() + 'productSendHeader/updateAuditStatusByCode'
             }
         },
+        plateAudit:{
+            getByRawType: function () {
+                return servers.backup() + '/lossEntryHeader/getByRawType'
+            }
+        },
+        plateAlarm: {
+            getAllByPage: function () {
+                return servers.backup() + '/materialsTotal/getAllByPage'
+            },
+            getByWarnStatusByPage:function(){
+                return servers.backup() +  '/materialsTotal/getByWarnStatusByPage'
+            }
+            // getByStatusByPage(){
+            //     return　servers.backup() +  '/materialsTotal/getByStatusByPage'
+            // }
+        },
         lingLiao: {
             getAllByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getAllByPage'
@@ -776,6 +792,9 @@ var home = {
             deleteByBatchCode: function () {
                 return servers.backup() + 'equipment/deleteByBatchCode'
             },
+            getAll: function() {
+                return servers.backup() + 'equipment/getAll'
+            }
         },
         process: {
             getAllByPage: function () {

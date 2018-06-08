@@ -324,6 +324,7 @@ var role_manage = {
                 home.menu3s.sort(function (a, b) {
                     return a.code - b.code
                 })
+                // console.log('home.menu3s=',home.menu3s.length)
                 /** 获取当前角色 */
                 $.post(home.urls.role.getByCode(), {code: roleCode}, function (result) {
                     /** 当前角色并且携带所有的三级菜单 */
@@ -333,20 +334,21 @@ var role_manage = {
                     var role_models = role.models.sort(function (a, b) {
                         return a.code - b.code
                     })
-
                     /** 存储当前Role下的所有三级菜单的code,用于后期做比较 */
                     var role_model_codes = []
                     role_models.forEach(function (ele) {
                         var modelCode = ele.code
                         role_model_codes.push(modelCode)
                     })
-
+                    // console.log('当前角色下的三级菜单主键=',role_model_codes)
                     /** 获取实际存在的所有的三级菜单*/
+                    // console.log('localstorage_all_menu3s',JSON.parse(localStorage.getItem('all_menu3s')))        //todo
                     $.get(home.urls.menus.getAllMenu3(), {}, function (result) {
                         /** 获取所有的三级菜单 */
                         var all_models = result.data.sort(function (a, b) {
                             return a.code - b.code
                         })
+                        // console.log('所有的三级菜单=',all_models)
                         var all_models_codes = []
                         all_models.forEach(function (ele) {
                             var modelCode = ele.code
@@ -377,7 +379,8 @@ var role_manage = {
                         menu2s.forEach(function (menu2) {
                             var menu1 = menu2.menu1;
                             var menu1Code = menu2.menu1.code
-                            var menu1Row = $innerTable.children('#modal-menu1-' + menu1Code)[0]
+                            var menu1Row = $innerTable.children('#modal-menu1-' + menu1Code)[0]     //看是存在一级菜单这一行
+                            console.log('menu1Row= ',menu1Row,'menu2',menu2.name)
                             if (!menu1Row) {
                                 //添加一级菜单
                                 $innerTable.append(
@@ -386,7 +389,7 @@ var role_manage = {
                                     "<span>" + (menu1.name) + "</span>" +
                                     "</td><td></td><td></td></tr>"
                                 )
-                                //以及菜单后面添加二级菜单
+                                //一级菜单后面添加二级菜单
                                 $("#modal-menu1-" + (menu1Code)).after(
                                     "<tr id='modal-menu2-" + (menu2.code) + "' class='modal-menu1-" + (menu1Code) + "-sub'><td>" +
                                     "<i class='layui-icon' style='color:rgb(134,134,134); margin-left: 15px'>&#xe625;</i>" +
@@ -413,7 +416,7 @@ var role_manage = {
 
                             var subs = $('.modal-menu2-' + menu2Code + 'sub')
                             var subLen = subs.length
-                            // console.log(subLen)
+                            // console.log('sublen=',subLen)
                             var menu3Bar = subLen == 0 ? $("#modal-menu2-" + menu2Code) : $(subs[subLen - 1])
                             /** 如果当前角色的所包含的三级菜单包含当前三级菜单 */
                             if (role_model_codes.indexOf(modelCode) > -1) {
@@ -435,10 +438,10 @@ var role_manage = {
                                     "</td></tr>"
                                 )
                             }
-                            var subs = $('.modal-menu2-' + menu2Code + 'sub')
-                            var subLen = subs.length
+                            // var subs = $('.modal-menu2-' + menu2Code + 'sub')
+                            // var subLen = subs.length
                             // console.log(subLen)
-
+                            console.log(JSON.parse(localStorage.getItem('roleModelOperation')))         //all roleModelOperations
                             $.get(home.urls.role.getOperationsByRoleCodeAndModelCode(), {
                                 roleCode: roleCode,
                                 modelCode: modelCode
@@ -489,7 +492,7 @@ var role_manage = {
                                         $('#all_operations_' + modelCode).prop('checked', false)
                                     }
                                 })
-                            })
+                            })//$get operations by menu3
                         })//$forEach
                     })
                     layer.open({

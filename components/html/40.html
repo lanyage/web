@@ -5,16 +5,20 @@
         #add-doc-modal {
             text-align: center;
         }
+
         #add-doc-modal ul {
             text-align: right;
             padding-top: 5%;
         }
-        #add-doc-modal select{
-            width:150px;
+
+        #add-doc-modal select {
+            width: 150px;
         }
-        #add-doc-modal input{
-            width:150px;
+
+        #add-doc-modal input {
+            width: 150px;
         }
+
         .whitespace-small {
             padding: 3px;
         }
@@ -68,11 +72,11 @@
                 <div class="whitespace-small"></div>
                 <li><label>设备名称:</label><select id='arc_eqname'></select></li>
                 <div class="whitespace-small"></div>
-                <li><label>安装时间:</label><select id='arc_eqinstalltime'></select></li>
+                <li><label>安装时间:</label><input type="date" id='arc_eqinstalltime'></input></li>
                 <div class="whitespace-small"></div>
-                <li><label>保修期限:</label><select id='arc_eqdeadline'></select></li>
+                <li><label>保修期限:</label><input type="text" id='arc_eqdeadline'></input></li>
                 <div class="whitespace-small"></div>
-                <li><label>设备文档:</label><input type='file' id='arc_eqdoc'/></li>
+                <li><label>设备文档:</label><form enctype='multipart/form-data' style="display: inline-block"><input type='file' id='arc_eqdoc'/></form></li>
                 <div class="whitespace-small"></div>
             </ul>
         </div>
@@ -93,8 +97,16 @@
     </div>
     <script src="../components/js/archive_manage.js"></script>
     <script type="application/javascript">
+        //get all necessary info
+
         $(function () {
-            archive_manage.init()
+            $.get(home.urls.equipment.getAll(), {}, function (result) {
+                archive_manage.equipments = result.data
+                $.get(servers.backup() + 'supplier/getAll', {}, function (res) {
+                    archive_manage.suppliers = res.data
+                    archive_manage.init()           //init
+                })
+            })
         })
     </script>
 </div>

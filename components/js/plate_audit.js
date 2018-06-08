@@ -21,7 +21,7 @@ var plate_audit = {
                 var $tbody = $("#plate_audit_table").children('tbody')
                 /** 过滤返回的数据 */
                 var items = res.data.content
-                console.log(items)
+                //console.log(items)
                 plate_audit.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 plate_audit.pageSize = res.data.content.length //该页的记录数
@@ -91,30 +91,78 @@ var plate_audit = {
     , bindDetailEventListener: function (detailBtns) {
             //点击的时候需要弹出一个模态框
             // 而且要填充模态框里面的内容 todo
+
             detailBtns.off('click').on('click', function () {
-                layer.open({
-                    type: 1,
-                    title: '报损单申请',
-                    content: $("#detail_modal"),
-                    area: ['800px', '700px'],
-                    btn: ['提交', '取消'],
-                    offset: "auto",
-                    closeBtn: 0,
-                    yes: function (index) {
-                        $("#detail_modal").css('display', 'none')
-                        layer.close(index)
-                    }
-                    , btn1: function (index) {
-                        $("#detail_modal").css('display', 'none')
-                        layer.close(index)
-                    }
-                    , btn2: function (index) {
-                        $("#detail_modal").css('display', 'none')
-                        layer.close(index)
-                    }
+                var _selfBtn = $(this)
+                var code = _selfBtn.attr('id').substr(7)
+                $.post(home.urls.plateAlarm.getAllByPage(),{},function (res) {
+                    var items = res.data.content
+                    var rawType = null
+                    items.forEach(function (e) {
+                        if(e.code == code){
+                           // console.log(e.rawType)
+                            rawType = e.rawType
+                        }
+                    })
+
+                    $.post(home.urls.plateAudit.getByRawType(),{
+                        code:rawType.code
+                    }, function(result) {
+                       // console.log(rawType)
+                        var items = result.data //获取数据
+                       // console.log(items)
+                        plate_audit.funcs.fill_detail_data($("#detail_modal"), items,)
+
+                        layer.open({
+                            type: 1,
+                            title: '报损单申请',
+                            content: $("#detail_modal"),
+                            area: ['800px', '700px'],
+                            btn: ['提交', '取消'],
+                            offset: "auto",
+                            closeBtn: 0,
+                            yes: function (index) {
+                                $("#detail_modal").css('display', 'none')
+                                layer.close(index)
+                            }
+                            , btn1: function (index) {
+                                $("#detail_modal").css('display', 'none')
+                                layer.close(index)
+                            }
+                            , btn2: function (index) {
+                                $("#detail_modal").css('display', 'none')
+                                layer.close(index)
+                            }
+                        });
+                    })
+
                 });
             })
         },
+         fill_detail_data: function(div,items){
+                var total_bs = 0
+           /*  var bs_table = items.lossEntry
+                var $tbody = $("#detail_modal").children('tbody')
+                 $tbody.empty() //清空表格
+                 productSends.forEach(function(e){
+                 total_amount += e.weight
+                 $tbody.append(
+                     "<tr>"+
+                     "<td>"+ (e.code?e.code:' ') +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
+                     "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td><td>" + (e.status?e.status:' ') + "</td>"+
+                     "</tr>"
+                 );
+             })
+*/
+                $("#bs_num").text(items.code)
+                $("#rawtype").text(items.rawType.material.name)
+                $("#rawname").text(items.rawType.name)
+                $("#plate_num").text(items.weight)
+                $("#total").text(total_bs)
+                $("#user").text(items.user.name)
+                $("#audit_status").text(items.auditStatus)
+                $("#bs_time").text(items.time?new Date(items.time).Format('yyyy-MM-dd'):'null')
+         },
          bindRefreshEventListener: function (refreshBtn) {
              refreshBtn.off('click')
              refreshBtn.on('click', function () {
