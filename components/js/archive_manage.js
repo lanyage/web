@@ -106,8 +106,8 @@ var archive_manage = {
         }
 
         , bindAddEventListener: function (addBtn) {
-            addBtn.off('click')
-            addBtn.on('click', function () {
+            addBtn.off('click').on('click', function () {
+                archive_manage.funcs.clearAddModal()
                 //首先就是弹出一个弹出框
                 layer.open({
                     type: 1,
@@ -159,6 +159,7 @@ var archive_manage = {
                                     repairContact: repairContact,
                                 }
                                 $.post(home.urls.archive.add(), {                   //add new archive
+                                    name: $("#arc_eqdoc").val(),
                                     equipmentCode: obj.equipmentCode.code,
                                     installTime: obj.installTime,
                                     equipmentName: eq,
@@ -173,6 +174,7 @@ var archive_manage = {
                                         offset: ['40%', '55%'],
                                         time: 700
                                     })
+                                    $("#arc_checkbox").prop('checked', false)
                                     if (result.code === 0) {
                                         var time = setTimeout(function () {
                                             archive_manage.init()
@@ -213,7 +215,13 @@ var archive_manage = {
                     offset: ['40%', '55%'],
                     yes: function (index) {
                         console.log('yes')
-                        var guideCode = _this.attr('id').substr(3)
+                        var archiveCode = _this.attr('id').substr(3)
+                        $.post(home.urls.archive.getByCode(), {code: archiveCode}, function (res) {
+                            var fileCode = res.data.document
+                            console.log(fileCode)
+                            $.post(servers.backup() + "pdf/deleteByCode", {code: fileCode}, function (res) {
+                            })
+                        })
                         $.post(home.urls.archive.deleteByCode(), {code: archiveCode}, function (result) {
                             console.log(result.message)
                             layer.msg(result.message, {
@@ -226,9 +234,6 @@ var archive_manage = {
                                     clearTimeout(time)
                                 }, 500)
                             }
-
-                            // $.post(servers.backup() + "pdf/deleteByCode", {code: archive_manage.fileCode}, function (res) {
-                            // })
                             layer.close(index)
                         })
                     },
@@ -324,53 +329,50 @@ var archive_manage = {
                 }
             })
         }
-        , bindDeleteEventListener: function (deleteBtns) {
-            deleteBtns.off('click')
-            deleteBtns.on('click', function () {
-                //首先弹出一个询问框
-                var _this = $(this)
-                layer.open({
-                    type: 1,
-                    title: '删除',
-                    content: "<h5 style='text-align: center;padding-top: 8px'>确认要删除该记录?</h5>",
-                    area: ['180px', '130px'],
-                    btn: ['确认', '取消'],
-                    offset: ['40%', '55%'],
-                    yes: function (index) {
-                        console.log('yes')
-                        var archiveCode = _this.attr('id').substr(3)
-                        $.post(home.urls.archive.deleteByCode(), {code: archiveCode}, function (result) {
-                            console.log(result.message)
-                            layer.msg(result.message, {
-                                offset: ['40%', '55%'],
-                                time: 700
-                            })
-                            if (result.code === 0) {
-                                var time = setTimeout(function () {
-                                    archive_manage.init()
-                                    clearTimeout(time)
-                                }, 500)
-                            }
-                            layer.close(index)
-
-                        })
-                    },
-                    btn2: function (index) {
-                        layer.close(index)
-                    }
-                })
-            })
-        }//**$ bindDeleteEventListener_end$
         , bindEditEventListener: function (editBtns) {
-            editBtns.off('click')
-            editBtns.on('click', function () {
+            editBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var archiveCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.archive.getByCode(), {code: archiveCode}, function (result) {
-                    var archives = result.data
-                    console.log('archives', archives)
-                    $('#arc_supcon').val(archives.supplyContact)
-                    $('#arc_refac').val(archives.repairContact)
+                    var archive = result.data
+                    console.log('archives', archive)
+                    //you need to render the table firstly  todo
+                    $("#arc_eqname").empty()
+                    archive_manage.equipments.forEach(function (e) {
+                        if (e.code == archive.equipmentCode.code)
+                            $("#arc_eqname").prepend("<option value='" + e.code + "'>" + e.name + "</option>")
+                        else
+                            $("#arc_eqname").append("<option value='" + e.code + "'>" + e.name + "</option>")
+                    })
+                    $("#arc_supfac").empty()
+                    $("#arc_ref").empty()
+                    archive_manage.suppliers.forEach(function (e) {
+                        if (e.name == archive.supplyFactory)
+                            $("#arc_supfac").prepend("<option value='" + e.code + "'>" + e.name + "</option>")
+                        else
+                            $("#arc_supfac").append("<option value='" + e.code + "'>" + e.name + "</option>")
+                        if (e.name == archive.repairFactory)
+                            $("#arc_ref").prepend("<option value='" + e.code + "'>" + e.name + "</option>")
+                        else
+                            $("#arc_ref").append("<option value='" + e.code + "'>" + e.name + "</option>")
+                    })
+                    $('#arc_eqdeadline').val(archive.defectPeriod)
+                    $('input[type="date"]').val(new Date(archive.installTime).Format('yyyy-MM-dd'))
+                    $('#arc_supcon').val(archive.supplyContact)
+                    $('#arc_refac').val(archive.repairContact)
+
+                    var form = $("#arc_eqdoc").parent('form')
+                    var upload = $("#arc_eqdoc").detach()
+                    form.append("<input type='button' value='更换文件' id='changeBtn'/>")
+                    $('#changeBtn').one('click', function () {
+                        form.empty().append(upload)
+                    })
+                    var eqcode = $('#arc_eqname').val()
+
+                    var eq = archive_manage.equipments.filter(function (e) {
+                        return e.code == eqcode
+                    })[0].name
+
                     layer.open({
                         type: 1,
                         title: '编辑',
@@ -388,42 +390,82 @@ var archive_manage = {
                             var supcon = $('#arc_supcon').val()
                             var refac = $('#arc_ref').val()
                             var recon = $('#arc_refac').val()
-                            var eqdoc = $('#arc_eqdoc').val()
+                            var eqdoc = $('#arc_eqdoc').val() == undefined || $('#arc_eqdoc').val() == undefined == '' ? archive.document : $('#arc_eqdoc').val()
 
-                            console.log('code', code)
-                            console.log('eqname', eqname)
-                            console.log('installtime', installtime)
-                            console.log('deadline', deadline)
-                            console.log('supfac', supfac)
-                            console.log('supcon', supcon)
-                            console.log('refac', refac)
-                            console.log('recon', recon)
-                            console.log('eqdoc', eqdoc)
-                            $.post(home.urls.archive.update(), {
-                                code: code,
-                                equipmentName: eqname,
-                                installTime: installtime,
-                                defectPeriod: deadline,
-                                suppltFactory: supfac,
-                                supplyContact: supcon,
-                                repairFactory: refac,
-                                repairContact: recon,
-                                document: eqdoc,
-                            }, function (result) {
-                                console.log(result.message)
-                                layer.msg(result.message, {
-                                    offset: ['40%', '55%']
+                            if (eqdoc == archive.document) {
+                                $.post(home.urls.archive.update(), {
+                                    code: code,
+                                    name: archive.name,
+                                    equipmentCode: eqname,
+                                    installTime: installtime,
+                                    equipmentName: eq,
+                                    defectPeriod: deadline,
+                                    supplyFactory: supfac,
+                                    repairFactory: refac,
+                                    document: eqdoc,
+                                    supplyContact: supcon,
+                                    repairContact: recon,
+                                }, function (result) {
+                                    console.log(result.message)
+                                    layer.msg(result.message, {
+                                        offset: ['40%', '55%']
+                                    })
+                                    if (result.code === 0) {
+                                        var time = setTimeout(function () {
+                                            archive_manage.init()
+                                            clearTimeout(time)
+                                        }, 500)
+                                    }
+                                    // $.post(servers.backup() + "pdf/deleteByCode", {code: archive.document}, function (res) {
+                                    // })
+                                    archive_manage.funcs.clearAddModal()
+                                    layer.close(index)
+                                    $("#add-doc-modal").css('display', 'none')
                                 })
-                                if (result.code === 0) {
-                                    var time = setTimeout(function () {
-                                        archive_manage.init()
-                                        clearTimeout(time)
-                                    }, 500)
-                                }
-                                archive_manage.funcs.clearAddModal()
-                                layer.close(index)
-                                $("#add-doc-modal").css('display', 'none')
-                            })
+                            } else {
+                                $.ajax({
+                                    url: servers.backup() + "pdf/upload",
+                                    type: 'POST',
+                                    data: archive_manage.formData,
+                                    async: false,
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    success: function (result) {
+                                        archive_manage.fileCode = result.data.code
+                                        var document = result.data.code
+                                        $.post(home.urls.archive.update(), {
+                                            code: code,
+                                            name: $('#arc_eqdoc').val(),
+                                            equipmentCode: eqname,
+                                            installTime: installtime,
+                                            equipmentName: eq,
+                                            defectPeriod: deadline,
+                                            supplyFactory: supfac,
+                                            repairFactory: refac,
+                                            document: document,
+                                            supplyContact: supcon,
+                                            repairContact: recon,
+                                        }, function (result) {
+                                            console.log(result.message)
+                                            layer.msg(result.message, {
+                                                offset: ['40%', '55%']
+                                            })
+                                            if (result.code === 0) {
+                                                var time = setTimeout(function () {
+                                                    archive_manage.init()
+                                                    clearTimeout(time)
+                                                }, 500)
+                                            }
+                                            $.post(servers.backup() + "pdf/deleteByCode", {code: archive.document}, function (res) {
+                                            })
+                                            archive_manage.funcs.clearAddModal()
+                                            layer.close(index)
+                                            $("#add-doc-modal").css('display', 'none')
+                                        })
+                                    }
+                                })
+                            }
                         },
                         btn2: function (index) {
                             archive_manage.funcs.clearAddModal()
@@ -456,7 +498,7 @@ var archive_manage = {
                     "<tr>" +
                     "<td><input type='checkbox' class='arc_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
-                    "<td>" + (e.document ? '文档-' + (e.document) : '') + "</td>" +
+                    "<td>" + (e.name) + "</td>" +
                     "<td>" + (e.equipmentCode ? e.equipmentCode.name : '') + "</td>" +
                     "<td>" + (new Date(e.installTime).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.defectPeriod) + "</td>" +
