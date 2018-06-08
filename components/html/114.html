@@ -59,19 +59,19 @@
         <table width="100%" style="border-left: 0px;border-right: 0px;">
             <tr>
                 <td class="grey" width="20%">报损单编号</td>
-                <td width="30%">系统生成</td>
+                <td width="30%" id="bs_num">系统生成</td>
                 <td class="grey" width="20%">物料类型</td>
-                <td width="30%">继承</td>
+                <td width="30%" id="rawtype">继承</td>
             </tr>
             <tr>
                 <td class="grey">物料名称</td>
-                <td>继承</td>
+                <td id="rawname">继承</td>
                 <td class="grey">盘库数量</td>
-                <td>继承</td>
+                <td id="plate_num">继承</td>
             </tr>
             <tr>
                 <td class="grey">总量</td>
-                <td>根据明细求和</td>
+                <td id="total">根据明细求和</td>
                 <td class="grey">流程类型</td>
                 <td><select>
                     <option>流程1</option>
@@ -81,13 +81,13 @@
             </tr>
             <tr>
                 <td class="grey">报损人</td>
-                <td>当前用户</td>
+                <td id="user">当前用户</td>
                 <td class="grey">审核状态</td>
-                <td>待审核</td>
+                <td id="audit_status">待审核</td>
             </tr>
             <tr >
                 <td class="grey">报损时间</td>
-                <td >继承</td>
+                <td id="bs_time">继承</td>
             </tr>
         </table>
         <div class="whitespace"></div>
@@ -97,16 +97,9 @@
                 <td width="45%">入库编号</td>
                 <td width="45%">报损数量</td>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>3823333333</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>3823333334</td>
-                <td></td>
-            </tr>
+            <tbody>
+
+            </tbody>
         </table>
         <div class="whitespace"></div>
         <!--审核人-->

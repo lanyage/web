@@ -721,13 +721,18 @@ var home = {
                 return servers.backup() + 'productSendHeader/updateAuditStatusByCode'
             }
         },
+        plateAudit:{
+            getByRawType: function () {
+                return servers.backup() + '/lossEntryHeader/getByRawType'
+            }
+        },
         plateAlarm: {
             getAllByPage: function () {
                 return servers.backup() + '/materialsTotal/getAllByPage'
             },
             getByWarnStatusByPage:function(){
                 return servers.backup() +  '/materialsTotal/getByWarnStatusByPage'
-            },
+            }
             // getByStatusByPage(){
             //     return　servers.backup() +  '/materialsTotal/getByStatusByPage'
             // }
