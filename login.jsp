@@ -99,6 +99,7 @@
             var modelOperations = result.data
             window.localStorage.setItem('modelOperations', JSON.stringify(modelOperations))
         })
+        /** 如果所有角色的三级菜单和操作 */
         $.get(servers.backup() + 'role/getAllRoleModelOperation', {}, function (result) {
             var roleModelOperation = result.data
             window.localStorage.setItem('roleModelOperation', JSON.stringify(roleModelOperation))
@@ -109,6 +110,12 @@
                 return a.code - b.code
             })
             window.localStorage.setItem('operations', JSON.stringify(operations))
+        })
+        $.get(servers.backup() + 'model/getAll', {}, function (result) {
+            var all_menu3s = result.data.sort(function (a, b) {
+                return a.code - b.code
+            })
+            window.localStorage.setItem('all_menu3s', JSON.stringify(all_menu3s))
         })
     })
 </script>
