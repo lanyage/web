@@ -787,6 +787,9 @@ var home = {
             deleteByBatchCode: function () {
                 return servers.backup() + 'equipment/deleteByBatchCode'
             },
+            getAll: function() {
+                return servers.backup() + 'equipment/getAll'
+            }
         },
         process: {
             getAllByPage: function () {
