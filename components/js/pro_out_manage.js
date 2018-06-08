@@ -172,7 +172,7 @@ var pro_out_manage = {
                             transportMode : transportMode,
                             createDate: nowTime,
                             processManage :{code : $('#add_select_processCode').val()},
-                            auditStatus : 0,
+                            auditStatus : 1,
                             outStatus: 0,
                             sender:{code : userJson.code},
                             sendTime:new Date().getTime(),
@@ -339,11 +339,9 @@ var pro_out_manage = {
                         console.log(note)
                         $.post(home.urls.productOut.updateAuditStatusByCode(),{
                             note : note,
-                            auditorCode : audit_Code,
-                            productSendHeaderCode:code,
-                            processManageCode:items.processManage.code,
-                            auditTime:new Date().getTime(),
-                            auditResult:22
+                            code : codeNumber,
+                            auditCode:audit_Code,
+                            auditStatus:2
 
                         }, function(result){
                             layer.msg(result.message,{
@@ -432,12 +430,16 @@ var pro_out_manage = {
                 productSendHeaderCode: codeNumber
             }, function(result) {
                 res = result.data
-                //console.log(res)
+                if(res ==null || res==''){
+                
+                }
+                else{
                 $("#audit_Name").text(res[0].auditor?res[0].auditor.name:'null')
                 $("#audit_result").text(res[0].auditResult?res[0].auditResult:'null')
                 $("#audit_time").text(res[0].auditTime?new Date(res[0].auditTime).Format('yyyy-MM-dd'):' ')
                 $("#audit_note").text((res[0].note?res[0].note:' '))
-                
+                }
+                  
             })
 
             
@@ -502,11 +504,16 @@ var pro_out_manage = {
             }, function(result) {
                 var res = result.data
                // console.log(res)
-              
-                $("#Detail_audit_Name").text(res[0].auditor?res[0].auditor.name:' ')
-                $("#Detail_audit_result").text(res[0].auditResult?res[0].auditResult:' ')
-                $("#Detail_audit_time").text(res[0].auditTime?new Date(res[0].auditTime).Format('yyyy-MM-dd'):' ')
-                $("#Detail_audit_note").text((res[0].note?res[0].note:' '))
+               if(res ==null || res==''){
+                
+               }
+               else{
+                   $("#Detail_audit_Name").text(res[0].auditor?res[0].auditor.name:' ')
+                   $("#Detail_audit_result").text(res[0].auditResult?res[0].auditResult:' ')
+                   $("#Detail_audit_time").text(res[0].auditTime?new Date(res[0].auditTime).Format('yyyy-MM-dd'):' ')
+                   $("#Detail_audit_note").text((res[0].note?res[0].note:' '))
+               }
+                
                 
             })
         }

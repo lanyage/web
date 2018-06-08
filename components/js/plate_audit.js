@@ -1,23 +1,16 @@
 var plate_audit = {
     init: function () {
-
-        //////////////////////////////////
-        //render table
-        //////////////////////////////////
         plate_audit.funcs.renderTable()
-
-        var out = $('#department_page').width()
+        var out = $('#plate_audit_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#department_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#plate_audit_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
         }, 30)
     },
      funcs: {
         renderTable: function () {
-            //post here to getAll     $todo
             $.post(home.urls.plateAlarm.getAllByPage(), {}, function (res) {
-
                 var $tbody = $("#plate_audit_table").children('tbody')
                 /** 过滤返回的数据 */
                 var items = res.data.content
@@ -28,7 +21,7 @@ var plate_audit = {
                 var page = res.data //分页json
                 /** 分页信息 */
                 layui.laypage.render({
-                    elem: 'department_page',
+                    elem: 'plate_audit_page',
                     count: 10 * page.totalPages,//数据总数
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
@@ -47,7 +40,9 @@ var plate_audit = {
                 })
             })
 
-            plate_audit.funcs.bindDetailEventListener($('.plate_detail'))
+            plate_audit.funcs.bindDetailEventListener($('.detail'))
+            plate_audit.funcs.bindEditorEventListener($('.editor'))
+           // plate_audit.funcs.bindDeleteEventListener($('.delete'))
 
             var refreshBtn = $('#model-li-hide-refresh-114');
             plate_audit.funcs.bindRefreshEventListener(refreshBtn);
@@ -55,12 +50,6 @@ var plate_audit = {
             //追加搜索事件
             var searchBtn = $('#model-li-hide-search-114')
             plate_audit.funcs.bindSearchEventListener(searchBtn)
-            //////////////////////////////////
-            //bind editModal
-            //////////////////////////////////
-            //////////////////////////////////
-            //bind editModal's addBtn click
-            //////////////////////////////////
 
 
         }
@@ -83,19 +72,16 @@ var plate_audit = {
         // /** 绑定全选事件 */
         // mat_out_manage.funcs.checkboxEventBinding()
         /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
-        var detailBtns = $(".plate_detail")
-        plate_audit.funcs.bindDetailEventListener(detailBtns)
+       // var detailBtns = $(".plate_detail")
+       // plate_audit.funcs.bindDetailEventListener(detailBtns)
 
     }
 
     , bindDetailEventListener: function (detailBtns) {
-            //点击的时候需要弹出一个模态框
-            // 而且要填充模态框里面的内容 todo
-
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-                $.post(home.urls.plateAlarm.getAllByPage(),{},function (res) {
+               /* $.post(home.urls.plateAlarm.getAllByPage(),{},function (res) {
                     var items = res.data.content
                     var rawType = null
                     items.forEach(function (e) {
@@ -111,33 +97,22 @@ var plate_audit = {
                        // console.log(rawType)
                         var items = result.data //获取数据
                        // console.log(items)
-                        plate_audit.funcs.fill_detail_data($("#detail_modal"), items,)
-
+                        //plate_audit.funcs.fill_detail_data($("#edtior_modal"), items,)
+                      */
                         layer.open({
                             type: 1,
-                            title: '报损单申请',
-                            content: $("#detail_modal"),
+                            title: '新增工艺单',
+                            content: $("#edtior_modal"),
                             area: ['800px', '700px'],
-                            btn: ['提交', '取消'],
+                            btn: ['返回'],
                             offset: "auto",
                             closeBtn: 0,
                             yes: function (index) {
-                                $("#detail_modal").css('display', 'none')
-                                layer.close(index)
-                            }
-                            , btn1: function (index) {
-                                $("#detail_modal").css('display', 'none')
-                                layer.close(index)
-                            }
-                            , btn2: function (index) {
-                                $("#detail_modal").css('display', 'none')
+                                $("#edtior_modal").css('display', 'none')
                                 layer.close(index)
                             }
                         });
                     })
-
-                });
-            })
         },
          fill_detail_data: function(div,items){
                 var total_bs = 0
@@ -163,7 +138,32 @@ var plate_audit = {
                 $("#audit_status").text(items.auditStatus)
                 $("#bs_time").text(items.time?new Date(items.time).Format('yyyy-MM-dd'):'null')
          },
-         bindRefreshEventListener: function (refreshBtn) {
+         bindEditorEventListener:function(editBtns) {
+             editBtns.off('click').on('click',function() {
+                 layer.open({
+                     type:1,
+                     title:'新增工艺单',
+                     content:$("#editor_modal"),
+                     area:['800px','600px'],
+                     btn:['保存','提交','返回'],
+                     offset:"auto",
+                     closeBtn:0,
+                     yes: function(index) {
+                        $("#editor_modal").css('display', 'none')
+                        layer.close(index)
+                     }
+                     ,btn1: function(index) {
+                        $("#editor_modal").css('display', 'none')
+                        layer.close(index)
+                     }
+                     ,btn2: function(index) {
+                        $("#editor_modal").css('display', 'none')
+                        layer.close(index)
+                     }
+                 })
+             })
+         }
+         ,bindRefreshEventListener: function (refreshBtn) {
              refreshBtn.off('click')
              refreshBtn.on('click', function () {
 
@@ -194,7 +194,7 @@ var plate_audit = {
                      const $tbody = $("#plate_audit_table").children('tbody')
                      plate_audit.funcs.renderHandler($tbody, items)
                      layui.laypage.render({
-                         elem: 'department_page'
+                         elem: 'plate_audit_page'
                          , count: 10 * page.totalPages//数据总数
                          , jump: function (obj, first) {
                              if (!first) {

@@ -19,8 +19,8 @@
         </div>
     </div>
 
-    <div class="whitespace"></div>
-    <table id="art_table" style="width: 100%;">
+    <div class="whitespace" style="text-align: center"></div>
+    <table id="plate_audit__table" style="width: 100%;">
         <thead style="background: #666666;">
         <tr>
             <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
@@ -37,20 +37,151 @@
         </tr>
         </thead>
         <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
+        <tr>
+        <td><input type="checkbox" class="mat_in_checkbox"></td>
+        <td>1</td>
+        <td>1231</td>
+        <td>恩恩</td>
+        <td></td>
+        <td>1</td>
+        <td>1231</td>
+        <td><a href="#" class='detail' id='detail-1'><i class="layui-icon">&#xe60a;</i></a></td>
+        <td><a href="#" class='editor' id='editor-1'><i class="layui-icon">&#xe642;</i></a></td>
+        <td><a href="#" class='delete' id='delete-1'><i class='fa fa-times-circle-o'></a></td>
+        </tr>
         <tbody>
         </tbody>
     </table>
 
-    <div id="department_page">
+    <div id="plate_audit_page">
     </div>
-    <!--<script src="../components/js/plate_audit.js"></script>
+    <script src="../components/js/plate_audit.js"></script>
     <script type="application/javascript">
         $(function () {
             plate_audit.init()
         })
-    </script>-->
+    </script>
+    <!--editor-->
+    <div id="editor_modal" class="hide" styele="padding:30px 30px 30px 30px";>
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
+            <tr>
+                <td class="grey" width="20%">任务书名</td>
+                <td></td>
+                <td class="grey" width="20%">生产批号</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">编制人</td>
+                <td></td>
+                <td class="grey" width="20%">生产线号</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">审核人</td>
+                <td></td>
+                <td class="grey" width="20%">计划投入量</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">执行人</td>
+                <td></td>
+                <td class="grey" width="20%">投入日期</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">品管</td>
+                <td></td>
+                <td class="grey" width="20%">生产流水号</td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <span>工序生产工艺参数及指</span>
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
+            <tr>
+                <td rowspan="10" class="grey">混料</td>
+                <td rowspan="10">41#</td>
+                <td colspan="3">前驱体</td>
+                <td colspan="3">碳酸锂</td>
+                <td rowspan="2">添加剂</td>
+                <td rowspan="2">目标锂含量%</td>
+            </tr>
+            <tr>
+                <td>原料批号</td>
+                <td>主含%</td>
+                <td>配比量/kg</td>
+                <td>原料批号</td>
+                <td>主含%</td>
+                <td>配比量/kg</td>
+            </tr>
+            <tr>
+                <td rowspan="2"></td>
+                <td rowspan="2"></td>
+                <td rowspan="2"></td>
+                <td rowspan="2"></td>
+                <td rowspan="2"></td>
+                <td rowspan="2"></td>
+                <td></td>
+                <td></td>
+            </tr>
+             <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan="2">生产计划组织</td>
+                <td colspan="2">前驱体投料总量/kg</td>
+                <td colspan="5">碳酸锂投料总量/kg</td>
+            </tr>
+             <tr>
+                <td colspan="2"></td>
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <td rowspan="2">生产工艺参数</td>
+                <td colspan="4">混科频率</td>
+                <td colspan="3">混料时间</td>
+            </tr>
+             <tr>
+                <td colspan="4"></td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td>生产过程要求</td>
+                <td colspan="7"></td>
+            </tr>
+             <tr>
+                <td>生产过程检测</td>
+                <td colspan="7"></td>
+            </tr>
+            <tr>
+                <td rowspan="5" class="grey">预料</td>
+                <td rowspan="5">41# 42# 43#</td>
+                <td>生产计划组织</td>
+                <td colspan="7"></td>
+            </tr>
+            <tr>
+                <td>生产工艺参数</td>
+                <td colspan="7"></td>
+            </tr>
+             <tr>
+                <td>生产过程要求</td>
+                <td colspan="7"></td>
+            </tr>
+            <tr>
+                <td>生产过程检测</td>
+                <td colspan="7">检测频次：1批/天/炉窑，检测项目：SEM</td>
+            </tr>
+            <tr>
+                <td colspan="8">样品处理：中草药粉碎机粉碎，30秒/次 x 2次</td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+    </div>
 
-    <div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+
+
+    <div id='detail_modal' class="hide" style="padding: 0px 30px 0px 30px;">
         <div class="whitespace"></div>
         <table width="100%" style="border-left: 0px;border-right: 0px;">
             <tr>
