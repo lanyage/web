@@ -498,7 +498,7 @@ var archive_manage = {
                     "<tr>" +
                     "<td><input type='checkbox' class='arc_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
-                    "<td>" + (e.name) + "</td>" +
+                    "<td><strong><del>"+"无意义的列"+"</del></strong></td>" +
                     "<td>" + (e.equipmentCode ? e.equipmentCode.name : '') + "</td>" +
                     "<td>" + (new Date(e.installTime).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.defectPeriod) + "</td>" +
