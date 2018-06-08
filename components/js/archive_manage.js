@@ -42,7 +42,7 @@ var archive_manage = {
                 var form = _self.parent("form")
                 var formData = new FormData(form[0]);
                 var file = _self[0].files[0]
-                console.log(file)
+                // console.log(file)
                 formData.append('file', file)
                 archive_manage.formData = formData
             }
@@ -159,7 +159,7 @@ var archive_manage = {
                                     repairContact: repairContact,
                                 }
                                 $.post(home.urls.archive.add(), {                   //add new archive
-                                    name: $("#arc_eqdoc").val(),
+                                    name: obj.document,
                                     equipmentCode: obj.equipmentCode.code,
                                     installTime: obj.installTime,
                                     equipmentName: eq,
@@ -335,7 +335,7 @@ var archive_manage = {
                 var archiveCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.archive.getByCode(), {code: archiveCode}, function (result) {
                     var archive = result.data
-                    console.log('archives', archive)
+                    // console.log('archives', archive)
                     //you need to render the table firstly  todo
                     $("#arc_eqname").empty()
                     archive_manage.equipments.forEach(function (e) {
@@ -390,12 +390,13 @@ var archive_manage = {
                             var supcon = $('#arc_supcon').val()
                             var refac = $('#arc_ref').val()
                             var recon = $('#arc_refac').val()
-                            var eqdoc = $('#arc_eqdoc').val() == undefined || $('#arc_eqdoc').val() == undefined == '' ? archive.document : $('#arc_eqdoc').val()
-
-                            if (eqdoc == archive.document) {
+                            var eqdoc = archive.document
+                            console.log($('#arc_eqdoc').val())
+                            if ($('#arc_eqdoc').val() == undefined || $('#arc_eqdoc').val() == '') {
+                                console.log('上')
                                 $.post(home.urls.archive.update(), {
                                     code: code,
-                                    name: archive.name,
+                                    name: archive.document,
                                     equipmentCode: eqname,
                                     installTime: installtime,
                                     equipmentName: eq,
@@ -416,13 +417,18 @@ var archive_manage = {
                                             clearTimeout(time)
                                         }, 500)
                                     }
-                                    // $.post(servers.backup() + "pdf/deleteByCode", {code: archive.document}, function (res) {
-                                    // })
                                     archive_manage.funcs.clearAddModal()
                                     layer.close(index)
                                     $("#add-doc-modal").css('display', 'none')
                                 })
                             } else {
+                                console.log('下')
+                                var form = $('#arc_eqdoc').parent("form")
+                                var formData = new FormData(form[0]);
+                                var file = $('#arc_eqdoc')[0].files[0]
+                                console.log(file)
+                                formData.append('file', file)
+                                archive_manage.formData = formData
                                 $.ajax({
                                     url: servers.backup() + "pdf/upload",
                                     type: 'POST',
@@ -436,7 +442,7 @@ var archive_manage = {
                                         var document = result.data.code
                                         $.post(home.urls.archive.update(), {
                                             code: code,
-                                            name: $('#arc_eqdoc').val(),
+                                            name: document,
                                             equipmentCode: eqname,
                                             installTime: installtime,
                                             equipmentName: eq,
@@ -498,7 +504,7 @@ var archive_manage = {
                     "<tr>" +
                     "<td><input type='checkbox' class='arc_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
-                    "<td><strong><del>"+"无意义的列"+"</del></strong></td>" +
+                    "<td><strong><del>" + "文档"+e.document + "</del></strong></td>" +
                     "<td>" + (e.equipmentCode ? e.equipmentCode.name : '') + "</td>" +
                     "<td>" + (new Date(e.installTime).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.defectPeriod) + "</td>" +
