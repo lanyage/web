@@ -1,30 +1,42 @@
 <div id='model-li-hide-26' class="display-component-container" style="padding: 20px 20px 20px 20px;">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+         #table_inner td {
+            padding: 0px;
+            border: 1px darkgrey solid;
+            font-size: 14px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            height:25px;
+        }    
+    </style>
     <div class="block-quote">
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
                 <!--&#xe608;-->
-                <span id="model-li-hide-add-26"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
-                <span id="model-li-hide-delete-26"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+                <span id="model_li_hide_add_26"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
+                <span id="model_li_hide_delete_26"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
             </p>
         </div>
         <div class="fr">
             <p style="color: #62a49a; font-size: 14px;">
-                <span id="model-li-hide-refresh-26"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+                <span id="model_li_hide_refresh_26"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
                 &nbsp;&nbsp;
                 <input type="text" id="input_batch_num" placeholder="请输入批号"/> &nbsp;&nbsp;
-                <span id="model-li-hide-search-26"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+                <span id="model_li_hide_search_26"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
         </div>
     </div>
 
     <div class="whitespace" style="text-align: center"></div>
-    <table id="plate_audit__table" style="width: 100%;">
+
+    <table id="plate_audit_table" style="width: 100%;">
         <thead style="background: #666666;">
         <tr>
             <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
-            <td>选择</td>
+            <td class="checkBox_td"><input id="plate_audit_checkAll" type="checkbox"></td>
             <td>序号</td>
             <td>生产批号</td>
             <td>生产线名</td>
@@ -38,7 +50,7 @@
         </thead>
         <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
         <tr>
-        <td><input type="checkbox" class="mat_in_checkbox"></td>
+        <td><input type="checkbox" class="plate_audit_checkbox"></td>
         <td>1</td>
         <td>1231</td>
         <td>恩恩</td>
@@ -62,8 +74,8 @@
         })
     </script>
     <!--editor-->
-    <div id="editor_modal" class="hide" styele="padding:30px 30px 30px 30px";>
-        <table width="100%" style="border-left: 0px;border-right: 0px;">
+    <div id="editor_modal" class="hide" style="padding:30px;"  >
+        <table width="98%" style="border-left: 0px;border-right: 0px;padding: 5px;">
             <tr>
                 <td class="grey" width="20%">任务书名</td>
                 <td></td>
@@ -97,7 +109,7 @@
         </table>
         <div class="whitespace"></div>
         <span>工序生产工艺参数及指</span>
-        <table width="100%" style="border-left: 0px;border-right: 0px;">
+        <table width="98%" style="border-left: 0px;border-right: 0px;" id="table_inner">
             <tr>
                 <td rowspan="10" class="grey">混料</td>
                 <td rowspan="10">41#</td>
@@ -176,14 +188,13 @@
                 <td colspan="8">样品处理：中草药粉碎机粉碎，30秒/次 x 2次</td>
             </tr>
         </table>
-        <div class="whitespace"></div>
     </div>
 
 
-
-    <div id='detail_modal' class="hide" style="padding: 0px 30px 0px 30px;">
+<!--
+    <div id='detail_modal' class="hide" style="padding: 0px 30px 0px 30px;display: block">
         <div class="whitespace"></div>
-        <table width="100%" style="border-left: 0px;border-right: 0px;">
+        <table width="100%" style="border-left: 0px;border-right: 0px;" class="table_inner">
             <tr>
                 <td class="grey" width="20%">报损单编号</td>
                 <td width="30%">系统生成</td>
@@ -236,8 +247,8 @@
             </tr>
         </table>
         <div class="whitespace"></div>
-        <!--审核人-->
-        <div style="border: 1px solid #9F9F9F">
+       
+   <div style="border: 1px solid #9F9F9F">
             <table width="100%" style="border-left: 0px;border-right: 0px;">
                 <tr>
                     <td style="border: none">审批人：</td>
@@ -275,5 +286,5 @@
             </select>
         </div>
         <div class="whitespace"></div>
-    </div>
+    </div>-->
 </div>

@@ -12,10 +12,9 @@ var plate_audit = {
         renderTable: function () {
             $.post(home.urls.plateAlarm.getAllByPage(), {}, function (res) {
                 var $tbody = $("#plate_audit_table").children('tbody')
-                /** 过滤返回的数据 */
                 var items = res.data.content
                 //console.log(items)
-                plate_audit.funcs.renderHandler($tbody, items)
+              //  plate_audit.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 plate_audit.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -42,14 +41,20 @@ var plate_audit = {
 
             plate_audit.funcs.bindDetailEventListener($('.detail'))
             plate_audit.funcs.bindEditorEventListener($('.editor'))
-           // plate_audit.funcs.bindDeleteEventListener($('.delete'))
+            plate_audit.funcs.bindDeleteEventListener($('.delete'))
 
-            var refreshBtn = $('#model-li-hide-refresh-114');
+           plate_audit.funcs.bindAddEvent($('#model_li_hide_add_26'))
+           plate_audit.funcs.bindDeleteEvent($('#model_li_hide_delete_26'))
+
+            var refreshBtn = $('#model_li_hide_refresh_26');
             plate_audit.funcs.bindRefreshEventListener(refreshBtn);
 
             //追加搜索事件
-            var searchBtn = $('#model-li-hide-search-114')
+            var searchBtn = $('#model_li_hide_search_26')
             plate_audit.funcs.bindSearchEventListener(searchBtn)
+
+            var checkedBoxLen = $('.plate_audit_checkbox:checked').length
+            home.funcs.bindSelectAll($("#plate_audit_checkAll"),$(".plate_audit_checkbox"),checkedBoxLen,$("#plate_audit_table"))
 
 
         }
@@ -59,22 +64,21 @@ var plate_audit = {
             var code = e.code
             var content = (
                 "<tr>" +
-                "<td>" + e.code + "</td>" +
-                "<td>" + (e.rawType.material.name) + "</td>" +
-                "<td>" + (e.rawType.name) + "</td>" +
-                "<td>" + (e.weight) + "</td>" +
-                "<td>" + e.status + "</td>" +
-                "<td><a href=\"#\" class='plate_detail' id='detail_" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
-                "</tr>"
+                    "<td><input type='checkbox' class='plate_audit_checkbox' value='" + (e.code) + "'></td>" +
+                    "<td>" + e.code + "</td>" +
+                    "<td>" + (e.rawType ? e.rawType.code : null) + "</td>" +
+                    "<td>" + (new Date(e.applyTime).Format('yyyy-MM-dd')) + "</td>" +
+                    "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
+                    "<td>" + e.auditStatus + "</td>" +
+                    "<td><a href=\"#\" class='verify'id='verify-" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
+                    "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
+                    "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
+                    "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
+                    "</tr>"
             )
             $tbody.append(content)
         })
-        // /** 绑定全选事件 */
-        // mat_out_manage.funcs.checkboxEventBinding()
-        /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
-       // var detailBtns = $(".plate_detail")
-       // plate_audit.funcs.bindDetailEventListener(detailBtns)
-
+       
     }
 
     , bindDetailEventListener: function (detailBtns) {
@@ -102,13 +106,13 @@ var plate_audit = {
                         layer.open({
                             type: 1,
                             title: '新增工艺单',
-                            content: $("#edtior_modal"),
-                            area: ['800px', '700px'],
+                            content: $("#editor_modal"),
+                            area: ['900px', '700px'],
                             btn: ['返回'],
                             offset: "auto",
                             closeBtn: 0,
                             yes: function (index) {
-                                $("#edtior_modal").css('display', 'none')
+                                $("#editor_modal").css('display', 'none')
                                 layer.close(index)
                             }
                         });
@@ -144,7 +148,7 @@ var plate_audit = {
                      type:1,
                      title:'新增工艺单',
                      content:$("#editor_modal"),
-                     area:['800px','600px'],
+                     area:['900px','700px'],
                      btn:['保存','提交','返回'],
                      offset:"auto",
                      closeBtn:0,
@@ -152,21 +156,125 @@ var plate_audit = {
                         $("#editor_modal").css('display', 'none')
                         layer.close(index)
                      }
-                     ,btn1: function(index) {
+                     ,btn2: function(index) {
                         $("#editor_modal").css('display', 'none')
                         layer.close(index)
                      }
-                     ,btn2: function(index) {
+                     ,btn3: function(index) {
                         $("#editor_modal").css('display', 'none')
                         layer.close(index)
                      }
                  })
              })
          }
+         ,bindDeleteEventListener:function(deleteBtn){
+             deleteBtn.off('click').on('click',function(){
+                 var _this = $(this)
+                 layer.open({
+                     type:1,
+                     title:'删除',
+                     content:"<h5 style='text-align:center;padding-top:8px'>确认要删除该记录吗?</h5>",
+                     area:['180px','130px'],
+                     btn:['确认','取消'],
+                     offset:['40%','55%'],
+                     yes:function(index) {
+                         var Code = _this.attr('id').substr(7)
+                         $.post(home.urls.productOut.deleteByCode(), {
+                            code: Code
+                        }, function (result) {
+                            layer.msg(result.message, {
+                                offset: ['40%', '55%'],
+                                time: 700
+                            })
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
+                                    pro_out_manage.init()
+                                    clearTimeout(time)
+                                }, 500)
+                            }
+                            layer.close(index)
+                        })
+                     },
+                     btn2: function (index) {
+                        layer.close(index)
+                    }
+                 })         
+             })
+         }
+         ,bindAddEvent:function(addBtn){
+             addBtn.off('click').on('click',function(){
+                 layer.open({
+                     type:1,
+                     title:"新增工艺单",
+                     content:$("#editor_modal"),
+                     area:['900px','700px'],
+                     btn:['提交','取消'],
+                     offset:'auto',
+                     closeBtn:0,
+                     yes:function(index) {
+                         $("#editor_modal").css('display','none')
+                         layer.close(index)
+                     }
+                     ,btn2:function(index){
+                         $("#editor_modal").css('display','none')
+                         layer.close(index)
+                     }
+                 })
+             })
+         }
+         ,bindDeleteEvent:function(deleteBtn){
+             deleteBtn.off('click').on('click',function(){
+                 if($('.plate_audit_checkbox:checked').length === 0) {
+                     layer.msg('您还没有选中任何数据!',{
+                         offset:['40%','55%'],
+                         time:700
+                     })
+                 }
+                 else {
+                     layer.open({
+                         type:1,
+                         title:'批量删除',
+                         content:"<h5 style='text-align: center;padding-top: 8px'>您确认要删除所有记录吗?</h5>",
+                         area:['190px','130px'],
+                         btn:['确认','取消'],
+                         offset:['40%','55%'],
+                         yes:function(index){
+                             $('.plate_audit_checkbox').each(function() {
+                                 if($(this).prop('checked')) {
+                                     plate_audit_codes.push({code:$(this).val()})
+                                 }
+                             })
+                             $.ajax({
+                                url: home.urls.productOut.deleteByCodeBatch(),
+                                contentType: 'application/json',
+                                data: JSON.stringify(plate_audit_codes),
+                                dataType: 'json',
+                                type: 'post',
+                                success: function (result) {
+                                    if (result.code === 0) {
+                                        var time = setTimeout(function () {
+                                            plate_audit.init()
+                                            clearTimeout(time)
+                                        }, 500)
+                                    }
+                                    layer.msg(result.message, {
+                                        offset: ['40%', '55%'],
+                                        time: 700
+                                    })
+                                }
+                            })
+                            layer.close(index)
+                         } ,
+                         btn2: function (index) {
+                            layer.close(index)
+                        }           
+                     })
+                 }
+             })
+         }
          ,bindRefreshEventListener: function (refreshBtn) {
              refreshBtn.off('click')
              refreshBtn.on('click', function () {
-
                  var index = layer.load(2, {offset: ['40%', '58%']});
                  var time = setTimeout(function () {
                      layer.msg('刷新成功', {
