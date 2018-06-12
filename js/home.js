@@ -173,6 +173,20 @@ var home = {
             }
 
         },
+        rawType: {
+            getAllByPage:function() {
+                return servers.backup() + 'rawType/getAllByPage'
+            },
+            getByCode:function() {
+                return servers.backup() + 'rawType/getByCode'
+            },
+            update:function() {
+                return servers.backup() + 'rawType/update'
+            },
+            add:function() {
+                return servers.backup() + 'rawType/add'
+            }
+        },
         department: {
             getAllByPage: function () {
                 return servers.backup() + 'department/getAllByPage'
@@ -220,6 +234,9 @@ var home = {
             },
             deleteByBatchCode: function () {
                 return servers.backup() + 'material/deleteByBatchCode'
+            },
+            getAll:function() {
+                return servers.backup() + 'material/getAll'
             }
         },
         monitor_online: {
@@ -619,29 +636,29 @@ var home = {
                 return servers.backup() + 'productLine/getAll'
             }
         },
-        material: {
-            getAllByPage: function () {
-                return servers.backup() + 'material/getAllByPage'
-            },
-            add: function () {
-                return servers.backup() + 'material/add'
-            },
-            deleteByCode: function () {
-                return servers.backup() + 'material/deleteByCode'
-            },
-            update: function () {
-                return servers.backup() + 'material/update'
-            },
-            getByCode: function () {
-                return servers.backup() + 'material/getByCode'
-            },
-            getAllByLikeNameByPage: function () {
-                return servers.backup() + 'material/getAllByLikeNameByPage'
-            },
-            deleteByBatchCode: function () {
-                return servers.backup() + 'material/deleteByBatchCode'
-            }
-        },
+        // material: {
+        //     getAllByPage: function () {
+        //         return servers.backup() + 'material/getAllByPage'
+        //     },
+        //     add: function () {
+        //         return servers.backup() + 'material/add'
+        //     },
+        //     deleteByCode: function () {
+        //         return servers.backup() + 'material/deleteByCode'
+        //     },
+        //     update: function () {
+        //         return servers.backup() + 'material/update'
+        //     },
+        //     getByCode: function () {
+        //         return servers.backup() + 'material/getByCode'
+        //     },
+        //     getAllByLikeNameByPage: function () {
+        //         return servers.backup() + 'material/getAllByLikeNameByPage'
+        //     },
+        //     deleteByBatchCode: function () {
+        //         return servers.backup() + 'material/deleteByBatchCode'
+        //     }
+        // },
 
         materialIn: {
             getAllByPage: function () {

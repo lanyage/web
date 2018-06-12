@@ -121,7 +121,7 @@ var lingliao_apply = {
                 $("#processtype").html("<option>请选择流程类型</option>")
                 for (var i = 0; i < length; i++) {
                     var text = value[i].name
-                    $("#processtype").append("<option id='" + value[i].code + "' value='" + value[i].code + "'>" + text + "</option>");
+                    $("#processtype").append("<option value='" + value[i].code + "'>" + text + "</option>");
                 }
             })
         }
@@ -806,7 +806,7 @@ var lingliao_apply = {
                $("#edit_add_select").html("<option>请选择原料类型</option>")
                items.forEach(function(e){
                     $("#edit_add_select").append(
-                        "<option value='"+e.name+"' id="+e.code+">" + e.name + "</option>"
+                        "<option value='"+e.code+"'>" + e.name + "</option>"
                     )
                })
            })       
