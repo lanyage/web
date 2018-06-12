@@ -75,7 +75,7 @@ var plate_audit = {
                     "<td>" + (e.rawType.name) + "</td>" +
                     "<td>" + (e.weight) + "</td>" +
                     "<td>" + e.status + "</td>" +
-                    "<td><a href=\"#\" class='plate_detail' id='detail_" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
+                    "<td><a href=\"#\" class='plate_detail' id='detail_" + (e.rawType.code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
                     "</tr>"
                 )
                 $tbody.append(content)
@@ -95,51 +95,43 @@ var plate_audit = {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-                $.post(home.urls.plateAlarm.getAllByPage(),{},function (res) {
-                    var items = res.data.content
-                    var rawType = null
-                    items.forEach(function (e) {
-                        if(e.code == code){
-                            // console.log(e.rawType)
-                            rawType = e.rawType
-                        }
-                    })
 
-                    $.post(home.urls.plateAudit.getByRawType(),{
-                        code:rawType.code
-                    }, function(result) {
-                        // console.log(rawType)
-                        var items = result.data //获取数据
-                        // console.log(items)
-                        plate_audit.funcs.fill_detail_data($("#detail_modal"), items,)
+                $.post(home.urls.plateAudit.getByRawType(), {
+                    code: code
+                }, function (res1) {
+                    // console.log(rawType)
+                    var items1 = res1.data //获取数据
+                    console.log(items1)
 
-                        layer.open({
-                            type: 1,
-                            title: '报损单申请',
-                            content: $("#detail_modal"),
-                            area: ['800px', '700px'],
-                            btn: ['提交', '取消'],
-                            offset: "auto",
-                            closeBtn: 0,
-                            yes: function (index) {
-                                $("#detail_modal").css('display', 'none')
-                                layer.close(index)
-                            }
-                            , btn1: function (index) {
-                                $("#detail_modal").css('display', 'none')
-                                layer.close(index)
-                            }
-                            , btn2: function (index) {
-                                $("#detail_modal").css('display', 'none')
-                                layer.close(index)
-                            }
-                        });
-                    })
+                    plate_audit.funcs.fill_detail_data($("#detail_modal"), items1)
+                })
 
+
+                layer.open({
+                    type: 1,
+                    title: '报损单申请',
+                    content: $("#detail_modal"),
+                    area: ['800px', '700px'],
+                    btn: ['提交', '取消'],
+                    offset: "auto",
+                    closeBtn: 0,
+                    yes: function (index) {
+                        $("#detail_modal").css('display', 'none')
+                        layer.close(index)
+                    }
+                    , btn1: function (index) {
+                        $("#detail_modal").css('display', 'none')
+                        layer.close(index)
+                    }
+                    , btn2: function (index) {
+                        $("#detail_modal").css('display', 'none')
+                        layer.close(index)
+                    }
                 });
             })
-        },
-        fill_detail_data: function(div,items){
+        }
+        ,
+        fill_detail_data: function(div,items1){
             var total_bs = 0
             /*  var bs_table = items.lossEntry
                  var $tbody = $("#detail_modal").children('tbody')
@@ -154,14 +146,18 @@ var plate_audit = {
                   );
               })
  */
-            $("#bs_num").text(items.code)
-            $("#rawtype").text(items.rawType.material.name)
-            $("#rawname").text(items.rawType.name)
-            $("#plate_num").text(items.weight)
+            $("#bs_num").text(items1.code)
+            $("#rawtype").text(items1.rawType.material.name)
+            $("#rawname").text(items1.rawType.name)
+            $("#plate_num").text(items1.weight)
             $("#total").text(total_bs)
-            $("#user").text(items.user.name)
-            $("#audit_status").text(items.auditStatus)
-            $("#bs_time").text(items.time?new Date(items.time).Format('yyyy-MM-dd'):'null')
+            $("#user").text(items1.user.name)
+            $("#audit_status").text(items1.auditStatus)
+            $("#bs_time").text(items1.time?new Date(items1.time).Format('yyyy-MM-dd'):'null')
+
+
+
+
         },
         bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')

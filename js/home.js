@@ -724,6 +724,12 @@ var home = {
         plateAudit:{
             getByRawType: function () {
                 return servers.backup() + '/lossEntryHeader/getByRawType'
+            },
+            getAudit: function () {
+                return servers.backup() + '/lossEntryHeader/audit'
+            },
+            getRestAuditorByCode: function () {
+                return servers.backup() + '/lossEntryHeader/getRestAuditorByCode'
             }
         },
         plateAlarm: {
