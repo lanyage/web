@@ -17,6 +17,7 @@ var supply_manage = {
         renderTable: function () {
             console.log(1111)
             $.post(home.urls.supplyman.getAllByPage(), {}, function (res) {
+                console.log(1111)
                 console.log(res)
                 var $tbody = $("#supplier_table").children('tbody')
                 /** 过滤返回的数据 */

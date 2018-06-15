@@ -23,7 +23,7 @@ var customer_manage = {
                 var customers = result.data.content //获取数据
                 const $tbody = $("#customer_table").children('tbody')
                 customer_manage.funcs.renderHandler($tbody, customers)
-                customer_manage.pageSize = result.data.content.length
+                customer_manage.pageSize = result.data.length
                 var page = result.data
                 /** @namespace page.totalPages 这是返回数据的总页码数 */
                 /** 分页信息 */
@@ -40,7 +40,7 @@ var customer_manage = {
                                 var customers = result.data.content //获取数据
                                 const $tbody = $("#customer_table").children('tbody')
                                 customer_manage.funcs.renderHandler($tbody, customers)
-                                customer_manage.pageSize = result.data.content.length
+                                customer_manage.pageSize = result.data.length
                             })
                         }
                     }
@@ -50,6 +50,8 @@ var customer_manage = {
             /** 追加添加事件 */
             var addBtn = $("#model-li-hide-add-79")
             customer_manage.funcs.bindAddEventListener(addBtn) //追加增加事件
+            var deleteBtn = $('#model-li-hide-delete-79')
+            customer_manage.funcs.bindDeleteBatchEventListener(deleteBtn)
             /** 追加刷新事件 */
             var refreshBtn = $('#model-li-hide-refresh-79')
             customer_manage.funcs.bindRefreshEventListener(refreshBtn)//追加刷新事件
@@ -123,7 +125,7 @@ var customer_manage = {
                     })
                 })
             })
-        }//$ bindAddEventListener——end$
+        }
 
         /** 删除事件 */
         , bindDeleteEventListener: function (deleteBtns) {
@@ -161,31 +163,33 @@ var customer_manage = {
                     }
                 })
             })
-        }//$ bindDeleteEventListener_end$
+        }
 
         /** 搜索事件绑定 */
         , bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var customer_name = $('#customer_name_input').val()
-                $.post(home.urls.customer.listCustomer(), { name: customer_name }, function (result) {
+                console.log(customer_name)
+                $.post(home.urls.customer.findByName(), { name: customer_name }, function (result) {
                     var page = result.data
-                    var customers = result.data.content //获取数据
+                    console.log(result)
+                    var customers = result.data //获取数据
                     const $tbody = $("#customer_table").children('tbody')
-                    customer_manage.funcs.renderHandler($tbody, customers)
+                    customer_manage.funcs.renderHandler_search($tbody, customers)
                     layui.laypage.render({
                         elem: 'customer_page'
                         , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
-                            $.post(home.urls.customer.listCustomer(), {
+                            $.post(home.urls.customer.findByName(), {
                                 name: customer_name,
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
-                                var customers = result.data.content //获取数据
+                                var customers = result.data //获取数据
                                 const $tbody = $("#customer_table").children('tbody')
-                                customer_manage.funcs.renderHandler($tbody, customers)
-                                customer_manage.pageSize = result.data.content.length
+                                customer_manage.funcs.renderHandler_search($tbody, customers)
+                                customer_manage.pageSize = result.data.length
                             })
                             if (!first) {
                                 console.log('not first')
@@ -194,7 +198,34 @@ var customer_manage = {
                     })
                 })
             })
-        } //$bindSearchEventListener_end$
+        }
+        , renderHandler_search: function ($tbody, customers) {
+            $tbody.empty() //清空表格
+            e = customers
+            $('#cus_checkAll').prop('checked', false)
+            $tbody.append(
+                "<tr>" +
+                "<td><input type='checkbox' class='cus_checkbox' value='" + (e.code) + "'></td>" +
+                "<td>" + (e.name) + "</td>" +
+                "<td>" + (e.code) + "</td>" +
+                "<td>" + (e.description) + "</td>" +
+                "<td>" + (e.contact) + "</td>" +
+                "<td>" + (e.supplier.name) + "</td>" +
+                "<td><a href='#' class='editcustomer' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                "<td><a href='#' class='deletecustomer' id='de-" + (e.code) + "'><i class='fa fa-times-circle-o' aria-hidden='true'></i></a></td>" +
+                "</tr>")   
+           
+            var editBtns = $('.editcustomer')
+            var deleteBtns = $('.deletecustomer')
+            customer_manage.funcs.bindDeleteEventListener(deleteBtns)
+            customer_manage.funcs.bindEditEventListener(editBtns)
+            var selectAllBox = $('#cus_checkAll')
+            customer_manage.funcs.bindSelectAll(selectAllBox)
+            //var deleteBatchBtn = $('#model-li-hide-delete-79')
+            //customer_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
+            var cus_checkboxes = $('.cus_checkbox')
+            customer_manage.funcs.disselectAll(cus_checkboxes, selectAllBox)
+        }
 
         /** 绑定刷新事件 */
         , bindRefreshEventListener: function (refreshBtn) {
@@ -207,6 +238,7 @@ var customer_manage = {
                         time: 700
                     })
                     customer_manage.init()
+                    $('#customer_name_input').val('')
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -224,8 +256,7 @@ var customer_manage = {
         }
         /** 批量删除*/
         , bindDeleteBatchEventListener: function (deleteBatchBtn) {
-            deleteBatchBtn.off('click')
-            deleteBatchBtn.on('click', function () {
+            deleteBatchBtn.off('click').on('click', function () {
                 if ($('.cus_checkbox:checked').length === 0) {
                     layer.msg('亲,您还没有选中任何数据！', {
                         offset: ['40%', '55%'],
@@ -282,18 +313,19 @@ var customer_manage = {
                 var customerCode = _selfBtn.attr('id').substr(5)
                 $.get(home.urls.customer.customerDetail(), { code: customerCode }, function (result) {
                     var customers = result.data
+                    var codeBefore = customers.code
                     layer.open({
                         type: 1,
                         content: "<div id='addModal'>" +
                             "<div style='text-align: center;padding-top: 10px;'>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>用户名称:<input type='text' id='cus_name' value='" + (customers.name) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名:<input type='text' id='cus_code' value='" + (customers.code) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>描述说明:<input type='text' id='cus_description' value='" + (customers.description) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>手机号码:<input type='text' id='cus_contact' value='" + (customers.contact) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>所属公司:<select id='cus_supplier_name'  style='padding: 3px 33px ;' value='" + (customers.supplier.code) + "'></select></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>用户名称：<input type='text' id='cus_name' value='" + (customers.name) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名：<input type='text' id='cus_code' value='" + (customers.code) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>描述说明：<input type='text' id='cus_description' value='" + (customers.description) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>手机号码：<input type='text' id='cus_contact' value='" + (customers.contact) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>所属公司：<select id='cus_supplier_name'  style='padding: 3px 33px ;' value='" + (customers.supplier.code) + "'></select></p>" +
                             "</div>" +
                             "</div>",
-                        area: ['350px', '200px'],
+                        area: ['350px', '300px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '45%'],
                         yes: function (index) {
@@ -303,6 +335,7 @@ var customer_manage = {
                             var contact = $('#cus_contact').val()
                             var supplier_name = $('#cus_supplier_name').val()
                             $.post(home.urls.customer.updateCustomer(), {
+                                codeBefore:codeBefore,
                                 code: code,
                                 name: name,
                                 description: description,
@@ -456,8 +489,8 @@ var customer_manage = {
             customer_manage.funcs.bindEditEventListener(editBtns)
             var selectAllBox = $('#cus_checkAll')
             customer_manage.funcs.bindSelectAll(selectAllBox)
-            var deleteBatchBtn = $('#model-li-hide-delete-60')
-            customer_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
+            //var deleteBatchBtn = $('#model-li-hide-delete-79')
+            //customer_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
             var cus_checkboxes = $('.cus_checkbox')
             customer_manage.funcs.disselectAll(cus_checkboxes, selectAllBox)
         }

@@ -49,6 +49,17 @@ var firm_manage = {
                 var firmmanCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.firmman.getByCode(), {code: firmmanCode}, function (result) {
                     var firmman = result.data
+                    $.get(home.urls.companyman.getAllsupplierType(), function (result) {
+                        var companies = result.data
+                        $("#firm_type").empty()
+                        $("#firm_type").append("<option value='" + firmman.supplierType.code + "'>" + firmman.supplierType.type + "</option>")
+                        companies.forEach(function (e) {
+                            if(e.type!=firmman.supplierType.type)
+                            $('#firm_type').append(
+                                "<option value='" + (e.code) + "'>" + (e.type) + "</option>"
+                            )
+                        })
+                    })
                     layer.open({
                         type: 1,
                         content: "<div id='addModal'>" +
@@ -59,7 +70,7 @@ var firm_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>地址:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='firm_address' value='" + (firmman.address) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='firm_person' value='" + (firmman.contactPerson) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系电话: &nbsp;<input type='text' id='firm_contact' value='" + (firmman.contact) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>公司类型: &nbsp;<select disabled='disabled' style='width: 150px' id='firm_type' value='" + (firmman.supplierType.code) + "'><option value='"+(firmman.supplierType.code)+"'>"+(firmman.supplierType.type)+"</option> </select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>公司类型:&nbsp;<select style='width:170px;' id='firm_type'></select></p>" +
                         "</div>" +
                         "</div>",
                         area: ['400px', '350px'],
@@ -72,7 +83,7 @@ var firm_manage = {
                             var address = $('#firm_address').val()
                             var contactPerson = $('#firm_person').val()
                             var contact = $('#firm_contact').val()
-                            var supplierType = result.data.supplierType.code
+                            var supplierType = $('#firm_type').val()
                             $.post(home.urls.firmman.update(), {
                                 codeBefore: code,
                                 code: code,

@@ -48,6 +48,17 @@ var company_manage = {
                 var conpanymanCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.companyman.getByCode(), {code: conpanymanCode}, function (result) {
                     var companyman = result.data
+                    $.get(home.urls.companyman.getAllsupplierType(), function (result) {
+                        var companies = result.data
+                        $("#company_type").empty()
+                        $("#company_type").append("<option value='" + companyman.supplierType.code + "'>" + companyman.supplierType.type + "</option>")
+                        companies.forEach(function (e) {
+                            if(e.type!=companyman.supplierType.type)
+                            $('#company_type').append(
+                                "<option value='" + (e.code) + "'>" + (e.type) + "</option>"
+                            )
+                        })
+                    })
                     layer.open({
                         type: 1,
                         content: "<div id='addModal'>" +
@@ -58,7 +69,7 @@ var company_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>地址:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='company_address' value='" + (companyman.address) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='company_person' value='" + (companyman.contactPerson) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系电话:&nbsp;<input type='text' id='company_contact' value='" + (companyman.contact) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>公司类型:&nbsp;<select disabled='disabled' style='width: 150px' id='company_type' value='" + (companyman.supplierType.code) + "'><option value='companyman.supplierType.code'>"+(companyman.supplierType.type)+"</option> </select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>公司类型:&nbsp;<select style='width:170px;' id='company_type'></select></p>" +
                         "</div>" +
                         "</div>",
                         area: ['400px', '350px'],
@@ -71,7 +82,8 @@ var company_manage = {
                             var address = $('#company_address').val()
                             var contactPerson = $('#company_person').val()
                             var contact = $('#company_contact').val()
-                            var supplierType = result.data.supplierType.code
+                            var supplierType = $('#company_type').val()
+                            
                             $.post(home.urls.companyman.update(), {
                                 codeBefore: code,
                                 code: code,
