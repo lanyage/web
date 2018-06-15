@@ -1,0 +1,203 @@
+<div id='model-li-hide-44' class="display-component-container" style="padding: 20px 20px 0px 20px;height:100%">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style type="text/css">
+        textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize:none;
+        }
+        input {
+            border: none;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            工单状态
+            <select id="model-li-hide-searchbyflag-44">
+                <option value="0">待维修</option>
+                <option value="1">已接单</option>
+                <option value="2">已维修</option>
+                <option value="3">已评价</option>
+            </select> &nbsp;&nbsp;&nbsp;&nbsp; 保修日期
+
+            <i class="layui-icon">&#xe62d;</i>
+            <input type="text" id="model-li-hide-searchbytime-44">
+        </div>
+        <div class="fr">
+            <p style="color: #62a49a; font-size: 14px;">
+                <span id="model-li-hide-refresh-44">
+                    <a href="#">
+                        <i class="layui-icon">&#x1002;</i>刷新</a>
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" id="repair_name_input"/>
+                <span id="model-li-hide-search-44">
+                    <a href="#">
+                        <i class="layui-icon">&#xe615;</i>搜索</a>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="whitespace"></div>
+    <table id="repair_table" style="width: 100%;">
+        <thead style="background: #666666;">
+        <tr>
+            <td>工单状态</td>
+            <td>设备设施及名称</td>
+            <td>单位/部门</td>
+            <td>所属生产线</td>
+            <td>报修人</td>
+            <td>故障保修时间</td>
+            <td>接单时间</td>
+            <td>完工时间</td>
+            <td>详情</td>
+        </tr>
+        </thead>
+        <tbody style="font-size:xx-small">
+        </tbody>
+    </table>
+    <div id="repair_info" style="width:800px;height:600px;display:none; margin:0 auto;">
+        <div id="repair_body">
+            <table class="repair_table">
+                <tr>
+                    <td class="repair_td_text" id="re_depa" style="height:25px;">单位/部门</td>
+                    <td class="repair_td_blank"><textarea type="text" id="repair_department_input"
+                                                          class="provider_input" disabled></textarea></td>
+                    <td class="repair_td_text" id="re_ename"> 设备、设施名称</td>
+                    <td class="repair_td_blank"><input type="text" id="repair_equipmentname_input"
+                                                       class="provider_input" disabled></td>
+                    <td class="repair_td_text" id="re_ecode">设备、设施编号</td>
+                    <td class="repair_td_blank"><textarea type="text" id="repair_equipmentcode_input"
+                                                          class="provider_input" disabled></textarea></td>
+                    <td class="repair_td_text" id="re_prline">所属生产线</td>
+                    <td class="repair_td_blank"><textarea type="text" id="repair_productLine_input"
+                                                          class="provider_input" disabled></textarea></td>
+                </tr>
+                <tr>
+                    <td class="repair_td_text" id="re_duty" style="height:25px;">班次</td>
+                    <td class="repair_td_blank"><textarea type="text" id="repair_duty_input" class="provider_input"
+                                                          disabled></textarea></td>
+                    <td class="repair_td_text" id="re_app">报修人</td>
+                    <td class="repair_td_blank"><textarea type="text" id="repair_applicationPerson_input"
+                                                          class="provider_input" disabled></textarea>
+                    </td>
+                    <td class="repair_td_text" id="re_appcon">联系电话</td>
+                    <td class="repair_td_blank" colspan="3"><input type="text" id="repair_input_appcontact"
+                                                                   class="provider_input"
+                                                                   class="provider_input" disabled></td>
+                </tr>
+                <tr>
+                    <td class="repair_td_text" id="re_apptime">故障报修时间</td>
+                    <td class="repair_td_blank"><textarea type="text" id="repair_applicationTime_input"
+                                                          class="provider_input" disabled></textarea></td>
+                    <td class="repair_td_text" id="re_des">设备故障描述</td>
+                    <td colspan="5"><textarea id="repair_applicationDescription_input" class="provider_input"
+                                              disabled></textarea></td>
+
+                </tr>
+                <tr>
+                    <td class="repair_td_text" id="re_otime">接单时间</td>
+                    <td class="repair_td_blank"><textarea type="text" id="repair_orderTime_input" class="provider_input"
+                                                          disabled></textarea></td>
+                    <td class="repair_td_text" id="re_record">维修记录及故障原因分析</td>
+                    <td class="repair_td_blank" colspan="5"><textarea type="text"
+                                                                      id="repair_repairmanDescription_input"
+                                                                      class="provider_input" disabled></textarea>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="repair_td_text" id="re_fintime" style="height:25px;">维修完工时间</td>
+                    <td class="repair_td_blank"><textarea type="text" id="repair_finishTime_input"
+                                                          class="provider_input" disabled></textarea></td>
+                    <td class="repair_td_text">满意度评价</td>
+                    <td><input type="radio" name="satisfy" id="_4">优</td>
+                    <td><input type="radio" name="satisfy" id="_3">良</td>
+                    <td><input type="radio" name="satisfy" id="_2">一般</td>
+                    <td><input type="radio" name="satisfy" id="_1">不满意</td>
+                    <td class="repair_td_blank"><input type="text" class="repair_input" class="provider_input" disabled>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="repair_td_text">报修人或相关人员确认</td>
+                    <td class="repair_td_blank"><textarea type="text" id="repair_repairMan_input" class="provider_input"
+                                                          disabled></textarea></td>
+                    <td class="repair_td_text">满意度评价标准</td>
+                    <td colspan="5" style="text-align:left;">
+                        <div style="padding-left:20px;">
+                            1、设备修复完好性<br>
+                            2、维修及时性，从报修到截单时间不超过20min；<br>
+                            3、维修后现场清理；<br>
+                            4、维修服务态度；<br>
+                            注：以上4个准则，每有一项不符合要求，则评价降低一档。
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="8" style="text-align:left;">
+                        <div style="padding-left:20px;">
+                            注明：<br>
+                            1、本单作为设备运行情况的考核依据，同时也作为维修人员工作素质、工作态度，工作能力、工作纪律及技术技能的绩效考核依据；<br>
+                            2、设备、设施发生故障时，没有维修单或信息填写不完整的、维修可以拒绝维修；对威胁到人员安全、设备安全以及公司财产安全的设备故障、维修员应先
+                            处理设备故障，排除安全隐患，事后现场管理员必须马上不填维修单；<br>
+                            3、维修更换的配件记录变淡中，为天更换配件名称的区域，在配件名称栏中划反斜线“\”；<br>
+                            4、安全行为，有不安全行为一票否决制；<br>
+                            5、未进行评价，则评价按“不满意”进行统计；
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="repair_page">
+    </div>
+    <script src="../components/js/repair_apply.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            repair_apply.init()
+        })
+    </script>
+    <script type="application/javascript">
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#model-li-hide-searchbytime-44',//指定元素
+                btns: ['now'],
+                done: function (value, date) {
+                    var date = value.split('-').join('/')
+                    $.post(home.urls.repair.findByApplicationTimeInPages(), {date: date}, function (result) {
+                        console.log(result)
+                        $("#repair_table").children('tbody').empty()
+                        repair_apply.funcs.renderHandler($("#repair_table").children('tbody'), result.data.content)
+                        if (result.data.totalPages != 0) {
+                            layui.laypage.render({
+                                elem: 'repair_page'
+                                , count: 10 * result.data.totalPages//数据总数
+                                , jump: function (obj, first) {
+                                    console.log($("#model-li-hide-searchbytime-44").val())
+                                    if (!first) {
+                                        $.post(home.urls.repair.findByApplicationTimeInPages(), {
+                                            page: obj.curr - 1,
+                                            size: obj.limit,
+                                            date: date
+                                        }, function (result) {
+                                            var repairs = result.data.content //获取数据
+                                            const $tbody = $("#repair_table").children('tbody')
+                                            repair_apply.funcs.renderHandler($tbody, repairs)
+                                            repair_apply.pageSize = result.data.content.length
+                                        })
+                                    }
+                                }
+                            })
+                        }
+                    })
+
+                }
+            });
+        });
+    </script>
+</div>
