@@ -1,4 +1,7 @@
 var guide_manage = {
+     pageSize: 0,
+     equipments: [],
+     images: [],
     init: function () {
         $('.layui-layer-shade').remove()
         guide_manage.funcs.renderTable()
@@ -7,21 +10,15 @@ var guide_manage = {
                 var inside = $('.layui-laypage').width()
                 $('#guide_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
                 clearTimeout(time)
-            }//$init end$50
+            }
             , 30)
-    }//$init end$
-    , pageSize: 0
-    , equipments: []
-    , images: []
+    }
     , funcs: {
-
-
         renderTable: function () {
             $.post(home.urls.guideHeader.getAllByPage(), {page: 0}, function (result) {
                 var guides = result.data.content //获取数据
                 const $tbody = $("#guide_table").children('tbody')
                 guide_manage.funcs.renderHandler($tbody, guides)
-                guide_manage.pageSize = result.data.content.length
                 var page = result.data
                 layui.laypage.render({
                     elem: 'guide_page'
@@ -40,19 +37,51 @@ var guide_manage = {
                         }
                     }
                 })
-            })//$数据渲染完毕
-
-
+            })
+            //追加增加事件
             var addBtn = $("#model-li-hide-add-43")
-            guide_manage.funcs.bindAddEventListener(addBtn) //追加增加事件
+            guide_manage.funcs.bindAddEventListener(addBtn) 
+            //追加刷新事件
             var refreshBtn = $('#model-li-hide-refresh-43')
-            guide_manage.funcs.bindRefreshEventLisener(refreshBtn)//追加刷新事件
+            guide_manage.funcs.bindRefreshEventLisener(refreshBtn)
             var searchBtn = $('#model-li-hide-search-43')
             guide_manage.funcs.bindSearchEventListener(searchBtn)
 
-
+           // guide_manage.funcs.delete_buttons($(".delete_button")
         },
-        clearAddModal: function () {
+
+         renderHandler: function ($tbody, res) {
+            $tbody.empty() //清空表格
+            res.forEach(function (e) {
+                $tbody.append(
+                    "<tr>" +
+                    "<td><input type='checkbox' class='gui_checkbox' value='" + (e.code) + "'></td>" +
+                    "<td>" + (e.code) + "</td>" +
+                    "<td>" + (e.name) + "</td>" +
+                    "<td>" + (e.effectivedate) + "</td>" +
+                    "<td>" + (e.compactorcode ? e.compactorcode.name : '') + "</td>" +
+                    "<td>" + (e.auditorcode ? e.auditorcode.name : '') + "</td>" +
+                    "<td>" + (e.approvercode ? e.approvercode.name : '') + "</td>" +
+                    "<td><a href='#' class='detailGuide' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
+                    "<td><a href='#' class='editGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                    "<td><a href='#' class='deleteGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                    "</tr>")
+            })
+            //guide_manage.funcs.bindAll($tbody)
+            var editBtns = $('.editGuide')
+            var deleteBtns = $('.deleteGuide')
+            var deleteBatchBtn = $('#model-li-hide-delete-43')
+            var detailBtn = $('.detailGuide')
+            guide_manage.funcs.bindDetailEventListener(detailBtn)
+            guide_manage.funcs.bindDeleteEventListener(deleteBtns)
+            guide_manage.funcs.bindEditEventListener(editBtns)
+            guide_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
+
+            var checkBoxLen = $(".gui_checkbox:checked").length
+            home.funcs.bindSelectAll($("#gui_checkAll"),$(".gui_checkbox"),checkBoxLen,$("#guide_table"))
+
+        }
+        ,clearAddModal: function () {
             $("#tab").empty()
             $("#_2_banci").val('')
             $("#_2_bianhao").val('')
@@ -144,7 +173,7 @@ var guide_manage = {
                                     })
                                     if ($("#guide_table").children('tbody').children('tr').length < 10) {
                                         guide_manage.funcs.appendRecord($("#guide_table").children('tbody'), result.data)
-                                        guide_manage.funcs.bindAll($("#guide_table").children('tbody'))
+                                        //guide_manage.funcs.bindAll($("#guide_table").children('tbody'))
                                     }
                                     layer.close(index)
                                     $("#edgudiebook_info2").css('display', 'none')
@@ -158,8 +187,11 @@ var guide_manage = {
                     })
                 })
         }
-
-        //$ bindAddEventListener——end$
+        ,delete_buttons:function(deleteBtns){
+            deleteBtns.off('click').on('click',function(){
+                $(this).parent().parent().remove(); 
+            })
+        }
         , bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
             deleteBtns.on('click', function () {
@@ -189,15 +221,13 @@ var guide_manage = {
                     }
                 })
             })
-        }//**$ bindDeleteEventListener_end$
-
+        }
 
         , bindSearchEventListener: function (searchBtn) {
-            searchBtn.off('click')
-            searchBtn.on('click', function () {
-                console.log('search')
+            searchBtn.off('click').on('click', function () {
                 var guide_name = $('#guide_name_input').val()
-                $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {name: guide_name}, function (result) {
+                console.log(1111)
+                $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {num: guide_name}, function (result) {
                     var page = result.data
                     var guides = result.data.content //获取数据
                     const $tbody = $("#guide_table").children('tbody')
@@ -207,7 +237,7 @@ var guide_manage = {
                         , count: 10 * page.totalPages
                         , jump: function (obj, first) {
                             $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {
-                                name: guide_name,
+                                num: guide_name,
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
@@ -216,16 +246,11 @@ var guide_manage = {
                                 guide_manage.funcs.renderHandler($tbody, guides)
                                 guide_manage.pageSize = result.data.content.length
                             })
-                            if (!first) {
-                                console.log('not first')
-                            }
                         }
                     })
                 })
             })
-        } //$bindSearchEventListener_end$
-
-
+        } 
         , bindRefreshEventLisener: function (refreshBtn) {
             refreshBtn.off('click').on('click', function () {
                 var index = layer.load(2, {offset: ['40%', '58%']});
@@ -235,9 +260,8 @@ var guide_manage = {
                         time: 700
                     })
                     guide_manage.init()
+                    $("#guide_name_input").val('')
                     layer.close(index)
-                    location.reload();
-                    clearTimeout(time)
                 }, 200)
             })
         }
@@ -251,8 +275,8 @@ var guide_manage = {
         },
         renderEdit: function (header) {
             $("#bianhao").val(header.code)
-            console.log(guide_manage.equipments)
-            console.log(header)
+            //console.log(guide_manage.equipments)
+            //console.log(header)
             var meName = guide_manage.equipments.filter(function(e) {
                 return e.name == header.name
             })
@@ -295,16 +319,17 @@ var guide_manage = {
             })
             //after rendering head, then you should render the tbody
             $("#tab").empty()
-            console.log(header.guides)
+            //console.log(header.guides)
+            var i = 1
             header.guides.forEach(function(e) {
                 var guide = e
                 $("#tab").append(
-                    "<tr class='newLine' id='s" + guide.code + "'>" +
-                    "<td><input style='text-align: center;' type='text' value='"+guide.code+"'></td>" +
+                    "<tr class='newLine' id='s" + i + "'>" +
+                    "<td><input style='text-align: center;' type='text' value='"+(i)+"'></td>" +
                     "<td><input type='text' value='"+guide.content+"'></td>" +
                     "<td><input type='text' value='"+guide.standard+"'></td>" +
                     "<td><form enctype='multipart/form-data'><input class='upload' type='file' placeholder='上传图片' id='shangchuan_"+guide.code+"'/></form></td>" +
-                    "<td><button onclick='delTab(" + guide.code + ")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
+                    "<td><button class='delete_button' onclick='delTab("+(i++)+")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
                     "</tr>"
                 )
                 if(guide.imageCode != null) {
@@ -326,9 +351,9 @@ var guide_manage = {
                     guide_manage.funcs.renderEdit(header)
                     layer.open({
                         type: 1,
-                        title: '添加',
+                        title: '编辑',
                         content: $('#edgudiebook_info2'),
-                        area: ['700px', '500px'],
+                        area: ['900px', '500px'],
                         btn: ['确认', '取消'],
                         offset: 'auto',
                         closeBtn: 0,
@@ -369,8 +394,6 @@ var guide_manage = {
                                     imageCode: tupian
                                 })
                             })
-                            console.log(header)
-                            //todo
                             $.ajax({
                                 url: home.urls.guideHeader.update(),
                                 contentType: 'application/json',
@@ -381,10 +404,6 @@ var guide_manage = {
                                         offset: ['40%', '55%'],
                                         time: 700
                                     })
-                                    // if ($("#guide_table").children('tbody').children('tr').length < 10) {
-                                    //     guide_manage.funcs.appendRecord($("#guide_table").children('tbody'), result.data)
-                                    //     guide_manage.funcs.bindAll($("#guide_table").children('tbody'))
-                                    // }
                                     layer.close(index)
                                     $("#edgudiebook_info2").css('display', 'none')
                                 }
@@ -479,10 +498,11 @@ var guide_manage = {
                     guide_manage.funcs.clearDetail(header)          //clear this table first
                     guide_manage.funcs.renderDetail(header)             //render is then
                     var $detail_tbody = $("#detail_tbody")
+                    var i = 1
                     header.guides.forEach(function (e) {
                         $detail_tbody.append(
                             "<tr style='height:80px;'>" +
-                            "<td style='width:10%;'>" + e.code + "</td>" +
+                            "<td style='width:10%;'>" + i++ + "</td>" +
                             "<td style='width:30%;'>" + e.content + "</td>" +
                             "<td style='width:30%;'>" + e.standard + "</td>" +
                             "<td style='width:30%;'>" +
@@ -495,7 +515,7 @@ var guide_manage = {
                         type: 1,
                         title: '添加',
                         content: $("#gudiebook_info"),
-                        area: ['800px', '500px'],
+                        area: ['900px', '500px'],
                         btn: ['确认'],
                         offset: 'auto',
                         closeBtn: 0,
@@ -517,7 +537,6 @@ var guide_manage = {
                 "<td>" + (e.compactorcode ? e.compactorcode.name : '') + "</td>" +
                 "<td>" + (e.auditorcode ? e.auditorcode.name : '') + "</td>" +
                 "<td>" + (e.approvercode ? e.approvercode.name : '') + "</td>" +
-                "<td>" + (e.num) + "</td>" +
                 "<td><a href='#' class='detailGuide' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
                 "<td><a href='#' class='editGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                 "<td><a href='#' class='deleteGuide' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
@@ -527,38 +546,5 @@ var guide_manage = {
                 $($tbody.children('tr')[len - 1]).remove()
         },        //append all records to the tbody
 
-
-        bindAll: function ($tbody) {
-            var editBtns = $('.editGuide')
-            var deleteBtns = $('.deleteGuide')
-            var deleteBatchBtn = $('#model-li-hide-delete-43')
-            var detailBtn = $('.detailGuide')
-            guide_manage.funcs.bindDetailEventListener(detailBtn)
-            guide_manage.funcs.bindDeleteEventListener(deleteBtns)
-            guide_manage.funcs.bindEditEventListener(editBtns)
-            guide_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
-            home.funcs.bindSelectAll($('#gui_checkAll'), $('.gui_checkbox'), $tbody.children('tr').length, $("#guide_table"))
-        }        //bind all event listener
-
-        , renderHandler: function ($tbody, guides) {
-            $tbody.empty() //清空表格
-            guides.forEach(function (e) {
-                $('#gui_checkAll').prop('checked', false)
-                guide_manage.funcs.appendRecord($tbody, e)
-            })//数据渲染完毕
-            guide_manage.funcs.bindAll($tbody)
-        }
-
-        , disselectAll: function (gui_checkboxes, selectAllBox) {
-            gui_checkboxes.off('change')
-            gui_checkboxes.on('change', function () {
-                var statusNow = $(this).prop('checked')
-                if (statusNow === false) {
-                    selectAllBox.prop('checked', false)
-                } else if (statusNow === true && $('.gui_checkbox:checked').length === guide_manage.pageSize) {
-                    selectAllBox.prop('checked', true)
-                }
-            })
-        }
     }
 }

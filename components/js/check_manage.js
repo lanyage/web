@@ -279,7 +279,7 @@ var check_manage = {
                         '<ul style="line-height:30px" >' +
                         '<li>流程编码: &nbsp;<input type="text"id="chp_code" value="' + (check.code) + '"></li>' +
                         '<li>编码名称: &nbsp;<input type="text"id="chp_name" value="' + (check.name) + '"></li>' +
-                        '<li>流程类型: &nbsp;<input type="text"id="process_code" value="' + (check.process != null ? check.process.code : '') + '"></li>' +
+                        '<li>流程类型: &nbsp;<input type="text"id="process_code" placeholder="0代表紧急,1代表正常" value="' + (check.process != null ? check.process.code : '') + '"></li>' +
                         '<li>负责人1:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader1code" value="' + (check.leader1 != null ? check.leader1.code : '') + '"/></li>' +
                         '<li>负责人2:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader2code" value="' + (check.leader2 != null ? check.leader2.code : '') + '"/></li>' +
                         '<li>负责人3:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader3code" value="' + (check.leader3 != null ? check.leader3.code : '') + '"/></li>' +

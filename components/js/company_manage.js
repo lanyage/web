@@ -37,6 +37,16 @@ var company_manage = {
                 $('#company_page').css('padding-left', '37%')
             })
             //$数据渲染完毕
+            $.get(home.urls.company.getAllCompany(),{},function(result){
+                $("#company_name_input").html("<option value='-1'>请选择公司名称</option>")
+                res = result.data
+                res.forEach(function(e){
+                    $("#company_name_input").append(
+                        "<option value="+e.name+">"+e.name+"</option>"
+                    )
+                })
+
+            })
             var addBtn = $("#model-li-hide-add-59")
             company_manage.funcs.bindAddEventListener(addBtn) //追加增加事件
             var refreshBtn = $('#model-li-hide-refresh-59')
@@ -88,11 +98,11 @@ var company_manage = {
                             $.post(home.urls.company.add(), {
                                 code: code,
                                 name: name,
-                                creditCode: cocode,
-                                address: coaddress,
-                                contactPerson: cokeeper,
-                                contact: cophone,
-                                "supplierType.code": cotype
+                                cocode: cocode,
+                                coaddress: coaddress,
+                                cokeeper: cokeeper,
+                                cophone: cophone,
+                                cotype: cotype
                             }, function (result) {
                                 layer.msg(result.message, {
                                     offset: ['40%', '55%'],
@@ -156,6 +166,7 @@ var company_manage = {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var company_name = $('#company_name_input').val()
+                console
                 $.post(home.urls.company.getAllByLikeNameByPage(), {
                     name: company_name
                 }, function (result) {
@@ -291,16 +302,17 @@ var company_manage = {
                         var company = result.data
                         var company_type_code = company.supplierType?company.supplierType.code:''
                         var company_type = company.supplierType?company.supplierType.type:'';
+                        //company_manage.funcs.getOperations(data, company_type_code, company_type)
                         layer.open({
                             content: "<div id='addModal'>" +
                             "<div style='text-align: center;padding-top: 10px;'>" +
                             "<div style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司编号:<input type='text' id='code' value='" + (company.code) + "'/></div>" +
                             "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司名称:<input type='text' id='name' value='" + (company.name) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>统一社会信用代码:<input type='text' id='cocode' value='" + (company.creditCode) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司地址:<input type='text' id='coaddress' value='" + (company.address) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系人:<input type='text' id='cokeeper' value='" + (company.contactPerson) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话:<input type='text' id='cophone' value='" + (company.contact) + "'/></p>" +
-                            "<span>公司类型:</span><select id='cotype'>&nbsp;&nbsp;&nbsp;&nbsp;" + company_manage.funcs.getOperations(data, company_type_code, company_type) + "</select>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>统一社会信用代码:<input type='text' id='cocode' value='" + (company.cocode) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司地址:<input type='text' id='coaddress' value='" + (company.coaddress) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系人:<input type='text' id='cokeeper' value='" + (company.cokeeper) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话:<input type='text' id='cophone' value='" + (company.cophone) + "'/></p>" +
+                            "<span>公司类型:</span><select id='cotype'>&nbsp;&nbsp;&nbsp;&nbsp;" + company_manage.funcs.getOperations2(data) + "</select>" +
                             "</div>" +
                             "</div>",
                             type: 1,
@@ -320,11 +332,11 @@ var company_manage = {
                                 $.post(home.urls.company.update(), {
                                     code: code,
                                     name: name,
-                                    creditCode: cocode,
-                                    address: coaddress,
-                                    contactPerson: cokeeper,
-                                    contact: cophone,
-                                    "supplierType.code": cotype
+                                    cocode: cocode,
+                                    coaddress: coaddress,
+                                    cokeeper: cokeeper,
+                                    cophone: cophone,
+                                    cotype: cotype
                                 }, function (result) {
                                     layer.msg(result.message, {
                                         offset: ['40%', '55%'],
@@ -361,11 +373,11 @@ var company_manage = {
                     "<td><input type='checkbox' class='checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
                     "<td>" + (e.name) + "</td>" +
-                    "<td>" + (e.creditCode) + "</td>" +
-                    "<td>" + (e.address) + "</td>" +
-                    "<td>" + (e.contactPerson) + "</td>" +
-                    "<td>" + (e.contact) + "</td>" +
-                    "<td>" + (e.supplierType ? e.supplierType.type : '') + "</td>" +
+                    "<td>" + (e.cocode?e.cocode:' ') + "</td>" +
+                    "<td>" + (e.coaddress?e.coaddress:' ') + "</td>" +
+                    "<td>" + (e.cokeeper?e.cokeeper:' ') + "</td>" +
+                    "<td>" + (e.cophone ? e.cophone :' ') + "</td>" +
+                    "<td>" + (e.cotype ? e.cotype :' ') + "</td>" +
                     "<td><a href='#' class='editcompany' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "<td><a href='#' class='deletecompany' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
                     "</tr>")

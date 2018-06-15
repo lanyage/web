@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <style type="text/css">
-        #guidebook_top {
+       /* #guidebook_top {
             font-weight: bold;
             width: 100%;
             height: 25px;
@@ -23,15 +23,14 @@
             text-align: center;
             width: 100%;
             min-height: 100px;
-            overflow-y: auto;
             max-height: 300px;
         }
 
         #guidebook_body_uptable {
             margin: 0 auto;
             margin-bottom: 10px;
-            border: 1px solid black;
-            width: 90%;
+            border: 1px solid grey;
+            width: 100%;
             height: 80px;
             border-collapse: collapse;
 
@@ -56,7 +55,7 @@
         /*border-collapse: collapse;*/
 
         /*table-layout: fixed;*/
-        /*}*/
+        /*}
 
         #guidebook_body_text {
             font-weight: bold;
@@ -64,16 +63,15 @@
             width: 12%;
         }
 
-        tr,
-        td {
+        tr,td {
 
             border: 1px solid grey;
             font-size: 12px;
             text-align: center;
 
-        }
+        }*/
 
-        /* 新增和编辑内容 */
+        /* 新增和编辑内容
 
         #edguidebook_top {
             font-weight: bold;
@@ -103,8 +101,8 @@
         #edguidebook_body_uptable {
             margin: 0 auto;
             margin-bottom: 10px;
-            border: 1px solid black;
-            width: 90%;
+            border: 1px solid grey;
+            width: 100%;
             height: 80px;
             border-collapse: collapse;
 
@@ -112,28 +110,24 @@
 
         #edguidebook_body_downtable {
             margin: 0 auto;
-            border: 1px solid black;
-            width: 90%;
+            border: 1px solid grey;
+            width: 100%;
             border-collapse: collapse;
         }
 
         #edguidebook_body_downtable1 {
             margin: 0 auto;
-            width: 90%;
+            width: 100%;
             border-collapse: collapse;
         }
 
-        .guidebook_body_text {
-            font-weight: bold;
-            font-size: 14px;
-            width: 12%;
-        }
+ 
 
-        /* input {
+         input {
             width: 100%;
             height: 100%;
             border: 0px;
-        } */
+        } 
 
         .edguidebook_bottom {
             margin-top: 10px;
@@ -143,22 +137,20 @@
             width: 100%;
             height: 50px;
             background-color: white;
-        }
+        }*/
 
         input {
             border: none;
+            text-align:center;
         }
 
-        tr,
-        td {
+        tr,td {
 
             border: 1px solid grey;
             font-size: 12px;
             text-align: center;
         }
     </style>
-
-
     <div class="block-quote">
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
@@ -178,8 +170,8 @@
                 <span id="model-li-hide-refresh-43">
                     <a href="#">
                         <i class="layui-icon">&#x1002;</i>刷新</a>
-                </span>
-                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="guide_name_input"/>
+                </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" id="guide_name_input" placeholder="请输入编号"/>
                 <span id="model-li-hide-search-43">
                     <a href="#">
                         <i class="layui-icon">&#xe615;</i>搜索</a>
@@ -200,7 +192,6 @@
             <td>编制</td>
             <td>审核</td>
             <td>批准</td>
-            <td>页次</td>
             <td>详情</td>
             <td>编辑</td>
             <td>删除</td>
@@ -214,42 +205,39 @@
     </div>
     <div id="hello"></div>
     <!-- 详情gudie 有很多图片的那个 -->
-    <div id='gudiebook_info' style='height:100%; display:none; margin:0 auto;overflow: hidden;'>
-        <div id='guidebook_body'>
-            <table id='guidebook_body_uptable'>
+    <div id='gudiebook_info' style='display:none; margin:0 auto;overflow-x: hide;overflow-y: scroll;padding:30px;'>
+            <table id='guidebook_body_uptable' width="100%" style="border-left: 0px;border-right: 0px;">
                 <tr>
-                    <td id='eq_name' rowspan='3' colspan='6'>气氛辊道炉日常巡检指导书</td>
-                    <td style='width:15%;'>编号</td>
+                    <td id='eq_name' rowspan='3' colspan='6' style="font-size:17px;">气氛辊道炉日常巡检指导书</td>
+                    <td style='width:15%;' class="grey">编号</td>
                     <td id='bianhao' style='width:20%;'></td>
                 </tr>
-
                 <tr>
-                    <td>版次</td>
+                    <td class="grey">版次</td>
                     <td id='banci'></td>
                 </tr>
-
                 <tr>
-                    <td>页次</td>
+                    <td class="grey">页次</td>
                     <td id='yeci'></td>
                 </tr>
                 <tr>
-                    <td style='width:10%;'>编制</td>
+                    <td style='width:10%;' class="grey">编制</td>
                     <td id='bianzhi'></td>
-                    <td style='width:10%;'>审核</td>
+                    <td style='width:10%;' class="grey">审核</td>
                     <td id='shenpi'></td>
-                    <td style='width:10%;'>批准</td>
+                    <td style='width:10%;' class="grey">批准</td>
                     <td id='pizhun'></td>
-                    <td style='width:15%;'>生效日期</td>
+                    <td style='width:15%;' class="grey">生效日期</td>
                     <td id='shengxiaoriqi'></td>
                 </tr>
             </table>
-
-            <table id='guidebook_body_middletable'>
-                <tr style='width: calc( 100% - 1em );background:#F2F2F2;color: black;'>
-                    <td id='xuhao' style='width:10%;border: 1px solid black;'>序号</td>
-                    <td id='meirijiandianneirong' style='width:30%;border: 1px solid black;'>每日点检内容</td>
-                    <td id='jianchabiaozhun' style='width:30%;border: 1px solid black;'>检查标准</td>
-                    <td id='tupian' style='width:30%;border: 1px solid black;'>图片</td>
+            <div class="whitespace"></div>
+            <table id='guidebook_body_middletable' width="100%" style="border-left: 0px;border-right: 0px;">
+                <tr>
+                    <td id='xuhao' style='width:7%;'>序号</td>
+                    <td id='meirijiandianneirong' style='width:31%;'>每日点检内容</td>
+                    <td id='jianchabiaozhun' style='width:31%;'>检查标准</td>
+                    <td id='tupian' style='width:31%;'>图片</td>
                 </tr>
                 <tbody id="detail_tbody">
                 <tr style='height:80px;'>
@@ -262,7 +250,6 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
     </div>
     <script src="../components/js/guide_manage.js"></script>
     <script type="application/javascript">
@@ -273,67 +260,61 @@
 </div>
 
 <!-- 新增和编辑  没有图片的那个-->
-<div id="edgudiebook_info2" style="height:100%;display:none ;  margin:0 auto;">
-    <div id="edguidebook_body">
-        <table id="edguidebook_body_uptable">
-            <tr>
-                <td class="guidebook_body_text" rowspan="3" colspan="6">
-                    <!--设备编码	archiveCode-->
-                    <select id="equipment_select_2" style="width:100%;height:100%;border:0px;text-align: center;">
-                    </select>
+<div id="edgudiebook_info2" style="display:none; margin:0 auto;padding:30px;">
+        <table id="edguidebook_body_uptable" width="100%" style="border-left: 0px;border-right: 0px;">
+            <tr> 
+                <td rowspan="3" colspan="6" style="font-size:17px;">
+                    <select id="equipment_select_2" style="width:100%;height:100%;border:0px;text-align: center;"></select>
                 </td>
-                <!--编码	code todo 需要后端生成-->
-                <!--编号	num-->
-                <td class="guidebook_body_text" style="width:15%;">编号</td>
+                <td style="width:15%;" class="grey">编号</td>
                 <td style="width:20%;"><input type="text" id="_2_bianhao" style="width:100%;height:100%;border:0px;">
                 </td>
             </tr>
-
             <tr>
-                <td class="guidebook_body_text">版次</td>
-                <!--版次	edition-->
+                <td class="grey">版次</td>
                 <td><input id="_2_banci" type="text" style="width:100%;height:100%;border:0px;"></td>
             </tr>
-
             <tr>
-                <td class="guidebook_body_text">页次</td>
+                <td class="grey">页次</td>
                 <td><input type="text" id="_2_yeci" style="width:100%;height:100%;border:0px;"></td>
             </tr>
             <tr>
-                <td class="guidebook_body_text" style="width:10%;">编制</td>
+                <td class="grey" style="width:10%;">编制</td>
                 <!--编制人编码	compactorCode-->
                 <td><select id="_2_bianzhi" style="width: 100%;height: 100%;border: none;"></select></td>
-                <td class="guidebook_body_text" style="width:10%;">审核</td>
+                <td class="grey" style="width:10%;">审核</td>
                 <!--审核人编码	auditorCode-->
                 <td><select id="_2_shenhe" style="width: 100%;height: 100%;border: none;"></select></td>
                 <!--批准人编码	approverCode-->
-                <td class="guidebook_body_text" style="width:10%;">批准</td>
+                <td class="grey" style="width:10%;">批准</td>
                 <td><select id="_2_pizhun" style="width: 100%;height: 100%;border: none;"></select></td>
                 <!--生效日期	   effectiveDate-->
-                <td class="guidebook_body_text" style="width:15%;">生效日期</td>
+                <td class="grey" style="width:15%;">生效日期</td>
                 <td><input type="date" id="_2_shengxiaoriqi" style="width:100%;height:100%;border:0px;"></td>
             </tr>
         </table>
 
-        <div style="max-height:200px; overflow-x:hidden;overflow-y:scroll;">
-            <table id="edguidebook_body_downtable">
+        <div class="whitespace"></div>
+        <table id="edguidebook_body_downtable" style=" overflow-x: hide;overflow-y: scroll;width:840px;max-width:840px;">
+            <thead>
+            <td style="width:5%;"  class="grey">序号</td>
+            <td style="width:30%;" class="grey">每日点检内容</td>
+            <td style="width:30%;" class="grey">检查标准</td>
+            <td style="width:30%;"  class="grey">图片</td>
+            <td style="width:5%;"  class="grey">删除</td>
+            </thead>
+            <tbody id="tab">
 
-                <thead>
-                <th style="width:10%;">序号</th>
-                <th style="width:30%;">每日点检内容</th>
-                <th style="width:30%;">检查标准</th>
-                <th style="width:25%;">图片</th>
-                <th style="width:5%;">删除</th>
-                </thead>
-
-                <tbody id="tab">
-
-
-                </tbody>
-            </table>
+            </tbody>
+        </table>    
+        <div class="whitespace"></div>
+        <div id="edguidebook_body1" style="width: 100%;margin: 0 auto;background: white;text-align: center;">
+                <button onClick="addTab(),addPlus()"
+                style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
+            +
+        </button>
         </div>
-        <div id="edguidebook_body1">
-            <table id="edguidebook_body_downtable1">
+           <!-- <table id="edguidebook_body_downtable1">
                 <tbody id="tab1" style="border:0px;">
                 <tr id="s0" style="text-align:center;border:0px;">
                     <td colspan="5" style="border:0px;">
@@ -342,13 +323,10 @@
                             +
                         </button>
                     </td>
-
                 </tr>
                 </tbody>
             </table>
-        </div>
-
-    </div>
+        </div>-->
 </div>
 
 
@@ -356,18 +334,39 @@
 
 <script>
     function addTab() {
-        var count = $("#tab tr").length + 1
-        var tabpl = "<tr class='newLine' id='s" + count + "'><td><input style='text-align: center;' type='text' value='"+count+"'></td><td><input type='text'></td><td><input type='text'></td><td><form enctype='multipart/form-data'><input class='upload' type='file' placeholder='上传图片' id='shangchuan_"+count+"'/></form></td><td><button onclick='delTab(" + count + ")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td></tr>";
-        $("#tab").append(tabpl);
+        var count = $("#tab tr").length+1
+        console.log(count)
+        //var tabpl = "<tr class='newLine' id='s" + count + "'><td><input style='text-align: center;' type='text' value='"+count+"'></td><td><input type='text'></td><td><input type='text'></td><td><form enctype='multipart/form-data'><input class='upload' type='file' placeholder='上传图片' id='shangchuan_"+count+"'/></form></td><td><button onclick='delTab(" + count + ")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td></tr>";
+        //$("#tab").append(tabpl);
+        $("#tab").append(
+            "<tr class='newLine' id='s" + count + "'>" +
+            "<td><input style='text-align: center;' type='text' value='"+(count)+"'></td>" +
+            "<td><input type='text'></td>" +
+            "<td><input type='text'></td>" +
+            "<td><form enctype='multipart/form-data'><input class='upload' type='file' placeholder='上传图片' /></form></td>" +
+            "<td><button class='delete_button' onclick='delTab("+(count++)+")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
+            "</tr>"        
+        )
+         
     }
-
+    //"<td><button class='delete_button' onclick='delTab(" + count + ")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
     function delTab(x) {
-        var imgCode =  $( $("#s" + x).children('td')[3]).children("input").val()
+            console.log("#s" + x + "")
+            //$("#s" + x).remove();
+            $("#s" +(x) + "").remove();
+            var count = $("#tab tr").length  
+            var i = 1
+            $(".newLine").each(function(){
+                $(this).children('td').eq(0).text(i++)
+            })
+           // $(this).parent('td').parent('tr').remove()              
+        
+    }       
+        /*  var imgCode =  $($("#s" + x).children('td')[3]).children("input").val()
         console.log(imgCode)
         $.post(servers.backup()+"image/deleteByCode",{code:imgCode}, function() {
-        })
-        $("#s" + x).remove();
-    }
+        })}
+        $("#s" + x).remove();*/    
 
     function addPlus() {
         var tabplus = '<tr id="s0" style="text-align:center;border:0px;"><td colspan="5" style="border:0px;"> <button onclick=" delTab(0),addTab(),addPlus()"style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;" >+</button></td></tr>'

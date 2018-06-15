@@ -7,7 +7,6 @@
             margin:0 auto;
             width: 90%;
             height:90px;
-            margin-top: 30px;
             border-collapse:collapse;
             margin-bottom: 25px;
 
@@ -15,26 +14,21 @@
 
         #provider_body_uptable1{
             margin:0 auto;
-            width: 90%;
-            height:90px;
-            margin-top: 30px;
+            width: 100%;
             border-collapse:collapse;
             margin-bottom: 25px;
 
         }
         #provider_body_downtable{
             margin:0 auto;
-            width: 90%;
-            height:120px;
+            width: 100%;
             margin-top: 10px;
             border-collapse:collapse;
 
         }
         #provider_body_downtable1{
             margin:0 auto;
-            width: 90%;
-            height:120px;
-            margin-top: 10px;
+            width: 100%;
             border-collapse:collapse;
 
         }
@@ -49,6 +43,9 @@
         .hide {
             display: none;
         }
+        input{
+            text-align:center;
+        }
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -61,8 +58,11 @@
         </div>
         <div class="fr">
             <p style="color: #62a49a; font-size: 14px;">
-                <span id="model-li-hide-refresh-80"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
-                <input type="text" style="width: 100px" id="supplyman_name_input"/>
+                <span id="model-li-hide-refresh-80"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;
+                <select id="supplyman_name_select">
+
+                </select>
+                <!--<input type="text" style="width: 100px" id="supplyman_name_input"/>-->
                 <span id="model-li-hide-search-80"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
         </div>
@@ -73,11 +73,13 @@
         <tr>
             <td class="checkBox_td"><input id="sup_checkAll" type="checkbox"></td>
             <td>合同号</td>
-            <td>送货时间</td>
-            <td>总量</td>
-            <td>送货人</td>
+            <td>送货人名称</td>
+            <td>送货日期</td>
             <td>联系电话</td>
-            <td>详情</td>
+            <td>物料名称</td>
+            <td>总重量</td>
+            <td>状态</td>
+            <td class="detail">详情</td>
             <td class="edit_td">编辑</td>
             <td class="delete_td">删除</td>
         </tr>
@@ -87,108 +89,102 @@
     </table>
     <div id="supplyman_page">
     </div>
-    <div id="provider_info" class="hide"
-         style="width:800px;height:600px;  margin:0 auto;position: relative;">
-        <div id="privider_body">
-            <table id="provider_body_uptable">
+    <!--add-->
+    <div id="provider_info" class="hide" style="padding: 30px;">
+            <table width="100%" style="border-left: 0px;border-right: 0px;">
                 <tr>
-                    <td id="header">合同号</td>
+                    <td class="grey">合同号</td>
                     <td><input class='provider_input' type="text" id="header_inp"></td>
-                    <td id="diliverer">送货人名称</td>
-                    <td><input class='provider_input' type="text" id="diliverer_inp"></td>
+                    <td class="grey">送货人名称</td>
+                    <td>
+                        <select id="diliverer_inp"></select>
+                    </td>
                 </tr>
-
                 <tr>
-                    <td id="dilivery_time">送货时间</td>
+                    <td class="grey">送货时间</td>
                     <td id="test" style="width:38%"><input class='provider_input layui-input' id="dilivery_time_inp" type="datetime"></td>
-                    <td id="contact">联系电话</td>
+                    <td class="grey">联系电话</td>
                     <td><input class='provider_input' type="text" id="contact_inp"></td>
                 </tr>
-
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td id="total">总量</td>
+                    <td class="grey">名称</td>
+                    <td ><input class='provider_input layui-input' id="name_inp" type="text"></td>
+                    <td class="grey">总量</td>
                     <td><input class='provider_input' type="text" id="total_inp"></td>
                 </tr>
+                <tr>
+                    <td class="grey">发货人厂家</td>
+                    <td >
+                        <select id="diliverer_supplier"></select>
+                    </td>
+                    <td class="grey"></td>
+                    <td></td>
+                </tr>
             </table>
-
+            <div class="whitespace"></div>
+            <div class="fr">
+                <button id="add_addBtn" class="roundBtn">&nbsp;新增&nbsp;</button>
+            </div>
+            <div class="whitespace"></div>
             <table id="provider_body_downtable">
-                <tr style="height:30px;">
-                    <td id="batch_number" style="width:30%">批号</td>
-                    <td id="name" style="width:30%">名称</td>
-                    <td id="specifications" style="width:17%">规格</td>
-                    <td id="number" style="width:17%">数量</td>
-                    <td id="delete" style="width:6%">删除</td>
+                <thead>
+                <tr class="grey">
+                    <td style="color:black" id="batch_number">批号</td>
+                    <td style="color:black" id="specifications" >规格</td>
+                    <td style="color:black" id="number">数量</td>
+                    <td style="color:black" id="editor">编辑</td>
+                    <td style="color:black" id="delete">删除</td>
                 </tr>
+                </thead>
+                <tbody>
 
-                <tr style="height:30px;" id="inputcontent" class="addline">
-                    <td><input class='provider_input' type="text" id="batch_number_inp"></td>
-                    <td><input class='provider_input' type="text" id="name_inp"></td>
-                    <td><input class='provider_input' type="text" id="specifications_inp"></td>
-                    <td><input class='provider_input' type="text" id="number_inp"></td>
-                    <td id="closebtn">
-                        <button type="button" id="close_btn" title="close it" onclick="del()"
-                                style="border:none;outline:none;font-size: 20px;color:#00A99D;background:white;">
-                            &times;
-                        </button>
-                    </td>
-                </tr>
-                <tr id="addb">
-                    <td colspan="5">
-                        <button id="add_btn" onclick="addbtn()"
-                                style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
-                            +
-                        </button>
-                    </td>
-                </tr>
+                </tbody>
             </table>
-        </div>
-
     </div>
-    <div id="provider_info1" class="hide"
-         style="width:800px;height:600px;  margin:0 auto;position: relative;">
-        <div id="privider_body1">
+    <!--add_add-->
+    <div id="provider_info_add" class="hide" style="padding: 30px;">
+        <span>批号：<input type="text" id="add_batchNumber"></span><br/><br/>
+        <span>规格：<input type="text" id="add_unit"></span><br/><br/>
+        <span>数量：<input type="text" id="add_weight"></span>
+    </div>
+
+    <!--detail-->
+    <div id="provider_info1" class="hide" style="padding: 30px;">
             <table id="provider_body_uptable1">
                 <tr>
-                    <td id="header1">合同号</td>
-                    <td><input class='provider_input' disabled="disabled" type="text" id="header_inp1"></td>
-                    <td id="diliverer1">送货人名称</td>
-                    <td><input class='provider_input' disabled="disabled" type="text" id="diliverer_inp1"></td>
+                    <td width="15%" class="grey">合同号</td>
+                    <td id="header_inp1"></td>
+                    <td width="15%" class="grey">送货人名称</td>
+                    <td id="diliverer_inp1"></td>
                 </tr>
 
                 <tr>
-                    <td id="dilivery_time1">送货时间</td>
-                    <td id="test1" style="width:38%"><input class='provider_input' disabled="disabled" id="dilivery_time_inp1"
-                                                            type="datetime"></td>
-                    <td id="contact1">联系电话</td>
-                    <td><input class='provider_input' disabled="disabled" type="text" id="contact_inp1"></td>
+                    <td width="15%" class="grey">送货时间</td>
+                    <td id="dilivery_time_inp1"></td>
+                    <td width="15%" class="grey">联系电话</td>
+                    <td id="contact_inp1"></td>
                 </tr>
 
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td id="total1">总量</td>
-                    <td><input class='provider_input' disabled="disabled" type="text" id="total_inp1"></td>
+                    <td width="15%" class="grey">名称</td>
+                    <td id="name"></td>
+                    <td width="15%" class="grey">总量</td>
+                    <td id="total_inp1"></td>
                 </tr>
             </table>
 
             <table id="provider_body_downtable1">
-                <tr style="height:30px;">
-                    <td id="batch_number1" style="width:30%">批号</td>
-                    <td id="name1" style="width:30%">名称</td>
-                    <td id="specifications1" style="width:17%">规格</td>
-                    <td id="number1" style="width:17%">数量</td>
+                <thead>
+                <tr class="grey">
+                    <td style="color:black">批号</td>
+                    <td style="color:black">规格</td>
+                    <td style="color:black">数量</td>
                 </tr>
+                </thead>
+                <tbody>
 
-                <tr style="height:30px;">
-                    <td><input class='provider_input' disabled="disabled" type="text" id="batch_number_inp1"></td>
-                    <td><input class='provider_input' disabled="disabled" type="text" id="name_inp1"></td>
-                    <td><input class='provider_input' disabled="disabled" type="text" id="specifications_inp1"></td>
-                    <td><input class='provider_input' disabled="disabled" type="text" id="number_inp1"></td>
-                </tr>
+                </tbody>
             </table>
-        </div>
     </div>
     <script src="../components/js/supply_manage.js"></script>
     <script type="application/javascript">
@@ -196,7 +192,7 @@
             supply_manage.init()
         })
     </script>
-    <script>
+    <!--<script>
         layui.use('laydate', function(){
             var laydate = layui.laydate;
             laydate.render({

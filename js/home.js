@@ -33,7 +33,7 @@ var home = {
             },
         },
         processBuckle: {//扣电
-            getAllByStatusCodeByPage: function () {
+            getAllBysuffatusCodeByPage: function () {
                 return servers.backup() + 'processBuckle/getAllByStatusCodeByPage'
             },
             getAll: function () {
@@ -246,31 +246,37 @@ var home = {
         },
         supplyman: {
             getAllByPage: function () {
-                return servers.backup() + 'supplyInfo/listInfo'
+                return servers.backup() + 'sendEntryHeader/getAllByPage'
             },
             add: function () {
-                return servers.backup() + 'supplyInfo/addSupplyInfo'
+                return servers.backup() + 'sendEntryHeader/add'
             },
             deleteByCode: function () {
-                return servers.backup() + 'supplyInfo/deleteSupplyInfo'
+                return servers.backup() + 'sendEntryHeader/deleteByCode'
             },
             update: function () {
-                return servers.backup() + 'supplyInfo/updateInfo'
+                return servers.backup() + 'sendEntryHeader/update'
             },
             getByCode: function () {
-                return servers.backup() + 'supplyInfo/infoDetail'
+                return servers.backup() + 'sendEntryHeader/getByCode'
             },
             getAllByLikeNameByPage: function () {
                 return servers.backup() + 'supplyInfo/findByCompany'
             },
             deleteByBatchCode: function () {
-                return servers.backup() + 'supplyInfo/deleteSupplyInfoInBatch'
+                return servers.backup() + 'sendEntryHeader/deleteByCodeBatch'
             },
-            getAllInfo: function () {
-                return servers.backup() + 'supplyInfo/getSupplyInfosByHeadCode'
+            getBySupplierCodeByPage: function () {
+                return servers.backup() + 'sendEntryHeader/getBySupplierCodeByPage'
             },
             saveInBatch: function () {
                 return servers.backup() + 'supplyInfo/saveInBatch'
+            },
+            getAllSupplier: function () {
+                return servers.backup() + 'supplier/getAll'
+            },
+            getAllCustomer: function () {
+                return servers.backup() + 'supplyInfo/listCustomer'
             }
         },
         firmman: {
@@ -887,6 +893,9 @@ var home = {
             deleteByBatchCode: function () {
                 return servers.backup() + 'company/deleteByBatchCode'
             },
+            getAllCompany: function () {
+                return servers.backup() + 'company/getAll'
+            },
         },
         workshop: {
             getAllByPage: function () {
@@ -985,25 +994,25 @@ var home = {
         },
         processstatus: {
             getAllByPage: function () {
-                return servers.backup() + 'processStatus/getAllByPage'
+                return servers.backup() + 'process/getAllByPage'
             },
             add: function () {
-                return servers.backup() + 'processStatus/add'
+                return servers.backup() + 'process/add'
             },
             deleteByCode: function () {
-                return servers.backup() + 'processStatus/deleteByCode'
+                return servers.backup() + 'process/deleteByCode'
             },
             update: function () {
-                return servers.backup() + 'processStatus/update'
+                return servers.backup() + 'process/update'
             },
             getByCode: function () {
-                return servers.backup() + 'processStatus/getByCode'
+                return servers.backup() + 'process/getByCode'
             },
             getAllByLikeNameByPage: function () {
-                return servers.backup() + 'processStatus/getAllByLikeNameByPage'
+                return servers.backup() + 'process/getAllByLikeNameByPage'
             },
             deleteByBatchCode: function () {
-                return servers.backup() + 'processStatus/deleteByBatchCode'
+                return servers.backup() + 'process/deleteByBatchCode'
             },
         },
         product: {

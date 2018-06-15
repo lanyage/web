@@ -76,6 +76,8 @@ var processstatus_manage = {
 				processstatus_manage.funcs.bindRefreshEventLisener(refreshBtn) //追加刷新事件
 				var searchBtn = $('#model-li-hide-search-60')
 				processstatus_manage.funcs.bindSearchEventListener(searchBtn)
+				var deleteBatchBtn = $('#model-li-hide-delete-60')
+			    processstatus_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
 			}
 
 			,
@@ -120,7 +122,7 @@ var processstatus_manage = {
 						}
 					});
 
-					laydate.render({
+					/*laydate.render({
 						elem: '#last_review_time',
 						type: 'datetime'
 					});
@@ -130,7 +132,7 @@ var processstatus_manage = {
 					curleader_result.forEach(function(curleader) {
 						var option = $("<option>").val(curleader.code).text(curleader.name);
 						curleader_select.append(option);
-					});
+					});*/
 				})
 			} //$ bindAddEventListener——end$
 
@@ -216,6 +218,7 @@ var processstatus_manage = {
 						time: 700
 					})
 					processstatus_manage.init()
+					$("#processstatus_name_input").val('')
 					layer.close(index)
 					clearTimeout(time)
 				}, 200)
@@ -255,6 +258,7 @@ var processstatus_manage = {
 									})
 								}
 							})
+							console.log(processstatusCodes)
 							$.ajax({
 								url: home.urls.processstatus.deleteByBatchCode(),
 								contentType: 'application/json',
@@ -351,8 +355,6 @@ var processstatus_manage = {
 			processstatus_manage.funcs.bindEditEventListener(editBtns)
 			var selectAllBox = $('#checkAll')
 			processstatus_manage.funcs.bindSelectAll(selectAllBox)
-			var deleteBatchBtn = $('#model-li-hide-delete-60')
-			processstatus_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
 			var checkboxes = $('.checkbox')
 			processstatus_manage.funcs.disselectAll(checkboxes, selectAllBox)
 		},
