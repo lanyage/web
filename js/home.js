@@ -312,6 +312,9 @@ var home = {
             getByCode: function () {
                 return servers.backup() + 'supplyInfo/supplierDetail'
             },
+            getAllsupplierType: function () {
+                return servers.backup() + 'supplierType/getAll'
+            },
         },
         personman: {
             getAllByPage: function () {
@@ -322,6 +325,9 @@ var home = {
             },
             getByCode: function () {
                 return servers.backup() + 'customer/customerDetail'
+            },
+            getAllSupplier: function () {
+                return servers.backup() + 'supplier/getAll'
             },
         },
         role: {
@@ -545,6 +551,9 @@ var home = {
             },
             findByEquipmentNameInPages: function () {
                 return servers.backup() + 'equipment/findByEquipmentNameInPages'
+            },
+            findByEquipmentNameInPages: function () {
+                return servers.backup() + 'equipment/detail'
             },
         },
         defaultpassword: {

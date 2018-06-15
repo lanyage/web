@@ -43,8 +43,6 @@ var inputData_manage = {
           
         /** 选择不同的typeCode显示相应的表头 */
          bindShowtabTitle:function(tabTop){
-             console.log(tabTop)
-             console.log('aaaa')
              var ID = 'table'+$("#selectoption option:selected").attr('id')
             $('#model-li-hide-19 table').addClass('hide')
 
@@ -57,54 +55,46 @@ var inputData_manage = {
              fileUploadBtn.on('click',function(){
             //    var file = $('#file-input-name').val()
             var formData = new FormData($('#uploadForm')[0]);
-        var typeCode = $("#selectoption option:selected").val();
-        formData.append('typeCode',typeCode)
-        $.ajax({
-            url:home.urls.fileUpload.open(),
-            type:'POST',
-            data:formData,
-            async:false,
-            cache:false,
-            contentType:false,
-            processData:false,
-            success:function(returndata){
-                
-               // console.log('aaaaaaaaaaaaaaa')
+            var typeCode = $("#selectoption option:selected").val();
+            formData.append('typeCode',typeCode)
+            $.ajax({
+                url:home.urls.fileUpload.open(),
+                type:'POST',
+                data:formData,
+                async:false,
+                cache:false,
+                contentType:false,
+                processData:false,
+                success:function(returndata){
                var a 
                var code = $("#selectoption option:selected").attr('id')
                code = parseInt(code)
-               console.log(code)
-              
-                console.log(returndata)
-                var length = returndata.data['length']
-                console.log(length)
-                var tbody_page = 'tbody_page'+code
-                console.log(tbody_page)
-                var bb = $('#tbody_page'+code)
-                console.log(bb)
-                switch(code){
-                    case 1: inputData_manage.funcs.bindProduct(returndata,bb);
-                    break;
-                    case 2: inputData_manage.funcs.bindJinchi622(returndata,bb) ;
-                    break;
-                    case 3: inputData_manage.funcs.bindTianQi(returndata,bb);
-                    break;
-                    case 4: a = 'pc';
-                    break;
-                    case 5: a = 'pc';
-                    break;
-                    case 6: inputData_manage.funcs.bindZhiChengLidu(returndata,bb);
-                    break;
-                    case 7: inputData_manage.funcs.bindZhiChengZongli(returndata,bb);
-                    break;
-                    case 8: inputData_manage.funcs.bindZhiChengKoudian(returndata,bb);
-                    break;
-                    default:
-                    console.log('没有和以上的匹配上！！！')
+               var length = returndata.data['length']
+               var tbody_page = 'tbody_page'+code
+               var bb = $('#tbody_page'+code)
+               switch(code){
+                   case 1: inputData_manage.funcs.bindProduct(returndata,bb);
+                   break;
+                   case 2: inputData_manage.funcs.bindJinchi622(returndata,bb) ;
+                   break;
+                   case 3: inputData_manage.funcs.bindTianQi(returndata,bb);
+                   break;
+                   case 4: a = 'pc';
+                   break;
+                   case 5: a = 'pc';
+                   break;
+                   case 6: inputData_manage.funcs.bindZhiChengLidu(returndata,bb);
+                   break;
+                   case 7: inputData_manage.funcs.bindZhiChengZongli(returndata,bb);
+                   break;
+                   case 8: inputData_manage.funcs.bindZhiChengKoudian(returndata,bb);
+                   break;
+                   default:
+                   console.log('没有和以上的匹配上！！！')
                 }
             },
             error:function(returndata,Ccode){
-                console.log(returndata)
+                //console.log(returndata)
                 for(var i=0;i<length;i++){
 
                 }
@@ -117,7 +107,7 @@ var inputData_manage = {
          /** 制程扣电添加Tbody */
          bindZhiChengKoudian:function(result,Tcode){
             var length = result.data['length']
-            console.log(length)
+            //console.log(length)
             for(var i=0;i<length;i++){
                 var operation = result.data[i]['operation']
                 var publisher = result.data[i]['publisher']
@@ -131,7 +121,7 @@ var inputData_manage = {
                 Tcode.append("<tr>"+
                     "<td>"+ operation +"</td>"+
                     "<td>"+ publisher +"</td>"+
-                    "<td>"+ auditDate +"</td>"+
+                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
                     "<td>"+ furnaceNum +"</td>"+
                     "<td>"+ pc1 +"</td>"+
@@ -189,7 +179,7 @@ var inputData_manage = {
                 var p36 = result.data[i]['p36']//1C首次放电容量
 
                 Tcode.append("<tr>"+
-                    "<td>"+ auditDate +"</td>"+
+                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
                     "<td>"+ judge +"</td>"+
                     "<td>"+ number +"</td>"+
@@ -275,10 +265,10 @@ var inputData_manage = {
                 Tcode.append("<tr>"+
                     "<td>"+ operation +"</td>"+
                     "<td>"+ publisher +"</td>"+
-                    "<td>"+ auditDate +"</td>"+
+                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
                     "<td>"+ insideCode +"</td>"+
-                    "<td>"+ productDate +"</td>"+
+                    "<td>"+ new Date(productDate).Format('yyyy-MM-dd') +"</td>"+
                     "<td>"+ number +"</td>"+
                     "<td>"+ judge +"</td>"+
                     "<td>"+ c1 +"</td>"+
@@ -319,12 +309,12 @@ var inputData_manage = {
                 Tcode.append("<tr>"+
                     "<td>"+ operation +"</td>"+
                     "<td>"+ publisher +"</td>"+
-                    "<td>"+ auditDate +"</td>"+
+                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
                     "<td>"+ pc1 +"</td>"+
                     "<td>"+ pc2 +"</td>"+
                     "<td>"+ pc3 +"</td>"+
-                    "<td>"+ auditDate +"</td>"+
+                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
                     "<td>"+ pc1 +"</td>"+
                     "<td>"+ pc2 +"</td>"+
@@ -360,7 +350,7 @@ var inputData_manage = {
                 Tcode.append("<tr>"+
                     "<td>"+ operation +"</td>"+
                     "<td>"+ publisher +"</td>"+
-                    "<td>"+ auditDate +"</td>"+
+                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
                     "<td>"+ furnaceNum +"</td>"+
                     "<td>"+ pc1 +"</td>"+
@@ -413,9 +403,9 @@ var inputData_manage = {
                 Tcode.append("<tr>"+
                     "<td>"+ operation +"</td>"+
                     "<td>"+ publisher +"</td>"+
-                    "<td>"+ auditDate +"</td>"+
+                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
-                    "<td>"+ productDate +"</td>"+
+                    "<td>"+ new Date(productDate).Format('yyyy-MM-dd') +"</td>"+
                     "<td>"+ judge +"</td>"+
                     "<td>"+ number +"</td>"+
                     "<td>"+ c1 +"</td>"+
@@ -444,10 +434,8 @@ var inputData_manage = {
          bindCreatoption:function(){
             $.get(home.urls.fileUpload.getAllFileType(),{},function(result){
                 var value = result.data
-                console.log(value)
                 //var length = value.length
                 for(var i=1;i<9;i++){
-                    console.log(value[i])
                     var text = value[i]
                 $("#selectoption").append("<option id='"+ i +"' value='"+i+"'>"+text+"</option>");
                }

@@ -55,6 +55,17 @@ var person_manage = {
                 var personmanCode = _selfBtn.attr('id').substr(5)
                 $.get(home.urls.personman.getByCode(), {code: personmanCode}, function (result) {
                     var personman = result.data
+                    $.get(home.urls.personman.getAllSupplier(), function (result) {
+                        var companies = result.data
+                        $("#company_type").empty()
+                        $("#company_type").append("<option value='" + personman.supplier.code + "'>" + personman.supplier.name + "</option>")
+                        companies.forEach(function (e) {
+                            if(e.code!=personman.supplier.code)
+                            $('#company_type').append(
+                                "<option value='" + (e.code) + "'>" + (e.name) + "</option>"
+                            )
+                        })
+                    })
                     layer.open({
                         type: 1,
                         content: "<div id='addModal'>" +
@@ -63,7 +74,7 @@ var person_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>用户名称:&nbsp;<input type='text' id='person_name' value='" + (personman.name) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>描述说明:&nbsp;<input type='text' id='person_description' value='" + (personman.description) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>手机号码:&nbsp;<input type='text' id='person_contact' value='" + (personman.contact) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>所属公司:&nbsp;<select disabled='disabled' style='width: 150px' id='person_supplier' value='" + (personman.supplier.code) + "'><option value='personman.supplier.code'>"+(personman.supplier.name)+"</option></select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>所属公司:&nbsp;<select style='width:170px;' id='company_type'></select></p>" +
                         "</div>" +
                         "</div>",
                         area: ['350px', '300px'],

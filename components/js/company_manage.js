@@ -124,7 +124,7 @@ var company_manage = {
                     clearTimeout(time)
                 }, 300)
             })
-        } //$ bindAddEventListener——end$
+        } 
 
         , bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
@@ -161,7 +161,7 @@ var company_manage = {
                     }
                 })
             })
-        } //$ bindDeleteEventListener_end$
+        }
         , bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
