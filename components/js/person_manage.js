@@ -55,7 +55,7 @@ var person_manage = {
                 var personmanCode = _selfBtn.attr('id').substr(5)
                 $.get(home.urls.personman.getByCode(), {code: personmanCode}, function (result) {
                     var personman = result.data
-                    $.get(home.urls.personman.getAllSupplier(), function (result) {
+                    $.get(home.urls.supplyman.getAllSupplier(),{ } ,function (result) {
                         var companies = result.data
                         $("#company_type").empty()
                         $("#company_type").append("<option value='" + personman.supplier.code + "'>" + personman.supplier.name + "</option>")
@@ -70,8 +70,8 @@ var person_manage = {
                         type: 1,
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>登录名: &nbsp;&nbsp;&nbsp;<input type='text' id='person_code' value='" + (personman.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>用户名称:&nbsp;<input type='text' id='person_name' value='" + (personman.name) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>登录名: &nbsp;&nbsp;&nbsp;<input type='text' id='person_code' value='" + (personman.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>描述说明:&nbsp;<input type='text' id='person_description' value='" + (personman.description) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>手机号码:&nbsp;<input type='text' id='person_contact' value='" + (personman.contact) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>所属公司:&nbsp;<select style='width:170px;' id='company_type'></select></p>" +
@@ -120,8 +120,8 @@ var person_manage = {
             e.forEach(function (e) {
                 $tbody.append(
                     "<tr>" +
-                    "<td class='edit'>" + (e.code) + "</td>" +
                     "<td class='edit'>" + (e.name) + "</td>" +
+                    "<td class='edit'>" + (e.code) + "</td>" +
                     "<td class='edit'>" + (e.description) + "</td>" +
                     "<td class='edit'>" + (e.contact) + "</td>" +
                     "<td class='edit'>" + (e.supplier.name) + "</td>" +

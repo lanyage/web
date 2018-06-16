@@ -166,6 +166,7 @@ var repair_apply = {
                         time: 700
                     })
                     repair_apply.init()
+                    $("#model-li-hide-searchbytime-44").val('')
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)

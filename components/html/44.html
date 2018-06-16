@@ -11,14 +11,18 @@
         input {
             border: none;
         }
-        .repair_table tr td{
+        #repair_table1 tr td{
             width:12%;
+        }
+        #repaire_table1 {
+            table-layout:fixed;
         }
     </style>
     <div class="block-quote">
         <div class="fl">
             工单状态
             <select id="model-li-hide-searchbyflag-44">
+                <option value="-1">请选择工单状态</option>
                 <option value="0">待维修</option>
                 <option value="1">已接单</option>
                 <option value="2">已维修</option>
@@ -26,7 +30,7 @@
             </select> &nbsp;&nbsp;&nbsp;&nbsp; 保修日期
 
             <i class="layui-icon">&#xe62d;</i>
-            <input type="text" id="model-li-hide-searchbytime-44">
+            <input type="text" id="model-li-hide-searchbytime-44" placeholder="请选择时间">
         </div>
         <div class="fr">
             <p style="color: #62a49a; font-size: 14px;">
@@ -62,12 +66,12 @@
         </tbody>
     </table>
     <div id="repair_info" style="display:none; margin:0 auto;padding: 20px;">
-            <table class="repair_table" width="100%" style="border-left: 0px;border-right: 0px;">
+            <table id="repair_table1" width="100%" style="border-left: 0px;border-right: 0px;">
                 <tr>
                     <td class="grey" id="re_depa" width="15%">单位/部门</td>
                     <td width="15%"><input type="text" id="repair_department_input"></td>
                     <td class="grey" id="re_ename" width="15%"> 设备、设施名称</td>
-                    <td width="15%"><input type="text" id="repair_equipmentname_input"></td>
+                    <td ><input type="text" id="repair_equipmentname_input" width="15%" ></td>
                     <td class="grey" id="re_ecode" width="10%">设备、设施编号</td>
                     <td width="10%"><input type="text" id="repair_equipmentcode_input" ></td>
                     <td class="grey" id="re_prline" width="10%" >所属生产线</td>
@@ -154,7 +158,7 @@
                 done: function (value, date) {
                     var date = value.split('-').join('/')
                     $.post(home.urls.repair.findByApplicationTimeInPages(), {date: date}, function (result) {
-                        console.log(result)
+                        //console.log(result)
                         $("#repair_table").children('tbody').empty()
                         repair_apply.funcs.renderHandler($("#repair_table").children('tbody'), result.data.content)
                         if (result.data.totalPages != 0) {
@@ -162,7 +166,7 @@
                                 elem: 'repair_page'
                                 , count: 10 * result.data.totalPages//数据总数
                                 , jump: function (obj, first) {
-                                    console.log($("#model-li-hide-searchbytime-44").val())
+                                    //console.log($("#model-li-hide-searchbytime-44").val())
                                     if (!first) {
                                         $.post(home.urls.repair.findByApplicationTimeInPages(), {
                                             page: obj.curr - 1,

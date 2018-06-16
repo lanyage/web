@@ -312,6 +312,9 @@ var home = {
             getByCode: function () {
                 return servers.backup() + 'supplyInfo/supplierDetail'
             },
+            getAllsupplierType: function () {
+                return servers.backup() + 'supplierType/getAll'
+            },
         },
         personman: {
             getAllByPage: function () {
@@ -322,6 +325,9 @@ var home = {
             },
             getByCode: function () {
                 return servers.backup() + 'customer/customerDetail'
+            },
+            getAllsupplier: function () {
+                return servers.backup() + 'supplier/getAll'
             },
         },
         role: {
@@ -514,7 +520,7 @@ var home = {
                 return servers.backup() + 'archive/add'
             },
             deleteByCode: function () {
-                return servers.backup() + 'archive/deleteByCode'
+                return servers.bcup() + 'archive/deleteByCode'
             },
             update: function () {
                 return servers.backup() + 'archive/update'
@@ -876,10 +882,10 @@ var home = {
                 return servers.backup() + 'company/getAllByPage'
             },
             add: function () {
-                return servers.backup() + 'company/add'
+                return servers.backup() + 'supplier/add'
             },
             deleteByCode: function () {
-                return servers.backup() + 'company/deleteByCode'
+                return servers.backup() + 'supplyInfo/deleteSupplyInfo'
             },
             update: function () {
                 return servers.backup() + 'company/update'
@@ -891,7 +897,7 @@ var home = {
                 return servers.backup() + 'company/getAllByLikeNameByPage'
             },
             deleteByBatchCode: function () {
-                return servers.backup() + 'company/deleteByBatchCode'
+                return servers.backup() + 'supplyInfo/deleteSupplyInfoInBatch'
             },
             getAllCompany: function () {
                 return servers.backup() + 'company/getAll'

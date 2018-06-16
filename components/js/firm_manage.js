@@ -85,7 +85,7 @@ var firm_manage = {
                             var contact = $('#firm_contact').val()
                             var supplierType = $('#firm_type').val()
                             $.post(home.urls.firmman.update(), {
-                                codeBefore: code,
+                                codeBefore: firmmanCode,
                                 code: code,
                                 name: name,
                                 creditCode: creditCode,
