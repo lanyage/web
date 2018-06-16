@@ -11,6 +11,9 @@
         input {
             border: none;
         }
+        .repair_table tr td{
+            width:12%;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -32,7 +35,7 @@
                         <i class="layui-icon">&#x1002;</i>刷新</a>
                 </span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="text" id="repair_name_input"/>
+                <input type="text" id="repair_name_input" placeholder="请输入设备名称"/>
                 <span id="model-li-hide-search-44">
                     <a href="#">
                         <i class="layui-icon">&#xe615;</i>搜索</a>
@@ -58,73 +61,55 @@
         <tbody style="font-size:xx-small">
         </tbody>
     </table>
-    <div id="repair_info" style="width:800px;height:600px;display:none; margin:0 auto;">
-        <div id="repair_body">
-            <table class="repair_table">
+    <div id="repair_info" style="display:none; margin:0 auto;padding: 20px;">
+            <table class="repair_table" width="100%" style="border-left: 0px;border-right: 0px;">
                 <tr>
-                    <td class="repair_td_text" id="re_depa" style="height:25px;">单位/部门</td>
-                    <td class="repair_td_blank"><textarea type="text" id="repair_department_input"
-                                                          class="provider_input" disabled></textarea></td>
-                    <td class="repair_td_text" id="re_ename"> 设备、设施名称</td>
-                    <td class="repair_td_blank"><input type="text" id="repair_equipmentname_input"
-                                                       class="provider_input" disabled></td>
-                    <td class="repair_td_text" id="re_ecode">设备、设施编号</td>
-                    <td class="repair_td_blank"><textarea type="text" id="repair_equipmentcode_input"
-                                                          class="provider_input" disabled></textarea></td>
-                    <td class="repair_td_text" id="re_prline">所属生产线</td>
-                    <td class="repair_td_blank"><textarea type="text" id="repair_productLine_input"
-                                                          class="provider_input" disabled></textarea></td>
+                    <td class="grey" id="re_depa" width="15%">单位/部门</td>
+                    <td width="15%"><input type="text" id="repair_department_input"></td>
+                    <td class="grey" id="re_ename" width="15%"> 设备、设施名称</td>
+                    <td width="15%"><input type="text" id="repair_equipmentname_input"></td>
+                    <td class="grey" id="re_ecode" width="10%">设备、设施编号</td>
+                    <td width="10%"><input type="text" id="repair_equipmentcode_input" ></td>
+                    <td class="grey" id="re_prline" width="10%" >所属生产线</td>
+                    <td width="10%"><input type="text" id="repair_productLine_input"></td>
                 </tr>
                 <tr>
-                    <td class="repair_td_text" id="re_duty" style="height:25px;">班次</td>
-                    <td class="repair_td_blank"><textarea type="text" id="repair_duty_input" class="provider_input"
-                                                          disabled></textarea></td>
-                    <td class="repair_td_text" id="re_app">报修人</td>
-                    <td class="repair_td_blank"><textarea type="text" id="repair_applicationPerson_input"
-                                                          class="provider_input" disabled></textarea>
+                    <td class="grey" id="re_duty">班次</td>
+                    <td><textarea type="text" id="repair_duty_input"></textarea></td>
+                    <td class="grey" id="re_app">报修人</td>
+                    <td><textarea type="text" id="repair_applicationPerson_input"></textarea>
                     </td>
-                    <td class="repair_td_text" id="re_appcon">联系电话</td>
-                    <td class="repair_td_blank" colspan="3"><input type="text" id="repair_input_appcontact"
-                                                                   class="provider_input"
-                                                                   class="provider_input" disabled></td>
+                    <td class="grey" id="re_appcon">联系电话</td>
+                    <td colspan="3"><input type="text" id="repair_input_appcontact"></td>
                 </tr>
                 <tr>
-                    <td class="repair_td_text" id="re_apptime">故障报修时间</td>
-                    <td class="repair_td_blank"><textarea type="text" id="repair_applicationTime_input"
-                                                          class="provider_input" disabled></textarea></td>
-                    <td class="repair_td_text" id="re_des">设备故障描述</td>
-                    <td colspan="5"><textarea id="repair_applicationDescription_input" class="provider_input"
-                                              disabled></textarea></td>
-
+                    <td class="grey" id="re_apptime">故障报修时间</td>
+                    <td><textarea type="text" id="repair_applicationTime_input"></textarea></td>
+                    <td class="grey" id="re_des">设备故障描述</td>
+                    <td colspan="5"><textarea id="repair_applicationDescription_input"></textarea></td>
                 </tr>
                 <tr>
-                    <td class="repair_td_text" id="re_otime">接单时间</td>
-                    <td class="repair_td_blank"><textarea type="text" id="repair_orderTime_input" class="provider_input"
-                                                          disabled></textarea></td>
-                    <td class="repair_td_text" id="re_record">维修记录及故障原因分析</td>
-                    <td class="repair_td_blank" colspan="5"><textarea type="text"
-                                                                      id="repair_repairmanDescription_input"
-                                                                      class="provider_input" disabled></textarea>
+                    <td class="grey" id="re_otime">接单时间</td>
+                    <td><textarea type="text" id="repair_orderTime_input"></textarea></td>
+                    <td class="grey" id="re_record">维修记录及故障原因分析</td>
+                    <td colspan="5"><textarea type="text"id="repair_repairmanDescription_input"></textarea>
                     </td>
-
                 </tr>
                 <tr>
-                    <td class="repair_td_text" id="re_fintime" style="height:25px;">维修完工时间</td>
-                    <td class="repair_td_blank"><textarea type="text" id="repair_finishTime_input"
-                                                          class="provider_input" disabled></textarea></td>
-                    <td class="repair_td_text">满意度评价</td>
+                    <td class="grey" id="re_fintime">维修完工时间</td>
+                    <td><textarea type="text" id="repair_finishTime_input"></textarea></td>
+                    <td class="grey">满意度评价</td>
                     <td><input type="radio" name="satisfy" id="_4">优</td>
                     <td><input type="radio" name="satisfy" id="_3">良</td>
                     <td><input type="radio" name="satisfy" id="_2">一般</td>
-                    <td><input type="radio" name="satisfy" id="_1">不满意</td>
-                    <td class="repair_td_blank"><input type="text" class="repair_input" class="provider_input" disabled>
+                    <td><input type="radio" name="satisfy" id="_1">不满</td>
+                    <td><input type="text" class="repair_input">
                     </td>
                 </tr>
                 <tr>
-                    <td class="repair_td_text">报修人或相关人员确认</td>
-                    <td class="repair_td_blank"><textarea type="text" id="repair_repairMan_input" class="provider_input"
-                                                          disabled></textarea></td>
-                    <td class="repair_td_text">满意度评价标准</td>
+                    <td class="grey">报修人或相关人员确认</td>
+                    <td><textarea type="text" id="repair_repairMan_input"></textarea></td>
+                    <td class="grey">满意度评价标准</td>
                     <td colspan="5" style="text-align:left;">
                         <div style="padding-left:20px;">
                             1、设备修复完好性<br>
@@ -150,7 +135,6 @@
                     </td>
                 </tr>
             </table>
-        </div>
     </div>
     <div id="repair_page">
     </div>

@@ -62,11 +62,9 @@ var repair_apply = {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var repair_name = $('#repair_name_input').val()
-                console.log(repair_name)
                 $.post(home.urls.repair.findByEquipmentNameInPages(), {name: repair_name}, function (result) {
                     var page = result.data
                     var repairs = result.data.content //获取数据
-                    console.log(repairs)
                     const $tbody = $("#repair_table").children('tbody')
                     repair_apply.funcs.renderHandler($tbody, repairs)
                     layui.laypage.render({
@@ -98,7 +96,7 @@ var repair_apply = {
             searchbyflagBtn.off('change')
             searchbyflagBtn.on('change', function () {
                 var code = $(this).val()
-                console.log('code')
+               // console.log('code')
                 $.post(home.urls.repair.findByFlagInPages(), {code: code}, function (result) {
                     var res = result.data
                     layui.laypage.render({
@@ -180,7 +178,7 @@ var repair_apply = {
                 var code = $(this).attr("id").substr(3)
                 $.post(servers.backup() + "equipment/detail", {code: code}, function (result) {
                     var repairs = result.data
-                    console.log(repairs)
+                    //console.log(repairs)
                     $('#repair_department_input').val(repairs.department ? repairs.department.name : '')
                     $('#repair_equipmentname_input').val(repairs.equipment ? repairs.equipment.name : '')
                     $('#repair_equipmentcode_input').val(repairs.eqArchive ? repairs.eqArchive.code : '')
@@ -201,7 +199,7 @@ var repair_apply = {
                         type: 1,
                         title: '添加',
                         content: $('#repair_info'),
-                        area: ['900px', '550px'],
+                        area: ['1100px', '550px'],
                         btn: ['确认', '取消'],
                         offset: 'auto',
                         closeBtn: 0,

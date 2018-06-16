@@ -1941,6 +1941,7 @@ var home = {
             $("#TI_1008_T")[0].innerHTML = parseFloat(TI_1008_T.value).toFixed(2)
             $("#TI_1008_R")[0].innerHTML = parseFloat(TI_1008_R.value).toFixed(2)
         }
+
         /** 清除intervals */
         , clearIntervals: function (intervals) {
             intervals.forEach(function (e) {
