@@ -12,34 +12,71 @@ var firm_manage = {
         /** 渲染页面 */
         renderTable: function () {
             /** 获取所有的记录 */
-            $.post(home.urls.firmman.getAllByPage(), {page: 0}, function (result) {
-                var e = result.data.content //获取数据
-                const $tbody = $("#firmman_table").children('tbody')
-                firm_manage.funcs.renderHandler($tbody, e)
-                firm_manage.pageSize = result.data.content.length
-                var page = result.data
-                /** @namespace page.totalPages 这是返回数据的总页码数 */
-                /** 分页信息 */
-                layui.laypage.render({
-                    elem: 'firmman_page'
-                    , count: 10 * page.totalPages//数据总数
-                    /** 页面变化后的逻辑 */
-                    , jump: function (obj, first) {
-                        if(!first){
-                            $.post(home.urls.firmman.getAllByPage(), {
-                                page: obj.curr - 1,
-                                size: obj.limit
-                            }, function (result) {
-                                var e = result.data.content //获取数据
-                                const $tbody = $("#firmman_table").children('tbody')
-                                firm_manage.funcs.renderHandler($tbody, e)
-                                firm_manage.pageSize = result.data.content.length
-                            })
+            userStr = $.session.get('user')
+            userJson = JSON.parse(userStr) 
+            supplierCode = userJson.supplier?userJson.supplier.code:null
+            if(supplierCode===null){
+                $.post(home.urls.firmman.getAllByPage(), {page: 0}, function (result) {
+                    var e = result.data.content //获取数据
+                    const $tbody = $("#firmman_table").children('tbody')
+                    firm_manage.funcs.renderHandler($tbody, e)
+                    firm_manage.pageSize = result.data.content.length
+                    var page = result.data
+                    /** @namespace page.totalPages 这是返回数据的总页码数 */
+                    /** 分页信息 */
+                    layui.laypage.render({
+                        elem: 'firmman_page'
+                        , count: 10 * page.totalPages//数据总数
+                        /** 页面变化后的逻辑 */
+                        , jump: function (obj, first) {
+                            if(!first){
+                                $.post(home.urls.firmman.getAllByPage(), {
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var e = result.data.content //获取数据
+                                    const $tbody = $("#firmman_table").children('tbody')
+                                    firm_manage.funcs.renderHandler($tbody, e)
+                                    firm_manage.pageSize = result.data.content.length
+                                })
+                            }
                         }
-                    }
-                })
-                $('#firmman_page').css('padding-left', '37%')
-            })//$数据渲染完毕
+                    })
+                    $('#firmman_page').css('padding-left', '37%')
+                })//$数据渲染完毕
+            }
+            else{
+                Code = userJson.supplier.supplierType.code
+                $.post(home.urls.firmman.getAllBySupplierTypeByPage(), {code:Code}, function (result) {
+                    var e = result.data.content //获取数据
+                    const $tbody = $("#firmman_table").children('tbody')
+                    firm_manage.funcs.renderHandler($tbody, e)
+                    firm_manage.pageSize = result.data.content.length
+                    var page = result.data
+                    /** @namespace page.totalPages 这是返回数据的总页码数 */
+                    /** 分页信息 */
+                    layui.laypage.render({
+                        elem: 'firmman_page'
+                        , count: 10 * page.totalPages//数据总数
+                        /** 页面变化后的逻辑 */
+                        , jump: function (obj, first) {
+                            if(!first){
+                                $.post(home.urls.firmman.getAllBySupplierTypeByPage(), {
+                                    code:Code,
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var e = result.data.content //获取数据
+                                    const $tbody = $("#firmman_table").children('tbody')
+                                    firm_manage.funcs.renderHandler($tbody, e)
+                                    firm_manage.pageSize = result.data.content.length
+                                })
+                            }
+                        }
+                    })
+                    $('#firmman_page').css('padding-left', '37%')
+                })//$数据渲染完毕
+            }
         }
         /** 公司信息编辑事件 */
     , bindEditEventListener: function (editBtns) {
@@ -49,17 +86,24 @@ var firm_manage = {
                 var firmmanCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.firmman.getByCode(), {code: firmmanCode}, function (result) {
                     var firmman = result.data
-                    $.get(home.urls.companyman.getAllsupplierType(), function (result) {
-                        var companies = result.data
-                        $("#firm_type").empty()
-                        $("#firm_type").append("<option value='" + firmman.supplierType.code + "'>" + firmman.supplierType.type + "</option>")
-                        companies.forEach(function (e) {
-                            if(e.type!=firmman.supplierType.type)
-                            $('#firm_type').append(
-                                "<option value='" + (e.code) + "'>" + (e.type) + "</option>"
-                            )
+                    if(supplierCode===null){
+                        $.get(home.urls.companyman.getAllsupplierType(), function (result) {
+                            var companies = result.data
+                            $("#firm_type").empty()
+                            $("#firm_type").append('<option value='+firmman.supplierType.code+'>'+firmman.supplierType.type+'</option>')
+                            companies.forEach(function (e) {
+                                if(firmman.supplierType.code!=e.code){
+                                    $('#firm_type').append(
+                                        "<option value='" + (e.code) + "'>" + (e.type) + "</option>"
+                                    )
+                                }  
+                            })
                         })
-                    })
+                    }
+                   else {
+                        $("#firm_type").append("<option value='" + firmman.supplier.supplierType.code + "'>" + firmman.supplier.supplierType.type + "</option>")
+                    }
+                    
                     layer.open({
                         type: 1,
                         content: "<div id='addModal'>" +

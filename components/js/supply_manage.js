@@ -15,38 +15,73 @@ var supply_manage = {
     , pageSize: 0
     , funcs: {
         renderTable: function () {
-            console.log(1111)
-            $.post(home.urls.supplyman.getAllByPage(), {}, function (res) {
-                console.log(1111)
-                console.log(res)
-                var $tbody = $("#supplier_table").children('tbody')
-                /** 过滤返回的数据 */
-                var items = res.data.content
-                //console.log(items)
-                supply_manage.funcs.renderHandler($tbody, items)
-                /** 渲染表格结束之后 */
-                supply_manage.pageSize = res.data.content.length //该页的记录数
-                var page = res.data //分页json
-                /** 分页信息 */
-                layui.laypage.render({
-                    elem: 'supplyman_page',
-                    count: 10 * page.totalPages,//数据总数
-                    /** 页面变化后的逻辑 */
-                    jump: function (obj, first) {
-                        if (!first) {
-                            $.post(home.urls.supplyman.getAllByPage(), {
-                                page: obj.curr - 1,
-                                size: obj.limit
-                            }, function (result) {
-                                var items = result.data.content //获取数据
-                                const $tbody = $("#supplyman_page").children('tbody')
-                                supply_manage.funcs.renderHandler($tbody, items)
-                                supply_manage.pageSize = result.data.content.length
-                            })
+            userStr = $.session.get('user')
+            userJson = JSON.parse(userStr)
+            supplierCode = userJson.supplier?userJson.supplier.code:null
+            console.log(userJson)
+            if(supplierCode===null){
+                $.post(home.urls.supplyman.getAllByPage(), {}, function (res) {
+                    var $tbody = $("#supplier_table").children('tbody')
+                    /** 过滤返回的数据 */
+                    var items = res.data.content
+                    //console.log(items)
+                    supply_manage.funcs.renderHandler($tbody, items)
+                    /** 渲染表格结束之后 */
+                    supply_manage.pageSize = res.data.content.length //该页的记录数
+                    var page = res.data //分页json
+                    /** 分页信息 */
+                    layui.laypage.render({
+                        elem: 'supplyman_page',
+                        count: 10 * page.totalPages,//数据总数
+                        /** 页面变化后的逻辑 */
+                        jump: function (obj, first) {
+                            if (!first) {
+                                $.post(home.urls.supplyman.getAllByPage(), {
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var items = result.data.content //获取数据
+                                    const $tbody = $("#supplyman_page").children('tbody')
+                                    supply_manage.funcs.renderHandler($tbody, items)
+                                    supply_manage.pageSize = result.data.content.length
+                                })
+                            }
                         }
-                    }
+                    })
                 })
-            })
+            }
+            else{
+                $.post(home.urls.supplyman.getAllBySupplier(), {supplierCode:supplierCode}, function (res) {
+                    var $tbody = $("#supplier_table").children('tbody')
+                    /** 过滤返回的数据 */
+                    var items = res.data.content
+                    //console.log(items)
+                    supply_manage.funcs.renderHandler($tbody, items)
+                    /** 渲染表格结束之后 */
+                    supply_manage.pageSize = res.data.content.length //该页的记录数
+                    var page = res.data //分页json
+                    /** 分页信息 */
+                    layui.laypage.render({
+                        elem: 'supplyman_page',
+                        count: 10 * page.totalPages,//数据总数
+                        /** 页面变化后的逻辑 */
+                        jump: function (obj, first) {
+                            if (!first) {
+                                $.post(home.urls.supplyman.getAllBySupplier(),{
+                                    supplierCode:supplierCode,
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var items = result.data.content //获取数据
+                                    const $tbody = $("#supplyman_page").children('tbody')
+                                    supply_manage.funcs.renderHandler($tbody, items)
+                                    supply_manage.pageSize = result.data.content.length
+                                })
+                            }
+                        }
+                    })
+                })
+            }
           
             /** 新增*/
             var addBtn = $("#model-li-hide-add-80")
@@ -114,8 +149,10 @@ var supply_manage = {
             addBtn.off('click')
             addBtn.on('click', function () {
                 /** 新增默认输入框为空*/
-                $.post(home.urls.supplyman.getAllCustomer(),{},function(result){
-                    var items = result.data.content
+                
+                $.post(home.urls.supplyman.getCustomer(),{code:supplierCode},function(result){
+                    var items = result.data
+                    console.log(items)
                     $('#diliverer_inp').html("<option>请选择收货人名称</option>")
                     items.forEach(function(e){
                         $('#diliverer_inp').append(
@@ -123,7 +160,7 @@ var supply_manage = {
                     )
                     })     
                 })
-                $.get(home.urls.supplyman.getAllSupplier(),{},function(result){
+               /* $.get(home.urls.supplyman.getAllSupplier(),{},function(result){
                     var items = result.data
                     $('#diliverer_supplier').html("<option>请选择发货人厂家</option>")
                     items.forEach(function(e){
@@ -131,7 +168,7 @@ var supply_manage = {
                         "<option value="+e.code+">"+e.name+"</option>"
                     )
                     })     
-                })
+                })*/
                 $('#header_inp').val('')
                 $('#dilivery_time_inp').val('')
                 //$('#diliverer_inp').val('')
@@ -165,7 +202,7 @@ var supply_manage = {
                             time = $('#dilivery_time_inp').val()
                             var data = {
                                 contractNumber:$('#header_inp').val(),
-                                supplier:{code:$('#diliverer_supplier').val()},
+                                supplier:{code:supplierCode},
                                 sender:{code : $('#diliverer_inp').val()},
                                 sendDate:time,
                                 contact:$('#contact_inp').val(),
@@ -219,7 +256,7 @@ var supply_manage = {
                     type:1,
                     title:'新增',
                     content:$('#provider_info_add'),
-                    area:['300px','250px'],
+                    area:['330px','270px'],
                     btn:['确定','取消'],
                     offset:"auto",
                     closeBtn:0,
@@ -252,15 +289,11 @@ var supply_manage = {
         }
         ,add_edit:function(editBtns){
             editBtns.off('click').on('click',function(){
-                console.log('add_edit')
                 var e = $(this).parent('td').parent('tr').children('td')
-                console.log(e.eq(0).text())
                 $('#add_batchNumber').val(e.eq(0).text()) 
                 $('#add_unit').val(e.eq(1).text())  
                 $('#add_weight').val(e.eq(2).text()) 
-                console.log(parseFloat($('#total_inp').val()))
                 var total_weight = parseFloat($('#total_inp').val()) - parseFloat($('#add_weight').val() )
-                console.log(total_weight)  
                 layer.open({
                     type:1,
                     title:'编辑',
@@ -494,7 +527,7 @@ var supply_manage = {
                                 contact:$('#contact_inp').val(),
                                 name:$('#name_inp').val(),
                                 weight:total_weight,
-                                rawType:{code : res.rawType.code},
+                                //rawType:{code : res.rawType?res.rawType.code:null},
                                 status:res.status,
                                 sendEntries:[]
                             }
@@ -554,23 +587,17 @@ var supply_manage = {
             $('#contact_inp').val(res.contact)
             $('#name_inp').val(res.name)
             $('#total_inp').val(total_weight)
-
-            $.post(home.urls.supplyman.getAllCustomer(),{},function(result){
-                var items = result.data.content
-                $('#diliverer_inp').html("<option>请选择收货人名称</option>")
-                items.forEach(function(e){
-                    $('#diliverer_inp').append(
-                    "<option value="+e.code+">"+e.name+"</option>"
-                )
-                })     
-            })
-            $.get(home.urls.supplyman.getAllSupplier(),{},function(result){
+            $.post(home.urls.supplyman.getCustomer(),{code:supplierCode},function(result){
                 var items = result.data
-                $('#diliverer_supplier').html("<option>请选择发货人厂家</option>")
+                $("#diliverer_inp").empty()
+                $("#diliverer_inp").append("<option value='" + res.sender.code+ "'>" + res.sender.name + "</option>")
                 items.forEach(function(e){
-                    $('#diliverer_supplier').append(
+                    if(e.name!=res.sender.name){
+                        $('#diliverer_inp').append(
                     "<option value="+e.code+">"+e.name+"</option>"
                 )
+                    }
+                    
                 })     
             })
 

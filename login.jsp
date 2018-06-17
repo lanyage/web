@@ -93,6 +93,17 @@
                 }
             })
         })
+        $("#register2").on('click', function () {
+            var username = $("#code2").val()
+            var password = $("#password2").val()
+            $.post(servers.backup() + "customer/login", {code: username, password: password}, function (result) {
+                var resCode = result.code
+                if (resCode == 0) {
+                    $.session.set('user', JSON.stringify(result.data));
+                    document.location = './jsp/home.jsp';
+                }
+            })
+        })
 
         /** 获取所有的权限 */
         $.get(servers.backup() + 'modelOperation/getAll', {}, function (result) {

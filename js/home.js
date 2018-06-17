@@ -277,6 +277,12 @@ var home = {
             },
             getAllCustomer: function () {
                 return servers.backup() + 'supplyInfo/listCustomer'
+            },
+            getAllBySupplier: function () {
+                return servers.backup() + 'sendEntryHeader/getBySupplierCodeByPage'
+            },
+            getCustomer: function () {
+                return servers.backup() + 'customer/getBySupplier'
             }
         },
         firmman: {
@@ -288,6 +294,9 @@ var home = {
             },
             getByCode: function () {
                 return servers.backup() + 'supplyInfo/supplierDetail'
+            },
+            getAllBySupplierTypeByPage: function () {
+                return servers.backup() + 'supplier/getBySupplierTypeByPage'
             },
 
         },
@@ -314,6 +323,12 @@ var home = {
             },
             getAllsupplierType: function () {
                 return servers.backup() + 'supplierType/getAll'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'supplier/deleteByCode'
+            },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'supplier/deleteByBatchCode'
             },
         },
         personman: {
@@ -884,9 +899,6 @@ var home = {
             add: function () {
                 return servers.backup() + 'supplier/add'
             },
-            deleteByCode: function () {
-                return servers.backup() + 'supplyInfo/deleteSupplyInfo'
-            },
             update: function () {
                 return servers.backup() + 'company/update'
             },
@@ -896,11 +908,14 @@ var home = {
             getAllByLikeNameByPage: function () {
                 return servers.backup() + 'company/getAllByLikeNameByPage'
             },
-            deleteByBatchCode: function () {
-                return servers.backup() + 'supplyInfo/deleteSupplyInfoInBatch'
-            },
             getAllCompany: function () {
                 return servers.backup() + 'company/getAll'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'supplier/deleteByCode'
+            },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'supplier/deleteByBatchCode'
             },
         },
         workshop: {
@@ -1279,6 +1294,7 @@ var home = {
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
+        console.log($(home.menu1Wrapper))
         var selectedMenu1 = localStorage.getItem('selectedMenu1') || $(home.menu1Wrapper.children('li')[0]).attr('id').substr(9)   //选中的一级菜单ID 默认为1
         var selectedMenu2 = localStorage.getItem('selectedMenu2') || null //选中的二级菜单ID
         var selectedMenu3 = localStorage.getItem('selectedMenu3') || null  //选中三级菜单ID
