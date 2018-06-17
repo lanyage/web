@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css"
           href="./css/signup.css">
 </head>
-<body style=" background-image: url(./dist/images/login/bg.jpg); ackground-attachment: inherit">
+<body style=" background-image: url(./dist/images/login/bg.jpg); background-attachment: inherit">
 <div id="logo" style="">
     <div>
         <div id="logo-img" style="float: left">
@@ -93,6 +93,7 @@
                 }
             })
         })
+        
         $("#register2").on('click', function () {
             var username = $("#code2").val()
             var password = $("#password2").val()

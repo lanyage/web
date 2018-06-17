@@ -1199,6 +1199,29 @@ var home = {
             }
         }
     }
+    ,bowlAbnormal:{
+        getAllByPage: function () {
+            return servers.backup() + 'productOrder/getAllByPage'
+        },
+        add: function () {
+            return servers.backup() + 'productOrder/add'
+        },
+        deleteByCode: function () {
+            return servers.backup() + 'productOrder/deleteByCode'
+        },
+        update: function () {
+            return servers.backup() + 'productOrder/update'
+        },
+        getByBowlCodeLikeByPage: function () {
+            return servers.backup() + 'productOrder/getByBowlCodeLikeByPage'
+        },
+        deleteByIdBatch: function () {
+            return servers.backup() + 'productOrder/deleteByIdBatch'
+        },
+        getById: function () {
+            return servers.backup() + 'productOrder/getById'
+        }
+    }
     /** start */
     , menu3Clicks: null  //所有的一级菜单点击栏
     , menu2Clicks: null  //所有的二级菜单点击栏
@@ -1294,7 +1317,8 @@ var home = {
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
         /** ########这里是记录123级菜单的关键,########*/
-        console.log($(home.menu1Wrapper))
+
+        //
         var selectedMenu1 = localStorage.getItem('selectedMenu1') || $(home.menu1Wrapper.children('li')[0]).attr('id').substr(9)   //选中的一级菜单ID 默认为1
         var selectedMenu2 = localStorage.getItem('selectedMenu2') || null //选中的二级菜单ID
         var selectedMenu3 = localStorage.getItem('selectedMenu3') || null  //选中三级菜单ID
