@@ -80,7 +80,6 @@ var art_manage = {
         }
 
         , bindDetailEventListener: function (detailBtns) {
-          //  console.log(detailBtns)
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
@@ -262,7 +261,7 @@ var art_manage = {
                         offset: ['40%', '55%'],
                         time: 700
                     })
-                    plate_audit.init()
+                    art_manage.init()
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -272,31 +271,32 @@ var art_manage = {
         bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
-                var auditStatus = $('#audit_name option:selected').val();
+                var batch_num = $('#input_batch_num').val()
+                //console.log(batch_num)
                 //var createDate = new Date(order_date.replace(new RegExp("-","gm"),"/")).getTime()
                 //var createDate =order_date.getTime;//毫秒级; // date类型转成long类型
-                $.post(home.urls.plateAlarm.getByStatusByPage(), {
-                    status: auditStatus
+                $.post(home.urls.productOrder.getByBatchNumberLikeByPage(), {
+                    batchNumber: batch_num
                 }, function (result) {
                     var items = result.data.content //获取数据
                     page = result.data
-                    const $tbody = $("#plate_audit_table").children('tbody')
-                    plate_audit.funcs.renderHandler($tbody, items)
+                    const $tbody = $("#art_manage_table").children('tbody')
+                    art_manage.funcs.renderHandler($tbody, items)
                     layui.laypage.render({
-                        elem: 'plate_audit_page'
+                        elem: 'art_manage_page'
                         , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.plateAlarm.getByStatusByPage(), {
-                                    status: auditStatus,
+                                $.post(home.urls.productOrder.getByBatchNumberLikeByPage(), {
+                                    batchNumber: batch_num,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {
                                     var items = result.data.content //获取数据
                                     // var code = $('#model-li-select-48').val()
-                                    const $tbody = $("#plate_audit_table").children('tbody')
-                                    plate_audit.funcs.renderHandler($tbody, items)
-                                    plate_audit.pageSize = result.data.content.length
+                                    const $tbody = $("#art_manage_table").children('tbody')
+                                    art_manage.funcs.renderHandler($tbody, items)
+                                    art_manage.pageSize = result.data.content.length
                                 })
                             }
                         }
