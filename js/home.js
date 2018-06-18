@@ -787,6 +787,24 @@ var home = {
                 return servers.backup() + '/materialsTotal/getByStatusByPage'
             }
         },
+        productOrder:{
+            deleteByIdBatch: function () {
+                return servers.backup() + '/productOrder/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + '/productOrder/getAllByPage'
+            },
+            getByBatchNumberLikeByPage: function () {
+                return servers.backup() + '/productOrder/getByBatchNumberLikeByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'productOrder/deleteByCode'
+            },
+            getById: function () {
+                return servers.backup + 'productOrder/getById'
+            }
+        }
+        ,
         lingLiao: {
             getAllByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getAllByPage'
