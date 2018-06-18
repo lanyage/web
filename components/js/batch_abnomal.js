@@ -1,62 +1,60 @@
-var bowl_abnormal = {
+var batch_abnomal = {
     init: function () {
-        bowl_abnormal.funcs.renderTable()
-        var out = $('#bowl_abnormal_page').width()
+        batch_abnomal.funcs.renderTable()
+        var out = $('#batch_abnomal_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#bowl_abnormal_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 117 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#batch_abnomal_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 117 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
         }, 30)
     },
      funcs: {
         renderTable: function () {
-            console.log(1111)
-            $.post(home.urls.bowlAbnormal.getAllByPage(), {}, function (res) {
-                console.log(1111)
-                var $tbody = $("#bowl_abnormal_table").children('tbody')
+            $.post(home.urls.plateAlarm.getAllByPage(), {}, function (res) {
+                var $tbody = $("#batch_abnomal_table").children('tbody')
                 var items = res.data.content
                 //console.log(items)
-              //  bowl_abnormal.funcs.renderHandler($tbody, items)
+              //  batch_abnomal.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
-                bowl_abnormal.pageSize = res.data.content.length //该页的记录数
+                batch_abnomal.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
                 /** 分页信息 */
                 layui.laypage.render({
-                    elem: 'bowl_abnormal_page',
+                    elem: 'batch_abnomal_page',
                     count: 10 * page.totalPages,//数据总数
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.bowlAbnormal.getAllByPage(), {
+                            $.post(home.urls.plateAlarm.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
-                                const $tbody = $("#bowl_abnormal_table").children('tbody')
-                                bowl_abnormal.funcs.renderHandler($tbody, items)
-                                bowl_abnormal.pageSize = result.data.content.length
+                                const $tbody = $("#batch_abnomal_table").children('tbody')
+                                batch_abnomal.funcs.renderHandler($tbody, items)
+                                batch_abnomal.pageSize = result.data.content.length
                             })
                         }
                     }
                 })
             })
 
-            bowl_abnormal.funcs.bindDetailEventListener($('.detail'))
-            bowl_abnormal.funcs.bindEditorEventListener($('.editor'))
-            bowl_abnormal.funcs.bindDeleteEventListener($('.delete'))
+            batch_abnomal.funcs.bindDetailEventListener($('.detail'))
+            batch_abnomal.funcs.bindEditorEventListener($('.editor'))
+            batch_abnomal.funcs.bindDeleteEventListener($('.delete'))
 
-            bowl_abnormal.funcs.bindAddEvent($('#model_li_hide_add_117'))
-            bowl_abnormal.funcs.bindDeleteEvent($('#model_li_hide_delete_117'))
+            batch_abnomal.funcs.bindAddEvent($('#model_li_hide_add_117'))
+            batch_abnomal.funcs.bindDeleteEvent($('#model_li_hide_delete_117'))
 
             var refreshBtn = $('#model_li_hide_refresh_117');
-            bowl_abnormal.funcs.bindRefreshEventListener(refreshBtn);
+            batch_abnomal.funcs.bindRefreshEventListener(refreshBtn);
 
             //追加搜索事件
             var searchBtn = $('#model_li_hide_search_117')
-            bowl_abnormal.funcs.bindSearchEventListener(searchBtn)
+            batch_abnomal.funcs.bindSearchEventListener(searchBtn)
 
-            var checkedBoxLen = $('.bowl_abnormal_checkbox:checked').length
-            home.funcs.bindSelectAll($("#bowl_abnormal_checkAll"),$(".bowl_abnormal_checkbox"),checkedBoxLen,$("#bowl_abnormal_table"))
+            var checkedBoxLen = $('.batch_abnomal_checkbox:checked').length
+            home.funcs.bindSelectAll($("#batch_abnomal_checkAll"),$(".batch_abnomal_checkbox"),checkedBoxLen,$("#batch_abnomal_table"))
 
 
         }
@@ -66,9 +64,9 @@ var bowl_abnormal = {
             var code = e.code
             var content = (
                 "<tr>" +
-                    "<td><input type='checkbox' class='bowl_abnormal_checkbox' value='" + (e.code) + "'></td>" +
+                    "<td><input type='checkbox' class='batch_abnomal_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + e.code + "</td>" +
-                    "<td>" + (e.date ? e.rawType.code : null) + "</td>" +
+                    "<td>" + (e.rawType ? e.rawType.code : null) + "</td>" +
                     "<td>" + (new Date(e.applyTime).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
                     "<td>" + e.auditStatus + "</td>" +
@@ -87,7 +85,7 @@ var bowl_abnormal = {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-               /* $.post(home.urls.bowlAbnormal.getAllByPage(),{},function (res) {
+               /* $.post(home.urls.plateAlarm.getAllByPage(),{},function (res) {
                     var items = res.data.content
                     var rawType = null
                     items.forEach(function (e) {
@@ -108,13 +106,13 @@ var bowl_abnormal = {
                         layer.open({
                             type: 1,
                             title: '装钵异常详情',
-                            content: $("#bowl_abnormal_detail_modal"),
+                            content: $("#batch_abnomal_detail_modal"),
                             area: ['800px', '350px'],
                             btn: ['返回'],
                             offset: "auto",
                             closeBtn: 0,
                             yes: function (index) {
-                                $("#bowl_abnormal_detail_modal").css('display', 'none')
+                                $("#batch_abnomal_detail_modal").css('display', 'none')
                                 layer.close(index)
                             }
                         });
@@ -149,21 +147,21 @@ var bowl_abnormal = {
                  layer.open({
                      type:1,
                      title:'编辑装钵异常',
-                     content:$("#bowl_abnormal_detail_modal"),
+                     content:$("#batch_abnomal_detail_modal"),
                      area: ['800px', '350px'],
                      btn:['保存','提交','返回'],
                      offset:"auto",
                      closeBtn:0,
                      yes: function(index) {
-                        $("#bowl_abnormal_detail_modal").css('display', 'none')
+                        $("#batch_abnomal_detail_modal").css('display', 'none')
                         layer.close(index)
                      }
                      ,btn2: function(index) {
-                        $("#bowl_abnormal_detail_modal").css('display', 'none')
+                        $("#batch_abnomal_detail_modal").css('display', 'none')
                         layer.close(index)
                      }
                      ,btn3: function(index) {
-                        $("#bowl_abnormal_detail_modal").css('display', 'none')
+                        $("#batch_abnomal_detail_modal").css('display', 'none')
                         layer.close(index)
                      }
                  })
@@ -208,17 +206,17 @@ var bowl_abnormal = {
                  layer.open({
                      type:1,
                      title:"新增装钵异常",
-                     content:$("#bowl_abnormal_detail_modal"),
+                     content:$("#batch_abnomal_detail_modal"),
                      area: ['800px', '350px'],
                      btn:['提交','取消'],
                      offset:'auto',
                      closeBtn:0,
                      yes:function(index) {
-                         $("#bowl_abnormal_detail_modal").css('display','none')
+                         $("#batch_abnomal_detail_modal").css('display','none')
                          layer.close(index)
                      }
                      ,btn2:function(index){
-                         $("#bowl_abnormal_detail_modal").css('display','none')
+                         $("#batch_abnomal_detail_modal").css('display','none')
                          layer.close(index)
                      }
                  })
@@ -226,7 +224,7 @@ var bowl_abnormal = {
          }
          ,bindDeleteEvent:function(deleteBtn){
              deleteBtn.off('click').on('click',function(){
-                 if($('.bowl_abnormal_checkbox:checked').length === 0) {
+                 if($('.batch_abnomal_checkbox:checked').length === 0) {
                      layer.msg('您还没有选中任何数据!',{
                          offset:['40%','55%'],
                          time:700
@@ -241,7 +239,7 @@ var bowl_abnormal = {
                          btn:['确认','取消'],
                          offset:['40%','55%'],
                          yes:function(index){
-                             $('.bowl_abnormal_checkbox').each(function() {
+                             $('.batch_abnomal_checkbox').each(function() {
                                  if($(this).prop('checked')) {
                                      plate_audit_codes.push({code:$(this).val()})
                                  }
@@ -296,28 +294,28 @@ var bowl_abnormal = {
                  var auditStatus = $('#audit_name option:selected').val();
                  //var createDate = new Date(order_date.replace(new RegExp("-","gm"),"/")).getTime()
                  //var createDate =order_date.getTime;//毫秒级; // date类型转成long类型
-                 $.post(home.urls.bowlAbnormal.getByBowlCodeLikeByPage(), {
+                 $.post(home.urls.plateAlarm.getByStatusByPage(), {
                      status: auditStatus
                  }, function (result) {
                      var items = result.data.content //获取数据
                      page = result.data
-                     const $tbody = $("#bowl_abnormal_table").children('tbody')
-                     bowl_abnormal.funcs.renderHandler($tbody, items)
+                     const $tbody = $("#batch_abnomal_table").children('tbody')
+                     batch_abnomal.funcs.renderHandler($tbody, items)
                      layui.laypage.render({
-                         elem: 'bowl_abnormal_page'
+                         elem: 'batch_abnomal_page'
                          , count: 10 * page.totalPages//数据总数
                          , jump: function (obj, first) {
                              if (!first) {
-                                 $.post(home.urls.bowlAbnormal.getByBowlCodeLikeByPage(), {
+                                 $.post(home.urls.plateAlarm.getByStatusByPage(), {
                                      status: auditStatus,
                                      page: obj.curr - 1,
                                      size: obj.limit
                                  }, function (result) {
                                      var items = result.data.content //获取数据
                                      // var code = $('#model-li-select-48').val()
-                                     const $tbody = $("#bowl_abnormalt_table").children('tbody')
-                                     bowl_abnormal.funcs.renderHandler($tbody, items)
-                                     bowl_abnormal.pageSize = result.data.content.length
+                                     const $tbody = $("#batch_abnomalt_table").children('tbody')
+                                     batch_abnomal.funcs.renderHandler($tbody, items)
+                                     batch_abnomal.pageSize = result.data.content.length
                                  })
                              }
                          }
