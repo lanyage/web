@@ -2,16 +2,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <style>
-         #bowl_abnormal_detail_table,bowl_abnormal_editor_modal td {
+         #batch_abnormal_detail_table  td {
             padding: 5px;
             border: 1px darkgrey solid;
-            font-size: 14px;
+            font-size: 13px;
             color: black;
             text-align: center;
             font-weight: 400;
             height:40px;
             width:130px;
-        }    
+        } 
+        #batch_abnormal_editor_modal td{
+            padding: 5px;
+            border: 1px darkgrey solid;
+            font-size: 13px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            height:40px;
+            width:130px;
+        }
+        #batch_abnormal_editor_modal input{
+            width:100%;
+            height:100%;
+            border:none;
+            text-align: center;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -25,7 +41,7 @@
             <p style="color: #62a49a; font-size: 14px;">
                 <span id="model_li_hide_refresh_136"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
                 &nbsp;&nbsp;
-                <input type="text" id="input_batch_num" placeholder="请输入批号"/> &nbsp;&nbsp;
+                <input type="text" id="input_batch_num" placeholder="请输入生产批次"/> &nbsp;&nbsp;
                 <span id="model_li_hide_search_136"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
         </div>
@@ -33,23 +49,23 @@
 
     <div class="whitespace" ></div>
 
-    <table id="bowl_abnormal_table" style="width: 100%;">
+    <table id="batch_abnormal_table" style="width: 100%;">
         <thead style="background: #666666;">
         <tr>
             <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
-            <td class="checkBox_td"><input id="bowl_abnormal_checkAll" type="checkbox"></td>
+            <td class="checkBox_td"><input id="batch_abnormal_checkAll" type="checkbox"></td>
             <td>序号</td>
             <td>日期</td>
             <td>班次</td>
-            <td width="100px">装钵机号</td>
+            <td>生产批次</td>
             <td>详情</td>
             <td>编辑</td>
             <td>删除</td>
         </tr>
         </thead>
-        <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
+        <!--<td><input type="checkbox" class="mat_in_checkbox"></td>
         <tr>
-        <td><input type="checkbox" class="bowl_abnormal_checkbox"></td>
+        <td><input type="checkbox" class="batch_abnormal_checkbox"></td>
         <td>1</td>
         <td>2017-12-31</td>
         <td>恩恩</td>
@@ -57,20 +73,20 @@
         <td><a href="#" class='detail' id='detail-1'><i class="layui-icon">&#xe60a;</i></a></td>
         <td><a href="#" class='editor' id='editor-1'><i class="layui-icon">&#xe642;</i></a></td>
         <td><a href="#" class='delete' id='delete-1'><i class='fa fa-times-circle-o'></a></td>
-        </tr>
+        </tr>-->
         <tbody>
         </tbody>
     </table>
 
-    <div id="bowl_abnormal_page"></div>
-    <script src="../components/js/bowl_abnormal.js"></script>
+    <div id="batch_abnormal_page"></div>
+    <script src="../components/js/batch_abnormal.js"></script>
     <script type="application/javascript">
         $(function () {
-            bowl_abnormal.init()
+            batch_abnormal.init()
         })
     </script>
-    <div id="bowl_abnormal_detail_modal" class="hide" style="padding:30px;"> 
-        <table id="bowl_abnormal_detail_table">
+    <div id="batch_abnormal_detail_modal" class="hide" style="padding:30px;"> 
+        <table id="batch_abnormal_detail_table">
             <thead>
              <tr class="grey">
                 <td>班次</td>
@@ -84,22 +100,22 @@
            </thead>
            <tbody>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td id="dutyCode"></td>
+                <td id="Time"></td>
+                <td id="batchNumber"></td>
+                <td id="abNumber" ></td>
+                <td id="abWeight"></td>
+                <td id="operatorCode"></td>
+                <td id="checkerCode"></td>
             </tr>
         </tbody>
         </table>
         <div class="whitespace"></div>
-        <span style="float:right;">日期：<span id="time" style="width:10%;"></span></span>
+        <span style="float:right;">日期：<span id="detail_time" style="width:10%;"></span></span>
     </div>
 
-    <div id="bowl_abnormal_editor_modal" class="hide" style="padding:30px;"> 
-        <table id="bowl_abnormal_editor_modal">
+    <div id="batch_abnormal_editor_modal" class="hide" style="padding:30px;"> 
+        <table id="batch_abnormal_editor_modal">
             <thead>
              <tr class="grey">
                 <td>班次</td>
@@ -114,8 +130,8 @@
            <tbody>
             <tr>
                 <td><input type="text" id="duty_code"/></td>
-                <td><input type="text" id="E_time"/></td>
-                <td><input type="text" id="batchNumber"/></td>
+                <td><input type="datetime" id="E_time"/></td>
+                <td><input type="text" id="batch_Number"/></td>
                 <td><input type="text" id="ab_number"/></td>
                 <td><input type="text" id="ab_weight"/></td>
                 <td><input type="text" id="operator_code"/></td>

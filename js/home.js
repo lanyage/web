@@ -1239,76 +1239,100 @@ var home = {
                 return servers.backup() + 'operation/getAll'
             }
         }
-    }
-    ,bowlAbnormal:{
-        getAllByPage: function () {
-            return servers.backup() + 'bowlAbcount/getAllByPage'
-        },
-        add: function () {
-            return servers.backup() + 'bowlAbcount/add'
-        },
-        deleteByCode: function () {
-            return servers.backup() + 'bowlAbcount/deleteByCode'
-        },
-        update: function () {
-            return servers.backup() + 'bowlAbcount/update'
-        },
-        getByBowlCodeLikeByPage: function () {
-            return servers.backup() + 'bowlAbcount/getByBowlCodeLikeByPage'
-        },
-        deleteByIdBatch: function () {
-            return servers.backup() + 'bowlAbcount/deleteByIdBatch'
-        },
-        getById: function () {
-            return servers.backup() + 'bowlAbcount/getById'
+        ,batchAbnormal:{
+            getAllByPage: function () {
+                return servers.backup() + 'bowlAbcount/getAllByPage'
+            },
+            add: function () {
+                return servers.backup() + 'bowlAbcount/add'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'bowlAbcount/deleteByCode'
+            },
+            update: function () {
+                return servers.backup() + 'bowlAbcount/update'
+            },
+            getByBatchNumberLikeByPage: function () {
+                return servers.backup() + 'bowlAbcount/getByBatchNumberLikeByPage'
+            },
+            deleteByIdBatch: function () {
+                return servers.backup() + 'bowlAbcount/deleteByIdBatch'
+            },
+            getById: function () {
+                return servers.backup() + 'bowlAbcount/getById'
+            }
+        }
+        ,bowlAbnormal:{
+            getAllByPage: function () {
+                return servers.backup() + 'bowlAbnormal/getAllByPage'
+            },
+            add: function () {
+                return servers.backup() + 'bowlAbnormal/add'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'bowlAbnormal/deleteByCode'
+            },
+            update: function () {
+                return servers.backup() + 'bowlAbnormal/update'
+            },
+            getByBowlCodeLikeByPage: function () {
+                return servers.backup() + 'bowlAbnormal/getByBowlCodeLikeByPage'
+            },
+            deleteByIdBatch: function () {
+                return servers.backup() + 'bowlAbnormal/deleteByIdBatch'
+            },
+            getById: function () {
+                return servers.backup() + 'bowlAbnormal/getById'
+            }
+        }
+        ,casketSampling:{
+            deleteByIdBatch: function () {
+                return servers.backup() + 'bowlSampling/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'bowlSampling/getAllByPage'
+            },
+            getByBowlCodeLikeByPage: function () {
+                return servers.backup() + 'bowlSampling/getByBowlCodeLikeByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'bowlSampling/deleteByCode'
+            },
+            getById: function () {
+                return servers.backup + 'bowlSampling/getById'
+            },
+            add: function () {
+                return servers.backup() + 'bowlSampling/add'
+            },
+            deleteByIdBatch: function () {
+                return servers.backup() + 'bowlSampling/deleteByIdBatch'
+            },
+        }
+        ,screenCheck:{
+            deleteByIdBatch: function () {
+                return servers.backup() + 'screenCheck/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'ingredientsRecord/getAllByPage'
+            },
+            getByBowlCodeLikeByPage: function () {
+                return servers.backup() + 'screenCheck/getByBowlCodeLikeByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'screenCheck/deleteByCode'
+            },
+            getById: function () {
+                return servers.backup + 'screenCheck/getById'
+            },
+            add: function () {
+                return servers.backup() + 'screenCheck/add'
+            },
+            deleteByIdBatch: function () {
+                return servers.backup() + 'screenCheck/deleteByIdBatch'
+            },
         }
     }
-    ,casketSampling:{
-        deleteByIdBatch: function () {
-            return servers.backup() + 'bowlSampling/deleteByIdBatch'
-        },
-        getAllByPage: function () {
-            return servers.backup() + 'bowlSampling/getAllByPage'
-        },
-        getByBowlCodeLikeByPage: function () {
-            return servers.backup() + 'bowlSampling/getByBowlCodeLikeByPage'
-        },
-        deleteByCode: function () {
-            return servers.backup() + 'bowlSampling/deleteByCode'
-        },
-        getById: function () {
-            return servers.backup + 'bowlSampling/getById'
-        },
-        add: function () {
-            return servers.backup() + 'bowlSampling/add'
-        },
-        deleteByIdBatch: function () {
-            return servers.backup() + 'bowlSampling/deleteByIdBatch'
-        },
-    }
-    ,screenCheck:{
-        deleteByIdBatch: function () {
-            return servers.backup() + 'screenCheck/deleteByIdBatch'
-        },
-        getAllByPage: function () {
-            return servers.backup() + 'ingredientsRecord/getAllByPage'
-        },
-        getByBowlCodeLikeByPage: function () {
-            return servers.backup() + 'screenCheck/getByBowlCodeLikeByPage'
-        },
-        deleteByCode: function () {
-            return servers.backup() + 'screenCheck/deleteByCode'
-        },
-        getById: function () {
-            return servers.backup + 'screenCheck/getById'
-        },
-        add: function () {
-            return servers.backup() + 'screenCheck/add'
-        },
-        deleteByIdBatch: function () {
-            return servers.backup() + 'screenCheck/deleteByIdBatch'
-        },
-    }
+   
     /** start */
     , menu3Clicks: null  //所有的一级菜单点击栏
     , menu2Clicks: null  //所有的二级菜单点击栏
