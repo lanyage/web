@@ -133,6 +133,7 @@ var guide_manage = {
                             var shengxiaoriqi = $("#_2_shengxiaoriqi").val()
                             var shenhe = $("#_2_shenhe").val()
                             var yeci = $("#_2_yeci").val()
+                            console.log($("#equipment_select_2").val())
                             var header = {
                                 code: bianhao,
                                 name: guide_manage.equipments.filter(function (e) {
@@ -145,6 +146,7 @@ var guide_manage = {
                                 // archivecode: {},
                                 auditorcode: {code: shenhe},
                                 compactorcode: {code: bianzhi},
+                                "equipment.code":eq_code,
                                 guides: [],
                             }
                             var newLines = $('.newLine')            //guiders

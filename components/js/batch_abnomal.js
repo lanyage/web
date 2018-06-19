@@ -4,7 +4,7 @@ var batch_abnomal = {
         var out = $('#batch_abnomal_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#batch_abnomal_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 117 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#batch_abnomal_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
         }, 30)
     },

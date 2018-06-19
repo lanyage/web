@@ -4,17 +4,18 @@ var casket_sampling = {
         var out = $('#casket_sampling_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#casket_sampling_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#casket_sampling').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
         }, 30)
     },
      funcs: {
         renderTable: function () {
-            $.post(home.urls.plateAlarm.getAllByPage(), {}, function (res) {
+            $.post(home.urls.bowlAbnormal.getAllByPage(), {page:0}, function (res) {
+                console.log(res)
                 var $tbody = $("#casket_sampling_table").children('tbody')
                 var items = res.data.content
                 //console.log(items)
-              //  plate_audit.funcs.renderHandler($tbody, items)
+                casket_sampling.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 casket_sampling.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -25,7 +26,7 @@ var casket_sampling = {
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.plateAlarm.getAllByPage(), {
+                            $.post(home.urls.casketSampling.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
@@ -66,10 +67,9 @@ var casket_sampling = {
                 "<tr>" +
                     "<td><input type='checkbox' class='casket_sampling_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + e.code + "</td>" +
-                    "<td>" + (new Date(e.applyTime).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
-                    "<td>" + e.auditStatus + "</td>" +
-                    "<td><a href=\"#\" class='verify'id='verify-" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
+                    "<td>" + (new Date(e.date).Format('yyyy-MM-dd')) + "</td>" +
+                    "<td>" + (e.duty_code ? e.duty_code : null) + "</td>" +
+                    "<td>" + e.bowl_code + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
                     "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
@@ -84,7 +84,7 @@ var casket_sampling = {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-               /* $.post(home.urls.plateAlarm.getAllByPage(),{},function (res) {
+               /* $.post(home.urls.casketSampling.getAllByPage(),{},function (res) {
                     var items = res.data.content
                     var rawType = null
                     items.forEach(function (e) {
@@ -287,7 +287,7 @@ var casket_sampling = {
                  var auditStatus = $('#audit_name option:selected').val();
                  //var createDate = new Date(order_date.replace(new RegExp("-","gm"),"/")).getTime()
                  //var createDate =order_date.getTime;//毫秒级; // date类型转成long类型
-                 $.post(home.urls.plateAlarm.getByStatusByPage(), {
+                 $.post(home.urls.casketSampling.getByStatusByPage(), {
                      status: auditStatus
                  }, function (result) {
                      var items = result.data.content //获取数据
@@ -299,7 +299,7 @@ var casket_sampling = {
                          , count: 10 * page.totalPages//数据总数
                          , jump: function (obj, first) {
                              if (!first) {
-                                 $.post(home.urls.plateAlarm.getByStatusByPage(), {
+                                 $.post(home.urls.casketSampling.getByStatusByPage(), {
                                      status: auditStatus,
                                      page: obj.curr - 1,
                                      size: obj.limit

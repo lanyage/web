@@ -16,7 +16,7 @@ var screen_examination = {
 
     funcs: {
         renderTable: function () {
-            $.post(home.urls.productIn.getAllByPage(), {}, function (res) {
+            $.post(home.urls.screenCheck.getAllByPage(), {}, function (res) {
                 var $tbody = $("#screen_examination_table").children('tbody')
                 var items = res.data.content
                 screen_examination.funcs.renderHandler($tbody, items)
@@ -31,7 +31,7 @@ var screen_examination = {
                     , jump: function (obj, first) {
                         if (!first) {
                             console.log('不是首次,可以执行')
-                            $.post(home.urls.productIn.getAllByPage(), {
+                            $.post(home.urls.screenCheck.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {

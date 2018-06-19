@@ -4,14 +4,14 @@ var bowl_abnormal = {
         var out = $('#bowl_abnormal_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#bowl_abnormal_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 117 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#bowl_abnormal_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 136 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
         }, 30)
     },
      funcs: {
         renderTable: function () {
             console.log(1111)
-            $.post(home.urls.bowlAbnormal.getAllByPage(), {}, function (res) {
+            $.post(home.urls.productOut.getAllByPage(), {}, function (res) {
                 console.log(1111)
                 var $tbody = $("#bowl_abnormal_table").children('tbody')
                 var items = res.data.content
@@ -27,7 +27,7 @@ var bowl_abnormal = {
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.bowlAbnormal.getAllByPage(), {
+                            $.post(home.urls.productOut.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
@@ -45,14 +45,14 @@ var bowl_abnormal = {
             bowl_abnormal.funcs.bindEditorEventListener($('.editor'))
             bowl_abnormal.funcs.bindDeleteEventListener($('.delete'))
 
-            bowl_abnormal.funcs.bindAddEvent($('#model_li_hide_add_117'))
-            bowl_abnormal.funcs.bindDeleteEvent($('#model_li_hide_delete_117'))
+            bowl_abnormal.funcs.bindAddEvent($('#model_li_hide_add_136'))
+            bowl_abnormal.funcs.bindDeleteEvent($('#model_li_hide_delete_136'))
 
-            var refreshBtn = $('#model_li_hide_refresh_117');
+            var refreshBtn = $('#model_li_hide_refresh_136');
             bowl_abnormal.funcs.bindRefreshEventListener(refreshBtn);
 
             //追加搜索事件
-            var searchBtn = $('#model_li_hide_search_117')
+            var searchBtn = $('#model_li_hide_search_136')
             bowl_abnormal.funcs.bindSearchEventListener(searchBtn)
 
             var checkedBoxLen = $('.bowl_abnormal_checkbox:checked').length
@@ -68,11 +68,9 @@ var bowl_abnormal = {
                 "<tr>" +
                     "<td><input type='checkbox' class='bowl_abnormal_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + e.code + "</td>" +
-                    "<td>" + (e.date ? e.rawType.code : null) + "</td>" +
-                    "<td>" + (new Date(e.applyTime).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
-                    "<td>" + e.auditStatus + "</td>" +
-                    "<td><a href=\"#\" class='verify'id='verify-" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
+                    "<td>" + (new Date(e.date).Format('yyyy-MM-dd')) + "</td>" +
+                    "<td>" + (e.duty_code) + "</td>" +
+                    "<td>" + (e.batch_number ? e.batch_number : null) + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
                     "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
@@ -87,29 +85,28 @@ var bowl_abnormal = {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-               /* $.post(home.urls.bowlAbnormal.getAllByPage(),{},function (res) {
-                    var items = res.data.content
-                    var rawType = null
-                    items.forEach(function (e) {
-                        if(e.code == code){
-                           // console.log(e.rawType)
-                            rawType = e.rawType
-                        }
+                $.post(home.urls.bowlAbnormal.getById(),{},function (res) {
+                    var items = res.data
+                    $tbody = $("#bowl_abnormal_detail_table").children('tbody')
+                    $tbody.empty()
+                    tbody.append(
+                        "<tr>"+
+                        "<td>"+(e.duty_code)+"</td>"+
+                        "<td>"+(new Date(e.time).Format('yyyy-MM-dd'))+"</td>"+
+                        "<td>"+e.batch_number+"</td>"+
+                        "<td>"+e.ab_number+"</td>"+
+                        "<td>"+e.ab_weight+"</td>"+
+                        "<td>"+e.operator_code+"</td>"+
+                        "<td>"+e.checker_code+"</td>"+
+                        "</tr>"    
+                    )
                     })
-
-                    $.post(home.urls.plateAudit.getByRawType(),{
-                        code:rawType.code
-                    }, function(result) {
-                       // console.log(rawType)
-                        var items = result.data //获取数据
-                       // console.log(items)
-                        //plate_audit.funcs.fill_detail_data($("#edtior_modal"), items,)
-                      */
+                    $("#time").val(new Date().Format("yyyy-MM-dd"))
                         layer.open({
                             type: 1,
-                            title: '装钵异常详情',
+                            title: '断批异常统计详情',
                             content: $("#bowl_abnormal_detail_modal"),
-                            area: ['800px', '350px'],
+                            area: ['700px', '300px'],
                             btn: ['返回'],
                             offset: "auto",
                             closeBtn: 0,
@@ -118,7 +115,7 @@ var bowl_abnormal = {
                                 layer.close(index)
                             }
                         });
-                    })
+                })
         },
          fill_detail_data: function(div,items){
                 var total_bs = 0
@@ -146,27 +143,45 @@ var bowl_abnormal = {
          },
          bindEditorEventListener:function(editBtns) {
              editBtns.off('click').on('click',function() {
+                $.post(home.urls.bowlAbnormal.getById(),{},function (res) {
+                    var items = res.data
+                    $tbody = $("#bowl_abnormal_editor_modal").children('tbody')
+                    $tbody.empty()
+                    $("#duty_code").val(items.duty_code)
+                    $("#E_time").val(new Date(items.time).Format('yyyy-MM-dd'))
+                    $("#batchNumber").val(items.batch_number)
+                    $("#ab_number").val(items.ab_number)
+                    $("#ab_weight").val(items.ab_weight)
+                    $("#operator_code").val(items.operator_code)
+                    $("#checker_code").val(items.checker_code)
+                    
+                    $("#editor_time").val(new Date().Format("yyyy-MM-dd"))
                  layer.open({
                      type:1,
-                     title:'编辑装钵异常',
-                     content:$("#bowl_abnormal_detail_modal"),
-                     area: ['800px', '350px'],
+                     title:'编辑断批异常统计',
+                     content:$("#bowl_abnormal_editor_modal"),
+                     area: ['700px', '300px'],
                      btn:['保存','提交','返回'],
                      offset:"auto",
                      closeBtn:0,
                      yes: function(index) {
-                        $("#bowl_abnormal_detail_modal").css('display', 'none')
+                        $("#bowl_abnormal_editor_modal").css('display', 'none')
+                       /** var data = {
+                            code:items.code,
+                            date:
+                        }*/
                         layer.close(index)
                      }
                      ,btn2: function(index) {
-                        $("#bowl_abnormal_detail_modal").css('display', 'none')
+                        $("#bowl_abnormal_editor_modal").css('display', 'none')
                         layer.close(index)
                      }
                      ,btn3: function(index) {
-                        $("#bowl_abnormal_detail_modal").css('display', 'none')
+                        $("#bowl_abnormal_editor_modal").css('display', 'none')
                         layer.close(index)
                      }
                  })
+                })
              })
          }
          ,bindDeleteEventListener:function(deleteBtn){
@@ -207,9 +222,9 @@ var bowl_abnormal = {
              addBtn.off('click').on('click',function(){
                  layer.open({
                      type:1,
-                     title:"新增装钵异常",
+                     title:"新增断批异常统计",
                      content:$("#bowl_abnormal_detail_modal"),
-                     area: ['800px', '350px'],
+                     area: ['700px', '300px'],
                      btn:['提交','取消'],
                      offset:'auto',
                      closeBtn:0,
