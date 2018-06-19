@@ -54,8 +54,7 @@ var art_manage = {
             art_manage.funcs.bindSearchEventListener(searchBtn)
 
             var checkedBoxLen = $('.art_manage_checkbox:checked').length
-            home.funcs.bindSelectAll($("#plate_audit_checkAll"),$(".plate_audit_checkbox"),checkedBoxLen,$("#plate_audit_table"))
-
+            home.funcs.bindSelectAll($("#art_manage_checkAll"),$(".art_manage_checkbox"),checkedBoxLen,$("#art_manage_table"))
 
         }
         , renderHandler: function ($tbody, items) {
@@ -80,6 +79,9 @@ var art_manage = {
                 art_manage.funcs.bindDetailEventListener($('.detail'))
                 art_manage.funcs.bindEditorEventListener($('.editor'))
                 art_manage.funcs.bindDeleteEventListener($('.delete'))
+                var checkedBoxLen = $('.art_manage_checkbox:checked').length
+                home.funcs.bindSelectAll($("#art_manage_checkAll"),$(".art_manage_checkbox"),checkedBoxLen,$("#art_manage_table"))
+
             })
 
         }
@@ -88,6 +90,17 @@ var art_manage = {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
+               // console.log(code)
+                $.post(home.urls.productOrder.getById(), {
+                   code:code
+                }, function (result) {
+                    var items = result.data //获取数据
+                    const div = $("#editor_modal")
+                    console.log(items)
+                    art_manage.funcs.fill_detail_data(div,items)
+
+                })
+
                 layer.open({
                     type: 1,
                     title: '新增工艺单',
@@ -104,28 +117,36 @@ var art_manage = {
             })
         },
         fill_detail_data: function(div,items){
-            var total_bs = 0
-            /*  var bs_table = items.lossEntry
-                 var $tbody = $("#detail_modal").children('tbody')
-                  $tbody.empty() //清空表格
-                  productSends.forEach(function(e){
-                  total_amount += e.weight
-                  $tbody.append(
-                      "<tr>"+
-                      "<td>"+ (e.code?e.code:' ') +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
-                      "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td><td>" + (e.status?e.status:' ') + "</td>"+
-                      "</tr>"
-                  );
-              })
- */
-            $("#bs_num").text(items.code)
-            $("#rawtype").text(items.rawType.material.name)
-            $("#rawname").text(items.rawType.name)
-            $("#plate_num").text(items.weight)
-            $("#total").text(total_bs)
-            $("#user").text(items.user.name)
-            $("#audit_status").text(items.auditStatus)
-            $("#bs_time").text(items.time?new Date(items.time).Format('yyyy-MM-dd'):'null')
+            $("#task_name").text(items.code)
+            $("#make_batch").text(items.batchNumber)
+            $("#make_man").text(items.compactor.name)
+            $("#product_num").text(items.productLineCode.code)
+            $("#audit_man").text(items.auditor.name)
+            $("#plan_amount").text(items.inputPlan)
+            $("#exec_man").text(items.executor.name)
+            $("#in_date").text(items.inputDate?new Date(items.inputDate).Format('yyyy-MM-dd'):'null')
+            $("#pinguan").text(items.qc.code)
+            $("#make_num").text(items.serialNumber)
+
+            $("#t1").text(items.presomaCode)
+            $("#t2").text(items.presomaContent)
+            $("#t3").text(items.presomaRatio)
+            $("#t4").text(items.lithiumCode)
+            $("#t5").text(items.lithiumContent)
+            $("#t6").text(items.lithiumRatio)
+            $("#t7").text(items.additiveCode)
+            $("#t8").text(items.additiveWeight)
+            $("#t9").text(items.targetLithium)
+            $("#t10").text(null)
+            $("#t11").text(items.presomaWeight)
+            $("#t12").text(items.lithiumWeight)
+            $("#t13").text(items.mixFrequency)
+            $("#t14").text(items.mixDate)
+            $("#t15").text(items.mixRequirements)
+            $("#t16").text(items.presinteringDetection)
+            $("#t17").text(items.presinteringPlan)
+            $("#t18").text(items.presinteringParameter)
+            $("#t19").text(items.mixRequirements)
         },
         bindEditorEventListener:function(editBtns) {
             editBtns.off('click').on('click',function() {

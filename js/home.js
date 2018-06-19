@@ -798,10 +798,10 @@ var home = {
                 return servers.backup() + '/productOrder/getByBatchNumberLikeByPage'
             },
             deleteByCode: function () {
-                return servers.backup() + 'productOrder/deleteByCode'
+                return servers.backup() + '/productOrder/deleteByCode'
             },
             getById: function () {
-                return servers.backup + 'productOrder/getById'
+                return servers.backup() + '/productOrder/getById'
             }
         }
         ,

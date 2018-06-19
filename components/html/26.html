@@ -36,7 +36,7 @@
         <thead style="background: #666666;">
         <tr>
             <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
-            <td class="checkBox_td"><input id="plate_audit_checkAll" type="checkbox"></td>
+            <td class="checkBox_td"><input id="art_manage_checkAll" type="checkbox"></td>
             <td>序号</td>
             <td>生产批号</td>
             <td>生产线名</td>
@@ -67,33 +67,33 @@
         <table width="98%" style="border-left: 0px;border-right: 0px;padding: 5px;">
             <tr>
                 <td class="grey" width="20%">任务书名</td>
-                <td></td>
+                <td id="task_name"></td>
                 <td class="grey" width="20%">生产批号</td>
-                <td></td>
+                <td id="make_batch"></td>
             </tr>
             <tr>
                 <td class="grey" width="20%">编制人</td>
-                <td></td>
+                <td id="make_man"></td>
                 <td class="grey" width="20%">生产线号</td>
-                <td></td>
+                <td id="product_num"></td>
             </tr>
             <tr>
                 <td class="grey" width="20%">审核人</td>
-                <td></td>
+                <td id="audit_man"></td>
                 <td class="grey" width="20%">计划投入量</td>
-                <td></td>
+                <td id="plan_amount"></td>
             </tr>
             <tr>
                 <td class="grey" width="20%">执行人</td>
-                <td></td>
+                <td id="exec_man"></td>
                 <td class="grey" width="20%">投入日期</td>
-                <td></td>
+                <td id="in_date"></td>
             </tr>
             <tr>
                 <td class="grey" width="20%">品管</td>
-                <td></td>
+                <td id="pinguan"></td>
                 <td class="grey" width="20%">生产流水号</td>
-                <td></td>
+                <td id="make_num"></td>
             </tr>
         </table>
         <div class="whitespace"></div>
@@ -116,18 +116,18 @@
                 <td>配比量/kg</td>
             </tr>
             <tr>
-                <td rowspan="2"></td>
-                <td rowspan="2"></td>
-                <td rowspan="2"></td>
-                <td rowspan="2"></td>
-                <td rowspan="2"></td>
-                <td rowspan="2"></td>
-                <td></td>
-                <td></td>
+                <td rowspan="2" id="t1"></td>
+                <td rowspan="2" id="t2"></td>
+                <td rowspan="2" id="t3"></td>
+                <td rowspan="2" id="t4"></td>
+                <td rowspan="2" id="t5"></td>
+                <td rowspan="2" id="t6"></td>
+                <td id="t7"></td>
+                <td id="t8"></td>
             </tr>
              <tr>
-                <td></td>
-                <td></td>
+                <td id="t9"></td>
+                <td id="t10"></td>
             </tr>
             <tr>
                 <td rowspan="2">生产计划组织</td>
@@ -135,8 +135,8 @@
                 <td colspan="5">碳酸锂投料总量/kg</td>
             </tr>
              <tr>
-                <td colspan="2"></td>
-                <td colspan="5"></td>
+                <td colspan="2" id="t11"></td>
+                <td colspan="5" id="t12"></td>
             </tr>
             <tr>
                 <td rowspan="2">生产工艺参数</td>
@@ -144,30 +144,30 @@
                 <td colspan="3">混料时间</td>
             </tr>
              <tr>
-                <td colspan="4"></td>
-                <td colspan="3"></td>
+                <td colspan="4" id=t13""></td>
+                <td colspan="3" id="t14"></td>
             </tr>
             <tr>
                 <td>生产过程要求</td>
-                <td colspan="7"></td>
+                <td colspan="7" id="t15"></td>
             </tr>
              <tr>
                 <td>生产过程检测</td>
-                <td colspan="7"></td>
+                <td colspan="7" id="t16"></td>
             </tr>
             <tr>
                 <td rowspan="5" class="grey">预料</td>
                 <td rowspan="5">41# 42# 43#</td>
                 <td>生产计划组织</td>
-                <td colspan="7"></td>
+                <td colspan="7" id="t17"></td>
             </tr>
             <tr>
                 <td>生产工艺参数</td>
-                <td colspan="7"></td>
+                <td colspan="7" id="t18"></td>
             </tr>
              <tr>
                 <td>生产过程要求</td>
-                <td colspan="7"></td>
+                <td colspan="7" id="t19"></td>
             </tr>
             <tr>
                 <td>生产过程检测</td>
