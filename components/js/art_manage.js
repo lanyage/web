@@ -13,7 +13,7 @@ var art_manage = {
             $.post(home.urls.productOrder.getAllByPage(), {}, function (res) {
                 var $tbody = $("#art_manage_table").children('tbody')
                 var items = res.data.content
-                //console.log(items)
+                console.log(items)
                 art_manage.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 art_manage.pageSize = res.data.content.length //该页的记录数
@@ -64,9 +64,9 @@ var art_manage = {
                 var content = (
                     "<tr>" +
                     "<td><input type='checkbox' class='art_manage_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.code + "</td>" +
+                    "<td>" + (e.code?e.code:'null') + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
-                    "<td>" + e.productLineCode.name + "</td>" +
+                    "<td>" + (e.productLineCode?e.productLineCode.name:'null')+ "</td>" +
                     "<td>" + e.inputPlan + "</td>" +
                     "<td>" + (new Date(e.inputDate).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + e.serial_number + "</td>" +
@@ -95,22 +95,20 @@ var art_manage = {
                    code:code
                 }, function (result) {
                     var items = result.data //获取数据
-                    const div = $("#editor_modal")
-                    console.log(items)
+                    const div = $("#detail_modal")
                     art_manage.funcs.fill_detail_data(div,items)
-
                 })
 
                 layer.open({
                     type: 1,
                     title: '新增工艺单',
-                    content: $("#editor_modal"),
+                    content: $("#detail_modal"),
                     area: ['900px', '700px'],
                     btn: ['返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#editor_modal").css('display', 'none')
+                        $("#detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                 });
@@ -119,11 +117,11 @@ var art_manage = {
         fill_detail_data: function(div,items){
             $("#task_name").text(items.code)
             $("#make_batch").text(items.batchNumber)
-            $("#make_man").text(items.compactor.name)
+            $("#make_man").text(items.compactor.code)
             $("#product_num").text(items.productLineCode.code)
-            $("#audit_man").text(items.auditor.name)
+            $("#audit_man").text(items.auditor.code)
             $("#plan_amount").text(items.inputPlan)
-            $("#exec_man").text(items.executor.name)
+            $("#exec_man").text(items.executor.code)
             $("#in_date").text(items.inputDate?new Date(items.inputDate).Format('yyyy-MM-dd'):'null')
             $("#pinguan").text(items.qc.code)
             $("#make_num").text(items.serialNumber)
@@ -147,9 +145,43 @@ var art_manage = {
             $("#t17").text(items.presinteringPlan)
             $("#t18").text(items.presinteringParameter)
             $("#t19").text(items.mixRequirements)
+
+
+            $("#e_task_name").val(items.code)
+            $("#e_make_batch").val(items.batchNumber)
+            $("#e_make_man").val(items.compactor.code)
+            $("#e_product_num").val(items.productLineCode.code)
+            $("#e_audit_man").val(items.auditor.code)
+            $("#e_plan_amount").val(items.inputPlan)
+            $("#e_exec_man").val(items.executor.code)
+            $("#e_in_date").val(items.inputDate?new Date(items.inputDate).Format('yyyy-MM-dd'):'null')
+            $("#e_pinguan").val(items.qc.code)
+            $("#e_make_num").val(items.serialNumber)
+
+            $("#e1").val(items.presomaCode)
+            $("#e2").val(items.presomaContent)
+            $("#e3").val(items.presomaRatio)
+            $("#e4").val(items.lithiumCode)
+            $("#e5").val(items.lithiumContent)
+            $("#e6").val(items.lithiumRatio)
+            $("#e7").val(items.additiveCode)
+            $("#e8").val(items.additiveWeight)
+            $("#e9").val(items.targetLithium)
+            $("#e10").val(null)
+            $("#e11").val(items.presomaWeight)
+            $("#e12").val(items.lithiumWeight)
+            $("#e13").val(items.mixFrequency)
+            $("#e14").val(items.mixDate)
+            $("#e15").val(items.mixRequirements)
+            $("#e16").val(items.presinteringDetection)
+            $("#e17").val(items.presinteringPlan)
+            $("#e18").val(items.presinteringParameter)
+            $("#e19").val(items.presinteringRequirment)
+
         },
         bindEditorEventListener:function(editBtns) {
             editBtns.off('click').on('click',function() {
+
                 layer.open({
                     type:1,
                     title:'新增工艺单',
@@ -163,6 +195,7 @@ var art_manage = {
                         layer.close(index)
                     }
                     ,btn2: function(index) {
+
                         $("#editor_modal").css('display', 'none')
                         layer.close(index)
                     }

@@ -805,6 +805,9 @@ var home = {
             },
             add: function () {
                 return servers.backup() + '/productOrder/add'
+            },
+            update: function () {
+                return servers.backup() + '/productOrder/update'
             }
         }
         ,

@@ -63,7 +63,7 @@
         })
     </script>
     <!--editor-->
-    <div id="editor_modal" class="hide" style="padding:30px;"  >
+    <div id="detail_modal" class="hide" style="padding:30px;"  >
         <table width="98%" style="border-left: 0px;border-right: 0px;padding: 5px;">
             <tr>
                 <td class="grey" width="20%">任务书名</td>
@@ -144,7 +144,7 @@
                 <td colspan="3">混料时间</td>
             </tr>
              <tr>
-                <td colspan="4" id=t13""></td>
+                <td colspan="4" id="t13"></td>
                 <td colspan="3" id="t14"></td>
             </tr>
             <tr>
@@ -178,8 +178,236 @@
             </tr>
         </table>
     </div>
-
-
+    <div id="add_modal" class="hide" style="padding:30px;"  >
+        <table width="98%" style="border-left: 0px;border-right: 0px;padding: 5px;">
+            <tr>
+                <td class="grey" width="20%">任务书名</td>
+                <td><input type="text" id="i_task_name"></td>
+                <td class="grey" width="20%">生产批号</td>
+                <td ><input type="text" id="i_make_batch"></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">编制人</td>
+                <td ><input type="text" id="i_make_man"></td>
+                <td class="grey" width="20%">生产线号</td>
+                <td ><input type="text" id="i_product_num"></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">审核人</td>
+                <td ><input type="text" id="i_audit_man" ></td>
+                <td class="grey" width="20%">计划投入量</td>
+                <td ><input type="text" id="i_plan_amount"></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">执行人</td>
+                <td ><input type="text" id="i_exec_man"></td>
+                <td class="grey" width="20%">投入日期</td>
+                <td ><input type="text" id="i_in_date"></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">品管</td>
+                <td ><input type="text" id="i_pinguan"></td>
+                <td class="grey" width="20%">生产流水号</td>
+                <td ><input type="text" id="i_make_num"></td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <span>工序生产工艺参数及指</span>
+        <table width="98%" style="border-left: 0px;border-right: 0px;" id="i_table_inner">
+            <tr>
+                <td rowspan="10" class="grey">混料</td>
+                <td rowspan="10">41#</td>
+                <td colspan="3">前驱体</td>
+                <td colspan="3">碳酸锂</td>
+                <td rowspan="2">添加剂</td>
+                <td rowspan="2">目标锂含量%</td>
+            </tr>
+            <tr>
+                <td>原料批号</td>
+                <td>主含%</td>
+                <td>配比量/kg</td>
+                <td>原料批号</td>
+                <td>主含%</td>
+                <td>配比量/kg</td>
+            </tr>
+            <tr>
+                <td rowspan="2" ><input type="text" id="i1" style="width: 40px;"></td>
+                <td rowspan="2" ><input type="text" id="i2" style="width: 40px;"></td>
+                <td rowspan="2" ><input type="text" id="i3" style="width: 40px;"></td>
+                <td rowspan="2" ><input type="text" id="i4" style="width: 40px;"></td>
+                <td rowspan="2" ><input type="text" id="i5" style="width: 40px;"></td>
+                <td rowspan="2" ><input type="text" id="i6" style="width: 40px;"></td>
+                <td ><input type="text" id="i7" style="width: 40px;"></td>
+                <td ><input type="text" id="i8" style="width: 40px;"></td>
+            </tr>
+            <tr>
+                <td ><input type="text" id="i9" style="width: 40px;"></td>
+                <td ><input type="text" id="i10" style="width: 40px;"></td>
+            </tr>
+            <tr>
+                <td rowspan="2">生产计划组织</td>
+                <td colspan="2">前驱体投料总量/kg</td>
+                <td colspan="5">碳酸锂投料总量/kg</td>
+            </tr>
+            <tr>
+                <td colspan="2" ><input type="text" id="i11"></td>
+                <td colspan="5" ><input type="text" id="i12"></td>
+            </tr>
+            <tr>
+                <td rowspan="2">生产工艺参数</td>
+                <td colspan="4">混科频率</td>
+                <td colspan="3">混料时间</td>
+            </tr>
+            <tr>
+                <td colspan="4" ><input type="text" id="i13"></td>
+                <td colspan="3" ><input type="text" id="i14"></td>
+            </tr>
+            <tr>
+                <td>生产过程要求</td>
+                <td colspan="7" ><input type="text" id="i15"></td>
+            </tr>
+            <tr>
+                <td>生产过程检测</td>
+                <td colspan="7" ><input type="text" id="i16"></td>
+            </tr>
+            <tr>
+                <td rowspan="5" class="grey">预料</td>
+                <td rowspan="5">41# 42# 43#</td>
+                <td>生产计划组织</td>
+                <td colspan="7" ><input type="text" id="i17"></td>
+            </tr>
+            <tr>
+                <td>生产工艺参数</td>
+                <td colspan="7" ><input type="text" id="i18"></td>
+            </tr>
+            <tr>
+                <td>生产过程要求</td>
+                <td colspan="7" ><input type="text" id="i19"></td>
+            </tr>
+            <tr>
+                <td>生产过程检测</td>
+                <td colspan="7">检测频次：1批/天/炉窑，检测项目：SEM</td>
+            </tr>
+            <tr>
+                <td colspan="8">样品处理：中草药粉碎机粉碎，30秒/次 x 2次</td>
+            </tr>
+        </table>
+    </div>
+    <div id="editor_modal" class="hide" style="padding:30px;"  >
+        <table width="98%" style="border-left: 0px;border-right: 0px;padding: 5px;">
+            <tr>
+                <td class="grey" width="20%">任务书名</td>
+                <td><input type="text" id="e_task_name"></td>
+                <td class="grey" width="20%">生产批号</td>
+                <td ><input type="text" id="e_make_batch"></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">编制人</td>
+                <td ><input type="text" id="e_make_man"></td>
+                <td class="grey" width="20%">生产线号</td>
+                <td ><input type="text" id="e_product_num"></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">审核人</td>
+                <td ><input type="text" id="e_audit_man" ></td>
+                <td class="grey" width="20%">计划投入量</td>
+                <td ><input type="text" id="e_plan_amount"></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">执行人</td>
+                <td ><input type="text" id="e_exec_man"></td>
+                <td class="grey" width="20%">投入日期</td>
+                <td ><input type="text" id="e_in_date"></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">品管</td>
+                <td ><input type="text" id="e_pinguan"></td>
+                <td class="grey" width="20%">生产流水号</td>
+                <td ><input type="text" id="e_make_num"></td>
+            </tr>
+        </table>
+        <div class="whitespace"></div>
+        <span>工序生产工艺参数及指</span>
+        <table width="98%" style="border-left: 0px;border-right: 0px;" id="e_table_inner">
+            <tr>
+                <td rowspan="10" class="grey">混料</td>
+                <td rowspan="10">41#</td>
+                <td colspan="3">前驱体</td>
+                <td colspan="3">碳酸锂</td>
+                <td rowspan="2">添加剂</td>
+                <td rowspan="2">目标锂含量%</td>
+            </tr>
+            <tr>
+                <td>原料批号</td>
+                <td>主含%</td>
+                <td>配比量/kg</td>
+                <td>原料批号</td>
+                <td>主含%</td>
+                <td>配比量/kg</td>
+            </tr>
+            <tr>
+                <td rowspan="2" ><input type="text" id="e1" style="width: 40px;"></td>
+                <td rowspan="2" ><input type="text" id="e2" style="width: 40px;"></td>
+                <td rowspan="2" ><input type="text" id="e3" style="width: 40px;"></td>
+                <td rowspan="2" ><input type="text" id="e4" style="width: 40px;"></td>
+                <td rowspan="2" ><input type="text" id="e5" style="width: 40px;"></td>
+                <td rowspan="2" ><input type="text" id="e6" style="width: 40px;"></td>
+                <td ><input type="text" id="e7" style="width: 40px;"></td>
+                <td ><input type="text" id="e8" style="width: 40px;"></td>
+            </tr>
+            <tr>
+                <td ><input type="text" id="e9" style="width: 40px;"></td>
+                <td ><input type="text" id="e10" style="width: 40px;"></td>
+            </tr>
+            <tr>
+                <td rowspan="2">生产计划组织</td>
+                <td colspan="2">前驱体投料总量/kg</td>
+                <td colspan="5">碳酸锂投料总量/kg</td>
+            </tr>
+            <tr>
+                <td colspan="2" ><input type="text" id="e11"></td>
+                <td colspan="5" ><input type="text" id="e12"></td>
+            </tr>
+            <tr>
+                <td rowspan="2">生产工艺参数</td>
+                <td colspan="4">混科频率</td>
+                <td colspan="3">混料时间</td>
+            </tr>
+            <tr>
+                <td colspan="4" ><input type="text" id="e13"></td>
+                <td colspan="3" ><input type="text" id="e14"></td>
+            </tr>
+            <tr>
+                <td>生产过程要求</td>
+                <td colspan="7" ><input type="text" id="e15"></td>
+            </tr>
+            <tr>
+                <td>生产过程检测</td>
+                <td colspan="7" ><input type="text" id="e16"></td>
+            </tr>
+            <tr>
+                <td rowspan="5" class="grey">预料</td>
+                <td rowspan="5">41# 42# 43#</td>
+                <td>生产计划组织</td>
+                <td colspan="7" ><input type="text" id="e17"></td>
+            </tr>
+            <tr>
+                <td>生产工艺参数</td>
+                <td colspan="7" ><input type="text" id="e18"></td>
+            </tr>
+            <tr>
+                <td>生产过程要求</td>
+                <td colspan="7" ><input type="text" id="e19"></td>
+            </tr>
+            <tr>
+                <td>生产过程检测</td>
+                <td colspan="7">检测频次：1批/天/炉窑，检测项目：SEM</td>
+            </tr>
+            <tr>
+                <td colspan="8">样品处理：中草药粉碎机粉碎，30秒/次 x 2次</td>
+            </tr>
+        </table>
+    </div>
 <!--
     <div id='detail_modal' class="hide" style="padding: 0px 30px 0px 30px;display: block">
         <div class="whitespace"></div>
