@@ -53,6 +53,8 @@ var art_manage = {
             var searchBtn = $('#model_li_hide_search_26')
             art_manage.funcs.bindSearchEventListener(searchBtn)
 
+            var checkedBoxLen = $('.art_manage_checkbox:checked').length
+            home.funcs.bindSelectAll($("#plate_audit_checkAll"),$(".plate_audit_checkbox"),checkedBoxLen,$("#plate_audit_table"))
 
 
         }
@@ -75,6 +77,9 @@ var art_manage = {
                     "</tr>"
                 )
                 $tbody.append(content)
+                art_manage.funcs.bindDetailEventListener($('.detail'))
+                art_manage.funcs.bindEditorEventListener($('.editor'))
+                art_manage.funcs.bindDeleteEventListener($('.delete'))
             })
 
         }
