@@ -802,9 +802,32 @@ var home = {
             },
             getById: function () {
                 return servers.backup() + '/productOrder/getById'
+            },
+            add: function () {
+                return servers.backup() + '/productOrder/add'
             }
         }
         ,
+        batchingRecord:{
+          add:function () {
+              return servers.backup() + '/ingredientsRecord/add'
+          },
+          deleteByIdBatch: function () {
+              return servers.backup() + '/ingredientsRecord/deleteByIdBatch'
+          },
+          getAllByPage: function () {
+                return servers.backup() + '/ingredientsRecord/getAllByPage'
+          },
+          getByBatchNumberLikeByPage: function () {
+              return servers.backup() +  '/ingredientsRecord/getByBatchNumberLikeByPage'
+          },
+            deleteByCode: function () {
+                return servers.backup() + '/ingredientsRecord/deleteByCode'
+            },
+            getById: function () {
+                return servers.backup() + '/ingredientsRecord/getById'
+            },
+        },
         lingLiao: {
             getAllByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getAllByPage'

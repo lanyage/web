@@ -185,7 +185,7 @@ var art_manage = {
                     offset:['40%','55%'],
                     yes:function(index) {
                         var Code = _this.attr('id').substr(7)
-                        $.post(home.urls.productOut.deleteByCode(), {
+                        $.post(home.urls.productOrder.deleteByCode(), {
                             code: Code
                         }, function (result) {
                             layer.msg(result.message, {
@@ -218,6 +218,7 @@ var art_manage = {
                     offset:'auto',
                     closeBtn:0,
                     yes:function(index) {
+
                         $("#editor_modal").css('display','none')
                         layer.close(index)
                     }

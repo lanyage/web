@@ -11,26 +11,26 @@ var batching_record = {
      funcs: {
         renderTable: function () 
         {
-            $.post(home.urls.plateAlarm.getAllByPage(), {}, function (res) {
+            $.post(home.urls.batchingRecord.getAllByPage(), {}, function (res) {
                 var $tbody = $("#batching_record_table").children('tbody')
                 var items = res.data.content
                 //console.log(items)
-              //  batching_record.funcs.renderHandler($tbody, items)
+                batching_record.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 batching_record.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
                 /** 分页信息 */
+
                 layui.laypage.render({
                     elem: 'batching_record_page',
                     count: 10 * page.totalPages,//数据总数
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.plateAlarm.getAllByPage(), {
+                            $.post(home.urls.batchingRecord.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
-                            
                                 var items = result.data.content //获取数据
                                 const $tbody = $("#batching_record_table").children('tbody')
                                 batching_record.funcs.renderHandler($tbody, items)
@@ -59,7 +59,28 @@ var batching_record = {
             home.funcs.bindSelectAll($("#batching_record_checkAll"),$(".batching_record_checkbox"),checkedBoxLen,$("#batching_record_table"))
 
 
-        }
+        },
+         renderHandler: function ($tbody,items) {
+             $tbody.empty() //清空表格
+             items.forEach(function (e) {
+                     var code = e.code
+                     var content = (
+                         "<tr>" +
+                         "<td><input type='checkbox' class='batching_record_checkbox' value='" + (e.code) + "'></td>" +
+                         "<td>" + (new Date(e.ingredientsDate).Format('yyyy-MM-dd')) + "</td>" +
+                         "<td>" + e.batchNumber + "</td>" +
+                         "<td>" + e.ingredientsWeight + "</td>" +
+                         "<td>" + e.mixBegintime + "</td>" +
+                         "<td>" + e.mixTime + "</td>" +
+                         "<td>" + e.mixFrequency + "</td>" +
+                         "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
+                         "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
+                         "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
+                         "</tr>"
+                     )
+                     $tbody.append(content)
+         })
+         }
         , bindDetailEventListener: function (detailBtns) {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
@@ -116,21 +137,6 @@ var batching_record = {
                     offset:['40%','55%'],
                     yes:function(index) {
                         var Code = _this.attr('id').substr(7)
-                        $.post(home.urls.productOut.deleteByCode(), {
-                           code: Code
-                       }, function (result) {
-                           layer.msg(result.message, {
-                               offset: ['40%', '55%'],
-                               time: 700
-                           })
-                           if (result.code === 0) {
-                               var time = setTimeout(function () {
-                                   pro_out_manage.init()
-                                   clearTimeout(time)
-                               }, 500)
-                           }
-                           layer.close(index)
-                       })
                     },
                     btn2: function (index) {
                        layer.close(index)
