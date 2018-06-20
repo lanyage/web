@@ -11,34 +11,72 @@ var company_manage = {
         /** 渲染页面 */
         renderTable: function () {
             /** 获取所有的记录 */
-            $.post(home.urls.companyman.getAllByPage(), {page: 0}, function (result) {
-                var e = result.data.content //获取数据
-                const $tbody = $("#company_table").children('tbody')
-                company_manage.funcs.renderHandler($tbody, e)
-                company_manage.pageSize = result.data.content.length
-                var page = result.data
-                /** @namespace page.totalPages 这是返回数据的总页码数 */
-                /** 分页信息 */
-                layui.laypage.render({
-                    elem: 'companyman_page'
-                    , count: 10 * page.totalPages//数据总数
-                    /** 页面变化后的逻辑 */
-                    , jump: function (obj, first) {
-                        if(!first){
-                            $.post(home.urls.companyman.getAllByPage(), {
-                                page: obj.curr - 1,
-                                size: obj.limit
-                            }, function (result) {
-                                var e = result.data.content //获取数据
-                                const $tbody = $("#company_table").children('tbody')
-                                company_manage.funcs.renderHandler($tbody, e)
-                                company_manage.pageSize = result.data.content.length
-                            })
+            userStr = $.session.get('user')
+            userJson = JSON.parse(userStr) 
+            console.log(userJson)
+            supplierCode = userJson.supplier?userJson.supplier.code:null
+            if(supplierCode===null){
+                $.post(home.urls.firmman.getAllByPage(), {page: 0}, function (result) {
+                    var e = result.data.content //获取数据
+                    const $tbody = $("#company_table").children('tbody')
+                    company_manage.funcs.renderHandler($tbody, e)
+                    company_manage.pageSize = result.data.content.length
+                    var page = result.data
+                    /** @namespace page.totalPages 这是返回数据的总页码数 */
+                    /** 分页信息 */
+                    layui.laypage.render({
+                        elem: 'companyman_page'
+                        , count: 10 * page.totalPages//数据总数
+                        /** 页面变化后的逻辑 */
+                        , jump: function (obj, first) {
+                            if(!first){
+                                $.post(home.urls.companyman.getAllByPage(), {
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var e = result.data.content //获取数据
+                                    const $tbody = $("#company_table").children('tbody')
+                                    company_manage.funcs.renderHandler($tbody, e)
+                                    company_manage.pageSize = result.data.content.length
+                                })
+                            }
                         }
-                    }
+                    })
+                    $('#companyman_page').css('padding-left', '37%')
                 })
-                $('#companyman_page').css('padding-left', '37%')
-            })//$数据渲染完毕
+            }else{
+                Code = userJson.supplier.supplierType.code
+                $.post(home.urls.firmman.getAllBySupplierTypeByPage(), {code:Code}, function (result) {
+                    var e = result.data.content //获取数据
+                    const $tbody = $("#company_table").children('tbody')
+                    company_manage.funcs.renderHandler($tbody, e)
+                    company_manage.pageSize = result.data.content.length
+                    var page = result.data
+                    /** @namespace page.totalPages 这是返回数据的总页码数 */
+                    /** 分页信息 */
+                    layui.laypage.render({
+                        elem: 'companyman_page'
+                        , count: 10 * page.totalPages//数据总数
+                        /** 页面变化后的逻辑 */
+                        , jump: function (obj, first) {
+                            if(!first){
+                                $.post(home.urls.firmman.getAllBySupplierTypeByPage(), {
+                                    code:Code,
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var e = result.data.content //获取数据
+                                    const $tbody = $("#company_table").children('tbody')
+                                    company_manage.funcs.renderHandler($tbody, e)
+                                    company_manage.pageSize = result.data.content.length
+                                })
+                            }
+                        }
+                    })
+                    $('#companyman_page').css('padding-left', '37%')
+                })//$数据渲染完毕
+            }
+            
         }
         /** 公司信息编辑事件 */
     , bindEditEventListener: function (editBtns) {
@@ -48,10 +86,12 @@ var company_manage = {
                 var conpanymanCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.companyman.getByCode(), {code: conpanymanCode}, function (result) {
                     var companyman = result.data
+                    console.log(companyman.supplierType)
+                    // $("#company_type").empty()
+                    //$("#company_type").append("<option value='" + companyman.supplierType.code + "'>" + companyman.supplierType.type + "</option>")
+                    if(supplierCode===null){
                     $.get(home.urls.companyman.getAllsupplierType(), function (result) {
                         var companies = result.data
-                        $("#company_type").empty()
-                        $("#company_type").append("<option value='" + companyman.supplierType.code + "'>" + companyman.supplierType.type + "</option>")
                         companies.forEach(function (e) {
                             if(e.type!=companyman.supplierType.type)
                             $('#company_type').append(
@@ -59,6 +99,7 @@ var company_manage = {
                             )
                         })
                     })
+                }
                     layer.open({
                         type: 1,
                         content: "<div id='addModal'>" +
@@ -69,7 +110,7 @@ var company_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>地址:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='company_address' value='" + (companyman.address) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='company_person' value='" + (companyman.contactPerson) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系电话:&nbsp;<input type='text' id='company_contact' value='" + (companyman.contact) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>公司类型:&nbsp;<select style='width:170px;' id='company_type'></select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>公司类型:&nbsp;<select style='width:170px;' id='company_type'><option value='" + companyman.supplierType.code + "'>" + companyman.supplierType.type + "</option></select></p>" +
                         "</div>" +
                         "</div>",
                         area: ['400px', '350px'],

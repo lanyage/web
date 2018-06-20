@@ -1453,9 +1453,12 @@ var home = {
         /** 填充二级菜单并且携带3级菜单 */
         home.funcs.appendMenu2sToWrapperAndCarryModels(menu2ToSelected)
 
+       /* var personal_center = $('#personal_center')
+        home.funcs.personalCenter(personal_center)*/
         /** 绑定退出登录时间 */
         var $exit = $('#exit')
         home.funcs.handleLogout($exit)
+
     }//$init()
     , funcs: {
         /** 给一级菜单绑定点击事件 */
@@ -1664,6 +1667,7 @@ var home = {
 
             /** 给所有的二级菜单追加点击事件 */
             home.funcs.addMenu2ClickEvent()
+           
         }
         /** 给2级菜单添加点击事件 */
         , addMenu2ClickEvent: function () {
@@ -2117,7 +2121,96 @@ var home = {
         /** -------------------------------------------------------------------------------------*/
         /** -------------------------------------------------------------------------------------*/
 
-
+        /**进入用户中心 */
+        ,personalCenter:function(personal_center) {
+            personal_center.off('click').on('click',function(){
+                var userStr = $.session.get('user')
+                var userJson = JSON.parse(userStr)
+                console.log(userJson)
+                $('.chosenMenu3').removeClass('chosenMenu3')
+                $('.display-component-container').remove()
+                //$(this).addClass('chosenMenu3')
+                //var $right = $('.right') 
+                //var path = "../components/html/200.html"
+                //$right.load(path)
+               /* layer.open({
+                    type:1,
+                    title:'修改初始密码',
+                    content:"<div id='change_Modal'>" +
+                    "<div style='text-align: center;padding-top: 10px;'>" +
+                    "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;原密码:<input type='password' id='old_password'/></p>" +
+                    "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;新密码:<input type='password' id='new_password' placeholder='至少6位'/></p>" +
+                    "<p style='padding: 5px 0px 5px 0px;'>确认密码:<input type='password' id='renew_password' placeholder='至少6位'/></p>" +
+                    "</div>" +
+                    "</div>",
+                    area:['1050px','1050px'],
+                    btn:['确认','取消'],
+                    offset:['40%','55%'],
+                    yes:function(index){
+                        var userCode = userJson.code
+                        var oldPassword = $('#old_password').val()
+                        var newPassword = $('#new_password').val()
+                        var reNewPassword = $('#renew_password').val()
+                        $.post(home.urls.user.updatePassword(), {
+                            code: userCode,
+                            oldPassword: oldPassword,
+                            newPassword: newPassword,
+                            reNewPassword: reNewPassword
+                        }, function (result) {
+                            layer.msg(result.message, {
+                                offset: ['40%', '55%'],
+                                time: 700
+                            })
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
+                                    user_manage.funcs.department_Set()
+                                    clearTimeout(time)
+                                }, 500)
+                            }
+                            layer.close(index)
+                        })
+                    },
+                    btn2: function (index) {
+                        layer.close(index)
+                    }
+                })*/
+                layer.open({
+                    type:1,
+                    title:'个人中心',
+                    content:"$('.right')",
+                    area:['1050px','1050px'],
+                    btn:['确认','取消'],
+                    offset:['40%','55%'],
+                    yes:function(index){
+                        var userCode = userJson.code
+                        var oldPassword = $('#old_password').val()
+                        var newPassword = $('#new_password').val()
+                        var reNewPassword = $('#renew_password').val()
+                        $.post(home.urls.user.updatePassword(), {
+                            code: userCode,
+                            oldPassword: oldPassword,
+                            newPassword: newPassword,
+                            reNewPassword: reNewPassword
+                        }, function (result) {
+                            layer.msg(result.message, {
+                                offset: ['40%', '55%'],
+                                time: 700
+                            })
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
+                                    user_manage.funcs.department_Set()
+                                    clearTimeout(time)
+                                }, 500)
+                            }
+                            layer.close(index)
+                        })
+                    },
+                    btn2: function (index) {
+                        layer.close(index)
+                    }
+                })
+            })
+        }
         /** 用户退出登录逻辑 */
         , handleLogout: function ($exit) {
             $exit.on('click', function () {

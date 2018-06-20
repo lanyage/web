@@ -359,37 +359,70 @@ var user_manage = {
         , bindResetEventListener: function (resetBtns) {
             resetBtns.off('click')
             resetBtns.on('click', function () {
-                layer.open({
-                    type: 1,
-                    title: '重置密码',
-                    content: "<h5 style='text-align: center;padding-top: 8px'>确认要重置密码吗?</h5>",
-                    area: ['190px', '130px'],
-                    btn: ['确认', '取消'],
-                    offset: ['40%', '55%'],
-                    yes: function (index) {
-                        $.ajax({
-                            url: home.urls.user.resetAllDefaultPassword(),
-                            data: {},
-                            type: 'post',
-                            success: function (result) {
-                                if (result.code === 0) {
-                                    var time = setTimeout(function () {
-                                        user_manage.funcs.department_Set()
-                                        clearTimeout(time)
-                                    }, 500)
+                if ($('.user_checkbox:checked').length === 0) {
+                    layer.msg('亲,您还没有选中任何数据！', {
+                        offset: ['40%', '55%'],
+                        time: 700
+                    })
+                } else{
+                    layer.open({
+                        type: 1,
+                        title: '重置密码',
+                        content: "<h5 style='text-align: center;padding-top: 8px'>确认要重置密码吗?</h5>",
+                        area: ['190px', '130px'],
+                        btn: ['确认', '取消'],
+                        offset: ['40%', '55%'],
+                        yes: function (index) {
+                            var userCodes = []
+                            $('.user_checkbox').each(function () {
+                                if ($(this).prop('checked')) {
+                                    userCodes.push({ code: $(this).val() })
                                 }
-                                layer.msg(result.message, {
-                                    offset: ['40%', '55%'],
-                                    time: 700
-                                })
-                            }
-                        })
-                        layer.close(index)
-                    },
-                    btn2: function (index) {
-                        layer.close(index)
-                    }
-                })
+                            })
+                            $.ajax({
+                                url: home.urls.user.resetPassword(),
+                                contentType: 'application/json',
+                                data: JSON.stringify(userCodes),
+                                dataType: 'json',
+                                type: 'post',
+                                success: function (result) {
+                                    if (result.code === 0) {
+                                        var time = setTimeout(function () {
+                                            user_manage.funcs.department_Set()
+                                            clearTimeout(time)
+                                        }, 500)
+                                    }
+                                    layer.msg(result.message, {
+                                        offset: ['40%', '55%'],
+                                        time: 700
+                                    })
+                                }
+                            })
+                          /**  $.ajax({
+                                url: home.urls.user.resetPassword(),
+                                data: {},
+                                type: 'post',
+                                success: function (result) {
+                                    if (result.code === 0) {
+                                        var time = setTimeout(function () {
+                                            user_manage.funcs.department_Set()
+                                            clearTimeout(time)
+                                        }, 500)
+                                    }
+                                    layer.msg(result.message, {
+                                        offset: ['40%', '55%'],
+                                        time: 700
+                                    })
+                                }
+                            })*/
+                            layer.close(index)
+                        },
+                        btn2: function (index) {
+                            layer.close(index)
+                        }
+                    })
+                }
+               
             })
         }
         /** 修改初始密码 */
@@ -407,12 +440,12 @@ var user_manage = {
                         title: '修改初始密码',
                         content: "<div id='changeModal'>" +
                             "<div style='text-align: center;padding-top: 10px;'>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>原密码:<input type='text' id='old_password' /></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>新密码:<input type='text' id='new_password' placeholder='至少6位'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>确认密码:<input type='text' id='renew_password' placeholder='至少6位'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;原密码:<input type='password' id='old_password' /></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;新密码:<input type='password' id='new_password' placeholder='至少6位'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>确认密码:<input type='password' id='renew_password' placeholder='至少6位'/></p>" +
                             "</div>" +
                             "</div>",
-                        area: ['350px', '200px'],
+                        area: ['350px', '250px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '55%'],
                         yes: function (index) {
