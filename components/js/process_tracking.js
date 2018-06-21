@@ -1,57 +1,57 @@
-var casket_sampling = {
+var process_tracking = {
     init: function () {
-        casket_sampling.funcs.renderTable()
-        var out = $('#casket_sampling_page').width()
+        process_tracking.funcs.renderTable()
+        var out = $('#process_tracking_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#casket_sampling').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#process_tracking_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
         }, 30)
     },
      funcs: {
         renderTable: function () {
-            $.post(home.urls.bowlSampling.getAllByPage(), {page:0}, function (res) {
+            $.post(home.urls.processTracking.getAllByPage(), {page:0}, function (res) {
                 console.log(res)
-                var $tbody = $("#casket_sampling_table").children('tbody')
+                var $tbody = $("#process_tracking_table").children('tbody')
                 var items = res.data.content
                 //console.log(items)
-                casket_sampling.funcs.renderHandler($tbody, items)
+                process_tracking.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
-                casket_sampling.pageSize = res.data.content.length //该页的记录数
+                process_tracking.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
                 /** 分页信息 */
                 layui.laypage.render({
-                    elem: 'casket_sampling_page',
+                    elem: 'process_tracking_page',
                     count: 10 * page.totalPages,//数据总数
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.bowlSampling.getAllByPage(), {
+                            $.post(home.urls.processTracking.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
-                                const $tbody = $("#casket_sampling_table").children('tbody')
-                                casket_sampling.funcs.renderHandler($tbody, items)
-                                casket_sampling.pageSize = result.data.content.length
+                                const $tbody = $("#process_tracking_table").children('tbody')
+                                process_tracking.funcs.renderHandler($tbody, items)
+                                process_tracking.pageSize = result.data.content.length
                             })
                         }
                     }
                 })
             })
 
-            casket_sampling.funcs.bindAddEvent($('#model_li_hide_add_32'))
-            casket_sampling.funcs.bindDeleteEvent($('#model_li_hide_delete_32'))
+            process_tracking.funcs.bindAddEvent($('#model_li_hide_add_34'))
+            process_tracking.funcs.bindDeleteEvent($('#model_li_hide_delete_34'))
 
-            var refreshBtn = $('#model_li_hide_refresh_32');
-            casket_sampling.funcs.bindRefreshEventListener(refreshBtn);
+            var refreshBtn = $('#model_li_hide_refresh_34');
+            process_tracking.funcs.bindRefreshEventListener(refreshBtn);
 
             //追加搜索事件
-            var searchBtn = $('#model_li_hide_search_32')
-            casket_sampling.funcs.bindSearchEventListener(searchBtn)
+            var searchBtn = $('#model_li_hide_search_34')
+            process_tracking.funcs.bindSearchEventListener(searchBtn)
 
-            var checkedBoxLen = $('.casket_sampling_checkbox:checked').length
-            home.funcs.bindSelectAll($("#casket_sampling_checkAll"),$(".casket_sampling_checkbox"),checkedBoxLen,$("#casket_sampling_table"))
+            var checkedBoxLen = $('.process_tracking_checkbox:checked').length
+            home.funcs.bindSelectAll($("#process_tracking_checkAll"),$(".process_tracking_checkbox"),checkedBoxLen,$("#process_tracking_table"))
 
 
         }
@@ -61,9 +61,9 @@ var casket_sampling = {
             var code = e.code
             var content = (
                 "<tr>" +
-                    "<td><input type='checkbox' class='casket_sampling_checkbox' value='" + (e.code) + "'></td>" +
+                    "<td><input type='checkbox' class='process_tracking_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + e.code + "</td>" +
-                    "<td>" + (new Date(e.date).Format('yyyy-MM-dd')) + "</td>" +
+                    "<td>" + (e.premixed_code) + "</td>" +
                     "<td>" + (e.dutyCode ? e.dutyCode.code : '')+ "</td>" +
                     "<td>" + (e.bowlCode ? e.bowlCode : '') + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
@@ -73,12 +73,12 @@ var casket_sampling = {
             )
             $tbody.append(content)
         })
-        casket_sampling.funcs.bindDetailEventListener($('.detail'))
-        casket_sampling.funcs.bindEditorEventListener($('.editor'))
-        casket_sampling.funcs.bindDeleteEventListener($('.delete'))
+        process_tracking.funcs.bindDetailEventListener($('.detail'))
+        process_tracking.funcs.bindEditorEventListener($('.editor'))
+        process_tracking.funcs.bindDeleteEventListener($('.delete'))
 
-        var checkedBoxLen = $('.casket_sampling_checkbox:checked').length
-        home.funcs.bindSelectAll($("#casket_sampling_checkAll"),$(".casket_sampling_checkbox"),checkedBoxLen,$("casket_sampling_table"))
+        var checkedBoxLen = $('.process_tracking_checkbox:checked').length
+        home.funcs.bindSelectAll($("#process_tracking_checkAll"),$(".process_tracking_checkbox"),checkedBoxLen,$("process_tracking_table"))
     }
     
 
@@ -86,7 +86,7 @@ var casket_sampling = {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-                $.post(home.urls.bowlSampling.getById(),{
+                $.post(home.urls.processTracking.getById(),{
                     code:code
                 },function(result){
                     var items = result.data
@@ -101,17 +101,17 @@ var casket_sampling = {
                     $("#inspectorTime").text(new Date(items.inspectorTime).Format('yyyy-MM-dd hh:mm:ss'))
                     $('#detail_time').text(new Date().Format('yyyy-MM-dd'))  
                
-                //casket_sampling.funcs.fill_detail_data($("#casket_sampling_detail_modal"))
+                //process_tracking.funcs.fill_detail_data($("#process_tracking_detail_modal"))
                 layer.open({
                     type: 1,
                     title: '闸钵抽检详情',
-                    content: $("#casket_sampling_detail_modal"),
+                    content: $("#process_tracking_detail_modal"),
                     area: ['1000px', '280px'],
                     btn: ['返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#casket_sampling_detail_modal").css('display', 'none')
+                        $("#process_tracking_detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                 });        
@@ -122,7 +122,7 @@ var casket_sampling = {
          bindEditorEventListener:function(editBtns) {
              editBtns.off('click').on('click',function() {
                  var code = $(this).attr('id').substr(7) 
-                 $.post(home.urls.bowlSampling.getById(),{
+                 $.post(home.urls.processTracking.getById(),{
                      code:code
                  },function(result){
                      items = result.data
@@ -156,13 +156,13 @@ var casket_sampling = {
                 layer.open({
                     type: 1,
                     title: '编辑匣钵抽检',
-                    content: $("#casket_sampling_editor_modal"),
+                    content: $("#process_tracking_editor_modal"),
                     area: ['1000px', '280px'],
                     btn: ['确定','提交','返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#casket_sampling_editor_modal").css('display', 'none')
+                        $("#process_tracking_editor_modal").css('display', 'none')
                          var dutyCode = $("#dutyCode1").val()
                          var bowlCode = $("#bowlCode1").val()
                          var tare = $("#tare1").val()
@@ -174,7 +174,7 @@ var casket_sampling = {
                          var inspectorTime =  new Date($("#inspectorTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
                          console.log(randomCode)
                          console.log(inspectorCode)
-                         $.post(home.urls.bowlSampling.update(),{
+                         $.post(home.urls.processTracking.update(),{
                              code:code,
                              date:new Date(items.date).Format('yyyy-MM-dd'),
                              dutyCode:dutyCode,
@@ -193,7 +193,7 @@ var casket_sampling = {
                              })
                              if(result.code===0){
                                  var time = setTimeout(function(){
-                                     casket_sampling.init()
+                                     process_tracking.init()
                                      clearTimeout(time)
                                  },500)
                              }
@@ -201,7 +201,7 @@ var casket_sampling = {
                         layer.close(index)
                     }
                     ,btn2: function(index) {
-                        $("#casket_sampling_editor_modal").css('display', 'none')
+                        $("#process_tracking_editor_modal").css('display', 'none')
                          var dutyCode = $("#dutyCode1").val()
                          var bowlCode = $("#bowlCode1").val()
                          var tare = $("#tare1").val()
@@ -211,7 +211,7 @@ var casket_sampling = {
                          var randomTime =  $("#randomTime1").val()
                          var inspectorCode =  $("#inspectorCode1").val()
                          var inspectorTime =  $("#inspectorTime1").val()
-                         $.post(home.urls.bowlSampling.update(),{
+                         $.post(home.urls.processTracking.update(),{
                              code:code,
                              date:new Date(items.date).Format('yyyy-MM-dd'),
                              dutyCode:dutyCode,
@@ -231,7 +231,7 @@ var casket_sampling = {
                              })
                              if(result.code===0){
                                  var time = setTimeout(function(){
-                                     casket_sampling.init()
+                                     process_tracking.init()
                                      clearTimeout(time)
                                  },500)
                              }
@@ -239,7 +239,7 @@ var casket_sampling = {
                         layer.close(index)
                      }
                      ,btn3: function(index) {
-                        $("#casket_sampling_editor_modal").css('display', 'none')
+                        $("#process_tracking_editor_modal").css('display', 'none')
                         layer.close(index)
                      }
                 }); 
@@ -258,7 +258,7 @@ var casket_sampling = {
                      offset:['40%','55%'],
                      yes:function(index) {
                          var Code = _this.attr('id').substr(7)
-                         $.post(home.urls.bowlSampling.deleteByCode(), {
+                         $.post(home.urls.processTracking.deleteByCode(), {
                             code: Code
                         }, function (result) {
                             layer.msg(result.message, {
@@ -267,7 +267,7 @@ var casket_sampling = {
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    casket_sampling.init()
+                                    process_tracking.init()
                                     clearTimeout(time)
                                 }, 500)
                             }
@@ -306,13 +306,13 @@ var casket_sampling = {
                 layer.open({
                     type: 1,
                     title: '新增匣钵抽检',
-                    content: $("#casket_sampling_editor_modal"),
+                    content: $("#process_tracking_editor_modal"),
                     area: ['1000px', '280px'],
                     btn: ['确定','返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#casket_sampling_editor_modal").css('display', 'none')
+                        $("#process_tracking_editor_modal").css('display', 'none')
                          var dutyCode = $("#dutyCode1").val()
                          var bowlCode = $("#bowlCode1").val()
                          var tare = $("#tare1").val()
@@ -322,7 +322,7 @@ var casket_sampling = {
                          var randomTime =  new Date($("#randomTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
                          var inspectorCode =  $("#inspectorCode1").val()
                          var inspectorTime =  new Date($("#inspectorTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
-                         $.post(home.urls.bowlSampling.add(),{
+                         $.post(home.urls.processTracking.add(),{
                              date:new Date().Format('yyyy-MM-dd'),
                              dutyCode:dutyCode,
                              bowlCode:bowlCode,
@@ -340,7 +340,7 @@ var casket_sampling = {
                              })
                              if(result.code===0){
                                  var time = setTimeout(function(){
-                                     casket_sampling.init()
+                                     process_tracking.init()
                                      clearTimeout(time)
                                  },500)
                              }
@@ -348,7 +348,7 @@ var casket_sampling = {
                         layer.close(index)
                     }
                     ,btn2:function(index){
-                        $("#casket_sampling_editor_modal").css('display','none')
+                        $("#process_tracking_editor_modal").css('display','none')
                         layer.close(index)
                     }
                 }); 
@@ -356,7 +356,7 @@ var casket_sampling = {
          }
          ,bindDeleteEvent:function(deleteBtn){
              deleteBtn.off('click').on('click',function(){
-                 if($('.casket_sampling_checkbox:checked').length === 0) {
+                 if($('.process_tracking_checkbox:checked').length === 0) {
                      layer.msg('您还没有选中任何数据!',{
                          offset:['40%','55%'],
                          time:700
@@ -371,22 +371,22 @@ var casket_sampling = {
                          btn:['确认','取消'],
                          offset:['40%','55%'],
                          yes:function(index){
-                             var casket_sampling_codes=[]
-                             $('.casket_sampling_checkbox').each(function() {
+                             var process_tracking_codes=[]
+                             $('.process_tracking_checkbox').each(function() {
                                  if($(this).prop('checked')) {
-                                    casket_sampling_codes.push({code:$(this).val()})
+                                    process_tracking_codes.push({code:$(this).val()})
                                  }
                              })
                              $.ajax({
-                                url: home.urls.bowlSampling.deleteByIdBatch(),
+                                url: home.urls.processTracking.deleteByIdBatch(),
                                 contentType: 'application/json',
-                                data: JSON.stringify(casket_sampling_codes),
+                                data: JSON.stringify(process_tracking_codes),
                                 dataType: 'json',
                                 type: 'post',
                                 success: function (result) {
                                     if (result.code === 0) {
                                         var time = setTimeout(function () {
-                                            casket_sampling.init()
+                                            process_tracking.init()
                                             clearTimeout(time)
                                         }, 500)
                                     }
@@ -414,7 +414,7 @@ var casket_sampling = {
                          offset: ['40%', '55%'],
                          time: 700
                      })
-                     casket_sampling.init()
+                     process_tracking.init()
                      $('#input_batch_num').val('')
                      layer.close(index)
                      clearTimeout(time)
@@ -425,31 +425,31 @@ var casket_sampling = {
          bindSearchEventListener: function (searchBtn) {
              searchBtn.off('click')
              searchBtn.on('click', function () {
-                 var bowlCode = $('#input_batch_num').val()
+                 var premixedCode = $('#input_batch_num').val()
                  //var createDate = new Date(order_date.replace(new RegExp("-","gm"),"/")).getTime()
                  //var createDate =order_date.getTime;//毫秒级; // date类型转成long类型
-                 $.post(home.urls.bowlSampling.getByBowlCodeLikeByPage(), {
-                    bowlCode: bowlCode
+                 $.post(home.urls.processTracking.getByPremixedCodeLikeByPage(), {
+                    premixedCode: premixedCode
                  }, function (result) {
                      var items = result.data.content //获取数据
                      page = result.data
-                     const $tbody = $("#casket_sampling_table").children('tbody')
-                     casket_sampling.funcs.renderHandler($tbody, items)
+                     const $tbody = $("#process_tracking_table").children('tbody')
+                     process_tracking.funcs.renderHandler($tbody, items)
                      layui.laypage.render({
-                         elem: 'casket_sampling_page'
+                         elem: 'process_tracking_page'
                          , count: 10 * page.totalPages//数据总数
                          , jump: function (obj, first) {
                              if (!first) {
-                                 $.post(home.urls.bowlSampling.getByBowlCodeLikeByPage(), {
-                                    bowlCode: bowlCode,
+                                 $.post(home.urls.processTracking.getByPremixedCodeLikeByPage(), {
+                                    premixedCode: premixedCode,
                                      page: obj.curr - 1,
                                      size: obj.limit
                                  }, function (result) {
                                      var items = result.data.content //获取数据
                                      // var code = $('#model-li-select-48').val()
-                                     const $tbody = $("#casket_sampling_table").children('tbody')
-                                     casket_sampling.funcs.renderHandler($tbody, items)
-                                     casket_sampling.pageSize = result.data.content.length
+                                     const $tbody = $("#process_tracking_table").children('tbody')
+                                     process_tracking.funcs.renderHandler($tbody, items)
+                                     process_tracking.pageSize = result.data.content.length
                                  })
                              }
                          }

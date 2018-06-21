@@ -1285,7 +1285,7 @@ var home = {
                 return servers.backup() + 'bowlAbnormal/getById'
             }
         }
-        ,casketSampling:{
+        ,bowlSampling:{
             deleteByIdBatch: function () {
                 return servers.backup() + 'bowlSampling/deleteByIdBatch'
             },
@@ -1299,13 +1299,13 @@ var home = {
                 return servers.backup() + 'bowlSampling/deleteByCode'
             },
             getById: function () {
-                return servers.backup + 'bowlSampling/getById'
+                return servers.backup() + 'bowlSampling/getById'
             },
             add: function () {
                 return servers.backup() + 'bowlSampling/add'
             },
-            deleteByIdBatch: function () {
-                return servers.backup() + 'bowlSampling/deleteByIdBatch'
+            update: function () {
+                return servers.backup() + 'bowlSampling/update'
             },
         }
         ,screenCheck:{
@@ -1313,7 +1313,7 @@ var home = {
                 return servers.backup() + 'screenCheck/deleteByIdBatch'
             },
             getAllByPage: function () {
-                return servers.backup() + 'ingredientsRecord/getAllByPage'
+                return servers.backup() + 'screenCheck/getAllByPage'
             },
             getByBowlCodeLikeByPage: function () {
                 return servers.backup() + 'screenCheck/getByBowlCodeLikeByPage'
@@ -1322,13 +1322,56 @@ var home = {
                 return servers.backup() + 'screenCheck/deleteByCode'
             },
             getById: function () {
-                return servers.backup + 'screenCheck/getById'
+                return servers.backup() + 'screenCheck/getById'
             },
             add: function () {
                 return servers.backup() + 'screenCheck/add'
             },
+        }
+        ,processTracking:{
             deleteByIdBatch: function () {
-                return servers.backup() + 'screenCheck/deleteByIdBatch'
+                return servers.backup() + 'processTracking/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'processTracking/getAllByPage'
+            },
+            getByPremixedCodeLikeByPage: function () {
+                return servers.backup() + 'processTracking/getByPremixedCodeLikeByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'processTracking/deleteByCode'
+            },
+            getById: function () {
+                return servers.backup() + 'processTracking/getById'
+            },
+            add: function () {
+                return servers.backup() + 'processTracking/add'
+            },
+            update: function () {
+                return servers.backup() + 'processTracking/update'
+            },
+        }
+        ,approvalTracking:{
+            deleteByIdBatch: function () {
+                return servers.backup() + 'approvalTracking/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'approvalTracking/getAllByPage'
+            },
+            getByPackagingCodeLikeByPage: function () {
+                return servers.backup() + 'approvalTracking/getByPackagingCodeLikeByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'approvalTracking/deleteByCode'
+            },
+            getById: function () {
+                return servers.backup() + 'approvalTracking/getById'
+            },
+            add: function () {
+                return servers.backup() + 'approvalTracking/add'
+            },
+            update: function () {
+                return servers.backup() + 'approvalTracking/update'
             },
         }
     }

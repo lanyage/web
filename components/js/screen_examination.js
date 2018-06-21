@@ -54,9 +54,9 @@ var screen_examination = {
                     "<tr>" +
                     "<td><input type='checkbox' class='screen_examination_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
-                    "<td>" + (e.batchNumber) + "</td>" +
-                    "<td>" + (e.department ? e.department.name : null) + "</td>" +
-                    "<td>" + (e.payTime) + "</td>" +
+                    "<td>" + (e.shakerCode?e.shakerCode:'') + "</td>" +
+                    "<td>" + (e.inspector ? e.inspector.name : null) + "</td>" +
+                    "<td>" + (new Date(e.inspectorTime).Format('yyyy-MM-dd hh:mm:ss')) + "</td>" +
                     "<td><a href='#' class='detail' id='detail-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
                     "</tr>"
                 )
@@ -68,7 +68,7 @@ var screen_examination = {
            
             /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
             var detailBtns = $(".detail")
-           // screen_examination.funcs.bindDetailClick(detailBtns)
+            screen_examination.funcs.bindDetailClick(detailBtns)
         },
 
         bindDetailClick: function (detailBtns) {
@@ -78,20 +78,17 @@ var screen_examination = {
                 $.post(home.urls.productIn.getByCode(), {
                     code: codeNumber
                 }, function (result) {
-                    var items = result.data  //获取数  /** */
-                    // console.log(items)
-                    //点击的时候需要弹出一个模态框
-                    screen_examination.funcs.fillData($("#detail_modal"), items)  //将获取的数据传到#detail_modal中
+                    var items = result.data 
+                    /**显示图片信息 */
                     layer.open({
                         type: 1,
-                        title: '成品入库详情',
+                        title: '图片详情',
                         content: $("#detail_modal"),
                         area: ['800px', '430px'],
                         btn: [' 返回'],
                         offset: "auto",
                         closeBtn: 0,
                         yes: function (index) {
-                            //点击确定之后必须打印当前表单,推荐第三方插件 printthis.js todo
                             $("#detail_modal").css('display', 'none')
                             layer.close(index)
                         },
