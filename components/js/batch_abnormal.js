@@ -75,6 +75,9 @@ var batch_abnormal = {
         batch_abnormal.funcs.bindDetailEventListener($('.detail'))
         batch_abnormal.funcs.bindEditorEventListener($('.editor'))
         batch_abnormal.funcs.bindDeleteEventListener($('.delete'))
+
+        var checkedBoxLen = $('.batch_abnormal_checkbox:checked').length
+        home.funcs.bindSelectAll($("#batch_abnormal_checkAll"),$(".batch_abnormal_checkbox"),checkedBoxLen,$("batch_abnormal_table"))
     }
 
     , bindDetailEventListener: function (detailBtns) {
@@ -90,8 +93,8 @@ var batch_abnormal = {
                     $('#batchNumber').text(items.batchNumber)
                     $('#abNumber').text(items.abNumber)
                     $('#abWeight').text(items.abWeight)
-                    $('#operatorCode').text(items.operator?items.operator.code:' ')
-                    $('#checkerCode').text(items.checker?items.checker.code:' ')
+                    $('#operatorCode').text(items.operator?items.operator.name:' ')
+                    $('#checkerCode').text(items.checker?items.checker.name:' ')
                
                     $("#detail_time").text(new Date().Format("yyyy-MM-dd"))
                    
@@ -126,10 +129,25 @@ var batch_abnormal = {
                     $("#batch_Number").val(items.batchNumber)
                     $("#ab_number").val(items.abNumber)
                     $("#ab_weight").val(items.abWeight)
-                    $("#operator_code").val(items.operator?items.operator.code:' ')
-                    $("#checker_code").val(items.checker?items.checker.code:' ')
-                    
+                    $("#operator_code").append("<option value="+items.operator.code+">"+items.operator.name+"</option>")
+                    $("#checker_code").append("<option value="+items.checker.code+">"+items.checker.name+"</option>")
                     $("#editor_time").text(new Date().Format("yyyy-MM-dd"))
+                    $.get(servers.backup()+"user/getAll",{ },function(result){
+                        users = result.data
+                        users.forEach(function(e){
+                            if(items.operator.code!=users.code){
+                                $("#operator_code").append(
+                                "<option value="+(e.code)+">"+e.name+"</option>"
+                            )
+                            }
+                            if(items.checker.code!=users.code){
+                                $("#checker_code").append(
+                                "<option value="+(e.code)+">"+e.name+"</option>"
+                            )
+                            }
+                            
+                        })
+                    })
                  layer.open({
                      type:1,
                      title:'编辑断批异常统计',
@@ -151,13 +169,13 @@ var batch_abnormal = {
                          $.post(home.urls.batchAbnormal.update(),{
                             code:code,
                             date: date,
-                            dutyCode: dutyCode,
+                            'dutyCode.code': dutyCode,
                             time: time,
                             batchNumber: batchNumber,
                             abNumber: abNumber,
                             abWeight: abWeight,
-                            checker: checker_code,
-                            operator: operator_code,
+                            'checker.code': checker_code,
+                            'operator.code': operator_code,
                             state:0
                          },function(result){
                              layer.msg(result.message,{
@@ -175,7 +193,6 @@ var batch_abnormal = {
                      }
                      ,btn2: function(index) {
                         $("#batch_abnormal_editor_modal").css('display', 'none')
-                        $("#batch_abnormal_editor_modal").css('display', 'none')
                          var  date = items.date
                          var dutyCode = $("#duty_code").val()
                          var time = new Date($("#E_time").val()).Format('yyyy-MM-dd hh:mm:ss')
@@ -187,13 +204,13 @@ var batch_abnormal = {
                          $.post(home.urls.batchAbnormal.update(),{
                             code:code,
                             date: date,
-                            dutyCode: dutyCode,
+                            'dutyCode.code': dutyCode,
                             time: time,
                             batchNumber: batchNumber,
                             abNumber: abNumber,
                             abWeight: abWeight,
-                            checker: checker_code,
-                            operator: operator_code,
+                            'checker.code': checker_code,
+                            'operator.code': operator_code,
                             state:1
                          },function(result){
                              layer.msg(result.message,{
@@ -258,9 +275,18 @@ var batch_abnormal = {
                 $("#batch_Number").val('')
                 $("#ab_number").val('')
                 $("#ab_weight").val('')
-                $("#operator_code").val('')
-                $("#checker_code").val('')
                 $("#editor_time").text(new Date().Format("yyyy-MM-dd"))
+                $.get(servers.backup()+"user/getAll",{ },function(result){
+                    users = result.data
+                    users.forEach(function(e){
+                        $("#operator_code").append(
+                            "<option value="+(e.code)+">"+e.name+"</option>"
+                            )
+                        $("#checker_code").append(
+                            "<option value="+(e.code)+">"+e.name+"</option>"
+                        )     
+                    })
+                })  
                  layer.open({
                      type:1,
                      title:"新增断批异常统计",
@@ -281,13 +307,13 @@ var batch_abnormal = {
                          var operator_code = $("#operator_code").val()
                          $.post(home.urls.batchAbnormal.add(),{
                             date: date,
-                            dutyCode: dutyCode,
+                            'dutyCode.code': dutyCode,
                             time: time,
                             batchNumber: batchNumber,
                             abNumber: abNumber,
                             abWeight: abWeight,
-                            checker: checker_code,
-                            operator: operator_code,
+                            'checker.code': checker_code,
+                            'operator.code': operator_code,
                             state:0
                          },function(result){
                              layer.msg(result.message,{

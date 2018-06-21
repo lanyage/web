@@ -1,8 +1,168 @@
-<div id='model-li-hide-35' class="display-component-container" style="line-height:700px;">
-    <h1 style="text-align: center">页面还在火速开发中...</h1>
-    <script type="application/javascript">
-        $(function() {
-            console.log( $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>'))
-        })
-    </script>
+<div id='model-li-hide-35' class="display-component-container" style="padding: 20px;">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <style>
+             #approval_tracking_detail_table td {
+                padding: 7px;
+                border: 1px darkgrey solid;
+                font-size: 14px;
+                color: black;
+                text-align: center;
+                font-weight: 400;
+                height:30x;
+                width:50px;
+            }    
+            #approval_tracking_editor_table td{
+                padding: 7px;
+                border: 1px darkgrey solid;
+                font-size: 14px;
+                color: black;
+                text-align: center;
+                font-weight: 400;
+                height:30x;
+                width:50px;
+            }
+            #approval_tracking_editor_table input{
+                width:100%;
+                height:100%;
+                border:none;
+                text-align: center;
+            }
+            select{
+                width:100%;
+                height:100%;
+                border:none;
+            }
+        </style>
+        <div class="block-quote">
+            <div class="fl">
+                <p style="color: #62a49a; font-size: 14px;">
+                    <!--&#xe608;-->
+                    <span id="model_li_hide_add_32"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
+                    <span id="model_li_hide_delete_32"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+                </p>
+            </div>
+            <div class="fr">
+                <p style="color: #62a49a; font-size: 14px;">
+                    <span id="model_li_hide_refresh_32"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+                    &nbsp;&nbsp;
+                    <input type="text" id="input_batch_num" placeholder="请输入装钵机号"/> &nbsp;&nbsp;
+                    <span id="model_li_hide_search_32"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+                </p>
+            </div>
+        </div>
+    
+        <div class="whitespace" ></div>
+    
+        <table id="approval_tracking_table" style="width: 100%;">
+            <thead style="background: #666666;">
+            <tr>
+                <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
+                <td class="checkBox_td"><input id="approval_tracking_checkAll" type="checkbox"></td>
+                <td>序号</td>
+                <td>预混物料编号</td>
+                <td>预烧物料编号</td>
+                <td>粉碎物料编号</td>
+                <td>详情</td>
+                <td>编辑</td>
+                <td>删除</td>
+            </tr>
+            </thead>
+            <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
+            <tbody>
+            </tbody>
+        </table>
+    
+        <div id="approval_tracking_page" style="text-align: center;"></div>
+        <script src="../components/js/approval_tracking.js"></script>
+        <script type="application/javascript">
+            $(function () {
+                approval_tracking.init()
+            })
+        </script>
+        <div id="approval_tracking_detail_modal" class="hide" style="padding:30px;">
+            
+            <table id="approval_tracking_detail_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
+                <thead>
+                <tr class="grey">
+                    <td>班次</td>
+                    <td>装钵机号</td>
+                    <td>总重</td>
+                    <td>皮重</td>
+                    <td>净重</td>
+                    <td>抽检人</td>
+                    <td>抽检人时间</td>
+                    <td>检查人</td>
+                    <td>检查人时间</td>
+                </tr>
+              </thead>
+              <tbody>
+               <tr>
+                    <td id="dutyCode"></td>
+                    <td id="bowlCode"></td>
+                    <td id="total"></td>
+                    <td id="tare"></td>
+                    <td id="net"></td>
+                    <td id="randomCode"></td>
+                    <td id="randomTime"></td>
+                    <td id="inspectorCode"></td>
+                    <td id="inspectorTime"></td>
+                    </tr>
+                
+               </tbody>
+            </table>
+            <div class="whitespace"></div>
+            <span style="float:right;">日期：<span id="detail_time" style="width:10%;"></span></span>
+        </div>
+        <div id="approval_tracking_editor_modal" class="hide" style="padding:30px;">
+            
+                <table id="approval_tracking_editor_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
+                    <thead>
+                    <tr class="grey">
+                        <td>班次</td>
+                        <td>装钵机号</td>
+                        <td>总重</td>
+                        <td>皮重</td>
+                        <td>净重</td>
+                        <td>抽检人</td>
+                        <td>抽检人时间</td>
+                        <td>检查人</td>
+                        <td>检查人时间</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>
+                        <input type="text" id="dutyCode1"/>
+                    </td>
+                    <td>
+                        <input type="text" id="bowlCode1"/>
+                    </td>
+                    <td>
+                        <input type="text" id="total1"/>
+                    </td>
+                    <td>
+                        <input type="text" id="tare1"/>
+                    </td>
+                    <td>
+                        <input type="text" id="net1"/>   
+                    </td>
+                    <td>
+                        <select id="randomCode1"></select>
+                    </td>
+                    <td>
+                        <input type="text" id="randomTime1"/>
+                    </td>
+                    <td>
+                        <select id="inspectorCode1"></select>
+                    </td>
+                    <td>
+                        <input type="text" id="inspectorTime1"/>
+                    </td>
+                </tr> 
+                   </tbody>
+                </table>
+                <div class="whitespace"></div>
+                <span style="float:right;">日期：<span id="editor_time" style="width:10%;"></span></span>
+            </div>
 </div>

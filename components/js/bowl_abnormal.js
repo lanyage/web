@@ -4,7 +4,7 @@ var bowl_abnormal = {
         var out = $('#bowl_abnormal_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#bowl_abnormal_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 136 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#bowl_abnormal_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
         }, 30)
     },
@@ -39,14 +39,14 @@ var bowl_abnormal = {
                 })
             })
 
-            bowl_abnormal.funcs.bindAddEvent($('#model_li_hide_add_136'))
-            bowl_abnormal.funcs.bindDeleteEvent($('#model_li_hide_delete_136'))
+            bowl_abnormal.funcs.bindAddEvent($('#model_li_hide_add_135'))
+            bowl_abnormal.funcs.bindDeleteEvent($('#model_li_hide_delete_135'))
 
-            var refreshBtn = $('#model_li_hide_refresh_136');
+            var refreshBtn = $('#model_li_hide_refresh_135');
             bowl_abnormal.funcs.bindRefreshEventListener(refreshBtn);
 
             //追加搜索事件
-            var searchBtn = $('#model_li_hide_search_136')
+            var searchBtn = $('#model_li_hide_search_135')
             bowl_abnormal.funcs.bindSearchEventListener(searchBtn)
 
             var checkedBoxLen = $('.bowl_abnormal_checkbox:checked').length
@@ -64,6 +64,7 @@ var bowl_abnormal = {
                     "<td>" + e.code + "</td>" +
                     "<td>" + (new Date(e.date).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.dutyCode?e.dutyCode.code:' ') + "</td>" +
+                    "<td>" + (new Date(e.time).Format('yyyy-MM-dd hh:mm:ss')) + "</td>" +
                     "<td>" + (e.bowlCode ? e.bowlCode : ' ') + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
@@ -75,6 +76,9 @@ var bowl_abnormal = {
         bowl_abnormal.funcs.bindDetailEventListener($('.detail'))
         bowl_abnormal.funcs.bindEditorEventListener($('.editor'))
         bowl_abnormal.funcs.bindDeleteEventListener($('.delete'))
+
+        var checkedBoxLen = $('.bowl_abnormal_checkbox:checked').length
+        home.funcs.bindSelectAll($("#bowl_abnormal_checkAll"),$(".bowl_abnormal_checkbox"),checkedBoxLen,$("bowl_abnormal_table"))
     }
 
     , bindDetailEventListener: function (detailBtns) {
@@ -86,7 +90,7 @@ var bowl_abnormal = {
                 },function (res) {
                     var items = res.data
                     $('#dutyCode').text(items.dutyCode?items.dutyCode.code:' ')
-                    $('#Time').text(new Date(items.time).Format('yyyy-MM-dd'))
+                    $('#Time').text(new Date(items.time).Format('yyyy-MM-dd hh:mm:ss'))
                     $('#bowlCode').text(items.bowlCode)
                     $('#top').text(items.top)
                     $('#bot').text(items.bot)
@@ -96,14 +100,14 @@ var bowl_abnormal = {
                     $('#difference').text(items.difference?items.difference:' ')
                     $('#addWeight').text(items.addWeight?items.addWeight:' ')
                     $("#reduceWeight").text(items.reduceWeight)
-                    $("#operator").append("<option value="+items.operator?items.operator:' '+">"+items.operator?items.operator:' '+"</option>")
-                    $("#checker").append("<option value="+items.checker?items.checker:' '+">"+items.checker?items.checker:' '+"</option>")
+                    $("#operator").text(items.operator?items.operator.name:' ')
+                    $("#checker").text(items.checker?items.checker.name:' ')
                     $('#detail_time').text(new Date().Format('yyyy-MM-dd'))    
                     layer.open({
                             type: 1,
                             title: '装钵异常统计详情',
                             content: $("#bowl_abnormal_detail_modal"),
-                            area: ['1100px', '230px'],
+                            area: ['1100px', '250px'],
                             btn: ['返回'],
                             offset: "auto",
                             closeBtn: 0,
@@ -123,48 +127,78 @@ var bowl_abnormal = {
                     code:code
                 },function (res) {
                     var items = res.data
-                    $('#dutyCode').text(items.dutyCode?items.dutyCode.code:' ')
-                    $('#Time').text(new Date(items.time).Format('yyyy-MM-dd'))
-                    $('#bowlCode').text(items.bowlCode)
-                    $('#top').text(items.top)
-                    $('#bot').text(items.bot)
-                    $('#total').text(items.total?items.total:' ')
-                    $('#tare').text(items.tare?items.tare:' ')
-                    $('#net').text(items.net)
-                    $('#difference').text(items.difference?items.difference:' ')
-                    $('#addWeight').text(items.addWeight?items.addWeight:' ')
-                    $("#reduceWeight").text(items.reduceWeight)
-                    $("#operator").append("<option value="+items.operator?items.operator:' '+">"+items.operator?items.operator:' '+"</option>")
-                    $("#checker").append("<option value="+items.checker?items.checker:' '+">"+items.checker?items.checker:' '+"</option>")
+                    console.log(items)
+                    $('#dutyCode1').val(items.dutyCode?items.dutyCode.code:' ')
+                    $('#Time1').val(new Date(items.time).Format('yyyy-MM-dd hh:mm:ss'))
+                    $('#bowlCode1').val(items.bowlCode)
+                    $('#top1').val(items.top)
+                    $('#bot1').val(items.bot)
+                    $('#total1').val(items.total?items.total:' ')
+                    $('#tare1').val(items.tare?items.tare:' ')
+                    $('#net1').val(items.net)
+                    $('#difference1').val(items.difference?items.difference:' ')
+                    $('#addWeight1').val(items.addWeight?items.addWeight:' ')
+                    $("#reduceWeight1").val(items.reduceWeight)
+                    $("#operator1").append("<option value="+items.operator.code+">"+items.operator.name+"</option>")
+                    $("#checker1").append("<option value="+items.checker.code+">"+items.checker.name+"</option>")
                     $('#editor_time').text(new Date().Format('yyyy-MM-dd'))   
+                    $.get(servers.backup()+"user/getAll",{ },function(result){
+                        users = result.data
+                        users.forEach(function(e){
+                            if(items.operator.code!=users.code){
+                                $("#operator1").append(
+                                "<option value="+(e.code)+">"+e.name+"</option>"
+                            )
+                            }
+                            if(items.checker.code!=users.code){
+                                $("#checker1").append(
+                                "<option value="+(e.code)+">"+e.name+"</option>"
+                            )
+                            }
+                            
+                        })
+                    })
                  layer.open({
                      type:1,
-                     title:'编辑断批异常统计',
+                     title:'编辑装钵异常统计',
                      content:$("#bowl_abnormal_editor_modal"),
-                     area: ['1100px', '230px'],
+                     area: ['1100px', '250px'],
                      btn:['保存','提交','返回'],
                      offset:"auto",
                      closeBtn:0,
                      yes: function(index) {
                         $("#bowl_abnormal_editor_modal").css('display', 'none')
-                         var  date = items.date
-                         var dutyCode = $("#duty_code").val()
-                         var time = new Date($("#E_time").val()).Format('yyyy-MM-dd hh:mm:ss')
-                         var batchNumber = $("#batch_Number").val()
-                         var abNumber = $("#ab_number").val()
-                         var abWeight = $("#ab_weight").val()
-                         var checker_code = $("#checker_code").val()
-                         var operator_code = $("#operator_code").val()
+                         var date = items.date
+                         var dutyCode = $('#dutyCode1').val()
+                         var time = $('#Time1').val()
+                         var bowlCode = $('#bowlCode1').val()
+                         var top = $('#top1').val()
+                         var bot = $('#bot1').val()
+                         var total = $('#total1').val()
+                         var tare = $('#tare1').val()
+                         var net = $('#net1').val()
+                         var difference = $('#difference1').val()
+                         var addWeight = $('#addWeight1').val()
+                         var reduceWeight = $('#reduceWeight1').val()
+                         var operator = $('#operator1').val()
+                         var checker = $('#checker1').val()
+                         var editor_time = $('#editor_time').val()
                          $.post(home.urls.bowlAbnormal.update(),{
                             code:code,
                             date: date,
-                            dutyCode: dutyCode,
+                            'dutyCode.code': dutyCode,
                             time: time,
-                            batchNumber: batchNumber,
-                            abNumber: abNumber,
-                            abWeight: abWeight,
-                            checker: checker_code,
-                            operator: operator_code,
+                            bowlCode: bowlCode,
+                            top: top,
+                            bot: bot,
+                            total: total,
+                            tare: tare,
+                            net: net,
+                            difference: difference,
+                            addWeight: addWeight,
+                            reduceWeight: reduceWeight,
+                            'operator.code': operator,
+                            'checker.code': checker,
                             state:0
                          },function(result){
                              layer.msg(result.message,{
@@ -182,37 +216,49 @@ var bowl_abnormal = {
                      }
                      ,btn2: function(index) {
                         $("#bowl_abnormal_editor_modal").css('display', 'none')
-                        $("#bowl_abnormal_editor_modal").css('display', 'none')
-                         var  date = items.date
-                         var dutyCode = $("#duty_code").val()
-                         var time = new Date($("#E_time").val()).Format('yyyy-MM-dd hh:mm:ss')
-                         var batchNumber = $("#batch_Number").val()
-                         var abNumber = $("#ab_number").val()
-                         var abWeight = $("#ab_weight").val()
-                         var checker_code = $("#checker_code").val()
-                         var operator_code = $("#operator_code").val()
-                         $.post(home.urls.bowlAbnormal.update(),{
-                            code:code,
-                            date: date,
-                            dutyCode: dutyCode,
-                            time: time,
-                            batchNumber: batchNumber,
-                            abNumber: abNumber,
-                            abWeight: abWeight,
-                            checker: checker_code,
-                            operator: operator_code,
-                            state:1
-                         },function(result){
-                             layer.msg(result.message,{
-                                 offset:['40%','55%'],
-                                 time:700
-                             })
-                            if(result.code === 0) {
-                                var time = setTimeout(function(){
-                                    bowl_abnormal.init()
-                                    clearTimeout(time)
-                                },500)
-                            }
+                        var date = items.date
+                        var dutyCode = $('#dutyCode1').val()
+                        var time = $('#Time1').val()
+                        var bowlCode = $('#bowlCode1').val()
+                        var top = $('#top1').val()
+                        var bot = $('#bot1').val()
+                        var total = $('#total1').val()
+                        var tare = $('#tare1').val()
+                        var net = $('#net1').val()
+                        var difference = $('#difference1').val()
+                        var addWeight = $('#addWeight1').val()
+                        var reduceWeight = $('#reduceWeight1').val()
+                        var operator = $('#operator1').val()
+                        var checker = $('#checker1').val()
+                        var editor_time = $('#editor_time').val()
+                        $.post(home.urls.bowlAbnormal.update(),{
+                           code:code,
+                           date: date,
+                           'dutyCode.code': dutyCode,
+                           time: time,
+                           bowlCode: bowlCode,
+                           top: top,
+                           bot: bot,
+                           total: total,
+                           tare: tare,
+                           net: net,
+                           difference: difference,
+                           addWeight: addWeight,
+                           reduceWeight: reduceWeight,
+                           'operator.code': operator,
+                           'checker.code': checker,
+                           state:1
+                        },function(result){
+                            layer.msg(result.message,{
+                                offset:['40%','55%'],
+                                time:700
+                            })
+                           if(result.code === 0) {
+                               var time = setTimeout(function(){
+                                   bowl_abnormal.init()
+                                   clearTimeout(time)
+                               },500)
+                           }
                             layer.close(index)
                          })
                      }
@@ -260,41 +306,69 @@ var bowl_abnormal = {
          }
          ,bindAddEvent:function(addBtn){
              addBtn.off('click').on('click',function(){
-                $("#duty_code").val('')
-                $("#E_time").val('')
-                $("#batch_Number").val('')
-                $("#ab_number").val('')
-                $("#ab_weight").val('')
-                $("#operator_code").val('')
-                $("#checker_code").val('')
-                $("#editor_time").text(new Date().Format("yyyy-MM-dd"))
+                $('#dutyCode1').val(' ')
+                $('#Time1').val('')
+                $('#bowlCode1').val('')
+                $('#top1').val('')
+                $('#bot1').val('')
+                $('#total1').val('')
+                $('#tare1').val('')
+                $('#net1').val('')
+                $('#difference1').val('')
+                $('#addWeight1').val('')
+                $("#reduceWeight1").val('')
+                $('#editor_time').text(new Date().Format('yyyy-MM-dd')) 
+                $.get(servers.backup()+"user/getAll",{ },function(result){
+                    users = result.data
+                    users.forEach(function(e){
+                        $("#operator1").append(
+                            "<option value="+(e.code)+">"+e.name+"</option>"
+                            )
+                        $("#checker1").append(
+                            "<option value="+(e.code)+">"+e.name+"</option>"
+                        )     
+                    })
+                })  
                  layer.open({
                      type:1,
                      title:"新增断批异常统计",
                      content:$("#bowl_abnormal_editor_modal"),
-                     area: ['700px', '300px'],
+                     area: ['1100px', '250px'],
                      btn:['提交','取消'],
                      offset:'auto',
                      closeBtn:0,
                      yes:function(index) {
                          $("#bowl_abnormal_editor_modal").css('display','none')
                          var date = new Date().Format('yyyy-MM-dd')
-                         var dutyCode = $("#duty_code").val()
-                         var time = new Date().Format('yyyy-MM-dd hh:mm:ss')
-                         var batchNumber = $("#batch_Number").val()
-                         var abNumber = $("#ab_number").val()
-                         var abWeight = $("#ab_weight").val()
-                         var checker_code = $("#checker_code").val()
-                         var operator_code = $("#operator_code").val()
+                         var dutyCode = $('#dutyCode1').val()
+                         var time = new Date($('#Time1').val()).Format('yyyy-MM-dd hh:mm:ss')
+                         var bowlCode = $('#bowlCode1').val()
+                         var top = $('#top1').val()
+                         var bot = $('#bot1').val()
+                         var total = $('#total1').val()
+                         var tare = $('#tare1').val()
+                         var net = $('#net1').val()
+                         var difference = $('#difference1').val()
+                         var addWeight = $('#addWeight1').val()
+                         var reduceWeight = $('#reduceWeight1').val()
+                         var operator = $('#operator1').val()
+                         var checker = $('#checker1').val()
+                         var editor_time = $('#editor_time').val()
                          $.post(home.urls.bowlAbnormal.add(),{
                             date: date,
-                            dutyCode: dutyCode,
+                            'dutyCode.code': dutyCode,
                             time: time,
-                            batchNumber: batchNumber,
-                            abNumber: abNumber,
-                            abWeight: abWeight,
-                            checker: checker_code,
-                            operator: operator_code,
+                            bowlCode: bowlCode,
+                            top: top,
+                            bot: bot,
+                            total: total,
+                            tare: tare,
+                            net: net,
+                            difference: difference,
+                            addWeight: addWeight,
+                            reduceWeight: reduceWeight,
+                            'operator.code': operator,
+                            'checker.code': checker,
                             state:0
                          },function(result){
                              layer.msg(result.message,{
@@ -309,37 +383,6 @@ var bowl_abnormal = {
                             }
                             layer.close(index)
                          })
-                        /* var data = {
-                            date:new Date().Format('yyyy-MM-dd'),
-                            dutyCode: {code:$("#duty_code").val()},
-                            time:new Date($("#E_time").val()).getTime(),
-                            batchNumber:$("#batch_Number").val(),
-                            abNumber:$("#ab_number").val(),
-                            abWeight:$("#ab_weight").val(),
-                            checker:{code:$("#checker_code").val()},
-                            operator:{code:$("#operator_code").val()},
-                            state:0
-                        }
-                        $.ajax({
-                            url:home.urls.bowlAbnormal.add(),
-                            contentType:'application/json',
-                            data:JSON.stringify(data),
-                            dataType:'json',
-                            type:'post',
-                            success:function(result) {
-                                if(result.code === 0) {
-                                    var time = setTimeout(function(){
-                                        bowl_abnormal.init()
-                                        clearTimeout(time)
-                                    },500)
-                                }
-                                layer.msg(result.message,{
-                                    offset:['40%','55%'],
-                                    time:700          
-                              })  
-                            }                       
-                         })*/
-                        
                      }
                      ,btn2:function(index){
                          $("#bowl_abnormal_editor_modal").css('display','none')
@@ -419,9 +462,9 @@ var bowl_abnormal = {
          bindSearchEventListener: function (searchBtn) {
              searchBtn.off('click')
              searchBtn.on('click', function () {
-                 var batch_Number = $('#input_batch_num').val();
-                 $.post(home.urls.bowlAbnormal.getByBatchNumberLikeByPage(), {
-                     batchNumber: batch_Number
+                 var bowlCode = $('#input_batch_num').val();
+                 $.post(home.urls.bowlAbnormal.getByBowlCodeLikeByPage(), {
+                    bowlCode: bowlCode
                  }, function (result) {
                      var items = result.data.content //获取数据
                      page = result.data
@@ -432,8 +475,8 @@ var bowl_abnormal = {
                          , count: 10 * page.totalPages//数据总数
                          , jump: function (obj, first) {
                              if (!first) {
-                                 $.post(home.urls.bowlAbnormal.getByBatchNumberLikeByPage(), {
-                                     batchNumber: batch_Number,
+                                 $.post(home.urls.bowlAbnormal.getByBowlCodeLikeByPage(), {
+                                    bowlCode: bowlCode,
                                      page: obj.curr - 1,
                                      size: obj.limit
                                  }, function (result) {
