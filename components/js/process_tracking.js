@@ -63,9 +63,9 @@ var process_tracking = {
                 "<tr>" +
                     "<td><input type='checkbox' class='process_tracking_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + e.code + "</td>" +
-                    "<td>" + (e.premixed_code) + "</td>" +
-                    "<td>" + (e.dutyCode ? e.dutyCode.code : '')+ "</td>" +
-                    "<td>" + (e.bowlCode ? e.bowlCode : '') + "</td>" +
+                    "<td>" + (e.premixedCode) + "</td>" +
+                    "<td>" + (e.presinteringCode ? e.presinteringCode : '')+ "</td>" +
+                    "<td>" + (e.crushingCode ? e.crushingCode : '') + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
                     "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
@@ -90,23 +90,26 @@ var process_tracking = {
                     code:code
                 },function(result){
                     var items = result.data
-                    $("#dutyCode").text(items.dutyCode?items.dutyCode.code:'')
-                    $("#bowlCode").text(items.bowlCode)
-                    $("#tare").text(items.tare)
-                    $("#total").text(items.total)
-                    $("#net").text(items.net)
-                    $("#randomCode").text(items.random?items.random.name:'')
-                    $("#randomTime").text(new Date(items.randomTime).Format('yyyy-MM-dd hh:mm:ss'))
-                    $("#inspectorCode").text(items.inspector?items.inspector.name:'')
-                    $("#inspectorTime").text(new Date(items.inspectorTime).Format('yyyy-MM-dd hh:mm:ss'))
-                    $('#detail_time').text(new Date().Format('yyyy-MM-dd'))  
-               
-                //process_tracking.funcs.fill_detail_data($("#process_tracking_detail_modal"))
+                    $("#goodsCode").append("<option value="+items.goodsCode.code+">"+items.goodsCode.name+"</option>")
+                    $("#premixedCode").text(items.premixedCode?items.premixedCode:'')
+                    $("#premixedDate").text(items.premixedDate)
+                    $("#mixerNumber").text(items.mixerNumber)
+                    $("#premixedOperator").text((items.premixedOperator?items.premixedOperator.name:''))
+                    $("#presinteringCode").text(items.presinteringCode)
+                    $("#presinteringDate").text(items.presinteringDate?items.presinteringDate:'')
+                    $("#sinteringFurnace").text(items.sinteringFurnace)
+                    $("#presinteringInoperator").text(items.presinteringInoperator?items.presinteringInoperator.name:'')
+                    $("#presinteringOutoperator").text(items.presinteringOutoperator?items.presinteringOutoperator.name:'')  
+                    $("#crushingCode").text(items.crushingCode?items.crushingCode:'')
+                    $("#crushingDate").text(items.crushingDate)
+                    $("#millNumber").text(items.millNumber)
+                    $("#crushingOperator").text((items.crushingOperator?items.crushingOperator.name:''))
+                    $("#note").text(items.note)
                 layer.open({
                     type: 1,
-                    title: '闸钵抽检详情',
+                    title: '流程追踪详情',
                     content: $("#process_tracking_detail_modal"),
-                    area: ['1000px', '280px'],
+                    area: ['1000px', '430px'],
                     btn: ['返回'],
                     offset: "auto",
                     closeBtn: 0,
@@ -126,66 +129,97 @@ var process_tracking = {
                      code:code
                  },function(result){
                      items = result.data
-                $("#dutyCode1").val(items.dutyCode?items.dutyCode.code:'')
-                $("#bowlCode1").val(items.bowlCode)
-                $("#tare1").val(items.tare)
-                $("#total1").val(items.total)
-                $("#net1").val(items.net)
-                $("#randomCode1").append("<option value="+items.random.code+">"+items.random.name+"</option>")
-                $("#randomTime1").val(new Date(items.randomTime).Format('yyyy-MM-dd hh:mm:ss'))
-                $("#inspectorCode1").append("<option value="+items.inspector.code+">"+items.inspector.name+"</option>")
-                $("#inspectorTime1").val(new Date(items.inspectorTime).Format('yyyy-MM-dd hh:mm:ss'))
-                $('#editor_time').text(new Date().Format('yyyy-MM-dd'))  
-
-                $.get(servers.backup()+"user/getAll",{ },function(result){
-                    users = result.data
-                    users.forEach(function(e){
-                        if(items.random.code!=users.code){
-                            $("#randomCode1").append(
+                     $("#goodsCode1").append("<option value="+items.goodsCode.code+">"+items.goodsCode.name+"</option>")
+                     $("#premixedCode1").val(items.premixedCode?items.premixedCode:'')
+                     $("#premixedDate1").val(items.premixedDate)
+                     $("#mixerNumber1").val(items.mixerNumber)
+                     $("#premixedOperator1").append("<option value="+items.premixedOperator.code+">"+items.premixedOperator.name+"</option>")
+                     $("#presinteringCode1").val(items.presinteringCode)
+                     $("#presinteringDate1").val(items.presinteringDate?items.presinteringDate:'')
+                     $("#sinteringFurnace1").val(items.sinteringFurnace)
+                     $("#presinteringInoperator1").append("<option value="+items.presinteringInoperator.code+">"+items.presinteringInoperator.name+"</option>")
+                     $("#presinteringOutoperator1").append("<option value="+items.presinteringOutoperator.code+">"+items.presinteringOutoperator.name+"</option>")
+                     $("#crushingCode1").val(items.crushingCode?items.crushingCode:'')
+                     $("#crushingDate1").val(items.crushingDate)
+                     $("#millNumber1").val(items.millNumber)
+                     $("#crushingOperator1").append("<option value="+items.crushingOperator.code+">"+items.crushingOperator.name+"</option>")
+                     $("#note1").val(items.note)
+                     $.get(servers.backup() + "goods/getAll", {}, function (result){
+                         var res = result.data
+                         res.forEach(function(e){
+                             if(items.goodsCode.code!=res.code){
+                            $("#goodsCode1").append("<option value="+e.code+">"+e.name+"</option>")
+                         }
+                         })
+                     })
+                    $.get(servers.backup()+"user/getAll",{ },function(result){
+                        users = result.data
+                        users.forEach(function(e){
+                        if(items.premixedOperator.code!=users.code){
+                            $("#premixedOperator1").append(
                             "<option value="+(e.code)+">"+e.name+"</option>"
                         )
                         }
-                        if(items.inspector.code!=users.code){
-                            $("#inspectorCode1").append(
+                        if(items.presinteringInoperator.code!=users.code){
+                            $("#presinteringInoperator1").append(
+                            "<option value="+(e.code)+">"+e.name+"</option>"
+                        )
+                        }
+                        if(items.presinteringOutoperator.code!=users.code){
+                            $("#presinteringOutoperator1").append(
+                            "<option value="+(e.code)+">"+e.name+"</option>"
+                        )
+                        }
+                        if(items.crushingOperator.code!=users.code){
+                            $("#crushingOperator1").append(
                             "<option value="+(e.code)+">"+e.name+"</option>"
                         )
                         }
                         
                     })
-                })
+                }) 
                 layer.open({
                     type: 1,
-                    title: '编辑匣钵抽检',
+                    title: '编辑流程追踪',
                     content: $("#process_tracking_editor_modal"),
-                    area: ['1000px', '280px'],
+                    area: ['1000px', '430px'],
                     btn: ['确定','提交','返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
                         $("#process_tracking_editor_modal").css('display', 'none')
-                         var dutyCode = $("#dutyCode1").val()
-                         var bowlCode = $("#bowlCode1").val()
-                         var tare = $("#tare1").val()
-                         var total =  $("#total1").val()
-                         var net =  $("#net1").val()
-                         var randomCode =  $("#randomCode1").val()
-                         var randomTime =  new Date($("#randomTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
-                         var inspectorCode =  $("#inspectorCode1").val()
-                         var inspectorTime =  new Date($("#inspectorTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
-                         console.log(randomCode)
-                         console.log(inspectorCode)
+                         var goodsCode = $("#goodsCode1").val()
+                         var premixedCode = $("#premixedCode1").val()
+                         var premixedDate = $("#premixedDate1").val()
+                         var mixerNumber =  $("#mixerNumber1").val()
+                         var premixedOperator =  $("#premixedOperator1").val()
+                         var presinteringCode =  $("#presinteringCode1").val()
+                         var presinteringDate =  $("#presinteringDate1").val()
+                         var sinteringFurnace =  $("#sinteringFurnace1").val()
+                         var presinteringInoperator =  $("#presinteringInoperator1").val()
+                         var presinteringOutoperator =  $("#presinteringOutoperator1").val()
+                         var crushingCode = $("#crushingCode1").val()
+                         var crushingDate = $("#crushingDate1").val()
+                         var millNumber =  $("#millNumber1").val()
+                         var crushingOperator =  $("#crushingOperator1").val()
+                         var note =  $("#note1").val()
                          $.post(home.urls.processTracking.update(),{
                              code:code,
-                             date:new Date(items.date).Format('yyyy-MM-dd'),
-                             dutyCode:dutyCode,
-                             bowlCode:bowlCode,
-                             tare:tare,
-                             total:total,
-                             net:net,
-                             'random.code':randomCode,
-                             randomTime:randomTime,
-                             'inspector.code':inspectorCode,
-                             inspectorTime:inspectorTime,
+                             'goodsCode.code':goodsCode,
+                             premixedCode:premixedCode,
+                             premixedDate:premixedDate,
+                             mixerNumber:mixerNumber,
+                             'premixedOperator.code':premixedOperator,
+                             presinteringCode:presinteringCode,
+                             presinteringDate:presinteringDate,
+                             sinteringFurnace:sinteringFurnace,
+                             'presinteringInoperator.code':presinteringInoperator,
+                             'presinteringOutoperator.code':presinteringOutoperator,
+                             crushingCode:crushingCode,
+                             crushingDate:crushingDate,
+                             millNumber:millNumber,
+                             'crushingOperator.code':crushingOperator,
+                             note:note,
                              state:0
                          },function(result){
                              layer.msg(result.message,{
@@ -202,28 +236,39 @@ var process_tracking = {
                     }
                     ,btn2: function(index) {
                         $("#process_tracking_editor_modal").css('display', 'none')
-                         var dutyCode = $("#dutyCode1").val()
-                         var bowlCode = $("#bowlCode1").val()
-                         var tare = $("#tare1").val()
-                         var total =  $("#total").val()
-                         var net =  $("#net1").val()
-                         var randomCode =  $("#randomCode1").val()
-                         var randomTime =  $("#randomTime1").val()
-                         var inspectorCode =  $("#inspectorCode1").val()
-                         var inspectorTime =  $("#inspectorTime1").val()
-                         $.post(home.urls.processTracking.update(),{
-                             code:code,
-                             date:new Date(items.date).Format('yyyy-MM-dd'),
-                             dutyCode:dutyCode,
-                             bowlCode:bowlCode,
-                             tare:tare,
-                             total:total,
-                             net:net,
-                             randomCode:randomCode,
-                             randomTime:new Date(randomTime).Format('yyyy-MM-dd hh:mm:ss'),
-                             inspectorCode:inspectorCode,
-                             inspectorTime:new Date(inspectorTime).Format('yyyy-MM-dd hh:mm:ss'),
-                             state:1
+                        var goodsCode = $("#goodsCode1").val()
+                        var premixedCode = $("#premixedCode1").val()
+                        var premixedDate = $("#premixedDate1").val()
+                        var mixerNumber =  $("#mixerNumber1").val()
+                        var premixedOperator =  $("#premixedOperator1").val()
+                        var presinteringCode =  $("#presinteringCode1").val()
+                        var presinteringDate =  $("#presinteringDate1").val()
+                        var sinteringFurnace =  $("#sinteringFurnace1").val()
+                        var presinteringInoperator =  $("#presinteringInoperator1").val()
+                        var presinteringOutoperator =  $("#presinteringOutoperator1").val()
+                        var crushingCode = $("#crushingCode1").val()
+                        var crushingDate = $("#crushingDate1").val()
+                        var millNumber =  $("#millNumber1").val()
+                        var crushingOperator =  $("#crushingOperator1").val()
+                        var note =  $("#note1").val()
+                        $.post(home.urls.processTracking.update(),{
+                            code:code,
+                            'goodsCode.code':goodsCode,
+                            premixedCode:premixedCode,
+                            premixedDate:premixedDate,
+                            mixerNumber:mixerNumber,
+                            'premixedOperator.code':premixedOperator,
+                            presinteringCode:presinteringCode,
+                            presinteringDate:presinteringDate,
+                            sinteringFurnace:sinteringFurnace,
+                            'presinteringInoperator.code':presinteringInoperator,
+                            'presinteringOutoperator.code':presinteringOutoperator,
+                            crushingCode:crushingCode,
+                            crushingDate:crushingDate,
+                            millNumber:millNumber,
+                            'crushingOperator.code':crushingOperator,
+                            note:note,
+                            state:1
                          },function(result){
                              layer.msg(result.message,{
                                  offset:['40%','55%'],
@@ -282,58 +327,86 @@ var process_tracking = {
          }
          ,bindAddEvent:function(addBtn){
              addBtn.off('click').on('click',function(){
-                $("#dutyCode1").val('')
-                $("#bowlCode1").val('')
-                $("#tare1").val('')
-                $("#total1").val('')
-                $("#net1").val('')
-                //$("#randomCode1").val('')
-                $("#randomTime1").val('')
-                $("#inspectorCode1").val('')
-                //$("#inspectorTime1").val('')
-                $('#editor_time').text(new Date().Format('yyyy-MM-dd'))  
-                $.get(servers.backup()+"user/getAll",{ },function(result){
-                    users = result.data
-                    users.forEach(function(e){
-                        $("#randomCode1").append(
-                            "<option value="+(e.code)+">"+e.name+"</option>"
-                        )
-                        $("#inspectorCode1").append(
-                            "<option value="+(e.code)+">"+e.name+"</option>"
-                        )
+                $("#premixedCode1").val('')
+                $("#premixedDate1").val('')
+                $("#mixerNumber1").val('')
+                $("#presinteringCode1").val('')
+                $("#presinteringDate1").val('')
+                $("#sinteringFurnace1").val('')
+                $("#crushingCode1").val('')
+                $("#crushingDate1").val('')
+                $("#millNumber1").val('')
+                $("#note1").val('')
+                $("#goodsCode1").empty()
+                $("#premixedOperator1").empty()
+                $("#presinteringInoperator1").empty()
+                $("#presinteringOutoperator1").empty()
+                $("#crushingOperator1").empty()
+                $.get(servers.backup() + "goods/getAll", {}, function (result){
+                    var res = result.data
+                    res.forEach(function(e){
+                       $("#goodsCode1").append("<option value="+e.code+">"+e.name+"</option>")
                     })
                 })
+               $.get(servers.backup()+"user/getAll",{ },function(result){
+                   users = result.data
+                   users.forEach(function(e){
+                       $("#premixedOperator1").append(
+                       "<option value="+(e.code)+">"+e.name+"</option>"
+                   )
+                       $("#presinteringInoperator1").append(
+                       "<option value="+(e.code)+">"+e.name+"</option>"
+                   )
+                       $("#presinteringOutoperator1").append(
+                       "<option value="+(e.code)+">"+e.name+"</option>"
+                   )
+                       $("#crushingOperator1").append(
+                       "<option value="+(e.code)+">"+e.name+"</option>"
+                   )
+               })
+           })               
                 layer.open({
                     type: 1,
-                    title: '新增匣钵抽检',
+                    title: '新增流程追踪',
                     content: $("#process_tracking_editor_modal"),
-                    area: ['1000px', '280px'],
+                    area: ['1000px', '430px'],
                     btn: ['确定','返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
                         $("#process_tracking_editor_modal").css('display', 'none')
-                         var dutyCode = $("#dutyCode1").val()
-                         var bowlCode = $("#bowlCode1").val()
-                         var tare = $("#tare1").val()
-                         var total =  $("#total1").val()
-                         var net =  $("#net1").val()
-                         var randomCode =  $("#randomCode1").val()
-                         var randomTime =  new Date($("#randomTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
-                         var inspectorCode =  $("#inspectorCode1").val()
-                         var inspectorTime =  new Date($("#inspectorTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
-                         $.post(home.urls.processTracking.add(),{
-                             date:new Date().Format('yyyy-MM-dd'),
-                             dutyCode:dutyCode,
-                             bowlCode:bowlCode,
-                             tare:tare,
-                             total:total,
-                             net:net,
-                             'random.code':randomCode,
-                             randomTime:randomTime,
-                             'inspector.code':inspectorCode,
-                             inspectorTime:inspectorTime,
-                             state:0
+                        var goodsCode = $("#goodsCode1").val()
+                        var premixedCode = $("#premixedCode1").val()
+                        var premixedDate = $("#premixedDate1").val()
+                        var mixerNumber =  $("#mixerNumber1").val()
+                        var premixedOperator =  $("#premixedOperator1").val()
+                        var presinteringCode =  $("#presinteringCode1").val()
+                        var presinteringDate =  $("#presinteringDate1").val()
+                        var sinteringFurnace =  $("#sinteringFurnace1").val()
+                        var presinteringInoperator =  $("#presinteringInoperator1").val()
+                        var presinteringOutoperator =  $("#presinteringOutoperator1").val()
+                        var crushingCode = $("#crushingCode1").val()
+                        var crushingDate = $("#crushingDate1").val()
+                        var millNumber =  $("#millNumber1").val()
+                        var crushingOperator =  $("#crushingOperator1").val()
+                        var note =  $("#note1").val()
+                        $.post(home.urls.processTracking.add(),{
+                            'goodsCode.code':goodsCode,
+                            premixedCode:premixedCode,
+                            premixedDate:premixedDate,
+                            mixerNumber:mixerNumber,
+                            'premixedOperator.code':premixedOperator,
+                            presinteringCode:presinteringCode,
+                            presinteringDate:presinteringDate,
+                            sinteringFurnace:sinteringFurnace,
+                            'presinteringInoperator.code':presinteringInoperator,
+                            'presinteringOutoperator.code':presinteringOutoperator,
+                            crushingCode:crushingCode,
+                            crushingDate:crushingDate,
+                            millNumber:millNumber,
+                            'crushingOperator.code':crushingOperator,
+                            note:note,
+                            state:0
                          },function(result){
                              layer.msg(result.message,{
                                  offset:['40%','55%'],

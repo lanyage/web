@@ -1,8 +1,8 @@
-<div id='model-li-hide-35' class="display-component-container" style="padding: 20px;">
+<div id='model-li-hide-138' class="display-component-container" style="padding: 20px;">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <style>
-             #approval_tracking_detail_table td {
+             #inquiries_handover_detail_table td {
                 padding: 7px;
                 border: 1px darkgrey solid;
                 font-size: 14px;
@@ -12,7 +12,7 @@
                 height:30x;
                 width:50px;
             }    
-            #approval_tracking_editor_table td{
+            #inquiries_handover_editor_table td{
                 padding: 7px;
                 border: 1px darkgrey solid;
                 font-size: 14px;
@@ -22,7 +22,7 @@
                 height:30x;
                 width:60px;
             }
-            #approval_tracking_editor_table input{
+            #inquiries_handover_editor_table input{
                 width:100%;
                 height:100%;
                 border:none;
@@ -37,48 +37,50 @@
         <div class="block-quote">
             <div class="fl">
                 <p style="color: #62a49a; font-size: 14px;">
-                    <span id="model_li_hide_add_35"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
-                    <span id="model_li_hide_delete_35"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
-                </p>
-            </div>
-            <div class="fr">
-                <p style="color: #62a49a; font-size: 14px;">
-                    <span id="model_li_hide_refresh_35"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
-                    &nbsp;&nbsp;
-                    <input type="text" id="input_batch_num" placeholder="请输入物料打包编号"/> &nbsp;&nbsp;
-                    <span id="model_li_hide_search_35"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+                    <span id="model_li_hide_add_138"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
+                    <span id="model_li_hide_delete_138"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
                 </p>
             </div>
         </div>
     
         <div class="whitespace" ></div>
     
-        <table id="approval_tracking_table" style="width: 100%;">
+        <table id="inquiries_handover_table" style="width: 100%;">
             <thead style="background: #666666;">
             <tr>
-                <td class="checkBox_td"><input id="approval_tracking_checkAll" type="checkbox"></td>
+                <td class="checkBox_td"><input id="inquiries_handover_checkAll" type="checkbox"></td>
                 <td>序号</td>
-                <td>物料打包编号</td>
-                <td>打包重量</td>
+                <td>岗位名称</td>
+                <td>交接日期</td>
+                <td>当班班次</td>
+                <td>交班人</td>
+                <td>接班人</td>
                 <td>详情</td>
-                <td>编辑</td>
-                <td>删除</td>
             </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td><input type='checkbox' class='management_handover_checkbox' value='" + (e.code) + "'></td>
+                    <td>dasd</td>
+                    <td>2018-04-23</td>
+                    <td>早班</td>
+                    <td>小哥</td>
+                    <td>大哥</td>
+                    <td><a href=\"#\" class='detail' id='detail-1'><i class=\"layui-icon\">&#xe60a;</i></a></td>
+                </tr>
             </tbody>
         </table>
     
-        <div id="approval_tracking_page" style="text-align: center;"></div>
-        <script src="../components/js/approval_tracking.js"></script>
+        <div id="inquiries_handover_page" style="text-align: center;"></div>
+        <script src="../components/js/inquiries_handover.js"></script>
         <script type="application/javascript">
             $(function () {
-                approval_tracking.init()
+                inquiries_handover.init()
             })
         </script>
-        <div id="approval_tracking_detail_modal" class="hide" style="padding:30px;">
+        <div id="inquiries_handover_detail_modal" class="hide" style="padding:30px;">
             
-            <table id="approval_tracking_detail_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
+            <table id="inquiries_handover_detail_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
                <tr>
                    <td class="grey">物料打包编号</td>
                    <td id="packagingCode"></td>
@@ -127,9 +129,9 @@
             </table>
         </div>
         <!--editor && add-->
-        <div id="approval_tracking_editor_modal" class="hide" style="padding:20px;">
+        <div id="inquiries_handover_editor_modal" class="hide" style="padding:20px;">
             
-                <table id="approval_tracking_editor_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
+                <table id="inquiries_handover_editor_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
                    <tr>
                    <td class="grey">物料打包编号</td>
                    <td><input type="text" id="packagingCode1"/></td>
