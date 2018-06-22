@@ -1,10 +1,10 @@
-var approval_tracking = {
+var management_handover = {
     init: function () {
-        approval_tracking.funcs.renderTable()
-        var out = $('#approval_tracking_page').width()
+        management_handover.funcs.renderTable()
+        var out = $('#management_handover_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#approval_tracking').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#management_handover').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
         }, 30)
     },
@@ -12,16 +12,16 @@ var approval_tracking = {
         renderTable: function () {
             $.post(home.urls.approvalTracking.getAllByPage(), {page:0}, function (res) {
                 console.log(res)
-                var $tbody = $("#approval_tracking_table").children('tbody')
+                var $tbody = $("#management_handover_table").children('tbody')
                 var items = res.data.content
                 //console.log(items)
-                approval_tracking.funcs.renderHandler($tbody, items)
+                management_handover.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
-                approval_tracking.pageSize = res.data.content.length //该页的记录数
+                management_handover.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
                 /** 分页信息 */
                 layui.laypage.render({
-                    elem: 'approval_tracking_page',
+                    elem: 'management_handover_page',
                     count: 10 * page.totalPages,//数据总数
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
@@ -31,39 +31,40 @@ var approval_tracking = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
-                                const $tbody = $("#approval_tracking_table").children('tbody')
-                                approval_tracking.funcs.renderHandler($tbody, items)
-                                approval_tracking.pageSize = result.data.content.length
+                                const $tbody = $("#management_handover_table").children('tbody')
+                                management_handover.funcs.renderHandler($tbody, items)
+                                management_handover.pageSize = result.data.content.length
                             })
                         }
                     }
                 })
             })
 
-            approval_tracking.funcs.bindAddEvent($('#model_li_hide_add_35'))
-            approval_tracking.funcs.bindDeleteEvent($('#model_li_hide_delete_35'))
+            management_handover.funcs.bindAddEvent($('#model_li_hide_add_35'))
+            management_handover.funcs.bindDeleteEvent($('#model_li_hide_delete_35'))
 
             var refreshBtn = $('#model_li_hide_refresh_35');
-            approval_tracking.funcs.bindRefreshEventListener(refreshBtn);
+            management_handover.funcs.bindRefreshEventListener(refreshBtn);
 
             //追加搜索事件
             var searchBtn = $('#model_li_hide_search_35')
-            approval_tracking.funcs.bindSearchEventListener(searchBtn)
+            management_handover.funcs.bindSearchEventListener(searchBtn)
 
-            var checkedBoxLen = $('.approval_tracking_checkbox:checked').length
-            home.funcs.bindSelectAll($("#approval_tracking_checkAll"),$(".approval_tracking_checkbox"),checkedBoxLen,$("#approval_tracking_table"))
+            var checkedBoxLen = $('.management_handover_checkbox:checked').length
+            home.funcs.bindSelectAll($("#management_handover_checkAll"),$(".management_handover_checkbox"),checkedBoxLen,$("#management_handover_table"))
 
 
         }
     , renderHandler: function ($tbody, items) {
-        $tbody.empty() //清空表格
+        //$tbody.empty() //清空表格
         items.forEach(function (e) {
             var code = e.code
             var content = (
                 "<tr>" +
-                    "<td><input type='checkbox' class='approval_tracking_checkbox' value='" + (e.code) + "'></td>" +
+                    "<td><input type='checkbox' class='management_handover_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + e.code + "</td>" +
                     "<td>" + (e.packagingCode) + "</td>" +
+                    "<td>" + (e.packagingWeight ? e.packagingWeight: '')+ "</td>" +
                     "<td>" + (e.packagingWeight ? e.packagingWeight: '')+ "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
@@ -72,12 +73,12 @@ var approval_tracking = {
             )
             $tbody.append(content)
         })
-        approval_tracking.funcs.bindDetailEventListener($('.detail'))
-        approval_tracking.funcs.bindEditorEventListener($('.editor'))
-        approval_tracking.funcs.bindDeleteEventListener($('.delete'))
+        management_handover.funcs.bindDetailEventListener($('.detail'))
+        management_handover.funcs.bindEditorEventListener($('.editor'))
+        management_handover.funcs.bindDeleteEventListener($('.delete'))
 
-        var checkedBoxLen = $('.approval_tracking_checkbox:checked').length
-        home.funcs.bindSelectAll($("#approval_tracking_checkAll"),$(".approval_tracking_checkbox"),checkedBoxLen,$("approval_tracking_table"))
+        var checkedBoxLen = $('.management_handover_checkbox:checked').length
+        home.funcs.bindSelectAll($("#management_handover_checkAll"),$(".management_handover_checkbox"),checkedBoxLen,$("management_handover_table"))
     }
     
 
@@ -113,13 +114,13 @@ var approval_tracking = {
                 layer.open({
                     type: 1,
                     title: '合批详情',
-                    content: $("#approval_tracking_detail_modal"),
+                    content: $("#management_handover_detail_modal"),
                     area: ['1200px', '400px'],
                     btn: ['返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#approval_tracking_detail_modal").css('display', 'none')
+                        $("#management_handover_detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                 });        
@@ -175,13 +176,13 @@ var approval_tracking = {
                 layer.open({
                     type: 1,
                     title: '编辑合批',
-                    content: $("#approval_tracking_editor_modal"),
+                    content: $("#management_handover_editor_modal"),
                     area: ['1200px', '430px'],
                     btn: ['确定','提交','返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#approval_tracking_editor_modal").css('display', 'none')
+                        $("#management_handover_editor_modal").css('display', 'none')
                          var packagingCode = $("#packagingCode1").val()
                          var packagingWeight = $("#packagingWeight1").val()
                          var materialCode = $("#materialCode1").val()
@@ -227,7 +228,7 @@ var approval_tracking = {
                              })
                              if(result.code===0){
                                  var time = setTimeout(function(){
-                                     approval_tracking.init()
+                                     management_handover.init()
                                      clearTimeout(time)
                                  },500)
                              }
@@ -235,7 +236,7 @@ var approval_tracking = {
                         layer.close(index)
                     }
                     ,btn2: function(index) {
-                        $("#approval_tracking_editor_modal").css('display', 'none')
+                        $("#management_handover_editor_modal").css('display', 'none')
                         var packagingCode = $("#packagingCode1").val()
                         var packagingWeight = $("#packagingWeight1").val()
                         var materialCode = $("#materialCode1").val()
@@ -283,7 +284,7 @@ var approval_tracking = {
                              })
                              if(result.code===0){
                                  var time = setTimeout(function(){
-                                     approval_tracking.init()
+                                     management_handover.init()
                                      clearTimeout(time)
                                  },500)
                              }
@@ -291,7 +292,7 @@ var approval_tracking = {
                         layer.close(index)
                      }
                      ,btn3: function(index) {
-                        $("#approval_tracking_editor_modal").css('display', 'none')
+                        $("#management_handover_editor_modal").css('display', 'none')
                         layer.close(index)
                      }
                 }); 
@@ -319,7 +320,7 @@ var approval_tracking = {
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    approval_tracking.init()
+                                    management_handover.init()
                                     clearTimeout(time)
                                 }, 500)
                             }
@@ -369,13 +370,13 @@ var approval_tracking = {
                 layer.open({
                     type: 1,
                     title: '新增合批',
-                    content: $("#approval_tracking_editor_modal"),
+                    content: $("#management_handover_editor_modal"),
                     area: ['1200px', '430px'],
                     btn: ['确定','返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#approval_tracking_editor_modal").css('display', 'none')
+                        $("#management_handover_editor_modal").css('display', 'none')
                         var packagingCode = $("#packagingCode1").val()
                         var packagingWeight = $("#packagingWeight1").val()
                         var materialCode = $("#materialCode1").val()
@@ -420,7 +421,7 @@ var approval_tracking = {
                              })
                              if(result.code===0){
                                  var time = setTimeout(function(){
-                                     approval_tracking.init()
+                                     management_handover.init()
                                      clearTimeout(time)
                                  },500)
                              }
@@ -428,7 +429,7 @@ var approval_tracking = {
                         layer.close(index)
                     }
                     ,btn2:function(index){
-                        $("#approval_tracking_editor_modal").css('display','none')
+                        $("#management_handover_editor_modal").css('display','none')
                         layer.close(index)
                     }
                 }); 
@@ -436,7 +437,7 @@ var approval_tracking = {
          }
          ,bindDeleteEvent:function(deleteBtn){
              deleteBtn.off('click').on('click',function(){
-                 if($('.approval_tracking_checkbox:checked').length === 0) {
+                 if($('.management_handover_checkbox:checked').length === 0) {
                      layer.msg('您还没有选中任何数据!',{
                          offset:['40%','55%'],
                          time:700
@@ -451,22 +452,22 @@ var approval_tracking = {
                          btn:['确认','取消'],
                          offset:['40%','55%'],
                          yes:function(index){
-                             var approval_tracking_codes=[]
-                             $('.approval_tracking_checkbox').each(function() {
+                             var management_handover_codes=[]
+                             $('.management_handover_checkbox').each(function() {
                                  if($(this).prop('checked')) {
-                                    approval_tracking_codes.push({code:$(this).val()})
+                                    management_handover_codes.push({code:$(this).val()})
                                  }
                              })
                              $.ajax({
                                 url: home.urls.approvalTracking.deleteByIdBatch(),
                                 contentType: 'application/json',
-                                data: JSON.stringify(approval_tracking_codes),
+                                data: JSON.stringify(management_handover_codes),
                                 dataType: 'json',
                                 type: 'post',
                                 success: function (result) {
                                     if (result.code === 0) {
                                         var time = setTimeout(function () {
-                                            approval_tracking.init()
+                                            management_handover.init()
                                             clearTimeout(time)
                                         }, 500)
                                     }
@@ -494,7 +495,7 @@ var approval_tracking = {
                          offset: ['40%', '55%'],
                          time: 700
                      })
-                     approval_tracking.init()
+                     management_handover.init()
                      $('#input_batch_num').val('')
                      layer.close(index)
                      clearTimeout(time)
@@ -513,10 +514,10 @@ var approval_tracking = {
                  }, function (result) {
                      var items = result.data.content //获取数据
                      page = result.data
-                     const $tbody = $("#approval_tracking_table").children('tbody')
-                     approval_tracking.funcs.renderHandler($tbody, items)
+                     const $tbody = $("#management_handover_table").children('tbody')
+                     management_handover.funcs.renderHandler($tbody, items)
                      layui.laypage.render({
-                         elem: 'approval_tracking_page'
+                         elem: 'management_handover_page'
                          , count: 10 * page.totalPages//数据总数
                          , jump: function (obj, first) {
                              if (!first) {
@@ -527,9 +528,9 @@ var approval_tracking = {
                                  }, function (result) {
                                      var items = result.data.content //获取数据
                                      // var code = $('#model-li-select-48').val()
-                                     const $tbody = $("#approval_tracking_table").children('tbody')
-                                     approval_tracking.funcs.renderHandler($tbody, items)
-                                     approval_tracking.pageSize = result.data.content.length
+                                     const $tbody = $("#management_handover_table").children('tbody')
+                                     management_handover.funcs.renderHandler($tbody, items)
+                                     management_handover.pageSize = result.data.content.length
                                  })
                              }
                          }

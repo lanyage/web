@@ -1,8 +1,179 @@
-<div id='model-li-hide-39' class="display-component-container" style="line-height:700px;">
-    <h1 style="text-align: center">页面还在火速开发中...</h1>
-    <script type="application/javascript">
-        $(function() {
-            console.log( $('.display-component-container').children("h1").append('<i class="fa fa-circle-o-notch fa-spin"></i>'))
-        })
-    </script>
+<div id='model-li-hide-39' class="display-component-container" style="padding: 20px;">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <style>
+             #approval_tracking_detail_table td {
+                padding: 7px;
+                border: 1px darkgrey solid;
+                font-size: 14px;
+                color: black;
+                text-align: center;
+                font-weight: 400;
+                height:30x;
+                width:50px;
+            }    
+            #approval_tracking_editor_table td{
+                padding: 7px;
+                border: 1px darkgrey solid;
+                font-size: 14px;
+                color: black;
+                text-align: center;
+                font-weight: 400;
+                height:30x;
+                width:60px;
+            }
+            #approval_tracking_editor_table input{
+                width:100%;
+                height:100%;
+                border:none;
+                text-align: center;
+            }
+            select{
+                width:100%;
+                height:100%;
+                border:none;
+            }
+        </style>
+        <div class="block-quote">
+            <div class="fl">
+                <p style="color: #62a49a; font-size: 14px;">
+                    <span id="model_li_hide_add_35"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
+                    <span id="model_li_hide_delete_35"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+                </p>
+            </div>
+            <div class="fr">
+                <p style="color: #62a49a; font-size: 14px;">
+                    <span id="model_li_hide_refresh_35"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+                    &nbsp;&nbsp;
+                    <input type="text" id="input_batch_num" placeholder="请输入物料打包编号"/> &nbsp;&nbsp;
+                    <span id="model_li_hide_search_35"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+                </p>
+            </div>
+        </div>
+    
+        <div class="whitespace" ></div>
+    
+        <table id="approval_tracking_table" style="width: 100%;">
+            <thead style="background: #666666;">
+            <tr>
+                <td class="checkBox_td"><input id="approval_tracking_checkAll" type="checkbox"></td>
+                <td>序号</td>
+                <td>物料打包编号</td>
+                <td>打包重量</td>
+                <td>详情</td>
+                <td>编辑</td>
+                <td>删除</td>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    
+        <div id="approval_tracking_page" style="text-align: center;"></div>
+        <script src="../components/js/approval_tracking.js"></script>
+        <script type="application/javascript">
+            $(function () {
+                approval_tracking.init()
+            })
+        </script>
+        <div id="approval_tracking_detail_modal" class="hide" style="padding:30px;">
+            
+            <table id="approval_tracking_detail_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
+               <tr>
+                   <td class="grey">物料打包编号</td>
+                   <td id="packagingCode"></td>
+                   <td class="grey">打包重量</td>
+                   <td id="packagingWeight"></td>
+                   <td class="grey">合批物料编号</td>
+                   <td id="materialCode"></td>
+                   <td class="grey">物料入仓操作人员</td>
+                   <td id="warehousingOperator"></td>
+                   <td class="grey">物料打包操作人员</td>
+                   <td id="packagingOperator"></td>
+               </tr>
+               <tr>
+                   <td class="grey">合批仓编号</td>
+                   <td  id="warehouseCode"></td>
+                   <td class="grey">物料打包前合批槽检查是否正常</td>
+                   <td  id="slotsNormal1"></td>
+                   <td class="grey">物料入仓时间</td>
+                   <td  id="warehousingDate"></td>
+                   <td class="grey">物料入仓总重量</td>
+                   <td  id="warehousingWeight"></td>
+                   <td class="grey">物料打包后合批槽检查是否正常</td>
+                   <td  id="slotsNormal2"></td>
+               </tr>
+               <tr>
+                    <td class="grey">打包日期</td>
+                    <td  id="packagingDate"></td>
+                    <td class="grey">混料时间</td>
+                    <td  id="mixTime"></td>
+                    <td class="grey">冷水机温度</td>
+                    <td  id="chillerTemperature"></td>
+                    <td class="grey">包装房温度</td>
+                    <td  id="packingroomTemperature"></td>
+                    <td class="grey">包装房湿度</td>
+                    <td  id="packingroomHumidity"></td>
+                </tr>
+                <tr>
+                    <td class="grey">除铁料重量</td>
+                    <td  id="defeWeight"></td>
+                    <td class="grey">合批槽余料</td>
+                    <td  id="slotsLeft"></td>
+                    <td  class="grey">包装过程筛网是否正常</td>
+                    <td colspan="5" id="screenNormal"></td>
+                </tr>
+                
+            </table>
+        </div>
+        <!--editor && add-->
+        <div id="approval_tracking_editor_modal" class="hide" style="padding:20px;">
+            
+                <table id="approval_tracking_editor_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
+                   <tr>
+                   <td class="grey">物料打包编号</td>
+                   <td><input type="text" id="packagingCode1"/></td>
+                   <td class="grey">打包重量</td>
+                   <td><input type="text" id="packagingWeight1"/></td>
+                   <td class="grey">合批物料编号</td>
+                   <td><input type="text" id="materialCode1"/></td>
+                   <td class="grey">物料入仓操作人员</td>
+                   <td><select id="warehousingOperator1"></select></td>
+                   <td class="grey">物料打包操作人员</td>
+                   <td><select id="packagingOperator1"></select></td>
+               </tr>
+               <tr>
+                   <td class="grey">合批仓编号</td>
+                   <td><input type="text" id="warehouseCode1"/></td>
+                   <td class="grey">物料打包前合批槽检查是否正常</td>
+                   <td><input type="text" id="slotsNormal11"/></td>
+                   <td class="grey">物料入仓时间</td>
+                   <td><input type="date" id="warehousingDate1"/></td>
+                   <td class="grey">物料入仓总重量</td>
+                   <td><input type="text" id="warehousingWeight1"/></td>
+                   <td class="grey">物料打包后合批槽检查是否正常</td>
+                   <td><input type="text" id="slotsNormal21"/></td>
+               </tr>
+               <tr>
+                    <td class="grey">打包日期</td>
+                    <td><input type="date" id="packagingDate1"/></td>
+                    <td class="grey" width="80px">混料时间</td>
+                    <td><input type="text" id="mixTime1"/></td>
+                    <td class="grey">冷水机温度</td>
+                    <td><input type="text" id="chillerTemperature1"/></td>
+                    <td class="grey">包装房温度</td>
+                    <td><input type="text" id="packingroomTemperature1"/></td>
+                    <td class="grey">包装房湿度</td>
+                    <td><input type="text" id="packingroomHumidity1"/></td>
+                </tr>
+                <tr>
+                    <td class="grey">除铁料重量</td>
+                    <td><input type="text" id="defeWeight1"/></td>
+                    <td class="grey">合批槽余料</td>
+                    <td><input type="text" id="slotsLeft1"/></td>
+                    <td  class="grey">包装过程筛网是否正常</td>
+                    <td colspan="5"><input type="text" id="screenNormal1"/></td>
+                </tr>
+                </table>
+            </div>
 </div>
