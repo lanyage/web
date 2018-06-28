@@ -9,25 +9,9 @@
                 color: black;
                 text-align: center;
                 font-weight: 400;
-                height:30x;
-                width:50px;
+                height:50x;
+                width:100px;
             }    
-            #inquiries_handover_editor_table td{
-                padding: 7px;
-                border: 1px darkgrey solid;
-                font-size: 14px;
-                color: black;
-                text-align: center;
-                font-weight: 400;
-                height:30x;
-                width:60px;
-            }
-            #inquiries_handover_editor_table input{
-                width:100%;
-                height:100%;
-                border:none;
-                text-align: center;
-            }
             select{
                 width:100%;
                 height:100%;
@@ -36,9 +20,8 @@
         </style>
         <div class="block-quote">
             <div class="fl">
-                <p style="color: #62a49a; font-size: 14px;">
-                    <span id="model_li_hide_add_138"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
-                    <span id="model_li_hide_delete_138"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+                <p style="color: #1E9FFF; font-size: 14px;">
+                    <span id="model_li_hide_add_138">岗位交接记录</span>&nbsp;
                 </p>
             </div>
         </div>
@@ -59,15 +42,7 @@
             </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type='checkbox' class='management_handover_checkbox' value='" + (e.code) + "'></td>
-                    <td>dasd</td>
-                    <td>2018-04-23</td>
-                    <td>早班</td>
-                    <td>小哥</td>
-                    <td>大哥</td>
-                    <td><a href=\"#\" class='detail' id='detail-1'><i class=\"layui-icon\">&#xe60a;</i></a></td>
-                </tr>
+               
             </tbody>
         </table>
     
@@ -80,102 +55,32 @@
         </script>
         <div id="inquiries_handover_detail_modal" class="hide" style="padding:30px;">
             
-            <table id="inquiries_handover_detail_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
-               <tr>
-                   <td class="grey">物料打包编号</td>
-                   <td id="packagingCode"></td>
-                   <td class="grey">打包重量</td>
-                   <td id="packagingWeight"></td>
-                   <td class="grey">合批物料编号</td>
-                   <td id="materialCode"></td>
-                   <td class="grey">物料入仓操作人员</td>
-                   <td id="warehousingOperator"></td>
-                   <td class="grey">物料打包操作人员</td>
-                   <td id="packagingOperator"></td>
+            <div>
+                <p style="color:black; font-size: 18px;">
+                    日期:<span id="date" width="20%"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    班次:<span id="dutyCode" width="20%"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    交班人:<span id="shifterCode" width="20%"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    接班人:<span id="successorCode" width="20%"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                </p>
+            </div>
+            <div class="whitespace"></div>
+            <table id="inquiries_handover_detail_table" width="100%" style="padding:20px;"> 
+                <thead>
+                <tr class="grey">
+                   <td>序号</td>
+                   <td>交接记录编码</td>
+                   <td>交接内容</td>
+                   <td>交接状态</td>
                </tr>
-               <tr>
-                   <td class="grey">合批仓编号</td>
-                   <td  id="warehouseCode"></td>
-                   <td class="grey">物料打包前合批槽检查是否正常</td>
-                   <td  id="slotsNormal1"></td>
-                   <td class="grey">物料入仓时间</td>
-                   <td  id="warehousingDate"></td>
-                   <td class="grey">物料入仓总重量</td>
-                   <td  id="warehousingWeight"></td>
-                   <td class="grey">物料打包后合批槽检查是否正常</td>
-                   <td  id="slotsNormal2"></td>
-               </tr>
-               <tr>
-                    <td class="grey">打包日期</td>
-                    <td  id="packagingDate"></td>
-                    <td class="grey">混料时间</td>
-                    <td  id="mixTime"></td>
-                    <td class="grey">冷水机温度</td>
-                    <td  id="chillerTemperature"></td>
-                    <td class="grey">包装房温度</td>
-                    <td  id="packingroomTemperature"></td>
-                    <td class="grey">包装房湿度</td>
-                    <td  id="packingroomHumidity"></td>
-                </tr>
+                </thead>
                 <tr>
-                    <td class="grey">除铁料重量</td>
-                    <td  id="defeWeight"></td>
-                    <td class="grey">合批槽余料</td>
-                    <td  id="slotsLeft"></td>
-                    <td  class="grey">包装过程筛网是否正常</td>
-                    <td colspan="5" id="screenNormal"></td>
-                </tr>
-                
+                   <td id="code"></td>
+                   <td id="header_code"></td>
+                   <td id="content_code"></td>
+                   <td id="state_code"></td>
+               </tr>
             </table>
         </div>
-        <!--editor && add-->
-        <div id="inquiries_handover_editor_modal" class="hide" style="padding:20px;">
-            
-                <table id="inquiries_handover_editor_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
-                   <tr>
-                   <td class="grey">物料打包编号</td>
-                   <td><input type="text" id="packagingCode1"/></td>
-                   <td class="grey">打包重量</td>
-                   <td><input type="text" id="packagingWeight1"/></td>
-                   <td class="grey">合批物料编号</td>
-                   <td><input type="text" id="materialCode1"/></td>
-                   <td class="grey">物料入仓操作人员</td>
-                   <td><select id="warehousingOperator1"></select></td>
-                   <td class="grey">物料打包操作人员</td>
-                   <td><select id="packagingOperator1"></select></td>
-               </tr>
-               <tr>
-                   <td class="grey">合批仓编号</td>
-                   <td><input type="text" id="warehouseCode1"/></td>
-                   <td class="grey">物料打包前合批槽检查是否正常</td>
-                   <td><input type="text" id="slotsNormal11"/></td>
-                   <td class="grey">物料入仓时间</td>
-                   <td><input type="date" id="warehousingDate1"/></td>
-                   <td class="grey">物料入仓总重量</td>
-                   <td><input type="text" id="warehousingWeight1"/></td>
-                   <td class="grey">物料打包后合批槽检查是否正常</td>
-                   <td><input type="text" id="slotsNormal21"/></td>
-               </tr>
-               <tr>
-                    <td class="grey">打包日期</td>
-                    <td><input type="date" id="packagingDate1"/></td>
-                    <td class="grey" width="80px">混料时间</td>
-                    <td><input type="text" id="mixTime1"/></td>
-                    <td class="grey">冷水机温度</td>
-                    <td><input type="text" id="chillerTemperature1"/></td>
-                    <td class="grey">包装房温度</td>
-                    <td><input type="text" id="packingroomTemperature1"/></td>
-                    <td class="grey">包装房湿度</td>
-                    <td><input type="text" id="packingroomHumidity1"/></td>
-                </tr>
-                <tr>
-                    <td class="grey">除铁料重量</td>
-                    <td><input type="text" id="defeWeight1"/></td>
-                    <td class="grey">合批槽余料</td>
-                    <td><input type="text" id="slotsLeft1"/></td>
-                    <td  class="grey">包装过程筛网是否正常</td>
-                    <td colspan="5"><input type="text" id="screenNormal1"/></td>
-                </tr>
-                </table>
-            </div>
+        
 </div>

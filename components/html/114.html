@@ -1,6 +1,14 @@
 <div id='model-li-hide-114' class="display-component-container" style="padding: 20px 20px 20px 20px;">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style type="text/css">
+        #detail_modal1 select{
+            width:100%;
+            height:100%;
+            border:none;
+            text-align: center;
+        }
+    </style>
     <div class="block-quote">
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
@@ -15,11 +23,11 @@
                 &nbsp;&nbsp;
                 <span style="color: #6b6b6b;">审核状态</span>
                 <select id="audit_name" style="border-radius: 0;">
-                    <option>选择审核状态</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                        <option>选择审核状态</option>
+                        <option value="0">正常</option>
+                        <option value="1">开始盘库</option>
+                        <option value="2">待审核</option>
+                        <option value="3">已审核</option>
                 </select>&nbsp;&nbsp;
                 <span id="model-li-hide-search-114"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
@@ -54,49 +62,48 @@
         })
     </script>
 
-    <div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
-        <div class="whitespace"></div>
-        <table width="100%" style="border-left: 0px;border-right: 0px;">
+    <div id='detail_modal' class="hide" style="padding:20px;">
+        <table width="100%" style="border-left: 0px;border-right: 0px;" id="detail_modal1">
             <tr>
                 <td class="grey" width="20%">报损单编号</td>
-                <td width="30%" id="bs_num">系统生成</td>
+                <td width="30%" id="bs_num"></td>
                 <td class="grey" width="20%">物料类型</td>
-                <td width="30%" id="rawtype">继承</td>
+                <td width="30%" id="rawtype"></td>
             </tr>
             <tr>
                 <td class="grey">物料名称</td>
-                <td id="rawname">继承</td>
+                <td id="rawname"></td>
                 <td class="grey">盘库数量</td>
-                <td id="plate_num">继承</td>
+                <td id="plate_num"></td>
             </tr>
             <tr>
                 <td class="grey">总量</td>
-                <td id="total">根据明细求和</td>
+                <td id="total"></td>
                 <td class="grey">流程类型</td>
-                <td><select>
-                    <option>流程1</option>
-                    <option>流程2</option>
-                    <option>流程3</option>
+                <td><select id="process">
+                   
                 </select></td>
             </tr>
             <tr>
                 <td class="grey">报损人</td>
-                <td id="user">当前用户</td>
+                <td id="user"></td>
                 <td class="grey">审核状态</td>
-                <td id="audit_status">待审核</td>
+                <td id="audit_status"></td>
             </tr>
             <tr >
                 <td class="grey">报损时间</td>
-                <td id="bs_time">继承</td>
+                <td id="bs_time"></td>
             </tr>
         </table>
         <div class="whitespace"></div>
-        <table width="100%" style="border-left: 0px;border-right: 0px;">
+        <table width="100%" style="border-left: 0px;border-right: 0px;" id="lossEntries"> 
+            <thead>
             <tr class="grey">
-                <td width="10%">序号</td>
-                <td width="45%">入库编号</td>
-                <td width="45%">报损数量</td>
+                <td width="10%" class="normal_td">序号</td>
+                <td width="45%" class="normal_td">入库编号</td>
+                <td width="45%" class="normal_td">报损数量</td>
             </tr>
+           </thead>
             <tbody>
 
             </tbody>
@@ -107,37 +114,35 @@
         <table width="100%" style="border-left: 0px;border-right: 0px;">
             <tr>
                 <td style="border: none">审批人：</td>
-                <td style="border: none;color: #9F9F9F">张经理</td>
-                <td style="border: none">审批结果：</td>
-                <td style="border: none;color: #9F9F9F">通过</td>
-                <td style="border: none">审批时间：</td>
-                <td style="border: none;color: #9F9F9F">2018年1月31日 12：21：23</td>
+                <td style="border: none;color: #9F9F9F" id="curAuditor"></td>
+                <td style="border: none" >审批结果：</td>
+                <td style="border: none;color: #9F9F9F" id="auditorResult"></td>
+                <td style="border: none" >审批时间：</td>
+                <td style="border: none;color: #9F9F9F" id="auditorTime"></td>
             </tr>
             <tr>
                 <td style="border: none">审批意见：</td>
-                <td style="border: none;color: #9F9F9F">数据正常，已经审核</td>
+                <td style="border: none;color: #9F9F9F" id="note"></td>
             </tr>
         </table>
         </div>
         <div class="whitespace"></div>
-        <div id="a_result" >
+        <div>
             <span>审核结果： </span>
-            <input type="radio" name="audit_result"/>同意&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" name="audit_result"/>不同意
+            <input type="radio" name="audit_result" value="1"/>通过&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="audit_result" value="0"/>不通过
         </div>
         <div class="whitespace"></div>
-        <div id="suggestion">
+        <div>
             <span style="vertical-align: top">审核意见：</span>
-            <textarea style="width: 88%; height:20%;"></textarea>
+            <textarea style="width: 88%; height:20%;" id="suggestion"></textarea>
         </div>
 
         <div class="whitespace"></div>
-        <div id="nextman" width="100%" style="border-left: 0px;border-right: 0px;">
+        <divwidth="100%" style="border-left: 0px;border-right: 0px;">
                 <span>下一审核人：</span>
-                <select style="width: 20%">
-                    <option>审核人1</option>
-                    <option>审核人2</option>
-                    <option>审核人3</option>
+                <select style="width: 20%" id="nextman" >
+                    
                 </select>
         </div>
         <div class="whitespace"></div>

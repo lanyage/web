@@ -1,12 +1,21 @@
 <div id='model-li-hide-52' class="display-component-container" style="padding: 20px 20px 20px 20px;">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style type="text/css">
+    #LossEntry input{
+        width:100%;
+        height:100%;
+        border:none;
+        text-align: center;
+    }
+    </style>
     <div class="block-quote">
         <div class="fl">
-            <p style="color: #62a49a; font-size: 14px;">
+            <p style="color: #1E9FFF; font-size: 14px;">
                 <!--&#xe608;-->
-                <span id='model-li-hide-add-52'><a href="#"><i class="layui-icon"></i>盘库管理</a></span>&nbsp;&nbsp;
-                <!--<span id="model-li-hide-delete-48"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>-->
+                <span id='model-li-hide-add-52'><i class="layui-icon"></i>盘库管理</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="start"><a href="#"><i class="layui-icon"></i>开始盘库</a></span>&nbsp;&nbsp;
+                <span id="stop"><a href="#"><i class="layui-icon"></i>结束盘库</a></span>
             </p>
         </div>
         <div class="fr">
@@ -16,10 +25,10 @@
                 <span style="color: #6b6b6b;">审核状态</span>
                 <select id="lib_manage_name" style="border-radius: 0;">
                     <option>选择审核状态</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                    <option value="0">正常</option>
+                    <option value="1">开始盘库</option>
+                    <option value="2">待审核</option>
+                    <option value="3">已审核</option>
                 </select>&nbsp;&nbsp;
                 <span id="model-li-hide-search-52"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
@@ -55,59 +64,51 @@
         <table width="100%">
             <tr>
                 <td class="grey" width="20%">报损单编号</td>
-                <td width="30%">系统生成</td>
+                <td width="30%" id="code"></td>
                 <td class="grey" width="20%">物料类型</td>
-                <td width="30%">继承</td>
+                <td width="30%" id="material">继承</td>
             </tr>
             <tr>
                 <td class="grey">物料名称</td>
-                <td>继承</td>
+                <td id="rawType">继承</td>
                 <td class="grey">盘库数量</td>
-                <td>继承</td>
+                <td id="weight">继承</td>
             </tr>
             <tr>
                 <td class="grey">总量</td>
-                <td>根据明细求和</td>
+                <td id="total"></td>
                 <td class="grey">流程类型</td>
-                <td><select>
-                    <option>流程1</option>
-                    <option>流程2</option>
-                    <option>流程3</option>
-                </select></td>
+                <td>
+                    <select id="process" style="width:100%;height:100%;border:none;text-align: center;">
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td class="grey">报损人</td>
-                <td>当前用户</td>
+                <td id="user"></td>
                 <td class="grey">审核状态</td>
-                <td>待审核</td>
+                <td id="status"></td>
             </tr>
             <tr>
                 <td class="grey">报损时间</td>
-                <td>2018年5月4日16：26：28</td>
+                <td id="time"></td>
             </tr>
         </table>
         <div class="whitespace"></div>
-        <input type="button" value="新增">
+        <input type="button" value="新增" id="button">
         <div class="whitespace"></div>
-        <table width="100%">
-            <tr class="grey">
-                <td>序号</td>
-                <td>入库编号</td>
-                <td>报损数量</td>
-                <td>删除</td>
-            </tr>
+        <table width="100%" id="LossEntry">
+            <thead>
             <tr>
-                <td>1</td>
-                <td>382333333</td>
-                <td></td>
-                <td></td>
+                <td class="normal_td">序号</td>
+                <td class="normal_td">入库编号</td>
+                <td class="normal_td">报损数量</td>
+                <td class="normal_td">删除</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>382333334</td>
-                <td></td>
-                <td></td>
-            </tr>
+           </thead>
+            <tbody>
+
+            </tbody>
         </table>
     </div>
 </div>
