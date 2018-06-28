@@ -984,22 +984,25 @@ var home = {
         },
         batchingRecord:{
           add:function () {
-              return servers.backup() + '/ingredientsRecord/add'
+              return servers.backup() + 'ingredientsRecord/add'
           },
+          update:function () {
+            return servers.backup() + 'ingredientsRecord/update'
+        },
           deleteByIdBatch: function () {
-              return servers.backup() + '/ingredientsRecord/deleteByIdBatch'
+              return servers.backup() + 'ingredientsRecord/deleteByIdBatch'
           },
           getAllByPage: function () {
-                return servers.backup() + '/ingredientsRecord/getAllByPage'
+              return servers.backup() + 'ingredientsRecord/getAllByPage'
           },
           getByBatchNumberLikeByPage: function () {
-              return servers.backup() +  '/ingredientsRecord/getByBatchNumberLikeByPage'
+              return servers.backup() +  'ingredientsRecord/getByBatchNumberLikeByPage'
           },
-            deleteByCode: function () {
-                return servers.backup() + '/ingredientsRecord/deleteByCode'
+          deleteByCode: function () {
+             return servers.backup() + 'ingredientsRecord/deleteByCode'
             },
-            getById: function () {
-                return servers.backup() + '/ingredientsRecord/getById'
+          getById: function () {
+              return servers.backup() + 'ingredientsRecord/getById'
             },
         },
         lingLiao: {

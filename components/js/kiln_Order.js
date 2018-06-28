@@ -1,60 +1,58 @@
-var art_manage = {
+var kiln_Order = {
     init: function () {
-        art_manage.funcs.renderTable()
-        var out = $('#art_manage_page').width()
+        kiln_Order.funcs.renderTable()
+        var out = $('#kiln_Order_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#art_manage_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#kiln_Order_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
         }, 30)
     },
     funcs: {
         renderTable: function () {
-            $.post(home.urls.productOrder.getAllByPage(), {}, function (res) {
-                var $tbody = $("#art_manage_table").children('tbody')
+            $.post(home.urls.kilnOrder.getAllByPage(), {}, function (res) {
+                var $tbody = $("#kiln_Order_table").children('tbody')
                 var items = res.data.content
                // console.log(items)
-                art_manage.funcs.renderHandler($tbody, items)
+                kiln_Order.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
-                art_manage.pageSize = res.data.content.length //该页的记录数
+                kiln_Order.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
                 /** 分页信息 */
                 layui.laypage.render({
-                    elem: 'art_manage_page',
+                    elem: 'kiln_Order_page',
                     count: 10 * page.totalPages,//数据总数
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.productOrder.getAllByPage(), {
+                            $.post(home.urls.kilnOrder.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
-                                const $tbody = $("#art_manage_table").children('tbody')
-                                art_manage.funcs.renderHandler($tbody, items)
-                                art_manage.pageSize = result.data.content.length
+                                const $tbody = $("#kiln_Order_table").children('tbody')
+                                kiln_Order.funcs.renderHandler($tbody, items)
+                                kiln_Order.pageSize = result.data.content.length
                             })
                         }
                     }
                 })
             })
 
-            art_manage.funcs.bindDetailEventListener($('.detail'))
-            art_manage.funcs.bindEditorEventListener($('.editor'))
-            art_manage.funcs.bindDeleteEventListener($('.delete'))
+            kiln_Order.funcs.bindDetailEventListener($('.detail'))
 
-            art_manage.funcs.bindAddEvent($('#model_li_hide_add_26'))
-            art_manage.funcs.bindDeleteEvent($('#model_li_hide_delete_26'))
+            kiln_Order.funcs.bindAddEvent($('#model_li_hide_add_27'))
+            kiln_Order.funcs.bindDeleteEvent($('#model_li_hide_delete_27'))
 
-            var refreshBtn = $('#model_li_hide_refresh_26');
-            art_manage.funcs.bindRefreshEventListener(refreshBtn);
+            var refreshBtn = $('#model_li_hide_refresh_27');
+            kiln_Order.funcs.bindRefreshEventListener(refreshBtn);
 
             //追加搜索事件
-            var searchBtn = $('#model_li_hide_search_26')
-            art_manage.funcs.bindSearchEventListener(searchBtn)
+            var searchBtn = $('#model_li_hide_search_27')
+            kiln_Order.funcs.bindSearchEventListener(searchBtn)
 
-            var checkedBoxLen = $('.art_manage_checkbox:checked').length
-            home.funcs.bindSelectAll($("#art_manage_checkAll"),$(".art_manage_checkbox"),checkedBoxLen,$("#art_manage_table"))
+            var checkedBoxLen = $('.kiln_Order_checkbox:checked').length
+            home.funcs.bindSelectAll($("#kiln_Order_checkAll"),$(".kiln_Order_checkbox"),checkedBoxLen,$("#kiln_Order_table"))
 
         }
         , renderHandler: function ($tbody, items) {
@@ -64,25 +62,19 @@ var art_manage = {
                 var code = e.code
                 var content = (
                     "<tr>" +
-                    "<td><input type='checkbox' class='art_manage_checkbox' value='" + (e.code) + "'></td>" +
+                    "<td><input type='checkbox' class='kiln_Order_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code?e.code:'null') + "</td>" +
-                    "<td>" + e.batchNumber + "</td>" +
-                    "<td>" + (e.productLineCode?e.productLineCode.name:'null')+ "</td>" +
-                    "<td>" + e.inputPlan + "</td>" +
-                    "<td>" + (new Date(e.inputDate).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + (e.serialNumber) + "</td>" +
+                    "<td>" + (e.kilnCode?e.kilnCode:'null') + "</td>" +
+                    "<td>" + (e.effectiveDate?e.effectiveDate:'') + "</td>" +
+                    "<td>" + (e.compileTime?new Date(e.compileTime).Format('yyyy-MM-dd'):'null')+ "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
-                    "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
-                    "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
                     "</tr>"
                 )
                 $tbody.append(content)
-                art_manage.funcs.bindDetailEventListener($('.detail'))
-                art_manage.funcs.bindEditorEventListener($('.editor'))
-                art_manage.funcs.bindDeleteEventListener($('.delete'))
+                kiln_Order.funcs.bindDetailEventListener($('.detail'))
                
-                var checkedBoxLen = $('.art_manage_checkbox:checked').length
-                home.funcs.bindSelectAll($("#art_manage_checkAll"),$(".art_manage_checkbox"),checkedBoxLen,$("#art_manage_table"))
+                var checkedBoxLen = $('.kiln_Order_checkbox:checked').length
+                home.funcs.bindSelectAll($("#kiln_Order_checkAll"),$(".kiln_Order_checkbox"),checkedBoxLen,$("#kiln_Order_table"))
 
             })
 
@@ -92,12 +84,12 @@ var art_manage = {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-                $.post(home.urls.productOrder.getById(), {
+                $.post(home.urls.kilnOrder.getById(), {
                    code:code
                 }, function (result) {
                     var items = result.data //获取数据
                     const div = $("#detail_modal")
-                    art_manage.funcs.fill_detail_data(div,items)
+                    kiln_Order.funcs.fill_detail_data(div,items)
                 })
                 layer.open({
                     type: 1,
@@ -150,13 +142,13 @@ var art_manage = {
             editBtns.off('click').on('click',function() {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-                $.post(home.urls.productOrder.getById(), {
+                $.post(home.urls.kilnOrder.getById(), {
                    code:code
                 }, function (result) {
                     var items = result.data //获取数据
                     const div = $("#editor_modal")
                    // console.log(items)
-                    art_manage.funcs.fill_editor_data(div,items)
+                    kiln_Order.funcs.fill_editor_data(div,items)
                 layer.open({
                     type:1,
                     title:'新增工艺单',
@@ -196,7 +188,7 @@ var art_manage = {
                         var presinteringRequirements = $("#t191").val()
                         var compileTime = new Date(items.compileTime).Format('yyyy-MM-dd hh:mm:ss')
                         var presinteringDetection = $("#t201").val()
-                        $.post(home.urls.productOrder.update(),{
+                        $.post(home.urls.kilnOrder.update(),{
                             code:code,
                             'compactor.code':compactor,
                             'auditor.code':auditor,
@@ -235,7 +227,7 @@ var art_manage = {
                             })
                             if(result.code === 0){
                                 var time = setTimeout(function(){
-                                    art_manage.init()
+                                    kiln_Order.init()
                                     clearTimeout(time)
                                 },500)
                             }
@@ -274,7 +266,7 @@ var art_manage = {
                         var compileTime = new Date(items.compileTime).Format('yyyy-MM-dd hh:mm:ss')
                         var presinteringDetection = $("#t201").val()
                         
-                        $.post(home.urls.productOrder.update(),{
+                        $.post(home.urls.kilnOrder.update(),{
                             code:code,
                             'compactor.code':compactor,
                             'auditor.code':auditor,
@@ -313,7 +305,7 @@ var art_manage = {
                             })
                             if(result.code === 0){
                                 var time = setTimeout(function(){
-                                    art_manage.init()
+                                    kiln_Order.init()
                                     clearTimeout(time)
                                 },500)
                             }
@@ -402,7 +394,7 @@ var art_manage = {
                     offset:['40%','55%'],
                     yes:function(index) {
                         var Code = _this.attr('id').substr(7)
-                        $.post(home.urls.productOrder.deleteByCode(), {
+                        $.post(home.urls.kilnOrder.deleteByCode(), {
                             code: Code
                         }, function (result) {
                             layer.msg(result.message, {
@@ -411,7 +403,7 @@ var art_manage = {
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    art_manage.init()
+                                    kiln_Order.init()
                                     clearTimeout(time)
                                 }, 500)
                             }
@@ -513,7 +505,7 @@ var art_manage = {
                         var compileTime = new Date().Format('yyyy-MM-dd hh:mm:ss')
                         var presinteringDetection = $("#t201").val()
                         
-                        $.post(home.urls.productOrder.add(),{
+                        $.post(home.urls.kilnOrder.add(),{
                             'compactor.code':compactor,
                             'auditor.code':auditor,
                             'executor.code':executor,
@@ -551,7 +543,7 @@ var art_manage = {
                             })
                             if(result.code === 0){
                                 var time = setTimeout(function(){
-                                    art_manage.init()
+                                    kiln_Order.init()
                                     clearTimeout(time)
                                 },500)
                             }
@@ -567,7 +559,7 @@ var art_manage = {
         }
         ,bindDeleteEvent:function(deleteBtn){
             deleteBtn.off('click').on('click',function(){
-                if($('.art_manage_checkbox:checked').length === 0) {
+                if($('.kiln_Order_checkbox:checked').length === 0) {
                     layer.msg('您还没有选中任何数据!',{
                         offset:['40%','55%'],
                         time:700
@@ -582,22 +574,22 @@ var art_manage = {
                         btn:['确认','取消'],
                         offset:['40%','55%'],
                         yes:function(index){
-                            var art_manage_codes = []
-                            $('.art_manage_checkbox').each(function() {
+                            var kiln_Order_codes = []
+                            $('.kiln_Order_checkbox').each(function() {
                                 if($(this).prop('checked')) {
-                                    art_manage_codes.push({code:$(this).val()})
+                                    kiln_Order_codes.push({code:$(this).val()})
                                 }
                             })
                             $.ajax({
                                 url: home.urls.productOut.deleteByCodeBatch(),
                                 contentType: 'application/json',
-                                data: JSON.stringify(art_manage_codes),
+                                data: JSON.stringify(kiln_Order_codes),
                                 dataType: 'json',
                                 type: 'post',
                                 success: function (result) {
                                     if (result.code === 0) {
                                         var time = setTimeout(function () {
-                                            art_manage.init()
+                                            kiln_Order.init()
                                             clearTimeout(time)
                                         }, 500)
                                     }
@@ -625,7 +617,7 @@ var art_manage = {
                         offset: ['40%', '55%'],
                         time: 700
                     })
-                    art_manage.init()
+                    kiln_Order.init()
                     $('#input_batch_num').val('')
                     layer.close(index)
                     clearTimeout(time)
@@ -637,28 +629,28 @@ var art_manage = {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var batch_num = $('#input_batch_num').val()
-                $.post(home.urls.productOrder.getByBatchNumberLikeByPage(), {
+                $.post(home.urls.kilnOrder.getByBatchNumberLikeByPage(), {
                     batchNumber: batch_num
                 }, function (result) {
                     var items = result.data.content //获取数据
                     page = result.data
-                    const $tbody = $("#art_manage_table").children('tbody')
-                    art_manage.funcs.renderHandler($tbody, items)
+                    const $tbody = $("#kiln_Order_table").children('tbody')
+                    kiln_Order.funcs.renderHandler($tbody, items)
                     layui.laypage.render({
-                        elem: 'art_manage_page'
+                        elem: 'kiln_Order_page'
                         , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.productOrder.getByBatchNumberLikeByPage(), {
+                                $.post(home.urls.kilnOrder.getByBatchNumberLikeByPage(), {
                                     batchNumber: batch_num,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {
                                     var items = result.data.content //获取数据
                                     // var code = $('#model-li-select-48').val()
-                                    const $tbody = $("#art_manage_table").children('tbody')
-                                    art_manage.funcs.renderHandler($tbody, items)
-                                    art_manage.pageSize = result.data.content.length
+                                    const $tbody = $("#kiln_Order_table").children('tbody')
+                                    kiln_Order.funcs.renderHandler($tbody, items)
+                                    kiln_Order.pageSize = result.data.content.length
                                 })
                             }
                         }
