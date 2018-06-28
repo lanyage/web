@@ -1,12 +1,5 @@
 var plate_manage={
     init: function () {
-
-        //////////////////////////////////
-        //bind SelectAll for editModal checkBoxes
-        //////////////////////////////////
-        //////////////////////////////////
-        //render table
-        //////////////////////////////////
         plate_manage.funcs.renderTable()
 
         var out = $('#plate_manage_page').width()
@@ -18,9 +11,6 @@ var plate_manage={
     }
     , funcs: {
         renderTable: function () {
-            //post here to getAll     $todo
-
-
             $.post(home.urls.plateAlarm.getAllByPage(), {}, function (res) {
 
                 var $tbody = $("#lib_manage_table").children('tbody')
@@ -57,9 +47,9 @@ var plate_manage={
             //追加搜索事件
             var searchBtn = $('#model-li-hide-search-52')
             plate_manage.funcs.bindSearchEventListener(searchBtn)
-            //////////////////////////////////
-            //bind editModal's addBtn click
-            //////////////////////////////////
+
+            plate_manage.funcs.startStock($("#start"))
+            plate_manage.funcs.stopStock($("#stop"))
 
         },
         renderHandler: function ($tbody, items) {
@@ -73,20 +63,43 @@ var plate_manage={
                 "<td>" + (e.rawType.name) + "</td>" +
                 "<td>" + (e.weight) + "</td>" +
                 "<td>" + e.status + "</td>" +
-                "<td><a href=\"#\" class='lib_detail' id='detail_" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
+                "<td><a href=\"#\" class='detail' id='detail_" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
                 "</tr>"
             )
             $tbody.append(content)
         })
-        // /** 绑定全选事件 */
-        // mat_out_manage.funcs.checkboxEventBinding()
-        /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
-        var detailBtns = $(".lib_detail")
+
+        var detailBtns = $(".detail")
         plate_manage.funcs.bindDetailEventListener(detailBtns)
 
     },
         bindDetailEventListener: function (editBtns) {
             editBtns.off('click').on('click', function () {
+                code = $(this).attr('id').substr(7)
+                var e = $(this).parent('td').parent('tr').find('td')
+                //console.log(e.eq(1).text())
+                $('#code').text(code)
+                $('#material').text(e.eq(1).text())
+                $('#rawType').text(e.eq(2).text())
+                $('#weight').text(e.eq(3).text())
+                $.get(home.urls.check.getAll(),{},function(result){
+                    var process = result.data
+                    $("#process").empty()
+                    process.forEach(function(e){
+                        $("#process").append("<option value="+e.code+">"+e.name+"</option>")
+                    })
+                })
+                var userStr = $.session.get('user')
+                var userJson = JSON.parse(userStr)
+                $("#user").text(userJson.name)
+                $("#status").text('待审核')
+                $("#total").text('0')
+                $("#time").text(new Date().Format('yyyy-MM-dd'))
+
+                const $tbody = $("#LossEntry").children('tbody')
+                $tbody.empty()
+                plate_manage.funcs.add($("#button"))
+
                 layer.open({
                     type: 1,
                     title: '报损单申请',
@@ -97,10 +110,59 @@ var plate_manage={
                     closeBtn: 0,
                     yes: function (index) {
                         $("#detail_modal").css('display', 'none')
-                        layer.close(index)
-                    }
-                    , btn1: function (index) {
-                        $("#detail_modal").css('display', 'none')
+                        var lossEntries = []
+                        var count = $("#LossEntry tbody tr").length
+                        var total = parseInt($("#total").text())
+                        const $tbody = $("#LossEntry").children('tbody')
+                        if(count===0){
+                            lossEntries = []
+                        } 
+                        else{
+                            $(".newLine").each(function(){
+                                var e1 = $(this).children('td')
+                                total += parseInt(e1.eq(2).children('input').val())
+                                //console.log(e1.eq(2).children('input').val())
+                                
+                                lossEntries.push({
+                                   // code:e1.eq(0).text(),
+                                    batchNumber:e1.eq(1).children('input').val(),
+                                    weight:e1.eq(2).children('input').val()
+                                }) 
+                            })   
+                        }
+                        var materialsTotalCode = $('#code').text()
+                        var rawType = $('#rawType').text()
+                        var weight = $('#weight').text()
+                        var user = $("#user").text()
+                        var processManage = $("#process").val()
+                        
+                        var data = {
+                            materialsTotalCode : materialsTotalCode,
+                            weight : weight,
+                            lossWeight : total,
+                            user : {code:userJson.code},
+                            processManage : {code:processManage},
+                            lossEntries : lossEntries
+                        } 
+                        $.ajax({
+                            url:home.urls.plateAudit.add(),
+                            contentType:'application/json',
+                            data:JSON.stringify(data),
+                            dataType:'json',
+                            type:'post',
+                            success:function(result) {
+                                if(result.code === 0) {
+                                    var time = setTimeout(function(){
+                                        plate_manage.init()
+                                        clearTimeout(time)
+                                    },500)
+                                }
+                                layer.msg(result.message,{
+                                    offset:['40%','55%'],
+                                    time:700          
+                              })  
+                            }                       
+                         })
                         layer.close(index)
                     }
                     , btn2: function (index) {
@@ -110,7 +172,62 @@ var plate_manage={
                 });
             })
         },
-        bindRefreshEventListener: function (refreshBtn) {
+        add:function(addBtns){
+            addBtns.off('click').on('click',function(){
+                const $tbody = $("#LossEntry").children('tbody')
+                var i = $("#LossEntry tbody tr").length + 1
+               // console.log(i)
+                $tbody.append(
+                    "<tr class='newLine' id='s" + i + "'>"+
+                    "<td><input type='text' />"+i+"</td>"+
+                    "<td><input type='text' /></td>"+
+                    "<td><input type='text'/></td>"+
+                    "<td><button class='delete' onclick='plate_manage.funcs.delTab("+(i++)+")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
+                    "</tr>"
+                )
+             })
+        }
+        ,delTab:function(x){
+            $("#s" +(x) + "").remove();
+            var count = $("#LossEntry tr").length  
+            var i = 1
+            $(".newLine").each(function(){
+                $(this).children('td').eq(0).text(i++)
+            })
+        }
+        ,startStock:function(buttons){
+            buttons.off('click').on('click',function(){
+                $.post(servers.backup()+"materialsTotal/startStock",{},function(result){  
+                    if(result.code === 0) {
+                        var time = setTimeout(function(){
+                            plate_manage.init()
+                            clearTimeout(time)
+                        },500)
+                    }
+                    layer.msg(result.message,{
+                        offset:['40%','55%'],
+                        time:700          
+                  })             
+                })
+            })
+        }
+        ,stopStock:function(buttons){
+            buttons.off('click').on('click',function(){
+                $.post(servers.backup()+"materialsTotal/endStock",{},function(result){
+                    if(result.code === 0) {
+                        var time = setTimeout(function(){
+                            plate_manage.init()
+                            clearTimeout(time)
+                        },500)
+                    }
+                    layer.msg(result.message,{
+                        offset:['40%','55%'],
+                        time:700          
+                  })          
+                })
+            })
+        }
+        ,bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
             refreshBtn.on('click', function () {
 
@@ -131,8 +248,6 @@ var plate_manage={
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var auditStatus = $('#lib_manage_name option:selected').val();
-                //var createDate = new Date(order_date.replace(new RegExp("-","gm"),"/")).getTime()
-                //var createDate =order_date.getTime;//毫秒级; // date类型转成long类型
                 $.post(home.urls.plateAlarm.getByStatusByPage(), {
                     status: auditStatus
                 }, function (result) {

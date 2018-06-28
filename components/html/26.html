@@ -11,6 +11,18 @@
             font-weight: 400;
             height:25px;
         }    
+        #editor_modal input{
+            width:100%;
+            height:100%;
+            border:none;
+            text-align: center;
+        }
+        #editor_modal select{
+            width:100%;
+            height:100%;
+            border:none;
+            text-align: center;
+        }
     </style>
     <div class="block-quote">
         <div class="fl">
@@ -63,7 +75,7 @@
         })
     </script>
     <!--editor-->
-    <div id="editor_modal" class="hide" style="padding:30px;"  >
+    <div id="detail_modal" class="hide" style="padding:30px;"  >
         <table width="98%" style="border-left: 0px;border-right: 0px;padding: 5px;">
             <tr>
                 <td class="grey" width="20%">任务书名</td>
@@ -123,11 +135,11 @@
                 <td rowspan="2" id="t5"></td>
                 <td rowspan="2" id="t6"></td>
                 <td id="t7"></td>
-                <td id="t8"></td>
+                <td rowspan="2" id="t8"></td>
             </tr>
              <tr>
                 <td id="t9"></td>
-                <td id="t10"></td>
+                
             </tr>
             <tr>
                 <td rowspan="2">生产计划组织</td>
@@ -179,101 +191,122 @@
         </table>
     </div>
 
-
-<!--
-    <div id='detail_modal' class="hide" style="padding: 0px 30px 0px 30px;display: block">
-        <div class="whitespace"></div>
-        <table width="100%" style="border-left: 0px;border-right: 0px;" class="table_inner">
+<!--editor&&add-->
+<div id="editor_modal" class="hide" style="padding:30px;"  >
+        <table width="98%" style="border-left: 0px;border-right: 0px;padding: 5px;">
             <tr>
-                <td class="grey" width="20%">报损单编号</td>
-                <td width="30%">系统生成</td>
-                <td class="grey" width="20%">物料类型</td>
-                <td width="30%">继承</td>
+                <td class="grey" width="20%">任务书名</td>
+                <td><input type="text" id="task_name1" /></td>
+                <td class="grey" width="20%">生产批号</td>
+                <td><input type="text" id="make_batch1" /></td>
             </tr>
             <tr>
-                <td class="grey">物料名称</td>
-                <td>继承</td>
-                <td class="grey">盘库数量</td>
-                <td>继承</td>
+                <td class="grey" width="20%">编制人</td>
+                <td><select id="make_man1"></select></td>
+                <td class="grey" width="20%">生产线号</td>
+                <td><input type="text" id="product_num1" /></td>
             </tr>
             <tr>
-                <td class="grey">总量</td>
-                <td>根据明细求和</td>
-                <td class="grey">流程类型</td>
-                <td><select>
-                    <option>流程1</option>
-                    <option>流程2</option>
-                    <option>流程3</option>
-                </select></td>
+                <td class="grey" width="20%">审核人</td>
+                <td><select id="audit_man1"></select></td>
+                <td class="grey" width="20%">计划投入量</td>
+                <td><input type="text" id="plan_amount1" /></td>
             </tr>
             <tr>
-                <td class="grey">报损人</td>
-                <td>当前用户</td>
-                <td class="grey">审核状态</td>
-                <td>待审核</td>
+                <td class="grey" width="20%">执行人</td>
+                <td><select id="exec_man1"></select></td>
+                <td class="grey" width="20%">投入日期</td>
+                <td><input type="date" id="in_date1" /></td>
             </tr>
-            <tr >
-                <td class="grey">报损时间</td>
-                <td >继承</td>
+            <tr>
+                <td class="grey" width="20%">品管</td>
+                <td><select id="pinguan1"></select></td>
+                <td class="grey" width="20%">生产流水号</td>
+                <td><input type="text" id="make_num1" /></td>
             </tr>
         </table>
         <div class="whitespace"></div>
-        <table width="100%" style="border-left: 0px;border-right: 0px;">
-            <tr class="grey">
-                <td width="10%">序号</td>
-                <td width="45%">入库编号</td>
-                <td width="45%">报损数量</td>
+        <span>工序生产工艺参数及指</span>
+        <table width="98%" style="border-left: 0px;border-right: 0px;" id="table_inner">
+            <tr>
+                <td rowspan="10" class="grey">混料</td>
+                <td rowspan="10">41#</td>
+                <td colspan="3">前驱体</td>
+                <td colspan="3">碳酸锂</td>
+                <td rowspan="2">添加剂</td>
+                <td rowspan="2">目标锂含量%</td>
             </tr>
             <tr>
-                <td>1</td>
-                <td>3823333333</td>
-                <td></td>
+                <td>原料批号</td>
+                <td>主含%</td>
+                <td>配比量/kg</td>
+                <td>原料批号</td>
+                <td>主含%</td>
+                <td>配比量/kg</td>
             </tr>
             <tr>
-                <td>2</td>
-                <td>3823333334</td>
-                <td></td>
+                <td rowspan="2"><input type="text" id="t11" /></td>
+                <td rowspan="2"><input type="text" id="t21" /></td>
+                <td rowspan="2"><input type="text" id="t31" /></td>
+                <td rowspan="2"><input type="text" id="t41" /></td>
+                <td rowspan="2"><input type="text" id="t51" /></td>
+                <td rowspan="2"><input type="text" id="t61" /></td>
+                <td><input type="text" id="t71" /></td>
+                <td rowspan="2"><input type="text" id="t81" /></td>
+            </tr>
+             <tr>
+                <td><input type="text" id="t91" /></td>
+                
+            </tr>
+            <tr>
+                <td rowspan="2">生产计划组织</td>
+                <td colspan="2">前驱体投料总量/kg</td>
+                <td colspan="5">碳酸锂投料总量/kg</td>
+            </tr>
+             <tr>
+                <td colspan="2"><input type="text" id="t111" /></td>
+                <td colspan="5"><input type="text" id="t121"/></td>
+            </tr>
+            <tr>
+                <td rowspan="2">生产工艺参数</td>
+                <td colspan="4">混科频率</td>
+                <td colspan="3">混料时间</td>
+            </tr>
+             <tr>
+                <td colspan="4"><input type="text" id="t131"/></td>
+                <td colspan="3"><input type="text" id="t141"/></td>
+            </tr>
+            <tr>
+                <td>生产过程要求</td>
+                <td colspan="7"><input type="text" id="t151" /></td>
+            </tr>
+             <tr>
+                <td>生产过程检测</td>
+                <td colspan="7"><input type="text" id="t161" /></td>
+            </tr>
+            <tr>
+                <td rowspan="5" class="grey">预料</td>
+                <td rowspan="5">41# 42# 43#</td>
+                <td>生产计划组织</td>
+                <td colspan="7"><input type="text" id="t171"/></td>
+            </tr>
+            <tr>
+                <td>生产工艺参数</td>
+                <td colspan="7"><input type="text" id="t181" /></td>
+            </tr>
+             <tr>
+                <td>生产过程要求</td>
+                <td colspan="7"><input type="text" id="t191" /></td>
+            </tr>
+            <tr>
+                <td>生产过程检测</td>
+                <td colspan="7">检测频次：1批/天/炉窑，检测项目：SEM</td>
+            </tr>
+            <tr>
+                <td colspan="8">样品处理：中草药粉碎机粉碎，30秒/次 x 2次</td>
             </tr>
         </table>
-        <div class="whitespace"></div>
-       
-   <div style="border: 1px solid #9F9F9F">
-            <table width="100%" style="border-left: 0px;border-right: 0px;">
-                <tr>
-                    <td style="border: none">审批人：</td>
-                    <td style="border: none;color: #9F9F9F">张经理</td>
-                    <td style="border: none">审批结果：</td>
-                    <td style="border: none;color: #9F9F9F">通过</td>
-                    <td style="border: none">审批时间：</td>
-                    <td style="border: none;color: #9F9F9F">2018年1月31日 12：21：23</td>
-                </tr>
-                <tr>
-                    <td style="border: none">审批意见：</td>
-                    <td style="border: none;color: #9F9F9F">数据正常，已经审核</td>
-                </tr>
-            </table>
-        </div>
-        <div class="whitespace"></div>
-        <div id="a_result" >
-            <span>审核结果： </span>
-            <input type="radio" name="audit_result"/>同意&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" name="audit_result"/>不同意
-        </div>
-        <div class="whitespace"></div>
-        <div id="suggestion">
-            <span style="vertical-align: top">审核意见：</span>
-            <textarea style="width: 88%; height:20%;"></textarea>
-        </div>
+    </div>
 
-        <div class="whitespace"></div>
-        <div id="nextman" width="100%" style="border-left: 0px;border-right: 0px;">
-            <span>下一审核人：</span>
-            <select style="width: 20%">
-                <option>审核人1</option>
-                <option>审核人2</option>
-                <option>审核人3</option>
-            </select>
-        </div>
-        <div class="whitespace"></div>
-    </div>-->
+
 </div>

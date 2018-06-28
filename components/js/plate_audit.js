@@ -1,11 +1,6 @@
 var plate_audit = {
     init: function () {
-
-        //////////////////////////////////
-        //render table
-        //////////////////////////////////
         plate_audit.funcs.renderTable()
-
         var out = $('#department_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
@@ -15,9 +10,7 @@ var plate_audit = {
     },
     funcs: {
         renderTable: function () {
-            //post here to getAll     $todo
             $.post(home.urls.plateAlarm.getAllByPage(), {}, function (res) {
-
                 var $tbody = $("#plate_audit_table").children('tbody')
                 /** 过滤返回的数据 */
                 var items = res.data.content
@@ -55,13 +48,6 @@ var plate_audit = {
             //追加搜索事件
             var searchBtn = $('#model-li-hide-search-114')
             plate_audit.funcs.bindSearchEventListener(searchBtn)
-            //////////////////////////////////
-            //bind editModal
-            //////////////////////////////////
-            //////////////////////////////////
-            //bind editModal's addBtn click
-            //////////////////////////////////
-
 
         }
         , renderHandler: function ($tbody, items) {
@@ -85,31 +71,37 @@ var plate_audit = {
             /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
             var detailBtns = $(".plate_detail")
             plate_audit.funcs.bindDetailEventListener(detailBtns)
-
         }
 
         , bindDetailEventListener: function (detailBtns) {
-            //点击的时候需要弹出一个模态框
-            // 而且要填充模态框里面的内容 todo
-
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-
+                $("#bs_num").text('')
+                $("#rawtype").text('')
+                $("#rawname").text('')
+                $("#plate_num").text('')
+                $("#total").text('')
+                $("#user").text('')
+                $("#audit_status").text('')
+                $("#bs_time").text('')
+                $("#process").empty()
+                $("#curAuditor").text('')
+                $("#auditorResult").text('')
+                $("#auditorTime").text('')
+                $("#note").text('')
+                $("#suggestion").val('')
                 $.post(home.urls.plateAudit.getByRawType(), {
                     code: code
                 }, function (res1) {
-                    // console.log(rawType)
                     var items1 = res1.data //获取数据
                     console.log(items1)
-
                     plate_audit.funcs.fill_detail_data($("#detail_modal"), items1)
-                })
-
+                
 
                 layer.open({
                     type: 1,
-                    title: '报损单申请',
+                    title: '报损单申请审核',
                     content: $("#detail_modal"),
                     area: ['800px', '700px'],
                     btn: ['提交', '取消'],
@@ -117,10 +109,57 @@ var plate_audit = {
                     closeBtn: 0,
                     yes: function (index) {
                         $("#detail_modal").css('display', 'none')
-                        layer.close(index)
-                    }
-                    , btn1: function (index) {
-                        $("#detail_modal").css('display', 'none')
+                        var status = $('input:radio:checked').val()
+                        var note = $("#suggestion").val()
+                        var userStr = $.session.get('user')
+                        var userJson = JSON.parse(userStr)
+                        var curAuditorCode = userJson.code
+                        var nextAuditorCode = $("#nextman").val()?$("#nextman").val():'-1'
+                        $.post(home.urls.plateAudit.audit(),{
+                            status : status,
+                            note : note,
+                            curAuditorCode : curAuditorCode,
+                            nextAuditorCode : nextAuditorCode,
+                            code : items1.code
+                        },function(result){
+                            if(result.code === 0) {
+                                var time = setTimeout(function(){
+                                    plate_audit.init()
+                                    clearTimeout(time)
+                                },500)
+                            }
+                            layer.msg(result.message,{
+                                offset:['40%','55%'],
+                                time:700          
+                          }) 
+                        })
+                       /* var data = {
+                            status : status,
+                            note : note,
+                            curAuditorCode : curAuditorCode,
+                            nextAuditorCode : nextAuditorCode,
+                            code : items1.code
+                        } 
+                        console.log(data)
+                        $.ajax({
+                            url:home.urls.plateAudit.audit(),
+                            contentType:'application/json',
+                            data:JSON.stringify(data),
+                            dataType:'json',
+                            type:'post',
+                            success:function(result) {
+                                if(result.code === 0) {
+                                    var time = setTimeout(function(){
+                                        plate_manage.init()
+                                        clearTimeout(time)
+                                    },500)
+                                }
+                                layer.msg(result.message,{
+                                    offset:['40%','55%'],
+                                    time:700          
+                              })  
+                            }                       
+                         })*/
                         layer.close(index)
                     }
                     , btn2: function (index) {
@@ -129,35 +168,73 @@ var plate_audit = {
                     }
                 });
             })
+        })
         }
         ,
         fill_detail_data: function(div,items1){
             var total_bs = 0
-            /*  var bs_table = items.lossEntry
-                 var $tbody = $("#detail_modal").children('tbody')
-                  $tbody.empty() //清空表格
-                  productSends.forEach(function(e){
-                  total_amount += e.weight
-                  $tbody.append(
-                      "<tr>"+
-                      "<td>"+ (e.code?e.code:' ') +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
-                      "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td><td>" + (e.status?e.status:' ') + "</td>"+
-                      "</tr>"
-                  );
-              })
- */
-            $("#bs_num").text(items1.code)
-            $("#rawtype").text(items1.rawType.material.name)
-            $("#rawname").text(items1.rawType.name)
-            $("#plate_num").text(items1.weight)
+            $("#bs_num").text(items1.code?items1.code:'')
+            $("#rawtype").text(items1.rawType.material?items1.rawType.material.name:'')
+            $("#rawname").text(items1.rawType?items1.rawType.name:'')
+            $("#plate_num").text(items1.weight?items1.weight:'')
             $("#total").text(total_bs)
-            $("#user").text(items1.user.name)
+            $("#user").text(items1.user?items1.user.name:'')
             $("#audit_status").text(items1.auditStatus)
-            $("#bs_time").text(items1.time?new Date(items1.time).Format('yyyy-MM-dd'):'null')
-
-
-
-
+            $("#nextman").empty()
+            $("#bs_time").text(items1.time?new Date(items1.time).Format('yyyy-MM-dd'):'')
+            $("#process").append("<option value="+items1.processManage.code+">"+items1.processManage.name+"</option>")
+            $.get(home.urls.check.getAll(),{},function(result){
+                var process = result.data
+                process.forEach(function(e){
+                    if(e.code!=items1.processManage.code){
+                          $("#process").append("<option value="+e.code+">"+e.name+"</option>")
+                    }
+                  
+                })
+            }) 
+            var total = 0
+            const $tbody = $("#lossEntries").children('tbody')
+            $tbody.empty()
+            if(items1.lossEntries!=null){
+                items1.lossEntries.forEach(function(e){
+                    total += (parseFloat(e.weight.toFixed(2)))
+                    $tbody.append(
+                        "<tr>"+
+                        "<td>"+e.code+"</td>"+
+                        "<td>"+e.batchNumber+"</td>"+
+                        "<td>"+e.weight+"</td>"+
+                        "</tr>"
+                    ) 
+                })
+            }
+            $("#total").text(total)
+            $.post(home.urls.plateAudit.getLossEntryAuditsByLossEntryHeader(),{
+                code:items1.code
+            },function(result){
+                var res = result.data
+                res.forEach(function(e){
+                    $("#curAuditor").text(e.auditor?e.auditor.name:'')
+                    $("#auditorResult").text(e.auditResult?e.auditResult:'')
+                    $("#auditorTime").text(e.auditTime?new Date(e.auditTime).Format('yyyy-MM-dd'):'')
+                    $("#note").text(e.note?e.note:'')  
+                  }) 
+                 })
+            var userStr = $.session.get('user')
+            var userJson = JSON.parse(userStr)
+            var curAuditorCode = userJson.code
+            $.post(home.urls.plateAudit.getRestAuditorByCode(),{
+                code:items1.code,
+                curAuditorCode:curAuditorCode
+            },function(result){
+                var auditor = result.data
+                $("#nextman").empty()
+                auditor.forEach(function(e){
+                    $("#nextman").append("<option value="+e.code+">"+e.name+"</option>")
+                })
+                
+            })
+     
+      
         },
         bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
@@ -180,8 +257,6 @@ var plate_audit = {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var auditStatus = $('#audit_name option:selected').val();
-                //var createDate = new Date(order_date.replace(new RegExp("-","gm"),"/")).getTime()
-                //var createDate =order_date.getTime;//毫秒级; // date类型转成long类型
                 $.post(home.urls.plateAlarm.getByStatusByPage(), {
                     status: auditStatus
                 }, function (result) {

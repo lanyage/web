@@ -663,6 +663,137 @@ var home = {
                 return servers.backup() + 'productLine/getAll'
             }
         },
+        byproduct: {
+            getAllByPage: function () {
+                return servers.backup() + 'byproduct/getAllByPage'
+            },
+            add: function () {
+                return servers.backup() + 'byproduct/add'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'byproduct/deleteByCode'
+            },
+            update: function () {
+                return servers.backup() + 'byproduct/update'
+            },
+            getByCode: function () {
+                return servers.backup() + 'byproduct/getByCode'
+            },
+            getAllByLikeNameByPage: function () {
+                return servers.backup() + 'byproduct/getAllByNameLikeByPage'
+            },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'byproduct/deleteByIdBatch'
+            },
+            getAll: function () {
+                return servers.backup() + 'byproduct/getAll'
+            }
+        },
+        handoverType: {
+            getAllByPage: function () {
+                return servers.backup() + 'handoverType/getAllByPage'
+            },
+            add: function () {
+                return servers.backup() + 'handoverType/add'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'handoverType/deleteByCode'
+            },
+            update: function () {
+                return servers.backup() + 'handoverType/update'
+            },
+            getByCode: function () {
+                return servers.backup() + 'handoverType/getByCode'
+            },
+            getAllByLikeNameByPage: function () {
+                return servers.backup() + 'handoverType/getByNameLikeByPage'
+            },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'handoverType/deleteByIdBatch'
+            },
+            getAll: function () {
+                return servers.backup() + 'handoverType/getAll'
+            }
+        },
+        handoverContent: {
+            getAllByPage: function () {
+                return servers.backup() + 'handoverContent/getAllByPage'
+            },
+            add: function () {
+                return servers.backup() + 'handoverContent/add'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'handoverContent/deleteByCode'
+            },
+            update: function () {
+                return servers.backup() + 'handoverContent/update'
+            },
+            getByCode: function () {
+                return servers.backup() + 'handoverContent/getByCode'
+            },
+            getAllByLikeNameByPage: function () {
+                return servers.backup() + 'handoverContent/getByNameLikeByPage'
+            },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'handoverContent/deleteByIdBatch'
+            },
+            getAll: function () {
+                return servers.backup() + 'handoverContent/getAll'
+            }
+        },
+        handoverState: {
+            getAllByPage: function () {
+                return servers.backup() + 'handoverState/getAllByPage'
+            },
+            add: function () {
+                return servers.backup() + 'handoverState/add'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'handoverState/deleteByCode'
+            },
+            update: function () {
+                return servers.backup() + 'handoverState/update'
+            },
+            getByCode: function () {
+                return servers.backup() + 'handoverState/getByCode'
+            },
+            getAllByLikeNameByPage: function () {
+                return servers.backup() + 'handoverState/getByNameLikeByPage'
+            },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'handoverState/deleteByIdBatch'
+            },
+            getAll: function () {
+                return servers.backup() + 'handoverState/getAll'
+            }
+        },
+        handoverStateType: {
+            getAllByPage: function () {
+                return servers.backup() + 'handoverStateType/getAllByPage'
+            },
+            add: function () {
+                return servers.backup() + 'handoverStateType/add'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'handoverStateType/deleteByCode'
+            },
+            update: function () {
+                return servers.backup() + 'handoverStateType/update'
+            },
+            getByCode: function () {
+                return servers.backup() + 'handoverStateType/getByCode'
+            },
+            getAllByLikeNameByPage: function () {
+                return servers.backup() + 'handoverStateType/getByNameLikeByPage'
+            },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'handoverStateType/deleteByIdBatch'
+            },
+            getAll: function () {
+                return servers.backup() + 'handoverStateType/getAll'
+            }
+        },
+
         // material: {
         //     getAllByPage: function () {
         //         return servers.backup() + 'material/getAllByPage'
@@ -767,47 +898,90 @@ var home = {
         },
         plateAudit: {
             getByRawType: function () {
-                return servers.backup() + '/lossEntryHeader/getByRawType'
-            },
-            getAudit: function () {
-                return servers.backup() + '/lossEntryHeader/audit'
+                return servers.backup() + 'lossEntryHeader/getByRawType'
             },
             getRestAuditorByCode: function () {
-                return servers.backup() + '/lossEntryHeader/getRestAuditorByCode'
-            }
+                return servers.backup() + 'lossEntryHeader/getRestAuditorByCode'
+            },
+            audit: function () {
+                return servers.backup() + 'lossEntryHeader/audit'
+            },
+            getLossEntryAuditsByLossEntryHeader: function () {
+                return servers.backup() + 'lossEntryHeader/getLossEntryAuditsByLossEntryHeader'
+            },
+            getByCode: function () {
+                return servers.backup() + 'lossEntryHeader/getByCode'
+            },
+            getByRawType: function () {
+                return servers.backup() + 'lossEntryHeader/getByRawType'
+            },
+            add: function () {
+                return servers.backup() + 'lossEntryHeader/add'
+            },
         },
         plateAlarm: {
             getAllByPage: function () {
-                return servers.backup() + '/materialsTotal/getAllByPage'
+                return servers.backup() + 'materialsTotal/getAllByPage'
             },
             getByWarnStatusByPage: function () {
-                return servers.backup() + '/materialsTotal/getByWarnStatusByPage'
+                return servers.backup() + 'materialsTotal/getByWarnStatusByPage'
             },
             getByStatusByPage: function () {
-                return servers.backup() + '/materialsTotal/getByStatusByPage'
-            }
+                return servers.backup() + 'materialsTotal/getByStatusByPage'
+            },   
+            startStock: function () {
+                return servers.backup() + 'materialsTotal/startStock'
+            },
+            endStock: function () {
+                return servers.backup() + 'materialsTotal/endStock'
+            },
         },
         productOrder:{
             deleteByIdBatch: function () {
-                return servers.backup() + '/productOrder/deleteByIdBatch'
+                return servers.backup() + 'productOrder/deleteByIdBatch'
             },
             getAllByPage: function () {
-                return servers.backup() + '/productOrder/getAllByPage'
+                return servers.backup() + 'productOrder/getAllByPage'
             },
             getByBatchNumberLikeByPage: function () {
-                return servers.backup() + '/productOrder/getByBatchNumberLikeByPage'
+                return servers.backup() + 'productOrder/getByBatchNumberLikeByPage'
             },
             deleteByCode: function () {
-                return servers.backup() + '/productOrder/deleteByCode'
+                return servers.backup() + 'productOrder/deleteByCode'
             },
             getById: function () {
-                return servers.backup() + '/productOrder/getById'
+                return servers.backup() + 'productOrder/getById'
             },
             add: function () {
-                return servers.backup() + '/productOrder/add'
-            }
-        }
-        ,
+                return servers.backup() + 'productOrder/add'
+            },
+            update: function () {
+                return servers.backup() + 'productOrder/update'
+            },
+        },
+        kilnOrder:{
+            deleteByIdBatch: function () {
+                return servers.backup() + 'kilnOrder/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'kilnOrder/getAllByPage'
+            },
+            getByBatchNumberLikeByPage: function () {
+                return servers.backup() + 'kilnOrder/getByBatchNumberLikeByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'kilnOrder/deleteByCode'
+            },
+            getById: function () {
+                return servers.backup() + 'kilnOrder/getById'
+            },
+            add: function () {
+                return servers.backup() + 'kilnOrder/add'
+            },
+            update: function () {
+                return servers.backup() + 'kilnOrder/update'
+            },
+        },
         batchingRecord:{
           add:function () {
               return servers.backup() + '/ingredientsRecord/add'
@@ -1372,6 +1546,106 @@ var home = {
             },
             update: function () {
                 return servers.backup() + 'approvalTracking/update'
+            },
+        }
+        ,handoverHeader:{
+            deleteByIdBatch: function () {
+                return servers.backup() + 'handoverHeader/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'handoverHeader/getAllByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'handoverHeader/deleteByCode'
+            },
+            getById: function () {
+                return servers.backup() + 'handoverHeader/getById'
+            },
+            add: function () {
+                return servers.backup() + 'handoverHeader/add'
+            },
+            update: function () {
+                return servers.backup() + 'handoverHeader/update'
+            },
+        }
+        ,jobs:{
+            deleteByIdBatch: function () {
+                return servers.backup() + 'jobs/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'jobs/getAllByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'jobs/deleteByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'jobs/getByCode'
+            },
+            add: function () {
+                return servers.backup() + 'jobs/add'
+            },
+            update: function () {
+                return servers.backup() + 'jobs/update'
+            },
+        }
+        ,jobsHandover:{
+            deleteByIdBatch: function () {
+                return servers.backup() + 'jobsHandover/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'jobsHandover/getAllByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'jobsHandover/deleteByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'jobsHandover/getByCode'
+            },
+            add: function () {
+                return servers.backup() + 'jobsHandover/add'
+            },
+            update: function () {
+                return servers.backup() + 'jobsHandover/update'
+            },
+        }
+        ,handoverHeader:{
+            deleteByIdBatch: function () {
+                return servers.backup() + 'handoverHeader/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'handoverHeader/getAllByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'handoverHeader/deleteByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'handoverHeader/getByCode'
+            },
+            add: function () {
+                return servers.backup() + 'handoverHeader/add'
+            },
+            update: function () {
+                return servers.backup() + 'handoverHeader/update'
+            },
+        }
+        ,handoverRecord:{
+            deleteByIdBatch: function () {
+                return servers.backup() + 'handoverRecord/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'handoverRecord/getAllByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'handoverRecord/deleteByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'handoverRecord/getByCode'
+            },
+            add: function () {
+                return servers.backup() + 'handoverRecord/add'
+            },
+            update: function () {
+                return servers.backup() + 'handoverRecord/update'
             },
         }
     }

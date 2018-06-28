@@ -12,7 +12,7 @@
                 height:30x;
                 width:50px;
             }    
-            #management_handover_editor_table td{
+            #jobsHandover_table td{
                 padding: 7px;
                 border: 1px darkgrey solid;
                 font-size: 14px;
@@ -20,7 +20,7 @@
                 text-align: center;
                 font-weight: 400;
                 height:30x;
-                width:60px;
+                width:100px;
             }
             #management_handover_editor_table input{
                 width:100%;
@@ -29,6 +29,10 @@
                 text-align: center;
             }
             select{
+                width:190px;
+                height:22px;
+            }
+            #jobsHandover_table select{
                 width:100%;
                 height:100%;
                 border:none;
@@ -59,16 +63,7 @@
             </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type='checkbox' class='management_handover_checkbox' value='" + (e.code) + "'></td>
-                    <td>1</td>
-                    <td>dac</td>
-                    <td>小胖</td>
-                    <td>2018-03-23</td>
-                    <td><a href="#" class='detail' id='detail-1'><i class=\"layui-icon\">&#xe60a;</i></a></td>
-                    <td><a href="#" class='editor' id='editor-1'><i class=\"layui-icon\">&#xe642;</i></a></td>
-                    <td><a href="#" class='delete' id='delete-1'><i class='fa fa-times-circle-o'></a></td>
-                </tr>
+               
             </tbody>
         </table>
     
@@ -79,104 +74,28 @@
                 management_handover.init()
             })
         </script>
-        <div id="management_handover_detail_modal" class="hide" style="padding:30px;">
-            
-            <table id="management_handover_detail_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
-               <tr>
-                   <td class="grey">物料打包编号</td>
-                   <td id="packagingCode"></td>
-                   <td class="grey">打包重量</td>
-                   <td id="packagingWeight"></td>
-                   <td class="grey">合批物料编号</td>
-                   <td id="materialCode"></td>
-                   <td class="grey">物料入仓操作人员</td>
-                   <td id="warehousingOperator"></td>
-                   <td class="grey">物料打包操作人员</td>
-                   <td id="packagingOperator"></td>
-               </tr>
-               <tr>
-                   <td class="grey">合批仓编号</td>
-                   <td  id="warehouseCode"></td>
-                   <td class="grey">物料打包前合批槽检查是否正常</td>
-                   <td  id="slotsNormal1"></td>
-                   <td class="grey">物料入仓时间</td>
-                   <td  id="warehousingDate"></td>
-                   <td class="grey">物料入仓总重量</td>
-                   <td  id="warehousingWeight"></td>
-                   <td class="grey">物料打包后合批槽检查是否正常</td>
-                   <td  id="slotsNormal2"></td>
-               </tr>
-               <tr>
-                    <td class="grey">打包日期</td>
-                    <td  id="packagingDate"></td>
-                    <td class="grey">混料时间</td>
-                    <td  id="mixTime"></td>
-                    <td class="grey">冷水机温度</td>
-                    <td  id="chillerTemperature"></td>
-                    <td class="grey">包装房温度</td>
-                    <td  id="packingroomTemperature"></td>
-                    <td class="grey">包装房湿度</td>
-                    <td  id="packingroomHumidity"></td>
-                </tr>
-                <tr>
-                    <td class="grey">除铁料重量</td>
-                    <td  id="defeWeight"></td>
-                    <td class="grey">合批槽余料</td>
-                    <td  id="slotsLeft"></td>
-                    <td  class="grey">包装过程筛网是否正常</td>
-                    <td colspan="5" id="screenNormal"></td>
-                </tr>
-                
+        <div id="jobsHandover" style="padding:20px;" class="hide">
+            <table id="jobsHandover_table">
+                <thead>
+                    <tr class="grey">
+                        <td>序号</td>
+                        <td>岗位名称</td>
+                        <td>交接类型</td>
+                        <td>交接内容</td>
+                        <td  width="200px">交接状态类型</td>
+                        <td>删除</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
             </table>
-        </div>
-        <!--editor && add-->
-        <div id="management_handover_editor_modal" class="hide" style="padding:20px;">
-            
-                <table id="management_handover_editor_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
-                   <tr>
-                   <td class="grey">物料打包编号</td>
-                   <td><input type="text" id="packagingCode1"/></td>
-                   <td class="grey">打包重量</td>
-                   <td><input type="text" id="packagingWeight1"/></td>
-                   <td class="grey">合批物料编号</td>
-                   <td><input type="text" id="materialCode1"/></td>
-                   <td class="grey">物料入仓操作人员</td>
-                   <td><select id="warehousingOperator1"></select></td>
-                   <td class="grey">物料打包操作人员</td>
-                   <td><select id="packagingOperator1"></select></td>
-               </tr>
-               <tr>
-                   <td class="grey">合批仓编号</td>
-                   <td><input type="text" id="warehouseCode1"/></td>
-                   <td class="grey">物料打包前合批槽检查是否正常</td>
-                   <td><input type="text" id="slotsNormal11"/></td>
-                   <td class="grey">物料入仓时间</td>
-                   <td><input type="date" id="warehousingDate1"/></td>
-                   <td class="grey">物料入仓总重量</td>
-                   <td><input type="text" id="warehousingWeight1"/></td>
-                   <td class="grey">物料打包后合批槽检查是否正常</td>
-                   <td><input type="text" id="slotsNormal21"/></td>
-               </tr>
-               <tr>
-                    <td class="grey">打包日期</td>
-                    <td><input type="date" id="packagingDate1"/></td>
-                    <td class="grey" width="80px">混料时间</td>
-                    <td><input type="text" id="mixTime1"/></td>
-                    <td class="grey">冷水机温度</td>
-                    <td><input type="text" id="chillerTemperature1"/></td>
-                    <td class="grey">包装房温度</td>
-                    <td><input type="text" id="packingroomTemperature1"/></td>
-                    <td class="grey">包装房湿度</td>
-                    <td><input type="text" id="packingroomHumidity1"/></td>
-                </tr>
-                <tr>
-                    <td class="grey">除铁料重量</td>
-                    <td><input type="text" id="defeWeight1"/></td>
-                    <td class="grey">合批槽余料</td>
-                    <td><input type="text" id="slotsLeft1"/></td>
-                    <td  class="grey">包装过程筛网是否正常</td>
-                    <td colspan="5"><input type="text" id="screenNormal1"/></td>
-                </tr>
-                </table>
+            <div class="whitespace"></div>
+            <div id="add_line" style="width: 100%;margin: 0 auto;background: white;text-align: center;">
+                    <button id="button"
+                    style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
+                +
+            </button>
             </div>
+        </div>
 </div>

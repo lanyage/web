@@ -75,7 +75,7 @@ var screen_examination = {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var codeNumber = _selfBtn.attr('id').substr(7)
-                $.post(home.urls.productIn.getByCode(), {
+                $.post(home.urls.screenCheck.getById(), {
                     code: codeNumber
                 }, function (result) {
                     var items = result.data 
@@ -83,8 +83,8 @@ var screen_examination = {
                     layer.open({
                         type: 1,
                         title: '图片详情',
-                        content: $("#detail_modal"),
-                        area: ['800px', '430px'],
+                        content: "<div style='padding:20px;'><img alt='还没上传图片' src='" + servers.backup() + 'image/' + items.picture + "' alt='' style='width:250px;height:250px;'/></div>",
+                        area: ['350px', '400px'],
                         btn: [' 返回'],
                         offset: "auto",
                         closeBtn: 0,
@@ -92,10 +92,6 @@ var screen_examination = {
                             $("#detail_modal").css('display', 'none')
                             layer.close(index)
                         },
-                        btn2: function (index) {
-                            $("#detail_modal").css('display', 'none')
-                            layer.close(index)
-                        }
                     })
                 })
             })

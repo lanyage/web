@@ -4,7 +4,7 @@ var art_manage = {
         var out = $('#art_manage_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#art_manage').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#art_manage_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
         }, 30)
     },
@@ -59,17 +59,18 @@ var art_manage = {
         }
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
+            console.log(items)
             items.forEach(function (e) {
                 var code = e.code
                 var content = (
                     "<tr>" +
                     "<td><input type='checkbox' class='art_manage_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.code + "</td>" +
+                    "<td>" + (e.code) + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
-                    "<td>" + e.productLineCode.name + "</td>" +
-                    "<td>" + e.inputPlan + "</td>" +
+                    "<td>" + (e.productLineCode?e.productLineCode.name:'')+ "</td>" +
+                    "<td>" + (e.inputPlan) + "</td>" +
                     "<td>" + (new Date(e.inputDate).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + e.serial_number + "</td>" +
+                    "<td>" + (e.serialNumber) + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
                     "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
@@ -79,6 +80,7 @@ var art_manage = {
                 art_manage.funcs.bindDetailEventListener($('.detail'))
                 art_manage.funcs.bindEditorEventListener($('.editor'))
                 art_manage.funcs.bindDeleteEventListener($('.delete'))
+               
                 var checkedBoxLen = $('.art_manage_checkbox:checked').length
                 home.funcs.bindSelectAll($("#art_manage_checkAll"),$(".art_manage_checkbox"),checkedBoxLen,$("#art_manage_table"))
 
@@ -90,27 +92,25 @@ var art_manage = {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-               // console.log(code)
                 $.post(home.urls.productOrder.getById(), {
                    code:code
                 }, function (result) {
                     var items = result.data //获取数据
-                    const div = $("#editor_modal")
+                    const div = $("#detail_modal")
                     console.log(items)
                     art_manage.funcs.fill_detail_data(div,items)
 
                 })
-
                 layer.open({
                     type: 1,
                     title: '新增工艺单',
-                    content: $("#editor_modal"),
-                    area: ['900px', '700px'],
+                    content: $("#detail_modal"),
+                    area: ['1000px', '700px'],
                     btn: ['返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#editor_modal").css('display', 'none')
+                        $("#detail_modal").css('display', 'none')
                         layer.close(index)
                     }
                 });
@@ -135,13 +135,13 @@ var art_manage = {
             $("#t5").text(items.lithiumContent)
             $("#t6").text(items.lithiumRatio)
             $("#t7").text(items.additiveCode)
-            $("#t8").text(items.additiveWeight)
-            $("#t9").text(items.targetLithium)
-            $("#t10").text(null)
+            $("#t8").text(items.targetLithium)
+            $("#t9").text(items.additiveWeight)
+            
             $("#t11").text(items.presomaWeight)
             $("#t12").text(items.lithiumWeight)
             $("#t13").text(items.mixFrequency)
-            $("#t14").text(items.mixDate)
+            $("#t14").text(items.mixDate?new Date(items.mixDate).Format('yyyy-MM-dd'):'null')
             $("#t15").text(items.mixRequirements)
             $("#t16").text(items.presinteringDetection)
             $("#t17").text(items.presinteringPlan)
@@ -150,6 +150,17 @@ var art_manage = {
         },
         bindEditorEventListener:function(editBtns) {
             editBtns.off('click').on('click',function() {
+                var _selfBtn = $(this)
+                var code = _selfBtn.attr('id').substr(7)
+                $.post(home.urls.productOrder.getById(), {
+                   code:code
+                }, function (result) {
+                    var items = result.data //获取数据
+                    const div = $("#editor_modal")
+                    console.log(items)
+                    art_manage.funcs.fill_editor_data(div,items)
+
+                
                 layer.open({
                     type:1,
                     title:'新增工艺单',
@@ -169,6 +180,60 @@ var art_manage = {
                     ,btn3: function(index) {
                         $("#editor_modal").css('display', 'none')
                         layer.close(index)
+                    }
+                })
+            })
+        })
+        }
+        ,fill_editor_data: function(div,items){
+            $("#task_name1").val(items.code)
+            $("#make_batch1").val(items.batchNumber)
+            $("#make_man1").append("<option value="+items.compactor.code+">"+items.compactor.name+"</option>")
+            //$("#make_man1").val(items.compactor.name)
+            $("#product_num1").val(items.productLineCode.code)
+            //$("#audit_man1").val(items.auditor.name)
+            $("#audit_man1").append("<option value="+items.auditor.code+">"+items.auditor.name+"</option>")
+            $("#plan_amount1").val(items.inputPlan)
+            $("#exec_man1").append("<option value="+items.executor.code+">"+items.executor.name+"</option>")
+        
+            $("#in_date1").val(items.inputDate?new Date(items.inputDate).Format('yyyy-MM-dd'):'null')
+           // $("#pinguan1").val(items.qc.code)
+            $("#pinguan1").append("<option value="+items.qc.code+">"+items.qc.name+"</option>")
+            $("#make_num1").val(items.serialNumber)
+
+            $("#t11").val(items.presomaCode)
+            $("#t21").val(items.presomaContent)
+            $("#t31").val(items.presomaRatio)
+            $("#t41").val(items.lithiumCode)
+            $("#t51").val(items.lithiumContent)
+            $("#t61").val(items.lithiumRatio)
+            $("#t71").val(items.additiveCode)
+            $("#t81").val(items.targetLithium)
+            $("#t91").val(items.additiveWeight)
+            
+            $("#t111").val(items.presomaWeight)
+            $("#t121").val(items.lithiumWeight)
+            $("#t131").val(items.mixFrequency)
+            $("#t141").val(items.mixDate?new Date(items.mixDate).Format('yyyy-MM-dd hh:mm:ss'):'null')
+            $("#t151").val(items.mixRequirements)
+            $("#t161").val(items.presinteringDetection)
+            $("#t171").val(items.presinteringPlan)
+            $("#t181").val(items.presinteringParameter)
+            $("#t191").val(items.mixRequirements)
+            $.get(servers.backup()+'user/getAll',{},function(result){
+                var user = result.data
+                user.forEach(function(e){
+                    if(items.compactor.code!=e.code){
+                        $("#make_man1").append("<option value="+e.code+">"+e.name+"</option>")
+                    }
+                    if(items.auditor.code!=e.code){
+                        $("#audit_man1").append("<option value="+e.code+">"+e.name+"</option>")
+                    }
+                    if(items.executor.code!=e.code){
+                        $("#exec_man1").append("<option value="+e.code+">"+e.name+"</option>")
+                    }
+                    if(items.qc.code!=e.code){
+                        $("#pinguan1").append("<option value="+e.code+">"+e.name+"</option>")
                     }
                 })
             })
@@ -289,6 +354,7 @@ var art_manage = {
                         time: 700
                     })
                     art_manage.init()
+                    $('#input_batch_num').val('')
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -299,9 +365,6 @@ var art_manage = {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var batch_num = $('#input_batch_num').val()
-                //console.log(batch_num)
-                //var createDate = new Date(order_date.replace(new RegExp("-","gm"),"/")).getTime()
-                //var createDate =order_date.getTime;//毫秒级; // date类型转成long类型
                 $.post(home.urls.productOrder.getByBatchNumberLikeByPage(), {
                     batchNumber: batch_num
                 }, function (result) {
