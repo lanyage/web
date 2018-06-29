@@ -57,7 +57,7 @@ var mat_in_manage = {
                     "<td>" + (e.batchNumber) + "</td>" +
                     "<td>" + (e.supplier ? e.supplier.name : null) + "</td>" +
                     "<td>" + (e.date) + "</td>" +
-                    "<td>" + (e.creatTime) + "</td>" +
+                    "<td>" + (e.createTime?new Date(e.createTime).Format('yyyy-MM-dd'):'') + "</td>" +
                     "<td>" + (e.createUser ? e.createUser.name : null) + "</td>" +
                     "<td><a href='#' class='detail' id='detail-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
                     "</tr>"

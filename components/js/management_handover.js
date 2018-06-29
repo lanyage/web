@@ -76,7 +76,24 @@ var management_handover = {
         home.funcs.bindSelectAll($("#management_handover_checkAll"),$(".management_handover_checkbox"),checkedBoxLen,$("management_handover_table"))
     }
     
-
+    ,fillData:function(items){
+        var jobsHandover = items.jobsHandover
+        $tbody = $("#jobsHandover_table").children('tbody')
+        $tbody.empty()
+        var length = $("#jobsHandover_table tbody tr").length + 1
+        jobsHandover.forEach(function(e){
+            $tbody.append(
+                "<tr>"+
+                "<td>"+e.code+"</td>"+
+                "<td>"+items.name+"</td>"+
+                "<td><select class='handoverType'></select></td>"+
+                "<td><select class='handover_content'></select></td>"+
+                "<td><select class='handover_statetype'></select></td>"+
+                "<td><button class='delete' onclick='management_handover.funcs.delTab("+(length)+")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
+                "</tr>"
+            )
+        })
+    }
     , bindDetailEventListener: function (detailBtns) {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
@@ -85,11 +102,12 @@ var management_handover = {
                     code:code
                 },function(result){
                     var items = result.data
+                   // management_handover.funcs.fillData(items)
                 layer.open({
                     type: 1,
                     title: '新增岗位内容交接',
                     content: $("#jobsHandover"),
-                    area: ['700px', '400px'],
+                    area: ['1100px', '400px'],
                     btn: ['确定','返回'],
                     offset: "auto",
                     closeBtn: 0,
@@ -165,7 +183,8 @@ var management_handover = {
                 $.get(servers.backup()+'handoverStateType/getAll',{},function(result){
                     var res4 = result.data
                     res4.forEach(function(e){
-                        $(".handover_statetype").append("<option value="+e.code+">"+e.code+"</option>")
+                        $(".handover_statetype").append(
+                            "<option value="+e.code+">"+(e.handoverState1?e.handoverState1.name:'')+' '+(e.handoverState2?e.handoverState2.name:'')+' '+(e.handoverState3?e.handoverState3.name:'')+' '+(e.handoverState4?e.handoverState4.name:'')+' '+(e.handoverState5?e.handoverState5.name:'')+' '+"</option>")
                     }) 
                 })  
             })

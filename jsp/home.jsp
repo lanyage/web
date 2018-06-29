@@ -32,7 +32,6 @@
                     <a class="text_center" href="#" style="color: white;font-size: 22px;" id="personal_center">
                         <i class="fa fa-cog"></i>
                     </a>
-                    <span>个人中心</span>
                 </div>
             </div>
             <div style="border-left: 1px #ffffff dotted;border-right: 1px #ffffff dotted;" class="fl">

@@ -966,8 +966,8 @@ var home = {
             getAllByPage: function () {
                 return servers.backup() + 'kilnOrder/getAllByPage'
             },
-            getByBatchNumberLikeByPage: function () {
-                return servers.backup() + 'kilnOrder/getByBatchNumberLikeByPage'
+            getByKilnCodeLikeByPage: function () {
+                return servers.backup() + 'kilnOrder/getByKilnCodeLikeByPage'
             },
             deleteByCode: function () {
                 return servers.backup() + 'kilnOrder/deleteByCode'
@@ -1597,26 +1597,6 @@ var home = {
                 return servers.backup() + 'approvalTracking/update'
             },
         }
-        ,handoverHeader:{
-            deleteByIdBatch: function () {
-                return servers.backup() + 'handoverHeader/deleteByIdBatch'
-            },
-            getAllByPage: function () {
-                return servers.backup() + 'handoverHeader/getAllByPage'
-            },
-            deleteByCode: function () {
-                return servers.backup() + 'handoverHeader/deleteByCode'
-            },
-            getById: function () {
-                return servers.backup() + 'handoverHeader/getById'
-            },
-            add: function () {
-                return servers.backup() + 'handoverHeader/add'
-            },
-            update: function () {
-                return servers.backup() + 'handoverHeader/update'
-            },
-        }
         ,jobs:{
             deleteByIdBatch: function () {
                 return servers.backup() + 'jobs/deleteByIdBatch'
@@ -1816,8 +1796,8 @@ var home = {
         /** 填充二级菜单并且携带3级菜单 */
         home.funcs.appendMenu2sToWrapperAndCarryModels(menu2ToSelected)
 
-       /* var personal_center = $('#personal_center')
-        home.funcs.personalCenter(personal_center)*/
+        var personal_center = $('#personal_center')
+        home.funcs.personalCenter(personal_center)
         /** 绑定退出登录时间 */
         var $exit = $('#exit')
         home.funcs.handleLogout($exit)
@@ -2489,14 +2469,7 @@ var home = {
             personal_center.off('click').on('click',function(){
                 var userStr = $.session.get('user')
                 var userJson = JSON.parse(userStr)
-                console.log(userJson)
-                $('.chosenMenu3').removeClass('chosenMenu3')
-                $('.display-component-container').remove()
-                //$(this).addClass('chosenMenu3')
-                //var $right = $('.right') 
-                //var path = "../components/html/200.html"
-                //$right.load(path)
-               /* layer.open({
+               layer.open({
                     type:1,
                     title:'修改初始密码',
                     content:"<div id='change_Modal'>" +
@@ -2506,7 +2479,7 @@ var home = {
                     "<p style='padding: 5px 0px 5px 0px;'>确认密码:<input type='password' id='renew_password' placeholder='至少6位'/></p>" +
                     "</div>" +
                     "</div>",
-                    area:['1050px','1050px'],
+                    area:['400px','250px'],
                     btn:['确认','取消'],
                     offset:['40%','55%'],
                     yes:function(index){
@@ -2536,8 +2509,8 @@ var home = {
                     btn2: function (index) {
                         layer.close(index)
                     }
-                })*/
-                layer.open({
+                })
+               /* layer.open({
                     type:1,
                     title:'个人中心',
                     content:"$('.right')",
@@ -2571,7 +2544,7 @@ var home = {
                     btn2: function (index) {
                         layer.close(index)
                     }
-                })
+                })*/
             })
         }
         /** 用户退出登录逻辑 */

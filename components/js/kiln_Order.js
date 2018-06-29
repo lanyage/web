@@ -10,7 +10,7 @@ var kiln_Order = {
     },
     funcs: {
         renderTable: function () {
-            $.post(home.urls.kilnParameter.getAllByPage(), {}, function (res) {
+            $.post(home.urls.kilnOrder.getAllByPage(), {}, function (res) {
                 var $tbody = $("#kiln_Order_table").children('tbody')
                 var items = res.data.content
                // console.log(items)
@@ -25,7 +25,7 @@ var kiln_Order = {
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.kilnParameter.getAllByPage(), {
+                            $.post(home.urls.kilnOrder.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
@@ -63,9 +63,9 @@ var kiln_Order = {
                 var content = (
                     "<tr>" +
                     "<td><input type='checkbox' class='kiln_Order_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + (e.kilnOrder?e.kilnOrder.kilnCode:'null') + "</td>" +
-                    "<td>" + (e.kilnOrder?e.kilnOrder.effectiveDate:'') + "</td>" +
-                    "<td>" + (e.kilnOrder?new Date(e.kilnOrder.compileTime).Format('yyyy-MM-dd'):'null')+ "</td>" +
+                    "<td>" + (e.kilnCode?e.kilnCode:'null') + "</td>" +
+                    "<td>" + (e.effectiveDate?e.effectiveDate:'') + "</td>" +
+                    "<td>" + (e.compileTime?new Date(e.compileTime).Format('yyyy-MM-dd'):'')+ "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
                     "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
@@ -87,7 +87,7 @@ var kiln_Order = {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-                $.post(home.urls.kilnParameter.getById(), {
+                $.post(home.urls.kilnOrder.getById(), {
                    code:code
                 }, function (result) {
                     var items = result.data //获取数据
@@ -110,30 +110,41 @@ var kiln_Order = {
             })
         },
         fill_detail_data: function(div,items){
-            $("#code").text(items.kilnOrder?items.kilnOrder.code:'')
-            $("#kilnCode").text(items.kilnOrder?items.kilnOrder.kilnCode:'')
-            $("#effectiveDate").text(items.kilnOrder?items.kilnOrder.effectiveDate:'')
-            $("#compactor").text(items.kilnOrder?items.kilnOrder.compactor.name:'')
-            $("#compileTime").text(items.kilnOrder?new Date(items.kilnOrder.compileTime).Format('yyyy-MM-dd hh:mm:ss'):'null')
-            $("#temRange").text(items.temRange?items.temRange:'')
-            $("#length").text(items.length)
-            $("#targetTem").text(items.targetTem)
-            $("#topTem").text(items.topTem)
-            $("#midTem").text(items.midTem)
-            $("#botTem").text(items.botTem)
-
-            $("#exhaust").text(items.kilnOrder?items.kilnOrder.exhaust:'')
-            $("#exhaustType").text(items.kilnOrder?items.kilnOrder.exhaustType:'')
-            $("#exhaustWeight").text(items.kilnOrder?items.kilnOrder.exhaustWeight:'')
-            $("#exhaustTop").text(items.kilnOrder?items.kilnOrder.exhaustTop:'')
-            $("#exhaustBottom").text(items.kilnOrder?items.kilnOrder.exhaustBottom:'')
-            $("#note").text(items.kilnOrder?items.kilnOrder.note:'')
+            $("#code").text(items.code?items.code:'')
+            $("#kilnCode").text(items.kilnCode?items.kilnCode:'')
+            $("#effectiveDate").text(items.effectiveDate?items.effectiveDate:'')
+            $("#compactor").text(items.compactor?items.compactor.name:'')
+            $("#compileTime").text(items.compileTime?new Date(items.compileTime).Format('yyyy-MM-dd hh:mm:ss'):'null')
+            
+            $("#exhaust").text(items.exhaust?items.exhaust:'')
+            $("#exhaustType").text(items.exhaustType?items.exhaustType:'')
+            $("#exhaustWeight").text(items.exhaustWeight?items.exhaustWeight:'')
+            $("#exhaustTop").text(items.exhaustTop?items.exhaustTop:'')
+            $("#exhaustBottom").text(items.exhaustBottom?items.exhaustBottom:'')
+            $("#note").text(items.note?items.note:'')
+            var kilnParameters = items.kilnParameters
+            $tbody = $("#kilnParameter_table").children('tbody')
+            $tbody.empty()
+            kilnParameters.forEach(function(e){
+                $tbody.append(
+                    "<tr>"+
+                    "<td>"+e.code+"</td>"+
+                    "<td>"+e.temRange+"</td>"+
+                    "<td>"+e.length+"</td>"+
+                    "<td>"+e.targetTem+"</td>"+
+                    "<td>"+e.topTem+"</td>"+
+                    "<td>"+e.midTem+"</td>"+
+                    "<td>"+e.botTem+"</td>"+
+                    "</tr>"
+                )
+            })
+            
         },
         bindEditorEventListener:function(editBtns) {
             editBtns.off('click').on('click',function() {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-                $.post(home.urls.kilnParameter.getById(), {
+                $.post(home.urls.kilnOrder.getById(), {
                    code:code
                 }, function (result) {
                     var items = result.data //获取数据
@@ -153,117 +164,132 @@ var kiln_Order = {
                         var Code = $("#kilnCode1").val()
                         var kilnCode = $("#kilnCode1").val()
                         var effectiveDate = $("#effectiveDate1").val()
-                        var compileTime = $("#compileTime1").val()
+                        var compileTime = new Date($("#compileTime1").val()).getTime()
                         var compactor = $("#compactor1").val()
-
-                        var temRange = $("#temRange1").val()
-                        var length = $("#length1").val()
-                        var targetTem = $("#targetTem1").val()
-                        var topTem = $("#topTem1").val()
-                        var midTem = $("#midTem1").val()
-                        var botTem = $("#botTem1").val()
-
                         var exhaust = $("#exhaust1").val()
                         var exhaustType = $("#exhaustType1").val()
                         var exhaustWeight = $("#exhaustWeight1").val()
                         var exhaustTop = $("#exhaustTop1").val()
                         var exhaustBottom = $("#exhaustBottom1").val()
                         var note = $("#note1").val()
-                       
-                        var kilnOrder = {
-                            code:Code,
+                        var kilnParameters = []
+                       $(".newLine").each(function(){
+                           var e = $(this).children('td')
+                           kilnParameters.push(
+                               {
+                                code:e.eq(0).children('input').val(),
+                                temRange:e.eq(1).children('input').val(),
+                                length:e.eq(2).children('input').val(),
+                                targetTem:e.eq(3).children('input').val(),
+                                topTem:e.eq(4).children('input').val(),
+                                midTem:e.eq(5).children('input').val(),
+                                botTem:e.eq(6).children('input').val()
+                               }
+                           )
+                       })
+                       console.log(kilnParameters)
+                        var data = {
+                            code:code,
                             kilnCode:kilnCode,
-                            
+                            exhaust:exhaust,
+                            exhaustType:exhaustType,
+                            exhaustWeight:exhaustWeight,
+                            exhaustTop:exhaustTop,
+                            exhaustBottom:exhaustBottom,
+                            note:note,
                             effectiveDate:effectiveDate,
                             compileTime:compileTime,
-                            'compactor.code':compactor,
-                            exhaust:exhaust,
-                            exhaustType:exhaustType,
-                            exhaustWeight:exhaustWeight,
-                            exhaustTop:exhaustTop,
-                            exhaustBottom:exhaustBottom,
-                            note:note,
-                            status:0
+                            compactor:{code:compactor},
+                            state:0,
+                            kilnParameters:[]
                         }
-                        $.post(home.urls.kilnParameter.update(),{
-                            code:code,
-                            exhaust:exhaust,
-                            exhaustType:exhaustType,
-                            exhaustWeight:exhaustWeight,
-                            exhaustTop:exhaustTop,
-                            exhaustBottom:exhaustBottom,
-                            note:note,
-                            'kilnOrder.code':code,
-                           
-                        },function(result){
-                            layer.msg(result.message,{
-                                offset:['40%','55%'],
-                                time:700
-                            })
-                            if(result.code === 0){
-                                var time = setTimeout(function(){
-                                    kiln_Order.init()
-                                    clearTimeout(time)
-                                },500)
+                        data.kilnParameters = kilnParameters
+                        console.log(data)
+                        $.ajax({
+                            url:home.urls.kilnOrder.update(),
+                            contentType:'application/json',
+                            data:JSON.stringify(data),
+                            dataType:'json',
+                            type:'post',
+                            success:function(result){
+                                if(result.code === 0){
+                                    var time = setTimeout(function(){
+                                        kiln_Order.init()
+                                        clearTimeout(time)
+                                    },500)
+                                }
+                                layer.msg(result.message,{
+                                    offset:['40%','55%'],
+                                    time:700
+                                })
                             }
                         })
                         layer.close(index)
+                       
                     }
                     ,btn2: function(index) {
                         $("#editor_modal").css('display', 'none')
                         var Code = $("#kilnCode1").val()
                         var kilnCode = $("#kilnCode1").val()
                         var effectiveDate = $("#effectiveDate1").val()
-                        var compileTime = $("#compileTime1").val()
+                        var compileTime = new Date($("#compileTime1").val()).getTime()
                         var compactor = $("#compactor1").val()
-
-                        var temRange = $("#temRange1").val()
-                        var length = $("#length1").val()
-                        var targetTem = $("#targetTem1").val()
-                        var topTem = $("#topTem1").val()
-                        var midTem = $("#midTem1").val()
-                        var botTem = $("#botTem1").val()
-
                         var exhaust = $("#exhaust1").val()
                         var exhaustType = $("#exhaustType1").val()
                         var exhaustWeight = $("#exhaustWeight1").val()
                         var exhaustTop = $("#exhaustTop1").val()
                         var exhaustBottom = $("#exhaustBottom1").val()
                         var note = $("#note1").val()
-                       
-                        var kilnOrder = {
-                            code:Code,
+                        var kilnParameters = []
+                       $(".newLine").each(function(){
+                           var e = $(this).children('td')
+                           kilnParameters.push(
+                               {
+                                code:e.eq(0).children('input').val(),
+                                temRange:e.eq(1).children('input').val(),
+                                length:e.eq(2).children('input').val(),
+                                targetTem:e.eq(3).children('input').val(),
+                                topTem:e.eq(4).children('input').val(),
+                                midTem:e.eq(5).children('input').val(),
+                                botTem:e.eq(6).children('input').val()
+                               }
+                           )
+                       })
+                       console.log(kilnParameters)
+                        var data = {
+                            code:code,
                             kilnCode:kilnCode,
+                            exhaust:exhaust,
+                            exhaustType:exhaustType,
+                            exhaustWeight:exhaustWeight,
+                            exhaustTop:exhaustTop,
+                            exhaustBottom:exhaustBottom,
+                            note:note,
                             effectiveDate:effectiveDate,
                             compileTime:compileTime,
-                            'compactor.code':compactor,
-                            exhaust:exhaust,
-                            exhaustType:exhaustType,
-                            exhaustWeight:exhaustWeight,
-                            exhaustTop:exhaustTop,
-                            exhaustBottom:exhaustBottom,
-                            note:note,
-                            status:1
+                            compactor:{code:compactor},
+                            state:1,
+                            kilnParameters:[]
                         }
-                        $.post(home.urls.kilnParameter.update(),{
-                            code:code,
-                            exhaust:exhaust,
-                            exhaustType:exhaustType,
-                            exhaustWeight:exhaustWeight,
-                            exhaustTop:exhaustTop,
-                            exhaustBottom:exhaustBottom,
-                            note:note,
-                            kilnOrder:kilnOrder,
-                        },function(result){
-                            layer.msg(result.message,{
-                                offset:['40%','55%'],
-                                time:700
-                            })
-                            if(result.code === 0){
-                                var time = setTimeout(function(){
-                                    kiln_Order.init()
-                                    clearTimeout(time)
-                                },500)
+                        data.kilnParameters = kilnParameters
+                        console.log(data)
+                        $.ajax({
+                            url:home.urls.kilnOrder.update(),
+                            contentType:'application/json',
+                            data:JSON.stringify(data),
+                            dataType:'json',
+                            type:'post',
+                            success:function(result){
+                                if(result.code === 0){
+                                    var time = setTimeout(function(){
+                                        kiln_Order.init()
+                                        clearTimeout(time)
+                                    },500)
+                                }
+                                layer.msg(result.message,{
+                                    offset:['40%','55%'],
+                                    time:700
+                                })
                             }
                         })
                         layer.close(index)
@@ -275,36 +301,78 @@ var kiln_Order = {
                 })
             })
         })
+        kiln_Order.funcs.add_line($("#button")) 
         }
         ,fill_editor_data: function(div,items){
             $("#compactor1").empty()
-            $("#compactor1").append("<option value="+items.kilnOrder.compactor.code+">"+items.kilnOrder.compactor.name+"</option>")
-            $("#code1").val(items.kilnOrder?items.kilnOrder.code:'')
-            $("#kilnCode1").val(items.kilnOrder?items.kilnOrder.kilnCode:'')
-            $("#effectiveDate1").val(items.kilnOrder?items.kilnOrder.effectiveDate:'')
-            $("#compileTime1").val(items.kilnOrder?new Date(items.kilnOrder.compileTime).Format('yyyy-MM-dd hh:mm:ss'):'null')
-            $("#temRange1").val(items.temRange?items.temRange:'')
-            $("#length1").val(items.length)
-            $("#targetTem1").val(items.targetTem)
-            $("#topTem1").val(items.topTem)
-            $("#midTem1").val(items.midTem)
-            $("#botTem1").val(items.botTem)
+            
+            $("#compactor1").append("<option value="+(items.compactor?items.compactor.code:'')+">"+(items.compactor?items.compactor.name:'')+"</option>")
+            $("#code1").val(items.code?items.code:'')
+            $("#kilnCode1").val(items.kilnCode?items.kilnCode:'')
+            $("#effectiveDate1").val(items.effectiveDate?items.effectiveDate:'')
+            $("#compileTime1").val(items.compileTime?new Date(items.compileTime).Format('yyyy-MM-dd hh:mm:ss'):'null')
 
-            $("#exhaust1").val(items.kilnOrder?items.kilnOrder.exhaust:'')
-            $("#exhaustType1").val(items.kilnOrder?items.kilnOrder.exhaustType:'')
-            $("#exhaustWeight1").val(items.kilnOrder?items.kilnOrder.exhaustWeight:'')
-            $("#exhaustTop1").val(items.kilnOrder?items.kilnOrder.exhaustTop:'')
-            $("#exhaustBottom1").val(items.kilnOrder?items.kilnOrder.exhaustBottom:'')
-            $("#note1").val(items.kilnOrder?items.kilnOrder.note:'')
+            $("#exhaust1").val(items.exhaust?items.exhaust:'')
+            $("#exhaustType1").val(items.exhaustType?items.exhaustType:'')
+            $("#exhaustWeight1").val(items.exhaustWeight?items.exhaustWeight:'')
+            $("#exhaustTop1").val(items.exhaustTop?items.exhaustTop:'')
+            $("#exhaustBottom1").val(items.exhaustBottom?items.exhaustBottom:'')
+            $("#note1").val(items.note?items.note:'')
 
             $.get(servers.backup()+'user/getAll',{},function(result){
                 var user = result.data
                 user.forEach(function(e){
-                    if(items.kilnOrder.compactor.code!=e.code){
+                    if(items.compactor.code!=e.code){
                         $("#compactor1").append("<option value="+e.code+">"+e.name+"</option>")
                     }
                 })
             })
+
+            var kilnParameters = items.kilnParameters
+            $tbody = $("#kilnParameter_table1").children('tbody')
+            $tbody.empty()
+           // console.log(kilnParameters)
+            kilnParameters.forEach(function(e){
+                $tbody.append(
+                    "<tr class='newLine'>"+
+                    "<td><input type='text' value="+e.code+" /></td>"+
+                    "<td><input type='text' value="+e.temRange+" /></td>"+
+                    "<td><input type='text' value="+e.length+" /></td>"+
+                    "<td><input type='text' value="+e.targetTem+" /></td>"+
+                    "<td><input type='text' value="+e.topTem+" /></td>"+
+                    "<td><input type='text' value="+e.midTem+" /></td>"+
+                    "<td><input type='text' value="+e.botTem+" /></td>"+
+                    "<td><button class='Delete' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
+                    "</tr>"
+                )
+            })
+            kiln_Order.funcs.bindDelete($('.Delete'))
+        }
+        ,bindDelete:function(btns){
+            btns.off('click').on('click',function(){
+                 $(this).parent('td').parent('tr').remove()
+            })
+           
+        }
+        ,add_line:function(buttons){
+            buttons.off('click').on('click',function(){
+                $tbody = $("#kilnParameter_table1").children('tbody')
+    
+                $tbody.append(
+                    "<tr class='newLine'>"+
+                    "<td><input type='text' /></td>"+
+                    "<td><input type='text' /></td>"+
+                    "<td><input type='text' /></td>"+
+                    "<td><input type='text' /></td>"+
+                    "<td><input type='text' /></td>"+
+                    "<td><input type='text' /></td>"+
+                    "<td><input type='text' /></td>"+
+                    "<td><button class='Delete' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
+                    "</tr>"
+                ) 
+                kiln_Order.funcs.bindDelete($('.Delete'))
+            })
+           
         }
         ,bindDeleteEventListener:function(deleteBtn){
             deleteBtn.off('click').on('click',function(){
@@ -318,7 +386,7 @@ var kiln_Order = {
                     offset:['40%','55%'],
                     yes:function(index) {
                         var Code = _this.attr('id').substr(7)
-                        $.post(home.urls.kilnParameter.deleteByCode(), {
+                        $.post(home.urls.kilnOrder.deleteByCode(), {
                             code: Code
                         }, function (result) {
                             layer.msg(result.message, {
@@ -342,48 +410,24 @@ var kiln_Order = {
         }
         ,bindAddEvent:function(addBtn){
             addBtn.off('click').on('click',function(){
-                $("#task_name1").val('')
-                $("#make_batch1").val('')
-                $("#make_man1").empty()
-                $("#product_num1").empty()
-                $("#audit_man1").empty()
-                $("#plan_amount1").val('')
-                $("#pinguan1").empty()
-                $("#in_date1").val('')
-                $("#exec_man1").empty()
-                $("#make_num1").val('')
-                $("#t11").val('')
-                $("#t21").val('')
-                $("#t31").val('')
-                $("#t41").val('')
-                $("#t51").val('')
-                $("#t61").val('')
-                $("#t71").val('')
-                $("#t81").val('')
-                $("#t91").val('') 
-                $("#t111").val('')
-                $("#t121").val('')
-                $("#t131").val('')
-                $("#t141").val('')
-                $("#t151").val('')
-                $("#t161").val('')
-                $("#t171").val('')
-                $("#t181").val('')
-                $("#t191").val('')
-                $("#t201").val('')
+                $("#compactor1").empty()
+            
+                $("#code1").val('')
+                $("#kilnCode1").val('')
+                $("#effectiveDate1").val('')
+                $("#compileTime1").val('')
+    
+                $("#exhaust1").val('')
+                $("#exhaustType1").val('')
+                $("#exhaustWeight1").val('')
+                $("#exhaustTop1").val('')
+                $("#exhaustBottom1").val('')
+                $("#note1").val('')
+    
                 $.get(servers.backup()+'user/getAll',{},function(result){
                     var user = result.data
                     user.forEach(function(e){
-                            $("#make_man1").append("<option value="+e.code+">"+e.name+"</option>")
-                            $("#audit_man1").append("<option value="+e.code+">"+e.name+"</option>")
-                            $("#exec_man1").append("<option value="+e.code+">"+e.name+"</option>")
-                            $("#pinguan1").append("<option value="+e.code+">"+e.name+"</option>")
-                    })
-                })
-                $.get(servers.backup()+'productLine/getAll',{},function(result){
-                    var productLine = result.data
-                    productLine.forEach(function(e){
-                        $("#product_num1").append("<option value="+e.code+">"+e.name+"</option>")
+                            $("#compactor1").append("<option value="+e.code+">"+e.name+"</option>")
                     })
                 })
                 layer.open({
@@ -396,80 +440,67 @@ var kiln_Order = {
                     closeBtn:0,
                     yes:function(index) {
                         $("#editor_modal").css('display','none')
-                        var compactor = $("#make_man1").val()
-                        var auditor = $("#audit_man1").val()
-                        var executor = $("#exec_man1").val()
-                        var qc = $("#pinguan1").val()
-                        var batchNumber = $("#make_batch1").val()
-                        var productLineCode = $("#product_num1").val()
-                        var inputPlan = $("#plan_amount1").val()
-                        
-                        var inputDate = $("#in_date1").val()
-                        var serialNumber = $("#make_num1").val()
-            
-                        var presomaCode = $("#t11").val()
-                        var presomaContent = $("#t21").val()
-                        var presomaRatio = $("#t31").val()
-                        var lithiumCode = $("#t41").val()
-                        var lithiumContent = $("#t51").val()
-                        var lithiumRatio = $("#t61").val()
-                        var additiveCode = $("#t71").val()
-                        var targetLithium = $("#t81").val()
-                        var additiveWeight = $("#t91").val()
-                        
-                        var presomaWeight = $("#t111").val()
-                        var lithiumWeight = $("#t121").val()
-                        var mixFrequency = $("#t131").val()
-                        var mixDate = $("#t141").val()
-                        var mixRequirements = $("#t151").val()
-                        var mixDetection = $("#t161").val()
-                        var presinteringPlan = $("#t171").val()
-                        var presinteringParameter = $("#t181").val()
-                        var presinteringRequirements = $("#t191").val()
-                        var compileTime = new Date().Format('yyyy-MM-dd hh:mm:ss')
-                        var presinteringDetection = $("#t201").val()
-                        
-                        $.post(home.urls.kilnParameter.add(),{
-                            'compactor.code':compactor,
-                            'auditor.code':auditor,
-                            'executor.code':executor,
-                            'qc.code':qc,
-                            batchNumber:batchNumber,
-                            'productLineCode.code':productLineCode,
-                            inputPlan:inputPlan,
-                            inputDate:inputDate,
-                            serialNumber:serialNumber,
-                            presomaCode:presomaCode,
-                            presomaContent:presomaContent,
-                            presomaRatio:presomaRatio,
-                            lithiumCode:lithiumCode,
-                            lithiumContent:lithiumContent,
-                            lithiumRatio:lithiumRatio,
-                            additiveCode:additiveCode,
-                            targetLithium:targetLithium,
-                            additiveWeight:additiveWeight,
-                            presomaWeight:presomaWeight,
-                            lithiumWeight:lithiumWeight,
-                            mixFrequency:mixFrequency,
-                            mixDate:mixDate,
-                            mixRequirements:mixRequirements,
-                            mixDetection:mixDetection,
-                            presinteringPlan:presinteringPlan,
-                            presinteringParameter:presinteringParameter,
-                            presinteringRequirements:presinteringRequirements,
-                            presinteringDetection:presinteringDetection,
-                            status:0,
+                        var code = $("#code1").val()
+                        var kilnCode = $("#kilnCode1").val()
+                        var effectiveDate = $("#effectiveDate1").val()
+                        var compileTime = new Date($("#compileTime1").val()).getTime()
+                        var compactor = $("#compactor1").val()
+                        var exhaust = $("#exhaust1").val()
+                        var exhaustType = $("#exhaustType1").val()
+                        var exhaustWeight = $("#exhaustWeight1").val()
+                        var exhaustTop = $("#exhaustTop1").val()
+                        var exhaustBottom = $("#exhaustBottom1").val()
+                        var note = $("#note1").val()
+                        var kilnParameters = []
+                       $(".newLine").each(function(){
+                           var e = $(this).children('td')
+                           kilnParameters.push(
+                               {
+                                code:e.eq(0).children('input').val(),
+                                temRange:e.eq(1).children('input').val(),
+                                length:e.eq(2).children('input').val(),
+                                targetTem:e.eq(3).children('input').val(),
+                                topTem:e.eq(4).children('input').val(),
+                                midTem:e.eq(5).children('input').val(),
+                                botTem:e.eq(6).children('input').val()
+                               }
+                           )
+                       })
+                       console.log(kilnParameters)
+                        var data = {
+                            code:code,
+                            kilnCode:kilnCode,
+                            exhaust:exhaust,
+                            exhaustType:exhaustType,
+                            exhaustWeight:exhaustWeight,
+                            exhaustTop:exhaustTop,
+                            exhaustBottom:exhaustBottom,
+                            note:note,
+                            effectiveDate:effectiveDate,
                             compileTime:compileTime,
-                        },function(result){
-                            layer.msg(result.message,{
-                                offset:['40%','55%'],
-                                time:700
-                            })
-                            if(result.code === 0){
-                                var time = setTimeout(function(){
-                                    kiln_Order.init()
-                                    clearTimeout(time)
-                                },500)
+                            compactor:{code:compactor},
+                            state:0,
+                            kilnParameters:[]
+                        }
+                        data.kilnParameters = kilnParameters
+                        console.log(data)
+                        $.ajax({
+                            url:home.urls.kilnOrder.add(),
+                            contentType:'application/json',
+                            data:JSON.stringify(data),
+                            dataType:'json',
+                            type:'post',
+                            success:function(result){
+                                if(result.code === 0){
+                                    var time = setTimeout(function(){
+                                        kiln_Order.init()
+                                        clearTimeout(time)
+                                    },500)
+                                }
+                                layer.msg(result.message,{
+                                    offset:['40%','55%'],
+                                    time:700
+                                })
                             }
                         })
                         layer.close(index)
@@ -552,9 +583,9 @@ var kiln_Order = {
         bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
-                var batch_num = $('#input_batch_num').val()
-                $.post(home.urls.kilnParameter.getByBatchNumberLikeByPage(), {
-                    batchNumber: batch_num
+                var kilnCode = $('#input_batch_num').val()
+                $.post(home.urls.kilnOrder.getByKilnCodeLikeByPage(), {
+                    kilnCode: kilnCode
                 }, function (result) {
                     var items = result.data.content //获取数据
                     page = result.data
@@ -565,8 +596,8 @@ var kiln_Order = {
                         , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.kilnParameter.getByBatchNumberLikeByPage(), {
-                                    batchNumber: batch_num,
+                                $.post(home.urls.kilnOrder.getByKilnCodeLikeByPage(), {
+                                    kilnCode: kilnCode,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {
