@@ -982,13 +982,36 @@ var home = {
                 return servers.backup() + 'kilnOrder/update'
             },
         },
+        kilnParameter:{
+            deleteByIdBatch: function () {
+                return servers.backup() + 'kilnParameter/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'kilnParameter/getAllByPage'
+            },
+            getByBatchNumberLikeByPage: function () {
+                return servers.backup() + 'kilnParameter/getByBatchNumberLikeByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'kilnParameter/deleteByCode'
+            },
+            getById: function () {
+                return servers.backup() + 'kilnParameter/getById'
+            },
+            add: function () {
+                return servers.backup() + 'kilnParameter/add'
+            },
+            update: function () {
+                return servers.backup() + 'kilnParameter/update'
+            },
+        },
         batchingRecord:{
           add:function () {
               return servers.backup() + 'ingredientsRecord/add'
           },
           update:function () {
             return servers.backup() + 'ingredientsRecord/update'
-        },
+          },
           deleteByIdBatch: function () {
               return servers.backup() + 'ingredientsRecord/deleteByIdBatch'
           },
@@ -1005,6 +1028,29 @@ var home = {
               return servers.backup() + 'ingredientsRecord/getById'
             },
         },
+        presinteringRecord:{
+            add:function () {
+                return servers.backup() + 'presinteringRecord/add'
+            },
+            update:function () {
+              return servers.backup() + 'presinteringRecord/update'
+            },
+            deleteByIdBatch: function () {
+                return servers.backup() + 'presinteringRecord/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'presinteringRecord/getAllByPage'
+            },
+            getByBatchNumberLikeByPage: function () {
+                return servers.backup() +  'presinteringRecord/getByBatchNumberLikeByPage'
+            },
+            deleteByCode: function () {
+               return servers.backup() + 'presinteringRecord/deleteByCode'
+              },
+            getById: function () {
+                return servers.backup() + 'presinteringRecord/getById'
+              },
+          },
         lingLiao: {
             getAllByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getAllByPage'

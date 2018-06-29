@@ -92,8 +92,10 @@ var batching_record = {
                     $("#batchNumber").text(items.batchNumber)
                     $("#ingredientsWeight").text(items.ingredientsWeight)
                     $("#presomaCode").text(items.presomaCode)
-                    $("#presomaWeigh").text(items.presomaWeigh)
+                    $("#presomaWeight").text(items.presomaWeight)
                     $("#lithiumCode").text(items.lithiumCode)
+                    $("#lithiumWeight").text(items.lithiumWeight)
+                    $("#presomaWeigh").text(items.presomaWeigh)
                     $("#lithiumWeigh").text(items.lithiumWeigh)
                     $("#presomaTare").text(items.presomaTare)
                     $("#lithiumTare").text(items.lithiumTare)
@@ -113,7 +115,7 @@ var batching_record = {
                     type: 1,
                     title: '配料记录详情',
                     content: $("#batching_record_detail_modal"),
-                    area: ['850px', '450px'],
+                    area: ['850px', '500px'],
                     btn: ['返回'],
                     offset: "auto",
                     closeBtn: 0,
@@ -131,6 +133,8 @@ var batching_record = {
                     code:code
                 },function(result){
                     var items = result.data
+                    $("#operator1").empty()
+                    $("#supervisor1").empty()
                     $("#ingredientsDate1").val(items.ingredientsDate)
                     $("#mixBegintime1").val(items.mixBegintime)
                     $("#mixTime1").val(items.mixTime)
@@ -138,11 +142,13 @@ var batching_record = {
                     $("#batchNumber1").val(items.batchNumber)
                     $("#ingredientsWeight1").val(items.ingredientsWeight)
                     $("#presomaCode1").val(items.presomaCode)
-                    $("#presomaWeigh1").val(items.presomaWeigh)
+                    $("#presomaWeight1").val(items.presomaWeight)
                     $("#lithiumCode1").val(items.lithiumCode)
-                    $("#lithiumWeigh1").val(items.lithiumWeigh)
+                    $("#lithiumWeight1").val(items.lithiumWeight)
                     $("#presomaTare1").val(items.presomaTare)
                     $("#lithiumTare1").val(items.lithiumTare)
+                    $("#presomaWeigh1").val(items.presomaWeigh)
+                    $("#lithiumWeigh1").val(items.lithiumWeigh)
                     $("#presomaSuttle1").val(items.presomaSuttle)
                     $("#lithiumSuttle1").val(items.lithiumSuttle)
                     $("#presomaAdd1").val(items.presomaAdd)
@@ -169,37 +175,140 @@ var batching_record = {
                     type:1,
                     title:'编辑预烧记录',
                     content:$("#batching_record_edtior_modal"),
-                    area: ['870px', '500px'],
+                    area: ['870px', '530px'],
                     btn:['保存','提交','返回'],
                     offset:"auto",
                     closeBtn:0,
                     yes: function(index) {
                        $("#batching_record_edtior_modal").css('display', 'none')
-                       var ingredientsDate = $("#ingredientsDate1").val(items.ingredientsDate)
-                       var mixBegintime = $("#mixBegintime1").val(items.mixBegintime)
-                       var mixTime = $("#mixTime1").val(items.mixTime)
-                       var mixFrequency = $("#mixFrequency1").val(items.mixFrequency)
-                       var batchNumber = $("#batchNumber1").val(items.batchNumber)
-                       var ingredientsWeight = $("#ingredientsWeight1").val(items.ingredientsWeight)
-                       $("#presomaCode1").val(items.presomaCode)
-                       $("#presomaWeigh1").val(items.presomaWeigh)
-                       $("#lithiumCode1").val(items.lithiumCode)
-                       $("#lithiumWeigh1").val(items.lithiumWeigh)
-                       $("#presomaTare1").val(items.presomaTare)
-                       $("#lithiumTare1").val(items.lithiumTare)
-                       $("#presomaSuttle1").val(items.presomaSuttle)
-                       $("#lithiumSuttle1").val(items.lithiumSuttle)
-                       $("#presomaAdd1").val(items.presomaAdd)
-                       $("#lithiumAdd1").val(items.lithiumAdd)
-                       $("#additiveCode1").val(items.additiveCode)
-                       $("#additiveModel1").val(items.additiveModel)
-                       $("#additiveWeight1").val(items.additiveWeight)
+                       var ingredientsDate = $("#ingredientsDate1").val()
+                       var mixBegintime = $("#mixBegintime1").val()
+                       var mixTime = $("#mixTime1").val()
+                       var mixFrequency = $("#mixFrequency1").val()
+                       var batchNumber = $("#batchNumber1").val()
+                       var ingredientsWeight = $("#ingredientsWeight1").val()
+                       var presomaCode = $("#presomaCode1").val()
+                       var presomaWeight = $("#presomaWeight1").val()
+                       var lithiumCode = $("#lithiumCode1").val()
+                       var lithiumWeight = $("#lithiumWeight1").val()
+                       var presomaTare = $("#presomaTare1").val()
+                       var lithiumTare = $("#lithiumTare1").val()
+                       var presomaWeigh = $("#presomaWeigh1").val()
+                       var lithiumWeigh = $("#lithiumWeigh1").val()
+                       var presomaSuttle = $("#presomaSuttle1").val()
+                       var lithiumSuttle = $("#lithiumSuttle1").val()
+                       var presomaAdd = $("#presomaAdd1").val()
+                       var lithiumAdd = $("#lithiumAdd1").val()
+                       var additiveCode = $("#additiveCode1").val()
+                       var additiveModel = $("#additiveModel1").val()
+                       var additiveWeight = $("#additiveWeight1").val()
 
-                       //$.post(home.urls.batchingRecord.update()
+                       var operator = $("#operator1").val()
+                       var supervisor = $("#supervisor1").val()
+                       $.post(home.urls.batchingRecord.update(),{
+                           code:code,
+                           ingredientsDate:ingredientsDate,
+                           mixBegintime:mixBegintime,
+                           mixTime:mixTime,
+                           mixFrequency:mixFrequency,
+                           batchNumber:batchNumber,
+                           ingredientsWeight:ingredientsWeight,
+                           presomaCode:presomaCode,
+                           presomaWeigh:presomaWeigh,
+                           presomaWeight:presomaWeight,
+                           lithiumCode:lithiumCode,
+                           lithiumWeigh:lithiumWeigh,
+                           lithiumWeight:lithiumWeight,
+                           presomaTare:presomaTare,
+                           lithiumTare:lithiumTare,
+                           presomaSuttle:presomaSuttle,
+                           lithiumSuttle:lithiumSuttle,
+                           presomaAdd:presomaAdd,
+                           lithiumAdd:lithiumAdd,
+                           additiveCode:additiveCode,
+                           additiveModel:additiveModel,
+                           additiveWeight:additiveWeight,
+                           'supervisor.code':supervisor,
+                           'operator.code':operator,
+                           status:0,
+                       },function(result){
+                           layer.msg(result.message,{
+                               offset:['40%','55%'],
+                               time:700
+                           })
+                           if(result.code===0){
+                               var time = setTimeout(function(){
+                                   batching_record.init()
+                                   clearTimeout(time)
+                               },500)
+                           }
+                       })
                        layer.close(index)
                     }
                     ,btn2: function(index) {
                        $("#batching_record_edtior_modal").css('display', 'none')
+                       var ingredientsDate = $("#ingredientsDate1").val()
+                       var mixBegintime = $("#mixBegintime1").val()
+                       var mixTime = $("#mixTime1").val()
+                       var mixFrequency = $("#mixFrequency1").val()
+                       var batchNumber = $("#batchNumber1").val()
+                       var ingredientsWeight = $("#ingredientsWeight1").val()
+                       var presomaCode = $("#presomaCode1").val()
+                       var presomaWeight = $("#presomaWeight1").val()
+                       var lithiumCode = $("#lithiumCode1").val()
+                       var lithiumWeight = $("#lithiumWeight1").val()
+                       var presomaTare = $("#presomaTare1").val()
+                       var lithiumTare = $("#lithiumTare1").val()
+                       var presomaWeigh = $("#presomaWeigh1").val()
+                       var lithiumWeigh = $("#lithiumWeigh1").val()
+                       var presomaSuttle = $("#presomaSuttle1").val()
+                       var lithiumSuttle = $("#lithiumSuttle1").val()
+                       var presomaAdd = $("#presomaAdd1").val()
+                       var lithiumAdd = $("#lithiumAdd1").val()
+                       var additiveCode = $("#additiveCode1").val()
+                       var additiveModel = $("#additiveModel1").val()
+                       var additiveWeight = $("#additiveWeight1").val()
+
+                       var operator = $("#operator1").val()
+                       var supervisor = $("#supervisor1").val()
+                       $.post(home.urls.batchingRecord.update(),{
+                           code:code,
+                           ingredientsDate:ingredientsDate,
+                           mixBegintime:mixBegintime,
+                           mixTime:mixTime,
+                           mixFrequency:mixFrequency,
+                           batchNumber:batchNumber,
+                           ingredientsWeight:ingredientsWeight,
+                           presomaCode:presomaCode,
+                           presomaWeigh:presomaWeigh,
+                           presomaWeight:presomaWeight,
+                           lithiumCode:lithiumCode,
+                           lithiumWeigh:lithiumWeigh,
+                           lithiumWeight:lithiumWeight,
+                           presomaTare:presomaTare,
+                           lithiumTare:lithiumTare,
+                           presomaSuttle:presomaSuttle,
+                           lithiumSuttle:lithiumSuttle,
+                           presomaAdd:presomaAdd,
+                           lithiumAdd:lithiumAdd,
+                           additiveCode:additiveCode,
+                           additiveModel:additiveModel,
+                           additiveWeight:additiveWeight,
+                           'supervisor.code':supervisor,
+                           'operator.code':operator,
+                           status:1,
+                       },function(result){
+                           layer.msg(result.message,{
+                               offset:['40%','55%'],
+                               time:700
+                           })
+                           if(result.code===0){
+                               var time = setTimeout(function(){
+                                   batching_record.init()
+                                   clearTimeout(time)
+                               },500)
+                           }
+                       })
                        layer.close(index)
                     }
                     ,btn3: function(index) {
@@ -222,6 +331,21 @@ var batching_record = {
                     offset:['40%','55%'],
                     yes:function(index) {
                         var Code = _this.attr('id').substr(7)
+                        $.post(home.urls.batchingRecord.deleteByCode(),{
+                            code:Code
+                        },function(result){
+                            layer.msg(result.message,{
+                                offset:['40%','55%'],
+                                time:700
+                            })
+                            if(result.code===0){
+                                var time = setTimeout(function(){
+                                    batching_record.init()
+                                    clearTimeout(time)
+                                },500)
+                            }
+                        })
+                        layer.close(index)
                     },
                     btn2: function (index) {
                        layer.close(index)
@@ -231,20 +355,112 @@ var batching_record = {
         }
         ,bindAddEvent:function(addBtn){
             addBtn.off('click').on('click',function(){
+                $("#ingredientsDate1").val('')
+                $("#mixBegintime1").val('')
+                $("#mixTime1").val('')
+                $("#mixFrequency1").val('')
+                $("#batchNumber1").val('')
+                $("#ingredientsWeight1").val('')
+                $("#presomaCode1").val('')
+                $("#presomaWeight1").val('')
+                $("#lithiumCode1").val('')
+                $("#lithiumWeight1").val('')
+                $("#presomaTare1").val('')
+                $("#lithiumTare1").val('')
+                $("#presomaWeigh1").val('')
+                $("#lithiumWeigh1").val('')
+                $("#presomaSuttle1").val('')
+                $("#lithiumSuttle1").val('')
+                $("#presomaAdd1").val('')
+                $("#lithiumAdd1").val('')
+                $("#additiveCode1").val('')
+                $("#additiveModel1").val('')
+                $("#additiveWeight1").val('')
+           
+                $("#operator1").empty()
+                $("#supervisor1").empty()
+                $.get(servers.backup()+'user/getAll',{},function(result){
+                    var user = result.data
+                    user.forEach(function(e){
+                            $("#operator1").append("<option value="+e.code+">"+e.name+"</option>")
+                            $("#supervisor1").append("<option value="+e.code+">"+e.name+"</option>")
+                    })
+                })
                 layer.open({
                     type:1,
                     title:"预烧记录详情",
-                    content:$("#batching_record_detail_modal"),
-                    area: ['1100px', '650px'],
+                    content:$("#batching_record_edtior_modal"),
+                    area: ['870px', '530px'],
                     btn:['提交','取消'],
                     offset:'auto',
                     closeBtn:0,
                     yes:function(index) {
-                        $("#batching_record_detail_modal").css('display','none')
+                        $("#batching_record_edtior_modal").css('display','none')
+                        var ingredientsDate = $("#ingredientsDate1").val()
+                        var mixBegintime = $("#mixBegintime1").val()
+                        var mixTime = $("#mixTime1").val()
+                        var mixFrequency = $("#mixFrequency1").val()
+                        var batchNumber = $("#batchNumber1").val()
+                        var ingredientsWeight = $("#ingredientsWeight1").val()
+                        var presomaCode = $("#presomaCode1").val()
+                        var presomaWeight = $("#presomaWeight1").val()
+                        var lithiumCode = $("#lithiumCode1").val()
+                        var lithiumWeight = $("#lithiumWeight1").val()
+                        var presomaTare = $("#presomaTare1").val()
+                        var lithiumTare = $("#lithiumTare1").val()
+                        var presomaWeigh = $("#presomaWeigh1").val()
+                        var lithiumWeigh = $("#lithiumWeigh1").val()
+                        var presomaSuttle = $("#presomaSuttle1").val()
+                        var lithiumSuttle = $("#lithiumSuttle1").val()
+                        var presomaAdd = $("#presomaAdd1").val()
+                        var lithiumAdd = $("#lithiumAdd1").val()
+                        var additiveCode = $("#additiveCode1").val()
+                        var additiveModel = $("#additiveModel1").val()
+                        var additiveWeight = $("#additiveWeight1").val()
+
+                       var operator = $("#operator1").val()
+                       var supervisor = $("#supervisor1").val()
+                       $.post(home.urls.batchingRecord.add(),{
+                           ingredientsDate:ingredientsDate,
+                           mixBegintime:mixBegintime,
+                           mixTime:mixTime,
+                           mixFrequency:mixFrequency,
+                           batchNumber:batchNumber,
+                           ingredientsWeight:ingredientsWeight,
+                           presomaCode:presomaCode,
+                           presomaWeigh:presomaWeigh,
+                           presomaWeight:presomaWeight,
+                           lithiumCode:lithiumCode,
+                           lithiumWeigh:lithiumWeigh,
+                           lithiumWeight:lithiumWeight,
+                           presomaTare:presomaTare,
+                           lithiumTare:lithiumTare,
+                           presomaSuttle:presomaSuttle,
+                           lithiumSuttle:lithiumSuttle,
+                           presomaAdd:presomaAdd,
+                           lithiumAdd:lithiumAdd,
+                           additiveCode:additiveCode,
+                           additiveModel:additiveModel,
+                           additiveWeight:additiveWeight,
+                           'supervisor.code':supervisor,
+                           'operator.code':operator,
+                           status:0,
+                       },function(result){
+                           layer.msg(result.message,{
+                               offset:['40%','55%'],
+                               time:700
+                           })
+                           if(result.code===0){
+                               var time = setTimeout(function(){
+                                   batching_record.init()
+                                   clearTimeout(time)
+                               },500)
+                           }
+                       })
                         layer.close(index)
                     }
                     ,btn2:function(index){
-                        $("#batching_record_detail_modal").css('display','none')
+                        $("#batching_record_edtior_modal").css('display','none')
                         layer.close(index)
                     }
                 })
@@ -267,13 +483,14 @@ var batching_record = {
                         btn:['确认','取消'],
                         offset:['40%','55%'],
                         yes:function(index){
+                            var batching_record_codes=[]
                             $('.batching_record_checkbox').each(function() {
                                 if($(this).prop('checked')) {
                                     batching_record_codes.push({code:$(this).val()})
                                 }
                             })
                             $.ajax({
-                               url: home.urls.batchingRecord.deleteByCodeBatch(),
+                               url: home.urls.batchingRecord.deleteByIdBatch(),
                                contentType: 'application/json',
                                data: JSON.stringify(batching_record_codes),
                                dataType: 'json',
@@ -310,6 +527,7 @@ var batching_record = {
                         time: 700
                     })
                     batching_record.init()
+                    $("#input_batch_num").val('')
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -319,9 +537,10 @@ var batching_record = {
         ,bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
-                var auditStatus = $('#audit_name option:selected').val();
-                $.post(home.urls.batchingRecord.getByStatusByPage(), {
-                    status: auditStatus
+                var batchNumber =  $("#input_batch_num").val()
+                console.log(batchNumber)
+                $.post(home.urls.batchingRecord.getByBatchNumberLikeByPage(), {
+                    batchNumber: batchNumber
                 }, function (result) {
                     var items = result.data.content //获取数据
                     page = result.data
@@ -332,13 +551,12 @@ var batching_record = {
                         , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.plateAlarm.getByStatusByPage(), {
-                                    status: auditStatus,
+                                $.post(home.urls.batchingRecord.getByBatchNumberLikeByPage(), {
+                                    batchNumber: batchNumber,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {
                                     var items = result.data.content //获取数据
-                                    // var code = $('#model-li-select-48').val()
                                     const $tbody = $("#batching_record_table").children('tbody')
                                     batching_record.funcs.renderHandler($tbody, items)
                                     batching_record.pageSize = result.data.content.length

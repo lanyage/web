@@ -2,7 +2,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <style>
-             #batching_record_detail_table td {
+             #presintering_record_detail_table td {
                 padding: 5px;
                 border: 1px darkgrey solid;
                 font-size: 14px;
@@ -11,11 +11,22 @@
                 font-weight: 400;
                 height:25px;
             }    
+            #presintering_record_edtior_table input{
+                width:100%;
+                height:100%;
+                border:none;
+                text-align: center;
+            }
+            #presintering_record_edtior_table select{
+                width:100%;
+                height:100%;
+                border:none;
+                text-align: center;
+            }
         </style>
         <div class="block-quote">
             <div class="fl">
                 <p style="color: #62a49a; font-size: 14px;">
-                    <!--&#xe608;-->
                     <span id="model_li_hide_add_30"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
                     <span id="model_li_hide_delete_30"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
                 </p>
@@ -24,7 +35,7 @@
                 <p style="color: #62a49a; font-size: 14px;">
                     <span id="model_li_hide_refresh_30"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
                     &nbsp;&nbsp;
-                    <input type="text" id="input_batch_num" placeholder="请输入窑炉编号"/> &nbsp;&nbsp;
+                    <input type="text" id="kiln_code" placeholder="请输入窑炉编号"/> &nbsp;&nbsp;
                     <input type="text" id="input_batch_num" placeholder="请输入批号"/> &nbsp;&nbsp;
                     <span id="model_li_hide_search_30"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
                 </p>
@@ -33,11 +44,10 @@
     
         <div class="whitespace" ></div>
     
-        <table id="batching_record_table" style="width: 100%;">
+        <table id="presintering_record_table" style="width: 100%;">
             <thead style="background: #666666;">
             <tr>
-                <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
-                <td class="checkBox_td"><input id="batching_record_checkAll" type="checkbox"></td>
+                <td class="checkBox_td"><input id="presintering_record_checkAll" type="checkbox"></td>
                 <td>序号</td>
                 <td>窑炉编号</td>
                 <td>烧结工艺</td>
@@ -47,186 +57,87 @@
                 <td>删除</td>
             </tr>
             </thead>
-            <!--<td><input type="checkbox" class="mat_in_checkbox"></td>-->
-            <tr>
-            <td><input type="checkbox" class="batching_record_checkbox"></td>
-            <td>1</td>
-            <td>1231</td>
-            <td>恩恩</td>
-            <td>1231</td>
-            <td><a href="#" class='detail' id='detail-1'><i class="layui-icon">&#xe60a;</i></a></td>
-            <td><a href="#" class='editor' id='editor-1'><i class="layui-icon">&#xe642;</i></a></td>
-            <td><a href="#" class='delete' id='delete-1'><i class='fa fa-times-circle-o'></a></td>
-            </tr>
             <tbody>
             </tbody>
         </table>
     
-        <div id="batching_record_page" ></div>
-        <script src="../components/js/batching_record.js"></script>
+        <div id="presintering_record_page" ></div>
+        <script src="../components/js/presintering_record.js"></script>
         <script type="application/javascript">
             $(function () {
-                batching_record.init()
+                presintering_record.init()
             })
         </script>
-        <div id="batching_record_detail_modal" class="hide" style="padding:30px;">
-            <table>
+        <div id="presintering_record_detail_modal" class="hide" style="padding:30px;">
+            <table style="border:none;">
                 <tr>
-                    <td  width="10%" class="grey">窑炉炉号</td>
-                    <td width="15%"></td>
-                    <td class="grey" width="10%">烧结工艺</td>
-                    <td width="15%">
+                    <td style="border:none;padding-left:0px;">窑炉炉号:</td>
+                    <td style="border:none;text-decoration:underline" id="kilnCode"></td>
+                    <td style="border:none;">窑炉</td>
+                    <td style="border:none;"></td>
+                    <td style="border:none;">烧结工艺</td>
+                    <td style="border:none;">
                         <form>
-                        <input type="radio" name="process" value="预烧">预烧 &nbsp;
-                        <input type="radio" name="process" value="二烧">二烧
+                        <input type="radio" name="process" value="0">预烧 &nbsp;
+                        <input type="radio" name="process" value="1">二烧
                         </form>
                     </td>
                 </tr>
             </table >
             <div class="whitespace"></div>
-            <table id="batching_record_detail_table">
-                <tr>
-                    <td rowspan="15" class="grey">产量记录</td>
-                    <td rowspan="2">序号</td>
-                    <td rowspan="2" width="80px">批次</td>
-                    <td rowspan="2">进钵数量</td>
+            <table id="presintering_record_detail_table" width="100%">
+                <tr class="grey">
+                    <td rowspan="6" class="grey">产量记录</td>
+                    <td>序号</td>
+                    <td width="80px">批次</td>
+                    <td>进钵数量</td>
                     <td colspan="2">进炉时间</td>
                     <td colspan="2">预计出炉时间</td>
-                    <td rowspan="2" >进炉操作人</td>
+                    <td >进炉操作人</td>
                     <td colspan="2">实际出炉时间</td>
-                    <td rowspan="2">倒钵数量</td>
-                    <td rowspan="2">使用新钵数量</td>
-                    <td rowspan="2">废弃匣钵数量</td>
-                    <td rowspan="2">出炉操作人</td>
-                </tr>
-                 <tr>
-                    <td width="80px">日期</td>
-                    <td width="80px">时间</td>
-                    <td width="80px">日期</td>
-                    <td width="80px">时间</td>
-                    <td width="80px">日期</td>
-                    <td width="80px">时间</td>
+                    <td>倒钵数量</td>
+                    <td>使用新钵数量</td>
+                    <td>废弃匣钵数量</td>
+                    <td>出炉操作人</td>
                 </tr>
                 <tr>
-                    <td rowspan="4"></td>
-                    <td rowspan="4"></td>
-                    <td></td>
-                    <td rowspan="4"></td>
-                    <td rowspan="4"></td>
-                    <td rowspan="4" ></td>
-                    <td rowspan="4"></td>
-                    <td></td>
-                    <td rowspan="4" ></td>
-                    <td rowspan="4"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td rowspan="4" id="code"></td>
+                    <td rowspan="4" id="batchNumber"></td>
+                    <td id="inportNumber1"></td>
+                    <td rowspan="4" colspan="2" id="infurnaceTime"></td>
+                    <td rowspan="4" colspan="2" id="planTime"></td>
+                    <td id="infurnaceOperator1"></td>
+                    <td rowspan="4" colspan="2" id="outfurnaceTime"></td>
+                    <td id="outportNumber1"></td>
+                    <td id="newportNumber1"></td>
+                    <td id="abaportNumber1"></td>
+                    <td id="outfurnaceOperator1"></td>
                 </tr>
                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td id="inportNumber2"></td>
+                    <td id="infurnaceOperator2"></td>
+                    <td id="outportNumber2"></td>
+                    <td id="newportNumber2"></td>
+                    <td id="abaportNumber2"></td>
+                    <td id="outfurnaceOperator2"></td>
                 </tr>
                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td id="inportNumber3"></td>
+                    <td id="infurnaceOperator3"></td>
+                    <td id="outportNumber3"></td>
+                    <td id="newportNumber3"></td>
+                    <td id="abaportNumber3"></td>
+                    <td id="outfurnaceOperator3"></td>
                 </tr>
                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td id="inportNumber4"></td>
+                    <td id="infurnaceOperator4"></td>
+                    <td id="outportNumber4"></td>
+                    <td id="newportNumber4"></td>
+                    <td id="abaportNumber4"></td>
+                    <td id="outfurnaceOperator4"></td>
                 </tr>
-                 <tr>
-                    <td rowspan="4"></td>
-                    <td rowspan="4"></td>
-                    <td></td>
-                    <td rowspan="4"></td>
-                    <td rowspan="4"></td>
-                    <td rowspan="4" ></td>
-                    <td rowspan="4"></td>
-                    <td></td>
-                    <td rowspan="4" ></td>
-                    <td rowspan="4"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                 <tr>
-                    <td rowspan="4"></td>
-                    <td rowspan="4"></td>
-                    <td></td>
-                    <td rowspan="4"></td>
-                    <td rowspan="4"></td>
-                    <td rowspan="4" ></td>
-                    <td rowspan="4"></td>
-                    <td></td>
-                    <td rowspan="4" ></td>
-                    <td rowspan="4"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                
                 <tr>
                     <td>说明</td>
                     <td colspan="13">1.作业完成后半小时内完成记录填写
@@ -238,4 +149,86 @@
             <div class="whitespace"></div>
             <span style="float:right;">主任助理确认：<span id="assistant" style="width:10%;"></span></span>
         </div>
+        <!--editor&&add-->
+        <div id="presintering_record_edtior_modal" class="hide" style="padding:30px;">
+                <table style="border:none;">
+                    <tr>
+                        <td style="border:none;padding-left:0px;">窑炉炉号:</td>
+                        <td style="border:none;"><input type="text" id="kilnCode1"  style="border-style:none;text-align: center;width:15px;text-decoration:underline"/></td>
+                        <td style="border:none;">窑炉</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">烧结工艺</td>
+                        <td style="border:none;">
+                            <form>
+                            <input type="radio" name="process" value="0">预烧 &nbsp;
+                            <input type="radio" name="process" value="1">二烧
+                            </form>
+                        </td>
+                    </tr>
+                </table >
+                <div class="whitespace"></div>
+                <table id="presintering_record_edtior_table" width="100%">
+                    <tr class="grey">
+                        <td rowspan="6" class="grey">产量记录</td>
+                        <td>序号</td>
+                        <td width="80px">批次</td>
+                        <td>进钵数量</td>
+                        <td colspan="2">进炉时间</td>
+                        <td colspan="2">预计出炉时间</td>
+                        <td >进炉操作人</td>
+                        <td colspan="2">实际出炉时间</td>
+                        <td>倒钵数量</td>
+                        <td>使用新钵数量</td>
+                        <td>废弃匣钵数量</td>
+                        <td>出炉操作人</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4"><input type="text" id="code1"/></td>
+                        <td rowspan="4"><input type="text" id="batchNumber1"/></td>
+                        <td><input type="text" id="inportNumber11"/></td>
+                        <td rowspan="4" colspan="2"><input type="text" id="infurnaceTime1" placeholder="样式为2018-01-01 00:00:00"/></td>
+                        <td rowspan="4" colspan="2"><input type="text" id="planTime1"/></td>
+                        <td><select id="infurnaceOperator11"></select></td>
+                        <td rowspan="4" colspan="2"><input type="text" id="outfurnaceTime1"/></td>
+                        <td><input type="text" id="outportNumber11"/></td>
+                        <td><input type="text" id="newportNumber11"/></td>
+                        <td><input type="text" id="abaportNumber11"/></td>
+                        <td><select id="outfurnaceOperator11"></select></td>
+                    </tr>
+                     <tr>
+                        <td><input type="text" id="inportNumber21"/></td>
+                        <td><select id="infurnaceOperator21"></select></td>
+                        <td><input type="text" id="outportNumber21"/></td>
+                        <td><input type="text" id="newportNumber21"/></td>
+                        <td><input type="text" id="abaportNumber21"/></td>
+                        <td><select id="outfurnaceOperator21"></select></td>
+                    </tr>
+                     <tr>
+                        <td><input type="text" id="inportNumber31"/></td>
+                        <td><select id="infurnaceOperator31"></select></td>
+                        <td><input type="text" id="outportNumber31"/></td>
+                        <td><input type="text" id="newportNumber31"/></td>
+                        <td><input type="text" id="abaportNumber31"/></td>
+                        <td><select id="outfurnaceOperator31"></select></td>
+                    </tr>
+                     <tr>
+                        <td><input type="text" id="inportNumber41"/></td>
+                        <td><select id="infurnaceOperator41"></select></td>
+                        <td><input type="text" id="outportNumber41"/></td>
+                        <td><input type="text" id="newportNumber41"/></td>
+                        <td><input type="text" id="abaportNumber41"/></td>
+                        <td><select id="outfurnaceOperator41"></select></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>说明</td>
+                        <td colspan="13">1.作业完成后半小时内完成记录填写
+                            2.数字精确；
+                            3.自动化线抽重填写“装钵机抽检记录”中。
+                        </td>
+                    </tr>
+                </table>
+                <div class="whitespace"></div>
+                <span style="float:right;">主任助理确认：<spanstyle="width:10%;"><select id="assistant1" ></select></span></span>
+            </div>
 </div>

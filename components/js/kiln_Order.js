@@ -10,7 +10,7 @@ var kiln_Order = {
     },
     funcs: {
         renderTable: function () {
-            $.post(home.urls.kilnOrder.getAllByPage(), {}, function (res) {
+            $.post(home.urls.kilnParameter.getAllByPage(), {}, function (res) {
                 var $tbody = $("#kiln_Order_table").children('tbody')
                 var items = res.data.content
                // console.log(items)
@@ -25,7 +25,7 @@ var kiln_Order = {
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.kilnOrder.getAllByPage(), {
+                            $.post(home.urls.kilnParameter.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
@@ -63,15 +63,18 @@ var kiln_Order = {
                 var content = (
                     "<tr>" +
                     "<td><input type='checkbox' class='kiln_Order_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + (e.code?e.code:'null') + "</td>" +
-                    "<td>" + (e.kilnCode?e.kilnCode:'null') + "</td>" +
-                    "<td>" + (e.effectiveDate?e.effectiveDate:'') + "</td>" +
-                    "<td>" + (e.compileTime?new Date(e.compileTime).Format('yyyy-MM-dd'):'null')+ "</td>" +
+                    "<td>" + (e.kilnOrder?e.kilnOrder.kilnCode:'null') + "</td>" +
+                    "<td>" + (e.kilnOrder?e.kilnOrder.effectiveDate:'') + "</td>" +
+                    "<td>" + (e.kilnOrder?new Date(e.kilnOrder.compileTime).Format('yyyy-MM-dd'):'null')+ "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
+                    "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
+                    "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
                     "</tr>"
                 )
                 $tbody.append(content)
                 kiln_Order.funcs.bindDetailEventListener($('.detail'))
+                kiln_Order.funcs.bindEditorEventListener($('.editor'))
+                kiln_Order.funcs.bindDeleteEventListener($('.delete'))
                
                 var checkedBoxLen = $('.kiln_Order_checkbox:checked').length
                 home.funcs.bindSelectAll($("#kiln_Order_checkAll"),$(".kiln_Order_checkbox"),checkedBoxLen,$("#kiln_Order_table"))
@@ -84,7 +87,7 @@ var kiln_Order = {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-                $.post(home.urls.kilnOrder.getById(), {
+                $.post(home.urls.kilnParameter.getById(), {
                    code:code
                 }, function (result) {
                     var items = result.data //获取数据
@@ -93,9 +96,9 @@ var kiln_Order = {
                 })
                 layer.open({
                     type: 1,
-                    title: '新增工艺单',
+                    title: '窑炉工艺单详情',
                     content: $("#detail_modal"),
-                    area: ['900px', '700px'],
+                    area: ['900px', '560px'],
                     btn: ['返回'],
                     offset: "auto",
                     closeBtn: 0,
@@ -107,42 +110,30 @@ var kiln_Order = {
             })
         },
         fill_detail_data: function(div,items){
-            $("#task_name").text(items.code)
-            $("#make_batch").text(items.batchNumber)
-            $("#make_man").text(items.compactor?items.compactor.name:'')
-            $("#product_num").text(items.productLineCode.name)
-            $("#audit_man").text(items.auditor?items.auditor.name:'')
-            $("#plan_amount").text(items.inputPlan)
-            $("#exec_man").text(items.executor?items.executor.name:'')
-            $("#in_date").text(items.inputDate?new Date(items.inputDate).Format('yyyy-MM-dd'):'null')
-            $("#pinguan").text(items.qc?items.qc.name:'')
-            $("#make_num").text(items.serialNumber)
-            $("#t1").text(items.presomaCode)
-            $("#t2").text(items.presomaContent)
-            $("#t3").text(items.presomaRatio)
-            $("#t4").text(items.lithiumCode)
-            $("#t5").text(items.lithiumContent)
-            $("#t6").text(items.lithiumRatio)
-            $("#t7").text(items.additiveCode)
-            $("#t8").text(items.targetLithium)
-            $("#t9").text(items.additiveWeight)
-            $("#t11").text(items.presomaWeight)
-            $("#t12").text(items.lithiumWeight)
-            $("#t13").text(items.mixFrequency)
-            $("#t14").text(items.mixDate?new Date(items.mixDate).Format('yyyy-MM-dd'):'null')
-            $("#t15").text(items.mixRequirements)
-            $("#t16").text(items.mixDetection)
-            $("#t17").text(items.presinteringPlan)
-            $("#t18").text(items.presinteringParameter)
-            $("#t19").text(items.presinteringRequirements)
-            $("#t20").text(items.presinteringDetection)
+            $("#code").text(items.kilnOrder?items.kilnOrder.code:'')
+            $("#kilnCode").text(items.kilnOrder?items.kilnOrder.kilnCode:'')
+            $("#effectiveDate").text(items.kilnOrder?items.kilnOrder.effectiveDate:'')
+            $("#compactor").text(items.kilnOrder?items.kilnOrder.compactor.name:'')
+            $("#compileTime").text(items.kilnOrder?new Date(items.kilnOrder.compileTime).Format('yyyy-MM-dd hh:mm:ss'):'null')
+            $("#temRange").text(items.temRange?items.temRange:'')
+            $("#length").text(items.length)
+            $("#targetTem").text(items.targetTem)
+            $("#topTem").text(items.topTem)
+            $("#midTem").text(items.midTem)
+            $("#botTem").text(items.botTem)
 
+            $("#exhaust").text(items.kilnOrder?items.kilnOrder.exhaust:'')
+            $("#exhaustType").text(items.kilnOrder?items.kilnOrder.exhaustType:'')
+            $("#exhaustWeight").text(items.kilnOrder?items.kilnOrder.exhaustWeight:'')
+            $("#exhaustTop").text(items.kilnOrder?items.kilnOrder.exhaustTop:'')
+            $("#exhaustBottom").text(items.kilnOrder?items.kilnOrder.exhaustBottom:'')
+            $("#note").text(items.kilnOrder?items.kilnOrder.note:'')
         },
         bindEditorEventListener:function(editBtns) {
             editBtns.off('click').on('click',function() {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(7)
-                $.post(home.urls.kilnOrder.getById(), {
+                $.post(home.urls.kilnParameter.getById(), {
                    code:code
                 }, function (result) {
                     var items = result.data //获取数据
@@ -153,73 +144,57 @@ var kiln_Order = {
                     type:1,
                     title:'新增工艺单',
                     content:$("#editor_modal"),
-                    area:['900px','700px'],
+                    area:['900px','560px'],
                     btn:['保存','提交','返回'],
                     offset:"auto",
                     closeBtn:0,
                     yes: function(index) {
                         $("#editor_modal").css('display', 'none')
-                        var compactor = $("#make_man1").val()
-                        var auditor = $("#audit_man1").val()
-                        var executor = $("#exec_man1").val()
-                        var qc = $("#pinguan1").val()
-                        var batchNumber = $("#make_batch1").val()
-                        var productLineCode = $("#product_num1").val()
-                        var inputPlan = $("#plan_amount1").val()
-                        var inputDate = $("#in_date1").val()
-                        var serialNumber = $("#make_num1").val()
-                        var presomaCode = $("#t11").val()
-                        var presomaContent = $("#t21").val()
-                        var presomaRatio = $("#t31").val()
-                        var lithiumCode = $("#t41").val()
-                        var lithiumContent = $("#t51").val()
-                        var lithiumRatio = $("#t61").val()
-                        var additiveCode = $("#t71").val()
-                        var targetLithium = $("#t81").val()
-                        var additiveWeight = $("#t91").val()
-                        var presomaWeight = $("#t111").val()
-                        var lithiumWeight = $("#t121").val()
-                        var mixFrequency = $("#t131").val()
-                        var mixDate = $("#t141").val()
-                        var mixRequirements = $("#t151").val()
-                        var mixDetection = $("#t161").val()
-                        var presinteringPlan = $("#t171").val()
-                        var presinteringParameter = $("#t181").val()
-                        var presinteringRequirements = $("#t191").val()
-                        var compileTime = new Date(items.compileTime).Format('yyyy-MM-dd hh:mm:ss')
-                        var presinteringDetection = $("#t201").val()
-                        $.post(home.urls.kilnOrder.update(),{
-                            code:code,
-                            'compactor.code':compactor,
-                            'auditor.code':auditor,
-                            'executor.code':executor,
-                            'qc.code':qc,
-                            batchNumber:batchNumber,
-                            'productLineCode.code':productLineCode,
-                            inputPlan:inputPlan,
-                            inputDate:inputDate,
-                            serialNumber:serialNumber,
-                            presomaCode:presomaCode,
-                            presomaContent:presomaContent,
-                            presomaRatio:presomaRatio,
-                            lithiumCode:lithiumCode,
-                            lithiumContent:lithiumContent,
-                            lithiumRatio:lithiumRatio,
-                            additiveCode:additiveCode,
-                            targetLithium:targetLithium,
-                            additiveWeight:additiveWeight,
-                            presomaWeight:presomaWeight,
-                            lithiumWeight:lithiumWeight,
-                            mixFrequency:mixFrequency,
-                            mixDate:mixDate,
-                            mixRequirements:mixRequirements,
-                            mixDetection:mixDetection,
-                            presinteringPlan:presinteringPlan,
-                            presinteringParameter:presinteringParameter,
-                            presinteringRequirements:presinteringRequirements,
-                            presinteringDetection:presinteringDetection,
-                            status:0,
+                        var Code = $("#kilnCode1").val()
+                        var kilnCode = $("#kilnCode1").val()
+                        var effectiveDate = $("#effectiveDate1").val()
+                        var compileTime = $("#compileTime1").val()
+                        var compactor = $("#compactor1").val()
+
+                        var temRange = $("#temRange1").val()
+                        var length = $("#length1").val()
+                        var targetTem = $("#targetTem1").val()
+                        var topTem = $("#topTem1").val()
+                        var midTem = $("#midTem1").val()
+                        var botTem = $("#botTem1").val()
+
+                        var exhaust = $("#exhaust1").val()
+                        var exhaustType = $("#exhaustType1").val()
+                        var exhaustWeight = $("#exhaustWeight1").val()
+                        var exhaustTop = $("#exhaustTop1").val()
+                        var exhaustBottom = $("#exhaustBottom1").val()
+                        var note = $("#note1").val()
+                       
+                        var kilnOrder = {
+                            code:Code,
+                            kilnCode:kilnCode,
+                            
+                            effectiveDate:effectiveDate,
                             compileTime:compileTime,
+                            'compactor.code':compactor,
+                            exhaust:exhaust,
+                            exhaustType:exhaustType,
+                            exhaustWeight:exhaustWeight,
+                            exhaustTop:exhaustTop,
+                            exhaustBottom:exhaustBottom,
+                            note:note,
+                            status:0
+                        }
+                        $.post(home.urls.kilnParameter.update(),{
+                            code:code,
+                            exhaust:exhaust,
+                            exhaustType:exhaustType,
+                            exhaustWeight:exhaustWeight,
+                            exhaustTop:exhaustTop,
+                            exhaustBottom:exhaustBottom,
+                            note:note,
+                            'kilnOrder.code':code,
+                           
                         },function(result){
                             layer.msg(result.message,{
                                 offset:['40%','55%'],
@@ -236,68 +211,49 @@ var kiln_Order = {
                     }
                     ,btn2: function(index) {
                         $("#editor_modal").css('display', 'none')
-                        var compactor = $("#make_man1").val()
-                        var auditor = $("#audit_man1").val()
-                        var executor = $("#exec_man1").val()
-                        var qc = $("#pinguan1").val()
-                        var batchNumber = $("#make_batch1").val()
-                        var productLineCode = $("#product_num1").val()
-                        var inputPlan = $("#plan_amount1").val()   
-                        var inputDate = $("#in_date1").val()
-                        var serialNumber = $("#make_num1").val()
-                        var presomaCode = $("#t11").val()
-                        var presomaContent = $("#t21").val()
-                        var presomaRatio = $("#t31").val()
-                        var lithiumCode = $("#t41").val()
-                        var lithiumContent = $("#t51").val()
-                        var lithiumRatio = $("#t61").val()
-                        var additiveCode = $("#t71").val()
-                        var targetLithium = $("#t81").val()
-                        var additiveWeight = $("#t91").val()
-                        var presomaWeight = $("#t111").val()
-                        var lithiumWeight = $("#t121").val()
-                        var mixFrequency = $("#t131").val()
-                        var mixDate = $("#t141").val()
-                        var mixRequirements = $("#t151").val()
-                        var mixDetection = $("#t161").val()
-                        var presinteringPlan = $("#t171").val()
-                        var presinteringParameter = $("#t181").val()
-                        var presinteringRequirements = $("#t191").val()
-                        var compileTime = new Date(items.compileTime).Format('yyyy-MM-dd hh:mm:ss')
-                        var presinteringDetection = $("#t201").val()
-                        
-                        $.post(home.urls.kilnOrder.update(),{
-                            code:code,
-                            'compactor.code':compactor,
-                            'auditor.code':auditor,
-                            'executor.code':executor,
-                            'qc.code':qc,
-                            batchNumber:batchNumber,
-                            'productLineCode.code':productLineCode,
-                            inputPlan:inputPlan,
-                            inputDate:inputDate,
-                            serialNumber:serialNumber,
-                            presomaCode:presomaCode,
-                            presomaContent:presomaContent,
-                            presomaRatio:presomaRatio,
-                            lithiumCode:lithiumCode,
-                            lithiumContent:lithiumContent,
-                            lithiumRatio:lithiumRatio,
-                            additiveCode:additiveCode,
-                            targetLithium:targetLithium,
-                            additiveWeight:additiveWeight,
-                            presomaWeight:presomaWeight,
-                            lithiumWeight:lithiumWeight,
-                            mixFrequency:mixFrequency,
-                            mixDate:mixDate,
-                            mixRequirements:mixRequirements,
-                            mixDetection:mixDetection,
-                            presinteringPlan:presinteringPlan,
-                            presinteringParameter:presinteringParameter,
-                            presinteringRequirements:presinteringRequirements,
-                            presinteringDetection:presinteringDetection,
-                            status:1,
+                        var Code = $("#kilnCode1").val()
+                        var kilnCode = $("#kilnCode1").val()
+                        var effectiveDate = $("#effectiveDate1").val()
+                        var compileTime = $("#compileTime1").val()
+                        var compactor = $("#compactor1").val()
+
+                        var temRange = $("#temRange1").val()
+                        var length = $("#length1").val()
+                        var targetTem = $("#targetTem1").val()
+                        var topTem = $("#topTem1").val()
+                        var midTem = $("#midTem1").val()
+                        var botTem = $("#botTem1").val()
+
+                        var exhaust = $("#exhaust1").val()
+                        var exhaustType = $("#exhaustType1").val()
+                        var exhaustWeight = $("#exhaustWeight1").val()
+                        var exhaustTop = $("#exhaustTop1").val()
+                        var exhaustBottom = $("#exhaustBottom1").val()
+                        var note = $("#note1").val()
+                       
+                        var kilnOrder = {
+                            code:Code,
+                            kilnCode:kilnCode,
+                            effectiveDate:effectiveDate,
                             compileTime:compileTime,
+                            'compactor.code':compactor,
+                            exhaust:exhaust,
+                            exhaustType:exhaustType,
+                            exhaustWeight:exhaustWeight,
+                            exhaustTop:exhaustTop,
+                            exhaustBottom:exhaustBottom,
+                            note:note,
+                            status:1
+                        }
+                        $.post(home.urls.kilnParameter.update(),{
+                            code:code,
+                            exhaust:exhaust,
+                            exhaustType:exhaustType,
+                            exhaustWeight:exhaustWeight,
+                            exhaustTop:exhaustTop,
+                            exhaustBottom:exhaustBottom,
+                            note:note,
+                            kilnOrder:kilnOrder,
                         },function(result){
                             layer.msg(result.message,{
                                 offset:['40%','55%'],
@@ -321,64 +277,32 @@ var kiln_Order = {
         })
         }
         ,fill_editor_data: function(div,items){
-            $("#make_man1").empty()
-            $("#audit_man1").empty()
-            $("#exec_man1").empty()
-            $("#pinguan1").empty()
-            $("#product_num1").empty()
-            $("#task_name1").val(items.code)
-            $("#make_batch1").val(items.batchNumber)
-            $("#make_man1").append("<option value="+items.compactor.code+">"+items.compactor.name+"</option>")
-            $("#product_num1").append("<option value="+items.productLineCode.code+">"+items.productLineCode.name+"</option>")
-            $("#audit_man1").append("<option value="+items.auditor.code+">"+items.auditor.name+"</option>")
-            $("#plan_amount1").val(items.inputPlan)
-            $("#exec_man1").append("<option value="+items.executor.code+">"+items.executor.name+"</option>")
-            $("#in_date1").val(items.inputDate?new Date(items.inputDate).Format('yyyy-MM-dd'):'null')
-            $("#pinguan1").append("<option value="+items.qc.code+">"+items.qc.name+"</option>")
-            $("#make_num1").val(items.serialNumber)
-            $("#t11").val(items.presomaCode)
-            $("#t21").val(items.presomaContent)
-            $("#t31").val(items.presomaRatio)
-            $("#t41").val(items.lithiumCode)
-            $("#t51").val(items.lithiumContent)
-            $("#t61").val(items.lithiumRatio)
-            $("#t71").val(items.additiveCode)
-            $("#t81").val(items.targetLithium)
-            $("#t91").val(items.additiveWeight)
-            $("#t111").val(items.presomaWeight)
-            $("#t121").val(items.lithiumWeight)
-            $("#t131").val(items.mixFrequency)
-            $("#t141").val(items.mixDate?new Date(items.mixDate).Format('yyyy-MM-dd hh:mm:ss'):'null')
-            $("#t151").val(items.mixRequirements)
-            $("#t161").val(items.mixDetection)
-            $("#t171").val(items.presinteringPlan)
-            $("#t181").val(items.presinteringParameter)
-            $("#t191").val(items.presinteringRequirements)
-            $("#t201").val(items.presinteringDetection)
+            $("#compactor1").empty()
+            $("#compactor1").append("<option value="+items.kilnOrder.compactor.code+">"+items.kilnOrder.compactor.name+"</option>")
+            $("#code1").val(items.kilnOrder?items.kilnOrder.code:'')
+            $("#kilnCode1").val(items.kilnOrder?items.kilnOrder.kilnCode:'')
+            $("#effectiveDate1").val(items.kilnOrder?items.kilnOrder.effectiveDate:'')
+            $("#compileTime1").val(items.kilnOrder?new Date(items.kilnOrder.compileTime).Format('yyyy-MM-dd hh:mm:ss'):'null')
+            $("#temRange1").val(items.temRange?items.temRange:'')
+            $("#length1").val(items.length)
+            $("#targetTem1").val(items.targetTem)
+            $("#topTem1").val(items.topTem)
+            $("#midTem1").val(items.midTem)
+            $("#botTem1").val(items.botTem)
+
+            $("#exhaust1").val(items.kilnOrder?items.kilnOrder.exhaust:'')
+            $("#exhaustType1").val(items.kilnOrder?items.kilnOrder.exhaustType:'')
+            $("#exhaustWeight1").val(items.kilnOrder?items.kilnOrder.exhaustWeight:'')
+            $("#exhaustTop1").val(items.kilnOrder?items.kilnOrder.exhaustTop:'')
+            $("#exhaustBottom1").val(items.kilnOrder?items.kilnOrder.exhaustBottom:'')
+            $("#note1").val(items.kilnOrder?items.kilnOrder.note:'')
 
             $.get(servers.backup()+'user/getAll',{},function(result){
                 var user = result.data
                 user.forEach(function(e){
-                    if(items.compactor.code!=e.code){
-                        $("#make_man1").append("<option value="+e.code+">"+e.name+"</option>")
+                    if(items.kilnOrder.compactor.code!=e.code){
+                        $("#compactor1").append("<option value="+e.code+">"+e.name+"</option>")
                     }
-                    if(items.auditor.code!=e.code){
-                        $("#audit_man1").append("<option value="+e.code+">"+e.name+"</option>")
-                    }
-                    if(items.executor.code!=e.code){
-                        $("#exec_man1").append("<option value="+e.code+">"+e.name+"</option>")
-                    }
-                    if(items.qc.code!=e.code){
-                        $("#pinguan1").append("<option value="+e.code+">"+e.name+"</option>")
-                    }
-                })
-            })
-            $.get(servers.backup()+'productLine/getAll',{},function(result){
-                var productLine = result.data
-                productLine.forEach(function(e){
-                    if(items.productLineCode.code!=e.code){
-                         $("#product_num1").append("<option value="+e.code+">"+e.name+"</option>")
-                    }   
                 })
             })
         }
@@ -394,7 +318,7 @@ var kiln_Order = {
                     offset:['40%','55%'],
                     yes:function(index) {
                         var Code = _this.attr('id').substr(7)
-                        $.post(home.urls.kilnOrder.deleteByCode(), {
+                        $.post(home.urls.kilnParameter.deleteByCode(), {
                             code: Code
                         }, function (result) {
                             layer.msg(result.message, {
@@ -505,7 +429,7 @@ var kiln_Order = {
                         var compileTime = new Date().Format('yyyy-MM-dd hh:mm:ss')
                         var presinteringDetection = $("#t201").val()
                         
-                        $.post(home.urls.kilnOrder.add(),{
+                        $.post(home.urls.kilnParameter.add(),{
                             'compactor.code':compactor,
                             'auditor.code':auditor,
                             'executor.code':executor,
@@ -629,7 +553,7 @@ var kiln_Order = {
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var batch_num = $('#input_batch_num').val()
-                $.post(home.urls.kilnOrder.getByBatchNumberLikeByPage(), {
+                $.post(home.urls.kilnParameter.getByBatchNumberLikeByPage(), {
                     batchNumber: batch_num
                 }, function (result) {
                     var items = result.data.content //获取数据
@@ -641,7 +565,7 @@ var kiln_Order = {
                         , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.kilnOrder.getByBatchNumberLikeByPage(), {
+                                $.post(home.urls.kilnParameter.getByBatchNumberLikeByPage(), {
                                     batchNumber: batch_num,
                                     page: obj.curr - 1,
                                     size: obj.limit

@@ -1,11 +1,26 @@
 <div id='model-li-hide-27' class="display-component-container" style="padding: 20px 20px 20px 20px;">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+        #editor_modal input{
+            width:100%;
+            height:100%;
+            border:none;
+            text-align: center;
+        }
+        #editor_modal select{
+            width:100%;
+            height:100%;
+            border:none;
+            text-align: center;
+        }
+    </style>
     <div class="block-quote">
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
                 <!--&#xe608;-->
                 <span id="model_li_hide_add_27"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
+                <span id="model_li_hide_delete_27"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
             </p>
         </div>
         <div class="fr">
@@ -22,12 +37,13 @@
     <table id="kiln_Order_table" style="width: 100%;">
         <thead style="background: #666666;">
         <tr>
-            <td>选择</td>
-            <td>工艺单编号</td>
+            <td class="checkBox_td"><input id="kiln_Order_checkAll" type="checkbox"></td>
             <td>窑炉编号</td>
             <td>生效时间</td>
             <td>编制时间</td>
             <td>详情</td>
+            <td>编辑</td>
+            <td>删除</td>
         </tr>
         </thead>
         <tbody>
@@ -44,83 +60,143 @@
     </script>
 
     <div id='detail_modal' class="hide" style="padding: 30px 30px 30px 30px;">
-        <div class="whitespace"></div>
         <table width="100%" style="border-left: 0px;border-right: 0px;">
            <tr>
-                <td class="grey" width="20%" colspan="2">窑炉参数设定通知单</td>
-                <td class="grey" width="20%">编制人</td>
-                <td id="compactor"></td>
+                <td class="grey" width="20%" colspan="4">窑炉参数设定通知单</td>
+                
             </tr>
             <tr>
                 <td class="grey" width="20%">工艺单编号</td>
                 <td id="code"></td>
-                <td class="grey" width="20%">审核人</td>
-                <td id="product_num"></td>
+                <td class="grey" width="20%">生效日期</td>
+                <td id="effectiveDate"></td>
             </tr>
             <tr>
-                <td class="grey" width="20%">审核人</td>
-                <td id="audit_man"></td>
-                <td class="grey" width="20%">计划投入量</td>
-                <td id="plan_amount"></td>
+                <td class="grey" width="20%">编制人</td>
+                <td id="compactor"></td>
+                <td class="grey" width="20%">编制时间</td>
+                <td id="compileTime"></td>
+            </tr>    
+        </table>
+        <div class="whitespace"></div>
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
+            <tr class="grey">
+                <td>变更项目</td>
+                <td colspan="5"><span style="text-decoration: underline;" id="kilnCode"></span>#窑炉工艺参数</td>
+            </tr>
+            <tr>
+                <td>温区</td>
+                <td>长度</td>
+                <td>目标温度</td>
+                <td>上温区</td>
+                <td>中温区</td>
+                <td>下温区</td>
+            </tr>
+            <tr>
+                <td id="temRange"></td>
+                <td id="length"></td>
+                <td id="targetTem"></td>
+                <td id="topTem"></td>
+                <td id="midTem"></td>
+                <td id="botTem"></td>
+            </tr>
+            <tr>
+                <td>强排风</td>
+                <td colspan="5" id="exhaust"></td>
+            </tr>
+            <tr>
+                <td>通气类型</td>
+                <td colspan="5" id="exhaustType"></td>
+            </tr>
+            <tr>
+                <td>通气总量</td>
+                <td colspan="5" id="exhaustWeight"></td>
+            </tr>
+            <tr>
+                <td>上部进气</td>
+                <td colspan="5" id="exhaustTop"></td>
+            </tr>
+            <tr>
+                <td>底部进气</td>
+                <td colspan="5" id="exhaustBottom"></td>
+            </tr>
+            <tr>
+                <td>备注</td>
+                <td colspan="5" id="note"></td>
+            </tr>
+        </table>
+    </div>
+    <!--editor && add-->
+    <div id='editor_modal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <table width="100%" style="border-left: 0px;border-right: 0px;">
+           <tr>
+                <td class="grey" width="20%" colspan="4">窑炉参数设定通知单</td>
+                
+            </tr>
+            <tr>
+                <td class="grey" width="20%">工艺单编号</td>
+                <td><input type="text" id="code1"/></td>
+                <td class="grey" width="20%">生效日期</td>
+                <td><input type="date" id="effectiveDate1"/></td>
+            </tr>
+            <tr>
+                <td class="grey" width="20%">编制人</td>
+                <td><select id="compactor1"></select></td>
+                <td class="grey" width="20%">编制时间</td>
+                <td><input type="text" id="compileTime1" placeholder="样式为:2018-01-01 00:00:00"/></td>
+            </tr>    
+             <tr>
+                <td>强排风</td>
+                <td><input type="text" id="exhaust1"/></td>
             </tr>
         </table>
         <div class="whitespace"></div>
         <table width="100%" style="border-left: 0px;border-right: 0px;">
             <tr class="grey">
-                <td width="10%">序号</td>
-                <td width="45%">入库编号</td>
-                <td width="45%">报损数量</td>
+                <td>变更项目</td>
+                <td colspan="5"><input type="text" id="kilnCode1"style="text-decoration: underline;width:80px"/>#窑炉工艺参数</td>
             </tr>
             <tr>
-                <td>1</td>
-                <td>3823333333</td>
-                <td></td>
+                <td>温区</td>
+                <td>长度</td>
+                <td>目标温度</td>
+                <td>上温区</td>
+                <td>中温区</td>
+                <td>下温区</td>
             </tr>
             <tr>
-                <td>2</td>
-                <td>3823333334</td>
-                <td></td>
+                <td><input type="text" id="temRange1"/></td>
+                <td><input type="text" id="length1"/></td>
+                <td><input type="text" id="targetTem1"/></td>
+                <td><input type="text" id="topTem1"/></td>
+                <td><input type="text" id="midTem1"/></td>
+                <td><input type="text" id="botTem1"/></td>
+            </tr>
+            <tr>
+                <td>强排风</td>
+                <td colspan="5"><input type="text" id="exhaust1"/></td>
+            </tr>
+            <tr>
+                <td>通气类型</td>
+                <td colspan="5"><input type="text" id="exhaustType1"/></td>
+            </tr>
+            <tr>
+                <td>通气总量</td>
+                <td colspan="5"><input type="text" id="exhaustWeight1"/></td>
+            </tr>
+            <tr>
+                <td>上部进气</td>
+                <td colspan="5"><input type="text" id="exhaustTop1"/></td>
+            </tr>
+            <tr>
+                <td>底部进气</td>
+                <td colspan="5"><input type="text" id="exhaustBottom1"/></td>
+            </tr>
+            <tr>
+                <td>备注</td>
+                <td colspan="5"><input type="text" id="note1"/></td>
             </tr>
         </table>
-        <div class="whitespace"></div>
-        <!--审核人-->
-        <div style="border: 1px solid #9F9F9F">
-            <table width="100%" style="border-left: 0px;border-right: 0px;">
-                <tr>
-                    <td style="border: none">审批人：</td>
-                    <td style="border: none;color: #9F9F9F">张经理</td>
-                    <td style="border: none">审批结果：</td>
-                    <td style="border: none;color: #9F9F9F">通过</td>
-                    <td style="border: none">审批时间：</td>
-                    <td style="border: none;color: #9F9F9F">2018年1月31日 12：21：23</td>
-                </tr>
-                <tr>
-                    <td style="border: none">审批意见：</td>
-                    <td style="border: none;color: #9F9F9F">数据正常，已经审核</td>
-                </tr>
-            </table>
-        </div>
-        <div class="whitespace"></div>
-        <div id="a_result" >
-            <span>审核结果： </span>
-            <input type="radio" name="audit_result"/>同意&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" name="audit_result"/>不同意
-        </div>
-        <div class="whitespace"></div>
-        <div id="suggestion">
-            <span style="vertical-align: top">审核意见：</span>
-            <textarea style="width: 88%; height:20%;"></textarea>
-        </div>
-
-        <div class="whitespace"></div>
-        <div id="nextman" width="100%" style="border-left: 0px;border-right: 0px;">
-            <span>下一审核人：</span>
-            <select style="width: 20%">
-                <option>审核人1</option>
-                <option>审核人2</option>
-                <option>审核人3</option>
-            </select>
-        </div>
-        <div class="whitespace"></div>
+       
     </div>
 </div>
