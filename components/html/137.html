@@ -21,7 +21,7 @@
                 font-weight: 400;
                 height:30x;
             }
-            #management_handover_editor_table input{
+            #jobsHandover input{
                 width:100%;
                 height:100%;
                 border:none;
@@ -31,7 +31,7 @@
                 width:190px;
                 height:22px;
             }
-            #jobsHandover_table select{
+            #jobsHandover select{
                 width:100%;
                 height:100%;
                 border:none;
@@ -73,28 +73,73 @@
                 management_handover.init()
             })
         </script>
-        <div id="jobsHandover" style="padding:20px;" class="hide">
-            <table id="jobsHandover_table" width="100%">
+        <div id="jobsHandover_detail" style="padding:20px;" class="hide">
+            <table width="100%">
+                <tr class="grey">
+                    <td width="10%">序号</td>
+                    <td>岗位名称</td>
+                    <td>编制人</td>
+                    <td>编制时间</td>
+                </tr>
+                <tr>
+                    <td id="code"></td>
+                    <td id="name"></td>
+                    <td id="compilerCode"></td>
+                    <td id="compileTime"></td>
+                </tr>
+            </table>
+            <div class="whitespace"></div>
+            <table id="jobsHandover_detail_table" width="100%">
                 <thead>
                     <tr class="grey">
-                        <td width="10%">序号</td>
-                        <td width="10%">岗位名称</td>
-                        <td width="15%">交接类型</td>
-                        <td width="30%">交接内容</td>
-                        <td width="25%">交接状态类型</td>
-                        <td width="10%">删除</td>
+                        <td width="10%" class="normal_td">序号</td>
+                        <td width="20%" class="normal_td">交接类型</td>
+                        <td width="35%" class="normal_td">交接内容</td>
+                        <td width="35%" class="normal_td">交接状态类型</td>
                     </tr>
                 </thead>
                 <tbody>
 
                 </tbody>
             </table>
-            <div class="whitespace"></div>
-            <div id="add_line" style="width: 100%;margin: 0 auto;background: white;text-align: center;">
-                    <button id="button"
-                    style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
-                +
-            </button>
-            </div>
         </div>
+        <!--editor && add-->
+        <div id="jobsHandover" style="padding:20px;" class="hide">
+                <table width="100%">
+                    <tr class="grey">
+                        <td width="10%">序号</td>
+                        <td>岗位名称</td>
+                        <td>编制人</td>
+                        <td>编制时间</td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="code1"/></td>
+                        <td><input type="text" id="name1"/></td>
+                        <td><select id="compilerCode1"></select></td>
+                        <td><input type="text" id="compileTime1" placeholder="格式为2018-01-01 00:00:00"/></td>
+                    </tr>
+                </table>
+                <div class="whitespace"></div>
+                <table id="jobsHandover_table" width="100%">
+                    <thead>
+                        <tr class="grey">
+                            <td width="10%">序号</td>
+                            <td width="15%">交接类型</td>
+                            <td width="30%">交接内容</td>
+                            <td width="25%">交接状态类型</td>
+                            <td width="10%">删除</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                    </tbody>
+                </table>
+                <div class="whitespace"></div>
+                <div id="add_line" style="width: 100%;margin: 0 auto;background: white;text-align: center;">
+                        <button id="button"
+                        style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
+                    +
+                </button>
+                </div>
+            </div>
 </div>

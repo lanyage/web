@@ -125,10 +125,11 @@ var kiln_Order = {
             var kilnParameters = items.kilnParameters
             $tbody = $("#kilnParameter_table").children('tbody')
             $tbody.empty()
+            var i = 1
             kilnParameters.forEach(function(e){
                 $tbody.append(
                     "<tr>"+
-                    "<td>"+e.code+"</td>"+
+                    "<td>"+(i++)+"</td>"+
                     "<td>"+e.temRange+"</td>"+
                     "<td>"+e.length+"</td>"+
                     "<td>"+e.targetTem+"</td>"+
@@ -161,7 +162,7 @@ var kiln_Order = {
                     closeBtn:0,
                     yes: function(index) {
                         $("#editor_modal").css('display', 'none')
-                        var Code = $("#kilnCode1").val()
+                       // var Code = $("#code").val()
                         var kilnCode = $("#kilnCode1").val()
                         var effectiveDate = $("#effectiveDate1").val()
                         var compileTime = new Date($("#compileTime1").val()).getTime()
@@ -173,11 +174,13 @@ var kiln_Order = {
                         var exhaustBottom = $("#exhaustBottom1").val()
                         var note = $("#note1").val()
                         var kilnParameters = []
+                        console.log(code)
                        $(".newLine").each(function(){
                            var e = $(this).children('td')
                            kilnParameters.push(
                                {
                                 code:e.eq(0).children('input').val(),
+                                kilnOrder:{code:code},
                                 temRange:e.eq(1).children('input').val(),
                                 length:e.eq(2).children('input').val(),
                                 targetTem:e.eq(3).children('input').val(),
@@ -187,7 +190,6 @@ var kiln_Order = {
                                }
                            )
                        })
-                       console.log(kilnParameters)
                         var data = {
                             code:code,
                             kilnCode:kilnCode,
@@ -200,7 +202,7 @@ var kiln_Order = {
                             effectiveDate:effectiveDate,
                             compileTime:compileTime,
                             compactor:{code:compactor},
-                            state:0,
+                            state:false,
                             kilnParameters:[]
                         }
                         data.kilnParameters = kilnParameters
@@ -229,7 +231,7 @@ var kiln_Order = {
                     }
                     ,btn2: function(index) {
                         $("#editor_modal").css('display', 'none')
-                        var Code = $("#kilnCode1").val()
+                        var Code = $("#code").val()
                         var kilnCode = $("#kilnCode1").val()
                         var effectiveDate = $("#effectiveDate1").val()
                         var compileTime = new Date($("#compileTime1").val()).getTime()
@@ -246,6 +248,7 @@ var kiln_Order = {
                            kilnParameters.push(
                                {
                                 code:e.eq(0).children('input').val(),
+                                kilnOrder:{code:Code},
                                 temRange:e.eq(1).children('input').val(),
                                 length:e.eq(2).children('input').val(),
                                 targetTem:e.eq(3).children('input').val(),
@@ -332,10 +335,11 @@ var kiln_Order = {
             $tbody = $("#kilnParameter_table1").children('tbody')
             $tbody.empty()
            // console.log(kilnParameters)
+           var i = 1
             kilnParameters.forEach(function(e){
                 $tbody.append(
                     "<tr class='newLine'>"+
-                    "<td><input type='text' value="+e.code+" /></td>"+
+                    "<td>"+(i++)+"</td>"+
                     "<td><input type='text' value="+e.temRange+" /></td>"+
                     "<td><input type='text' value="+e.length+" /></td>"+
                     "<td><input type='text' value="+e.targetTem+" /></td>"+
@@ -351,16 +355,20 @@ var kiln_Order = {
         ,bindDelete:function(btns){
             btns.off('click').on('click',function(){
                  $(this).parent('td').parent('tr').remove()
+                 var length = 1
+                 $('.newLine').each(function(e){
+                     $(this).children('td').eq(0).text(length++)
+                 })
             })
            
         }
         ,add_line:function(buttons){
             buttons.off('click').on('click',function(){
                 $tbody = $("#kilnParameter_table1").children('tbody')
-    
+                var length = $("#kilnParameter_table1 tbody tr").length+1
                 $tbody.append(
                     "<tr class='newLine'>"+
-                    "<td><input type='text' /></td>"+
+                    "<td>"+(length)+"</td>"+
                     "<td><input type='text' /></td>"+
                     "<td><input type='text' /></td>"+
                     "<td><input type='text' /></td>"+
@@ -457,6 +465,7 @@ var kiln_Order = {
                            kilnParameters.push(
                                {
                                 code:e.eq(0).children('input').val(),
+                                kilnOrder:{code:code},
                                 temRange:e.eq(1).children('input').val(),
                                 length:e.eq(2).children('input').val(),
                                 targetTem:e.eq(3).children('input').val(),

@@ -713,7 +713,7 @@ var presintering_record = {
                 var batchNumber =  $("#input_batch_num").val()
                 var kilnCode = $("#kiln_code").val()
                 console.log(batchNumber)
-                $.post(home.urls.presinteringRecord.getByBatchNumberLikeByPage(), {
+                $.post(home.urls.presinteringRecord.getByKilnCodeAndBatchNumberByPage(), {
                     batchNumber: batchNumber,
                     kilnCode:kilnCode
                 }, function (result) {
@@ -726,7 +726,7 @@ var presintering_record = {
                         , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.presinteringRecord.getByBatchNumberLikeByPage(), {
+                                $.post(home.urls.presinteringRecord.getByKilnCodeAndBatchNumberByPage(), {
                                     batchNumber: batchNumber,
                                     kilnCode:kilnCode,
                                     page: obj.curr - 1,

@@ -21,9 +21,6 @@ var product_audit = {
                 const $tbody = $("#product_table").children('tbody')
                 product_audit.funcs.renderHandler($tbody, products)
                 product_audit.pageSize = result.data.content.length
-
-                console.log("完成刷新");
-
                 var page = result.data
                 /** @namespace page.totalPages 这是返回数据的总页码数 */
                 /** 分页信息 */
@@ -56,7 +53,7 @@ var product_audit = {
             product_audit.funcs.bindSelectEventListener(statusSelect);
             /** 追加刷新事件 */
             var refreshBtn = $('#model-li-hide-refresh-20');
-            product_audit.funcs.bindRefreshEventListener(refreshBtn);//追加刷新事件
+            product_audit.funcs.bindRefreshEventListener(refreshBtn);
             /** 追加搜索事件 */
             var searchBtn = $('#model-li-hide-search-20');
             product_audit.funcs.bindSearchEventListener(searchBtn);
@@ -71,7 +68,7 @@ var product_audit = {
                     "<tr id='product-audit-" + (e.code) + "'>" +
                     "<td>" + product_audit.funcs.getIcon(status, e.code) + "</i></td>" +
                     "<td>" + product_audit.funcs.getAuditor(e.auditor) + "</td>" +
-                    "<td>" + product_audit.funcs.formatDate(e.testDate) + "</td>" +
+                    "<td>" + new Date(e.testDate).Format('yyyy-MM-dd') + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
                     "<td>" + (e.judge?e.judge.name:'无') + "</td>" +
                     "<td>" + e.number + "</td>" +
@@ -122,7 +119,7 @@ var product_audit = {
         bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
-                console.log('search')
+                //console.log('search')
                 var product_batch_number = $('#product_batch_number_input').val()
                 var status = $('#status').val()
                 $.post(home.urls.product.getByLikeBatchNumberByPage(), {
@@ -240,7 +237,7 @@ var product_audit = {
                 var _selfBtn = $(this)
                 var productCode = _selfBtn.attr('id').substr(6)
                 product_audit.currId = "product-audit-" + productCode
-                console.log("查看" + productCode)
+                //console.log("查看" + productCode)
                 $.post(home.urls.product.getByCode(), {code: productCode}, function (result) {
                     var product = result.data
                     layer.open({
@@ -321,7 +318,7 @@ var product_audit = {
                 "<tr><td colspan='2'>批号</td><td>检测日期</td><td>数量(t)</td><td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr><td colspan='2'>" + product.batchNumber + "</td><td>" + product_audit.funcs.formatDate(product.testDate) + "</td><td>" + product.number + "</td><td>" + (product.judge?product.judge.name:'无') + "</td></tr>" +
+                "<tr><td colspan='2'>" + product.batchNumber + "</td><td>" +  new Date(product.testDate).Format('yyyy-MM-dd')+ "</td><td>" + product.number + "</td><td>" + (product.judge?product.judge.name:'无') + "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr><td colspan='2'>审核状态</td><td>审核人</td><td></td><td></td></tr>" +
@@ -405,13 +402,13 @@ var product_audit = {
         bindRightBtn: function (rightBtn) {
             rightBtn.off('click');
             rightBtn.on('click', function () {
-                console.log("右");
+                //console.log("右");
                 var $table = $('#product_table');
                 var raws = $table.children('tbody').children('tr').length-1;
                 var lastId = $($table.children('tbody').children('tr')[raws]).attr('id');
                 if (lastId != product_audit.currId) {
                     var nextCode = $('#' + product_audit.currId).next('tr').attr('id').substr(14);
-                    console.log(nextCode);
+                    //console.log(nextCode);
                     $.post(home.urls.product.getByCode(), {code: nextCode}, function (result) {
                         product_audit.currId = "product-audit-" + nextCode;
                         var product = result.data;
@@ -420,7 +417,7 @@ var product_audit = {
                     })
                 }
                 else {
-                    console.log("Last one");
+                    //.log("Last one");
                     layer.msg('已经是页面最后一项', {
                         time: 1000
                     })

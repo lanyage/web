@@ -1,0 +1,180 @@
+<div id='model-li-hide-145' class="display-component-container" style="padding: 20px 20px 0px 20px;">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <style>
+            #editor_modal input{
+                width:100%;
+                height:100%;
+                border:none;
+                text-align: center;
+            }
+            #editor_modal select{
+                width:100%;
+                height:100%;
+                border:none;
+                text-align: center;
+            }
+            /* "变灰"效果*/
+           .disableHref{
+               cursor:default;
+               color:grey;
+               text-decoration:none;
+}
+        </style>
+        <div class="block-quote">
+            <div class="fl">
+                <p style="color: #62a49a; font-size: 14px;">
+                        <span id='model_li_hide_add_145'><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
+                        <span id="model_li_hide_delete_145"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+                    </p>
+            </div>
+            <div class="fr">
+                <p style="color: #62a49a; font-size: 14px;">
+                    <span id="model_li_hide_refresh_145"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span> &nbsp;&nbsp;&nbsp;&nbsp;
+                    确认状态:
+                    <input type="text" id="audit_record_name_input" placeholder="请输入电子秤编号"/>
+                    <span id="model_li_hide_search_145"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+                </p>
+            </div>
+        </div>
+        <div class="whitespace"></div>
+        <table id="audit_record_table" style="width: 100%;">
+            <thead style="background: #666666;">
+                <tr>
+                    <td class="checkBox_td"><input id="checkAll" type="checkbox"></td>
+                    <td>序号</td>
+                    <td>电子秤编号</td>
+                    <td>核称时间</td>
+                    <td>班次</td>
+                    <td>确认状态</td>
+                    <td>详情</td>
+                    <td>编辑</td>
+                    <td>删除</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div id="audit_record_page">
+        </div>
+    
+        <script src="../components/js/audit_record.js"></script>
+        <script type="application/javascript">
+            $(function() {
+                audit_record.init()
+            })
+        </script>
+        <div id="detail_modal" class="hide" style="padding:30px;">
+            <table id="detail_table" width="100%">
+                <tr>
+                    <td class="grey">电子称编号</td>
+                    <td id="equipmentCode"></td>
+                </tr>
+                <tr>
+                    <td class="grey">班次</td>
+                    <td id="dutyCode"></td>
+                </tr>
+                <tr>
+                    <td class="grey">左上值</td>
+                    <td id="leftUp"></td>
+                </tr>
+                <tr>
+                    <td class="grey">右上值</td>
+                    <td id="rightUp"></td>
+                </tr>
+                <tr>
+                    <td class="grey">中</td>
+                    <td id="center"></td>
+                </tr>
+                <tr>
+                    <td class="grey">左下值</td>
+                    <td id="leftDown"></td>
+                </tr>
+                <tr>
+                    <td class="grey">右下值</td>
+                    <td id="rightDown"></td>
+                </tr>
+                <tr> 
+                    <td class="grey">判定结果</td>
+                    <td id="judgement"></td>
+                </tr>
+                <tr>
+                    <td class="grey">核称人</td>
+                    <td id="auditorCode"></td>
+                </tr>
+                <tr>
+                    <td class="grey">核称时间</td>
+                    <td id="auditorTime"></td>
+                </tr>
+                <tr>
+                    <td class="grey">确认状态</td>
+                    <td id="confirm"></td>
+                </tr>
+                <tr>
+                    <td class="grey">确认人</td>
+                    <td id="confirmCode"></td>
+                </tr>
+                <tr> 
+                    <td class="grey">确认时间</td>
+                    <td id="confirmTime"></td>
+                </tr>
+            </table>
+        </div>
+        <!--editor && add-->
+        <div id="editor_modal"  class="hide" style="padding:30px;">
+                <table id="editor_table" width="100%">
+                    <tr>
+                        <td class="grey">电子称编号</td>
+                        <td><select id="equipmentCode1"></select></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">班次</td>
+                        <td><select id="dutyCode1"></select></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">左上值</td>
+                        <td><input type="text"  id="leftUp1"/></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">右上值</td>
+                        <td><input type="text"  id="rightUp1"/></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">中</td>
+                        <td><input type="text"  id="center1"/></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">左下值</td>
+                        <td><input type="text"  id="leftDown1"/></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">右下值</td>
+                        <td><input type="text"  id="rightDown1"/></td>
+                    </tr>
+                    <tr> 
+                        <td class="grey">判定结果</td>
+                        <td><input type="text"  id="judgement1"/></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">核称人</td>
+                        <td><select  id="auditorCode1"></select></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">核称时间</td>
+                        <td><input type="text"  id="auditorTime1" placeholder="格式为2018-01-01 00:00:00"/></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">确认状态</td>
+                        <td><input type="text"  id="confirm1"/></td>
+                    </tr>
+                    <tr>
+                        <td class="grey">确认人</td>
+                        <td><select  id="confirmCode1"></select></td>
+                    </tr>
+                    <tr> 
+                        <td class="grey">确认时间</td>
+                        <td><input type="text"  id="confirmTime1" placeholder="格式为2018-01-01 00:00:00"/></td>
+                    </tr>
+                </table>
+            </div>
+    </div>

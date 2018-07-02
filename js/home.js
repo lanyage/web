@@ -793,6 +793,32 @@ var home = {
                 return servers.backup() + 'handoverStateType/getAll'
             }
         },
+        electronicBalance: {
+            getAllByPage: function () {
+                return servers.backup() + 'electronicBalance/getAllByPage'
+            },
+            add: function () {
+                return servers.backup() + 'electronicBalance/add'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'electronicBalance/deleteByCode'
+            },
+            update: function () {
+                return servers.backup() + 'electronicBalance/update'
+            },
+            getByCode: function () {
+                return servers.backup() + 'electronicBalance/getByCode'
+            },
+            getAllByLikeNameByPage: function () {
+                return servers.backup() + 'electronicBalance/getAllByNameLikeByPage'
+            },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'electronicBalance/deleteByBatchCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'electronicBalance/getAll'
+            }
+        },
 
         // material: {
         //     getAllByPage: function () {
@@ -1041,8 +1067,8 @@ var home = {
             getAllByPage: function () {
                 return servers.backup() + 'presinteringRecord/getAllByPage'
             },
-            getByBatchNumberLikeByPage: function () {
-                return servers.backup() +  'presinteringRecord/getByBatchNumberLikeByPage'
+            getByKilnCodeAndBatchNumberByPage: function () {
+                return servers.backup() +  'presinteringRecord/getByKilnCodeAndBatchNumberByPage'
             },
             deleteByCode: function () {
                return servers.backup() + 'presinteringRecord/deleteByCode'
@@ -1656,6 +1682,9 @@ var home = {
             update: function () {
                 return servers.backup() + 'handoverHeader/update'
             },
+            getByJobsNameLikeAndHandoverDateByPage: function () {
+                return servers.backup() + 'handoverHeader/getByJobsNameLikeAndHandoverDateByPage'
+            },
         }
         ,handoverRecord:{
             deleteByIdBatch: function () {
@@ -1675,6 +1704,29 @@ var home = {
             },
             update: function () {
                 return servers.backup() + 'handoverRecord/update'
+            },
+        }
+        ,audit:{
+            deleteByIdBatch: function () {
+                return servers.backup() + 'audit/deleteByIdBatch'
+            },
+            getAllByPage: function () {
+                return servers.backup() + 'audit/getAllByPage'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'audit/deleteByCode'
+            },
+            getByCode: function () {
+                return servers.backup() + 'audit/getByCode'
+            },
+            add: function () {
+                return servers.backup() + 'audit/add'
+            },
+            update: function () {
+                return servers.backup() + 'audit/update'
+            },
+            getByEquipmentCodeByPage: function () {
+                return servers.backup() + 'audit/getByEquipmentCodeByPage'
             },
         }
     }

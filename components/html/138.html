@@ -10,7 +10,6 @@
                 text-align: center;
                 font-weight: 400;
                 height:50x;
-                width:100px;
             }    
             select{
                 width:100%;
@@ -24,6 +23,15 @@
                     <span id="model_li_hide_add_138">岗位交接记录</span>&nbsp;
                 </p>
             </div>
+            <div class="fr">
+                <p style="color: #62a49a; font-size: 14px;">
+                <span id="model_li_hide_refresh_138"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+                &nbsp;&nbsp;
+                <input type="text" id="input_name" placeholder="请输入岗位名称"/> &nbsp;&nbsp;
+                <input type="text" id="input_time" placeholder="请输入交接日期"/> &nbsp;&nbsp;
+                <span id="model_li_hide_search_138"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+            </p>
+        </div>
         </div>
     
         <div class="whitespace" ></div>
@@ -46,7 +54,7 @@
             </tbody>
         </table>
     
-        <div id="inquiries_handover_page" style="text-align: center;"></div>
+        <div id="inquiries_handover_page"></div>
         <script src="../components/js/inquiries_handover.js"></script>
         <script type="application/javascript">
             $(function () {
@@ -68,18 +76,14 @@
             <table id="inquiries_handover_detail_table" width="100%" style="padding:20px;"> 
                 <thead>
                 <tr class="grey">
-                   <td>序号</td>
-                   <td>交接记录编码</td>
-                   <td>交接内容</td>
-                   <td>交接状态</td>
+                   <td width="20%">序号</td>
+                   <td width="40%">交接内容</td>
+                   <td width="40%">交接状态</td>
                </tr>
                 </thead>
-                <tr>
-                   <td id="code"></td>
-                   <td id="header_code"></td>
-                   <td id="content_code"></td>
-                   <td id="state_code"></td>
-               </tr>
+                <tbody>
+                    
+                </tbody>
             </table>
         </div>
         

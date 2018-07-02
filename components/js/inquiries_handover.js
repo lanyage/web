@@ -4,7 +4,7 @@ var inquiries_handover = {
         var out = $('#inquiries_handover_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#inquiries_handover').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
+            $('#inquiries_handover_page').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '35.5%')
             clearTimeout(time)
         }, 30)
     },
@@ -38,7 +38,8 @@ var inquiries_handover = {
                 })
             })
 
-
+            inquiries_handover.funcs.bindSearchEventListener($("#model_li_hide_search_138"))
+            inquiries_handover.funcs.bindRefreshEventListener($("#model_li_hide_refresh_138"))
             var checkedBoxLen = $('.inquiries_handover_checkbox:checked').length
             home.funcs.bindSelectAll($("#inquiries_handover_checkAll"),$(".inquiries_handover_checkbox"),checkedBoxLen,$("#inquiries_handover_table"))
         }
@@ -77,15 +78,13 @@ var inquiries_handover = {
                     $("#dutyCode").text(items.dutyCode.name)
                     $("#shifterCode").text(items.shifterCode.name)
                     $("#successorCode").text(items.successorCode.name)
-                    $("#code").text(items.handoverDate)
-                    $("#header_code").text(items.dutyCode.name)
-                    $("#content_code").text(items.shifterCode.name)
-                    $("#state_code").text(items.successorCode.name)
+                    
+                    inquiries_handover.funcs.fill_data(items)
                 layer.open({
                     type: 1,
                     title: '交接记录内容详情',
                     content: $("#inquiries_handover_detail_modal"),
-                    area: ['800px', '400px'],
+                    area: ['1200px', '500px'],
                     btn: ['返回'],
                     offset: "auto",
                     closeBtn: 0,
@@ -96,6 +95,21 @@ var inquiries_handover = {
                 });        
              }) 
         })    
+        }
+        ,fill_data:function(items){
+            var handoverRecords = items.handoverRecords
+            $tbody = $("#inquiries_handover_detail_table").children('tbody')
+            $tbody.empty()
+            var i = 1
+            handoverRecords.forEach(function(e){
+                $tbody.append(
+                    "<tr>"+
+                    "<td>"+(i++)+"</td>"+
+                    "<td>"+(e.contentCode?e.contentCode.name:'')+"</td>"+
+                    "<td>"+(e.stateCode?e.stateCode.name:'')+"</td>"+
+                    "</tr>"
+                )
+            })
         }
          ,bindDeleteEventListener:function(deleteBtn){
              deleteBtn.off('click').on('click',function(){
@@ -193,13 +207,51 @@ var inquiries_handover = {
                          time: 700
                      })
                      inquiries_handover.init()
-                     $('#input_batch_num').val('')
+                     $('#input_name').val('')
+                     $('#input_time').val('')
                      layer.close(index)
                      clearTimeout(time)
                  }, 200)
 
              })
-         },
-
+         }
+          /** 搜索事件 */
+        , bindSearchEventListener: function (searchBtn) {
+            searchBtn.off('click')
+            searchBtn.on('click', function () {
+                var name = $('#input_name').val()
+                var date = $("#input_time").val()
+                $.post(home.urls.handoverHeader.getByJobsNameLikeAndHandoverDateByPage(), {
+                    jobsName: name,
+                    handoverDate: date
+                }, function (result) {
+                    var items = result.data.content //获取数据
+                    page = result.data
+                    //console.log(items)
+                    const $tbody = $("#inquiries_handover_table").children('tbody')
+                    inquiries_handover.funcs.renderHandler($tbody, items)
+                    layui.laypage.render({
+                        elem: 'inquiries_handover_page'
+                        , count: 10 * page.totalPages//数据总数
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                $.post(home.urls.handoverHeader.getByJobsNameLikeAndHandoverDateByPage(), {
+                                    jobsName: name,
+                                    handoverDate: date,
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var items = result.data.content //获取数据
+                                    // var code = $('#model-li-select-48').val()
+                                    const $tbody = $("#inquiries_handover_table").children('tbody')
+                                    inquiries_handover.funcs.renderHandler($tbody, items)
+                                    inquiries_handover.pageSize = result.data.content.length
+                                })
+                            }
+                        }
+                    })
+                })
+            })
+        }
     }
 }

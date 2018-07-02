@@ -1,50 +1,53 @@
 
-var handover_content = {
+var electronic_balance = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
-        handover_content.funcs.renderTable()
+        electronic_balance.funcs.renderTable()
     } //$init end$
     , pageSize: 0
     , funcs: {
         renderTable: function () {
-            $.post(home.urls.handoverContent.getAllByPage(), {
+            $.post(home.urls.electronicBalance.getAllByPage(), {
                 page: 0
             }, function (result) {
-                var handover_contentes = result.data.content //获取数据
-                const $tbody = $("#handover_content_table").children('tbody')
-                handover_content.funcs.renderHandler($tbody, handover_contentes)
-                handover_content.pageSize = result.data.content.length
+                var electronic_balancees = result.data.content //获取数据
+                const $tbody = $("#electronic_balance_table").children('tbody')
+                electronic_balance.funcs.renderHandler($tbody, electronic_balancees)
+                electronic_balance.pageSize = result.data.content.length
 
                 var page = result.data
                 /** @namespace page.totalPages 这是返回数据的总页码数 */
                 layui.laypage.render({
-                    elem: 'handover_content_page',
+                    elem: 'electronic_balance_page',
                     count: 10 * page.totalPages //数据总数
                     , jump: function (obj, first) {
                         if(!first) {
-                            $.post(home.urls.handoverContent.getAllByPage(), {
+                            $.post(home.urls.electronicBalance.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
-                                var handover_contentes = result.data.content //获取数据
-                                const $tbody = $("#handover_content_table").children('tbody')
-                                handover_content.funcs.renderHandler($tbody, handover_contentes)
-                                handover_content.pageSize = result.data.content.length
+                                var electronic_balancees = result.data.content //获取数据
+                                const $tbody = $("#electronic_balance_table").children('tbody')
+                                electronic_balance.funcs.renderHandler($tbody, electronic_balancees)
+                                electronic_balance.pageSize = result.data.content.length
                             })
                         }
                     }
                 })
-                $('#handover_content_page').css('padding-left','37%')
+                $('#electronic_balance_page').css('padding-left','37%')
             })
             //$数据渲染完毕
-            var addBtn = $("#model-li-hide-add-141")
-            handover_content.funcs.bindAddEventListener(addBtn) 
+            var addBtn = $("#model-li-hide-add-144")
+            electronic_balance.funcs.bindAddEventListener(addBtn) 
             //追加增加事件
-            var refreshBtn = $('#model-li-hide-refresh-141')
-            handover_content.funcs.bindRefreshEventLisener(refreshBtn) 
+            var refreshBtn = $('#model-li-hide-refresh-144')
+            electronic_balance.funcs.bindRefreshEventLisener(refreshBtn)
+            
+            var deleteBatchBtn = $('#model-li-hide-delete-144')
+            electronic_balance.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
             //追加刷新事件
-            var searchBtn = $('#model-li-hide-search-141')
-            handover_content.funcs.bindSearchEventListener(searchBtn)
+            var searchBtn = $('#model-li-hide-search-144')
+            electronic_balance.funcs.bindSearchEventListener(searchBtn)
         }
 
         ,
@@ -57,8 +60,8 @@ var handover_content = {
                     title: '添加',
                     content: "<div id='addModal'>" +
                     "<div style='text-align: center;padding-top: 10px;'>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>交接内容编码:<input type='text' id='code'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>交接内容名称:<input type='text' id='name'/></p>" +
+                    "<p style='padding: 5px 0px 5px 0px;'>编码:<input type='text' id='code'/></p>" +
+                    "<p style='padding: 5px 0px 5px 0px;'>名称:<input type='text' id='name'/></p>" +
                     "</div>" +
                     "</div>",
                     area: ['350px', '180px'],
@@ -67,7 +70,7 @@ var handover_content = {
                     yes: function (index) {
                         var code = $('#code').val()
                         var name = $('#name').val()
-                        $.post(home.urls.handoverContent.add(), {
+                        $.post(home.urls.electronicBalance.add(), {
                             code: code,
                             name: name
                         }, function (result) {
@@ -77,7 +80,7 @@ var handover_content = {
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    handover_content.init()
+                                    electronic_balance.init()
                                     clearTimeout(time)
                                 }, 500)
                             }
@@ -105,9 +108,9 @@ var handover_content = {
                     btn: ['确认', '取消'],
                     offset: ['40%', '55%'],
                     yes: function (index) {
-                        var handover_contentCode = _this.attr('id').substr(3)
-                        $.post(home.urls.handoverContent.deleteByCode(), {
-                            code: handover_contentCode
+                        var electronic_balanceCode = _this.attr('id').substr(3)
+                        $.post(home.urls.electronicBalance.deleteByCode(), {
+                            code: electronic_balanceCode
                         }, function (result) {
                             console.log(result.message)
                             layer.msg(result.message, {
@@ -116,7 +119,7 @@ var handover_content = {
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    handover_content.init()
+                                    electronic_balance.init()
                                     clearTimeout(time)
                                 }, 500)
                             }
@@ -133,28 +136,28 @@ var handover_content = {
         bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
-                var handover_content_name = $('#handover_content_name_input').val()
-                $.post(home.urls.handoverContent.getAllByLikeNameByPage(), {
-                    name: handover_content_name
+                var electronic_balance_name = $('#electronic_balance_name_input').val()
+                $.post(home.urls.electronicBalance.getAllByLikeNameByPage(), {
+                    name: electronic_balance_name
                 }, function (result) {
                     var page = result.data
-                    var handover_contentes = result.data.content //获取数据
-                    const $tbody = $("#handover_content_table").children('tbody')
-                    handover_content.funcs.renderHandler($tbody, handover_contentes)
+                    var electronic_balancees = result.data.content //获取数据
+                    const $tbody = $("#electronic_balance_table").children('tbody')
+                    electronic_balance.funcs.renderHandler($tbody, electronic_balancees)
                     layui.laypage.render({
-                        elem: 'handover_content_page',
+                        elem: 'electronic_balance_page',
                         count: 10 * page.totalPages //数据总数
                         ,
                         jump: function (obj, first) {
-                            $.post(home.urls.handoverContent.getAllByLikeNameByPage(), {
-                                name: handover_content_name,
+                            $.post(home.urls.electronicBalance.getAllByLikeNameByPage(), {
+                                name: electronic_balance_name,
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
-                                var handover_contentes = result.data.content //获取数据
-                                const $tbody = $("#handover_content_table").children('tbody')
-                                handover_content.funcs.renderHandler($tbody, handover_contentes)
-                                handover_content.pageSize = result.data.content.length
+                                var electronic_balancees = result.data.content //获取数据
+                                const $tbody = $("#electronic_balance_table").children('tbody')
+                                electronic_balance.funcs.renderHandler($tbody, electronic_balancees)
+                                electronic_balance.pageSize = result.data.content.length
                             })
                             if (!first) {
                                 console.log('not first')
@@ -176,8 +179,8 @@ var handover_content = {
                         offset: ['40%', '55%'],
                         time: 700
                     })
-                    handover_content.init()
-                    $('#handover_content_name_input').val('')
+                    electronic_balance.init()
+                    $('#electronic_balance_name_input').val('')
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -209,24 +212,24 @@ var handover_content = {
                         btn: ['确认', '取消'],
                         offset: ['40%', '55%'],
                         yes: function (index) {
-                            var handover_contentCodes = []
+                            var electronic_balanceCodes = []
                             $('.checkbox').each(function () {
                                 if ($(this).prop('checked')) {
-                                    handover_contentCodes.push({
+                                    electronic_balanceCodes.push({
                                         code: $(this).val()
                                     })
                                 }
                             })
                             $.ajax({
-                                url: home.urls.handoverContent.deleteByBatchCode(),
+                                url: home.urls.electronicBalance.deleteByBatchCode(),
                                 contentType: 'application/json',
-                                data: JSON.stringify(handover_contentCodes),
+                                data: JSON.stringify(electronic_balanceCodes),
                                 dataType: 'json',
                                 type: 'post',
                                 success: function (result) {
                                     if (result.code === 0) {
                                         var time = setTimeout(function () {
-                                            handover_content.init()
+                                            electronic_balance.init()
                                             clearTimeout(time)
                                         }, 500)
                                     }
@@ -249,18 +252,18 @@ var handover_content = {
             editBtns.off('click')
             editBtns.on('click', function () {
                 var _selfBtn = $(this)
-                var handover_contentCode = _selfBtn.attr('id').substr(5)
-                $.post(home.urls.handoverContent.getByCode(), {
-                    code: handover_contentCode
+                var electronic_balanceCode = _selfBtn.attr('id').substr(5)
+                $.post(home.urls.electronicBalance.getByCode(), {
+                    code: electronic_balanceCode
                 }, function (result) {
-                    var handover_content1 = result.data
+                    var electronic_balance1 = result.data
                     layer.open({
                         type: 1,
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>交接内容编码:<input type='text' id='code' value='" + (handover_content1.code) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>交接内容名称:<input type='text' id='name' value='" + (handover_content1.name) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>编码:<input type='text' id='code' value='" + (electronic_balance1.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>名称:<input type='text' id='name' value='" + (electronic_balance1.name) + "'/></p>" +
                         "</div>" +
                         "</div>",
                         area: ['350px', '180px'],
@@ -269,7 +272,7 @@ var handover_content = {
                         yes: function (index) {
                             var code = $('#code').val()
                             var name = $('#name').val()
-                            $.post(home.urls.handoverContent.update(), {
+                            $.post(home.urls.electronicBalance.update(), {
                                 code: code,
                                 name: name
                             }, function (result) {
@@ -279,7 +282,7 @@ var handover_content = {
                                 })
                                 if (result.code === 0) {
                                     var time = setTimeout(function () {
-                                        handover_content.init()
+                                        electronic_balance.init()
                                         clearTimeout(time)
                                     }, 500)
                                 }
@@ -294,29 +297,28 @@ var handover_content = {
             })
         } 
         ,
-        renderHandler: function ($tbody, handover_contentes) {
+        renderHandler: function ($tbody, electronic_balancees) {
             $tbody.empty() //清空表格
-            handover_contentes.forEach(function (e) {
+            electronic_balancees.forEach(function (e) {
                 $('#checkAll').prop('checked', false)
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
                     "<td>" + (e.name) + "</td>" +
-                    "<td><a href='#' class='edithandover_content' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='deletehandover_content' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                    "<td><a href='#' class='editelectronic_balance' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                    "<td><a href='#' class='deleteelectronic_balance' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
                     "</tr>")
             }) //$数据渲染完毕
-            var editBtns = $('.edithandover_content')
-            var deleteBtns = $('.deletehandover_content')
-            handover_content.funcs.bindDeleteEventListener(deleteBtns)
-            handover_content.funcs.bindEditEventListener(editBtns)
+            var editBtns = $('.editelectronic_balance')
+            var deleteBtns = $('.deleteelectronic_balance')
+            electronic_balance.funcs.bindDeleteEventListener(deleteBtns)
+            electronic_balance.funcs.bindEditEventListener(editBtns)
             var selectAllBox = $('#checkAll')
-            handover_content.funcs.bindSelectAll(selectAllBox)
-            var deleteBatchBtn = $('#model-li-hide-delete-141')
-            handover_content.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
+            electronic_balance.funcs.bindSelectAll(selectAllBox)
+           
             var checkboxes = $('.checkbox')
-            handover_content.funcs.disselectAll(checkboxes, selectAllBox)
+            electronic_balance.funcs.disselectAll(checkboxes, selectAllBox)
         },
         disselectAll: function (checkboxes, selectAllBox) {
             checkboxes.off('change')
@@ -324,7 +326,7 @@ var handover_content = {
                 var statusNow = $(this).prop('checked')
                 if (statusNow === false) {
                     selectAllBox.prop('checked', false)
-                } else if (statusNow === true && $('.checkbox:checked').length === handover_content.pageSize) {
+                } else if (statusNow === true && $('.checkbox:checked').length === electronic_balance.pageSize) {
                     selectAllBox.prop('checked', true)
                 }
             })
