@@ -37,16 +37,16 @@ var electronic_balance = {
                 $('#electronic_balance_page').css('padding-left','37%')
             })
             //$数据渲染完毕
-            var addBtn = $("#model-li-hide-add-144")
+            var addBtn = $("#model-li-hide-add-142")
             electronic_balance.funcs.bindAddEventListener(addBtn) 
             //追加增加事件
-            var refreshBtn = $('#model-li-hide-refresh-144')
+            var refreshBtn = $('#model-li-hide-refresh-142')
             electronic_balance.funcs.bindRefreshEventLisener(refreshBtn)
             
-            var deleteBatchBtn = $('#model-li-hide-delete-144')
+            var deleteBatchBtn = $('#model-li-hide-delete-142')
             electronic_balance.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
             //追加刷新事件
-            var searchBtn = $('#model-li-hide-search-144')
+            var searchBtn = $('#model-li-hide-search-142')
             electronic_balance.funcs.bindSearchEventListener(searchBtn)
         }
 

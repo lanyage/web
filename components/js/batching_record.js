@@ -47,10 +47,6 @@ var batching_record = {
             var searchBtn = $('#model_li_hide_search_29')
             batching_record.funcs.bindSearchEventListener(searchBtn)
 
-            var checkedBoxLen = $('.batching_record_checkbox:checked').length
-            home.funcs.bindSelectAll($("#batching_record_checkAll"),$(".batching_record_checkbox"),checkedBoxLen,$("#batching_record_table"))
-
-
         },
          renderHandler: function ($tbody,items) {
              $tbody.empty() //清空表格
@@ -72,10 +68,17 @@ var batching_record = {
                          "</tr>"
                      )
                      $tbody.append(content)
+                     if(e.state === true){
+                        $("#editor-"+(code)+"").removeClass("editor").addClass("disableHref")
+                        $("#delete-"+(code)+"").removeClass("delete").addClass("disableHref")
+                    }
          })
             batching_record.funcs.bindDetailEventListener($('.detail'))
             batching_record.funcs.bindEditorEventListener($('.editor'))
             batching_record.funcs.bindDeleteEventListener($('.delete'))
+
+            var checkedBoxLen = $('.batching_record_checkbox:checked').length
+            home.funcs.bindSelectAll($("#batching_record_checkAll"),$(".batching_record_checkbox"),checkedBoxLen,$("#batching_record_table"))
          }
         , bindDetailEventListener: function (detailBtns) {
             detailBtns.off('click').on('click', function () {
@@ -85,6 +88,7 @@ var batching_record = {
                     code:code
                 },function(result){
                     var items = result.data
+                    
                     $("#ingredientsDate").text(items.ingredientsDate)
                     $("#mixBegintime").text(items.mixBegintime)
                     $("#mixTime").text(items.mixTime)
@@ -230,7 +234,7 @@ var batching_record = {
                            additiveWeight:additiveWeight,
                            'supervisor.code':supervisor,
                            'operator.code':operator,
-                           status:0,
+                           state:0,
                        },function(result){
                            layer.msg(result.message,{
                                offset:['40%','55%'],
@@ -296,7 +300,7 @@ var batching_record = {
                            additiveWeight:additiveWeight,
                            'supervisor.code':supervisor,
                            'operator.code':operator,
-                           status:1,
+                           state:1,
                        },function(result){
                            layer.msg(result.message,{
                                offset:['40%','55%'],
@@ -444,7 +448,7 @@ var batching_record = {
                            additiveWeight:additiveWeight,
                            'supervisor.code':supervisor,
                            'operator.code':operator,
-                           status:0,
+                           state:0,
                        },function(result){
                            layer.msg(result.message,{
                                offset:['40%','55%'],

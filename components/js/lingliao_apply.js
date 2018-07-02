@@ -77,12 +77,13 @@ var lingliao_apply = {
         }
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
+            var length = 1
             for (var i = 0; i < items.length; i++) {
                 e = items[i];
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='lingliao_apply_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.code + "</td>" +
+                    "<td>" + (length++) + "</td>" +
                     "<td>" + (e.department ? e.department.name : null) + "</td>" +
                     "<td>" + (new Date(e.applyDate).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +

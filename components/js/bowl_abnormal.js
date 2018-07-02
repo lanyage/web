@@ -56,12 +56,13 @@ var bowl_abnormal = {
         }
     , renderHandler: function ($tbody, items) {
         $tbody.empty() //清空表格
+        var i = 1
         items.forEach(function (e) {
             var code = e.code
             var content = (
                 "<tr>" +
                     "<td><input type='checkbox' class='bowl_abnormal_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.code + "</td>" +
+                    "<td>" + (i++) + "</td>" +
                     "<td>" + (new Date(e.date).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.dutyCode?e.dutyCode.code:' ') + "</td>" +
                     "<td>" + (new Date(e.time).Format('yyyy-MM-dd hh:mm:ss')) + "</td>" +
@@ -72,6 +73,10 @@ var bowl_abnormal = {
                     "</tr>"
             )
             $tbody.append(content)
+            if(e.state === true){
+                $("#editor-"+(code)+"").removeClass("editor").addClass("disableHref")
+                $("#delete-"+(code)+"").removeClass("delete").addClass("disableHref")
+            }  
         })
         bowl_abnormal.funcs.bindDetailEventListener($('.detail'))
         bowl_abnormal.funcs.bindEditorEventListener($('.editor'))
@@ -162,7 +167,7 @@ var bowl_abnormal = {
                      type:1,
                      title:'编辑装钵异常统计',
                      content:$("#bowl_abnormal_editor_modal"),
-                     area: ['1100px', '250px'],
+                     area: ['1200px', '250px'],
                      btn:['保存','提交','返回'],
                      offset:"auto",
                      closeBtn:0,
@@ -333,7 +338,7 @@ var bowl_abnormal = {
                      type:1,
                      title:"新增断批异常统计",
                      content:$("#bowl_abnormal_editor_modal"),
-                     area: ['1100px', '250px'],
+                     area: ['1200px', '250px'],
                      btn:['提交','取消'],
                      offset:'auto',
                      closeBtn:0,

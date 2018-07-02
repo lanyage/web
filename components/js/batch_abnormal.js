@@ -56,14 +56,15 @@ var batch_abnormal = {
         }
     , renderHandler: function ($tbody, items) {
         $tbody.empty() //清空表格
+        var i = 1
         items.forEach(function (e) {
             var code = e.code
             var content = (
                 "<tr>" +
                     "<td><input type='checkbox' class='batch_abnormal_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.code + "</td>" +
-                    "<td>" + (new Date(e.date).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + (e.dutyCode?e.dutyCode.code:' ') + "</td>" +
+                    "<td>" + (i++) + "</td>" +
+                    "<td>" + (new Date(e.date).Format('yyyy-MM-dd hh:mm:ss')) + "</td>" +
+                    "<td>" + (e.dutyCode?e.dutyCode.name:' ') + "</td>" +
                     "<td>" + (e.batchNumber ? e.batchNumber : ' ') + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
@@ -71,6 +72,10 @@ var batch_abnormal = {
                     "</tr>"
             )
             $tbody.append(content)
+            if(e.state === true){
+                $("#editor-"+(code)+"").removeClass("editor").addClass("disableHref")
+                $("#delete-"+(code)+"").removeClass("delete").addClass("disableHref")
+            } 
         })
         batch_abnormal.funcs.bindDetailEventListener($('.detail'))
         batch_abnormal.funcs.bindEditorEventListener($('.editor'))
@@ -89,7 +94,7 @@ var batch_abnormal = {
                 },function (res) {
                     var items = res.data
                     $('#dutyCode').text(items.dutyCode?items.dutyCode.code:' ')
-                    $('#Time').text(new Date(items.time).Format('yyyy-MM-dd'))
+                    $('#Time').text(new Date(items.time).Format('yyyy-MM-dd hh:mm:ss'))
                     $('#batchNumber').text(items.batchNumber)
                     $('#abNumber').text(items.abNumber)
                     $('#abWeight').text(items.abWeight)
@@ -102,7 +107,7 @@ var batch_abnormal = {
                             type: 1,
                             title: '断批异常统计详情',
                             content: $("#batch_abnormal_detail_modal"),
-                            area: ['700px', '300px'],
+                            area: ['800px', '300px'],
                             btn: ['返回'],
                             offset: "auto",
                             closeBtn: 0,
@@ -124,14 +129,24 @@ var batch_abnormal = {
                     var items = res.data
                     $tbody = $("#batch_abnormal_editor_modal").children('tbody')
                     $tbody.empty()
-                    $("#duty_code").val(items.dutyCode?items.dutyCode.code:' ')
-                    $("#E_time").val(new Date(items.time).Format('yyyy-MM-dd'))
+                    $("#duty_code").empty()
+                    $("#duty_code").append("<option value="+items.dutyCode.code+">"+items.dutyCode.name+"</option>")
+                    //$("#duty_code").val(items.dutyCode?items.dutyCode.code:' ')
+                    $("#E_time").val(new Date(items.time).Format('yyyy-MM-dd hh:mm:ss'))
                     $("#batch_Number").val(items.batchNumber)
                     $("#ab_number").val(items.abNumber)
                     $("#ab_weight").val(items.abWeight)
                     $("#operator_code").append("<option value="+items.operator.code+">"+items.operator.name+"</option>")
                     $("#checker_code").append("<option value="+items.checker.code+">"+items.checker.name+"</option>")
                     $("#editor_time").text(new Date().Format("yyyy-MM-dd"))
+                    $.get(servers.backup()+"duty/getAll",{},function(result){
+                        var duty = result.data
+                        duty.forEach(function(e){
+                        if(items.dutyCode.code!=e.code){
+                            $("#duty_code").append("<option value="+e.code+">"+e.name+"</option>")
+                        }   
+                        })
+                    })
                     $.get(servers.backup()+"user/getAll",{ },function(result){
                         users = result.data
                         users.forEach(function(e){
@@ -152,7 +167,7 @@ var batch_abnormal = {
                      type:1,
                      title:'编辑断批异常统计',
                      content:$("#batch_abnormal_editor_modal"),
-                     area: ['700px', '300px'],
+                     area: ['800px', '300px'],
                      btn:['保存','提交','返回'],
                      offset:"auto",
                      closeBtn:0,
@@ -270,12 +285,20 @@ var batch_abnormal = {
          }
          ,bindAddEvent:function(addBtn){
              addBtn.off('click').on('click',function(){
-                $("#duty_code").val('')
+                $("#duty_code").empty()
+                $("#operator_code").empty()
+                $("#checker_code").empty()
                 $("#E_time").val('')
                 $("#batch_Number").val('')
                 $("#ab_number").val('')
                 $("#ab_weight").val('')
-                $("#editor_time").text(new Date().Format("yyyy-MM-dd"))
+                $("#editor_time").val(new Date().Format("yyyy-MM-dd"))
+                $.get(servers.backup()+"duty/getAll",{},function(result){
+                    var duty = result.data
+                    duty.forEach(function(e){
+                        $("#duty_code").append("<option value="+e.code+">"+e.name+"</option>")
+                    })
+                })
                 $.get(servers.backup()+"user/getAll",{ },function(result){
                     users = result.data
                     users.forEach(function(e){
@@ -291,7 +314,7 @@ var batch_abnormal = {
                      type:1,
                      title:"新增断批异常统计",
                      content:$("#batch_abnormal_editor_modal"),
-                     area: ['700px', '300px'],
+                     area: ['800px', '300px'],
                      btn:['提交','取消'],
                      offset:'auto',
                      closeBtn:0,

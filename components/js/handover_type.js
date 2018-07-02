@@ -37,13 +37,13 @@ var handover_type = {
                 $('#handover_type_page').css('padding-left','37%')
             })
             //$数据渲染完毕
-            var addBtn = $("#model-li-hide-add-140")
+            var addBtn = $("#model-li-hide-add-138")
             handover_type.funcs.bindAddEventListener(addBtn) 
             //追加增加事件
-            var refreshBtn = $('#model-li-hide-refresh-140')
+            var refreshBtn = $('#model-li-hide-refresh-138')
             handover_type.funcs.bindRefreshEventLisener(refreshBtn) 
             //追加刷新事件
-            var searchBtn = $('#model-li-hide-search-140')
+            var searchBtn = $('#model-li-hide-search-138')
             handover_type.funcs.bindSearchEventListener(searchBtn)
         }
 
@@ -313,7 +313,7 @@ var handover_type = {
             handover_type.funcs.bindEditEventListener(editBtns)
             var selectAllBox = $('#checkAll')
             handover_type.funcs.bindSelectAll(selectAllBox)
-            var deleteBatchBtn = $('#model-li-hide-delete-140')
+            var deleteBatchBtn = $('#model-li-hide-delete-138')
             handover_type.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
             var checkboxes = $('.checkbox')
             handover_type.funcs.disselectAll(checkboxes, selectAllBox)

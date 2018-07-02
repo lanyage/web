@@ -19,8 +19,7 @@
             color: black;
             text-align: center;
             font-weight: 400;
-            height:35px;
-            width:80px;
+            height:40px;
         }   
         select{
             width:100%;
@@ -87,7 +86,6 @@
             <thead>
              <tr class="grey">
                 <td>班次</td>
-                <td>时间</td>
                 <td>装钵机号</td>
                 <td>上层</td>
                 <td>下层</td>
@@ -97,6 +95,7 @@
                 <td>差异</td>
                 <td>添加/kg</td>
                 <td>减少/kg</td>
+                <td>时间</td>
                 <td>操作人</td>
                 <td>核查人</td>
             </tr>
@@ -104,7 +103,6 @@
            <tbody>
              <tr>
                 <td id="dutyCode"></td>
-                <td id="Time"></td>
                 <td id="bowlCode"></td>
                 <td id="top"></td>
                 <td id="bot"></td>
@@ -114,6 +112,7 @@
                 <td id="difference"></td>
                 <td id="addWeight"></td>
                 <td id="reduceWeight"></td>
+                <td id="Time"></td>
                 <td id="operator"></td>
                 <td id="checker"></td>
             </tr>
@@ -125,31 +124,29 @@
     </div> 
     <!--editor&&add-->
     <div id="bowl_abnormal_editor_modal" class="hide" style="padding:20px;">    
-            <table id="bowl_abnormal_editor_table">
+            <table id="bowl_abnormal_editor_table" width="100%">
                 <thead>
                  <tr class="grey">
-                    <td>班次</td>
-                    <td>时间</td>
-                    <td>装钵机号</td>
-                    <td>上层</td>
-                    <td>下层</td>
-                    <td>总重</td>
-                    <td>皮重</td>
-                    <td>净重</td>
-                    <td>差异</td>
-                    <td>添加/kg</td>
-                    <td>减少/kg</td>
-                    <td>操作人</td>
-                    <td>核查人</td>
+                    <td width="5%">班次</td>
+                    
+                    <td width="10%">装钵机号</td>
+                    <td width="5%">上层</td>
+                    <td width="5%">下层</td>
+                    <td width="5%">总重</td>
+                    <td width="5%">皮重</td>
+                    <td width="5%">净重</td>
+                    <td width="5%">差异</td>
+                    <td width="5%">添加/kg</td>
+                    <td width="5%">减少/kg</td>
+                    <td width="15%">时间</td>
+                    <td width="15%">操作人</td>
+                    <td width="15%">核查人</td>
                 </tr>
                </thead>
                <tbody>
                  <tr>
                     <td>
                         <input type="text"  id="dutyCode1"/>
-                    </td>
-                    <td>
-                        <input type="text"  id="Time1"/>
                     </td>
                     <td>
                         <input type="text"  id="bowlCode1"/>
@@ -177,6 +174,9 @@
                     </td>
                     <td>
                         <input type="text"  id="reduceWeight1"/>
+                    </td>
+                    <td>
+                        <input type="text"  id="Time1"/>
                     </td>
                     <td>
                         <select id="operator1"></select>

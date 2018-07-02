@@ -47,32 +47,45 @@ var presintering_record = {
             var searchBtn = $('#model_li_hide_search_30')
             presintering_record.funcs.bindSearchEventListener(searchBtn)
 
-            var checkedBoxLen = $('.presintering_record_checkbox:checked').length
-            home.funcs.bindSelectAll($("#presintering_record_checkAll"),$(".presintering_record_checkbox"),checkedBoxLen,$("#presintering_record_table"))
+            
 
 
         },
          renderHandler: function ($tbody,items) {
              $tbody.empty() //清空表格
+             var i = 1
              items.forEach(function (e) {
-                     var code = e.code
-                     var content = (
-                         "<tr>" +
-                         "<td><input type='checkbox' class='presintering_record_checkbox' value='" + (e.code) + "'></td>" +
-                         "<td>" + (e.code) + "</td>" +
-                         "<td>" + (e.kilnCode?e.kilnCode:'') + "</td>" +
-                         "<td>" + (e.sinteringProcess?e.sinteringProcess:'') + "</td>" +
-                         "<td>" + e.batchNumber + "</td>" +
-                         "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
-                         "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
-                         "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
-                         "</tr>"
-                     )
-                     $tbody.append(content)
+                 var sinteringProcess
+                if(e.sinteringProcess === true){
+                    sinteringProcess="二烧"
+                }else{
+                    sinteringProcess="预烧"
+                }
+                var code = e.code
+                var content = (
+                    "<tr>" +
+                    "<td><input type='checkbox' class='presintering_record_checkbox' value='" + (e.code) + "'></td>" +
+                    "<td>" + (i++) + "</td>" +
+                    "<td>" + (e.kilnCode?e.kilnCode:'') + "</td>" +
+                    "<td>" + (sinteringProcess) + "</td>" +
+                    "<td>" + e.batchNumber + "</td>" +
+                    "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
+                    "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
+                    "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
+                    "</tr>"
+                )     
+                $tbody.append(content)
+                if(e.state === true){
+                   $("#editor-"+(code)+"").removeClass("editor").addClass("disableHref")
+                   $("#delete-"+(code)+"").removeClass("delete").addClass("disableHref")
+               }    
          })
             presintering_record.funcs.bindDetailEventListener($('.detail'))
             presintering_record.funcs.bindEditorEventListener($('.editor'))
             presintering_record.funcs.bindDeleteEventListener($('.delete'))
+
+            var checkedBoxLen = $('.presintering_record_checkbox:checked').length
+            home.funcs.bindSelectAll($("#presintering_record_checkAll"),$(".presintering_record_checkbox"),checkedBoxLen,$("#presintering_record_table"))
          }
         , bindDetailEventListener: function (detailBtns) {
             detailBtns.off('click').on('click', function () {
@@ -82,6 +95,11 @@ var presintering_record = {
                     code:code
                 },function(result){
                     var items = result.data
+                    if(items.sinteringProcess===false){
+                        $("#process").text("预烧")
+                    }else{
+                        $("#process").text("二烧")
+                    }
                     $("#kilnCode").text(items.kilnCode)
                     $("#code").text(items.code)
                     $("#batchNumber").text(items.batchNumber)
@@ -120,6 +138,7 @@ var presintering_record = {
                     $("#outfurnaceOperator4").text(items.outfurnaceOperator4?items.outfurnaceOperator4.name:'')
                     
                     $("#assistant").text(items.assistant?items.assistant.name:'')
+                   
                 })
                 layer.open({
                     type: 1,
@@ -143,6 +162,9 @@ var presintering_record = {
                     code:code
                 },function(result){
                     var items = result.data
+                    $("input[name='process']").each(function(){   
+                        $(this).prop('checked','')
+                })
                     $("#infurnaceOperator11").empty()
                     $("#infurnaceOperator21").empty()
                     $("#infurnaceOperator31").empty()
@@ -320,7 +342,7 @@ var presintering_record = {
                            'outfurnaceOperator2.code':outfurnaceOperator2,
                            'outfurnaceOperator3.code':outfurnaceOperator3,
                            'outfurnaceOperator4.code':outfurnaceOperator4,
-                           status:0,
+                           state:0,
                        },function(result){
                            layer.msg(result.message,{
                                offset:['40%','55%'],
@@ -416,7 +438,7 @@ var presintering_record = {
                            'outfurnaceOperator2.code':outfurnaceOperator2,
                            'outfurnaceOperator3.code':outfurnaceOperator3,
                            'outfurnaceOperator4.code':outfurnaceOperator4,
-                           status:1,
+                           state:1,
                        },function(result){
                            layer.msg(result.message,{
                                offset:['40%','55%'],
@@ -475,6 +497,9 @@ var presintering_record = {
         }
         ,bindAddEvent:function(addBtn){
             addBtn.off('click').on('click',function(){
+                $("input[name='process']").each(function(){   
+                        $(this).prop('checked','')
+                })
                 $("#assistant1").empty()
                 $("#infurnaceOperator11").empty()
                 $("#infurnaceOperator21").empty()
@@ -616,7 +641,7 @@ var presintering_record = {
                            'outfurnaceOperator2.code':outfurnaceOperator2,
                            'outfurnaceOperator3.code':outfurnaceOperator3,
                            'outfurnaceOperator4.code':outfurnaceOperator4,
-                           status:0,
+                           state:0,
                        },function(result){
                            layer.msg(result.message,{
                                offset:['40%','55%'],

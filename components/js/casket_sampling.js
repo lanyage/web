@@ -57,12 +57,13 @@ var casket_sampling = {
         }
     , renderHandler: function ($tbody, items) {
         $tbody.empty() //清空表格
+        var i = 1
         items.forEach(function (e) {
             var code = e.code
             var content = (
                 "<tr>" +
                     "<td><input type='checkbox' class='casket_sampling_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.code + "</td>" +
+                    "<td>" + (i++) + "</td>" +
                     "<td>" + (new Date(e.date).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.dutyCode ? e.dutyCode.code : '')+ "</td>" +
                     "<td>" + (e.bowlCode ? e.bowlCode : '') + "</td>" +
@@ -72,6 +73,10 @@ var casket_sampling = {
                     "</tr>"
             )
             $tbody.append(content)
+            if(e.state === true){
+                $("#editor-"+(code)+"").removeClass("editor").addClass("disableHref")
+                $("#delete-"+(code)+"").removeClass("delete").addClass("disableHref")
+            }  
         })
         casket_sampling.funcs.bindDetailEventListener($('.detail'))
         casket_sampling.funcs.bindEditorEventListener($('.editor'))

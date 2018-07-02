@@ -20,7 +20,6 @@
             text-align: center;
             font-weight: 400;
             height:40px;
-            width:130px;
         }
         #batch_abnormal_editor_modal input{
             width:100%;
@@ -120,22 +119,22 @@
     </div>
 
     <div id="batch_abnormal_editor_modal" class="hide" style="padding:30px;"> 
-        <table id="batch_abnormal_editor_modal">
+        <table id="batch_abnormal_editor_modal" width="100%">
             <thead>
              <tr class="grey">
-                <td>班次</td>
-                <td>时间</td>
-                <td>生产批次</td>
-                <td width="120px">异常物料钵数</td>
-                <td>异常物料重</td>
-                <td>操作人</td>
-                <td>核查人</td>
+                <td width="10%">班次</td>
+                <td width="20%">时间</td>
+                <td width="10%">生产批次</td>
+                <td width="10%">异常物料钵数</td>
+                <td width="10%">异常物料重</td>
+                <td width="20%">操作人</td>
+                <td width="20%">核查人</td>
             </tr>
            </thead>
            <tbody>
             <tr>
-                <td><input type="text" id="duty_code"/></td>
-                <td><input type="datetime" id="E_time"/></td>
+                <td><select id="duty_code"></select></td>
+                <td><input type="datetime" id="E_time" placeholder="格式为2018-01-01 00:00:00"/></td>
                 <td><input type="text" id="batch_Number"/></td>
                 <td><input type="text" id="ab_number"/></td>
                 <td><input type="text" id="ab_weight"/></td>

@@ -60,12 +60,13 @@ var art_manage = {
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
            // console.log(items)
+           var i = 1
             items.forEach(function (e) {
                 var code = e.code
                 var content = (
                     "<tr>" +
                     "<td><input type='checkbox' class='art_manage_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + (e.code?e.code:'null') + "</td>" +
+                    "<td>" + (i++) + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
                     "<td>" + (e.productLineCode?e.productLineCode.name:'null')+ "</td>" +
                     "<td>" + e.inputPlan + "</td>" +
@@ -77,6 +78,10 @@ var art_manage = {
                     "</tr>"
                 )
                 $tbody.append(content)
+                if(e.state===true){
+                    $("#editor-"+(code)+"").removeClass('editor').addClass('disableHref')
+                    $("#delete-"+(code)+"").removeClass('delete').addClass('disableHref')
+                }
                 art_manage.funcs.bindDetailEventListener($('.detail'))
                 art_manage.funcs.bindEditorEventListener($('.editor'))
                 art_manage.funcs.bindDeleteEventListener($('.delete'))
@@ -226,7 +231,7 @@ var art_manage = {
                             presinteringParameter:presinteringParameter,
                             presinteringRequirements:presinteringRequirements,
                             presinteringDetection:presinteringDetection,
-                            status:0,
+                            state:0,
                             compileTime:compileTime,
                         },function(result){
                             layer.msg(result.message,{
@@ -304,7 +309,7 @@ var art_manage = {
                             presinteringParameter:presinteringParameter,
                             presinteringRequirements:presinteringRequirements,
                             presinteringDetection:presinteringDetection,
-                            status:1,
+                            state:1,
                             compileTime:compileTime,
                         },function(result){
                             layer.msg(result.message,{

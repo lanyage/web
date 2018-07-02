@@ -1,39 +1,145 @@
-<div id='model-li-hide-143' class="display-component-container" style="padding: 20px 20px 0px 20px;">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <div class="block-quote">
-            <div class="fl">
-                <p style="color: #62a49a; font-size: 14px;">
-                    <span id='model-li-hide-add-143'><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
-                    <span id="model-li-hide-delete-143"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
-                </p>
-            </div>
+<div id='model-li-hide-143' class="display-component-container" style="padding: 20px;">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+         #management_handover_detail_table td {
+            padding: 7px;
+            border: 1px darkgrey solid;
+            font-size: 14px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            height:30x;
+            width:50px;
+        }    
+        #jobsHandover_table td{
+            padding: 7px;
+            border: 1px darkgrey solid;
+            font-size: 14px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            height:30x;
+        }
+        #jobsHandover input{
+            width:100%;
+            height:100%;
+            border:none;
+            text-align: center;
+        }
+        select{
+            width:190px;
+            height:22px;
+        }
+        #jobsHandover select{
+            width:100%;
+            height:100%;
+            border:none;
+        }
+    </style>
+    <div class="block-quote">
+        <div class="fl">
+            <p style="color: #62a49a; font-size: 14px;">
+                <span id="model_li_hide_add_143"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
+                <span id="model_li_hide_delete_143"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+            </p>
         </div>
+    </div>
+
+    <div class="whitespace" ></div>
+
+    <table id="management_handover_table" style="width: 100%;">
+        <thead style="background: #666666;">
+        <tr>
+            <td class="checkBox_td"><input id="management_handover_checkAll" type="checkbox"></td>
+            <td>序号</td>
+            <td>岗位名称</td>
+            <td>编制人</td>
+            <td>编制时间</td>
+            <td>详情</td>
+            <td>编辑</td>
+            <td>删除</td>
+        </tr>
+        </thead>
+        <tbody>
+           
+        </tbody>
+    </table>
+
+    <div id="management_handover_page" style="text-align: center;"></div>
+    <script src="../components/js/management_handover.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            management_handover.init()
+        })
+    </script>
+    <div id="jobsHandover_detail" style="padding:20px;" class="hide">
+        <table width="100%">
+            <tr class="grey">
+                <td width="10%">序号</td>
+                <td>岗位名称</td>
+                <td>编制人</td>
+                <td>编制时间</td>
+            </tr>
+            <tr>
+                <td id="code"></td>
+                <td id="name"></td>
+                <td id="compilerCode"></td>
+                <td id="compileTime"></td>
+            </tr>
+        </table>
         <div class="whitespace"></div>
-        <table id="handoverState_type_table" style="width: 100%;">
-            <thead style="background: #666666;">
-                <tr>
-                    <td class="checkBox_td"><input id="checkAll" type="checkbox"></td>
-                    <td>序号</td>
-                    <td>交接状态类型1名称</td>
-                    <td>交接状态类型2名称</td>
-                    <td>交接状态类型3名称</td>
-                    <td>交接状态类型4名称</td>
-                    <td>交接状态类型5名称</td>
-                    <td class="edit_td">编辑</td>
-                    <td class="delete_td">删除</td>
+        <table id="jobsHandover_detail_table" width="100%">
+            <thead>
+                <tr class="grey">
+                    <td width="10%" class="normal_td">序号</td>
+                    <td width="20%" class="normal_td">交接类型</td>
+                    <td width="35%" class="normal_td">交接内容</td>
+                    <td width="35%" class="normal_td">交接状态类型</td>
                 </tr>
             </thead>
             <tbody>
+
             </tbody>
         </table>
-        <div id="handoverState_type_page">
-        </div>
-    
-        <script src="../components/js/handoverState_type.js"></script>
-        <script type="application/javascript">
-            $(function() {
-                handoverState_type.init()
-            })
-        </script>
     </div>
+    <!--editor && add-->
+    <div id="jobsHandover" style="padding:20px;" class="hide">
+            <table width="100%">
+                <tr class="grey">
+                    <td width="10%">序号</td>
+                    <td>岗位名称</td>
+                    <td>编制人</td>
+                    <td>编制时间</td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="code1"/></td>
+                    <td><input type="text" id="name1"/></td>
+                    <td><select id="compilerCode1"></select></td>
+                    <td><input type="text" id="compileTime1" placeholder="格式为2018-01-01 00:00:00"/></td>
+                </tr>
+            </table>
+            <div class="whitespace"></div>
+            <table id="jobsHandover_table" width="100%">
+                <thead>
+                    <tr class="grey">
+                        <td width="10%">序号</td>
+                        <td width="15%">交接类型</td>
+                        <td width="30%">交接内容</td>
+                        <td width="25%">交接状态类型</td>
+                        <td width="10%">删除</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <div class="whitespace"></div>
+            <div id="add_line" style="width: 100%;margin: 0 auto;background: white;text-align: center;">
+                    <button id="button"
+                    style="width: 50px;height: 50px;border-radius: 50%;border: none;background:#00A99D;color:white;font-weight:bold;font-size: 30px;">
+                +
+            </button>
+            </div>
+        </div>
+</div>

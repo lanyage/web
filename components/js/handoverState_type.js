@@ -37,10 +37,10 @@ var handoverState_type = {
                 $('#handoverState_type_page').css('padding-left','37%')
             })
             
-            var addBtn = $("#model-li-hide-add-143")
+            var addBtn = $("#model-li-hide-add-141")
             handoverState_type.funcs.bindAddEventListener(addBtn) 
             //追加增加事件
-            var refreshBtn = $('#model-li-hide-refresh-143')
+            var refreshBtn = $('#model-li-hide-refresh-141')
            
         }
 
@@ -318,7 +318,7 @@ var handoverState_type = {
             handoverState_type.funcs.bindEditEventListener(editBtns)
             var selectAllBox = $('#checkAll')
             handoverState_type.funcs.bindSelectAll(selectAllBox)
-            var deleteBatchBtn = $('#model-li-hide-delete-143')
+            var deleteBatchBtn = $('#model-li-hide-delete-141')
             handoverState_type.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
             var checkboxes = $('.checkbox')
             handoverState_type.funcs.disselectAll(checkboxes, selectAllBox)

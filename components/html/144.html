@@ -1,42 +1,90 @@
-<div id='model-li-hide-144' class="display-component-container" style="padding: 20px 20px 0px 20px;">
+<div id='model-li-hide-144' class="display-component-container" style="padding: 20px;">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+         #inquiries_handover_detail_table td {
+            padding: 7px;
+            border: 1px darkgrey solid;
+            font-size: 14px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            height:50x;
+        }    
+        select{
+            width:100%;
+            height:100%;
+            border:none;
+        }
+    </style>
     <div class="block-quote">
         <div class="fl">
-            <p style="color: #62a49a; font-size: 14px;">
-                <span id='model-li-hide-add-144'><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
-                <span id="model-li-hide-delete-144"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
+            <p style="color: #1E9FFF; font-size: 14px;">
+                <span id="model_li_hide_add_144">岗位交接记录</span>&nbsp;
             </p>
         </div>
         <div class="fr">
             <p style="color: #62a49a; font-size: 14px;">
-                <span id="model-li-hide-refresh-144"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span> &nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="text" id="electronic_balance_name_input" placeholder="请输入交接内容名称"/>
-                <span id="model-li-hide-search-144"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
-            </p>
-        </div>
+            <span id="model_li_hide_refresh_144"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
+            &nbsp;&nbsp;
+            <input type="text" id="input_name" placeholder="请输入岗位名称"/> &nbsp;&nbsp;
+            <input type="text" id="input_time" placeholder="请输入交接日期"/> &nbsp;&nbsp;
+            <span id="model_li_hide_search_144"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
+        </p>
     </div>
-    <div class="whitespace"></div>
-    <table id="electronic_balance_table" style="width: 100%;">
-        <thead style="background: #666666;">
-            <tr>
-                <td class="checkBox_td"><input id="checkAll" type="checkbox"></td>
-                <td>编码</td>
-                <td>名称</td>
-                <td class="edit_td">编辑</td>
-                <td class="delete_td">删除</td>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div id="electronic_balance_page">
     </div>
 
-    <script src="../components/js/electronic_balance.js"></script>
+    <div class="whitespace" ></div>
+
+    <table id="inquiries_handover_table" style="width: 100%;">
+        <thead style="background: #666666;">
+        <tr>
+            <td class="checkBox_td"><input id="inquiries_handover_checkAll" type="checkbox"></td>
+            <td>序号</td>
+            <td>岗位名称</td>
+            <td>交接日期</td>
+            <td>当班班次</td>
+            <td>交班人</td>
+            <td>接班人</td>
+            <td>详情</td>
+        </tr>
+        </thead>
+        <tbody>
+           
+        </tbody>
+    </table>
+
+    <div id="inquiries_handover_page"></div>
+    <script src="../components/js/inquiries_handover.js"></script>
     <script type="application/javascript">
-        $(function() {
-            electronic_balance.init()
+        $(function () {
+            inquiries_handover.init()
         })
     </script>
+    <div id="inquiries_handover_detail_modal" class="hide" style="padding:30px;">
+        
+        <div>
+            <p style="color:black; font-size: 18px;">
+                日期:<span id="date" width="20%" style="text-decoration: underline;"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                班次:<span id="dutyCode" width="20%" style="text-decoration: underline;"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                交班人:<span id="shifterCode" width="20%" style="text-decoration: underline;"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                接班人:<span id="successorCode" width="20%" style="text-decoration: underline;"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+
+            </p>
+        </div>
+        <div class="whitespace"></div>
+        <table id="inquiries_handover_detail_table" width="100%" style="padding:20px;"> 
+            <thead>
+            <tr class="grey">
+               <td width="20%">序号</td>
+               <td width="40%">交接内容</td>
+               <td width="40%">交接状态</td>
+           </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+    
 </div>

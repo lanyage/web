@@ -57,12 +57,13 @@ var approval_tracking = {
         }
     , renderHandler: function ($tbody, items) {
         $tbody.empty() //清空表格
+        var i = 1
         items.forEach(function (e) {
             var code = e.code
             var content = (
                 "<tr>" +
                     "<td><input type='checkbox' class='approval_tracking_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.code + "</td>" +
+                    "<td>" + (i++) + "</td>" +
                     "<td>" + (e.packagingCode) + "</td>" +
                     "<td>" + (e.packagingWeight ? e.packagingWeight: '')+ "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
@@ -71,6 +72,10 @@ var approval_tracking = {
                     "</tr>"
             )
             $tbody.append(content)
+            if(e.state === true){
+                $("#editor-"+(code)+"").removeClass("editor").addClass("disableHref")
+                $("#delete-"+(code)+"").removeClass("delete").addClass("disableHref")
+            } 
         })
         approval_tracking.funcs.bindDetailEventListener($('.detail'))
         approval_tracking.funcs.bindEditorEventListener($('.editor'))

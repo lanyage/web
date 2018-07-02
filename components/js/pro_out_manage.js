@@ -94,12 +94,13 @@ var pro_out_manage = {
         /**渲染表格 */
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
+            var length = 1
             items.forEach(function (e) {
                 var code = e.code
                 var content = (
                     "<tr>" +
                     "<td><input type='checkbox' class='product_out_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.code + "</td>" +
+                    "<td>" + (length++) + "</td>" +
                     "<td>" + (e.rawType ? e.rawType.code : null) + "</td>" +
                     "<td>" + (new Date(e.applyTime).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +

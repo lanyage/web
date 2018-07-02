@@ -38,8 +38,8 @@ var inquiries_handover = {
                 })
             })
 
-            inquiries_handover.funcs.bindSearchEventListener($("#model_li_hide_search_138"))
-            inquiries_handover.funcs.bindRefreshEventListener($("#model_li_hide_refresh_138"))
+            inquiries_handover.funcs.bindSearchEventListener($("#model_li_hide_search_144"))
+            inquiries_handover.funcs.bindRefreshEventListener($("#model_li_hide_refresh_144"))
             var checkedBoxLen = $('.inquiries_handover_checkbox:checked').length
             home.funcs.bindSelectAll($("#inquiries_handover_checkAll"),$(".inquiries_handover_checkbox"),checkedBoxLen,$("#inquiries_handover_table"))
         }

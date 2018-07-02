@@ -37,13 +37,13 @@ var byproduct = {
                 $('#byproduct_page').css('padding-left','37%')
             })
             //$数据渲染完毕
-            var addBtn = $("#model-li-hide-add-139")
+            var addBtn = $("#model-li-hide-add-137")
             byproduct.funcs.bindAddEventListener(addBtn) 
             //追加增加事件
-            var refreshBtn = $('#model-li-hide-refresh-139')
+            var refreshBtn = $('#model-li-hide-refresh-137')
             byproduct.funcs.bindRefreshEventLisener(refreshBtn) 
             //追加刷新事件
-            var searchBtn = $('#model-li-hide-search-139')
+            var searchBtn = $('#model-li-hide-search-137')
             byproduct.funcs.bindSearchEventListener(searchBtn)
         }
 
@@ -312,7 +312,7 @@ var byproduct = {
             byproduct.funcs.bindEditEventListener(editBtns)
             var selectAllBox = $('#checkAll')
             byproduct.funcs.bindSelectAll(selectAllBox)
-            var deleteBatchBtn = $('#model-li-hide-delete-139')
+            var deleteBatchBtn = $('#model-li-hide-delete-137')
             byproduct.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
             var checkboxes = $('.checkbox')
             byproduct.funcs.disselectAll(checkboxes, selectAllBox)

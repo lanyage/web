@@ -60,13 +60,14 @@ var product_in_manage = {
 
         renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
+            var i = 1
             items.forEach(function (e) {
                 var content = (
                     "<tr>" +
-                    "<td>" + (e.code) + "</td>" +
+                    "<td>" + (i++) + "</td>" +
                     "<td>" + (e.batchNumber) + "</td>" +
-                    "<td>" + (e.department ? e.department.name : null) + "</td>" +
-                    "<td>" + (e.payTime) + "</td>" +
+                    "<td>" + (e.department ? e.department.name : '') + "</td>" +
+                    "<td>" + (e.payTime?new Date(e.payTime).Format('yyyy-MM-dd'):'') + "</td>" +
                     "<td>" + (e.status) + "</td>" +
                     "<td><a href='#' class='detail' id='detail-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
                     "</tr>"

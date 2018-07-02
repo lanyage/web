@@ -39,14 +39,14 @@ var audit_record = {
                 })
             })
 
-            audit_record.funcs.bindAddEvent($('#model_li_hide_add_145'))
-            audit_record.funcs.bindDeleteEvent($('#model_li_hide_delete_145'))
+            audit_record.funcs.bindAddEvent($('#model_li_hide_add_28'))
+            audit_record.funcs.bindDeleteEvent($('#model_li_hide_delete_28'))
 
-            var refreshBtn = $('#model_li_hide_refresh_145');
+            var refreshBtn = $('#model_li_hide_refresh_28');
             audit_record.funcs.bindRefreshEventListener(refreshBtn);
 
             //追加搜索事件
-            var searchBtn = $('#model_li_hide_search_145')
+            var searchBtn = $('#model_li_hide_search_28')
             audit_record.funcs.bindSearchEventListener(searchBtn)
 
             var checkedBoxLen = $('.audit_record_checkbox:checked').length
@@ -66,18 +66,19 @@ var audit_record = {
                     "<td>" + (e.equipmentCode ? e.equipmentCode.name : ' ') + "</td>" +
                     "<td>" + (new Date(e.auditTime).Format('yyyy-MM-dd hh:mm:ss')) + "</td>" +
                     "<td>" + (e.dutyCode?e.dutyCode.name:' ') + "</td>" +
-                    "<td>" + (e.confirm?e.confirm:' ') + "</td>" +
+                    "<td>" + (e.confirm) + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
                     "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
                     "</tr>"
             )
             $tbody.append(content)
+            //console.log(e.confirm)
             if(e.confirm === 1){
-                $("#editor-"+(code)+"").removeClass("editor")
-                $("#editor-"+(code)+"").parent('td').addClass("disableHref")
+                $("#editor-"+(code)+"").removeClass("editor").addClass("disableHref")
+               // $("#editor-"+(code)+"").parent('td')
                 $("#delete-"+(code)+"").removeClass("delete").addClass("disableHref")
-                $("#delete-"+(code)+"").parent('td').addClass("disableHref")
+               // $("#delete-"+(code)+"").parent('td').addClass("disableHref")
             }
         })
         audit_record.funcs.bindDetailEventListener($('.detail'))
@@ -167,12 +168,12 @@ var audit_record = {
                    })
 
                     if(items.auditorCode!=null){
-                         $('#confirmCode1').append("<option value="+items.confirmorCode.code+">"+items.confirmorCode.name+"</option>")
+                         $('#auditorCode1').append("<option value="+items.auditorCode.code+">"+items.auditorCode.name+"</option>")
                          $.get(servers.backup()+"user/getAll",{ },function(result){
                             var users = result.data
                             users.forEach(function(e){
                                 if(items.auditorCode.code!=users.code){
-                                    $("#confirmCode1").append(
+                                    $("#auditorCode1").append(
                                     "<option value="+(e.code)+">"+e.name+"</option>"
                                 )
                                 }
@@ -182,7 +183,7 @@ var audit_record = {
                         $.get(servers.backup()+"user/getAll",{ },function(result){
                             var users = result.data
                             users.forEach(function(e){
-                                    $("#confirmCode1").append(
+                                    $("#auditorCode1").append(
                                     "<option value="+(e.code)+">"+e.name+"</option>"
                                 )
                             })
@@ -223,7 +224,7 @@ var audit_record = {
                      yes: function(index) {
                         $("#editor_modal").css('display', 'none')
                          var dutyCode = $('#dutyCode1').val()
-                         var auditorTime = new Date($('#auditorTime1').val()).getTime()
+                         var auditorTime = new Date($('#auditorTime1').val())
                          var equipmentCode = $('#equipmentCode1').val()
                          var leftUp = $('#leftUp1').val()
                          var rightUp = $('#rightUp1').val()
@@ -232,12 +233,12 @@ var audit_record = {
                          var rightDown = $('#rightDown1').val()
                          var judgement = $('#judgement1').val()
                          var confirm = $('#confirm1').val()
-                         var confirmTime = new Date($('#confirmTime1').val()).getTime()
+                         var confirmTime = new Date($('#confirmTime1').val())
                          var auditorCode = $('#auditorCode1').val()
                          var confirmCode = $('#confirmCode1').val()
                          $.post(home.urls.audit.update(),{
                             code:code,
-                            auditTime: auditorTime,
+                            //auditTime: auditorTime,
                             'dutyCode.code': dutyCode,
                             'equipmentCode.code': equipmentCode,
                             leftUp: leftUp,
@@ -247,7 +248,7 @@ var audit_record = {
                             rightDown: rightDown,
                             judgment: judgement,
                             confirm: 0,
-                            confirmTime:confirmTime,
+                            //confirmTime:confirmTime,
                             'auditorCode.code': auditorCode,
                             'confirmorCode.code': confirmCode,
                          },function(result){
@@ -267,33 +268,33 @@ var audit_record = {
                      ,btn2: function(index) {
                         $("#editor_modal").css('display', 'none')
                         var dutyCode = $('#dutyCode1').val()
-                        var auditorTime = $('#auditorTime1').val()
-                        var eqipmentCode = $('#eqipmentCode1').val()
-                        var leftUp = $('#leftUp1').val()
-                        var rightUp = $('#rightUp1').val()
-                        var center = $('#center1').val()
-                        var leftDown = $('#leftDown1').val()
-                        var rightDown = $('#rightDown1').val()
-                        var judgement = $('#judgement1').val()
-                        var confirm = $('#confirm1').val()
-                        var confirmTime = $("#confirmTime1").val()
-                        var auditorCode = $('#auditorCode1').val()
-                        var confirmCode = $('#confirmCode1').val()
-                        $.post(home.urls.audit.update(),{
-                           code:code,
-                           auditorTime: auditorTime,
-                           'dutyCode.code': dutyCode,
-                           'eqipmentCode.code': eqipmentCode,
-                           leftUp: leftUp,
-                           rightUp: rightUp,
-                           center: center,
-                           leftDown: leftDown,
-                           rightDown: rightDown,
-                           judgement: judgement,
-                           confirm: 1,
-                           confirmTime:confirmTime,
-                           'auditorCode.code': auditorCode,
-                           'confirmCode.code': confirmCode,
+                         var auditorTime = new Date($('#auditorTime1').val())
+                         var equipmentCode = $('#equipmentCode1').val()
+                         var leftUp = $('#leftUp1').val()
+                         var rightUp = $('#rightUp1').val()
+                         var center = $('#center1').val()
+                         var leftDown = $('#leftDown1').val()
+                         var rightDown = $('#rightDown1').val()
+                         var judgement = $('#judgement1').val()
+                         var confirm = $('#confirm1').val()
+                         var confirmTime = new Date($('#confirmTime1').val())
+                         var auditorCode = $('#auditorCode1').val()
+                         var confirmCode = $('#confirmCode1').val()
+                         $.post(home.urls.audit.update(),{
+                            code:code,
+                            auditTime: auditorTime,
+                            'dutyCode.code': dutyCode,
+                            'equipmentCode.code': equipmentCode,
+                            leftUp: leftUp,
+                            rightUp: rightUp,
+                            center: center,
+                            leftDown: leftDown,
+                            rightDown: rightDown,
+                            judgment: judgement,
+                            confirm: 1,
+                            confirmTime:confirmTime,
+                            'auditorCode.code': auditorCode,
+                            'confirmorCode.code': confirmCode,
                          },function(result){
                              layer.msg(result.message,{
                                  offset:['40%','55%'],

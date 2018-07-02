@@ -72,6 +72,10 @@ var kiln_Order = {
                     "</tr>"
                 )
                 $tbody.append(content)
+                if(e.state === true){
+                    $("#editor-"+(code)+"").removeClass("editor").addClass("disableHref")
+                    $("#delete-"+(code)+"").removeClass("delete").addClass("disableHref")
+                }
                 kiln_Order.funcs.bindDetailEventListener($('.detail'))
                 kiln_Order.funcs.bindEditorEventListener($('.editor'))
                 kiln_Order.funcs.bindDeleteEventListener($('.delete'))
@@ -202,7 +206,7 @@ var kiln_Order = {
                             effectiveDate:effectiveDate,
                             compileTime:compileTime,
                             compactor:{code:compactor},
-                            state:false,
+                            state:0,
                             kilnParameters:[]
                         }
                         data.kilnParameters = kilnParameters

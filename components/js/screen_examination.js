@@ -49,11 +49,12 @@ var screen_examination = {
 
         renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
+            var i = 1
             items.forEach(function (e) {
                 var content = (
                     "<tr>" +
                     "<td><input type='checkbox' class='screen_examination_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + (e.code) + "</td>" +
+                    "<td>" + (i++) + "</td>" +
                     "<td>" + (e.shakerCode?e.shakerCode:'') + "</td>" +
                     "<td>" + (e.inspector ? e.inspector.name : null) + "</td>" +
                     "<td>" + (new Date(e.inspectorTime).Format('yyyy-MM-dd hh:mm:ss')) + "</td>" +

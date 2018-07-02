@@ -57,12 +57,13 @@ var process_tracking = {
         }
     , renderHandler: function ($tbody, items) {
         $tbody.empty() //清空表格
+        var i = 1
         items.forEach(function (e) {
             var code = e.code
             var content = (
                 "<tr>" +
                     "<td><input type='checkbox' class='process_tracking_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.code + "</td>" +
+                    "<td>" + (i++) + "</td>" +
                     "<td>" + (e.premixedCode) + "</td>" +
                     "<td>" + (e.presinteringCode ? e.presinteringCode : '')+ "</td>" +
                     "<td>" + (e.crushingCode ? e.crushingCode : '') + "</td>" +
@@ -72,6 +73,10 @@ var process_tracking = {
                     "</tr>"
             )
             $tbody.append(content)
+            if(e.state === true){
+                $("#editor-"+(code)+"").removeClass("editor").addClass("disableHref")
+                $("#delete-"+(code)+"").removeClass("delete").addClass("disableHref")
+            }  
         })
         process_tracking.funcs.bindDetailEventListener($('.detail'))
         process_tracking.funcs.bindEditorEventListener($('.editor'))

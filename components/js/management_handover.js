@@ -4,7 +4,7 @@ var management_handover = {
         var out = $('#management_handover_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
-            $('#management_handover').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '137.5%')
+            $('#management_handover').css('padding-left', 100 * ((out - inside) / 2 / out) > 33 ? 100 * ((out - inside) / 2 / out) + '%' : '143.5%')
             clearTimeout(time)
         }, 30)
     },
@@ -38,10 +38,10 @@ var management_handover = {
                 })
             })
 
-            management_handover.funcs.bindAddEvent($('#model_li_hide_add_137'))
-            management_handover.funcs.bindDeleteEvent($('#model_li_hide_delete_137'))
+            management_handover.funcs.bindAddEvent($('#model_li_hide_add_143'))
+            management_handover.funcs.bindDeleteEvent($('#model_li_hide_delete_143'))
 
-            var refreshBtn = $('#model_li_hide_refresh_137');
+            var refreshBtn = $('#model_li_hide_refresh_143');
             management_handover.funcs.bindRefreshEventListener(refreshBtn);
 
 
@@ -87,7 +87,7 @@ var management_handover = {
                 },function(result){
                     var items = result.data
                     $("#name").text(items.name)
-                    $("#code").text(items.code)
+                    $("#code").text("1")
                     $("#compilerCode").text(items.compilerCode?items.compilerCode.name:'')
                     $("#compileTime").text(new Date(items.compileTime).Format('yyyy-MM-dd hh:mm:ss'))
                     var jobsHandover = items.jobsHandover
@@ -109,14 +109,10 @@ var management_handover = {
                     title: '新增岗位内容交接',
                     content: $("#jobsHandover_detail"),
                     area: ['1100px', '500px'],
-                    btn: ['确定','返回'],
+                    btn: ['确定'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#jobsHandover_detail").css('display', 'none')
-                        layer.close(index)
-                    }
-                    ,btn2:function(index){
                         $("#jobsHandover_detail").css('display', 'none')
                         layer.close(index)
                     }
@@ -142,13 +138,15 @@ var management_handover = {
             var jobsHandover = items.jobsHandover
             $tbody = $("#jobsHandover_table").children('tbody')
             $tbody.empty()
-            var i = 1
-            var length = 1
+            var i = 0
+            var length = 1 
+            //var length = jobsHandover.length
             jobsHandover.forEach(function(e){
                 console.log(i)
+                i = i + 1
                 $tbody.append(
-                    "<tr class='newLine' id='row"+length+"'>"+
-                    "<td>"+(length++)+"</td>"+
+                    "<tr class='newLine' id='row"+(i)+"'>"+
+                    "<td>"+(i)+"</td>"+
                     "<td><select class='handover_type"+i+"'><option value="+e.handoverType.code+">"+e.handoverType.name+"</option></select></td>"+
                     "<td><select class='handover_content"+i+"'><option value="+e.handoverContent.code+">"+e.handoverContent.name+"</option></select></td>"+
                     "<td><select class='handover_statetype"+i+"'><option value="+e.handoverStateType.code+">"+(e.handoverStateType.handoverState1?e.handoverStateType.handoverState1.name:'')+' '+(e.handoverStateType.handoverState2?e.handoverStateType.handoverState2.name:'')+' '+(e.handoverStateType.handoverState3?e.handoverStateType.handoverState3.name:'')+' '+(e.handoverStateType.handoverState4?e.handoverStateType.handoverState4.name:'')+' '+(e.handoverStateType.handoverState5?e.handoverStateType.handoverState5.name:'')+' '+"</option></select></td>"+
@@ -159,7 +157,7 @@ var management_handover = {
                     var res2 = result.data
                     res2.forEach(function(ele){
                         if(ele.code!=e.handoverType.code){
-                            $(".handover_type"+i+"").append("<option value="+ele.code+">"+ele.name+"</option>")
+                            $(".handover_type"+(i)+"").append("<option value="+ele.code+">"+ele.name+"</option>")
                         }    
                     })    
                 })  
@@ -167,7 +165,7 @@ var management_handover = {
                     var res3 = result.data
                     res3.forEach(function(ele){
                         if(ele.code!=e.handoverContent.code){
-                            $(".handover_content"+i+"").append("<option value="+ele.code+">"+ele.name+"</option>")
+                            $(".handover_content"+(i)+"").append("<option value="+ele.code+">"+ele.name+"</option>")
                         }
                     }) 
                 })  
@@ -178,7 +176,6 @@ var management_handover = {
                         $(".handover_statetype"+(i)+"").append(
                             "<option value="+ele.code+">"+(ele.handoverState1?ele.handoverState1.name:'')+' '+(ele.handoverState2?ele.handoverState2.name:'')+' '+(ele.handoverState3?ele.handoverState3.name:'')+' '+(ele.handoverState4?ele.handoverState4.name:'')+' '+(ele.handoverState5?ele.handoverState5.name:'')+' '+"</option>")
                     }) 
-                     i = i+1
                 })  
              
             })
