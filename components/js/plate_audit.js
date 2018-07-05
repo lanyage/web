@@ -52,11 +52,12 @@ var plate_audit = {
         }
         , renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
+            var i = 1
             items.forEach(function (e) {
                 var code = e.code
                 var content = (
                     "<tr>" +
-                    "<td>" + e.code + "</td>" +
+                    "<td>" + (i++) + "</td>" +
                     "<td>" + (e.rawType.material.name) + "</td>" +
                     "<td>" + (e.rawType.name) + "</td>" +
                     "<td>" + (e.weight) + "</td>" +
@@ -133,33 +134,6 @@ var plate_audit = {
                                 time:700          
                           }) 
                         })
-                       /* var data = {
-                            status : status,
-                            note : note,
-                            curAuditorCode : curAuditorCode,
-                            nextAuditorCode : nextAuditorCode,
-                            code : items1.code
-                        } 
-                        console.log(data)
-                        $.ajax({
-                            url:home.urls.plateAudit.audit(),
-                            contentType:'application/json',
-                            data:JSON.stringify(data),
-                            dataType:'json',
-                            type:'post',
-                            success:function(result) {
-                                if(result.code === 0) {
-                                    var time = setTimeout(function(){
-                                        plate_manage.init()
-                                        clearTimeout(time)
-                                    },500)
-                                }
-                                layer.msg(result.message,{
-                                    offset:['40%','55%'],
-                                    time:700          
-                              })  
-                            }                       
-                         })*/
                         layer.close(index)
                     }
                     , btn2: function (index) {

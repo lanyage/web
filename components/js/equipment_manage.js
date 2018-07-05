@@ -77,7 +77,7 @@ var equipment_manage = {
 						"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;巡检人:<select id='user_code' style='width:174px;'></select></p>" +
 						"</div>" +
 						"</div>",
-					area: ['350px', '260px'],
+					area: ['350px', '300px'],
 					btn: ['确认', '取消'],
 					offset: ['30%', '35%'],
 					yes: function(index) {

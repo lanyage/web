@@ -819,6 +819,35 @@ var home = {
                 return servers.backup() + 'electronicBalance/getAll'
             }
         },
+        byproductCount: {
+            getAllByPage: function () {
+                return servers.backup() + 'byproductCount/getAllByPage'
+            },
+            add: function () {
+                return servers.backup() + 'byproductCount/add'
+            },
+            deleteByCode: function () {
+                return servers.backup() + 'byproductCount/deleteByCode'
+            },
+            update: function () {
+                return servers.backup() + 'byproductCount/update'
+            },
+            getByCode: function () {
+                return servers.backup() + 'byproductCount/getByCode'
+            },
+            getByBatchNumberLikeByPage: function () {
+                return servers.backup() + 'byproductCount/getByBatchNumberLikeByPage'
+            },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'byproductCount/deleteByBatchCode'
+            },
+            getAll: function () {
+                return servers.backup() + 'byproductCount/getAll'
+            },
+            getByByproductCodeByPage: function () {
+                return servers.backup() + 'byproductCount/getByByproductCodeByPage'
+            }
+        },
 
         // material: {
         //     getAllByPage: function () {
@@ -1725,8 +1754,8 @@ var home = {
             update: function () {
                 return servers.backup() + 'audit/update'
             },
-            getByEquipmentCodeByPage: function () {
-                return servers.backup() + 'audit/getByEquipmentCodeByPage'
+            getByConfirm: function () {
+                return servers.backup() + 'audit/getByConfirm'
             },
         }
     }

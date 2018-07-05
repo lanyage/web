@@ -61,22 +61,16 @@ var mat_out_manage = {
                 e=items[i];
                 $tbody.append(
                     "<tr>" +
-                    "<td>" + e.code + "</td>" +
+                    "<td>" + (i+1) + "</td>" +
                     "<td>" + (e.department != null ? e.department.name : null) + "</td>" +
                     "<td>" + (new Date(e.applyDate).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
+                    "<td>" + (e.processManage ? e.processManage.name : null) + "</td>" +
                     "<td>" + e.auditStatus + "</td>" +
                     "<td>" + e.pickingStatus + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "</tr>"
                 )
             }
-            
-               
-               
-            // /** 绑定全选事件 */
-            // mat_out_manage.funcs.checkboxEventBinding()
-            /** 数据渲染完毕之后,需要进行绑定详情点击按钮事件 */
             var detailBtns = $(".detail")
             mat_out_manage.funcs.bindDetailClick(detailBtns)
         }
@@ -88,7 +82,6 @@ var mat_out_manage = {
                 $("#depmartment-1").html("<option>请选择领料部门</option>");
                 var length = value.length
                 for (var i = 0; i < length; i++) {
-                    // console.log(value[i].code)
                     var text = value[i].name
                     $("#depmartment-1").append("<option id='" + value[i].code + "' value='" + value[i].code + "'>" + text + "</option>");
                 }
@@ -147,7 +140,7 @@ var mat_out_manage = {
             pickingApplies.forEach(function (ele) {
                 $tbody.append(
                     "<tr>" +
-                    " <td>" + (ele.rawType.code) + "</td>" +
+                    " <td>" + (ele.rawType.name) + "</td>" +
                     "<td>" + (ele.batchNumber) + "</td>" +
                     "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
                     "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>" +

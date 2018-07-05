@@ -75,6 +75,16 @@
         .s_center option{
             text-align: center;
          }
+        #add_modal_table1 select{
+             width:100%;
+             height:100%;
+             border:none;
+         }
+         #editor_table1 select{
+             width:100%;
+             height:100%;
+             border:none;
+         }
     </style>
 
     <div class="block-quote">
@@ -157,8 +167,8 @@
                 <td id="rawType1" width="20%"></td>
             </tr>
             <tr>
-                <td class="grey">制造部门</td>
-                <td id="department1" ></td>
+                <td class="grey">接收单位</td>
+                <td id="verify_company"></td>
                 <td class="grey">总量</td>
                 <td id="weight1"></td>
             </tr>
@@ -184,7 +194,6 @@
             <td style="color:black" class="grey">成品批号</td>
             <td style="color:black" class="grey">单位</td>
             <td style="color:black" class="grey"> 数量</td>
-            <td style="color:black" class="grey">状态</td>
             </thead>
             <tbody>
 
@@ -223,8 +232,8 @@
                 <td id="rawType" width="20%"></td>
             </tr>
             <tr>
-                <td  class="grey">制造部门</td>
-                <td id="department"></td>
+                <td class="grey">接收单位</td>
+                <td id="detail_company"></td>
                 <td  class="grey">总量</td>
                 <td id="weight"></td>
             </tr>
@@ -249,7 +258,6 @@
             <td style="color:black" class="grey">成品批号</td>
             <td style="color:black" class="grey">单位</td>
             <td style="color:black" class="grey">数量</td>
-            <td style="color:black" class="grey">状态</td>
             </thead>
             <tbody>
            
@@ -274,10 +282,10 @@
     </div>
  <!--新增界面-->
     <div id='add_modal' class="hide" style="padding: 30px 30px 30px 30px;">
-        <table width="100%" style="border-left: 0px;border-right: 0px;">
+        <table width="100%" style="border-left: 0px;border-right: 0px;" id="add_modal_table1">
             <tr>
                 <td class="grey" width="20%">出库单编号</td>
-                <td id="code" width="40%"></td>
+                <td width="40%"></td>
                 <td class="grey" width="20%">产品型号</td>
                 <td width="20%" >
                     <select id="add_select_rawType" class="s_center">
@@ -298,8 +306,8 @@
                     <select id="add_select_processCode" class="s_center">
                     </select> 
                 </td>
-                <td class="grey">/</td>
-                <td></td>
+                <td class="grey">接收单位</td>
+                <td><select id="add_company"></select></td>
             </tr>
             <tr>
                 <td class="grey">申请时间</td>
@@ -323,7 +331,6 @@
                 <td style="color:black" class="grey">成品批号</td>
                 <td style="color:black" class="grey">单位</td>
                 <td style="color:black" class="grey">数量</td>
-                <td style="color:black" class="grey" >状态</td>
             </tr>
             </thead>
             
@@ -414,8 +421,8 @@
                     <select id="editor_select_processCode" class="s_center">
                     </select> 
                 </td>
-                <td class="grey">/</td>
-                <td></td>
+                <td class="grey">接收单位</td>
+                <td><select id="editor_company"></select></td>
             </tr>
             <tr>
                 <td class="grey">申请时间</td>
@@ -439,7 +446,6 @@
                 <td class="normal_td">成品批号</td>
                 <td class="normal_td">单位</td>
                 <td class="normal_td">数量</td>
-                <td class="normal_td">状态</td>
             </tr>
            </thead>
             <!--<tr>

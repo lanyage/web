@@ -22,7 +22,7 @@ var pro_out_manage = {
                 $("#rawType_Code").html("<option value='-1'>选择产品型号</option>")
                 items.forEach(function(e){
                     $("#rawType_Code").append(
-                        "<option value="+e.code+">"+e.code+"</option>"
+                        "<option value="+e.code+">"+e.name+"</option>"
                     )
                 })  
             })
@@ -101,17 +101,24 @@ var pro_out_manage = {
                     "<tr>" +
                     "<td><input type='checkbox' class='product_out_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (length++) + "</td>" +
-                    "<td>" + (e.rawType ? e.rawType.code : null) + "</td>" +
+                    "<td>" + (e.rawType ? e.rawType.name : null) + "</td>" +
                     "<td>" + (new Date(e.applyTime).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + (e.processManage ? e.processManage.code : null) + "</td>" +
+                    "<td>" + (e.company ? e.company.name : null) + "</td>" +
                     "<td>" + e.auditStatus + "</td>" +
-                    "<td><a href=\"#\" class='verify'id='verify-" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
+                    "<td><a href=\"#\" class='verify' id='verify-" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
                     "<td><a href=\"#\" class='delete' id='delete-" + (code) + "'><i class='fa fa-times-circle-o'></a></td>" +
                     "</tr>"
                 )
                 $tbody.append(content)
+                if(e.auditStatus!=0){
+                    $("#editor-"+code+"").removeClass('editor').addClass('disableHref')
+                    $("#delete-"+code+"").removeClass('delete').addClass('disableHref')
+                }
+                if(e.auditStatus===2||e.auditStatus===3){
+                    $("#verify-"+code+"").removeClass('verify').addClass('disableHref')
+                }
             })
             // /** 绑定全选事件 */
             // mat_out_manage.funcs.checkboxEventBinding()
@@ -173,13 +180,14 @@ var pro_out_manage = {
                             transportMode : transportMode,
                             createDate: nowTime,
                             processManage :{code : $('#add_select_processCode').val()},
-                            auditStatus : 1,
+                            auditStatus : 0,
                             outStatus: 0,
                             sender:{code : userJson.code},
                             sendTime:new Date().getTime(),
                             applicant:{code : userJson.code},
                             applyTime:time,
                             weight : total_amount,
+                            company:{code:$("#add_company").val()},
                             productSends : []
                         }
                         data.productSends = productSends
@@ -221,16 +229,25 @@ var pro_out_manage = {
         }
 
         ,fill_add_data:function(div){
+            $("#add_select_rawType").empty()
+            $("#add_company").empty()
+            $("#add_select_rawType").html("<option value='-1'>请选择公司类型</option>")
+            $.get(servers.backup()+'company/getAll',{},function(result){
+                var res = result.data
+                res.forEach(function(e){
+                    $("#add_company").append('<option value='+e.code+'>'+e.name+'</option>')
+                })
+            })
             $.get(home.urls.productOut.getAllrawType(),{}, function(result) {
                 var items = result.data
                 $("#add_select_rawType").html("<option value='-1'>请选择产品型号</option>")
                 items.forEach(function(e){
                     $("#add_select_rawType").append(
-                        "<option value="+e.code+">"+e.code+"</option>"
+                        "<option value="+e.code+">"+e.name+"</option>"
                     )
                 })  
             })
-
+            $("#add_select_processCode").empty()
             $.get(home.urls.check.getAll(), {}, function (result) {
                 var value = result.data
                 var length = value.length
@@ -278,7 +295,7 @@ var pro_out_manage = {
                                     "<tr>"+
                                     "<td><input type='checkbox' class='delete_checkbox' /></td>" +
                                     "<td>"+ (length) +"</td><td>"+ (e.eq(1).text()) + "</td>"+
-                                    "<td>"+(e.eq(3).text()) + "</td>"+ "<td>"+ (e.eq(2).text()) + "</td><td>" + (e.eq(4).text()) + "</td>"+
+                                    "<td>"+(e.eq(3).text()) + "</td>"+ "<td>"+ (e.eq(2).text()) + "</td>"+
                                     "</tr>"
                                  )
                                  length += 1
@@ -407,8 +424,8 @@ var pro_out_manage = {
             })
 
             $("#code1").text(items.code)
-            $("#rawType1").text(items.rawType?items.rawType.code:' ')
-            $("#department1").text(items.applicant?items.applicant.department.name:' ')
+            $("#rawType1").text(items.rawType?items.rawType.name:' ')
+            $("#verify_company").text(items.company?items.company.name:' ')
             $("#weight1").text(total_amount)
             $("#sender1").text(items.sender?items.sender.name:' ')
             $("#applicant1").text(items.applicant?items.applicant.name:' ')
@@ -481,19 +498,20 @@ var pro_out_manage = {
             productSends = items.productSends
             var $tbody = $("#detail_modal2").children('tbody')
             $tbody.empty() //清空表格
+            var i = 1
             productSends.forEach(function(e){
                 total_amount =+ e.weight
                 $tbody.append(
                     "<tr>"+
-                    "<td>"+ (e.code?e.code:' ') +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
-                    "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td><td>" + (e.status?e.status:'null') + "</td>"+
+                    "<td>"+ (i++) +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
+                    "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td>"+
                     "</tr>"
             );
             })
 
             $("#code").text(items.code)
-            $("#rawType").text(items.rawType?items.rawType.code:' ')
-            $("#department").text(items.department?items.department.name:' ')
+            $("#rawType").text(items.rawType?items.rawType.name:' ')
+            $("#detail_company").text(items.company?items.company.name:' ')
             $("#weight").text(total_amount)
             $("#sender").text(items.sender?items.sender.name:' ')
             $("#applicant").text(items.applicant?items.applicant.name:' ')
@@ -546,7 +564,8 @@ var pro_out_manage = {
                             var e = $(this).parent('td').parent('tr').children('td')
                             total_amount += e.eq(4).text()
                             productSends.push({
-                            code : e.eq(1).text(),
+                            //code : e.eq(1).text(),
+                            'productSendHeader.code':codeNumber,
                             batchNumber : e.eq(2).text(),
                             unit : e.eq(3).text(),
                             weight : e.eq(4).text(),
@@ -701,10 +720,9 @@ var pro_out_manage = {
                                     "<tr>"+
                                     "<td><input type='checkbox' class='delete_checkbox' /></td>" +
                                     "<td>"+ (length) +"</td><td>"+ (e.eq(1).text()) + "</td>"+
-                                    "<td>"+(e.eq(3).text()) + "</td>"+ "<td>"+ (e.eq(2).text()) + "</td><td>" + (e.eq(4).text()) + "</td>"+
+                                    "<td>"+(e.eq(3).text()) + "</td>"+ "<td>"+ (e.eq(2).text()) + "</td>"+
                                     "</tr>"
                                  )
-                                 length += 1
                              }
                          })
                          $('#total_amount').text(total_amount)
@@ -731,18 +749,36 @@ var pro_out_manage = {
         }
 
         ,fill_edit_data:function(div,items){
+            $("#editor_company").empty()
+            if(items.company!=null){
+                $("#editor_company").append("<option value="+items.company.code+">"+items.company.name+"</option>")
+                $.get(servers.backup()+'company/getAll',{},function(result){
+                    company = result.data
+                    company.forEach(function(e){
+                        if(items.company.code!=e.code){
+                            $("#editor_company").append("<option value="+e.code+">"+e.name+"</option>")
+                        }
+                    })
+                })
+            }
+            else{
+                company.forEach(function(e){
+                    $("#editor_company").append("<option value="+e.code+">"+e.name+"</option>")
+                })
+            }
             var total_amount = 0
             var productSends = items.productSends
             //console.log(productSends)
             var $tbody = $("#editor_table2").children('tbody')
             $tbody.empty() //清空表格
+            var i = 1
             productSends.forEach(function(e){
                 total_amount += e.weight
                 $tbody.append(
                     "<tr>"+
                     "<td><input type='checkbox' class='delete_checkbox' id='e.code'/></td>" +
-                    "<td>"+ (e.code?e.code:' ') +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
-                    "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td><td>" + (e.status?e.status:' ') + "</td>"+
+                    "<td>"+ (i++) +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
+                    "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td>"+
                     "</tr>"
             );
             })
@@ -752,23 +788,24 @@ var pro_out_manage = {
             $("#in_time").text(items.sendTime?new Date(items.sendTime).Format('yyyy-MM-dd'):' ')
             $('#total_amount').text(total_amount)
 
-            $.get(home.urls.productOut.getAllrawType(),{}, function(result) {
-                var items = result.data
-                $("#editor_select_rawType").html("<option value='-1'>请选择产品型号</option>")
-                items.forEach(function(e){
-                    $("#editor_select_rawType").append(
-                        "<option value="+e.code+">"+e.code+"</option>"
-                    )
+            $("#editor_select_rawType").html("<option value="+items.rawType.code+">"+items.rawType.name+"</option>")
+            $.get(servers.backup()+'rawType/getAll',{},function(result){
+                var rawType = result.data
+                rawType.forEach(function(e){
+                    if(items.rawType.code!=e.code){
+                        $("#editor_select_rawType").append("<option value="+e.code+">"+e.name+"</option>")
+                    }
                 })  
             })
-
+            $("#editor_select_processCode").html("<option value="+items.processManage.code+">"+items.processManage.name+"</option>")
             $.get(home.urls.check.getAll(), {}, function (result) {
                 var value = result.data
                 var length = value.length
-                $("#editor_select_processCode").html("<option value='-1'>请选择流程类型</option>")
                 for (var i = 0; i < length; i++) {
-                    var text = value[i].name
+                    if(items.processManage.code!=value[i].code){
+                        var text = value[i].name
                     $("#editor_select_processCode").append("<option id='" + value[i].code + "' value='" + value[i].code + "'>" + text + "</option>");
+                    }
                 }
             })
 
@@ -956,8 +993,6 @@ var pro_out_manage = {
             searchBtn.off('click').on('click',function(){
                 var rawType = $("#edit_add_select option:selected").val()
                 var batch_Number = $("#product_batch_number_input").val()
-                console.log("rawType",rawType)
-                console.log("batch_Number",batch_Number)
                 $.post(home.urls.productOut.getDetail(),{
                     rawTypeCode:rawType,
                     batchNumber:batch_Number

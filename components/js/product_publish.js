@@ -55,7 +55,7 @@ var product_publish = {
                     "<tr id='product-publish-" + (e.code) + "'>" +
                     "<td>" + product_publish.funcs.getIcon(product_publish.status, e.code) + "</i></td>" +
                     "<td>" + (e.publisher ? e.publisher.name : null) + "</td>" +
-                    "<td>" + (new Date(e.publishDate).Format('yyyy/MM/dd')) + "</td>" +
+                    "<td>" + (new Date(e.testDate).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.batchNumber) + "</td>" +
                     "<td>" + (e.judge ? e.judge.name : null) + "</td>" +
                     "<td>" + (e.number) + "</td>" +
@@ -267,7 +267,7 @@ var product_publish = {
                 " <tr> <td colspan='2'>批号</td><td>检测日期</td> <td>数量(t)</td> <td>判定</td> <td></td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + (product.batchNumber) + "</td><td>" + (new Date(product.testDate).Format('yyyy/MM/dd')) + "</td> <td>" + (product.number) + "</td> <td>" + (product.judge ? product.judge.name : null) + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>" + (product.batchNumber) + "</td><td>" + (new Date(product.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + (product.number) + "</td> <td>" + (product.judge ? product.judge.name : null) + "</td> <td></td> </tr>" +
                 " </tbody>" +
                 "<thead>" +
                 " <tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td> <td></td> </tr>" +

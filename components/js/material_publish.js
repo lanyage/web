@@ -178,10 +178,10 @@ var material_publish = {
                     "<tr id='material-publish-" + (e.code) + "'>" +
                     "<td>" + material_publish.funcs.getIcon(status, e.code) + "</i></td>" +
                     "<td>" + material_publish.funcs.getPublisher(e.publisher) + "</td>" +
-                    "<td>" + material_publish.funcs.formatDate(e.testDate) + "</td>" +
+                    "<td>" + new Date(e.testDate).Format('yyyy-MM-dd') + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
                     "<td>" + e.insideCode + "</td>" +
-                    "<td>" + material_publish.funcs.formatDate(e.productDate) + "</td>" +
+                    "<td>" + new Date(e.productDate).Format('yyyy-MM-dd') + "</td>" +
                     "<td>" + e.number + "</td>" +
                     "<td>" + (e.judge ? e.judge.name : null) + "</td>" +
 
@@ -223,10 +223,9 @@ var material_publish = {
                     "<tr id='material-publish-" + (e.code) + "'>" +
                     "<td>" + material_publish.funcs.getIcon(status, e.code) + "</i></td>" +
                     "<td>" + material_publish.funcs.getPublisher(e.publisher) + "</td>" +
-                    "<td>" + material_publish.funcs.formatDate(e.testDate) + "</td>" +
+                    "<td>" + new Date(e.testDate).Format('yyyy-MM-dd')+ "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
-
-                    "<td>" + material_publish.funcs.formatDate(e.productDate) + "</td>" +
+                    "<td>" + new Date(e.productDate).Format('yyyy-MM-dd') + "</td>" +
                     "<td>" + (e.judge ? e.judge.name : null) + "</td>" +
                     "<td>" + e.number + "</td>" +
                     "<td>" + e.c1 + "</td>" +
@@ -506,7 +505,7 @@ var material_publish = {
                 "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + presoma.batchNumber + "</td> <td>" + material_publish.funcs.formatDate(presoma.testDate) + "</td> <td>" + presoma.number + "</td> <td>" + (presoma.judge?presoma.judge.name:'无') + "</td></tr>" +
+                "<tr> <td colspan='2'>" + presoma.batchNumber + "</td> <td>" + new Date(presoma.testDate).Format('yyyy-MM-dd') + "</td> <td>" + presoma.number + "</td> <td>" + (presoma.judge?presoma.judge.name:'无') + "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
@@ -565,7 +564,7 @@ var material_publish = {
                 "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + lithium.batchNumber + "</td> <td>" + material_publish.funcs.formatDate(lithium.testDate) + "</td> <td>" + lithium.number + "</td> <td>" + lithium.judge.name + "</td></tr>" +
+                "<tr> <td colspan='2'>" + lithium.batchNumber + "</td> <td>" + new Date(lithium.testDate).Format('yyyy-MM-dd') + "</td> <td>" + lithium.number + "</td> <td>" + lithium.judge.name + "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +

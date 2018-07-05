@@ -516,9 +516,9 @@ var audit_record = {
          bindSearchEventListener: function (searchBtn) {
              searchBtn.off('click')
              searchBtn.on('click', function () {
-                 var equipmentCode = $('#input_batch_num').val();
-                 $.post(home.urls.audit.getByBatchNumberLikeByPage(), {
-                    equipmentCode: equipmentCode
+                 var confirm = $('#input_batch_num').val();
+                 $.post(home.urls.audit.getByConfirm(), {
+                    confirm: confirm
                  }, function (result) {
                      var items = result.data.content //获取数据
                      page = result.data
@@ -529,9 +529,8 @@ var audit_record = {
                          , count: 10 * page.totalPages//数据总数
                          , jump: function (obj, first) {
                              if (!first) {
-                                 $.post(home.urls.audit.getByBatchNumberLikeByPage(), {
-                                    equipmentCode
-                                    : equipmentCode,
+                                 $.post(home.urls.audit.getByConfirm(), {
+                                    confirm: confirm,
                                      page: obj.curr - 1,
                                      size: obj.limit
                                  }, function (result) {

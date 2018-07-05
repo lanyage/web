@@ -164,7 +164,7 @@ var Production_process = {
                     "<tr id='Production-process-" + (e.code) + "'>" +
                     "<td style='color:black'>"+ Production_process.funcs.getIcon(status, e.code) +"</td>"+
                     "<td style='color:black'>"+ (e.publisher ? e.publisher.name : '无') +"</td>"+
-                    "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy/MM/dd'))  +"</td>"+
+                    "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy-MM-dd'))  +"</td>"+
                     "<td style='color:black'>"+ e.batchNumber +"</td>"+
                     "<td style='color:black'>"+ e.type +"</td>"+
                     "<td style='color:black'>"+e.lithiumSoluble +"</td>"+
@@ -193,7 +193,7 @@ var Production_process = {
                     "<tr id='Production-process-" + (e.code) + "'>" +
                     "<td style='color:black'>"+ Production_process.funcs.getIcon(status, e.code) +"</td>"+
                         "<td style='color:black'>"+ (e.publisher ? e.publisher.name : '无') +"</td>"+
-                        "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy/MM/dd'))  +"</td>"+
+                        "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy-MM-dd'))  +"</td>"+
                         "<td style='color:black'>"+ e.batchNumber +"</td>"+
                         "<td style='color:black'>"+ e.furnaceNum +"</td>"+
                         "<td style='color:black'>"+ e.pc1 +"</td>"+
@@ -223,13 +223,13 @@ var Production_process = {
                     "<tr id='Production-process-" + (e.code) + "'>" +
                        "<td style='color:black'>"+ Production_process.funcs.getIcon(status, e.code) +"</td>"+
                        "<td style='color:black'>"+ (e.publisher ? e.publisher.name : '无') +"</td>"+
-                       "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy/MM/dd'))  +"</td>"+
+                       "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy-MM-dd'))  +"</td>"+
                        "<td style='color:black'>"+ e.batchNumber +"</td>"+
                        "<td style='color:black'>"+ e.pc1 +"</td>"+
                        "<td style='color:black'>"+ e.pc2 +"</td>"+
                        "<td style='color:black'>"+ e.pc3 +"</td>"+
                        "<td></td>"+
-                       "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy/MM/dd'))  +"</td>"+
+                       "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy-MM-dd'))  +"</td>"+
                        "<td style='color:black'>"+ e.batchNumber +"</td>"+
                        "<td style='color:black'>"+ e.pc1 +"</td>"+
                        "<td style='color:black'>"+ e.pc2 +"</td>"+
@@ -250,7 +250,7 @@ var Production_process = {
                     "<tr id='Production-process-" + (e.code) + "'>" +
                     "<td style='color:black'>"+  Production_process.funcs.getIcon(status, e.code) +"</td>"+
                         "<td style='color:black'>"+ (e.publisher ? e.publisher.name : '无') +"</td>"+
-                        "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy/MM/dd'))  +"</td>"+
+                        "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy-MM-dd'))  +"</td>"+
                         "<td style='color:black'>"+ e.batchNumber +"</td>"+
                         "<td style='color:black'>"+ e.furnaceNum +"</td>"+
                         "<td style='color:black'>"+ e.pc1 +"</td>"+
@@ -276,7 +276,7 @@ var Production_process = {
                 "<tr> <td>批号</td> <td>检测日期</td> <td>预混</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td>" + premix.batchNumber + "</td> <td>" + Production_process.funcs.formatDate(premix.testDate) + "</td> <td>" + premix.type + "</td> </tr>" +
+                "<tr> <td>" + premix.batchNumber + "</td> <td>" + new Date(premix.testDate).Format('yyyy-MM-dd') + "</td> <td>" + premix.type + "</td> </tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td>审核状态</td> <td>审核人</td> <td></td> </tr>" +
@@ -309,7 +309,7 @@ var Production_process = {
                 "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>炉号</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + size.batchNumber + "</td> <td>" + Production_process.funcs.formatDate(size.testDate) + "</td> <td>" + size.furnaceNum + "</td> </tr>" +
+                "<tr> <td colspan='2'>" + size.batchNumber + "</td> <td>" + new Date(size.testDate).Format('yyyy-MM-dd')+ "</td> <td>" + size.furnaceNum + "</td> </tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> </tr>" +
@@ -343,7 +343,7 @@ var Production_process = {
                 "<tr> <td>批号</td> <td>检测日期</td> <td>炉号</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td>" + lithium.batchNumber + "</td> <td>" + Production_process.funcs.formatDate(lithium.testDate) + "</td> <td>" + lithium.furnaceNum + "</td> </tr>" +
+                "<tr> <td>" + lithium.batchNumber + "</td> <td>" + new Date(lithium.testDate).Format('yyyy-MM-dd') + "</td> <td>" + lithium.furnaceNum + "</td> </tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td>审核状态</td> <td>审核人</td> <td></td> </tr>" +
@@ -370,7 +370,7 @@ var Production_process = {
                 "<tr> <td>批号</td> <td>检测日期</td> <td>炉号</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td>" + buckle.batchNumber + "</td> <td>" + Production_process.funcs.formatDate(buckle.testDate) + "</td> <td>" + buckle.furnaceNum + "</td> </tr>" +
+                "<tr> <td>" + buckle.batchNumber + "</td> <td>" + new Date(buckle.testDate).Format('yyyy-MM-dd')+ "</td> <td>" + buckle.furnaceNum + "</td> </tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td>审核状态</td> <td>审核人</td> <td></td> </tr>" +

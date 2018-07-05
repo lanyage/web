@@ -2,14 +2,24 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <style>
-           #copper_detection_table td{
-               width:30px;
-               padding:5;
+           #iron_remove_table, #iron_remove_table1 {
+               width: 1410px;
+               margin:0 auto;
            }
-           #copper_detection_table1 td{
-               width:30px;
-               padding:5px;
+           #iron_remove_table td{
+               width: 30px;
            }
+           #iron_remove_table1 td{
+               width: 30px;
+           }
+          
+           #add_modal input{
+               text-align: center;
+           }
+           #add_modal p{
+               padding:5px 0px 5px 0px;
+           }
+          
         </style>
         <div class="block-quote">
             <div class="fl">
@@ -26,287 +36,256 @@
                 </p>
             </div>
         </div>
-        <div class="whitespace" ></div>
-        <table id="copper_detection_table" style="width: 100%;">
-                <tr class="grey">
-                    <td colspan="2">序号</td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                    <td>7</td>
-                    <td>8</td>
-                    <td>9</td>
-                    <td>10</td>
-                    <td>11</td>
-                    <td>12</td>
-                    <td>13</td>
-                    <td>14</td>
-                    <td>15</td>
-                    <td>16</td>
-                </tr>
-                <tr>
-                    <td colspan="2">批号</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                     <td rowspan="2">生产</td>
-                     <td>日期</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
-                 <tr>
-                     <td>班次</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
-                 <tr>
-                    <td colspan="2">重量</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                     <td colspan="2">比例</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
-                <tr>
-                    <td colspan="2">记录人</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table> 
-            <div class="whitespace" ></div>
-            <table id="copper_detection_table1" style="width: 100%;">
-                <tr class="grey">
-                    <td colspan="2">序号</td>
-                    <td>17</td>
-                    <td>18</td>
-                    <td>19</td>
-                    <td>20</td>
-                    <td>21</td>
-                    <td>22</td>
-                    <td>23</td>
-                    <td>24</td>
-                    <td>25</td>
-                    <td>26</td>
-                    <td>27</td>
-                    <td>28</td>
-                    <td>29</td>
-                    <td>30</td>
-                    <td>31</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="2">批号</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                     <td rowspan="2">生产</td>
-                     <td>日期</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
-                 <tr>
-                     <td>班次</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
-                 <tr>
-                    <td colspan="2">重量</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                     <td colspan="2">比例</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
-                <tr>
-                    <td colspan="2">记录人</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
     
-        <div id="copper_detection_page" ></div>
-       <!-- <script src="../components/js/copper_detection.js"></script>
+        <div class="whitespace" ></div>
+       <table id="iron_remove_table" >
+           <tr class="grey">
+               <td>序号</td>
+               <td id="col_1">1</td>
+               <td id="col_2">2</td>
+               <td id="col_3">3</td>
+               <td id="col_4">4</td>
+               <td id="col_5">5</td>
+               <td id="col_6">6</td>
+               <td id="col_7">7</td>
+               <td id="col_8">8</td>
+               <td id="col_9">9</td>
+               <td id="col_10">10</td>
+               <td id="col_11">11</td>
+               <td id="col_12">12</td>
+               <td id="col_13">13</td>
+               <td id="col_14">14</td>
+               <td id="col_15">15</td>
+               <td id="col_16">16</td>
+           </tr>
+         <tr id="row1">
+               <td>批号</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+           </tr>
+            <tr id="row2">
+                <td>班次</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="row3">
+               <td>重量</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+           </tr>
+           <tr id="row4">
+                <td>比例</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+           <tr id="row5">
+               <td>记录人</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+           </tr>
+       </table> 
+       <div class="whitespace" ></div>
+       <table id="iron_remove_table1">
+           <tr class="grey">
+               <td>序号</td>
+               <td id="col_17">17</td>
+               <td id="col_18">18</td>
+               <td id="col_19">19</td>
+               <td id="col_20">20</td>
+               <td id="col_21">21</td>
+               <td id="col_22">22</td>
+               <td id="col_23">23</td>
+               <td id="col_24">24</td>
+               <td id="col_25">25</td>
+               <td id="col_26">26</td>
+               <td id="col_27">27</td>
+               <td id="col_28">28</td>
+               <td id="col_29">29</td>
+               <td id="col_30">30</td>
+               <td id="col_31">31</td>
+               <td></td>
+        </tr>
+         <tr id="row11">
+             <td>批号</td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>   
+        </tr>
+        <tr id="row12">
+            <td>班次</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>     
+        </tr>
+        <tr id="row13">
+            <td>重量</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+       </tr>
+       <tr id="row14">
+            <td>比例</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr id="row15">
+            <td>记录人</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>  
+       </table>
+     
+        <!--<div id="iron_remove_page" ></div>-->
+        <script src="../components/js/copper_remove.js"></script>
         <script type="application/javascript">
             $(function () {
-                copper_detection.init()
+                iron_remove.init()
             })
-        </script>-->
+        </script>
+        <div id="add_modal" style='text-align: center;padding-top: 10px;' class="hide">
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批号:<input type="text" id="batchNumber"/></p>
+            <p>生产日期:<input type="date" id="date" style='width:183px;'/></p>
+            <p>生产班次:<select id="dutyCode"style='width:183px;' ></select></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重量:<input type="text" id="weight"/></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比例:<input type="text" id="proportion"/></p>
+            <p>&nbsp;&nbsp;记录人:<select id="rescorderCode" style='width:183px;'></select></p>
+        </div>
        
 </div>

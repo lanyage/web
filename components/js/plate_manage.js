@@ -54,11 +54,12 @@ var plate_manage={
         },
         renderHandler: function ($tbody, items) {
         $tbody.empty() //清空表格
+        var i = 1
         items.forEach(function (e) {
             var code = e.code
             var content = (
                 "<tr>" +
-                "<td>" + e.code + "</td>" +
+                "<td>" + (i++) + "</td>" +
                 "<td>" + (e.rawType.material.name) + "</td>" +
                 "<td>" + (e.rawType.name) + "</td>" +
                 "<td>" + (e.weight) + "</td>" +

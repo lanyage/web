@@ -64,7 +64,7 @@ var bowl_abnormal = {
                     "<td><input type='checkbox' class='bowl_abnormal_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (i++) + "</td>" +
                     "<td>" + (new Date(e.date).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + (e.dutyCode?e.dutyCode.code:' ') + "</td>" +
+                    "<td>" + (e.dutyCode?e.dutyCode.name:' ') + "</td>" +
                     "<td>" + (new Date(e.time).Format('yyyy-MM-dd hh:mm:ss')) + "</td>" +
                     "<td>" + (e.bowlCode ? e.bowlCode : ' ') + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
@@ -94,7 +94,7 @@ var bowl_abnormal = {
                     code:code
                 },function (res) {
                     var items = res.data
-                    $('#dutyCode').text(items.dutyCode?items.dutyCode.code:' ')
+                    $('#dutyCode').text(items.dutyCode?items.dutyCode.name:' ')
                     $('#Time').text(new Date(items.time).Format('yyyy-MM-dd hh:mm:ss'))
                     $('#bowlCode').text(items.bowlCode)
                     $('#top').text(items.top)
@@ -132,8 +132,10 @@ var bowl_abnormal = {
                     code:code
                 },function (res) {
                     var items = res.data
-                    console.log(items)
-                    $('#dutyCode1').val(items.dutyCode?items.dutyCode.code:' ')
+                    //console.log(items)
+                    $('#dutyCode1').empty()
+                    
+                    //$('#dutyCode1').val(items.dutyCode?items.dutyCode.code:' ')
                     $('#Time1').val(new Date(items.time).Format('yyyy-MM-dd hh:mm:ss'))
                     $('#bowlCode1').val(items.bowlCode)
                     $('#top1').val(items.top)
@@ -147,17 +149,30 @@ var bowl_abnormal = {
                     $("#operator1").append("<option value="+items.operator.code+">"+items.operator.name+"</option>")
                     $("#checker1").append("<option value="+items.checker.code+">"+items.checker.name+"</option>")
                     $('#editor_time').text(new Date().Format('yyyy-MM-dd'))   
+                    if(items.dutyCode!=null){
+                        $('#dutyCode1').append("<option value="+items.dutyCode.code+">"+items.dutyCode.name+"</option>")
+                        $.get(servers.backup()+"duty/getAll",{ },function(result){
+                            duty = result.data
+                            duty.forEach(function(e){
+                                 if(items.dutyCode.code!=e.code){
+                                $("#dutyCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
+                            }
+                            })                       
+                        })
+                    }else{
+                        duty.forEach(function(e){
+                            $("#dutyCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
+                        })
+                    }
                     $.get(servers.backup()+"user/getAll",{ },function(result){
                         users = result.data
                         users.forEach(function(e){
                             if(items.operator.code!=users.code){
-                                $("#operator1").append(
-                                "<option value="+(e.code)+">"+e.name+"</option>"
+                                $("#operator1").append("<option value="+(e.code)+">"+e.name+"</option>"
                             )
                             }
                             if(items.checker.code!=users.code){
-                                $("#checker1").append(
-                                "<option value="+(e.code)+">"+e.name+"</option>"
+                                $("#checker1").append("<option value="+(e.code)+">"+e.name+"</option>"
                             )
                             }
                             
@@ -311,7 +326,7 @@ var bowl_abnormal = {
          }
          ,bindAddEvent:function(addBtn){
              addBtn.off('click').on('click',function(){
-                $('#dutyCode1').val(' ')
+                $('#dutyCode1').empty()
                 $('#Time1').val('')
                 $('#bowlCode1').val('')
                 $('#top1').val('')
@@ -323,6 +338,9 @@ var bowl_abnormal = {
                 $('#addWeight1').val('')
                 $("#reduceWeight1").val('')
                 $('#editor_time').text(new Date().Format('yyyy-MM-dd')) 
+                duty.forEach(function(e){
+                    $("#dutyCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
+                })
                 $.get(servers.backup()+"user/getAll",{ },function(result){
                     users = result.data
                     users.forEach(function(e){
