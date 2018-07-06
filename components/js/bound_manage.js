@@ -71,7 +71,7 @@ var bound_manage = {
 						"<p style='padding: 5px 0px 5px 0px;'>3位标准差下界:<input type='text' id='down_standard'/></p>" +
 						"</div>" +
 						"</div>",
-					area: ['350px', '350px'],
+					area: ['350px', '400px'],
 					btn: ['确认', '取消'],
 					offset: ['40%', '45%'],
 					yes: function(index) {
@@ -276,6 +276,25 @@ var bound_manage = {
 						code: boundCode
 					}, function(result) {
 						var bound = result.data
+						if(bound.indicator!=null){
+							//$("#indicator_code").append("<option value="+bound.indicator.code+">"+bound.indicator.name+"</option>")
+							$.get(servers.backup()+'indicator/getAll',{},function(result){
+								var res = result.data
+								res.forEach(function(e){
+									if(bound.indicator.code!=e.code){
+										$("#indicator_code").append("<option value="+e.code+">"+e.name+"</option>")
+									}
+								})
+							})
+						}else{
+							$.get(servers.backup()+'indicator/getAll',{},function(result){
+								var res = result.data
+								res.forEach(function(e){
+									$("#indicator_code").append("<option value="+e.code+">"+e.name+"</option>")
+								})
+							})
+						}
+						
 						layer.open({
 							type: 1,
 							title: '编辑',
@@ -283,15 +302,15 @@ var bound_manage = {
 								"<div style='text-align: center;padding-top: 10px;'>" +
 								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编码:<input type='text' id='code' value='" + (bound.code) + "'/></p>" +
 								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序号:<input type='text' id='num' value='" + (bound.num) + "'/></p>" +
-								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;指标名称:<select id='indicator_code' style='width:174px;'><option value='+" + (bound.indicator && bound.indicator.code || '') + "'>" + (bound.indicator && bound.indicator.name || '') + "</option></select></p>" +
+								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;指标名称:<select id='indicator_code' style='width:174px;'><option value=" + (bound.indicator && bound.indicator.code || '') + ">" + (bound.indicator && bound.indicator.name || '') + "</option></select></p>" +
 								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上界:<input type='text' id='upper' value='" + (bound.upperBound) + "'/></p>" +
-								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上界:<input type='text' id='down' value='" + (bound.downBound) + "'/></p>" +
+								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下界:<input type='text' id='down' value='" + (bound.downBound) + "'/></p>" +
 								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;均值:<input type='text' id='mean' value='" + (bound.mean) + "'/></p>" +
 								"<p style='padding: 5px 0px 5px 0px;'>3倍标准差上界:<input type='text' id='upper_standard' value='" + (bound.upperStandardDeviation) + "'/></p>" +
 								"<p style='padding: 5px 0px 5px 0px;'>3倍标准差下界:<input type='text' id='down_standard' value='" + (bound.downStandardDeviation) + "'/></p>" +
 								"</div>" +
 								"</div>",
-							area: ['350px', '350px'],
+							area: ['350px', '400px'],
 							btn: ['确认', '取消'],
 							offset: ['40%', '45%'],
 							yes: function(index) {
@@ -330,17 +349,6 @@ var bound_manage = {
 								layer.close(index)
 							}
 						})
-
-						var indicator_select = $("#indicator_code");
-						indicator_select.empty();
-						indicator_result.forEach(function(indicator) {
-							var option = $("<option>").val(indicator.code).text(indicator.name);
-							indicator_select.append(option);
-
-							if(bound && bound.indicator && indicator.code == bound.indicator.code) {
-								indicator_select.val(indicator.code)
-							}
-						});
 					})
 				})
 			} //$ bindEditEventListener——end$

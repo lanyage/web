@@ -51,6 +51,13 @@ var byproduct = {
         bindAddEventListener: function (addBtn) {
             addBtn.off('click')
             addBtn.on('click', function () {
+                $("#indicator").empty()
+                $.get(servers.backup()+'indicator/getAll',{},function(result){
+                    res = result.data
+                    res.forEach(function(e){
+                        $("#indicator").append('<option value='+e.code+'>'+e.name+'</option>')
+                    })
+                })
                 //首先就是弹出一个弹出框
                 layer.open({
                     type: 1,
@@ -59,17 +66,20 @@ var byproduct = {
                     "<div style='text-align: center;padding-top: 10px;'>" +
                     "<p style='padding: 5px 0px 5px 0px;'>产品编码:<input type='text' id='code'/></p>" +
                     "<p style='padding: 5px 0px 5px 0px;'>产品名称:<input type='text' id='name'/></p>" +
+                    "<p style='padding: 5px 0px 5px 0px;'>指标名称:<select id='indicator' style='width:188px;'></select></p>" +
                     "</div>" +
                     "</div>",
-                    area: ['350px', '180px'],
+                    area: ['350px', '250px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
                     yes: function (index) {
                         var code = $('#code').val()
                         var name = $('#name').val()
+                        var indicator = $('#indicator').val()
                         $.post(home.urls.byproduct.add(), {
                             code: code,
-                            name: name
+                            name: name,
+                            'indicatorCode.code':indicator
                         }, function (result) {
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
@@ -253,24 +263,48 @@ var byproduct = {
                     code: byproductCode
                 }, function (result) {
                     var byproduct1 = result.data
+                    $("#indicator1").empty()
+                    if(byproduct1.indicatorCode===null){
+                        $.get(servers.backup()+'indicator/getAll',{},function(result){
+                            res = result.data
+                            res.forEach(function(e){
+                                $("#indicator1").append('<option value='+e.code+'>'+e.name+'</option>')
+                            })
+                        })
+                    }else{
+                        $("#indicator1").append("<option value="+byproduct1.indicatorCode.code+">"+byproduct1.indicatorCode.name+"</option>")
+                        //$("#indicator").html('<option value='+byproduct1.indicatorCode.code+'>'+byproduct1.indicatorCode.name+'</option>')
+                        console.log(byproduct1.indicatorCode.name)
+                        $.get(servers.backup()+'indicator/getAll',{},function(result){
+                            res = result.data
+                            res.forEach(function(e){
+                                if(byproduct1.indicatorCode.code!=e.code){
+                                    $("#indicator1").append('<option value='+e.code+'>'+e.name+'</option>')
+                            }
+                        })
+                    })
+                    }
                     layer.open({
                         type: 1,
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>产品编码:<input type='text' id='code' value='" + (byproduct1.code) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>产品名称:<input type='text' id='name' value='" + (byproduct1.name) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>产品编码:<input type='text' id='code1' value='" + (byproduct1.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>产品名称:<input type='text' id='name1' value='" + (byproduct1.name) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>指标名称:<select id='indicator1'  style='width:188px;'><option value="+byproduct1.indicatorCode.code+">"+byproduct1.indicatorCode.name+"</option></select></p>" +
                         "</div>" +
                         "</div>",
-                        area: ['350px', '180px'],
+                        area: ['350px', '250px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '45%'],
                         yes: function (index) {
-                            var code = $('#code').val()
-                            var name = $('#name').val()
+                            var code = $('#code1').val()
+                            var name = $('#name1').val()
+                            var indicator = $('#indicator1').val()
                             $.post(home.urls.byproduct.update(), {
                                 code: code,
-                                name: name
+                                name: name,
+                                'indicatorCode.code':indicator
                             }, function (result) {
                                 layer.msg(result.message, {
                                     offset: ['40%', '55%'],
@@ -302,6 +336,7 @@ var byproduct = {
                     "<td><input type='checkbox' class='checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
                     "<td>" + (e.name) + "</td>" +
+                    "<td>" + (e.indicatorCode?e.indicatorCode.name:'') + "</td>" +
                     "<td><a href='#' class='editbyproduct' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "<td><a href='#' class='deletebyproduct' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
                     "</tr>")

@@ -856,8 +856,8 @@ var home = {
             getAll: function () {
                 return servers.backup() + 'byproductCount/getAll'
             },
-            getByByproductCodeByPage: function () {
-                return servers.backup() + 'byproductCount/getByByproductCodeByPage'
+            getByByproductCodeAndYearMonth: function () {
+                return servers.backup() + 'byproductCount/getByByproductCodeAndYearMonth'
             }
         },
 
