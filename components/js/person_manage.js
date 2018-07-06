@@ -5,7 +5,6 @@ var person_manage = {
         var out = $('#personman_page').width()
         var time = setTimeout(function(){
             var inside = $('.layui-laypage').width()
-
             clearTimeout(time)
         },30)
     }//$init end$
@@ -18,7 +17,12 @@ var person_manage = {
         /** 渲染页面 */
         renderTable: function () {
             /** 获取所有的记录 */
-            $.post(home.urls.personman.getAllByPage(), {page: 0}, function (result) {
+            userStr = $.session.get('user')
+            userJson = JSON.parse(userStr)
+            supplierCode = userJson.supplier?userJson.supplier.code:null
+            //console.log(userJson)
+            if(supplierCode===null){
+            $.post(home.urls.staffman.getBySupplierTypeByPage(), {code:2}, function (result) {
                 var e = result.data.content //获取数据
                 const $tbody = $("#personman_table").children('tbody')
                 person_manage.funcs.renderHandler($tbody, e)
@@ -32,7 +36,8 @@ var person_manage = {
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
                        if(!first) {
-                           $.post(home.urls.personman.getAllByPage(), {
+                            $.post(home.urls.staffman.getBySupplierTypeByPage(), {
+                               code:2,
                                page: obj.curr - 1,
                                size: obj.limit
                            }, function (result) {
@@ -45,7 +50,38 @@ var person_manage = {
                     }
                 })
                 $('#personman_page').css('padding-left','37%')
-            })//$数据渲染完毕
+            })
+        }else{
+            $.post(home.urls.staffman.getBySupplierByPage(), {code:supplierCode}, function (result) {
+                var e = result.data.content //获取数据
+                const $tbody = $("#personman_table").children('tbody')
+                person_manage.funcs.renderHandler($tbody, e)
+                person_manage.pageSize = result.data.content.length
+                var page = result.data
+                /** @namespace page.totalPages 这是返回数据的总页码数 */
+                /** 分页信息 */
+                layui.laypage.render({
+                    elem: 'personman_page'
+                    , count: 10 * page.totalPages//数据总数
+                    /** 页面变化后的逻辑 */
+                    , jump: function (obj, first) {
+                       if(!first) {
+                            $.post(home.urls.staffman.getBySupplierByPage(), {
+                               code:supplierCode,
+                               page: obj.curr - 1,
+                               size: obj.limit
+                           }, function (result) {
+                               var e = result.data.content //获取数据
+                               const $tbody = $("#personman_table").children('tbody')
+                               person_manage.funcs.renderHandler($tbody, e)
+                               person_manage.pageSize = result.data.content.length
+                           })
+                       }
+                    }
+                })
+                $('#personman_page').css('padding-left','37%')
+            })
+        }
         }
         /** 人员信息编辑事件 */
         , bindEditEventListener: function (editBtns) {

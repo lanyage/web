@@ -30,7 +30,7 @@ var product_audit = {
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
                         if (!first) {
-                            console.log('不是首次,可以执行')
+                            //console.log('不是首次,可以执行')
                             var status = $('#status').val()
                             $.post(home.urls.product.getAllByStatusCodeByPage(), {
                                 page: obj.curr - 1,
@@ -171,7 +171,7 @@ var product_audit = {
                 product_audit.currId = "product-audit-" + productCode
 
                 $.post(home.urls.product.getByCode(), {code: productCode}, function (result) {
-                    console.log("审核" + productCode)
+                   // console.log("审核" + productCode)
                     var product = result.data
                     layer.open({
                         type: 1,
@@ -181,7 +181,7 @@ var product_audit = {
                         offset: 'auto', // ['10%', '40%'],
                         btnAlign: 'c',
                         yes: function () {
-                            console.log("提交审核" + productCode)
+                            //console.log("提交审核" + productCode)
                             $.post(home.urls.product.updateAuditByCode(), {
                                 code: productCode,
                                 auditorCode: home.user.code,     // 此处需要读取用户编号
@@ -189,7 +189,7 @@ var product_audit = {
                             }, function (result) {
                                 if (result.code == 0) {
                                     // 成功
-                                    console.log("审核成功" + productCode);
+                                    //console.log("审核成功" + productCode);
                                     layer.open({
                                         type: 1,
                                         content: "<div class='align_middle'>" + "审核成功" + "</div>",
@@ -204,7 +204,7 @@ var product_audit = {
                                     });
                                 } else {
                                     // 失败
-                                    console.log("审核失败" + result.message);
+                                   // console.log("审核失败" + result.message);
                                     layer.open({
                                         type: 1,
                                         content: "<div class='align_middle'>" + "失败<br>" + result.message + "</div>",
@@ -243,7 +243,7 @@ var product_audit = {
                     layer.open({
                         type: 1,
                         content: product_audit.funcs.getData(product),
-                        area: ['530px', '700px'],
+                        area: ['590px', '700px'],
                         btn: ['关闭'],
                         offset: 'auto',   // ['10%', '40%'],
                         btnAlign: 'c',
@@ -377,12 +377,10 @@ var product_audit = {
         bindLeftBtn: function (leftBtn) {
             leftBtn.off('click');
             leftBtn.on('click', function () {
-                console.log("左");
                 var $table = $('#product_table');
                 var firstId = $($table.children('tbody').children('tr')[0]).attr('id');
                 if (firstId != product_audit.currId) {
                     var prevCode = $('#' + product_audit.currId).prev('tr').attr('id').substr(14);
-                    console.log(prevCode);
                     $.post(home.urls.product.getByCode(), {code: prevCode}, function (result) {
                         product_audit.currId = "product-audit-" + prevCode;
                         var product = result.data;
@@ -391,7 +389,6 @@ var product_audit = {
                     })
                 }
                 else {
-                    console.log("First one");
                     layer.msg('已经是页面第一项', {
                         time: 1000
                     })

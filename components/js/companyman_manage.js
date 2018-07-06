@@ -16,37 +16,7 @@ var company_manage = {
             console.log(userJson)
             supplierCode = userJson.supplier?userJson.supplier.code:null
             if(supplierCode===null){
-                $.post(home.urls.firmman.getAllByPage(), {page: 0}, function (result) {
-                    var e = result.data.content //获取数据
-                    const $tbody = $("#company_table").children('tbody')
-                    company_manage.funcs.renderHandler($tbody, e)
-                    company_manage.pageSize = result.data.content.length
-                    var page = result.data
-                    /** @namespace page.totalPages 这是返回数据的总页码数 */
-                    /** 分页信息 */
-                    layui.laypage.render({
-                        elem: 'companyman_page'
-                        , count: 10 * page.totalPages//数据总数
-                        /** 页面变化后的逻辑 */
-                        , jump: function (obj, first) {
-                            if(!first){
-                                $.post(home.urls.companyman.getAllByPage(), {
-                                    page: obj.curr - 1,
-                                    size: obj.limit
-                                }, function (result) {
-                                    var e = result.data.content //获取数据
-                                    const $tbody = $("#company_table").children('tbody')
-                                    company_manage.funcs.renderHandler($tbody, e)
-                                    company_manage.pageSize = result.data.content.length
-                                })
-                            }
-                        }
-                    })
-                    $('#companyman_page').css('padding-left', '37%')
-                })
-            }else{
-                Code = userJson.supplier.supplierType.code
-                $.post(home.urls.firmman.getAllBySupplierTypeByPage(), {code:Code}, function (result) {
+                $.post(home.urls.firmman.getAllBySupplierTypeByPage(), {code: 2}, function (result) {
                     var e = result.data.content //获取数据
                     const $tbody = $("#company_table").children('tbody')
                     company_manage.funcs.renderHandler($tbody, e)
@@ -61,7 +31,7 @@ var company_manage = {
                         , jump: function (obj, first) {
                             if(!first){
                                 $.post(home.urls.firmman.getAllBySupplierTypeByPage(), {
-                                    code:Code,
+                                    code:2,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {
@@ -74,7 +44,15 @@ var company_manage = {
                         }
                     })
                     $('#companyman_page').css('padding-left', '37%')
-                })//$数据渲染完毕
+                })
+            }else{
+                Code = userJson.supplier.code
+                $.post(home.urls.firmman.getSupplierByCode(), {code:Code}, function (result) {
+                    var e = result.data //获取数据
+                    const $tbody = $("#company_table").children('tbody')
+                    company_manage.funcs.renderHandler1($tbody, e)
+                    $('#companyman_page').css('padding-left', '37%')
+                })
             }
             
         }
@@ -156,6 +134,22 @@ var company_manage = {
             })
         }//$ bindEditEventListener——end$
         /** 渲染 */
+        , renderHandler1: function ($tbody, e) {
+            $tbody.empty() //清空表格
+                $tbody.append(
+                    "<tr>" +
+                    "<td class='edit'>" + (e.code) + "</td>" +
+                    "<td class='edit'>" + (e.name) + "</td>" +
+                    "<td class='edit'>" + (e.creditCode) + "</td>" +
+                    "<td class='edit'>" + (e.address) + "</td>" +
+                    "<td class='edit'>" + (e.contactPerson) + "</td>" +
+                    "<td class='edit'>" + (e.contact) + "</td>" +
+                    "<td class='edit'>" + (e.supplierType.type) + "</td>" +
+                    "<td ><a href='#' class='editcompanyman' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                    "</tr>")
+            var editBtns = $('.editcompanyman')
+            company_manage.funcs.bindEditEventListener(editBtns)
+        }
     , renderHandler: function ($tbody, e) {
             $tbody.empty() //清空表格
             e.forEach(function (e) {

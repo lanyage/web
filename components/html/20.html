@@ -15,13 +15,13 @@
         }
         .table_style tbody td {
             margin: 0;
-            padding: 3px;
+            padding: 1px;
             border: 1px darkgrey solid;
             font-size: 10px;
             color: black;
             text-align: center;
             font-weight: 400;
-            width: 30px;
+            height:30px;
         }
 
         .table_style a {
@@ -75,7 +75,8 @@
         }
 
         .table_scroll {
-            overflow-y: auto;
+            padding:10px;
+            
             height: 600px;
         }
 
@@ -84,13 +85,19 @@
             top: 50%;
             text-align: center;
         }
+        .label_selected {
+            border-bottom: #1E9FFF 3px solid;
+            padding-bottom: 5px;
+            color: #1E9FFF;
+        }
+
     </style>
 
 
     <div class="block-quote">
         <div class="fl">
             <p style="font-size: 14px;">
-                <span style="border-bottom:#62a49a 3px solid;padding-bottom: 10px;color: #62a49a;">LY306E</span>
+                <span style="border-bottom: #1E9FFF 3px solid;padding-bottom: 10px;color: #1E9FFF;">LY306E</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="model-li-hide-select-20">
                     <select id="status">
@@ -103,13 +110,13 @@
         <div class="fr">
             <p style="color: #62a49a; font-size: 14px;" class="table_style">
                 <span id="model-li-hide-refresh-20"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
-                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="product_batch_number_input"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="product_batch_number_input"  placeholder="请输入批号"/>
                 <span id="model-li-hide-search-20"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
         </div>
     </div>
     <div class="whitespace"></div>
-    <table id="product_table" class="table_style" style="width: 100%">
+    <table id="product_table" class="table_style" style="width: 100%;">
         <thead>
         <tr style="background: #484848">
             <td rowspan="2">操作</td>

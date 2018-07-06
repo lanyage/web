@@ -1,5 +1,5 @@
 <div id='model-li-hide-23' class="display-component-container "
-     style="padding: 20px 20px 0px 20px;max-height: 100%;overflow-y: scroll;min-width: 1100px;">
+     style="padding: 20px 20px 20px 20px;max-height: 100%;overflow-y: scroll;min-width: 1120px;">
     <style type="text/css">
         .select-span {
             color: #1E9FFF;
@@ -7,14 +7,6 @@
             padding-bottom: 15px;
             cursor: hand;
         }
-
-        #_23table thead tr td {
-            color: #fff;
-            font-size: 12px;
-            font-weight: 400;
-            padding: 0;
-        }
-
         .dark-greg {
             /*background: rgba(75, 75, 75, 0.9);*/
             background: #484848;
@@ -23,10 +15,6 @@
         .light-grey {
             /*background: rgba(102, 102, 102, 0.9);*/
             background: #666666;
-        }
-
-        #_23table tbody td {
-            padding: 3px;
         }
 
         #audit_table_inner thead td {
@@ -65,14 +53,13 @@
 
         .table_style tbody td {
             margin: 0;
-            padding: 0px;
+            padding: 1px;
             border: 1px darkgrey solid;
             font-size: 10px;
             color: black;
             text-align: center;
             font-weight: 400;
-            height: 35px;
-            width: 30px;
+            height:30px;
         }
         .arrows-l {
             float: left;
@@ -88,7 +75,7 @@
         }
 
         .table_scroll {
-            overflow-y: auto;
+            padding:20px;
             height: 600px;
         }
         .align_middle {
@@ -117,12 +104,12 @@
     </div>
     <div class="whitespace"></div>
     <!--中-->
-    <table id="_23table" style="width: 100%;max-height: 526px;">
+    <table id="_23table" style="width: 100%;" class="table_style">
         <thead>
         <tr class="dark-greg">
             <td rowspan="2">操作</td>
             <td rowspan="2">发布人</td>
-            <td rowspan="2">检测日期</td>
+            <td rowspan="2" style="min-width: 78px;">检测日期</td>
             <td rowspan="2">批号</td>
             <td rowspan="2" style="min-width: 60px;">判定</td>
             <td>数量</td>

@@ -57,13 +57,27 @@ var plate_manage={
         var i = 1
         items.forEach(function (e) {
             var code = e.code
+            switch(e.status){
+                case 0:
+                    status = '正常';
+                    break;
+                case 1:
+                    status = '开始盘库';
+                    break;  
+                case 2:
+                    status = '待审核';
+                    break;
+                case 3:
+                    status = '已审核';
+                    break;    
+            }
             var content = (
                 "<tr>" +
                 "<td>" + (i++) + "</td>" +
                 "<td>" + (e.rawType.material.name) + "</td>" +
                 "<td>" + (e.rawType.name) + "</td>" +
                 "<td>" + (e.weight) + "</td>" +
-                "<td>" + e.status + "</td>" +
+                "<td>" + status + "</td>" +
                 "<td><a href=\"#\" class='detail' id='detail_" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
                 "</tr>"
             )

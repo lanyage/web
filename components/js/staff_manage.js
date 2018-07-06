@@ -12,7 +12,12 @@ var staff_manage = {
         /** 渲染页面 */
         renderTable: function () {
             /** 获取所有的记录 */
-            $.post(home.urls.staffman.getAllByPage(), {page: 0}, function (result) {
+            userStr = $.session.get('user')
+            userJson = JSON.parse(userStr)
+            supplierCode = userJson.supplier?userJson.supplier.code:null
+            //console.log(userJson)
+            if(supplierCode===null){
+            $.post(home.urls.staffman.getBySupplierTypeByPage(), {code:1}, function (result) {
                 var e = result.data.content //获取数据
                 const $tbody = $("#staffman_table").children('tbody')
                 staff_manage.funcs.renderHandler($tbody, e)
@@ -26,7 +31,8 @@ var staff_manage = {
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.staffman.getAllByPage(), {
+                            $.post(home.urls.staffman.getBySupplierTypeByPage(), {
+                                code:1,
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
@@ -39,7 +45,38 @@ var staff_manage = {
                     }
                 })
                 $('#staffman_page').css('padding-left','37%')
-            })//$数据渲染完毕
+            })
+        }else{
+            $.post(home.urls.staffman.getBySupplierByPage(), {code:supplierCode}, function (result) {
+                var e = result.data.content //获取数据
+                const $tbody = $("#staffman_table").children('tbody')
+                staff_manage.funcs.renderHandler($tbody, e)
+                staff_manage.pageSize = result.data.content.length
+                var page = result.data
+                /** @namespace page.totalPages 这是返回数据的总页码数 */
+                /** 分页信息 */
+                layui.laypage.render({
+                    elem: 'staffman_page'
+                    , count: 10 * page.totalPages//数据总数
+                    /** 页面变化后的逻辑 */
+                    , jump: function (obj, first) {
+                        if (!first) {
+                            $.post(home.urls.staffman.getBySupplierByPage(), {
+                                code:supplierCode,
+                                page: obj.curr - 1,
+                                size: obj.limit
+                            }, function (result) {
+                                var e = result.data.content //获取数据
+                                const $tbody = $("#staffman_table").children('tbody')
+                                staff_manage.funcs.renderHandler($tbody, e)
+                                staff_manage.pageSize = result.data.content.length
+                            })
+                        }
+                    }
+                })
+                $('#staffman_page').css('padding-left','37%')
+            })
+        }
         }
         /** 人员信息编辑事件 */
         , bindEditEventListener: function (editBtns) {

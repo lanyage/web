@@ -248,6 +248,9 @@ var home = {
             getAllByPage: function () {
                 return servers.backup() + 'sendEntryHeader/getAllByPage'
             },
+            getBySupplierTypeByPage: function () {
+                return servers.backup() + 'sendEntryHeader/getBySupplierTypeByPage'
+            },
             add: function () {
                 return servers.backup() + 'sendEntryHeader/add'
             },
@@ -295,6 +298,9 @@ var home = {
             getByCode: function () {
                 return servers.backup() + 'supplyInfo/supplierDetail'
             },
+            getSupplierByCode: function () {
+                return servers.backup() + 'supplier/getByCode'
+            },
             getAllBySupplierTypeByPage: function () {
                 return servers.backup() + 'supplier/getBySupplierTypeByPage'
             },
@@ -309,6 +315,12 @@ var home = {
             },
             getByCode: function () {
                 return servers.backup() + 'customer/customerDetail'
+            },
+            getBySupplierTypeByPage: function () {
+                return servers.backup() + 'customer/getBySupplierTypeByPage'
+            },
+            getBySupplierByPage: function () {
+                return servers.backup() + 'customer/getBySupplierByPage'
             },
         },
         companyman: {

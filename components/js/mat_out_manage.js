@@ -59,14 +59,35 @@ var mat_out_manage = {
             $tbody.empty() //清空表格
             for( var i=0;i<items.length;i++){
                 e=items[i];
+                var auditStatus
+                var pickingStatus
+                if(e.pickingStatus===0){
+                    pickingStatus = '待出库'
+                }else{
+                    pickingStatus = '已出库'
+                }
+                switch(e.auditStatus){
+                    case 0:
+                        auditStatus = '未提交';
+                        break;
+                    case 1:
+                        auditStatus = '待审核';
+                        break;  
+                    case 2:
+                        auditStatus = '通过';
+                        break;
+                    case 3:
+                        auditStatus = '未通过';
+                        break;    
+                }
                 $tbody.append(
                     "<tr>" +
                     "<td>" + (i+1) + "</td>" +
                     "<td>" + (e.department != null ? e.department.name : null) + "</td>" +
                     "<td>" + (new Date(e.applyDate).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.processManage ? e.processManage.name : null) + "</td>" +
-                    "<td>" + e.auditStatus + "</td>" +
-                    "<td>" + e.pickingStatus + "</td>" +
+                    "<td>" + auditStatus + "</td>" +
+                    "<td>" + pickingStatus + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "</tr>"
                 )

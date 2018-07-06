@@ -174,10 +174,10 @@ var raw_audit = {
                     "<tr id='raw-audit-" + (e.code) + "'>" +
                     "<td>" + raw_audit.funcs.getIcon(status, e.code) + "</i></td>" +
                     "<td>" + raw_audit.funcs.getAuditor(e.auditor) + "</td>" +
-                    "<td>" + raw_audit.funcs.formatDate(e.testDate) + "</td>" +
+                    "<td>" + new Date(e.testDate).Format('yyyy-MM-dd') + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
                     "<td>" + e.insideCode + "</td>" +
-                    "<td>" + raw_audit.funcs.formatDate(e.productDate) + "</td>" +
+                    "<td>" + new Date(e.productDate).Format('yyyy-MM-dd') + "</td>" +
                     "<td>" + e.number + "</td>" +
                     "<td>" + (e.judge?e.judge.name:'无') + "</td>" +
                     "<td>" + e.c1 + "</td>" +
@@ -218,9 +218,9 @@ var raw_audit = {
                     "<tr id='raw-audit-" + (e.code) + "'>" +
                     "<td>" + raw_audit.funcs.getIcon(status, e.code) + "</i></td>" +
                     "<td>" + raw_audit.funcs.getAuditor(e.auditor) + "</td>" +
-                    "<td>" + raw_audit.funcs.formatDate(e.testDate) + "</td>" +
+                    "<td>" + new Date(e.testDate).Format('yyyy-MM-dd') + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
-                    "<td>" + raw_audit.funcs.formatDate(e.productDate) + "</td>" +
+                    "<td>" + new Date(e.productDate).Format('yyyy-MM-dd') + "</td>" +
                     "<td>" + e.judge.name + "</td>" +
                     "<td>" + e.number + "</td>" +
                     "<td>" + e.c1 + "</td>" +
@@ -346,25 +346,21 @@ var raw_audit = {
                 var code = _selfBtn.attr('id').substr(6)
                 raw_audit.currId = "raw-audit-" + code
                 $.post(raw_audit.raw_type === 0 ? home.urls.rawPresoma.getByCode() : home.urls.rawLithium.getByCode(), {code: code}, function (result) {
-                    console.log("审核" + code)
                     var raw = result.data
                     layer.open({
                         type: 1,
                         content: raw_audit.funcs.getData(raw),
-                        area: ['550px', '700px'],
+                        area: ['590px', '700px'],
                         btn: ['通过审核', '取消'],
                         offset: 'auto', // ['10%', '40%'],
                         btnAlign: 'c',
                         yes: function () {
-                            console.log("提交审核" + code);
                             $.post(raw_audit.raw_type === 0 ? home.urls.rawPresoma.updateAuditByCode() : home.urls.rawLithium.updateAuditByCode(), {
                                 code: code,
                                 auditorCode: home.user.code,     // 此处需要读取用户编号
                                 statusCode: 2
                             }, function (result) {
                                 if (result.code == 0) {
-                                    // 成功
-                                    console.log("审核成功" + code);
                                     layer.open({
                                         type: 1,
                                         content: "<div class='align_middle'>" + "审核成功" + "</div>",
@@ -378,8 +374,6 @@ var raw_audit = {
                                         }
                                     });
                                 } else {
-                                    // 失败
-                                    console.log("审核失败" + result.message);
                                     layer.open({
                                         type: 1,
                                         content: "<div class='align_middle'>" + "失败<br>" + result.message + "</div>",

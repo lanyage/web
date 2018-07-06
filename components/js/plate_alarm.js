@@ -54,13 +54,24 @@ var plate_alarm= {
             var i = 1
             items.forEach(function (e) {
                 var code = e.code
+                switch(e.warnStatus){
+                    case 0:
+                        warnStatus = '正常';
+                        break;
+                    case 1:
+                        warnStatus = '高于阈值';
+                        break;  
+                    case 2:
+                        warnStatus = '低于阈值';
+                        break;  
+                }
                 var content = (
                     "<tr>" +
                     "<td>" + (i++) + "</td>" +
                     "<td>" + (e.rawType.material.name) + "</td>" +
                     "<td>" + (e.rawType.name) + "</td>" +
                     "<td>" + (e.weight) + "</td>" +
-                    "<td>" + e.warnStatus + "</td>" +
+                    "<td>" + warnStatus + "</td>" +
                     "</tr>"
                 )
                 $tbody.append(content)

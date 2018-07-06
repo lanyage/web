@@ -62,13 +62,19 @@ var product_in_manage = {
             $tbody.empty() //清空表格
             var i = 1
             items.forEach(function (e) {
+                var status 
+                if(e.status===0){
+                    status = '未入库'
+                }else{
+                    status = '已入库'
+                }
                 var content = (
                     "<tr>" +
                     "<td>" + (i++) + "</td>" +
                     "<td>" + (e.batchNumber) + "</td>" +
                     "<td>" + (e.department ? e.department.name : '') + "</td>" +
                     "<td>" + (e.payTime?new Date(e.payTime).Format('yyyy-MM-dd'):'') + "</td>" +
-                    "<td>" + (e.status) + "</td>" +
+                    "<td>" + (status) + "</td>" +
                     "<td><a href='#' class='detail' id='detail-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
                     "</tr>"
                 )

@@ -4,7 +4,7 @@
     <style type="text/css">
         .table_style thead td {
             margin: 0;
-            padding: 0;
+            padding: 1px;
             border: 1px darkgrey solid;
             font-size: 12px;
             color: white;
@@ -14,12 +14,13 @@
 
         .table_style tbody td {
             margin: 0;
-            padding: 0;
+            padding: 2px;
             border: 1px darkgrey solid;
             font-size: 12px;
             color: black;
             text-align: center;
             font-weight: 400;
+            height:30px;
         }
 
         .table_style a {
@@ -85,8 +86,7 @@
         }
 
         .table_scroll {
-            overflow-y: auto;
-            height: 600px;
+            padding:20px;
         }
 
         .align_middle {
@@ -128,7 +128,7 @@
         <div class="fr">
             <p style="color: #62a49a; font-size: 14px;">
                 <span id="model-li-hide-refresh-22"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
-                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="process_batch_number_input"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="process_batch_number_input"  placeholder="请输入批号"/>
                 <span id="model-li-hide-search-22"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>
             </p>
         </div>

@@ -18,9 +18,9 @@ var supply_manage = {
             userStr = $.session.get('user')
             userJson = JSON.parse(userStr)
             supplierCode = userJson.supplier?userJson.supplier.code:null
-            console.log(userJson)
+            //console.log(userJson)
             if(supplierCode===null){
-                $.post(home.urls.supplyman.getAllByPage(), {}, function (res) {
+                $.post(home.urls.supplyman.getBySupplierTypeByPage(), {code:1}, function (res) {
                     var $tbody = $("#supplier_table").children('tbody')
                     /** 过滤返回的数据 */
                     var items = res.data.content
@@ -36,7 +36,8 @@ var supply_manage = {
                         /** 页面变化后的逻辑 */
                         jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.supplyman.getAllByPage(), {
+                                $.post(home.urls.supplyman.getBySupplierTypeByPage(), {
+                                    code:1,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {
@@ -152,7 +153,7 @@ var supply_manage = {
                 
                 $.post(home.urls.supplyman.getCustomer(),{code:supplierCode},function(result){
                     var items = result.data
-                    console.log(items)
+                    //.log(items)
                     $('#diliverer_inp').html("<option>请选择收货人名称</option>")
                     items.forEach(function(e){
                         $('#diliverer_inp').append(
@@ -213,7 +214,7 @@ var supply_manage = {
                                 sendEntries:[]
                             }
                             data.sendEntries = sendEntries
-                            console.log(data)   
+                           // console.log(data)   
                             $.ajax({
                                 url: home.urls.supplyman.add(),
                                 contentType: 'application/json',
@@ -324,7 +325,7 @@ var supply_manage = {
         }
         ,add_delete:function(deleteBtn){
             deleteBtn.off('click').on('click',function(){
-                console.log('add_delete')
+                //console.log('add_delete')
                 var _this = $(this)
                 layer.open({
                     type: 1,
@@ -335,9 +336,9 @@ var supply_manage = {
                     offset: ['40%', '55%'],
                     yes: function (index) {
                         var total_weight = parseFloat($('#total_inp').val())
-                        console.log(total_weight)
+                        //console.log(total_weight)
                         var td2 = _this.parent('td').parent('tr').children('td').eq(2).text()
-                        console.log(parseFloat(td2))
+                        //console.log(parseFloat(td2))
                         total_weight -= parseFloat(td2)
                         parseFloat(td2)
                         $('#total_inp').val(total_weight)
@@ -532,7 +533,7 @@ var supply_manage = {
                                 sendEntries:[]
                             }
                             data.sendEntries = sendEntries
-                            console.log(data)
+                            //console.log(data)
                             $.ajax({
                                 url: home.urls.supplyman.update(),
                                 contentType: 'application/json',

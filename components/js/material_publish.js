@@ -48,7 +48,6 @@ var material_publish = {
                         /** 页面变化后的逻辑 */
                         , jump: function (obj, first) {
                             if (!first) {
-                                console.log('不是首次,可以执行')
                                 var status = $('#status').val()
                                 $.post(home.urls.rawPresoma.getAllByStatusCodeByPage(), {
                                     page: obj.curr - 1,
@@ -92,7 +91,6 @@ var material_publish = {
                         /** 页面变化后的逻辑 */
                         , jump: function (obj, first) {
                             if (!first) {
-                                console.log('不是首次,可以执行')
                                 var status = $('#status').val()
                                 $.post(home.urls.rawLithium.getAllByStatusCodeByPage(), {
                                     page: obj.curr - 1,
@@ -134,7 +132,6 @@ var material_publish = {
         selectPresoma: function (presomaSelect) {
             presomaSelect.off('click');
             presomaSelect.on('click', function () {
-                console.log("presomaSelect");
                 var select_presoma = $('#select-presoma');
                 var select_lithium = $('#select-lithium');
                 select_presoma.html("金弛622");
@@ -269,6 +266,7 @@ var material_publish = {
                         time: 700
                     }) 
                     material_publish.init()
+                    $('#raw_batch_number_input').val('') 
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -283,9 +281,7 @@ var material_publish = {
         bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
-                console.log('search')
                 var raw_batch_number = $('#raw_batch_number_input').val()   //读取搜索的value值
-                console.log(raw_batch_number)
                 var status = $('#status').val()  //读取选择框的值
                 $.post(material_publish.material_type === 0 ? home.urls.rawPresoma.getByLikeBatchNumberByPage() : home.urls.rawLithium.getByLikeBatchNumberByPage(), {
                     batchNumber: raw_batch_number,   //厂家批号

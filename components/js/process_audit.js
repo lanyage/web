@@ -33,7 +33,6 @@ var process_audit = {
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
                         if (!first) {
-                            console.log('不是首次,可以执行');
                             var status = $('#status').val();
                             $.post(process_audit.funcs.chooseUrl(), {
                                 page: obj.curr - 1,
@@ -70,7 +69,6 @@ var process_audit = {
         selectPremix: function (premixSelect) {
             premixSelect.off('click');
             premixSelect.on('click', function () {
-                console.log("premixSelect");
                 var select_premix = $('#select-premix');
                 var select_size = $('#select-size');
                 var select_lithium = $('#select-lithium');
@@ -90,7 +88,6 @@ var process_audit = {
         selectSize: function (sizeSelect) {
             sizeSelect.off('click');
             sizeSelect.on('click', function () {
-                console.log("sizeSelect");
                 var select_premix = $('#select-premix');
                 var select_size = $('#select-size');
                 var select_lithium = $('#select-lithium');
@@ -110,7 +107,6 @@ var process_audit = {
         selectLithium: function (lithiumSelect) {
             lithiumSelect.off('click');
             lithiumSelect.on('click', function () {
-                console.log("lithiumSelect");
                 var select_premix = $('#select-premix');
                 var select_size = $('#select-size');
                 var select_lithium = $('#select-lithium');
@@ -130,7 +126,6 @@ var process_audit = {
         selectBuckle: function (buckleSelect) {
             buckleSelect.off('click');
             buckleSelect.on('click', function () {
-                console.log("premixSelect");
                 var select_premix = $('#select-premix');
                 var select_size = $('#select-size');
                 var select_lithium = $('#select-lithium');
@@ -160,7 +155,7 @@ var process_audit = {
                     "<tr id='process-audit-" + (e.code) + "'>" +
                     "<td>" + process_audit.funcs.getIcon(status, e.code) + "</i></td>" +
                     "<td>" + process_audit.funcs.getName(e.auditor) + "</td>" +
-                    "<td>" + process_audit.funcs.formatDate(e.testDate) + "</td>" +
+                    "<td>" + new Date(e.testDate).Format('yyyy-MM-dd') + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
                     "<td>" + e.type + "</td>" +
                     "<td>" + e.lithiumSoluble + "</td>" +
@@ -188,7 +183,7 @@ var process_audit = {
                     "<tr id='process-audit-" + (e.code) + "'>" +
                     "<td>" + process_audit.funcs.getIcon(status, e.code) + "</i></td>" +
                     "<td>" + process_audit.funcs.getName(e.auditor) + "</td>" +
-                    "<td>" + process_audit.funcs.formatDate(e.testDate) + "</td>" +
+                    "<td>" + new Date(e.testDate).Format('yyyy-MM-dd') + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
                     "<td>" + e.furnaceNum + "</td>" +
                     "<td>" + e.pc1 + "</td>" +
@@ -217,7 +212,7 @@ var process_audit = {
                     "<tr id='process-audit-" + (e.code) + "'>" +
                     "<td>" + process_audit.funcs.getIcon(status, e.code) + "</i></td>" +
                     "<td>" + process_audit.funcs.getName(e.auditor) + "</td>" +
-                    "<td>" + process_audit.funcs.formatDate(e.testDate) + "</td>" +
+                    "<td>" + new Date(e.testDate).Format('yyyy-MM-dd')+ "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
                     "<td>" + e.furnaceNum + "</td>" +
                     "<td>" + e.pc1 + "</td>" +
@@ -239,7 +234,7 @@ var process_audit = {
                     "<tr id='process-audit-" + (e.code) + "'>" +
                     "<td>" + process_audit.funcs.getIcon(status, e.code) + "</i></td>" +
                     "<td>" + process_audit.funcs.getName(e.auditor) + "</td>" +
-                    "<td>" + process_audit.funcs.formatDate(e.testDate) + "</td>" +
+                    "<td>" + new Date(e.testDate).Format('yyyy-MM-dd') + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
                     "<td>" + e.furnaceNum + "</td>" +
                     "<td>" + e.pc1 + "</td>" +
@@ -340,25 +335,21 @@ var process_audit = {
                 var code = _selfBtn.attr('id').substr(6);
                 process_audit.currId = "process-audit-" + code;
                 $.post(process_audit.funcs.chooseUrlCode(), {code: code}, function (result) {
-                    console.log("审核" + code);
                     var process = result.data;
                     layer.open({
                         type: 1,
                         content: process_audit.funcs.getData(process),
-                        area: ['550px', '700px'],
+                        area: ['550px', '600px'],
                         btn: ['通过审核', '取消'],
                         offset: 'auto', // ['10%', '40%'],
                         btnAlign: 'c',
                         yes: function () {
-                            console.log("提交审核" + code);
                             $.post(process_audit.funcs.chooseUrlAudit(), {
                                 code: code,
                                 auditorCode: home.user.code,     // 此处需要读取用户编号
                                 statusCode: 2
                             }, function (result) {
                                 if (result.code == 0) {
-                                    // 成功
-                                    console.log("审核成功" + code);
                                     layer.open({
                                         type: 1,
                                         content: "<div class='align_middle'>" + "审核成功" + "</div>",
@@ -372,8 +363,6 @@ var process_audit = {
                                         }
                                     });
                                 } else {
-                                    // 失败
-                                    console.log("审核失败" + result.message);
                                     layer.open({
                                         type: 1,
                                         content: "<div class='align_middle'>" + "失败<br>" + result.message + "</div>",

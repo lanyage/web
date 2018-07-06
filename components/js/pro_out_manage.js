@@ -97,6 +97,20 @@ var pro_out_manage = {
             var length = 1
             items.forEach(function (e) {
                 var code = e.code
+                switch(e.auditStatus){
+                    case 0:
+                        auditStatus = '未提交';
+                        break;
+                    case 1:
+                        auditStatus = '待审核';
+                        break;  
+                    case 2:
+                        auditStatus = '通过';
+                        break;
+                    case 3:
+                        auditStatus = '未通过';
+                        break;    
+                }
                 var content = (
                     "<tr>" +
                     "<td><input type='checkbox' class='product_out_checkbox' value='" + (e.code) + "'></td>" +
@@ -104,7 +118,7 @@ var pro_out_manage = {
                     "<td>" + (e.rawType ? e.rawType.name : null) + "</td>" +
                     "<td>" + (new Date(e.applyTime).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.company ? e.company.name : null) + "</td>" +
-                    "<td>" + e.auditStatus + "</td>" +
+                    "<td>" + auditStatus + "</td>" +
                     "<td><a href=\"#\" class='verify' id='verify-" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +

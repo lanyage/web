@@ -26,6 +26,7 @@
                 <p style="color: #62a49a; font-size: 14px;">
                     <select id="byproductCount">
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="model_li_hide_picture_36"><a href="#"><i class="layui-icon">&#xeb8c;</i>曲线显示</a></span>&nbsp;
                     <span id="model_li_hide_add_36"><a href="#"><i class="layui-icon">&#xe640;</i>新增</a></span>&nbsp;
                 </p>
             </div>
@@ -40,10 +41,10 @@
         </div>
     
         <div class="whitespace" ></div>
-        <div id="table">
-       <table id="iron_remove_table" class="hide">
+        <div id="table" class="hide">
+       <table id="iron_remove_table">
            <tr class="grey">
-               <td>序号</td>
+               <td>日期</td>
                <td id="col_1">1</td>
                <td id="col_2">2</td>
                <td id="col_3">3</td>
@@ -160,7 +161,7 @@
        <div class="whitespace" ></div>
        <table id="iron_remove_table1">
            <tr class="grey">
-               <td>序号</td>
+               <td>日期</td>
                <td id="col_17">17</td>
                <td id="col_18">18</td>
                <td id="col_19">19</td>
@@ -276,12 +277,13 @@
        </table>
     </div>
     <div class="canvas-container" style="display:none;"> 
-            <!--<canvas id='myChart' style='width: 100%;height: 74%;min-width: 800px;min-height: 500px;'></canvas>-->
-        </div>
+       <!-- <canvas id='myChart' style='width: 100%;height: 74%;min-width: 800px;min-height: 500px;'></canvas>-->
+    </div>
         <!--<div id="iron_remove_page" ></div>-->
         <script src="../components/js/iron_remove.js"></script>
         <script type="application/javascript">
             $(function () {
+                items = []
                 iron_remove.init()
             })
         </script>
@@ -291,7 +293,7 @@
             <p>生产班次:<select id="dutyCode"style='width:183px;' ></select></p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重量:<input type="text" id="weight"/></p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比例:<input type="text" id="proportion"/></p>
-            <p>&nbsp;&nbsp;记录人:<select id="rescorderCode" style='width:183px;'></select></p>
+            <p>&nbsp;&nbsp;记录人:<input id="rescorderCode" style='width:183px;'/></p>
         </div>
        
 </div>

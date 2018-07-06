@@ -201,6 +201,7 @@ var product_publish = {
                         time: 700
                     })
                     product_publish.init()
+                    $('#product_batch_number_input').val('')
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
