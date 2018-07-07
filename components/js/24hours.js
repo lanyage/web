@@ -132,7 +132,7 @@ var _24hours = {
             })
         },
         loadDataAndRender: function () {
-            console.log('render')
+            //console.log('render')
             $.get(home.urls.energyMonitor.load24HoursData(), {
                 ino: _24hours.ino,
                 curDateTime: new Date().getTime()
