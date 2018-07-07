@@ -4,6 +4,14 @@ var material_manage = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
         material_manage.funcs.renderTable()
+        $("#material_name_input").empty()
+        $.get(servers.backup()+'material/getAll',{},function(result){
+            var res = result.data
+            $("#material_name_input").html("<option value='-1'>请选择物资类别名称</option>")
+            res.forEach(function(e){
+                $("#material_name_input").append("<option value="+e.name+">"+e.name+"</option>")
+            })
+        })
     } //$init end$
     ,
     pageSize: 0,

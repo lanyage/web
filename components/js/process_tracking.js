@@ -11,10 +11,8 @@ var process_tracking = {
      funcs: {
         renderTable: function () {
             $.post(home.urls.processTracking.getAllByPage(), {page:0}, function (res) {
-                console.log(res)
                 var $tbody = $("#process_tracking_table").children('tbody')
                 var items = res.data.content
-                //console.log(items)
                 process_tracking.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 process_tracking.pageSize = res.data.content.length //该页的记录数

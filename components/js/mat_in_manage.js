@@ -23,7 +23,6 @@ var mat_in_manage = {
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
                         if (!first) {
-                            console.log('不是首次,可以执行')
                             $.post(home.urls.materialIn.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit

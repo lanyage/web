@@ -36,6 +36,14 @@ var processstatus_manage = {
 	init: function() {
 		/** 获取部门信息分页显示并展示 */
 		processstatus_manage.funcs.renderTable()
+		$("#processstatus_name_input").empty()
+        $.get(servers.backup()+'process/getAll',{},function(result){
+            var res = result.data
+            $("#processstatus_name_input").html("<option value='-1'>请选择流程类型</option>")
+            res.forEach(function(e){
+                $("#processstatus_name_input").append("<option value="+e.name+">"+e.name+"</option>")
+            })
+        })
 	},
 	pageSize: 0,
 	funcs: {

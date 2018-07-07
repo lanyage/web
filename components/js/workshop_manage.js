@@ -6,6 +6,14 @@ var workshop_manage = {
         $.get(home.urls.department.getAll(), function (result) {
             workshop_manage.department_result = result.data;
         })
+        $("#workshop_name_input").empty()
+        $.get(servers.backup()+'workshop/getAll',{},function(result){
+            var res = result.data
+            $("#workshop_name_input").html("<option value='-1'>请选择车间名称</option>")
+            res.forEach(function(e){
+                $("#workshop_name_input").append("<option value="+e.name+">"+e.name+"</option>")
+            })
+        })
     },
     pageSize: 0,
     funcs: {

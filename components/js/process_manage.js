@@ -2,7 +2,15 @@ var process_manage = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
         process_manage.funcs.renderTable()
-    } //$init end$
+        $("#process_name_input").empty()
+        $.get(servers.backup()+'process/getAll',{},function(result){
+            var res = result.data
+            $("#process_name_input").html("<option value='-1'>请选择工序名称</option>")
+            res.forEach(function(e){
+                $("#process_name_input").append("<option value="+e.name+">"+e.name+"</option>")
+            })
+        })
+    }
     ,
     pageSize: 0,
     funcs: {

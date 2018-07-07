@@ -2,6 +2,14 @@ var indicator_manage = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
         indicator_manage.funcs.renderTable()
+        $("#indicator_name_input").empty()
+        $.get(servers.backup()+'indicator/getAll',{},function(result){
+            var res = result.data
+            $("#indicator_name_input").html("<option value='-1'>请选择指标名称</option>")
+            res.forEach(function(e){
+                $("#indicator_name_input").append("<option value="+e.name+">"+e.name+"</option>")
+            })
+        })
     } //$init end$
     ,
     pageSize: 0,

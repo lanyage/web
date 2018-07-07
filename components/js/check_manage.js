@@ -1,6 +1,14 @@
 var check_manage = {
     init: function () {
         check_manage.funcs.renderTable()
+        $("#checkprocess_name_input").empty()
+        $.get(servers.backup()+'check/getAll',{},function(result){
+            var res = result.data
+            $("#checkprocess_name_input").html("<option value='-1'>请选择审核流程u</option>")
+            res.forEach(function(e){
+                $("#checkprocess_name_input").append("<option value="+e.name+">"+e.name+"</option>")
+            })
+        })
     } //$init end$
     ,
     pageSize: 0,

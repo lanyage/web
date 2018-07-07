@@ -11,7 +11,6 @@ var management_handover = {
      funcs: {
         renderTable: function () {
             $.post(home.urls.jobs.getAllByPage(), {page:0}, function (res) {
-                console.log(res)
                 var $tbody = $("#management_handover_table").children('tbody')
                 var items = res.data.content
                 management_handover.funcs.renderHandler($tbody, items)
@@ -142,7 +141,6 @@ var management_handover = {
             var length = 1 
             //var length = jobsHandover.length
             jobsHandover.forEach(function(e){
-                console.log(i)
                 i = i + 1
                 $tbody.append(
                     "<tr class='newLine' id='row"+(i)+"'>"+
@@ -202,11 +200,9 @@ var management_handover = {
                         var compileTime = new Date($("#compileTime1").val()).getTime()
                         var compilerCode = $("#compilerCode1").val()
                         var name = $("#name1").val()
-                        console.log(compilerCode)
                         var jobsHandover = []
                         $(".newLine").each(function(){
                             var e = $(this).children('td')
-                            console.log(e.eq(0).text())
                             jobsHandover.push(
                                 {
                                     code:e.eq(0).children('input').val(),
@@ -224,7 +220,6 @@ var management_handover = {
                             name:name,
                             jobsHandover:jobsHandover
                         }
-                        console.log(data)
                         $.ajax({
                             url:home.urls.jobs.update(),
                             contentType:'application/json',
@@ -429,7 +424,6 @@ var management_handover = {
                         var compileTime = new Date($("#compileTime1").val()).getTime()
                         var compilerCode = $("#compilerCode1").val()
                         var name = $("#name1").val()
-                        console.log(compilerCode)
                         var jobsHandover = []
                         $(".newLine").each(function(){
                             var e = $(this).children('td')
@@ -450,7 +444,6 @@ var management_handover = {
                             name:name,
                             jobsHandover:jobsHandover
                         }
-                        console.log(data)
                         $.ajax({
                             url:home.urls.jobs.add(),
                             contentType:'application/json',

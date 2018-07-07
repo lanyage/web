@@ -31,7 +31,7 @@ var product_in_manage = {
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
                         if (!first) {
-                            console.log('不是首次,可以执行')
+                            //console.log('不是首次,可以执行')
                             $.post(home.urls.productIn.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
@@ -124,7 +124,6 @@ var product_in_manage = {
         bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
             refreshBtn.on('click', function () {
-                console.log('AAAAAAAAAAAAAAAAAAAAAAaa')
                 var index = layer.load(2, {offset: ['40%', '58%']});
                 var time = setTimeout(function () {
                     layer.msg('刷新成功', {

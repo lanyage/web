@@ -4,7 +4,15 @@ var manufacturer_manage = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
         manufacturer_manage.funcs.renderTable()
-    } //$init end$
+        $("#manufacturer_name_input").empty()
+        $.get(servers.backup()+'workshop/getAll',{},function(result){
+            var res = result.data
+            $("#manufacturer_name_input").html("<option value='-1'>请选择原料厂家名称</option>")
+            res.forEach(function(e){
+                $("#manufacturer_name_input").append("<option value="+e.name+">"+e.name+"</option>")
+            })
+        })
+    }
     ,
     pageSize: 0,
     funcs: {

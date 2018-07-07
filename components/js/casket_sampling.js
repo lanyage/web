@@ -11,10 +11,8 @@ var casket_sampling = {
      funcs: {
         renderTable: function () {
             $.post(home.urls.bowlSampling.getAllByPage(), {page:0}, function (res) {
-                console.log(res)
                 var $tbody = $("#casket_sampling_table").children('tbody')
                 var items = res.data.content
-                //console.log(items)
                 casket_sampling.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 casket_sampling.pageSize = res.data.content.length //该页的记录数
@@ -177,8 +175,6 @@ var casket_sampling = {
                          var randomTime =  new Date($("#randomTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
                          var inspectorCode =  $("#inspectorCode1").val()
                          var inspectorTime =  new Date($("#inspectorTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
-                         console.log(randomCode)
-                         console.log(inspectorCode)
                          $.post(home.urls.bowlSampling.update(),{
                              code:code,
                              date:new Date(items.date).Format('yyyy-MM-dd'),

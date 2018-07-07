@@ -11,10 +11,8 @@ var approval_tracking = {
      funcs: {
         renderTable: function () {
             $.post(home.urls.approvalTracking.getAllByPage(), {page:0}, function (res) {
-                console.log(res)
                 var $tbody = $("#approval_tracking_table").children('tbody')
                 var items = res.data.content
-                //console.log(items)
                 approval_tracking.funcs.renderHandler($tbody, items)
                 /** 渲染表格结束之后 */
                 approval_tracking.pageSize = res.data.content.length //该页的记录数

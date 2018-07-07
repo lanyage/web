@@ -2,7 +2,16 @@ var department_manage = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
         department_manage.funcs.renderTable()
-    }//$init end$
+        $("#department_name_input").empty()
+        $.get(servers.backup()+'department/getAll',{},function(result){
+            var res = result.data
+            //$("#department_name_input").html("<option value='-1>请选择部门名称</option>")
+            $("#department_name_input").html("<option value='-1'>请选择部门名称</option>")
+            res.forEach(function(e){
+                $("#department_name_input").append("<option value="+e.name+">"+e.name+"</option>")
+            })
+        })
+    }
     /** 当前总记录数,用户控制全选逻辑 */
     , pageSize: 0
     /** 逻辑方法 */
@@ -13,9 +22,7 @@ var department_manage = {
             $.post(home.urls.department.getAllByPage(), {page: 0}, function (result) {
                 var departments = result.data.content //获取数据
                 const $tbody = $("#department_table").children('tbody')
-
                 department_manage.funcs.renderHandler($tbody, departments)
-
                 department_manage.pageSize = result.data.content.length
                 var page = result.data
                 /** @namespace page.totalPages 这是返回数据的总页码数 */
@@ -44,7 +51,8 @@ var department_manage = {
 
             /** 追加添加事件 */
             var addBtn = $("#model-li-hide-add-60")
-            department_manage.funcs.bindAddEventListener(addBtn) //追加增加事件
+            department_manage.funcs.bindAddEventListener(addBtn)
+             //追加增加事件
             /** 追加刷新事件 */
             var refreshBtn = $('#model-li-hide-refresh-60')
             department_manage.funcs.bindRefreshEventListener(refreshBtn)//追加刷新事件

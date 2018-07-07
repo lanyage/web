@@ -2,6 +2,14 @@ var cycle_manage = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
         cycle_manage.funcs.renderTable()
+        $("#cycle_name_input").empty()
+        $.get(servers.backup()+'cycle/getAll',{},function(result){
+            var res = result.data
+            $("#cycle_name_input").html("<option value='-1'>请选择周期类型</option>")
+            res.forEach(function(e){
+                $("#cycle_name_input").append("<option value="+e.name+">"+e.name+"</option>")
+            })
+        })
     },//$init end$
     pageSize: 0,
     funcs: {

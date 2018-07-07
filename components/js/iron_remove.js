@@ -65,16 +65,16 @@ var iron_remove = {
                    year:year,
                    month:month
                 }, function (result) {
-                    var items = result.data.content //获取数据
-                    console.log(items)
-                    const $tbody = $("#iron_remove_table").children('tbody')
-                    iron_remove.funcs.renderHandler($tbody, items)
+                    var items = result.data //获取数据
+                    //console.log(items)
+                    //const $tbody = $("#iron_remove_table").children('tbody')
+                    iron_remove.funcs.renderHandler(items)
                     iron_remove.funcs.curveShow($('#model_li_hide_picture_36'),items)
                     iron_remove.funcs.tableShow($('#model_li_hide_table_36'),items)
                 })
             })
         }
-    , renderHandler: function ($tbody, items) {
+    , renderHandler: function (items) {
         //$tbody.empty() //清空表格
         for(var i=1; i <=16; i++){
             $("#row1").find('td').eq(i).text('')  
@@ -89,22 +89,22 @@ var iron_remove = {
             $("#row14").find('td').eq(i).text('')   
             $("#row15").find('td').eq(i).text('')
         }
-
         items.forEach(function (e) {
             var code = e.code
             var date = e.date.split('-')
-            if(date[2]<17){
+            if(parseInt(date[2])<17){
                 $("#row1").find('td').eq(date[2]).text(e.batchNumber)  
                 $("#row2").find('td').eq(date[2]).text(e.dutyCode?e.dutyCode.name:' ')  
                 $("#row3").find('td').eq(date[2]).text(e.weight) 
                 $("#row4").find('td').eq(date[2]).text(e.proportion)   
                 $("#row5").find('td').eq(date[2]).text(e.recorderCode?e.recorderCode.name:'')   
             }else{
-                $("#row11").find('td').eq(date[2]+1).text(e.batchNumber)  
-                $("#row12").find('td').eq(date[2]+1).text(e.dutyCode?e.dutyCode.name:' ')  
-                $("#row13").find('td').eq(date[2]+1).text(e.weight) 
-                $("#row14").find('td').eq(date[2]+1).text(e.proportion)   
-                $("#row15").find('td').eq(date[2]+1).text(e.recorderCode?e.recorderCode.name:'')   
+               // console.log(date[2])
+                $("#row11").find('td').eq(date[2]-16).text(e.batchNumber)  
+                $("#row12").find('td').eq(date[2]-16).text(e.dutyCode?e.dutyCode.name:' ')  
+                $("#row13").find('td').eq(date[2]-16).text(e.weight) 
+                $("#row14").find('td').eq(date[2]-16).text(e.proportion)   
+                $("#row15").find('td').eq(date[2]-16).text(e.recorderCode?e.recorderCode.name:'')   
             }
   
         })
@@ -114,6 +114,7 @@ var iron_remove = {
             $("#batchNumber").val('')
             $("#date").val('')
             $("#dutyCode").empty()
+            $("#byproductCode").empty()
             $("#weight").val('')
             $("#proportion").val('')
             var userStr = $.session.get('user')
@@ -125,7 +126,12 @@ var iron_remove = {
                     $("#dutyCode").append("<option value="+e.code+">"+e.name+"</option>")
                 })
             })
-        
+            $.get(servers.backup()+'byproduct/getAll',{},function(result){
+                var res = result.data
+                res.forEach(function(e){
+                    $("#byproductCode").append("<option value="+e.code+">"+e.name+"</option>")
+                })
+            })
              layer.open({
                  type:1,
                  title:"新增车间除铁记录",
@@ -136,7 +142,7 @@ var iron_remove = {
                  closeBtn:0,
                  yes:function(index) {
                      $("#add_modal").css('display','none')
-                     var byproductCode = $("#byproductCount").val()
+                     var byproductCode = $("#byproductCode").val()
                      var dutyCode = $('#dutyCode').val()
                      var batchNumber = $('#batchNumber').val()
                      var date = $('#date').val()
@@ -160,7 +166,6 @@ var iron_remove = {
                         if(result.code === 0) {
                             var time = setTimeout(function(){
                                 iron_remove.init()
-                               
                                 clearTimeout(time)
                             },500)
                         }
@@ -178,15 +183,14 @@ var iron_remove = {
         btns.off('click').on('click',function(){
             $("table").show()
             $(".canvas-container").hide()
-            const $tbody = $("#iron_remove_table").children('tbody')
-            iron_remove.funcs.renderHandler($tbody,result)
+            iron_remove.funcs.renderHandler(result)
         })
     }
     ,curveShow:function(btns,result){
         btns.off('click').on('click',function(){
             $("table").hide()
             $(".canvas-container").show()
-            console.log(result)
+            //console.log(result)
             iron_remove.funcs.fillLabelsAndData(result)
             iron_remove.funcs.createChart(iron_remove.labels, iron_remove.data,iron_remove.data1,iron_remove.data2,iron_remove.data3)
         
@@ -210,14 +214,16 @@ var iron_remove = {
                 }else{
                     iron_remove.data[i] = null
                 }
-                iron_remove.labels.push(i+1)
+            }
+            for(var i=1;i<=31;i++){
+                iron_remove.labels.push(i)
             }
             var code = $("#byproductCount").val()
             $.post(home.urls.byproduct.getByCode(),{
                 code:code
             },function(result){
                 Code = result.data.indicatorCode.code
-                console.log(Code)
+                //console.log(Code)
                 $.post(home.urls.bound.getByCode(),{
                     code:Code
                 },function(result){
@@ -230,10 +236,10 @@ var iron_remove = {
                 })
             })
            
-            console.log(iron_remove.data)
-            console.log(iron_remove.data1)
-            console.log(iron_remove.data2)
-            console.log(iron_remove.data3)
+            // console.log(iron_remove.data)
+            //console.log(iron_remove.data1)
+            //console.log(iron_remove.data2)
+            //console.log(iron_remove.data3)
         }
          ,createChart: function (labels, data,data1,data2,data3) {
             var data = {
@@ -345,7 +351,6 @@ var iron_remove = {
                          time: 700
                      })
                      iron_remove.init()
-                    
                      layer.close(index)
                      clearTimeout(time)
                  }, 200)

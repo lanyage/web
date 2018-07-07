@@ -3,6 +3,15 @@ var goods_manage = {
     init: function () {
         /** 获取部门信息分页显示并展示 */
         goods_manage.funcs.renderTable()
+        $("#goods_name_input").empty()
+        $.get(servers.backup()+'goods/getAll',{},function(result){
+            var res = result.data
+            //$("#department_name_input").html("<option value='-1>请选择部门名称</option>")
+            $("#goods_name_input").html("<option value='-1'>请选择产品名称</option>")
+            res.forEach(function(e){
+                $("#goods_name_input").append("<option value="+e.name+">"+e.name+"</option>")
+            })
+        })
     } //$init end$
     ,
     pageSize: 0,

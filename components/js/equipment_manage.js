@@ -18,6 +18,15 @@ var equipment_manage = {
 	},
 	init: function() {
 		equipment_manage.funcs.renderTable()
+		$("#equipment").empty()
+		$.get(servers.backup()+'equipment/getAll',{},function(result){
+			var equipment = result.data
+			$("#equipment").html("<option value='-1'>请选择设备名称</option>")
+			equipment.forEach(function(e){
+				$("#equipment").append("<option value="+e.name+">"+e.name+"</option>")
+			})
+
+		})
 	},
 	pageSize: 0,
 	funcs: {
@@ -77,7 +86,7 @@ var equipment_manage = {
 						"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;巡检人:<select id='user_code' style='width:174px;'></select></p>" +
 						"</div>" +
 						"</div>",
-					area: ['350px', '300px'],
+					area: ['350px', '330px'],
 					btn: ['确认', '取消'],
 					offset: ['30%', '35%'],
 					yes: function(index) {
@@ -172,10 +181,9 @@ var equipment_manage = {
 			})
 		},
 		bindSearchEventListener: function(searchBtn) {
-
 			searchBtn.off('click')
 			searchBtn.on('click', function() {
-				var equipment_name = $('#equipment_name_input').val()
+				var equipment_name = $('#equipment').val()
 				$.post(home.urls.equipment.getAllByLikeNameByPage(), {
 					name: equipment_name
 				}, function(result) {
@@ -302,7 +310,7 @@ var equipment_manage = {
 							"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;巡检人:<select id='user_code' style='width:174px;'><option value='+" + (equipment.user && equipment.user.code || '') + "'>" + (equipment.user && equipment.user.name || '') + "</option></select></p>" +
 							"</div>" +
 							"</div>",
-						area: ['350px', '260px'],
+						area: ['350px', '300px'],
 						btn: ['确认', '取消'],
 						offset: ['40%', '45%'],
 						yes: function(index) {
