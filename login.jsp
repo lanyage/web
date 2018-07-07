@@ -90,6 +90,8 @@
                     console.log(result)
                     $.session.set('user', JSON.stringify(result.data));
                     document.location = './jsp/home.jsp';
+                }else{
+                    alert("账号或密码错误！")
                 }
             })
         })
@@ -102,6 +104,8 @@
                 if (resCode == 0) {
                     $.session.set('user', JSON.stringify(result.data));
                     document.location = './jsp/home.jsp';
+                }else{
+                    alert("账号或密码错误！")
                 }
             })
         })
