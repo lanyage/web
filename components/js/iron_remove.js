@@ -293,16 +293,16 @@ var iron_remove = {
                     {
                         label: "均限",
                         fill: false,
-                        backgroundColor: "rgba(42, 173, 232,0.8)",
-                        borderColor: "rgba(42, 173, 232,1)",
+                        backgroundColor: "rgba(42, 123, 45,0.8)",
+                        borderColor: "rgba(42, 123, 45,1)",
                         pointRadius: 0,
                         data: data2//对象数据
                     },
                     {
                         label: "下限",
                         fill: false,
-                        backgroundColor: "rgba(255, 0, 0,0.8)",
-                        borderColor: "rgba(255, 0, 0,1)",
+                        backgroundColor: "rgba(255, 18, 231,0.8)",
+                        borderColor: "rgba(255, 18, 231,1)",
                         pointRadius: 0,
                         data: data3//对象数据
                     }
