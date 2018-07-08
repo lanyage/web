@@ -8,11 +8,11 @@ var iron_remove = {
     data1: [],
     data2: [],
     data3: [],
+    byproduct:[],
     init: function () {
         $("#byproductCount").empty()
         $("#table").hide()
         $(".canvas-container").hide()
-        iron_remove.indicator = []
         $.get(servers.backup() + 'byproduct/getAll', {}, function (result) {
             byproduct = result.data
             $("#byproductCount").append("<option value='-1'>请选择副产品类型</option>")
@@ -192,23 +192,38 @@ var iron_remove = {
                 $(".canvas-container").show()
                 //console.log(result)
                 iron_remove.funcs.fillLabelsAndData(result)
-                $.post("http://218.77.105.241:30080/mes/bound/getByCode", {code: 1}, function (res) {
+               /* $.post("http://218.77.105.241:30080/mes/bound/getByCode", {code: code}, function (res) {
                     for (var i = 1; i <= 31; i++) {
                         iron_remove.data1.push(res.data.upperBound);
                         iron_remove.data2.push(res.data.mean);
                         iron_remove.data3.push(res.data.downBound);
                     }
                     iron_remove.funcs.createChart(iron_remove.labels, iron_remove.data, iron_remove.data1, iron_remove.data2, iron_remove.data3)
+                })*/
+                var code = $("#byproductCount").val()
+                $.post(home.urls.byproduct.getByCode(), {
+                    code: code
+                }, function (result) {
+                    Code = result.data.indicatorCode.code
+                    //console.log(Code)
+                    $.post(home.urls.bound.getByCode(), {
+                        code: Code
+                    }, function (result) {
+                        var res = result.data
+                        for (var i = 1; i <= 31; i++) {
+                            iron_remove.data1.push(res.upperBound)
+                            iron_remove.data2.push(res.mean)
+                            iron_remove.data3.push(res.downBound)
+                        }
+                        iron_remove.funcs.createChart(iron_remove.labels, iron_remove.data, iron_remove.data1, iron_remove.data2, iron_remove.data3)
+                    })
                 })
             })
         }
         , fillLabelsAndData: function (data) {
             iron_remove.labels = []
             iron_remove.data = []
-            iron_remove.data1 = []
-            iron_remove.data2 = []
-            iron_remove.data3 = []
-
+            
             data.forEach(function (e) {
                 var date = e.date.split('-')
                 var num = parseInt(date[2])
@@ -224,23 +239,6 @@ var iron_remove = {
             for (var i = 1; i <= 31; i++) {
                 iron_remove.labels.push(i)
             }
-            var code = $("#byproductCount").val()
-            $.post(home.urls.byproduct.getByCode(), {
-                code: code
-            }, function (result) {
-                Code = result.data.indicatorCode.code
-                //console.log(Code)
-                $.post(home.urls.bound.getByCode(), {
-                    code: Code
-                }, function (result) {
-                    var res = result.data
-                    for (var i = 1; i <= 31; i++) {
-                        iron_remove.data1.push(res.upperBound)
-                        iron_remove.data2.push(res.mean)
-                        iron_remove.data3.push(res.downBound)
-                    }
-                })
-            })
 
             // console.log(iron_remove.data)
             //console.log(iron_remove.data1)
