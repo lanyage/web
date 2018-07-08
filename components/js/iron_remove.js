@@ -66,12 +66,7 @@ var iron_remove = {
                     month: month
                 }, function (result) {
                     var items = result.data //获取数据
-                    console.log(items)
-                    //todo
-                    //todo
-                    //todo
-                    //todo
-                    //todo
+                    // console.log(items)
                     //const $tbody = $("#iron_remove_table").children('tbody')
                     iron_remove.funcs.renderHandler(items)
                     iron_remove.funcs.curveShow($('#model_li_hide_picture_36'), items)
