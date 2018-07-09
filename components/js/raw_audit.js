@@ -46,7 +46,7 @@ var raw_audit = {
                         /** 页面变化后的逻辑 */
                         , jump: function (obj, first) {
                             if (!first) {
-                                console.log('不是首次,可以执行')
+                                //console.log('不是首次,可以执行')
                                 var status = $('#status').val()
                                 $.post(home.urls.rawPresoma.getAllByStatusCodeByPage(), {
                                     page: obj.curr - 1,
@@ -89,7 +89,7 @@ var raw_audit = {
                         /** 页面变化后的逻辑 */
                         , jump: function (obj, first) {
                             if (!first) {
-                                console.log('不是首次,可以执行')
+                                //console.log('不是首次,可以执行')
                                 var status = $('#status').val()
                                 $.post(home.urls.rawLithium.getAllByStatusCodeByPage(), {
                                     page: obj.curr - 1,
@@ -130,7 +130,7 @@ var raw_audit = {
         selectPresoma: function (presomaSelect) {
             presomaSelect.off('click');
             presomaSelect.on('click', function () {
-                console.log("presomaSelect");
+                //console.log("presomaSelect");
                 var select_presoma = $('#select-presoma');
                 var select_lithium = $('#select-lithium');
                 select_presoma.html("金弛622");
@@ -276,9 +276,9 @@ var raw_audit = {
         bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
-                console.log('search')
+                //console.log('search')
                 var raw_batch_number = $('#raw_batch_number_input').val()
-                console.log(raw_batch_number)
+                //console.log(raw_batch_number)
                 var status = $('#status').val()
                 $.post(raw_audit.raw_type === 0 ? home.urls.rawPresoma.getByLikeBatchNumberByPage() : home.urls.rawLithium.getByLikeBatchNumberByPage(), {
                     batchNumber: raw_batch_number,
@@ -410,7 +410,7 @@ var raw_audit = {
                 var code = _selfBtn.attr('id').substr(6)
                 raw_audit.currId = "raw-audit-" + code
                 $.post(raw_audit.raw_type === 0 ? home.urls.rawPresoma.getByCode() : home.urls.rawLithium.getByCode(), {code: code}, function (result) {
-                    console.log("查看" + code)
+                    //console.log("查看" + code)
                     var raw = result.data
                     layer.open({
                         type: 1,
@@ -587,12 +587,12 @@ var raw_audit = {
         bindLeftBtn: function (leftBtn) {
             leftBtn.off('click');
             leftBtn.on('click', function () {
-                console.log("左");
+                //console.log("左");
                 var $table = $(raw_audit.raw_type === 0 ? '#presoma_table' : '#lithium_table');
                 var firstId = $($table.children('tbody').children('tr')[0]).attr('id');
                 if (firstId != raw_audit.currId) {
                     var prevCode = $('#' + raw_audit.currId).prev('tr').attr('id').substr(10);
-                    console.log(prevCode);
+                    //console.log(prevCode);
                     $.post(raw_audit.raw_type === 0 ? home.urls.rawPresoma.getByCode() : home.urls.rawLithium.getByCode(), {code: prevCode}, function (result) {
                         raw_audit.currId = "raw-audit-" + prevCode;
                         var raw = result.data;
@@ -601,7 +601,7 @@ var raw_audit = {
                     })
                 }
                 else {
-                    console.log("First one");
+                    //console.log("First one");
                     layer.msg('已经是页面第一项', {
                         time: 1000
                     })
@@ -612,13 +612,13 @@ var raw_audit = {
         bindRightBtn: function (rightBtn) {
             rightBtn.off('click');
             rightBtn.on('click', function () {
-                console.log("右");
+                //console.log("右");
                 var $table = $(raw_audit.raw_type === 0 ? '#presoma_table' : '#lithium_table');
                 var raws1 = $table.children('tbody').children('tr').length-1;
                 var lastId = $($table.children('tbody').children('tr')[raws1]).attr('id');
                 if (lastId != raw_audit.currId) {
                     var nextCode = $('#' + raw_audit.currId).next('tr').attr('id').substr(10);
-                    console.log(nextCode);
+                    //console.log(nextCode);
                     $.post(raw_audit.raw_type === 0 ? home.urls.rawPresoma.getByCode() : home.urls.rawLithium.getByCode(), {code: nextCode}, function (result) {
                         raw_audit.currId = "raw-audit-" + nextCode;
                         var raw = result.data;
@@ -627,7 +627,7 @@ var raw_audit = {
                     })
                 }
                 else {
-                    console.log("Last one");
+                    //console.log("Last one");
                     layer.msg('已经是页面最后一项', {
                         time: 1000
                     })

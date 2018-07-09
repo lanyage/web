@@ -1,4 +1,5 @@
 var lingliao_apply = {
+    res:[],
     init: function () {
 
         /** 渲染表格 */
@@ -115,6 +116,10 @@ var lingliao_apply = {
                     "<td><a href=\"#\" class='delete' id='delete-" + (e.code) + "'><i class='fa fa-times-circle-o'></a></td>" +
                     "</tr>"
                 )
+                if(e.auditStatus!=0){
+                    $("#editor-"+e.code+"").removeClass('editor').addClass('disableHref')
+                    $("#delete-"+e.code+"").removeClass('delete').addClass('disableHref')
+                }
             }
             // /** 绑定全选事件 */
             // mat_out_manage.funcs.checkboxEventBinding()
@@ -319,7 +324,7 @@ var lingliao_apply = {
                             layer.close(index)
 
                         } else {
-                            console.log($(".edit_add_search_checkbox:checked").length)
+                            //console.log($(".edit_add_search_checkbox:checked").length)
                             $('.edit_add_search_checkbox').each(function () {
                                 if ($(this).prop('checked')) {
                                     var e = $(this).parent('td').parent('tr').children('td') //取到选中的一行
@@ -469,16 +474,17 @@ var lingliao_apply = {
 
         /**填充详情表格的弹出表格 */
         , fillData_detail: function (table, items) {
-            $.get(servers.backup() + "process/getAll", {}, function (result) {
+           /* $.get(servers.backup() + "process/getAll", {}, function (result) {
                 item = result.data
                 //console.log(item)
-                $("#detail_select").html("<option>请选择审批流程</option>");
+                
                 item.forEach(function (e) {
                     $("#detail_select").append("<option value=" + e.code + ">" + (e.name) + "</option>");
                 })
 
-            })
-
+            })*/
+            $("#detail_select").empty()
+            $("#detail_select").append("<option>"+items.processManage.name+"</option>");
             var pickingApplies = items.pickingApplies
             var $tbody = $('#detail-table').children('tbody')
             $tbody.empty() //清空表格
@@ -511,11 +517,13 @@ var lingliao_apply = {
         }
         /** 填充编辑按钮的表格 */
         , fillData_editor: function (table, items) {
+            $("#edit_select").empty()
             $.get(home.urls.check.getAll(), {}, function (result) {
                 item = result.data
                 // console.log(item)
-                $("#edit_select").html("<option>请选择审批流程</option>");
+                $("#edit_select").append("<option value="+items.processManage.code+">"+items.processManage.name+"</option>");
                 item.forEach(function (e) {
+                    if(e.code!=items.processManage.code)
                     $("#edit_select").append("<option value=" + e.code + ">" + (e.name) + "</option>");
                 })
 
@@ -650,8 +658,6 @@ var lingliao_apply = {
                                 pickingApplies: []
                             }
                             data.pickingApplies = pickingApplies
-                            console.log(pickingApplies)
-                            console.log(data)
                             $.ajax({
                                 url: home.urls.lingLiao.update(),
                                 contentType: 'application/json',
@@ -754,10 +760,6 @@ var lingliao_apply = {
                                     if (result.code === 0) {
                                         var time = setTimeout(function () {
                                             lingliao_apply.init()
-                                            //$("#editor-"+codeNumber+"").removeClass('editor').addClass('disableHref')
-                                            //$("#editor-"+codeNumber+"").parent('td').css('background-color','grey')
-                                            //$("#delete-"+codeNumber+"").removeClass('delete').addClass('disableHref')
-                                            //$("#delete-"+codeNumber+"").parent('td').css('background-color','grey')
                                             clearTimeout(time)
                                         }, 500)
                                     }
@@ -804,21 +806,38 @@ var lingliao_apply = {
                     yes: function (index) {
                         //编辑-增加-确定 将勾选的数据append到上一个界面中去/***/
                         var batch_Number = $('#edit_add_input').val();
-                        var rawType = $('#edit_add_select option:selected').val()
+                        var rawTypeCode = $('#edit_add_select option:selected').val()
                         // var $tbody = $('#edit_modal_table').children('tbody')
 
                         if ($(".edit_add_search_checkbox:checked").length === 0) {
                             $("#addModal").css('display', 'none')
                             layer.close(index)
-                            console.log('length===0')
+                            //console.log('length===0')
                         } else {
                             //将被选中的数据封装到data_availble中
                             var add_length = $(".edit_add_search_checkbox:checked").length
+                            var rawType
                             $('.edit_add_search_checkbox').each(function () {
+                                switch (rawTypeCode) {
+                                    case '1' :
+                                        rawType = '前驱体';
+                                        break;
+                                    case '2' :
+                                        rawType = '碳酸锂';
+                                        break;
+                                    case '3' :
+                                        rawType = '正极材料520';
+                                        break;
+                                    case '4' :
+                                        rawType = '正极材料306';
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 if ($(this).prop('checked')) {
                                     var e = $(this).parent('td').parent('tr').children('td') //取到选中的一行
                                     //console.log(e.eq(1).text())
-
+                                    
                                     $tbody.append(
                                         "<tr>" +
                                         "<td><input type='checkbox' class='delete_checkbox' ></td>" +
@@ -830,7 +849,6 @@ var lingliao_apply = {
                                         "<td><input type='text' id='input_apply_amount' class='provider_input'/></td>" +
                                         "</tr>"
                                     )
-                                    console.log("编辑")
                                     var checkedBoxLen = $('.delete_checkbox:checked').length
                                     home.funcs.bindSelectAll($("#edit_checkAll"), $('.delete_checkbox'), checkedBoxLen, $("#edit_modal_table"))
                                 }
@@ -854,18 +872,18 @@ var lingliao_apply = {
             var edit_add_search_detailBtn = $(".edit_add_detail")
             lingliao_apply.funcs.edit_add_search_detail(edit_add_search_detailBtn);
 
-            //实现全选
-            var checkedBoxLen = $('.edit_add_search_checkbox:checked').length
-            home.funcs.bindSelectAll($("#edit_add_search_checkAll"), $('.edit_add_search_checkbox'), checkedBoxLen, $("#edit_addModal_table"))
+            
 
 
         }
         //编辑里面的新增按钮数据读取操作
         , fillData_to_edit_add: function () {
+            const $tbody = $("#edit_addModal_table").children('tbody')
+            $tbody.empty()
             $.get(home.urls.lingLiao.getAllrawType(), {}, function (result) {
                 var items = result.data //获取数据
 
-                $("#edit_add_select").html("<option>请选择原料类型</option>")
+                $("#edit_add_select").html("<option value='-1'>请选择原料类型</option>")
                 items.forEach(function (e) {
                     $("#edit_add_select").append(
                         "<option value='" + e.code + "'>" + e.name + "</option>"
@@ -908,16 +926,18 @@ var lingliao_apply = {
         }
         //编辑-新增-搜索
         , edit_add_search: function (searchBtn) {
-
             searchBtn.off('click')
             searchBtn.on('click', function () {
                 var rawType = $('#edit_add_select option:selected').val()
                 var process = $('#edit_add_input').val();
-                $.post(home.urls.lingLiao.getDetail(), {
+                if(process==='请输入批号'){
+                    process = null
+                }
+                $.post(home.urls.lingLiao.getByRawTypeCodeAndBatchNumberLikeByPage(), {
                     rawTypeCode: rawType,
                     batchNumber: process
                 }, function (result) {
-                    var items = result.data //获取数据
+                    var items = result.data.content //获取数据
                     page = result.data
                     //console.log(items)
                     const $tbody = $("#edit_addModal_table").children('tbody')
@@ -927,13 +947,13 @@ var lingliao_apply = {
                         , count: 10 * page.totalPages//数据总数
                         , jump: function (obj, first) {
                             if (!first) {
-                                $.post(home.urls.lingLiao.getDetail(), {
-                                    rawTypeCode: rawType === '请选择原料类型' ? -1 : rawType,
-                                    batchNumber: process === '请输入批号' ? -1 : process,
+                                $.post(home.urls.lingLiao.getByRawTypeCodeAndBatchNumberLikeByPage(), {
+                                    rawTypeCode: rawType,
+                                    batchNumber: process,
                                     page: obj.curr - 1,
                                     size: obj.limit
                                 }, function (result) {
-                                    var items = result.data //获取数据
+                                    var items = result.data.content //获取数据
                                     // var code = $('#model-li-select-48').val()
                                     const $tbody = $("#edit_addModal_table").children('tbody')
                                     lingliao_apply.funcs.edit_renderHandler($tbody, items)
@@ -946,22 +966,27 @@ var lingliao_apply = {
             })
         },
         edit_renderHandler: function ($tbody, items) {
-            // $tbody.empty() //清空表格
+            $tbody.empty() //清空表格
+            if(items!=null){
             items.forEach(function (e) {
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='edit_add_search_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.batchNumber ? e.batchNumber : 'null') + "</td>" +
                     "<td>" + (e.currentAvailableMaterials ? e.currentAvailableMaterials : 'null') + "</td>" +
-                    "<td>" + (e.meterialsUnit ? e.meterialsUnit : 'null') + "</td>" +
+                    "<td>" + (e.materialsUnit ? e.materialsUnit : 'null') + "</td>" +
                     "<td>" + (e.judgeCode ? e.judgeCode : 'null') + "</td>" +
-                    "<td><a href=\"#\" class='edit_add_detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
+                    "<td><a href=\"#\" class='edit_add_detail' id='detail-" + (e.batchNumber) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "</tr>"
                 )
             })
+       }
 
-            var edit_add_search_detailBtn = $("#edit_add_detail")
+            var edit_add_search_detailBtn = $(".edit_add_detail")
             lingliao_apply.funcs.edit_add_search_detail(edit_add_search_detailBtn);
+            //实现全选
+            var checkedBoxLen = $('.edit_add_search_checkbox:checked').length
+            home.funcs.bindSelectAll($("#edit_add_search_checkAll"), $('.edit_add_search_checkbox'), checkedBoxLen, $("#edit_addModal_table"))
 
 
         }
@@ -971,65 +996,167 @@ var lingliao_apply = {
             detailBtns.on('click', function () {
                 //console.log(1111)
                 var _selfBtn = $(this)
-                var Code = _selfBtn.attr('id').substr(7)
-                var currId = $('#edit_add_select option:selected').val()
+                var batchNumber = _selfBtn.attr('id').substr(7)
+                var currId = parseInt($('#edit_add_select option:selected').val()) 
+                lingliao_apply.res = []
 
-                $.post(currId === 1 ? home.urls.rawPresoma.getByCode() : home.urls.rawLithium.getByCode(), {code: Code}, function (result) {
-                    //console.log(currId)
-                    //console.log("查看" + Code)
-                    var items = result.data
-                    layer.open({
-                        type: 1,
-                        content: lingliao_apply.funcs.getData(items),
-                        area: ['550px', '700px'],
-                        btn: ['关闭'],
-                        offset: 'auto',   // ['10%', '40%'],
-                        btnAlign: 'c',
-                        yes: function (index) {
-                            layer.close(index);
-                        }
+                if(currId===1){
+                    $.post(home.urls.rawPresoma.getByBatchNumber(),{
+                        batchNumber:batchNumber
+                    },function(result){
+                        var res = result.data
+                        //console.log(res)
+                        //console.log(currId)
+                        //console.log('Presoma')
+                        layer.open({
+                            type: 1,
+                            content: lingliao_apply.funcs.getData(res),
+                            area: ['720px', '700px'],
+                            btn: ['关闭'],
+                            offset: 'auto',   // ['10%', '40%'],
+                            btnAlign: 'c',
+                            yes: function (index) {
+                                layer.close(index);
+                            }
+                        })
                     })
+                }else if(currId===2){
+                    $.post(home.urls.rawLithium.getByBatchNumber(),{
+                        batchNumber:batchNumber
+                    },function(result){
+                        var res = result.data
+                        //console.log(res)
+                        //console.log(currId)
+                        //console.log('Lithium')
+                        layer.open({
+                            type: 1,
+                            content: lingliao_apply.funcs.getData(res),
+                            area: ['720px', '700px'],
+                            btn: ['关闭'],
+                            offset: 'auto',   // ['10%', '40%'],
+                            btnAlign: 'c',
+                            yes: function (index) {
+                                layer.close(index);
+                            }
+                        })
+                    })
+                }else{
+                    $.post(home.urls.product.getByBatchNumber(),{
+                        batchNumber:batchNumber
+                    },function(result){
+                        var res = result.data
+                        //console.log(res) 
+                        // console.log(currId)
+                        //console.log('Product')
+                        layer.open({
+                            type: 1,
+                            content: lingliao_apply.funcs.getData(res),
+                            area: ['720px', '700px'],
+                            btn: ['关闭'],
+                            offset: 'auto',   // ['10%', '40%'],
+                            btnAlign: 'c',
+                            yes: function (index) {
+                                layer.close(index);
+                            }
+                        })
+                    })                
+                }   
                 })
-            })
+
         },
         getData: function (items) {
-            var currId = $('#edit_add_select option:selected').val()
-            var data =
-                "<div id='auditModal'>" +
-                "<div class='arrow_div_left'>" +
-
-                "</div>" +
-                "<div class='arrow_div_right'>" +
-
-                "</div>";
-            if (currId === 2) {
-                data += lingliao_apply.funcs.getTableLithium(items);
-                //onsole.log(currId)
-                //console.log('Lithium')
+            var currId = parseInt($('#edit_add_select option:selected').val()) 
+            if(currId === 1) {
+                data = lingliao_apply.funcs.getTablePresoma(items);
             }
-            else {
-                data += lingliao_apply.funcs.getTablePresoma(items);
-                //console.log('Presoma')
-            }
+            else if(currId === 2){
+                data = lingliao_apply.funcs.getTableLithium(items);
+               // console.log('Lithium')
+            }else{
+                data = lingliao_apply.funcs.getTableProduct(items);
+               // console.log('Product')
+            }    
             return data;
         }
-
+        , getTableProduct: function (product) {
+            return (
+                "<div id='auditModal' style='padding:20px;'>"+
+                "<table id='audit_table_inner' class='table_inner' align='center' width='100%'>" +
+                "<thead>" +
+                " <tr> <td colspan='2'>批号</td><td>检测日期</td> <td>数量(t)</td> <td>判定</td> <td></td> </tr>" +
+                "</thead>" +
+                "<tbody>" +
+                "<tr> <td colspan='2'>" + (product.batchNumber) + "</td><td>" + (new Date(product.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + (product.number) + "</td> <td>" + (product.judge ? product.judge.name : null) + "</td> <td></td> </tr>" +
+                " </tbody>" +
+                "<thead>" +
+                " <tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td> <td></td> </tr>" +
+                "</thead>" +
+                "<tbody>" +
+                " <tr> <td colspan='2'>" + (product.status ? product.status.name : null) + "</td> <td>" + (product.publisher ? product.publisher.name : null) + "</td> <td></td> <td></td> <td></td> </tr>" +
+                "</tbody>" +
+                "<thead>" +
+                "<tr> <td colspan='2'>检测项目</td> <td>三级控制标准</td> <td>2016-3-2三级控制标准</td> <td>" + (product.batchNumber) + "</td> <td>编辑</td> </tr>" +
+                "</thead>" +
+                "<tbody>" +
+                "<tr> <td colspan='2'>振实密度(g/cm3)</td><td>≥2.0</td><td>2.3~2.7</td> <td>" + (product.p1) + "</td><td></td></tr>" +
+                " <tr> <td colspan='2'>水分（ppm）</td>  <td>≤500</td>  <td>≤200</td>  <td>" + (product.p2) + "</td>  <td></td> </tr>" +
+                "<tr> <td colspan='2'>SSA（m2/g）</td> <td>0.20~0.40</td> <td>0.22~0.48</td> <td>" + (product.p3) + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>pH值</td> <td>&le;11.80</td> <td>&le;11.80</td> <td>" + (product.p4) + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Li2CO3（%）</td> <td></td> <td>&le;0.25</td> <td>" + (product.p5) + "</td> <td></td> </tr>" +
+                " <tr> <td colspan='2'>LiOH（%）</td> <td></td> <td>&le;0.20</td> <td>" + (product.p6) + "</td> <td></td> </tr>" +
+                "<tr> <td rowspan='5'>粒度（um）</td> <td>D1</td> <td></td> <td>&ge;3.00</td> <td>" + (product.p8) + "</td> <td></td> </tr>" +
+                "<tr> <td>D10</td> <td>&ge;6.00</td> <td>&ge;5.00</td> <td>" + (product.p9) + "</td> <td></td> </tr>" +
+                "<tr> <td>D50</td> <td>11.00~14.00</td> <td>11.30~13.3</td> <td>" + product.p10 + "</td> <td></td> </tr>" +
+                "<tr> <td>D90</td> <td>&le;30.00</td> <td>&le;30.00</td> <td>" + product.p11 + "</td> <td></td> </tr>" +
+                " <tr> <td>D99</td> <td></td> <td>&le;40.00</td> <td>" + product.p12 + "</td> <td></td> </tr>" +
+                "<tr> <td rowspan='5'>磁性物质检测（ppb）</td> <td>粒度宽度系数</td> <td></td> <td></td> <td>" + product.p13 + "</td> <td></td> </tr>" +
+                "<tr> <td>Fe</td> <td></td> <td></td> <td></td> <td></td> </tr>" +
+                " <tr> <td>Ni</td> <td></td> <td></td> <td>" + product.p15 + "</td> <td></td> </tr>" +
+                "<tr> <td>Cr</td> <td></td> <td></td> <td>" + product.p15 + "</td> <td></td> </tr>" +
+                "<tr> <td>Zn</td> <td></td> <td></td> <td>" + product.p17 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>总量</td> <td>&le;50</td> <td>&le;50</td> <td>" + product.p18 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Co（mol%）</td> <td>12.20&plusmn;1.0</td> <td>19.7&plusmn;0.5</td> <td>" + product.p19 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Mn（ppm）</td> <td></td> <td>19.9&plusmn;0.5</td> <td>" + product.p20 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Ni（ppm）</td> <td></td> <td>60.4&plusmn;0.5</td> <td>" + product.p21 + "</td> <td></td> </tr>" +
+                " <tr> <td colspan='2'>Li（%）</td> <td>7.0&plusmn;0.5</td> <td>7.0&plusmn;0.5</td> <td>" + product.p22 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Co （%）</td> <td>12.20&plusmn;1.0</td> <td>12.20&plusmn;1.0</td> <td>" + product.p23 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Mn（%）</td> <td>11.4&plusmn;1.0</td> <td>11.4&plusmn;1.0</td> <td>" + product.p24 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Ni（%）</td> <td>36.2&plusmn;1.0</td> <td>36.2&plusmn;1.0</td> <td>" + product.p25 + "</td> <td></td> </tr>" +
+                " <tr> <td colspan='2'>Na （ppm）</td> <td>&le;200</td> <td>&le;200</td> <td>" + product.p26 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Mg （ppm）</td> <td>&le;200</td> <td>&le;200</td> <td>" + product.p27 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Ca （ppm）</td> <td>&le;200</td> <td>&le;200</td> <td>" + product.p28 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Fe（ppm）</td> <td>&le;50</td> <td>&le;30</td> <td>" + product.p29 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Cu（ppm）</td> <td>&le;50</td> <td>&le;20</td> <td>" + product.p30 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Zn（ppm）</td> <td>&le;50</td> <td>&le;30</td> <td>" + product.p31 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>S（ppm）</td> <td></td> <td>&le;1500</td> <td>" + product.p32 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>Al（ppm）</td> <td></td> <td></td> <td>" + product.p33 + "</td> <td></td> </tr>" +
+                " <tr> <td colspan='2'>0.1C放电容量（mAh/g）</td> <td>1000&plusmn;300</td> <td>1000&plusmn;300</td> <td>" + product.p34 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>0.1C首次放电效率（%）</td> <td></td> <td>&ge;177.5</td> <td>" + product.p35 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>1C放电容量（mAh/g）</td> <td></td> <td>&ge;88.0</td> <td>" + product.p36 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>主原料</td> <td></td> <td>&ge;162</td> <td>" + product.p37 + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>成品外观、重量抽查结果</td> <td></td> <td></td> <td>" + product.p38 + "</td> <td></td> </tr>" +
+                " <tr> <td colspan='2'>产线</td> <td></td> <td></td> <td>" + product.p39 + "</td> <td></td> </tr>" +
+                "</tbody>" +
+                "</table>"+
+                "</div>"
+            )
+        }
         , getTablePresoma: function (presoma) {
             return (
-                "<div id='div_table' class='table_scroll'>" +
-                "<table id='audit_table_inner' class='table_inner' align='center'>" +
+                "<div id='div_table' style='padding:20px;'>" +
+                "<table id='audit_table_inner' class='table_inner' align='center' width='100%'>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + presoma.batchNumber + "</td> <td>" + (new Date(presoma.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + presoma.number + "</td> <td>" + (presoma.judge ? presoma.judge.name : '无') + "</td></tr>" +
+                "<tr> <td colspan='2'>" + (presoma.batchNumber) + "</td> <td>" + (new Date(presoma.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + (presoma.number) + "</td> <td>" + (presoma.judge ? presoma.judge.name : '无') + "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
                 "</thead>" +
-                "<tr> <td colspan='2'>" + presoma.status.name + "</td> <td>" + (presoma.publisher ? presoma.publisher : '无') + "</td> <td></td> <td></td></tr>" +
+                "<tr> <td colspan='2'>" + (presoma.status?presoma.status.name:'null') + "</td> <td>" + (presoma.publisher ? presoma.publisher : '无') + "</td> <td></td> <td></td></tr>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>检测项目</td> <td>控制采购标准-2016-11-21</td> <td>2017.07.01采购标准</td> <td>" + presoma.batchNumber + "</td></tr>" +
+                "<tr> <td colspan='2'>检测项目</td> <td>控制采购标准-2016-11-21</td> <td>2017.07.01采购标准</td> <td>" + (presoma.batchNumber) + "</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
                 "<tr> <td colspan='2'>振实密度(g/cm3)</td> <td>&ge;2.0</td> <td></td> <td>" + presoma.c1 + "</td></tr>" +
@@ -1063,8 +1190,7 @@ var lingliao_apply = {
                 "<tr> <td colspan='2'>Zr(ppm)</td> <td></td> <td></td> <td>" + presoma.c29 + "</td></tr>" +
                 "</tbody>" +
                 "</table>" +
-                "</div>" +
-                "</div>"
+                "</div>" 
             );
         },
         getIcon: function (status, code) {
@@ -1083,24 +1209,24 @@ var lingliao_apply = {
          */
         getTableLithium: function (lithium) {
             return (
-                "<div id='div_table' class='table_scroll'>" +
-                "<table id='audit_table_inner' class='table_inner' align='center'>" +
+                "<div id='div_table' style='padding:20px;'>" +
+                "<table id='audit_table_inner' class='table_inner' align='center' width='100%'>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + (lithium.batchNumber ? lithium.batchNumber : 'null') + "</td> <td>" + (new Date(lithium.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + lithium.number + "</td> <td>" + lithium.judge.name + "</td></tr>" +
+                "<tr> <td colspan='2'>" + (lithium.batchNumber ? lithium.batchNumber : 'null') + "</td> <td>" + (new Date(lithium.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + (lithium.number) + "</td> <td>" + (lithium.judge?lithium.judge.name:'null') + "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
                 "</thead>" +
-                "<tr> <td colspan='2'>" + lithium.status.name + "</td> <td>" + (lithium.publisher ? lithium.publisher : '无') + "</td> <td></td> <td></td></tr>" +
+                "<tr> <td colspan='2'>" + (lithium.status?lithium.status.name:'null')+ "</td> <td>" + (lithium.publisher ? lithium.publisher : '无') + "</td> <td></td> <td></td></tr>" +
                 "<thead>" +
-                "<tr> <td colspan='2'>检测项目</td><td colspan='2'>原料技术标准<td>" + lithium.batchNumber + "</td></tr>" +
+                "<tr> <td colspan='2'>检测项目</td><td colspan='2'>原料技术标准<td>" + (lithium.batchNumber) + "</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>水分(%)</td> <td>&le;0.25</td> <td>&le;0.25</td> <td>" + lithium.c1 + "</td></tr>" +
-                "<tr> <td rowspan='5'>粒度(&mu;m)</td> <td>D1</td> <td></td> <td></td> <td>" + lithium.c2 + "</td></tr>" +
+                "<tr> <td colspan='2'>水分(%)</td> <td>&le;0.25</td> <td>&le;0.25</td> <td>" + (lithium.c1) + "</td></tr>" +
+                "<tr> <td rowspan='5'>粒度(&mu;m)</td> <td>D1</td> <td></td> <td></td> <td>" + (lithium.c2) + "</td></tr>" +
                 "<tr> <td>D10</td> <td></td> <td></td> <td>" + lithium.c3 + "</td></tr>" +
                 "<tr> <td>D50</td> <td>3~7</td> <td>3~7</td> <td>" + lithium.c4 + "</td></tr>" +
                 "<tr> <td>D90</td> <td>&le;30</td> <td>&le;30</td> <td>" + lithium.c5 + "</td></tr>" +
@@ -1118,8 +1244,7 @@ var lingliao_apply = {
                 "<tr> <td colspan='2'>Fe(ppm)</td> <td>&le;10</td> <td>&le;10</td> <td>" + lithium.c17 + "</td></tr>" +
                 "</tbody>" +
                 "</table>" +
-                "</div>" +
-                "</div>"
+                "</div>" 
             );
         }
 

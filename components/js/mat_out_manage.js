@@ -15,7 +15,6 @@ var mat_out_manage = {
         }, 30)
     },
     funcs: {
-
         renderTable: function () {
             $.post(home.urls.materialOut.getAllByPage(), {}, function (res) {
                 var $tbody = $("#material_out_table").children('tbody')
@@ -146,7 +145,7 @@ var mat_out_manage = {
         }
         , fillData: function ($table, items) {
 
-            $.get(servers.backup() + "process/getAll", {}, function (res) {
+           /* $.get(servers.backup() + "process/getAll", {}, function (res) {
                 items = res.data
                 $("#process_type").html("<option>请选择审批流程</option>");
                 items.forEach(function(e) {
@@ -154,7 +153,9 @@ var mat_out_manage = {
                         "<option value=" + (e.code) + ">" + (e.name) + "</option>"
                     )
                 })
-            })
+            })*/
+            $("#process_type").empty()
+            $("#process_type").append("<option>"+items.process.name+"</option>");
             var pickingApplies = items.pickingApplies
             var $tbody = $('#detail_table').children('tbody')
             $tbody.empty() //清空表格
