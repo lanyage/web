@@ -1143,7 +1143,7 @@ var home = {
             getAllrawType: function () {
                 return servers.backup() + 'rawType/getAll'
             },
-            getDetail: function () {
+            getByRawTypeCodeAndBatchNumberLikeByPage: function () {
                 return servers.backup() + 'available/getByRawTypeCodeAndBatchNumberLikeByPage'
             },
             add: function () {
@@ -1385,7 +1385,10 @@ var home = {
             },
             getByLikeBatchNumberByPage: function () {
                 return servers.backup() + 'product/getByLikeBatchNumberByPage'
-            }
+            },
+            getByBatchNumber: function () {
+                return servers.backup() + 'product/getByBatchNumber'
+            },
         },
         productPublish: {
             getAllByPage: function () {
@@ -1417,7 +1420,10 @@ var home = {
             },
             getByLikeBatchNumberByPage: function () {
                 return servers.backup() + 'rawPresoma/getByLikeBatchNumberByPage'
-            }
+            },
+            getByBatchNumber: function () {
+                return servers.backup() + 'rawPresoma/getByBatchNumber'
+            },
         },
         rawLithium: {
             // 碳酸锂
@@ -1438,7 +1444,10 @@ var home = {
             },
             getByLikeBatchNumberByPage: function () {
                 return servers.backup() + 'rawLithium/getByLikeBatchNumberByPage'
-            }
+            },
+            getByBatchNumber: function () {
+                return servers.backup() + 'rawLithium/getByBatchNumber'
+            },
         },
         processPremix: {
             // 预混

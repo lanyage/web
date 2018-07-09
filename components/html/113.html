@@ -61,13 +61,6 @@
         .provider_input{
             outline: none;  border: 0px;  margin: 0px;  width: 95%;  height: 100%;
         }
-          /* "变灰"效果*/
-       .disableHref{
-           cursor:default;
-           background-color:grey;
-           text-decoration:none;
-           pointer-events: none;
-}
         
     </style>
     <div class="block-quote">
@@ -301,7 +294,7 @@
             </tr>
         </thead>
             <tbody>
-            <tr>
+           <!-- <tr>
                 <td><input type="checkbox" class='edit_add_search_checkbox'/></td>
                 <td>123441232</td>
                 <td>38233</td>
@@ -316,11 +309,11 @@
                 <td>kg</td>
                 <td>未检验</td>
                 <td><a href='#' class='edit_add_detail' id='detail-1289'><i class='layui-icon'>&#xe60a;</i></a></td>
-            </tr>
+            </tr>-->
 
             </tbody>
         </table>
-        <div id="lingLiao_edit_add_page">
+        <div id="lingLiao_edit_add_page" style="text-align: center;">
         </div>
         <!-- <div class="whitespace"></div>
          <div style="position: relative;text-align: right;bottom: 0px;">
@@ -361,87 +354,53 @@
             </tr>
         </thead>
         <tbody>
-            <tbody>
-            <tr>
-                <td><input type="checkbox" class='nor_add_search_checkbox'/></td>
-                <td>123441232</td>
-                <td>38233</td>
-                <td>kg</td>
-                <td>已检验</td>
-                <td><a href='#' class='nror_add_detail' id='detail-1290'><i class='layui-icon'>&#xe60a;</i></a></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"  class='nor_add_search_checkbox'/></td>
-                <td>1223321232</td>
-                <td>38</td>
-                <td>kg</td>
-                <td>未检验</td>
-                <td><a href='#' class='nor_add_detail' id='detail-1289'><i class='layui-icon'>&#xe60a;</i></a></td>
-            </tr>
-
-            </tbody>
+        
+        </tbody>
         </table>
-        <div id="lingLiao_nor_add_page">
+        <div id="lingLiao_nor_add_page"  style="text-align: center;">
         </div>
     </div>
-        <!--点击紧急申请弹窗里面的新增要弹出来的窗口 -->
-        <div id='urg_addModal' class="hide" style="padding: 30px 30px 30px 30px;">
-            <div class="block-quote">
-                <div style="text-align: left;" class="fl">
-            <span>
-                <strong>原料类型</strong>&nbsp;
-                <select id="urg_add_select">
-                    
-                </select>
-            </span>
-                    &nbsp;
-                    <span>
-                    <strong>批号</strong>&nbsp;
-                    <input type="input" value="请输入批号" id="urg_add_input"/>
-            </span>
-                </div>
-                <div class="fr">
-                    <button id="urg_addModal_search" class="roundBtn">&nbsp;搜索&nbsp;</button>
-                </div>
+     <!--点击紧急申请弹窗里面的新增要弹出来的窗口 -->
+     <div id='urg_addModal' class="hide" style="padding: 30px 30px 30px 30px;">
+        <div class="block-quote">
+            <div style="text-align: left;" class="fl">
+        <span>
+            <strong>原料类型</strong>&nbsp;
+            <select id="urg_add_select">
+                
+            </select>
+        </span>
+                &nbsp;
+                <span>
+                <strong>批号</strong>&nbsp;
+                <input type="input" value="请输入批号" id="urg_add_input"/>
+        </span>
             </div>
-            <div class="whitespace" style="clear: both"></div>
-            <table width="100%" id="urg_addModal_table">
-                <thead>
-                <tr class="grey">
-                    <td class="normal_td"><input type="checkbox" id='urg_addModal_checkALl'/></td>
-                    <td class="normal_td">批号</td>
-                    <td class="normal_td">可用数量</td>
-                    <td class="normal_td">单位</td>
-                    <td class="normal_td">检验状态</td>
-                    <td class="normal_td">详情</td>
-                </tr>
-                </thead>
-                 <tbody>
-              <tr>
-                <td><input type="checkbox" class='urg_add_search_checkbox'/></td>
-                <td>123441232</td>
-                <td>38233</td>
-                <td>kg</td>
-                <td>已检验</td>
-                <td><a href='#' class='urg_add_detail' id='detail-1290'><i class='layui-icon'>&#xe60a;</i></a></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox"  class='urg_add_search_checkbox'/></td>
-                <td>1223321232</td>
-                <td>38</td>
-                <td>kg</td>
-                <td>未检验</td>
-                <td><a href='#' class='urg_add_detail' id='detail-1289'><i class='layui-icon'>&#xe60a;</i></a></td>
-             </tr>
-
-            </tbody>
-            </table>
-            <div id="lingLiao_urg_add_page">
-                </div>
+            <div class="fr">
+                <button id="urg_addModal_search" class="roundBtn">&nbsp;搜索&nbsp;</button>
+            </div>
         </div>
+        <div class="whitespace" style="clear: both"></div>
+        <table width="100%" id="urg_addModal_table">
+            <thead>
+            <tr class="grey">
+                <td class="normal_td"><input type="checkbox" id='urg_addModal_checkALl'/></td>
+                <td class="normal_td">批号</td>
+                <td class="normal_td">可用数量</td>
+                <td class="normal_td">单位</td>
+                <td class="normal_td">检验状态</td>
+                <td class="normal_td">详情</td>
+            </tr>
+            </thead>
+             <tbody>
+
+        </tbody>
+        </table>
+        <div id="lingLiao_urg_add_page"  style="text-align: center;">
+            </div>
+    </div>
 
 </div>
-
 
 
 
