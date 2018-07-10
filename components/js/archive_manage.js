@@ -111,6 +111,7 @@ var archive_manage = {
         , bindAddEventListener: function (addBtn) {
             addBtn.off('click').on('click', function () {
                 archive_manage.funcs.clearAddModal()
+
                 //首先就是弹出一个弹出框
                 layer.open({
                     type: 1,
@@ -152,7 +153,9 @@ var archive_manage = {
                                 archive_manage.fileCode = result.data.code
                                 var document = result.data.code
                                 var obj = {
+                                    name:document,
                                     equipment: {code: eqcode},
+                                    equipment:{name:eq},
                                     installTime: installTime,
                                     defectPeriod: defectPeriod,
                                     document: document,
@@ -162,16 +165,17 @@ var archive_manage = {
                                     repairContact: repairContact,
                                 }
                                 $.post(home.urls.archive.add(), {                   //add new archive
-                                    name: obj.document,
-                                    equipment: obj.equipment,
-                                    installTime: obj.installTime,
-                                    equipmentName: eq,
-                                    defectPeriod: obj.defectPeriod,
-                                    supplyFactory: supply,
-                                    repairFactory: repair,
-                                    document: obj.document,
-                                    supplyContact: obj.supplyContact,
-                                    repairContact: obj.repairContact,
+                                    //name: obj.document,
+                                    name:document,
+                                    equipment: {code:eqcode},
+                                    equipment:{name:eq},
+                                    installTime: installTime,
+                                    defectPeriod: defectPeriod,
+                                    supplyFactory: {code: supplyFactory},
+                                    repairFactory: {code: repairFactory},
+                                    document: document,
+                                    supplyContact: supplyContact,
+                                    repairContact: repairContact,
                                 }, function (result) {
                                     layer.msg(result.message, {
                                         offset: ['40%', '55%'],
@@ -185,7 +189,6 @@ var archive_manage = {
                                         }, 500)
                                     }
                                     layer.close(index)
-                                    archive_manage.funcs.clearAddModal()
                                     $("#arc_eqdoc").val('')
                                     archive_manage.fileCode = null
                                     archive_manage.formData = null
@@ -195,7 +198,6 @@ var archive_manage = {
                         })
                     },
                     btn2: function (index) {
-                        archive_manage.funcs.clearAddModal()
                         $("#arc_eqdoc").val('')
                         layer.close(index)
                         archive_manage.fileCode = null
@@ -218,11 +220,6 @@ var archive_manage = {
                     offset: ['40%', '55%'],
                     yes: function (index) {
                         var archiveCode = _this.attr('id').substr(3)
-                        $.post(home.urls.archive.getByCode(), {code: archiveCode}, function (res) {
-                            var fileCode = res.data.document
-                            $.post(servers.backup() + "pdf/deleteByCode", {code: fileCode}, function (res) {
-                            })
-                        })
                         $.post(home.urls.archive.deleteByCode(), {code: archiveCode}, function (result) {
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
@@ -337,14 +334,22 @@ var archive_manage = {
                     var archive = result.data
                     // console.log('archives', archive)
                     //you need to render the table firstly  todo
+                    //选择设备名称
                     $("#arc_eqname").empty()
-                    archive_manage.equipments.forEach(function (e) {
-                        if (e.code == archive.equipment.code)
-                            $("#arc_eqname").prepend("<option value='" + e.code + "'>" + e.name + "</option>")
-                        else
+                    if(archive.equipment!=null){
+                        $("#arc_eqname").prepend("<option value='" + archive.equipment.code + "'>" + archive.equipment.name + "</option>")
+                        archive_manage.equipments.forEach(function (e) {
+                            if(e.code!=archive.equipment.code)
                             $("#arc_eqname").append("<option value='" + e.code + "'>" + e.name + "</option>")
                     })
+                   }else{
+                    archive_manage.equipments.forEach(function (e) {
+                        $("#arc_eqname").append("<option value='" + e.code + "'>" + e.name + "</option>")
+                    })
+                   }
+                    //选择供应厂家
                     $("#arc_supfac").empty()
+                    
                     $("#arc_ref").empty()
                     archive_manage.suppliers.forEach(function (e) {
                         if (e.name == archive.supplyFactory)
@@ -397,7 +402,7 @@ var archive_manage = {
                                 $.post(home.urls.archive.update(), {
                                     code: code,
                                     name: archive.document,
-                                    equipmentCode: eqname,
+                                    equipment: {code:eqname},
                                     installTime: installtime,
                                     equipmentName: eq,
                                     defectPeriod: deadline,
@@ -443,9 +448,9 @@ var archive_manage = {
                                         $.post(home.urls.archive.update(), {
                                             code: code,
                                             name: document,
-                                            equipmentCode: eqname,
-                                            installTime: installtime,
+                                            equipment: {code:eqname},
                                             equipmentName: eq,
+                                            installTime: installtime,
                                             defectPeriod: deadline,
                                             supplyFactory: supfac,
                                             repairFactory: refac,
@@ -465,7 +470,6 @@ var archive_manage = {
                                             }
                                             $.post(servers.backup() + "pdf/deleteByCode", {code: archive.document}, function (res) {
                                             })
-                                            archive_manage.funcs.clearAddModal()
                                             layer.close(index)
                                             $("#add-doc-modal").css('display', 'none')
                                         })
@@ -474,7 +478,6 @@ var archive_manage = {
                             }
                         },
                         btn2: function (index) {
-                            archive_manage.funcs.clearAddModal()
                             layer.close(index)
                             $("#add-doc-modal").css('display', 'none')
                         }
@@ -484,12 +487,12 @@ var archive_manage = {
             })
         }//$ bindEditEventListener——end$
         , clearAddModal: function () {
-            $('#arc_eqname').val('')
+           // $('#arc_eqname').empty()
             $('#arc_eqinstalltime').val('')
             $('#arc_eqdeadline').val('')
-            $('#arc_supfac').val('')
+            //$('#arc_supfac').empty()
             $('#arc_supcon').val('')
-            $('#arc_ref').val('')
+            //$('#arc_ref').empty()
             $('#arc_refac').val('')
             $('#arc_eqdoc').val('')
         }
@@ -505,7 +508,7 @@ var archive_manage = {
                     "<td><input type='checkbox' class='arc_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
                     "<td><strong><del>" + "文档"+e.document + "</del></strong></td>" +
-                    "<td>" + (e.equipmentCode ? e.equipmentCode.name : '') + "</td>" +
+                    "<td>" + (e.equipment ? e.equipment.name : '') + "</td>" +
                     "<td>" + (new Date(e.installTime).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.defectPeriod) + "</td>" +
                     "<td>" + (e.supplyFactory) + "</td>" +

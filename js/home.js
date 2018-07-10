@@ -547,7 +547,7 @@ var home = {
                 return servers.backup() + 'archive/add'
             },
             deleteByCode: function () {
-                return servers.bcup() + 'archive/deleteByCode'
+                return servers.backup() + 'archive/deleteByCode'
             },
             update: function () {
                 return servers.backup() + 'archive/update'
