@@ -4,7 +4,7 @@ var fenshiduibi = {
     data1: [],
     data2:[],
     realDataIntervals: [],
-    ino: 13,
+    ino: 43,
     timeGap: 24,
     start1: null,
     start2: null,
@@ -65,11 +65,11 @@ var fenshiduibi = {
                 fenshiduibi.start2 = $('#start2').val()
                 fenshiduibi.end1 = $('#end1').val()
                 fenshiduibi.end2 = $('#end2').val()
-                console.log(fenshiduibi.timeGap)
-                console.log(fenshiduibi.start1)
-                console.log(fenshiduibi.start2)
-                console.log(fenshiduibi.end1)
-                console.log(fenshiduibi.end2)
+                //console.log(fenshiduibi.timeGap)
+                //console.log(fenshiduibi.start1)
+                //console.log(fenshiduibi.start2)
+                //console.log(fenshiduibi.end1)
+                //console.log(fenshiduibi.end2)
                 if (!fenshiduibi.timeGap || !fenshiduibi.start1 || !fenshiduibi.start2 || !fenshiduibi.end1 || !fenshiduibi.end2) {
                     alert('您的查询条件还没填写完整!')
                     return

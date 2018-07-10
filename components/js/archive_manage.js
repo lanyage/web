@@ -7,11 +7,14 @@ var archive_manage = {
         // console.log(archive_manage.suppliers)
         // console.log(archive_manage.equipments)
         $("#arc_eqname").empty()
+        //$("#arc_eqname").append("<option>请选择设备名称</option>")
         archive_manage.equipments.forEach(function (e) {
             $("#arc_eqname").append("<option value='" + e.code + "'>" + e.name + "</option>")
         })
         $("#arc_supfac").empty()
         $("#arc_ref").empty()
+        //$("#arc_supfac").append("<option>请选择供货厂家</option>")
+        //$("#arc_ref").append("<option>请选择维修厂家</option>")
         archive_manage.suppliers.forEach(function (e) {
             $("#arc_supfac").append("<option value='" + e.code + "'>" + e.name + "</option>")
             $("#arc_ref").append("<option value='" + e.code + "'>" + e.name + "</option>")
@@ -149,7 +152,7 @@ var archive_manage = {
                                 archive_manage.fileCode = result.data.code
                                 var document = result.data.code
                                 var obj = {
-                                    equipmentCode: {code: eqcode},
+                                    equipment: {code: eqcode},
                                     installTime: installTime,
                                     defectPeriod: defectPeriod,
                                     document: document,
@@ -160,7 +163,7 @@ var archive_manage = {
                                 }
                                 $.post(home.urls.archive.add(), {                   //add new archive
                                     name: obj.document,
-                                    equipmentCode: obj.equipmentCode.code,
+                                    equipment: obj.equipment,
                                     installTime: obj.installTime,
                                     equipmentName: eq,
                                     defectPeriod: obj.defectPeriod,
@@ -214,16 +217,13 @@ var archive_manage = {
                     btn: ['确认', '取消'],
                     offset: ['40%', '55%'],
                     yes: function (index) {
-                        console.log('yes')
                         var archiveCode = _this.attr('id').substr(3)
                         $.post(home.urls.archive.getByCode(), {code: archiveCode}, function (res) {
                             var fileCode = res.data.document
-                            console.log(fileCode)
                             $.post(servers.backup() + "pdf/deleteByCode", {code: fileCode}, function (res) {
                             })
                         })
                         $.post(home.urls.archive.deleteByCode(), {code: archiveCode}, function (result) {
-                            console.log(result.message)
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
                                 time: 700
@@ -339,7 +339,7 @@ var archive_manage = {
                     //you need to render the table firstly  todo
                     $("#arc_eqname").empty()
                     archive_manage.equipments.forEach(function (e) {
-                        if (e.code == archive.equipmentCode.code)
+                        if (e.code == archive.equipment.code)
                             $("#arc_eqname").prepend("<option value='" + e.code + "'>" + e.name + "</option>")
                         else
                             $("#arc_eqname").append("<option value='" + e.code + "'>" + e.name + "</option>")
