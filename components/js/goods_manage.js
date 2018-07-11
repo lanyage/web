@@ -268,7 +268,7 @@ var goods_manage = {
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>产品编码:<input type='text' id='code' value='" + (goods.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>产品编码:<input type='text' disabled='true' id='code' value='" + (goods.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>产品名称:<input type='text' id='name' value='" + (goods.name) + "'/></p>" +
                         "</div>" +
                         "</div>",

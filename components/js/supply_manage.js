@@ -1,9 +1,12 @@
 var supply_manage = {
+    suppliers:[],
     init: function () {
         /** 获取供应商信息分页显示并展示 */
         supply_manage.funcs.renderTable()
         supply_manage.funcs.renderSelect()
-
+        $.post(home.urls.supplyman.getCustomer(),{code:10},function(result){
+            supply_manage.suppliers = result.data
+        })
         //将分页居中
         var out = $('#supplyman_page').width()
         var time = setTimeout(function () {
@@ -50,6 +53,14 @@ var supply_manage = {
                         }
                     })
                 })
+            $("#fr").show()
+            $("#fl").hide()
+            /** 刷新*/
+            var refreshBtn = $('#model-li-hide-refresh-80')
+            supply_manage.funcs.bindRefreshEventLisener(refreshBtn)
+            /** 搜索*/
+            var searchBtn = $('#model-li-hide-search-80')
+            supply_manage.funcs.bindSearchEventListener(searchBtn)
             }
             else{
                 $.post(home.urls.supplyman.getAllBySupplier(), {supplierCode:supplierCode}, function (res) {
@@ -82,22 +93,35 @@ var supply_manage = {
                         }
                     })
                 })
-            }
-          
+            $("#fl").show()
+            $("#fr").hide()
             /** 新增*/
             var addBtn = $("#model-li-hide-add-80")
             supply_manage.funcs.bindAddEventListener(addBtn) 
-            /** 刷新*/
-            var refreshBtn = $('#model-li-hide-refresh-80')
-            supply_manage.funcs.bindRefreshEventLisener(refreshBtn)
-            /** 搜索*/
-            var searchBtn = $('#model-li-hide-search-80')
-            supply_manage.funcs.bindSearchEventListener(searchBtn)
+            /** 批量删除*/
+            var deleteBatchBtn = $('#model-li-hide-delete-80')
+            supply_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
+            }
+          
+            
+           
         }
         , renderHandler: function ($tbody, supplymans) {
             $tbody.empty() //清空表格
             supplymans.forEach(function (e) {
-                //var dt = new Date(e.header.supplyTime).Format("yyyy-MM-dd")
+                //var dt = new Date(e.header.supplyTime).Format("yyyy-MM-dd") 
+                var status
+                switch(e.status){
+                    case 0:
+                        status = '待发货'
+                        break
+                    case 1:
+                        status = '已发货'
+                        break
+                    case 2:
+                        status = '已收货'
+                        break
+                }
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='sup_checkbox' value='" + (e.code) + "'></td>" +
@@ -107,7 +131,7 @@ var supply_manage = {
                     "<td>" + (e.contact) + "</td>" +
                     "<td>" + (e.name) + "</td>" +
                     "<td>" + (e.weight) + "</td>" +
-                    "<td>" + (e.status) + "</td>" +
+                    "<td>" + (status) + "</td>" +
                     "<td><a href='#' class='detailSupplyman' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe63c;</i></a></td>" +
                     "<td><a href='#' class='editSupplyman' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                     "<td><a href='#' class='deleteSupplyman' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
@@ -122,10 +146,6 @@ var supply_manage = {
             supply_manage.funcs.bindDeleteEventListener(deleteBtns)
             /** 编辑事件*/
             supply_manage.funcs.bindEditEventListener(editBtns)
-            
-            var deleteBatchBtn = $('#model-li-hide-delete-80')
-            /** 批量删除*/
-            supply_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
 
             var checkedBoxLen = $('.sup_checkbox:checked').length
             home.funcs.bindSelectAll($("#sup_checkAll"), $('.sup_checkbox'), checkedBoxLen, $("#supplier_table"))
@@ -135,6 +155,7 @@ var supply_manage = {
         }
 
         ,renderSelect:function(){
+            supply_manage.suppliers = []
             $.get(home.urls.supplyman.getAllSupplier(),{ },function(result){ 
                 var res = result.data
                 $("#supplyman_name_select").html("<option value='-1'>请选择公司名称</option>")
@@ -150,26 +171,13 @@ var supply_manage = {
             addBtn.off('click')
             addBtn.on('click', function () {
                 /** 新增默认输入框为空*/
-                
-                $.post(home.urls.supplyman.getCustomer(),{code:supplierCode},function(result){
-                    var items = result.data
-                    //.log(items)
-                    $('#diliverer_inp').html("<option>请选择收货人名称</option>")
-                    items.forEach(function(e){
+                $('#diliverer_inp').empty()
+                $('#diliverer_inp').html("<option>请选择送货人名称</option>")
+                supply_manage.suppliers.forEach(function(e){
                         $('#diliverer_inp').append(
-                        "<option value="+e.code+">"+e.name+"</option>"
+                        "<option value="+(e.code)+">"+e.name+"</option>"
                     )
                     })     
-                })
-               /* $.get(home.urls.supplyman.getAllSupplier(),{},function(result){
-                    var items = result.data
-                    $('#diliverer_supplier').html("<option>请选择发货人厂家</option>")
-                    items.forEach(function(e){
-                        $('#diliverer_supplier').append(
-                        "<option value="+e.code+">"+e.name+"</option>"
-                    )
-                    })     
-                })*/
                 $('#header_inp').val('')
                 $('#dilivery_time_inp').val('')
                 //$('#diliverer_inp').val('')
@@ -192,7 +200,7 @@ var supply_manage = {
                             var sendEntries =[]
                             $("#provider_body_downtable").children('tbody').find("tr").each(function(){  
                                 var e = $(this).children();  
-                                total_weight += parseFloat(e.eq(2).text())
+                                total_weight += parseFloat(e.eq(2).text()).toFixed(2)
                                 sendEntries.push({
                                     batchNumber:e.eq(0).text(),
                                     unit:e.eq(1).text(),
@@ -200,17 +208,24 @@ var supply_manage = {
                                 })
                             }); 
                             //console.log(e.eq(2).text())
-                            time = $('#dilivery_time_inp').val()
+                            var supplier
+                            supply_manage.suppliers.forEach(function(e){
+                               if($('#diliverer_inp').val()===e.code){
+                                   supplier = e.supplier.code
+                               }
+                            })  
+                             console.log(supplier)
+                            time = new Date($('#dilivery_time_inp').val()).getTime()
                             var data = {
                                 contractNumber:$('#header_inp').val(),
-                                supplier:{code:supplierCode},
+                                supplier:{code:supplier},
                                 sender:{code : $('#diliverer_inp').val()},
                                 sendDate:time,
                                 contact:$('#contact_inp').val(),
                                 name:$('#name_inp').val(),
-                                weight:total_weight,
+                                weight:total_weight.toFixed(2),
                                 //rawType:{code : res.rawType.code},
-                                status:1,
+                                status:0,
                                 sendEntries:[]
                             }
                             data.sendEntries = sendEntries
@@ -275,7 +290,7 @@ var supply_manage = {
                             "</tr>"
                         )
                         total_weight += parseFloat(weight)
-                        $('#total_inp').val(total_weight)
+                        $('#total_inp').val(total_weight.toFixed(2))
                         supply_manage.funcs.add_edit($(".editor"))
                         supply_manage.funcs.add_delete($(".delete"))
                         $("#provider_info_add").css('display','none')
@@ -311,7 +326,7 @@ var supply_manage = {
                         e.eq(1).text(unit) 
                         e.eq(2).text(weight) 
                         total_weight += parseFloat($('#add_weight').val())
-                        $('#total_inp').val(total_weight)
+                        $('#total_inp').val(total_weight.toFixed(2))
                         $("#provider_info_add").css('display','none')
                         layer.close(index)
                     }
@@ -341,7 +356,7 @@ var supply_manage = {
                         //console.log(parseFloat(td2))
                         total_weight -= parseFloat(td2)
                         parseFloat(td2)
-                        $('#total_inp').val(total_weight)
+                        $('#total_inp').val(total_weight.toFixed(2))
                         _this.parent('td').parent('tr').remove()   
                         layer.close(index)
                     }

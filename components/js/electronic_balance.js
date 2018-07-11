@@ -262,7 +262,7 @@ var electronic_balance = {
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>编码:<input type='text' id='code' value='" + (electronic_balance1.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>编码:<input type='text' disabled='true' id='code' value='" + (electronic_balance1.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>名称:<input type='text' id='name' value='" + (electronic_balance1.name) + "'/></p>" +
                         "</div>" +
                         "</div>",

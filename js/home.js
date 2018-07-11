@@ -165,6 +165,9 @@ var home = {
             deleteByCode: function () {
                 return servers.backup() + 'check/deleteByCode'
             },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'check/deleteByBatchCode'
+            },
             getAllByLikeNameByPage: function () {
                 return servers.backup() + 'check/getAllByLikeNameByPage'
             },
@@ -555,8 +558,8 @@ var home = {
             getByCode: function () {
                 return servers.backup() + 'archive/getByCode'
             },
-            getAllByLikeNameByPage: function () {
-                return servers.backup() + 'archive/getAllByLikeNameByPage'
+            getByEquipmentNameLikeByPage: function () {
+                return servers.backup() + 'archive/getByEquipmentNameLikeByPage'
             },
             deleteByBatchCode: function () {
                 return servers.backup() + 'archive/deleteByBatchCode'

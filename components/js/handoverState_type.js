@@ -55,6 +55,11 @@ var handoverState_type = {
                     $("#name3").empty()
                     $("#name4").empty()
                     $("#name5").empty()
+                    $("#name1").append("<option value='-1'>请选择交接状态</option>")
+                    $("#name2").append("<option value='-1'>请选择交接状态</option>")
+                    $("#name3").append("<option value='-1'>请选择交接状态</option>")
+                    $("#name4").append("<option value='-1'>请选择交接状态</option>")
+                    $("#name5").append("<option value='-1'>请选择交接状态</option>")
                     res.forEach(function(e){
                         $("#name1").append("<option value="+e.code+">"+e.name+"</option>")
                         $("#name2").append("<option value="+e.code+">"+e.name+"</option>")
@@ -222,26 +227,83 @@ var handoverState_type = {
                     code: handoverState_typeCode
                 }, function (result) {
                     var res = result.data
-                   
+                    
                     $.get(servers.backup()+'handoverState/getAll',{ },function(result){
                         var res1 = result.data
-                        res1.forEach(function(e){
-                            if(e.code!=res.handoverState1.code){
-                                 $("#name1").append("<option value="+e.code+">"+e.name+"</option>")
-                            }
-                            if(e.code!=res.handoverState2.code){
+                        if(res.handoverState1===null){
+                            $("#name1").append("<option value='-1'>请选择交接状态</option>")
+                            res1.forEach(function(e){
+                                $("#name1").append("<option value="+e.code+">"+e.name+"</option>")
+                            })
+                        }else{
+                            $("#name1").append("<option value="+res.handoverState1.code+">"+res.handoverState1.name+"</option>")
+                            $("#name1").append("<option value='-1'>请选择交接状态</option>")
+                            res1.forEach(function(e){
+                                if(e.code!=res.handoverState1.code){
+                                     $("#name1").append("<option value="+e.code+">"+e.name+"</option>")
+                                }
+                            })
+                        }
+
+                        if(res.handoverState2===null){
+                            $("#name2").append("<option value='-1'>请选择交接状态</option>")
+                            res1.forEach(function(e){
                                 $("#name2").append("<option value="+e.code+">"+e.name+"</option>")
-                           }
-                            if(e.code!=res.handoverState3.code){
-                                 $("#name3").append("<option value="+e.code+">"+e.name+"</option>")
-                            }
-                            if(e.code!=res.handoverState4.name){
+                            })
+                        }else{
+                            $("#name2").append("<option value="+res.handoverState2.code+">"+res.handoverState2.name+"</option>")
+                            $("#name2").append("<option value='-1'>请选择交接状态</option>")
+                            res1.forEach(function(e){
+                                if(e.code!=res.handoverState2.code){
+                                     $("#name2").append("<option value="+e.code+">"+e.name+"</option>")
+                                }
+                            })
+                        }
+
+                        if(res.handoverState3===null){
+                            $("#name3").append("<option value='-1'>请选择交接状态</option>")
+                            res1.forEach(function(e){
+                                $("#name3").append("<option value="+e.code+">"+e.name+"</option>")
+                            })
+                        }else{
+                            $("#name3").append("<option value="+res.handoverState3.code+">"+res.handoverState3.name+"</option>")
+                            $("#name3").append("<option value='-1'>请选择交接状态</option>")
+                            res1.forEach(function(e){
+                                if(e.code!=res.handoverState3.code){
+                                     $("#name3").append("<option value="+e.code+">"+e.name+"</option>")
+                                }
+                            })
+                        }
+
+                        if(res.handoverState4===null){
+                            $("#name4").append("<option value='-1'>请选择交接状态</option>")
+                            res1.forEach(function(e){
                                 $("#name4").append("<option value="+e.code+">"+e.name+"</option>")
-                           }
-                           if(e.code!=res.handoverState5.code){
-                            $("#name5").append("<option value="+e.code+">"+e.name+"</option>")
-                           }
-                        })
+                            })
+                        }else{
+                            $("#name4").append("<option value="+res.handoverState4.code+">"+res.handoverState4.name+"</option>")
+                            $("#name4").append("<option value='-1'>请选择交接状态</option>")
+                            res1.forEach(function(e){
+                                if(e.code!=res.handoverState4.code){
+                                     $("#name4").append("<option value="+e.code+">"+e.name+"</option>")
+                                }
+                            })
+                        }
+
+                        if(res.handoverState5===null){
+                            $("#name5").append("<option value='-1'>请选择交接状态</option>")
+                            res1.forEach(function(e){
+                                $("#name5").append("<option value="+e.code+">"+e.name+"</option>")
+                            })
+                        }else{
+                            $("#name5").append("<option value="+res.handoverState5.code+">"+res.handoverState5.name+"</option>")
+                            $("#name5").append("<option value='-1'>请选择交接状态</option>")
+                            res1.forEach(function(e){
+                                if(e.code!=res.handoverState5.code){
+                                     $("#name5").append("<option value="+e.code+">"+e.name+"</option>")
+                                }
+                            })
+                        }
                     })
                    
                     layer.open({
@@ -249,15 +311,15 @@ var handoverState_type = {
                         title: '编辑',
                         content:  "<div id='addModal1'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>交接状态类型1名称:<select id='name1'><option value="+(res.handoverState1?res.handoverState1.code:'')+">"+(res.handoverState1?res.handoverState1.name:'')+"</option></select></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>交接状态类型2名称:<select id='name2'><option value="+(res.handoverState2?res.handoverState2.code:'')+">"+(res.handoverState2?res.handoverState2.name:'')+"</option></select></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>交接状态类型3名称:<select id='name3'><option value="+(res.handoverState3?res.handoverState3.code:'')+">"+(res.handoverState2?res.handoverState3.name:'')+"</option></select></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>交接状态类型4名称:<select id='name4'><option value="+(res.handoverState4?res.handoverState4.code:'')+">"+(res.handoverState2?res.handoverState4.name:'')+"</option></select></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>交接状态类型5名称:<select id='name5'><option value="+(res.handoverState5?res.handoverState5.code:'')+">"+(res.handoverState2?res.handoverState5.name:'')+"</option></select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>交接状态类型1名称:<select id='name1'></select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>交接状态类型2名称:<select id='name2'></select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>交接状态类型3名称:<select id='name3'></select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>交接状态类型4名称:<select id='name4'></select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>交接状态类型5名称:<select id='name5'></select></p>" +
                         "</div>" +
                         "</div>",
                         btn: ['确认', '取消'],
-                        area: ['370px', '340px'],
+                        area: ['370px', '300px'],
                         offset: ['40%', '45%'],
                         yes: function (index) {
                             var name1 = $('#name1').val()
@@ -265,6 +327,7 @@ var handoverState_type = {
                             var name3 = $('#name3').val()
                             var name4 = $('#name4').val()
                             var name5 = $('#name5').val()
+                            
                             $.post(home.urls.handoverStateType.update(), { 
                                  code:handoverState_typeCode,
                                 'handoverState1.code':name1,
@@ -298,7 +361,7 @@ var handoverState_type = {
             $tbody.empty() //清空表格
             res.forEach(function (e) {
                 $('#checkAll').prop('checked', false)
-                console.log(res)
+                //console.log(res)
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='checkbox' value='" + (e.code) + "'></td>" +

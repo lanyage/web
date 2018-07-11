@@ -82,7 +82,7 @@ var company_manage = {
                         type: 1,
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>公司编号:&nbsp;<input type='text' id='company_code' value='" + (companyman.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>公司编号:&nbsp;<input type='text' disabled='true' id='company_code' value='" + (companyman.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>公司名称:&nbsp;<input type='text' id='company_name' value='" + (companyman.name) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>信用代码:&nbsp;<input type='text' id='company_creditCode' value='" + (companyman.creditCode) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>地址:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='company_address' value='" + (companyman.address) + "'/></p>" +

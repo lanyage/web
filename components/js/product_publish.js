@@ -54,10 +54,10 @@ var product_publish = {
                 $tbody.append(
                     "<tr id='product-publish-" + (e.code) + "'>" +
                     "<td>" + product_publish.funcs.getIcon(product_publish.status, e.code) + "</i></td>" +
-                    "<td>" + (e.publisher ? e.publisher.name : null) + "</td>" +
+                    "<td>" + (e.publisher ? e.publisher.name : '无') + "</td>" +
                     "<td>" + (new Date(e.testDate).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.batchNumber) + "</td>" +
-                    "<td>" + (e.judge ? e.judge.name : null) + "</td>" +
+                    "<td>" + (e.judge ? e.judge.name : '无') + "</td>" +
                     "<td>" + (e.number) + "</td>" +
                     "<td>" + (e.p1) + "</td>" +
                     "<td>" + (e.p2) + "</td>" +

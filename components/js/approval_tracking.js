@@ -92,6 +92,21 @@ var approval_tracking = {
                     code:code
                 },function(result){
                     var items = result.data
+                    if(items.slotsNormal1===true){
+                        slotsNormal1 = '正常'
+                    }else{
+                        slotsNormal1 = '异常'
+                    }
+                    if(items.slotsNormal2===true){
+                        slotsNormal2 = '正常'
+                    }else{
+                        slotsNormal2 = '异常'
+                    }
+                    if(items.screenNormal===true){
+                        screenNormal = '正常'
+                    }else{
+                        screenNormal = '异常'
+                    }
                     $("#packagingCode").text(items.packagingCode?items.packagingCode:'')
                     $("#packagingWeight").text(items.packagingWeight)
                     $("#materialCode").text(items.materialCode)
@@ -99,10 +114,10 @@ var approval_tracking = {
                     $("#packagingOperator").text(items.packagingOperator?items.packagingOperator.name:'')
                    
                     $("#warehouseCode").text(items.warehouseCode)
-                    $("#slotsNormal1").text(items.slotsNormal1)
+                    $("#slotsNormal1").text(slotsNormal1)
                     $("#warehousingDate").text(items.warehousingDate?items.warehousingDate:'')
                     $("#warehousingWeight").text(items.warehousingWeight?items.warehousingWeight:'')
-                    $("#slotsNormal2").text(items.slotsNormal2)
+                    $("#slotsNormal2").text(slotsNormal2)
 
                     $("#packagingDate").text(items.packagingDate?items.packagingDate:'')
                     $("#mixTime").text(items.mixTime?new Date(items.mixTime).Format('yyyy-MM-dd hh:mm:ss'):'')
@@ -112,7 +127,7 @@ var approval_tracking = {
 
                     $("#defeWeight").text(items.defeWeight)
                     $("#slotsLeft").text(items.slotsLeft?items.slotsLeft:'')
-                    $("#screenNormal").text(items.screenNormal)
+                    $("#screenNormal").text(screenNormal)
                 layer.open({
                     type: 1,
                     title: '合批详情',
@@ -137,17 +152,34 @@ var approval_tracking = {
                      code:code
                  },function(result){
                     items = result.data
+                    var slotsNormal1,slotsNormal2,screenNormal
+                    if(items.slotsNormal1===true){
+                        slotsNormal1 = '正常'
+                    }else{
+                        slotsNormal1 = '异常'
+                    }
+                    if(items.slotsNormal2===true){
+                        slotsNormal2 = '正常'
+                    }else{
+                        slotsNormal2 = '异常'
+                    }
+                    if(items.screenNormal===true){
+                        screenNormal = '正常'
+                    }else{
+                        screenNormal = '异常'
+                    }
+                    
                     $("#packagingCode1").val(items.packagingCode?items.packagingCode:'')
                     $("#packagingWeight1").val(items.packagingWeight)
                     $("#materialCode1").val(items.materialCode)
                     $("#warehousingOperator1").append("<option value="+items.warehousingOperator.code+">"+items.warehousingOperator.name+"</option>")
                     $("#packagingOperator1").append("<option value="+items.packagingOperator.code+">"+items.packagingOperator.name+"</option>")
-                   
+                    
                     $("#warehouseCode1").val(items.warehouseCode)
-                    $("#slotsNormal11").val(items.slotsNormal1)
+                    $("#slotsNormal11").val(slotsNormal1)
                     $("#warehousingDate1").val(items.warehousingDate?items.warehousingDate:'')
                     $("#warehousingWeight1").val(items.warehousingWeight?items.warehousingWeight:'')
-                    $("#slotsNormal21").val(items.slotsNormal2)
+                    $("#slotsNormal21").val(slotsNormal2)
 
                     $("#packagingDate1").val(items.packagingDate?items.packagingDate:'')
                     $("#mixTime1").val(items.mixTime?new Date(items.mixTime).Format('yyyy-MM-dd hh:mm:ss'):'')
@@ -157,7 +189,7 @@ var approval_tracking = {
 
                     $("#defeWeight1").val(items.defeWeight)
                     $("#slotsLeft1").val(items.slotsLeft?items.slotsLeft:'')
-                    $("#screenNormal1").val(items.screenNormal)
+                    $("#screenNormal1").val(screenNormal)
 
                     $.get(servers.backup()+"user/getAll",{ },function(result){
                         users = result.data

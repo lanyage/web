@@ -300,7 +300,7 @@ var bound_manage = {
 							title: '编辑',
 							content: "<div id='addModal'>" +
 								"<div style='text-align: center;padding-top: 10px;'>" +
-								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编码:<input type='text' id='code' value='" + (bound.code) + "'/></p>" +
+								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编码:<input type='text' disabled='true' id='code' value='" + (bound.code) + "'/></p>" +
 								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序号:<input type='text' id='num' value='" + (bound.num) + "'/></p>" +
 								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;指标名称:<select id='indicator_code' style='width:174px;'><option value=" + (bound.indicator && bound.indicator.code || '') + ">" + (bound.indicator && bound.indicator.name || '') + "</option></select></p>" +
 								"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上界:<input type='text' id='upper' value='" + (bound.upperBound) + "'/></p>" +
