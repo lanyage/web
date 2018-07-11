@@ -124,11 +124,13 @@ var repair_apply = {
 
 
         /** 通过时间搜索事件绑定 */
-        , bindSearchbytimeEventListener: function () {
-            var searchbytimeBtn = $("#model-li-hide-searchbytime-44")
+        , bindSearchbytimeEventListener: function (searchbytimeBtn) {
+            //var searchbytimeBtn = $("#model-li-hide-searchbytime-44")
             searchbytimeBtn.off('change')
             searchbytimeBtn.on('change', function () {
-                var date = $(this).val()
+                console.log(111111)
+                var date =new Date($(this).val()).Format('yyyy/MM/dd')
+                console.log($(this).val())
                 $.post(home.urls.repair.findByApplicationTimeInPages(), {date: date}, function (result) {
                     var res = result.data
                     layui.laypage.render({
@@ -186,7 +188,7 @@ var repair_apply = {
                     $('#repair_productLine_input').val(repairs.productLine ? repairs.productLine.name : '')
                     $('#repair_duty_input').val(repairs.duty ? repairs.duty.name : '')
                     $('#repair_applicationPerson_input').val(repairs.applicationPerson ? repairs.applicationPerson.name : '')
-                    $('#repair_input_appcontact').val(repairs.applicationPerson ? repairs.applicationPerson.Contact : '')
+                    $('#repair_input_appcontact').val(repairs.applicationPerson ? repairs.applicationPerson.contact : '')
                     $("#repair_applicationTime_input").val(repair_apply.funcs.transformStampToDate(repairs.applicationTime))
                     $("#repair_applicationDescription_input").val(repairs.applicationDescription)
                     $("#repair_orderTime_input").val(repair_apply.funcs.transformStampToDate(repairs.orderTime))
@@ -239,13 +241,13 @@ var repair_apply = {
                     $tbody.append(
                         "<tr>" +
                         "<td>" + (e.flag ? e.flag.name : 'null') + "</td>" +
-                        "<td>" + (e.eqArchive ? e.eqArchive.code : 'null') + "</td>" +
+                        "<td>" + (e.equipment ? e.equipment.name : 'null') + "</td>" +
                         "<td>" + (e.department ? e.department.name : 'null') + "</td>" +
                         "<td>" + (e.productLine ? e.productLine.code : 'null') + "</td>" +
                         "<td>" + (e.applicationPerson ? e.applicationPerson.name : 'null') + "</td>" +
-                        "<td>" + (e.applicationTime ? repair_apply.funcs.transformStampToDate(e.applicationTime) : 'null') + "</td>" +
-                        "<td>" + (e.orderTime ? repair_apply.funcs.transformStampToDate(e.orderTime) : 'null') + "</td>" +
-                        "<td>" + (e.finishTime ? repair_apply.funcs.transformStampToDate(e.finishTime) : 'null') + "</td>" +
+                        "<td>" + (e.applicationTime ? new Date(e.applicationTime).Format('yyyy-MM-dd'): 'null') + "</td>" +
+                        "<td>" + (e.orderTime ?  new Date(e.orderTime).Format('yyyy-MM-dd') : 'null') + "</td>" +
+                        "<td>" + (e.finishTime ? new Date(e.finishTime).Format('yyyy-MM-dd'): 'null') + "</td>" +
                         "<td><a href='#' class='detailRepair' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe60a;</i></a></td>" +
                         "</tr>")
                 )
