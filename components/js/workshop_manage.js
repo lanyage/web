@@ -269,7 +269,7 @@ var workshop_manage = {
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>车间编码:<input type='text' id='code' value='" + (workshop.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>车间编码:<input type='text' disabled='true' id='code' value='" + (workshop.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>车间名称:<input type='text' id='name' value='" + (workshop.name) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>所属部门:<select id='department_code' style='width:174px;'><option value='" + (workshop.department && workshop.department.code || '') + "'>" + (workshop.department && workshop.department.name || '') + "</option></select></p>" +
                         "</div>" +

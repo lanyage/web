@@ -153,7 +153,7 @@
                 <td id="additiveCode"></td>
                 <td class="grey">添加剂型号</td>
                 <td id="additiveModel"></td>
-                <td colspan="2" class="grey">重量</td>
+                <td colspan="2" class="grey">添加剂重量</td>
                 <td id="additiveWeight"></td>
             </tr>
             <tr>
@@ -180,8 +180,8 @@
                     <td colspan="2"><input type="text" id="mixBegintime1"/></td>
                     <td><input type="text" id="mixTime1"/></td>
                     <td><input type="text" id="mixFrequency1"/></td>
-                    <td colspan="2"><input type="text" id="batchNumber1"/></td>
-                    <td><input type="text" id="ingredientsWeight1"/></td>
+                    <td colspan="2"><input type="text" id="batchNumber1" onkeyup="num(this)" size="14"></td>
+                    <td><input type="text" id="ingredientsWeight1" onkeyup="num(this)" size="14"/></td>
                 </tr>
                 <tr>
                     <td rowspan="2" class="grey">配料明细</td>
@@ -192,9 +192,9 @@
                 </tr>
                 <tr>
                     <td colspan="2"><input type="text" id="presomaCode1"/></td>
-                    <td colspan="2"><input type="text" id="presomaWeight1"/></td>
+                    <td colspan="2"><input type="text" id="presomaWeight1" onkeyup="num(this)" size="14"/></td>
                     <td colspan="2"><input type="text" id="lithiumCode1"/></td>
-                    <td><input type="text" id="lithiumWeight1"/></td>
+                    <td><input type="text" id="lithiumWeight1" onkeyup="num(this)" size="14"/></td>
                 </tr>
                <!-- <tr>
                     <td rowspan="4" class="grey">配料称量过程</td>
@@ -216,36 +216,36 @@
                  <tr>
                     <td rowspan="5" class="grey">配料称量过程</td>
                     <td colspan="2" class="grey">合计</td>
-                    <td colspan="2"><input type="text" id="presomaWeigh1"/></td>
+                    <td colspan="2"><input type="text" id="presomaWeigh1" onkeyup="num(this)" size="14"/></td>
                     <td colspan="2" class="grey">合计</td>
-                    <td><input type="text" id="lithiumWeigh1"/></td>
+                    <td><input type="text" id="lithiumWeigh1" onkeyup="num(this)"/></td>
                 </tr>
                 <tr>
                     <td colspan="2" class="grey">皮重</td>
-                    <td colspan="2"><input type="text" id="presomaTare1"/></td>
+                    <td colspan="2"><input type="text" id="presomaTare1" onkeyup="num(this)" size="14"/></td>
                     <td colspan="2" class="grey">皮重</td>
-                    <td><input type="text" id="lithiumTare1"/></td>
+                    <td><input type="text" id="lithiumTare1" onkeyup="num(this)"/></td>
 
                 </tr>
                 <tr>
                     <td colspan="2" class="grey">净重</td>
-                    <td colspan="2"><input type="text" id="presomaSuttle1"/></td>
+                    <td colspan="2"><input type="text" id="presomaSuttle1" onkeyup="num(this)" size="14"/></td>
                     <td colspan="2" class="grey">净重</td>
-                    <td><input type="text" id="lithiumSuttle1"/></td>
+                    <td><input type="text" id="lithiumSuttle1" onkeyup="num(this)"/></td>
                 </tr>
                 <tr>
                     <td colspan="2" class="grey">补加</td>
-                    <td colspan="2"><input type="text" id="presomaAdd1"/></td>
+                    <td colspan="2"><input type="text" id="presomaAdd1" onkeyup="num(this)" size="14"/></td>
                     <td colspan="2" class="grey">补加</td>
-                    <td><input type="text" id="lithiumAdd1"/></td>
+                    <td><input type="text" id="lithiumAdd1" onkeyup="num(this)" size="14"/></td>
                 </tr>
                  <tr>
                     <td class="grey">添加剂编号</td>
                     <td><input type="text" id="additiveCode1"/></td>
                     <td class="grey">添加剂型号</td>
                     <td><input type="text" id="additiveModel1"/></td>
-                    <td colspan="2" class="grey">重量</td>
-                    <td><input type="text" id="additiveWeight1"/></td>
+                    <td colspan="2" class="grey">添加剂重量</td>
+                    <td><input type="text" id="additiveWeight1" onkeyup="num(this)" size="14"/></td>
                 </tr>
                 <tr>
                     <td class="grey">操作人</td>
@@ -255,4 +255,14 @@
                 </tr>
             </table>
         </div>
+        <!--限制只能保留四位小数点-->
+    <script>
+        function num(obj){
+            obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+            obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
+            obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+            obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d\d\d).*$/,'$1$2.$3'); //只能输入两个小数  
+}  
+   </script>
 </div>

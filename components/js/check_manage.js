@@ -55,6 +55,43 @@ var check_manage = {
         bindAddEventListener: function (addBtn) {
             addBtn.off('click')
             addBtn.on('click', function () {
+                $('#process_code').empty()
+                $('#chp_leader1code').empty()
+                $('#chp_leader2code').empty()
+                $('#chp_leader3code').empty()
+                $('#chp_leader4code').empty()
+                //$('#process_code').append("<option value='-1'>请选择流程类型</option>")
+                $.get(servers.backup()+'process/getAll',{},function(result){
+                    process = result.data
+                    process.forEach(function(e){
+                    $("#process_code").append(
+                        "<option value="+e.code+">"+e.name+"</option>"
+                    )
+                })
+                })
+                
+                //获得所有用户信息
+                $.get(servers.backup()+'user/getAll',{},function(result){
+                   user = result.data
+                   user.forEach(function(e){
+                    $("#chp_leader1code").append(
+                        "<option value="+e.code+">"+e.name+"</option>"
+                    )
+                    $('#chp_leader2code').append(
+                        "<option value="+e.code+">"+e.name+"</option>"
+                    )
+                    $('#chp_leader3code').append(
+                        "<option value="+e.code+">"+e.name+"</option>"
+                    )
+                    $('#chp_leader4code').append(
+                        "<option value="+e.code+">"+e.name+"</option>"
+                    )
+                    $('#chp_leader5code').append(
+                        "<option value="+e.code+">"+e.name+"</option>"
+                    )
+                })
+                })  
+                
                 //首先就是弹出一个弹出框
                 layer.open({
                     type: 1,
@@ -64,12 +101,12 @@ var check_manage = {
                     '<ul style="line-height:30px">' +
                     '<li>流程编码: &nbsp;<input type="text" id="chp_code"></li>' +
                     '<li>编码名称: &nbsp;<input type="text" id="chp_name" ></li>' +
-                    '<li>流程类型: &nbsp;<input type="text" id="process_code" placeholder="0代表紧急,1代表正常"></li>' +
-                    '<li>负责人1:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader1code" placeholder="负责人工号"></li>' +
-                    '<li>负责人2:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader2code" placeholder="负责人工号"></li>' +
-                    '<li>负责人3:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader3code" placeholder="负责人工号"></li>' +
-                    '<li>负责人4:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader4code" placeholder="负责人工号"></li>' +
-                    '<li>负责人5:&nbsp;&nbsp;&nbsp;<input type="text"id="chp_leader5code" placeholder="负责人工号"></li>' +
+                    '<li>流程类型: &nbsp;<select id="process_code"><option value="-1">请选择流程类型</option></select></li>' +
+                    '<li>负责人1:&nbsp;&nbsp;&nbsp;<select id="chp_leader1code"><option value="-1">请选择负责人</option></select></li>' +
+                    '<li>负责人2:&nbsp;&nbsp;&nbsp;<select id="chp_leader2code"><option value="-1">请选择负责人</option></select></li>' +
+                    '<li>负责人3:&nbsp;&nbsp;&nbsp;<select id="chp_leader3code"><option value="-1">请选择负责人</option></select></li>' +
+                    '<li>负责人4:&nbsp;&nbsp;&nbsp;<select id="chp_leader4code"><option value="-1">请选择负责人</option></select></li>' +
+                    '<li>负责人5:&nbsp;&nbsp;&nbsp;<select id="chp_leader5code"><option value="-1">请选择负责人</option></select></li>' +
                     '</ul>' +
                     '</div>' +
                     "</div>",
@@ -208,6 +245,7 @@ var check_manage = {
                         time: 700
                     })
                     check_manage.init()
+                    $("#checkprocess_name_input").val('')
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -232,18 +270,19 @@ var check_manage = {
                         btn: ['确认', '取消'],
                         offset: ['40%', '55%'],
                         yes: function (index) {
-                            var checkprocessCodes = []
-                            $('chp_checkbox').each(function () {
+                            var processManages = []
+                            $('.chp_checkbox').each(function () {
                                 if ($(this).prop('checked')) {
-                                    checkprocessCodes.push({
+                                    processManages.push({
                                         code: $(this).val()
                                     })
                                 }
                             })
+                            //console.log(processManages)
                             $.ajax({
                                 url: home.urls.check.deleteByBatchCode(),
                                 contentType: 'application/json',
-                                data: JSON.stringify(checkprocessCodes),
+                                data: JSON.stringify(processManages),
                                 dataType: 'json',
                                 type: 'post',
                                 success: function (result) {
@@ -279,20 +318,151 @@ var check_manage = {
                     code: checkprocessCode
                 }, function (result) {
                     var check = result.data
+                    var user
+                    $('#process_code').empty()
+                    $('#chp_leader1code').empty()
+                    $('#chp_leader2code').empty()
+                    $('#chp_leader3code').empty()
+                    $('#chp_leader4code').empty()
+                   
+                    //编辑时判断流程类型是否为空  为空if 非空else
+                    if(check.process===null){
+                        $("#process_code").append("<option value='-1'>请选择流程类型</option>")
+                        $.get(servers.backup()+'process/getAll',{},function(result){
+                            process = result.data
+                            process.forEach(function(e){
+                                $('#process_code').append(
+                                    "<option value="+e.code+">"+e.name+"</option>"
+                                )
+                            })
+                        })
+                    }else{
+                        $("#process_code").append("<option value="+check.process.code+">"+check.process.name+"</option>")
+                        
+                        $.get(servers.backup()+'process/getAll',{},function(result){
+                            process = result.data
+                            process.forEach(function(e){
+                                if(e.code!=check.process.code){
+                                    $('#process_code').append(
+                                    "<option value="+e.code+">"+e.name+"</option>"
+                            )
+                            }
+                        })
+                    })
+                    }
+                     //编辑时判断用户是否为空  为空if 非空else
+                     //负责人1
+                     $.get(servers.backup()+'user/getAll',{},function(result){
+                         user = result.data
+                         if(check.leader1 ===null){
+                            $("#chp_leader1code").append("<option value='-1'>请选择负责人</option>")
+                            user.forEach(function(e){
+                                $('#chp_leader1code').append(
+                                    "<option value="+e.code+">"+e.name+"</option>"
+                          )
+                         })
+                         }else{
+                           $("#chp_leader1code").append("<option value="+check.leader1.code+">"+check.leader1.name+"</option>")
+                           $("#chp_leader1code").append("<option value='-1'>请选择负责人</option>")
+                           user.forEach(function(e){
+                               if(e.code!=check.leader1.code){
+                                  $('#chp_leader1code').append(
+                                      "<option value="+e.code+">"+e.name+"</option>"
+                                  )
+                                } 
+                            })
+                          }    
+                         //负责人2
+                         if(check.leader2 ===null){
+                            $("#chp_leader2code").append("<option value='-1'>请选择负责人</option>")
+                            user.forEach(function(e){
+                                $('#chp_leader2code').append(
+                                    "<option value="+e.code+">"+e.name+"</option>"
+                          )
+                         })
+                         }else{
+                           $("#chp_leader2code").append("<option value="+check.leader2.code+">"+check.leader2.name+"</option>")
+                           $("#chp_leader2code").append("<option value='-1'>请选择负责人</option>")
+                           user.forEach(function(e){
+                               if(e.code!=check.leader2.code){
+                                  $('#chp_leader2code').append(
+                                      "<option value="+e.code+">"+e.name+"</option>"
+                                  )
+                                } 
+                             })
+                            }     
+                          //负责人3
+                          if(check.leader3 ===null){
+                            $("#chp_leader3code").append("<option value='-1'>请选择负责人</option>")
+                            user.forEach(function(e){
+                                $('#chp_leader3code').append(
+                                    "<option value="+e.code+">"+e.name+"</option>"
+                          )
+                         })
+                         }else{
+                           $("#chp_leader3code").append("<option value="+check.leader3.code+">"+check.leader3.name+"</option>")
+                           $("#chp_leader3code").append("<option value='-1'>请选择负责人</option>")
+                           user.forEach(function(e){
+                               if(e.code!=check.leader3.code){
+                                  $('#chp_leader3code').append(
+                                      "<option value="+e.code+">"+e.name+"</option>"
+                                  )
+                                } 
+                             })
+                            } 
+                         //负责人4
+                         if(check.leader4 ===null){
+                            $("#chp_leader4code").append("<option value='-1'>请选择负责人</option>")
+                            user.forEach(function(e){
+                                $('#chp_leader4code').append(
+                                    "<option value="+e.code+">"+e.name+"</option>"
+                          )
+                         })
+                         }else{
+                           $("#chp_leader4code").append("<option value="+check.leader4.code+">"+check.leader4.name+"</option>")
+                           $("#chp_leader4code").append("<option value='-1'>请选择负责人</option>")
+                           user.forEach(function(e){
+                               if(e.code!=check.leader4.code){
+                                  $('#chp_leader4code').append(
+                                      "<option value="+e.code+">"+e.name+"</option>"
+                                  )
+                                } 
+                             })
+                            }    
+                          //负责人5
+                          if(check.leader5 ===null){
+                            $("#chp_leader5code").append("<option value='-1'>请选择负责人</option>")
+                            user.forEach(function(e){
+                                $('#chp_leader5code').append(
+                                    "<option value="+e.code+">"+e.name+"</option>"
+                          )
+                         })
+                         }else{
+                           $("#chp_leader5code").append("<option value="+check.leader5.code+">"+check.leader5.name+"</option>")
+                           $("#chp_leader5code").append("<option value='-1'>请选择负责人</option>")
+                           user.forEach(function(e){
+                               if(e.code!=check.leader5.code){
+                                  $('#chp_leader5code').append(
+                                      "<option value="+e.code+">"+e.name+"</option>"
+                                  )
+                                } 
+                             })
+                            } 
+                    })      
                     layer.open({
                         type: 1,
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         '<div style="text-align:center;padding-top:10px">' +
                         '<ul style="line-height:30px" >' +
-                        '<li>流程编码: &nbsp;<input type="text"id="chp_code" value="' + (check.code) + '"></li>' +
+                        '<li>流程编码: &nbsp;<input type="text" disabled="true" id="chp_code" value="' + (check.code) + '"></li>' +
                         '<li>编码名称: &nbsp;<input type="text"id="chp_name" value="' + (check.name) + '"></li>' +
-                        '<li>流程类型: &nbsp;<input type="text"id="process_code" placeholder="0代表紧急,1代表正常" value="' + (check.process != null ? check.process.code : '') + '"></li>' +
-                        '<li>负责人1:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader1code" value="' + (check.leader1 != null ? check.leader1.code : '') + '"/></li>' +
-                        '<li>负责人2:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader2code" value="' + (check.leader2 != null ? check.leader2.code : '') + '"/></li>' +
-                        '<li>负责人3:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader3code" value="' + (check.leader3 != null ? check.leader3.code : '') + '"/></li>' +
-                        '<li>负责人4:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader4code" value="' + (check.leader4 != null ? check.leader4.code : '') + '"/></li>' +
-                        '<li>负责人5:&nbsp;&nbsp;&nbsp;<input type="text" id="chp_leader5code" value="' + (check.leader5 != null ? check.leader5.code : '') + '"/></li>' +
+                        '<li>流程类型: &nbsp;<select id="process_code"></select></li>' +
+                        '<li>负责人1:&nbsp;&nbsp;&nbsp;<select id="chp_leader1code"></select></li>' +
+                        '<li>负责人2:&nbsp;&nbsp;&nbsp;<select id="chp_leader2code"></select></li>' +
+                        '<li>负责人3:&nbsp;&nbsp;&nbsp;<select id="chp_leader3code"></select></li>' +
+                        '<li>负责人4:&nbsp;&nbsp;&nbsp;<select id="chp_leader4code"></select></li>' +
+                        '<li>负责人5:&nbsp;&nbsp;&nbsp;<select id="chp_leader5code"></select></li>' +
                         '</ul>' +
                         '</div>' +
                         "</div>",
@@ -309,11 +479,6 @@ var check_manage = {
                             var leader4code = $('#chp_leader4code').val()
                             var leader5code = $('#chp_leader5code').val()
 
-                            console.log('leader1code', leader1code)
-                            console.log('leader2code', leader2code)
-                            console.log('leader3code', leader3code)
-                            console.log('leader4code', leader4code)
-                            console.log('leader5code', leader5code)
                             $.post(home.urls.check.update(), {
                                 code: code,
                                 name: name,
@@ -347,7 +512,7 @@ var check_manage = {
 
         renderHandler: function ($tbody, checks) {
             $tbody.empty() //清空表格
-            console.log(checks)
+            //console.log(checks)
             checks.forEach(function (e) {
                 $('#check_checkAll').prop('checked', false)
                 $tbody.append(
@@ -355,7 +520,7 @@ var check_manage = {
                     "<td><input type='checkbox' class='chp_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
                     "<td>" + (e.name) + "</td>" +
-                    "<td>" + (e.process != null ? e.process.code : '') + "</td>" +
+                    "<td>" + (e.process != null ? e.process.name : '') + "</td>" +
                     "<td>" + (e.leader1 != null ? e.leader1.name : '') + "</td>" +
                     "<td>" + (e.leader2 != null ? e.leader2.name : '') + "</td>" +
                     "<td>" + (e.leader3 != null ? e.leader3.name : '') + "</td>" +

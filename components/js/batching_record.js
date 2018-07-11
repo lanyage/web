@@ -14,7 +14,7 @@ var batching_record = {
             $.post(home.urls.batchingRecord.getAllByPage(), {}, function (res) {
                 var $tbody = $("#batching_record_table").children('tbody')
                 var items = res.data.content
-                batching_record.funcs.renderHandler($tbody, items)
+                batching_record.funcs.renderHandler($tbody, items,0)
                 batching_record.pageSize = res.data.content.length 
                 var page = res.data 
                 layui.laypage.render({
@@ -27,9 +27,10 @@ var batching_record = {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
-                                var items = result.data.content 
+                                var items = result.data.content
+                                var page = obj.curr - 1 
                                 const $tbody = $("#batching_record_table").children('tbody')
-                                batching_record.funcs.renderHandler($tbody, items)
+                                batching_record.funcs.renderHandler($tbody, items,page)
                                 batching_record.pageSize = result.data.content.length
                             })
                         }
@@ -48,14 +49,15 @@ var batching_record = {
             batching_record.funcs.bindSearchEventListener(searchBtn)
 
         },
-         renderHandler: function ($tbody,items) {
+         renderHandler: function ($tbody,items,page) {
              $tbody.empty() //清空表格
+             var i = 1 + page*10
              items.forEach(function (e) {
                      var code = e.code
                      var content = (
                          "<tr>" +
                          "<td><input type='checkbox' class='batching_record_checkbox' value='" + (e.code) + "'></td>" +
-                         "<td>" + e.code + "</td>" +
+                         "<td>" + (i++) + "</td>" +
                          "<td>" + (new Date(e.ingredientsDate).Format('yyyy-MM-dd')) + "</td>" +
                          "<td>" + e.batchNumber + "</td>" +
                          "<td>" + e.ingredientsWeight + "</td>" +
@@ -549,7 +551,7 @@ var batching_record = {
                     var items = result.data.content //获取数据
                     page = result.data
                     const $tbody = $("#batching_record_table").children('tbody')
-                    batching_record.funcs.renderHandler($tbody, items)
+                    batching_record.funcs.renderHandler($tbody, items,0)
                     layui.laypage.render({
                         elem: 'batching_record_page'
                         , count: 10 * page.totalPages//数据总数
@@ -561,8 +563,9 @@ var batching_record = {
                                     size: obj.limit
                                 }, function (result) {
                                     var items = result.data.content //获取数据
+                                    var page = obj.curr - 1
                                     const $tbody = $("#batching_record_table").children('tbody')
-                                    batching_record.funcs.renderHandler($tbody, items)
+                                    batching_record.funcs.renderHandler($tbody, items,page)
                                     batching_record.pageSize = result.data.content.length
                                 })
                             }

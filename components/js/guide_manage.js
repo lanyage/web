@@ -2,7 +2,7 @@ var guide_manage = {
      pageSize: 0,
      equipments: [],
      images: [],
-    init: function () {
+     init: function () {
         $('.layui-layer-shade').remove()
         guide_manage.funcs.renderTable()
         var out = $('#guide_page').width()
@@ -57,7 +57,7 @@ var guide_manage = {
                     "<tr>" +
                     "<td><input type='checkbox' class='gui_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
-                    "<td>" + (e.name) + "</td>" +
+                    "<td>" + (e.name?e.name:'') + "</td>" +
                     "<td>" + (e.effectivedate) + "</td>" +
                     "<td>" + (e.compactorcode ? e.compactorcode.name : '') + "</td>" +
                     "<td>" + (e.auditorcode ? e.auditorcode.name : '') + "</td>" +
@@ -228,8 +228,8 @@ var guide_manage = {
         , bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click').on('click', function () {
                 var guide_name = $('#guide_name_input').val()
-                console.log(1111)
-                $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {num: guide_name}, function (result) {
+                console.log(guide_name)
+                $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {name: guide_name}, function (result) {
                     var page = result.data
                     var guides = result.data.content //获取数据
                     const $tbody = $("#guide_table").children('tbody')
@@ -239,7 +239,7 @@ var guide_manage = {
                         , count: 10 * page.totalPages
                         , jump: function (obj, first) {
                             $.post(home.urls.guideHeader.getAllByLikeNameByPage(), {
-                                num: guide_name,
+                                name: guide_name,
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {

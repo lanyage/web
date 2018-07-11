@@ -315,7 +315,7 @@ var user_manage = {
                         content: "<div id='addModal'>" +
                             "<div style='text-align: center;padding-top: 10px;'>" +
                             "<p style='padding: 5px 0px 5px 0px;'>用户名称:<input type='text' id='user_name' value='" + (user.name) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>用户工号:<input type='text' id='user_code' value='" + (user.code) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>用户工号:<input type='text' id='user_code' disabled='true' value='" + (user.code) + "'/></p>" +
                             "<p style='padding: 5px 0px 5px 0px;'>手机号码:<input type='text' id='user_contact' value='" + (user.contact) + "'/></p>" +
                             "<p style='padding: 5px 0px 5px 0px;'>描述说明:<input type='text' id='user_description' value='" + (user.description) + "'/></p>" +
                             "</div>" +

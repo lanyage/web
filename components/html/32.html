@@ -10,7 +10,6 @@
             text-align: center;
             font-weight: 400;
             height:30x;
-            width:50px;
         }    
         #casket_sampling_editor_table td{
             padding: 7px;
@@ -20,7 +19,6 @@
             text-align: center;
             font-weight: 400;
             height:30x;
-            width:70px;
         }
         #casket_sampling_editor_table input{
             width:100%;
@@ -85,15 +83,15 @@
         <table id="casket_sampling_detail_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
             <thead>
             <tr class="grey">
-                <td>班次</td>
-                <td>装钵机号</td>
-                <td>总重</td>
-                <td>皮重</td>
-                <td>净重</td>
-                <td>抽检人</td>
-                <td>抽检人时间</td>
-                <td>检查人</td>
-                <td>检查人时间</td>
+                <td width="8%">班次</td>
+                <td width="8%">装钵机号</td>
+                <td width="8%">总重</td>
+                <td width="8%">皮重</td>
+                <td width="8%">净重</td>
+                <td width="11%">抽检人</td>
+                <td width="19%">抽检人时间</td>
+                <td width="11%">检查人</td>
+                <td width="19%">检查人时间</td>
             </tr>
           </thead>
           <tbody>
@@ -110,106 +108,7 @@
                 </tr>
             
            </tbody>
-            <!-- <tr class="grey">
-                <td rowspan="2">班次</td>
-                <td rowspan="2">装钵机号</td>
-                <td colspan="3">第一钵</td>
-                <td colspan="3">第二钵</td>
-                <td colspan="3">第三钵</td>
-                <td colspan="3">第四钵</td>
-            </tr>
-             <tr class="grey">
-                <td>皮重</td>
-                <td>总重</td>
-                <td>净重</td>
-                <td>皮重</td>
-                <td>总重</td>
-                <td>净重</td>
-                <td>皮重</td>
-                <td>总重</td>
-                <td>净重</td>
-                <td>皮重</td>
-                <td>总重</td>
-                <td>净重</td>
-            </tr>
-            <tr>
-                <td rowspan="2" class="grey">白班</td>
-                <td class="grey">1#</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-             <tr>
-                <td class="grey">2#</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2" class="grey">抽检人</td>
-                <td colspan="12"></td>
-            </tr>
-             <tr>
-                <td colspan="2" class="grey">检查人</td>
-                <td colspan="12"></td>
-            </tr>
-             <tr>
-                <td rowspan="2" class="grey">晚班</td>
-                <td class="grey">1#</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-             <tr>
-                <td class="grey">2#</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2" class="grey">抽检人</td>
-                <td colspan="12"></td>
-            </tr>
-             <tr>
-                <td colspan="2" class="grey">检查人</td>
-                <td colspan="12"></td>
-            </tr>-->
+           
         </table>
         <div class="whitespace"></div>
         <span style="float:right;">日期：<span id="detail_time" style="width:10%;"></span></span>
@@ -219,45 +118,46 @@
             <table id="casket_sampling_editor_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
                 <thead>
                 <tr class="grey">
-                    <td>班次</td>
-                    <td>装钵机号</td>
-                    <td>总重</td>
-                    <td>皮重</td>
-                    <td>净重</td>
-                    <td>抽检人</td>
-                    <td>抽检人时间</td>
-                    <td>检查人</td>
-                    <td>检查人时间</td>
+                    <td width="8%">班次</td>
+                    <td width="8%">装钵机号</td>
+                    <td width="8%">总重</td>
+                    <td width="8%">皮重</td>
+                    <td width="8%">净重</td>
+                    <td width="11%">抽检人</td>
+                    <td width="19%">抽检人时间</td>
+                    <td width="11%">检查人</td>
+                    <td width="19%">检查人时间</td>
                 </tr>
               </thead>
               <tbody>
               <tr>
                 <td>
-                    <input type="text" id="dutyCode1"/>
+                    <select id="dutyCode1"></select>
                 </td>
                 <td>
-                    <input type="text" id="bowlCode1"/>
+                    <select id="bowlCode1">
+                        <option value='1#'>1#</option>
+                        <option value='2#'>2#</option>
+                    </select>
                 </td>
                 <td>
-                    <input type="text" id="total1"/>
+                    <input type="text" id="total1" onkeyup="num(this)" size="12"/>
                 </td>
                 <td>
-                    <input type="text" id="tare1"/>
+                    <input type="text" id="tare1" onkeyup="num(this)" size="12"/>
                 </td>
-                <td>
-                    <input type="text" id="net1"/>   
-                </td>
+                <td id="net1"></td>
                 <td>
                     <select id="randomCode1"></select>
                 </td>
                 <td>
-                    <input type="text" id="randomTime1"/>
+                    <input type="text" id="randomTime1" placeholder="样式:2018-01-01 00:00:00"  required/> 
                 </td>
                 <td>
                     <select id="inspectorCode1"></select>
                 </td>
                 <td>
-                    <input type="text" id="inspectorTime1"/>
+                    <input type="text" id="inspectorTime1" placeholder="样式:2018-01-01 00:00:00"  required/>
                 </td>
             </tr> 
                </tbody>
@@ -265,4 +165,14 @@
             <div class="whitespace"></div>
             <span style="float:right;">日期：<span id="editor_time" style="width:10%;"></span></span>
         </div>
+         <!--限制只能保留两位小数点-->
+        <script>
+            function num(obj){
+                obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+                obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
+                obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+                obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+                obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数  
+        }  
+        </script>
 </div>

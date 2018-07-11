@@ -80,7 +80,7 @@ var company_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>统一社会信用代码:<input type='text' id='cocode'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司地址:<input type='text' id='coaddress'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系人:<input type='text' id='cokeeper'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话:<input type='text' id='cophone'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话:<input type='text' id='cophone' maxlength='11'/></p>" +
                         "<span>公司类型:</span><select id='cotype'>&nbsp;&nbsp;&nbsp;&nbsp;" + company_manage.funcs.getOperations2(data) + "</select>" + "</div>" +
                         "</div>",
                         area: ['370px', '350px'],
@@ -306,7 +306,7 @@ var company_manage = {
                         layer.open({
                             content: "<div id='addModal'>" +
                             "<div style='text-align: center;padding-top: 10px;'>" +
-                            "<div style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司编号:<input type='text' id='code' value='" + (company.code) + "'/></div>" +
+                            "<div style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司编号:<input type='text' disabled='true' id='code' value='" + (company.code) + "'/></div>" +
                             "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司名称:<input type='text' id='name' value='" + (company.name) + "'/></p>" +
                             "<p style='padding: 5px 0px 5px 0px;'>统一社会信用代码:<input type='text' id='cocode' value='" + (company.creditCode) + "'/></p>" +
                             "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司地址:<input type='text' id='coaddress' value='" + (company.address) + "'/></p>" +

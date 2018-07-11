@@ -190,6 +190,7 @@ var role_manage = {
                         time: 700
                     })
                     role_manage.init()
+                    $("#role_name_input").val('')
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)

@@ -57,11 +57,11 @@ var handover_state = {
                     title: '添加',
                     content: "<div id='addModal'>" +
                     "<div style='text-align: center;padding-top: 10px;'>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>交接状态编码:<input type='text' id='code'/></p>" +
+                    //"<p style='padding: 5px 0px 5px 0px;'>交接状态编码:<input type='text' id='code'/></p>" +
                     "<p style='padding: 5px 0px 5px 0px;'>交接状态名称:<input type='text' id='name'/></p>" +
                     "</div>" +
                     "</div>",
-                    area: ['350px', '180px'],
+                    area: ['300px', '180px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
                     yes: function (index) {
@@ -259,7 +259,7 @@ var handover_state = {
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>交接状态编码:<input type='text' id='code' value='" + (handover_state1.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>交接状态编码:<input type='text' disabled='true' id='code' value='" + (handover_state1.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>交接状态名称:<input type='text' id='name' value='" + (handover_state1.name) + "'/></p>" +
                         "</div>" +
                         "</div>",

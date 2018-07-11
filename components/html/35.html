@@ -10,7 +10,6 @@
                 text-align: center;
                 font-weight: 400;
                 height:30x;
-                width:50px;
             }    
             #approval_tracking_editor_table td{
                 padding: 7px;
@@ -20,7 +19,6 @@
                 text-align: center;
                 font-weight: 400;
                 height:30x;
-                width:60px;
             }
             #approval_tracking_editor_table input{
                 width:100%;
@@ -77,19 +75,18 @@
             })
         </script>
         <div id="approval_tracking_detail_modal" class="hide" style="padding:30px;">
-            
-            <table id="approval_tracking_detail_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
+            <table id="approval_tracking_detail_table" width="100%" style="border-left: 0px;border-right: 0px;width:100%;"> 
                <tr>
-                   <td class="grey">物料打包编号</td>
-                   <td id="packagingCode"></td>
-                   <td class="grey">打包重量</td>
-                   <td id="packagingWeight"></td>
-                   <td class="grey">合批物料编号</td>
-                   <td id="materialCode"></td>
-                   <td class="grey">物料入仓操作人员</td>
-                   <td id="warehousingOperator"></td>
-                   <td class="grey">物料打包操作人员</td>
-                   <td id="packagingOperator"></td>
+                   <td class="grey" width="8%">物料打包编号</td>
+                   <td id="packagingCode" width="8%"></td>
+                   <td class="grey" width="8%">打包重量</td>
+                   <td id="packagingWeight" width="20%"></td>
+                   <td class="grey" width="8%">合批物料编号</td>
+                   <td id="materialCode" width="8%"></td>
+                   <td class="grey" width="10%">物料入仓操作人员</td>
+                   <td id="warehousingOperator" width="10%"></td>
+                   <td class="grey" width="10%">物料打包操作人员</td>
+                   <td id="packagingOperator" width="10%"></td>
                </tr>
                <tr>
                    <td class="grey">合批仓编号</td>
@@ -128,52 +125,61 @@
         </div>
         <!--editor && add-->
         <div id="approval_tracking_editor_modal" class="hide" style="padding:20px;">
-            
-                <table id="approval_tracking_editor_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
+                <table id="approval_tracking_editor_table" width="100%" style="border-left: 0px;border-right: 0px;width:100%;"> 
                    <tr>
-                   <td class="grey">物料打包编号</td>
-                   <td><input type="text" id="packagingCode1"/></td>
-                   <td class="grey">打包重量</td>
-                   <td><input type="text" id="packagingWeight1"/></td>
-                   <td class="grey">合批物料编号</td>
-                   <td><input type="text" id="materialCode1"/></td>
-                   <td class="grey">物料入仓操作人员</td>
-                   <td><select id="warehousingOperator1"></select></td>
-                   <td class="grey">物料打包操作人员</td>
-                   <td><select id="packagingOperator1"></select></td>
+                   <td class="grey" width="7%">物料打包编号</td>
+                   <td width="7%"><input type="text" id="packagingCode1"/></td>
+                   <td class="grey" width="7%">打包重量</td>
+                   <td width="20%"><input type="text" id="packagingWeight1" onkeyup="num(this)" size="14"/></td>
+                   <td class="grey" width="7%">合批物料编号</td>
+                   <td width="7%"><input type="text" id="materialCode1"/></td>
+                   <td class="grey" width="9%">物料入仓操作人员</td>
+                   <td width="9%"><select id="warehousingOperator1"></select></td>
+                   <td class="grey" width="9%">物料打包操作人员</td>
+                   <td width="18%"><select id="packagingOperator1"></select></td>
                </tr>
                <tr>
                    <td class="grey">合批仓编号</td>
                    <td><input type="text" id="warehouseCode1"/></td>
                    <td class="grey">物料打包前合批槽检查是否正常</td>
-                   <td><input type="text" id="slotsNormal11"/></td>
+                   <td><input type="text" id="slotsNormal11" onkeyup='this.value=this.value.replace(/[^0-1]/g,"")' placeholder="0表示异常 1表示正常"/></td>
                    <td class="grey">物料入仓时间</td>
                    <td><input type="date" id="warehousingDate1"/></td>
                    <td class="grey">物料入仓总重量</td>
-                   <td><input type="text" id="warehousingWeight1"/></td>
+                   <td><input type="text" id="warehousingWeight1" onkeyup="num(this)" size="14"/></td>
                    <td class="grey">物料打包后合批槽检查是否正常</td>
-                   <td><input type="text" id="slotsNormal21"/></td>
+                   <td><input type="text" id="slotsNormal21" onkeyup='this.value=this.value.replace(/[^0-1]/g,"")' placeholder="0表示异常 1表示正常"/></td>
                </tr>
                <tr>
                     <td class="grey">打包日期</td>
                     <td><input type="date" id="packagingDate1"/></td>
                     <td class="grey" width="80px">混料时间</td>
-                    <td><input type="text" id="mixTime1"/></td>
+                    <td><input type="text" id="mixTime1" placeholder="样式为2018-01-01 00:00:00"/></td>
                     <td class="grey">冷水机温度</td>
-                    <td><input type="text" id="chillerTemperature1"/></td>
+                    <td><input type="text" id="chillerTemperature1" onkeyup="num(this)" size="14"/></td>
                     <td class="grey">包装房温度</td>
-                    <td><input type="text" id="packingroomTemperature1"/></td>
+                    <td><input type="text" id="packingroomTemperature1" onkeyup="num(this)" size="14"/></td>
                     <td class="grey">包装房湿度</td>
-                    <td><input type="text" id="packingroomHumidity1"/></td>
+                    <td><input type="text" id="packingroomHumidity1" onkeyup="num(this)" size="14"/></td>
                 </tr>
                 <tr>
                     <td class="grey">除铁料重量</td>
-                    <td><input type="text" id="defeWeight1"/></td>
+                    <td><input type="text" id="defeWeight1" onkeyup="num(this)" size="14"/></td>
                     <td class="grey">合批槽余料</td>
-                    <td><input type="text" id="slotsLeft1"/></td>
+                    <td><input type="text" id="slotsLeft1" onkeyup="num(this)" size="14"/></td>
                     <td  class="grey">包装过程筛网是否正常</td>
-                    <td colspan="5"><input type="text" id="screenNormal1"/></td>
+                    <td colspan="5"><input type="text" onkeyup='this.value=this.value.replace(/[^0-1]/g,"")' id="screenNormal1" placeholder="0表示异常 1表示正常"/></td>
                 </tr>
                 </table>
             </div>
+              <!--限制只能保留两位小数点-->
+    <script>
+        function num(obj){
+            obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+            obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
+            obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+            obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数  
+}  
+    </script>
 </div>

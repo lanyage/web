@@ -5,7 +5,7 @@ var duty_manage = {
         $("#duty_name_input").empty()
         $.get(servers.backup()+'duty/getAll',{},function(result){
             var res = result.data
-            $("#duty_name_input").html("<option value='-1'>请选择产品线名称</option>")
+            $("#duty_name_input").html("<option value='-1'>请选择值班名称</option>")
             res.forEach(function(e){
                 $("#duty_name_input").append("<option value="+e.name+">"+e.name+"</option>")
             })
@@ -261,7 +261,7 @@ var duty_manage = {
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>值班编码:<input type='text' id='code' value='" + (duty.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>值班编码:<input type='text' disabled='true' id='code' value='" + (duty.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>值班名称:<input type='text' id='name' value='" + (duty.name) + "'/></p>" +
                         "</div>" +
                         "</div>",

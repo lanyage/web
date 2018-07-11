@@ -133,23 +133,23 @@
                 </tr>
                 <tr>
                     <td class="grey">左上值</td>
-                    <td><input type="text"  id="leftUp1"/></td>
+                    <td><input type="text"  id="leftUp1" placeholder="请输入数字" onkeyup="num(this)" size="12"/></td>
                 </tr>
                 <tr>
                     <td class="grey">右上值</td>
-                    <td><input type="text"  id="rightUp1"/></td>
+                    <td><input type="text"  id="rightUp1" placeholder="请输入数字" onkeyup="num(this)" size="12"/></td>
                 </tr>
                 <tr>
                     <td class="grey">中</td>
-                    <td><input type="text"  id="center1"/></td>
+                    <td><input type="text"  id="center1" placeholder="请输入数字" onkeyup="num(this)" size="12"/></td>
                 </tr>
                 <tr>
                     <td class="grey">左下值</td>
-                    <td><input type="text"  id="leftDown1"/></td>
+                    <td><input type="text"  id="leftDown1" placeholder="请输入数字" onkeyup="num(this)" size="12"/></td>
                 </tr>
                 <tr>
                     <td class="grey">右下值</td>
-                    <td><input type="text"  id="rightDown1"/></td>
+                    <td><input type="text"  id="rightDown1" placeholder="请输入数字" onkeyup="num(this)" size="12"/></td>
                 </tr>
                 <tr> 
                     <td class="grey">判定结果</td>
@@ -159,22 +159,32 @@
                     <td class="grey">核称人</td>
                     <td><select  id="auditorCode1"></select></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td class="grey">核称时间</td>
                     <td><input type="text"  id="auditorTime1" placeholder="格式为2018-01-01 00:00:00"/></td>
                 </tr>
                 <tr>
                     <td class="grey">确认状态</td>
                     <td><input type="text"  id="confirm1"/></td>
-                </tr>
+                </tr>-->
                 <tr>
                     <td class="grey">确认人</td>
                     <td><select  id="confirmCode1"></select></td>
                 </tr>
-                <tr> 
+               <!-- <tr> 
                     <td class="grey">确认时间</td>
                     <td><input type="text"  id="confirmTime1" placeholder="格式为2018-01-01 00:00:00"/></td>
-                </tr>
+                </tr>-->
             </table>
         </div>
+         <!--限制只能保留两位小数点-->
+        <script>
+            function num(obj){
+                obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+                obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
+                obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+                obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+                obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数  
+        }  
+        </script>
 </div>

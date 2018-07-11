@@ -9,8 +9,7 @@
             color: black;
             text-align: center;
             font-weight: 400;
-            height:35px;
-            width:82px;
+            height:40px;
         }   
         #bowl_abnormal_editor_table td {
             padding: 0px;
@@ -82,22 +81,22 @@
         })
     </script>
     <div id="bowl_abnormal_detail_modal" class="hide" style="padding:20px;">    
-        <table id="bowl_abnormal_detail_table">
+        <table id="bowl_abnormal_detail_table" width="100%">
             <thead>
              <tr class="grey">
-                <td>班次</td>
-                <td>装钵机号</td>
-                <td>上层</td>
-                <td>下层</td>
-                <td>总重</td>
-                <td>皮重</td>
-                <td>净重</td>
-                <td>差异</td>
-                <td>添加/kg</td>
-                <td>减少/kg</td>
-                <td>时间</td>
-                <td>操作人</td>
-                <td>核查人</td>
+                <td  width="5%">班次</td>
+                <td width="5%">装钵机号</td>
+                <td width="5%">上层</td>
+                <td width="5%">下层</td>
+                <td width="5%">总重</td>
+                <td width="5%">皮重</td>
+                <td width="5%">净重</td>
+                <td width="5%">差异</td>
+                <td width="5%">添加/kg</td>
+                <td width="5%">减少/kg</td>
+                <td width="15%">时间</td>
+                <td width="15%">操作人</td>
+                <td width="15%">核查人</td>
             </tr>
            </thead>
            <tbody>
@@ -128,8 +127,7 @@
                 <thead>
                  <tr class="grey">
                     <td width="5%">班次</td>
-                    
-                    <td width="10%">装钵机号</td>
+                    <td width="5%">装钵机号</td>
                     <td width="5%">上层</td>
                     <td width="5%">下层</td>
                     <td width="5%">总重</td>
@@ -148,32 +146,35 @@
                     <td>
                         <select id="dutyCode1"></select>
                     </td>
+                   <td>
+                        <select id="bowlCode1">
+                            <option value='1#'>1#</option>
+                            <option value='2#'>2#</option>
+                        </select>
+                  </td>
                     <td>
-                        <input type="text" id="bowlCode1"/>
+                        <input type="text" id="top1" onkeyup="num(this)" size="14"/>
                     </td>
                     <td>
-                        <input type="text" id="top1"/>
+                        <input type="text" id="bot1" onkeyup="num(this)" size="14"/>
                     </td>
                     <td>
-                        <input type="text" id="bot1"/>
+                       <input type="text" id="total1" onkeyup="num(this)" size="14"/>
                     </td>
                     <td>
-                       <input type="text" id="total1"/>
+                        <input type="text" id="tare1" onkeyup="num(this)" size="14"/>
                     </td>
                     <td>
-                        <input type="text" id="tare1"/>
+                        <input type="text" id="net1" onkeyup="num(this)" size="14"/>
                     </td>
                     <td>
-                        <input type="text" id="net1"/>
+                        <input type="text" id="difference1" onkeyup="num(this)" size="14"/>
                     </td>
                     <td>
-                        <input type="text" id="difference1"/>
+                        <input type="text" id="addWeight1" onkeyup="num(this)" size="14"/>
                     </td>
                     <td>
-                        <input type="text" id="addWeight1"/>
-                    </td>
-                    <td>
-                        <input type="text" id="reduceWeight1"/>
+                        <input type="text" id="reduceWeight1" onkeyup="num(this)" size="14"/>
                     </td>
                     <td>
                         <input type="text" id="Time1" placeholder="格式为2018-01-01 00:00:00"/>
@@ -191,4 +192,14 @@
             <div class="whitespace"></div>
             <span style="float:right;">日期：<span id="editor_time" style="width:10%;"></span></span>
         </div> 
+    <!--限制只能保留两位小数点-->
+    <script>
+        function num(obj){
+            obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+            obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
+            obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+            obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数  
+}  
+    </script>
 </div>

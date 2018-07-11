@@ -13,7 +13,7 @@ var inquiries_handover = {
             $.post(home.urls.handoverHeader.getAllByPage(), {page:0}, function (res) {
                 var $tbody = $("#inquiries_handover_table").children('tbody')
                 var items = res.data.content
-                inquiries_handover.funcs.renderHandler($tbody, items)
+                inquiries_handover.funcs.renderHandler($tbody, items,0)
                 /** 渲染表格结束之后 */
                 inquiries_handover.pageSize = res.data.content.length 
                 var page = res.data //分页json
@@ -29,8 +29,9 @@ var inquiries_handover = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content 
+                                var page = obj.curr - 1
                                 const $tbody = $("#inquiries_handover_table").children('tbody')
-                                inquiries_handover.funcs.renderHandler($tbody, items)
+                                inquiries_handover.funcs.renderHandler($tbody, items,page)
                                 inquiries_handover.pageSize = result.data.content.length
                             })
                         }
@@ -43,14 +44,15 @@ var inquiries_handover = {
             var checkedBoxLen = $('.inquiries_handover_checkbox:checked').length
             home.funcs.bindSelectAll($("#inquiries_handover_checkAll"),$(".inquiries_handover_checkbox"),checkedBoxLen,$("#inquiries_handover_table"))
         }
-    , renderHandler: function ($tbody, items) {
+    , renderHandler: function ($tbody, items,page) {
         $tbody.empty() //清空表格
         items.forEach(function (e) {
+            var i = 1 + page * 10
             var code = e.code
             var content = (
                 "<tr>" +
                     "<td><input type='checkbox' class='inquiries_handover_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.code + "</td>" +
+                    "<td>" + (i++) + "</td>" +
                     "<td>" + (e.jobsCode?e.jobsCode.name:' ') + "</td>" +
                     "<td>" + (e.handoverDate ? e.handoverDate: '')+ "</td>" +
                     "<td>" + (e.dutyCode?e.dutyCode.name:' ') + "</td>" +
@@ -229,7 +231,7 @@ var inquiries_handover = {
                     page = result.data
                     //console.log(items)
                     const $tbody = $("#inquiries_handover_table").children('tbody')
-                    inquiries_handover.funcs.renderHandler($tbody, items)
+                    inquiries_handover.funcs.renderHandler($tbody, items,0)
                     layui.laypage.render({
                         elem: 'inquiries_handover_page'
                         , count: 10 * page.totalPages//数据总数
@@ -243,8 +245,9 @@ var inquiries_handover = {
                                 }, function (result) {
                                     var items = result.data.content //获取数据
                                     // var code = $('#model-li-select-48').val()
+                                    var page = obj.curr - 1
                                     const $tbody = $("#inquiries_handover_table").children('tbody')
-                                    inquiries_handover.funcs.renderHandler($tbody, items)
+                                    inquiries_handover.funcs.renderHandler($tbody, items,page)
                                     inquiries_handover.pageSize = result.data.content.length
                                 })
                             }

@@ -50,13 +50,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <div class="block-quote">
-        <div class="fl">
+        <div class="hide fl" id="fl">
             <p style="color: #62a49a; font-size: 14px;">
                 <span id='model-li-hide-add-80'><a href="#"><i class="layui-icon">&#xe608;</i>新增</a></span>&nbsp;&nbsp;
                 <span id="model-li-hide-delete-80"><a href="#"><i class="layui-icon">&#xe640;</i>删除</a></span>
             </p>
         </div>
-        <div class="fr">
+        <div class="hide fr" id="fr">
             <p style="color: #62a49a; font-size: 14px;">
                 <span id="model-li-hide-refresh-80"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>&nbsp;
                 <select id="supplyman_name_select">
@@ -102,15 +102,15 @@
                 </tr>
                 <tr>
                     <td class="grey">送货时间</td>
-                    <td id="test" style="width:38%"><input class='provider_input layui-input' id="dilivery_time_inp" type="datetime"></td>
+                    <td id="test" style="width:38%"><input class='provider_input layui-input' id="dilivery_time_inp" type="date"></td>
                     <td class="grey">联系电话</td>
-                    <td><input class='provider_input' type="text" id="contact_inp"></td>
+                    <td><input class='provider_input' type="text" id="contact_inp" onkeyup='this.value=this.value.replace(/\D/gi,"")' maxlength="11"></td>
                 </tr>
                 <tr>
-                    <td class="grey">名称</td>
+                    <td class="grey">物料名称</td>
                     <td ><input class='provider_input layui-input' id="name_inp" type="text"></td>
                     <td class="grey">总量</td>
-                    <td><input class='provider_input' type="text" id="total_inp"></td>
+                    <td><input class='provider_input' type="text" id="total_inp"  onkeyup="num(this)" maxlength="14"></td>
                 </tr>
                 
             </table>
@@ -138,7 +138,7 @@
     <div id="provider_info_add" class="hide" style="padding: 30px;">
         <span>批号：<input type="text" id="add_batchNumber"></span><br/><br/>
         <span>规格：<input type="text" id="add_unit"></span><br/><br/>
-        <span>数量：<input type="text" id="add_weight"></span>
+        <span width="174px;">数量：<input type="text" id="add_weight" onkeyup="num(this)" maxlength="14"></span>
     </div>
 
     <!--detail-->
@@ -185,38 +185,15 @@
             supply_manage.init()
         })
     </script>
-    <!--<script>
-        layui.use('laydate', function(){
-            var laydate = layui.laydate;
-            laydate.render({
-                elem: '#dilivery_time_inp' //指定元素
-                ,format: 'yyyy-MM-dd'
-            });
-        });
-    </script>
+     <!--限制只能保留两位小数点-->
     <script>
-        function addbtn(){
-            var count = $('#provider_body_downtable tr').length
-            $('#addb').before("<tr id='inputcontent"+ count+"' class='addline'><td><input class='provider_input' id='batch_number_inp'></td>" +
-                    "<td style='padding: 0;'><input class='provider_input' id='name_inp'></td>" +
-                    "<td><input class='provider_input' id='specifications_inp'></td>" +
-                    "<td><input class='provider_input' id='number_inp'></td>" +
-                    "<td>" +
-                    "<button type='button' id='close_btn' onclick='delTab("+count+")' title='close it' style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;'>" +
-                    " &times;  "
-                    + " </button>" + "</td></tr>")
-            $("#provider_body_downtable").append(addb)
-        }
-    </script>
-    <script>
-        function delTab(count){
-            $('#inputcontent'+count).remove()
-        }
-    </script>
-    <script>
-        function del(){
-            $('#inputcontent').remove()
-        }
+        function num(obj){
+            obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+            obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
+            obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+            obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数  
+}  
     </script>
 </div>
 

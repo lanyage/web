@@ -33,7 +33,7 @@ var department_manage = {
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
                         if (!first) {
-                            console.log('不是首次,可以执行')
+                            //console.log('不是首次,可以执行')
                             $.post(home.urls.department.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
@@ -266,7 +266,7 @@ var department_manage = {
                         type: 1,
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>部门编码:<input type='text' id='dep_code' value='" + (department.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>部门编码:<input type='text' disabled='true' id='dep_code' value='" + (department.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>部门名称:<input type='text' id='dep_name' value='" + (department.name) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>部门信息:<input type='text' id='dep_info' value='" + (department.info) + "'/></p>" +
                         "</div>" +

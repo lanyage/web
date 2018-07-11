@@ -151,7 +151,7 @@
                 <table style="border:none;">
                     <tr>
                         <td style="border:none;padding-left:0px;">窑炉炉号:</td>
-                        <td style="border:none;"><input type="text" id="kilnCode1"  style="border-style:none;text-align: center;width:15px;text-decoration:underline"/></td>
+                        <td style="border:none;"><input type="text" id="kilnCode1"  style="text-align: center;width:100px;text-decoration:underline" placeholder="请输入窑炉炉号"/></td>
                         <td style="border:none;">窑炉</td>
                         <td style="border:none;"></td>
                         <td style="border:none;">烧结工艺</td>
@@ -166,54 +166,54 @@
                 <div class="whitespace"></div>
                 <table id="presintering_record_edtior_table" width="100%">
                     <tr class="grey">
-                        <td rowspan="6" class="grey">产量记录</td>
-                        <td>序号</td>
-                        <td width="80px">批次</td>
-                        <td>进钵数量</td>
-                        <td colspan="2">进炉时间</td>
-                        <td colspan="2">预计出炉时间</td>
-                        <td >进炉操作人</td>
-                        <td colspan="2">实际出炉时间</td>
-                        <td>倒钵数量</td>
-                        <td>使用新钵数量</td>
-                        <td>废弃匣钵数量</td>
-                        <td>出炉操作人</td>
+                        <td rowspan="6" class="grey" width="3%">产量记录</td>
+                        <td width="3%">序号</td>
+                        <td width="8%">批次</td>
+                        <td width="8%">进钵数量</td>
+                        <td colspan="2" width="14%">进炉时间</td>
+                        <td colspan="2" width="14%">预计出炉时间</td>
+                        <td width="7%">进炉操作人</td>
+                        <td colspan="2" width="14%">实际出炉时间</td>
+                        <td width="7%">倒钵数量</td>
+                        <td width="7%">使用新钵数量</td>
+                        <td width="7%">废弃匣钵数量</td>
+                        <td width="7%">出炉操作人</td>
                     </tr>
                     <tr>
-                        <td rowspan="4"><input type="text" id="code1"/></td>
+                        <td rowspan="4"><input type="text" id="code1" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
                         <td rowspan="4"><input type="text" id="batchNumber1"/></td>
-                        <td><input type="text" id="inportNumber11"/></td>
+                        <td><input type="text" id="inportNumber11" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
                         <td rowspan="4" colspan="2"><input type="text" id="infurnaceTime1" placeholder="样式为2018-01-01 00:00:00"/></td>
-                        <td rowspan="4" colspan="2"><input type="text" id="planTime1"/></td>
+                        <td rowspan="4" colspan="2"><input type="text" id="planTime1" placeholder="样式为2018-01-01 00:00:00"/></td>
                         <td><select id="infurnaceOperator11"></select></td>
-                        <td rowspan="4" colspan="2"><input type="text" id="outfurnaceTime1"/></td>
-                        <td><input type="text" id="outportNumber11"/></td>
-                        <td><input type="text" id="newportNumber11"/></td>
-                        <td><input type="text" id="abaportNumber11"/></td>
+                        <td rowspan="4" colspan="2"><input type="text" id="outfurnaceTime1" placeholder="样式为2018-01-01 00:00:00"/></td>
+                        <td><input type="text" id="outportNumber11" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
+                        <td><input type="text" id="newportNumber11" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
+                        <td><input type="text" id="abaportNumber11" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
                         <td><select id="outfurnaceOperator11"></select></td>
                     </tr>
                      <tr>
-                        <td><input type="text" id="inportNumber21"/></td>
+                        <td><input type="text" id="inportNumber21" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
                         <td><select id="infurnaceOperator21"></select></td>
-                        <td><input type="text" id="outportNumber21"/></td>
-                        <td><input type="text" id="newportNumber21"/></td>
-                        <td><input type="text" id="abaportNumber21"/></td>
+                        <td><input type="text" id="outportNumber21" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
+                        <td><input type="text" id="newportNumber21" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
+                        <td><input type="text" id="abaportNumber21" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
                         <td><select id="outfurnaceOperator21"></select></td>
                     </tr>
                      <tr>
-                        <td><input type="text" id="inportNumber31"/></td>
+                        <td><input type="text" id="inportNumber31" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
                         <td><select id="infurnaceOperator31"></select></td>
-                        <td><input type="text" id="outportNumber31"/></td>
-                        <td><input type="text" id="newportNumber31"/></td>
-                        <td><input type="text" id="abaportNumber31"/></td>
+                        <td><input type="text" id="outportNumber31" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
+                        <td><input type="text" id="newportNumber31" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
+                        <td><input type="text" id="abaportNumber31" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
                         <td><select id="outfurnaceOperator31"></select></td>
                     </tr>
                      <tr>
-                        <td><input type="text" id="inportNumber41"/></td>
+                        <td><input type="text" id="inportNumber41" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
                         <td><select id="infurnaceOperator41"></select></td>
-                        <td><input type="text" id="outportNumber41"/></td>
-                        <td><input type="text" id="newportNumber41"/></td>
-                        <td><input type="text" id="abaportNumber41"/></td>
+                        <td><input type="text" id="outportNumber41" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
+                        <td><input type="text" id="newportNumber41" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
+                        <td><input type="text" id="abaportNumber41" onkeyup='this.value=this.value.replace(/\D/gi,"")'/></td>
                         <td><select id="outfurnaceOperator41"></select></td>
                     </tr>
                     

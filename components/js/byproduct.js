@@ -64,9 +64,9 @@ var byproduct = {
                     title: '添加',
                     content: "<div id='addModal'>" +
                     "<div style='text-align: center;padding-top: 10px;'>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>产品编码:<input type='text' id='code'/></p>" +
+                    //"<p style='padding: 5px 0px 5px 0px;'>产品编码:<input type='text' id='code'/></p>" +
                     "<p style='padding: 5px 0px 5px 0px;'>产品名称:<input type='text' id='name'/></p>" +
-                    "<p style='padding: 5px 0px 5px 0px;'>指标名称:<select id='indicator' style='width:188px;'></select></p>" +
+                    "<p style='padding: 5px 0px 5px 0px;'>指标名称:<select id='indicator' style='width:180px;'></select></p>" +
                     "</div>" +
                     "</div>",
                     area: ['350px', '250px'],
@@ -289,7 +289,7 @@ var byproduct = {
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>产品编码:<input type='text' id='code1' value='" + (byproduct1.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>产品编码:<input type='text' disabled='true' id='code1' value='" + (byproduct1.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>产品名称:<input type='text' id='name1' value='" + (byproduct1.name) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>指标名称:<select id='indicator1'  style='width:188px;'><option value="+byproduct1.indicatorCode.code+">"+byproduct1.indicatorCode.name+"</option></select></p>" +
                         "</div>" +

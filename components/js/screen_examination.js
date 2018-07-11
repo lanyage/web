@@ -19,7 +19,7 @@ var screen_examination = {
             $.post(home.urls.screenCheck.getAllByPage(), {}, function (res) {
                 var $tbody = $("#screen_examination_table").children('tbody')
                 var items = res.data.content
-                screen_examination.funcs.renderHandler($tbody, items)
+                screen_examination.funcs.renderHandler($tbody, items,0)
                 /** 渲染表格结束之后 */
                 screen_examination.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -30,14 +30,15 @@ var screen_examination = {
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
                         if (!first) {
-                            console.log('不是首次,可以执行')
+                            //console.log('不是首次,可以执行')
                             $.post(home.urls.screenCheck.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
+                                var page = obj.curr - 1
                                 const $tbody = $("#screen_examination_table").children('tbody')
-                                screen_examination.funcs.renderHandler($tbody, items)
+                                screen_examination.funcs.renderHandler($tbody, items,page)
                                 screen_examination.pageSize = result.data.content.length
                             })
                         }
@@ -49,7 +50,7 @@ var screen_examination = {
 
         renderHandler: function ($tbody, items) {
             $tbody.empty() //清空表格
-            var i = 1
+            var i = 1 + page * 10
             items.forEach(function (e) {
                 var content = (
                     "<tr>" +
