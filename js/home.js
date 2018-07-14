@@ -165,6 +165,9 @@ var home = {
             deleteByCode: function () {
                 return servers.backup() + 'check/deleteByCode'
             },
+            deleteByBatchCode: function () {
+                return servers.backup() + 'check/deleteByBatchCode'
+            },
             getAllByLikeNameByPage: function () {
                 return servers.backup() + 'check/getAllByLikeNameByPage'
             },

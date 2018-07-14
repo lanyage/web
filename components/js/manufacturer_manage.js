@@ -272,7 +272,7 @@ var manufacturer_manage = {
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>原料厂家编码:<input type='text' id='code' value='" + (manufacturer.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>原料厂家编码:<input type='text' disabled='true' id='code' value='" + (manufacturer.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>原料厂家名称:<input type='text' id='name' value='" + (manufacturer.name) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>厂家联系方式:<input type='text' id='contact' value='" + (manufacturer.contact) + "'/></p>" +
                         "</div>" +

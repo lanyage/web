@@ -265,7 +265,7 @@ var productline_manage = {
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>产品线编码:<input type='text' id='code' value='" + (productline.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>产品线编码:<input type='text' disabled='true' id='code' value='" + (productline.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>产品线名称:<input type='text' id='name' value='" + (productline.name) + "'/></p>" +
                         "</div>" +
                         "</div>",

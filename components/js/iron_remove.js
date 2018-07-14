@@ -150,9 +150,9 @@ var iron_remove = {
                         var proportion = $('#proportion').val()
                         //var recorderCode = $('#rescorderCode').val()
                         $.post(home.urls.byproductCount.add(), {
-                            'byproductCode.code': byproductCode,
-                            'dutyCode.code': dutyCode,
-                            'recorderCode.code': userJson.code,
+                            byproductCode: byproductCode,
+                            dutyCode: dutyCode,
+                            recorderCode: userJson.code,
                             batchNumber: batchNumber,
                             date: date,
                             weight: weight,

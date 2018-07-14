@@ -252,7 +252,7 @@ var defaultpassword_manage = {
                         title: '编辑',
                         content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:<input type='text' id='code' value='" + (defaultpassword.code) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:<input type='text' disabled='true' id='code' value='" + (defaultpassword.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>默认密码:<input type='text' id='password' value='" + (defaultpassword.password) + "'/></p>" +
                         "</div>" +
                         "</div>",

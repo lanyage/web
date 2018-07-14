@@ -1,4 +1,4 @@
-// 设备信息信息
+ // 设备信息信息
 var equipment_manage = {
 	department_result: [],
 	productline_result: [],
@@ -303,7 +303,7 @@ var equipment_manage = {
 						title: '编辑',
 						content: "<div id='addModal'>" +
 							"<div style='text-align: center;padding-top: 10px;'>" +
-							"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;工序编码:<input type='text' id='code' value='" + (equipment.code) + "'/></p>" +
+							"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;工序编码:<input type='text' disabled='true' id='code' value='" + (equipment.code) + "'/></p>" +
 							"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;工序名称:<input type='text' id='name' value='" + (equipment.name) + "'/></p>" +
 							"<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;所属部门:<select id='department_code' style='width:174px;'><option value='+" + (equipment.department && equipment.department.code || '') + "'>" + (equipment.department && equipment.department.name || '') + "</option></select></p>" +
 							"<p style='padding: 5px 0px 5px 0px;'>所属产品线:<select id='productline_code' style='width:174px;'><option value='+" + (equipment.productLine && equipment.productLine.code || '') + "'>" + (equipment.productLine && equipment.productLine.name || '') + "</option></select></p>" +
