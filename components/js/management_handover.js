@@ -13,7 +13,7 @@ var management_handover = {
             $.post(home.urls.jobs.getAllByPage(), {page:0}, function (res) {
                 var $tbody = $("#management_handover_table").children('tbody')
                 var items = res.data.content
-                management_handover.funcs.renderHandler($tbody, items)
+                management_handover.funcs.renderHandler($tbody, items,0)
                 management_handover.pageSize = res.data.content.length 
                 var page = res.data 
                 /** 分页信息 */
@@ -28,8 +28,9 @@ var management_handover = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content 
+                                var page = obj.curr - 1
                                 const $tbody = $("#management_handover_table").children('tbody')
-                                management_handover.funcs.renderHandler($tbody, items)
+                                management_handover.funcs.renderHandler($tbody, items,page)
                                 management_handover.pageSize = result.data.content.length
                             })
                         }
@@ -49,9 +50,9 @@ var management_handover = {
 
 
         }
-    , renderHandler: function ($tbody, items) {
+    , renderHandler: function ($tbody, items,page) {
         $tbody.empty() //清空表格
-        var i= 1
+        var i= 1 + page * 10
         items.forEach(function (e) {
             var code = e.code
             var content = (

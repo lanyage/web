@@ -14,7 +14,7 @@ var audit_record = {
                 var $tbody = $("#audit_record_table").children('tbody')
                 var items = res.data.content
                 //console.log(items)
-               audit_record.funcs.renderHandler($tbody, items)
+               audit_record.funcs.renderHandler($tbody, items,0)
                 /** 渲染表格结束之后 */
                 audit_record.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -30,8 +30,10 @@ var audit_record = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
+                                var page =  obj.curr - 1
+                                //console.log(page)
                                 const $tbody = $("#audit_record_table").children('tbody')
-                                audit_record.funcs.renderHandler($tbody, items)
+                                audit_record.funcs.renderHandler($tbody, items,page)
                                 audit_record.pageSize = result.data.content.length
                             })
                         }
@@ -54,9 +56,9 @@ var audit_record = {
 
 
         }
-    , renderHandler: function ($tbody, items) {
+    , renderHandler: function ($tbody, items,page) {
         $tbody.empty() //清空表格
-        var i = 1
+        var i = 1+page*10
         items.forEach(function (e) {
             var code = e.code
             var content = (
@@ -115,7 +117,7 @@ var audit_record = {
                             type: 1,
                             title: '核称记录详情',
                             content: $("#detail_modal"),
-                            area: ['450px', '580px'],
+                            area: ['400px', '530px'],
                             btn: ['返回'],
                             offset: "auto",
                             closeBtn: 0,
@@ -217,7 +219,7 @@ var audit_record = {
                      type:1,
                      title:'编辑核称记录',
                      content:$("#editor_modal"),
-                     area: ['450px', '580px'],
+                     area: ['350px', '450px'],
                      btn:['保存','提交','返回'],
                      offset:"auto",
                      closeBtn:0,
@@ -390,7 +392,7 @@ var audit_record = {
                      type:1,
                      title:"新增核称记录",
                      content:$("#editor_modal"),
-                     area: ['450px', '580px'],
+                     area: ['350px', '450px'],
                      btn:['提交','取消'],
                      offset:'auto',
                      closeBtn:0,
@@ -523,7 +525,7 @@ var audit_record = {
                      var items = result.data.content //获取数据
                      page = result.data
                      const $tbody = $("#audit_record_table").children('tbody')
-                     audit_record.funcs.renderHandler($tbody, items)
+                     audit_record.funcs.renderHandler($tbody, items,0)
                      layui.laypage.render({
                          elem: 'audit_record_page'
                          , count: 10 * page.totalPages//数据总数
@@ -536,8 +538,9 @@ var audit_record = {
                                  }, function (result) {
                                      var items = result.data.content //获取数据
                                      // var code = $('#model-li-select-48').val()
+                                     var page = obj.curr - 1
                                      const $tbody = $("#audit_recordt_table").children('tbody')
-                                     audit_record.funcs.renderHandler($tbody, items)
+                                     audit_record.funcs.renderHandler($tbody, items,page)
                                      audit_record.pageSize = result.data.content.length
                                  })
                              }

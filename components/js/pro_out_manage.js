@@ -34,7 +34,7 @@ var pro_out_manage = {
                 /** 过滤返回的数据 */
                 var items = res.data.content
                 //console.log(items)
-                pro_out_manage.funcs.renderHandler($tbody, items)
+                pro_out_manage.funcs.renderHandler($tbody, items,0)
                 /** 渲染表格结束之后 */
                 pro_out_manage.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -50,8 +50,9 @@ var pro_out_manage = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
-                                const $tbody = $("#product_out_page").children('tbody')
-                                pro_out_manage.funcs.renderHandler($tbody, items)
+                                var page = obj.curr - 1
+                                const $tbody = $("#product_out_table").children('tbody')
+                                pro_out_manage.funcs.renderHandler($tbody, items,page)
                                 pro_out_manage.pageSize = result.data.content.length
                             })
                         }
@@ -92,9 +93,9 @@ var pro_out_manage = {
         }
 
         /**渲染表格 */
-        , renderHandler: function ($tbody, items) {
+        , renderHandler: function ($tbody, items,page) {
             $tbody.empty() //清空表格
-            var length = 1
+            var length = 1 + page * 10
             items.forEach(function (e) {
                 var code = e.code
                 switch(e.auditStatus){
@@ -245,6 +246,7 @@ var pro_out_manage = {
         ,fill_add_data:function(div){
             $("#add_select_rawType").empty()
             $("#add_company").empty()
+            $('#add_total_amount').text('0')
             $("#add_select_rawType").html("<option value='-1'>请选择公司类型</option>")
             $.get(servers.backup()+'company/getAll',{},function(result){
                 var res = result.data
@@ -717,7 +719,6 @@ var pro_out_manage = {
                     closeBtn: 0,
                     yes: function (index) {
                         rawType_Code = $('#edit_add_select option:selected').val()
-                        
                         var total_amount = parseInt($('#total_amount').text())
                         if($('.edit_add_checkbox:checked').length === 0) {
                             $("#edit_add_modal").css('display', 'none')
@@ -753,13 +754,6 @@ var pro_out_manage = {
             //搜索按钮
             var edit_add_searchBtn = $("#edit_add_search")
             pro_out_manage.funcs.edit_add_search(edit_add_searchBtn)
-            //详情
-            var edit_add_search_detailBtn = $(".edit_add_detail")
-            pro_out_manage.funcs.edit_add_search_detail(edit_add_search_detailBtn)
-            //实现全选
-            var checkBoxLen = $(".edit_add_checkbox:checked").length
-            home.funcs.bindSelectAll($("#edit_add_checkAll"),$(".edit_add_checkbox"),checkBoxLen,$("#edit_add_modal_table"))
-
         }
 
         ,fill_edit_data:function(div,items){
@@ -1007,11 +1001,11 @@ var pro_out_manage = {
             searchBtn.off('click').on('click',function(){
                 var rawType = $("#edit_add_select option:selected").val()
                 var batch_Number = $("#product_batch_number_input").val()
-                $.post(home.urls.productOut.getDetail(),{
+                $.post(home.urls.lingLiao.getByRawTypeCodeAndBatchNumberLikeByPage(),{
                     rawTypeCode:rawType,
                     batchNumber:batch_Number
                 },function(result){
-                    var items = result.data
+                    var items = result.data.content
                     page = result.data
                     console.log(items)
                     const $tbody = $("#edit_add_modal_table").children('tbody')
@@ -1021,13 +1015,13 @@ var pro_out_manage = {
                         count:10*page.totalPages, //数据总数
                         jump:function(obj,first) {
                             if(!first){
-                                $.post(home.urls.productOut.getDetail(),{
+                                $.post(home.urls.lingLiao.getByRawTypeCodeAndBatchNumberLikeByPage,{
                                     rawTypeCode:rawType,
                                     batchNumber:batch_Number,
                                     page:obj.curr - 1,
                                     size:obj.limit
                                 }, function(obj,first){
-                                    var items = result.data
+                                    var items = result.data.content
                                     const $tbody = $("#edit_add_modal_table").children('tbody')
                                     pro_out_manage.funcs.edit_add_renderHandler($tbody,items)
                                     pro_out_manage.pageSize = result.data.length
@@ -1040,18 +1034,26 @@ var pro_out_manage = {
         }
         ,edit_add_renderHandler:function($tbody,items){
             $tbody.empty() //清空表格
-            items.forEach(function(){
-                $tbody.append(
-                    "<tr>" +
-                    "<td><input type='checkbox' class='edit_add_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + e.batchNumber+ "</td>" +
-                    "<td>" + e.currentAvailableMaterials + "</td>" +
-                    "<td>" + e.meterialsUnit + "</td>" +
-                    "<td>" + e.judgeCode + "</td>" +
-                    "<td><a href=\"#\" class='edit_add_search_detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
-                    "</tr>"
-                )
-            })
+            if(items!=null){
+                items.forEach(function(e){
+                    $tbody.append(
+                        "<tr>" +
+                        "<td><input type='checkbox' class='edit_add_checkbox' value='" + (e.code) + "'></td>" +
+                        "<td>" + e.batchNumber+ "</td>" +
+                        "<td>" + e.currentAvailableMaterials + "</td>" +
+                        "<td>" + (e.materialsUnit?'kg':'') + "</td>" +
+                        "<td>" + e.judgeCode + "</td>" +
+                        "<td><a href=\"#\" class='edit_add_search_detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
+                        "</tr>"
+                    )
+                })
+            }
+             //详情
+             var edit_add_search_detailBtn = $(".edit_add_detail")
+             pro_out_manage.funcs.edit_add_search_detail(edit_add_search_detailBtn)
+             //实现全选
+             var checkBoxLen = $(".edit_add_checkbox:checked").length
+             home.funcs.bindSelectAll($("#edit_add_checkAll"),$(".edit_add_checkbox"),checkBoxLen,$("#edit_add_modal_table"))
         }
         /**删除对应记录 */
         , In: function (deleteBtns) {
@@ -1232,7 +1234,7 @@ var pro_out_manage = {
                     page = result.data
                     //console.log(items)
                     const $tbody = $("#product_out_table").children('tbody')
-                    pro_out_manage.funcs.renderHandler($tbody, items)
+                    pro_out_manage.funcs.renderHandler($tbody, items,0)
                     layui.laypage.render({
                         elem: 'product_out_page'
                         , count: 10 * page.totalPages//数据总数
@@ -1247,8 +1249,9 @@ var pro_out_manage = {
                                 }, function (result) {
                                     var items = result.data.content //获取数据
                                     // var code = $('#model-li-select-48').val()
+                                    var page = obj.curr - 1
                                     const $tbody = $("#product_out_table").children('tbody')
-                                    pro_out_manage.funcs.renderHandler($tbody, items)
+                                    pro_out_manage.funcs.renderHandler($tbody, items,page)
                                     pro_out_manage.pageSize = result.data.content.length
                                 })
                             }

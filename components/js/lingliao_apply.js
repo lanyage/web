@@ -9,6 +9,9 @@ var lingliao_apply = {
 
         var checkedBoxLen = $(".add_checkbox:checked").length
         home.funcs.bindSelectAll($("#add_checkAll"), $(".add_checkbox"), checkedBoxLen, $("#add_modal_table"))
+        $.get(servers.backup()+'check/getAll',{},function(result){
+            lingliao_apply.res = result.data
+        })
         //将分页居中
         var out = $('#lingLiao_page').width()
         var time = setTimeout(function () {
@@ -24,7 +27,7 @@ var lingliao_apply = {
                 var $tbody = $("#lingliao_apply_table").children('tbody')
                 /** 过滤返回的数据 */
                 var items = res.data.content
-                lingliao_apply.funcs.renderHandler($tbody, items)
+                lingliao_apply.funcs.renderHandler($tbody, items,0)
                 /** 渲染表格结束之后 */
                 lingliao_apply.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -40,8 +43,9 @@ var lingliao_apply = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
-                                const $tbody = $("#lingLiao_page").children('tbody')
-                                lingliao_apply.funcs.renderHandler($tbody, items)
+                                var page = obj.curr - 1
+                                const $tbody = $("#lingliao_apply_table").children('tbody')
+                                lingliao_apply.funcs.renderHandler($tbody, items,page)
                                 lingliao_apply.pageSize = result.data.content.length
                             })
                         }
@@ -76,9 +80,9 @@ var lingliao_apply = {
             lingliao_apply.funcs.bindEditDeleteClick($(".delete_roundBtn"))
 
         }
-        , renderHandler: function ($tbody, items) {
+        , renderHandler: function ($tbody, items,page) {
             $tbody.empty() //清空表格
-            var length = 1
+            var t = 1 + page * 10
             for (var i = 0; i < items.length; i++) {
                 e = items[i];
                 var auditStatus
@@ -105,7 +109,7 @@ var lingliao_apply = {
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='lingliao_apply_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + (length++) + "</td>" +
+                    "<td>" + (t++) + "</td>" +
                     "<td>" + (e.department ? e.department.name : null) + "</td>" +
                     "<td>" + (new Date(e.applyDate).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.processManage ? e.processManage.name : null) + "</td>" +
@@ -225,11 +229,15 @@ var lingliao_apply = {
                                     rawTypeCode = 4;
                                     break;
                             }
+                            if(e.eq(6).val()===null){
+                                alert("请输入申请数量!")
+                                return
+                            }
                             pickingApplies.push({
                                 batchNumber: e.eq(2).text(),
                                 rawType: {code: rawTypeCode},  //应该是要传rawType.code
-                                unit: e.eq(3).text(),
-                                weight: e.eq(4).text()
+                                unit: e.eq(5).text(),
+                                weight: e.eq(6).children('input').val()
                             })
                         })
                         var userStr = $.session.get('user')
@@ -336,7 +344,7 @@ var lingliao_apply = {
                                         "<td>" + (e.eq(3).text()) + "</td>" +
                                         "<td>" + (e.eq(2).text()) + "</td>" +
                                         "<td>kg</td>" +
-                                        "<td><input type='text' id='input_apply_amount' class='provider_input'/></td>" +
+                                        "<td><input type='text' id='input_apply_amount' class='provider_input' placeholder='请输入申请数量'/></td>" +
                                         "</tr>"
                                     )
                                 }
@@ -395,11 +403,15 @@ var lingliao_apply = {
                                     rawTypeCode = 4;
                                     break;
                             }
+                            if(e.eq(6).val()===null){
+                                alert("请输入申请数量!")
+                                return
+                            }
                             pickingApplies.push({
                                 batchNumber: e.eq(2).text(),
                                 rawType: {code: rawTypeCode},  //应该是要传rawType.code
-                                unit: e.eq(3).text(),
-                                weight: e.eq(4).text()
+                                unit: e.eq(5).text(),
+                                weight: e.eq(6).children('input').val()
                             })
 
                         })
@@ -496,8 +508,6 @@ var lingliao_apply = {
                     "<td>" + (ele.batchNumber) + "</td>" +
                     "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
                     "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>" +
-                    "<td></td>" +
-                    "<td></td>" +
                     "</tr>"
                 )
             })
@@ -539,10 +549,10 @@ var lingliao_apply = {
                     "<td><input type='checkbox' class='delete_checkbox' value='" + (ele.code) + "'></td>" +
                     "<td>" + (ele.rawType.name) + "</td>" +
                     "<td>" + (ele.batchNumber) + "</td>" +
-                    "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
-                    "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>" +
                     "<td>kg</td>" +
-                    "<td><input type='text' id='input_apply_amount' class='provider_input'/></td>" +
+                    "<td></td>" +
+                    "<td>kg</td>" +
+                    "<td><input type='text' style='text-align:center;' id='input_apply_amount' class='provider_input'  placeholder='请输入申请数量' value="+ (!ele.weight ? 0 : ele.weight) +" /></td>" +
                     "</tr>"
                 )
             })
@@ -575,7 +585,6 @@ var lingliao_apply = {
                     var items = result.data//获取数据
                     number = items.number
                     //点击的时候需要弹出一个模态框
-
                     lingliao_apply.funcs.fillData_editor($("#edit_modal"), items)  //将获取的数据传到#detail_modal中
                     layer.open({
                         type: 1,
@@ -612,34 +621,25 @@ var lingliao_apply = {
                                         rawTypeCode = 4;
                                         break;
                                 }
+                                //console.log(e.eq(6).children('input').val())
                                 pickingApplies.push(
                                     {
                                         batchNumber: e.eq(2).text(),
                                         rawType: {code: rawTypeCode},  //应该是要传rawType.code
-                                        unit: e.eq(3).text(),
-                                        weight: e.eq(4).text()
+                                        unit: e.eq(5).text(),
+                                        weight: e.eq(6).children('input').val()
                                     })
                             })
+                            var processManageCode = $("#edit_select").val()
                             var processCode
-                            switch ($("#edit_select").val()) {
-                                case '8':
-                                case '9':
-                                case '10':
-                                    processCode = 0;
-                                    break;
-                                case '12':
-                                case '13':
-                                case '14':
-                                case '16':
-                                case '17':
-                                case '18':
-                                case '19':
-                                case '20':
-                                    processCode = 1;
-                                    break;
-                                default:
-                                    break;
-                            }
+                            console.log(processManageCode)
+                            console.log(lingliao_apply.res)
+                            lingliao_apply.res.forEach(function(e){
+                                if(processManageCode === e.code){
+                                    console.log(e.process.code)
+                                    processCode = e.process.code
+                                }
+                            })
                             var userStr = $.session.get('user')
                             var userJson = JSON.parse(userStr)
                             var data = {
@@ -658,6 +658,7 @@ var lingliao_apply = {
                                 pickingApplies: []
                             }
                             data.pickingApplies = pickingApplies
+                            console.log(data)
                             $.ajax({
                                 url: home.urls.lingLiao.update(),
                                 contentType: 'application/json',
@@ -708,30 +709,17 @@ var lingliao_apply = {
                                     {
                                         batchNumber: e.eq(2).text(),
                                         rawType: {code: rawTypeCode},  //应该是要传rawType.code
-                                        unit: e.eq(3).text(),
-                                        weight: e.eq(4).text()
+                                        unit: e.eq(5).text(),
+                                        weight: e.eq(6).children('input').val()
                                     })
                             })
+                            var processManageCode = $("#edit_select").val()
                             var processCode
-                            switch ($("#edit_select").val()) {
-                                case '8':
-                                case '9':
-                                case '10':
-                                    processCode = 0;
-                                    break;
-                                case '12':
-                                case '13':
-                                case '14':
-                                case '16':
-                                case '17':
-                                case '18':
-                                case '19':
-                                case '20':
-                                    processCode = 1;
-                                    break;
-                                default:
-                                    break;
-                            }
+                            lingliao_apply.res.forEach(function(e){
+                                if(processManageCode === e.code){
+                                    processCode = e.process.code
+                                }
+                            })
                             var userStr = $.session.get('user')
                             var userJson = JSON.parse(userStr)
                             var data = {
@@ -846,7 +834,7 @@ var lingliao_apply = {
                                         "<td>" + (e.eq(3).text()) + "</td>" +
                                         "<td>" + (e.eq(2).text()) + "</td>" +
                                         "<td>kg</td>" +
-                                        "<td><input type='text' id='input_apply_amount' class='provider_input'/></td>" +
+                                        "<td><input type='text' id='input_apply_amount' style='text-align:center;' class='provider_input' placehodler='请输入申请数量' /></td>" +
                                         "</tr>"
                                     )
                                     var checkedBoxLen = $('.delete_checkbox:checked').length
@@ -1290,6 +1278,7 @@ var lingliao_apply = {
                         time: 700
                     })
                     lingliao_apply.init()
+                   // $("#status option[]")
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -1362,7 +1351,7 @@ var lingliao_apply = {
                     page = result.data
                     //console.log(items)
                     const $tbody = $("#lingliao_apply_table").children('tbody')
-                    lingliao_apply.funcs.renderHandler($tbody, items)
+                    lingliao_apply.funcs.renderHandler($tbody, items,0)
                     layui.laypage.render({
                         elem: 'lingLiao_page'
                         , count: 10 * page.totalPages//数据总数
@@ -1376,8 +1365,9 @@ var lingliao_apply = {
                                 }, function (result) {
                                     var items = result.data.content //获取数据
                                     // var code = $('#model-li-select-48').val()
+                                    var page = obj.curr - 1
                                     const $tbody = $("#lingliao_apply_table").children('tbody')
-                                    lingliao_apply.funcs.renderHandler($tbody, items)
+                                    lingliao_apply.funcs.renderHandler($tbody, items,page)
                                     lingliao_apply.pageSize = result.data.content.length
                                 })
                             }

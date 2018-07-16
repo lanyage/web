@@ -14,7 +14,7 @@ var batch_abnormal = {
                 var $tbody = $("#batch_abnormal_table").children('tbody')
                 var items = res.data.content
                 //console.log(items)
-               batch_abnormal.funcs.renderHandler($tbody, items)
+               batch_abnormal.funcs.renderHandler($tbody, items,0)
                 /** 渲染表格结束之后 */
                 batch_abnormal.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -30,8 +30,9 @@ var batch_abnormal = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
+                                var page =  obj.curr - 1
                                 const $tbody = $("#batch_abnormal_table").children('tbody')
-                                batch_abnormal.funcs.renderHandler($tbody, items)
+                                batch_abnormal.funcs.renderHandler($tbody, items,page)
                                 batch_abnormal.pageSize = result.data.content.length
                             })
                         }
@@ -54,9 +55,9 @@ var batch_abnormal = {
 
 
         }
-    , renderHandler: function ($tbody, items) {
+    , renderHandler: function ($tbody, items,page) {
         $tbody.empty() //清空表格
-        var i = 1
+        var i = 1 + page * 10
         items.forEach(function (e) {
             var code = e.code
             var content = (
@@ -292,7 +293,7 @@ var batch_abnormal = {
                 $("#batch_Number").val('')
                 $("#ab_number").val('')
                 $("#ab_weight").val('')
-                $("#editor_time").val(new Date().Format("yyyy-MM-dd"))
+                $("#editor_time").text(new Date().Format("yyyy-MM-dd"))
                 $.get(servers.backup()+"duty/getAll",{},function(result){
                     var duty = result.data
                     duty.forEach(function(e){
@@ -319,15 +320,18 @@ var batch_abnormal = {
                      offset:'auto',
                      closeBtn:0,
                      yes:function(index) {
-                         $("#batch_abnormal_editor_modal").css('display','none')
                          var date = new Date().Format('yyyy-MM-dd')
                          var dutyCode = $("#duty_code").val()
-                         var time = new Date().Format('yyyy-MM-dd hh:mm:ss')
+                         var time = new Date($("#E_time").val()).Format('yyyy-MM-dd hh:mm:ss')
                          var batchNumber = $("#batch_Number").val()
                          var abNumber = $("#ab_number").val()
                          var abWeight = $("#ab_weight").val()
                          var checker_code = $("#checker_code").val()
                          var operator_code = $("#operator_code").val()
+                         if(!($("#E_time").val())||!batchNumber||!abNumber||!abWeight){
+                             alert("请将新增信息填写完整!")
+                             return
+                         }
                          $.post(home.urls.batchAbnormal.add(),{
                             date: date,
                             'dutyCode.code': dutyCode,
@@ -349,6 +353,7 @@ var batch_abnormal = {
                                     clearTimeout(time)
                                 },500)
                             }
+                            $("#batch_abnormal_editor_modal").css('display','none')
                             layer.close(index)
                          })
                         /* var data = {
@@ -468,7 +473,7 @@ var batch_abnormal = {
                      var items = result.data.content //获取数据
                      page = result.data
                      const $tbody = $("#batch_abnormal_table").children('tbody')
-                     batch_abnormal.funcs.renderHandler($tbody, items)
+                     batch_abnormal.funcs.renderHandler($tbody, items,0)
                      layui.laypage.render({
                          elem: 'batch_abnormal_page'
                          , count: 10 * page.totalPages//数据总数
@@ -480,9 +485,10 @@ var batch_abnormal = {
                                      size: obj.limit
                                  }, function (result) {
                                      var items = result.data.content //获取数据
+                                     var page =  obj.curr - 1
                                      // var code = $('#model-li-select-48').val()
                                      const $tbody = $("#batch_abnormalt_table").children('tbody')
-                                     batch_abnormal.funcs.renderHandler($tbody, items)
+                                     batch_abnormal.funcs.renderHandler($tbody, items,page)
                                      batch_abnormal.pageSize = result.data.content.length
                                  })
                              }

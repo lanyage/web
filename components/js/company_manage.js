@@ -80,7 +80,7 @@ var company_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>统一社会信用代码:<input type='text' id='cocode'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司地址:<input type='text' id='coaddress'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系人:<input type='text' id='cokeeper'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话:<input type='text' id='cophone'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话:<input type='text' id='cophone' maxlength='11'/></p>" +
                         "<span>公司类型:</span><select id='cotype'>&nbsp;&nbsp;&nbsp;&nbsp;" + company_manage.funcs.getOperations2(data) + "</select>" + "</div>" +
                         "</div>",
                         area: ['370px', '350px'],

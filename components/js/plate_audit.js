@@ -118,7 +118,7 @@ var plate_audit = {
                     type: 1,
                     title: '报损单申请审核',
                     content: $("#detail_modal"),
-                    area: ['800px', '700px'],
+                    area: ['700px', '600px'],
                     btn: ['提交', '取消'],
                     offset: "auto",
                     closeBtn: 0,

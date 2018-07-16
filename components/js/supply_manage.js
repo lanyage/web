@@ -258,9 +258,9 @@ var supply_manage = {
                         $("#provider_info").css('display', 'none')
                     }
                 })   
+                var add_addBtn = $("#add_addBtn")
+                supply_manage.funcs.bindAddClick(add_addBtn)
             })
-            var add_addBtn = $("#add_addBtn")
-            supply_manage.funcs.bindAddClick(add_addBtn)
         }
        
         ,bindAddClick:function(addBtn){
@@ -314,7 +314,7 @@ var supply_manage = {
                     type:1,
                     title:'编辑',
                     content:$('#provider_info_add'),
-                    area:['300px','250px'],
+                    area:['330px','270px'],
                     btn:['确定','取消'],
                     offset:"auto",
                     closeBtn:0,
@@ -579,7 +579,8 @@ var supply_manage = {
                         }
                     })
                 })
-
+                var add_addBtn = $("#add_addBtn")
+                supply_manage.funcs.bindAddClick(add_addBtn)
             })
         }
         ,fill_edit_data:function(div,res){

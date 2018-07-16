@@ -104,7 +104,7 @@ var staff_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>登录名:&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' disabled='true' id='staff_code' value='" + (staffman.code) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>用户名称:&nbsp;<input type='text' id='staff_name' value='" + (staffman.name) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>描述说明:&nbsp;<input type='text' id='staff_description' value='" + (staffman.description) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>手机号码:&nbsp;<input type='text' id='staff_contact' value='" + (staffman.contact) + "'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>手机号码:&nbsp;<input type='text' id='staff_contact' maxlength='11'  value='" + (staffman.contact) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>所属公司:&nbsp;<select style='width:170px;' id='company_type'></select></p>" +
                         "</div>" +
                         "</div>",

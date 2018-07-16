@@ -13,7 +13,7 @@ var process_tracking = {
             $.post(home.urls.processTracking.getAllByPage(), {page:0}, function (res) {
                 var $tbody = $("#process_tracking_table").children('tbody')
                 var items = res.data.content
-                process_tracking.funcs.renderHandler($tbody, items)
+                process_tracking.funcs.renderHandler($tbody, items,0)
                 /** 渲染表格结束之后 */
                 process_tracking.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -29,8 +29,9 @@ var process_tracking = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
+                                var page = obj.curr - 1
                                 const $tbody = $("#process_tracking_table").children('tbody')
-                                process_tracking.funcs.renderHandler($tbody, items)
+                                process_tracking.funcs.renderHandler($tbody, items,page)
                                 process_tracking.pageSize = result.data.content.length
                             })
                         }
@@ -53,9 +54,9 @@ var process_tracking = {
 
 
         }
-    , renderHandler: function ($tbody, items) {
+    , renderHandler: function ($tbody, items,page) {
         $tbody.empty() //清空表格
-        var i = 1
+        var i = 1 + page * 10
         items.forEach(function (e) {
             var code = e.code
             var content = (
@@ -510,7 +511,7 @@ var process_tracking = {
                      var items = result.data.content //获取数据
                      page = result.data
                      const $tbody = $("#process_tracking_table").children('tbody')
-                     process_tracking.funcs.renderHandler($tbody, items)
+                     process_tracking.funcs.renderHandler($tbody, items,0)
                      layui.laypage.render({
                          elem: 'process_tracking_page'
                          , count: 10 * page.totalPages//数据总数
@@ -523,8 +524,9 @@ var process_tracking = {
                                  }, function (result) {
                                      var items = result.data.content //获取数据
                                      // var code = $('#model-li-select-48').val()
+                                     var page = obj.curr - 1
                                      const $tbody = $("#process_tracking_table").children('tbody')
-                                     process_tracking.funcs.renderHandler($tbody, items)
+                                     process_tracking.funcs.renderHandler($tbody, items,page)
                                      process_tracking.pageSize = result.data.content.length
                                  })
                              }

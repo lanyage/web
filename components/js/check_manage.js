@@ -278,7 +278,7 @@ var check_manage = {
                                     })
                                 }
                             })
-                            console.log(processManages)
+                            //console.log(processManages)
                             $.ajax({
                                 url: home.urls.check.deleteByBatchCode(),
                                 contentType: 'application/json',
@@ -327,7 +327,6 @@ var check_manage = {
                    
                     //编辑时判断流程类型是否为空  为空if 非空else
                     if(check.process===null){
-                        $("#process_code").append("<option value='-1'>请选择流程类型</option>")
                         $.get(servers.backup()+'process/getAll',{},function(result){
                             process = result.data
                             process.forEach(function(e){
@@ -456,7 +455,7 @@ var check_manage = {
                         '<div style="text-align:center;padding-top:10px">' +
                         '<ul style="line-height:30px" >' +
                         '<li>流程编码: &nbsp;<input type="text" disabled="true" id="chp_code" value="' + (check.code) + '"></li>' +
-                        '<li>编码名称: &nbsp;<input type="text"id="chp_name" value="' + (check.name) + '"></li>' +
+                        '<li>流程名称: &nbsp;<input type="text"id="chp_name" value="' + (check.name) + '"></li>' +
                         '<li>流程类型: &nbsp;<select id="process_code"></select></li>' +
                         '<li>负责人1:&nbsp;&nbsp;&nbsp;<select id="chp_leader1code"></select></li>' +
                         '<li>负责人2:&nbsp;&nbsp;&nbsp;<select id="chp_leader2code"></select></li>' +
@@ -471,7 +470,8 @@ var check_manage = {
                         offset: 'auto',
                         yes: function (index) {
                             var code = $('#chp_code').val()
-                            var name = $('#process_code').val()
+                            var name = $('#chp_name').val()
+                            console.log(name)
                             var processcode = $('#process_code').val()
                             var leader1code = $('#chp_leader1code').val()
                             var leader2code = $('#chp_leader2code').val()

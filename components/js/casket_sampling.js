@@ -13,7 +13,7 @@ var casket_sampling = {
             $.post(home.urls.bowlSampling.getAllByPage(), {page:0}, function (res) {
                 var $tbody = $("#casket_sampling_table").children('tbody')
                 var items = res.data.content
-                casket_sampling.funcs.renderHandler($tbody, items)
+                casket_sampling.funcs.renderHandler($tbody, items,0)
                 /** 渲染表格结束之后 */
                 casket_sampling.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -29,8 +29,9 @@ var casket_sampling = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
+                                var page = obj.curr - 1
                                 const $tbody = $("#casket_sampling_table").children('tbody')
-                                casket_sampling.funcs.renderHandler($tbody, items)
+                                casket_sampling.funcs.renderHandler($tbody, items,page)
                                 casket_sampling.pageSize = result.data.content.length
                             })
                         }
@@ -53,9 +54,9 @@ var casket_sampling = {
 
 
         }
-    , renderHandler: function ($tbody, items) {
+    , renderHandler: function ($tbody, items,page) {
         $tbody.empty() //清空表格
-        var i = 1
+        var i = 1 + page * 10
         items.forEach(function (e) {
             var code = e.code
             var content = (
@@ -63,7 +64,7 @@ var casket_sampling = {
                     "<td><input type='checkbox' class='casket_sampling_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (i++) + "</td>" +
                     "<td>" + (new Date(e.date).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + (e.dutyCode ? e.dutyCode.code : '')+ "</td>" +
+                    "<td>" + (e.dutyCode ? e.dutyCode.name : '')+ "</td>" +
                     "<td>" + (e.bowlCode ? e.bowlCode : '') + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "<td><a href=\"#\" class='editor' id='editor-" + (code) + "'><i class=\"layui-icon\">&#xe642;</i></a></td>" +
@@ -129,33 +130,50 @@ var casket_sampling = {
                      code:code
                  },function(result){
                      items = result.data
-                $("#dutyCode1").val(items.dutyCode?items.dutyCode.code:'')
-                $("#bowlCode1").val(items.bowlCode)
-                $("#tare1").val(items.tare)
-                $("#total1").val(items.total)
-                $("#net1").val(items.net)
-                $("#randomCode1").append("<option value="+items.random.code+">"+items.random.name+"</option>")
-                $("#randomTime1").val(new Date(items.randomTime).Format('yyyy-MM-dd hh:mm:ss'))
-                $("#inspectorCode1").append("<option value="+items.inspector.code+">"+items.inspector.name+"</option>")
-                $("#inspectorTime1").val(new Date(items.inspectorTime).Format('yyyy-MM-dd hh:mm:ss'))
-                $('#editor_time').text(new Date().Format('yyyy-MM-dd'))  
-
-                $.get(servers.backup()+"user/getAll",{ },function(result){
-                    users = result.data
-                    users.forEach(function(e){
-                        if(items.random.code!=users.code){
-                            $("#randomCode1").append(
-                            "<option value="+(e.code)+">"+e.name+"</option>"
-                        )
-                        }
-                        if(items.inspector.code!=users.code){
-                            $("#inspectorCode1").append(
-                            "<option value="+(e.code)+">"+e.name+"</option>"
-                        )
-                        }
-                        
-                    })
-                })
+                     $("#dutyCode1").val(items.dutyCode?items.dutyCode.code:'')
+                     //$("#bowlCode1").val(items.bowlCode)
+                     if(items.bowlCode==='2#'){
+                         $("#bowlCode1 option[value='1#']").removeAttr('selected')
+                         $("#bowlCode1 option[value='2#']").attr("selected","true")
+                     }else{
+                        $("#bowlCode1 option[value='2#']").removeAttr('selected')
+                        $("#bowlCode1 option[value='1#']").attr("selected","true")
+                     }
+                     $("#tare1").val(items.tare)
+                     $("#total1").val(items.total)
+                     $("#net1").text(items.net)
+                     $("#randomCode1").append("<option value="+items.random.code+">"+items.random.name+"</option>")
+                     $("#randomTime1").val(new Date(items.randomTime).Format('yyyy-MM-dd hh:mm:ss'))
+                     $("#inspectorCode1").append("<option value="+items.inspector.code+">"+items.inspector.name+"</option>")
+                     $("#inspectorTime1").val(new Date(items.inspectorTime).Format('yyyy-MM-dd hh:mm:ss'))
+                     $('#editor_time').text(new Date().Format('yyyy-MM-dd'))  
+                    
+                     $("#dutyCode1").append("<option value="+items.dutyCode.code+">"+items.dutyCode.name+"</option>")
+                     $.get(servers.backup()+"duty/getAll",{},function(result){
+                         var res = result.data
+                         res.forEach(function(e){
+                             if(items.dutyCode.code!=e.code){
+                                 $("#dutyCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
+                             }
+                         })
+                     })
+                    
+                     $.get(servers.backup()+"user/getAll",{ },function(result){
+                        users = result.data
+                        users.forEach(function(e){
+                            if(items.random.code!=users.code){
+                                $("#randomCode1").append(
+                                "<option value="+(e.code)+">"+e.name+"</option>"
+                            )
+                            }
+                            if(items.inspector.code!=users.code){
+                                $("#inspectorCode1").append(
+                                "<option value="+(e.code)+">"+e.name+"</option>"
+                            )
+                            }
+                            
+                        })
+                    }) 
                 layer.open({
                     type: 1,
                     title: '编辑匣钵抽检',
@@ -170,7 +188,8 @@ var casket_sampling = {
                          var bowlCode = $("#bowlCode1").val()
                          var tare = $("#tare1").val()
                          var total =  $("#total1").val()
-                         var net =  $("#net1").val()
+                         var net = (parseFloat(total)-parseFloat(tare)).toFixed(2)
+                         $("#net1").val(net)
                          var randomCode =  $("#randomCode1").val()
                          var randomTime =  new Date($("#randomTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
                          var inspectorCode =  $("#inspectorCode1").val()
@@ -283,16 +302,23 @@ var casket_sampling = {
          }
          ,bindAddEvent:function(addBtn){
              addBtn.off('click').on('click',function(){
-                $("#dutyCode1").val('')
-                $("#bowlCode1").val('')
+                $("#dutyCode1").empty()
+                //$("#bowlCode1").val('')
                 $("#tare1").val('')
                 $("#total1").val('')
-                $("#net1").val('')
+                $("#net1").text('')
                 //$("#randomCode1").val('')
                 $("#randomTime1").val('')
+                $("#inspectorTime1").val('')
                 $("#inspectorCode1").val('')
                 //$("#inspectorTime1").val('')
                 $('#editor_time').text(new Date().Format('yyyy-MM-dd'))  
+                $.get(servers.backup()+"duty/getAll",{},function(result){
+                    var res = result.data
+                    res.forEach(function(e){
+                        $("#dutyCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
+                    })
+                })
                 $.get(servers.backup()+"user/getAll",{ },function(result){
                     users = result.data
                     users.forEach(function(e){
@@ -313,16 +339,20 @@ var casket_sampling = {
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
-                        $("#casket_sampling_editor_modal").css('display', 'none')
                          var dutyCode = $("#dutyCode1").val()
                          var bowlCode = $("#bowlCode1").val()
                          var tare = $("#tare1").val()
                          var total =  $("#total1").val()
-                         var net =  $("#net1").val()
+                         var net = (parseFloat(total)-parseFloat(tare)).toFixed(2)
+                         $("#net1").val(net)
                          var randomCode =  $("#randomCode1").val()
                          var randomTime =  new Date($("#randomTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
                          var inspectorCode =  $("#inspectorCode1").val()
                          var inspectorTime =  new Date($("#inspectorTime1").val()).Format('yyyy-MM-dd hh:mm:ss')
+                         if(!($("#randomTime1").val())||!($("#randomTime1").val())||!bowlCode||!tare||!total){
+                            alert("请将新增信息填写完整！")
+                            return
+                         }
                          $.post(home.urls.bowlSampling.add(),{
                              date:new Date().Format('yyyy-MM-dd'),
                              dutyCode:dutyCode,
@@ -346,6 +376,7 @@ var casket_sampling = {
                                  },500)
                              }
                          })
+                        $("#casket_sampling_editor_modal").css('display', 'none')
                         layer.close(index)
                     }
                     ,btn2:function(index){
@@ -435,7 +466,7 @@ var casket_sampling = {
                      var items = result.data.content //获取数据
                      page = result.data
                      const $tbody = $("#casket_sampling_table").children('tbody')
-                     casket_sampling.funcs.renderHandler($tbody, items)
+                     casket_sampling.funcs.renderHandler($tbody, items,0)
                      layui.laypage.render({
                          elem: 'casket_sampling_page'
                          , count: 10 * page.totalPages//数据总数
@@ -448,8 +479,9 @@ var casket_sampling = {
                                  }, function (result) {
                                      var items = result.data.content //获取数据
                                      // var code = $('#model-li-select-48').val()
+                                     var page = obj.curr - 1
                                      const $tbody = $("#casket_sampling_table").children('tbody')
-                                     casket_sampling.funcs.renderHandler($tbody, items)
+                                     casket_sampling.funcs.renderHandler($tbody, items,page)
                                      casket_sampling.pageSize = result.data.content.length
                                  })
                              }

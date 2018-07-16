@@ -14,7 +14,7 @@ var presintering_record = {
             $.post(home.urls.presinteringRecord.getAllByPage(), {}, function (res) {
                 var $tbody = $("#presintering_record_table").children('tbody')
                 var items = res.data.content
-                presintering_record.funcs.renderHandler($tbody, items)
+                presintering_record.funcs.renderHandler($tbody, items,0)
                 presintering_record.pageSize = res.data.content.length 
                 var page = res.data 
                 layui.laypage.render({
@@ -28,8 +28,9 @@ var presintering_record = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content 
+                                var page = obj.curr - 1
                                 const $tbody = $("#presintering_record_table").children('tbody')
-                                presintering_record.funcs.renderHandler($tbody, items)
+                                presintering_record.funcs.renderHandler($tbody, items,page)
                                 presintering_record.pageSize = result.data.content.length
                             })
                         }
@@ -51,9 +52,9 @@ var presintering_record = {
 
 
         },
-         renderHandler: function ($tbody,items) {
+         renderHandler: function ($tbody,items,page) {
              $tbody.empty() //清空表格
-             var i = 1
+             var i = 1 + page*10
              items.forEach(function (e) {
                  var sinteringProcess
                 if(e.sinteringProcess === true){
@@ -745,7 +746,7 @@ var presintering_record = {
                     var items = result.data.content //获取数据
                     page = result.data
                     const $tbody = $("#presintering_record_table").children('tbody')
-                    presintering_record.funcs.renderHandler($tbody, items)
+                    presintering_record.funcs.renderHandler($tbody, items,0)
                     layui.laypage.render({
                         elem: 'presintering_record_page'
                         , count: 10 * page.totalPages//数据总数
@@ -758,8 +759,9 @@ var presintering_record = {
                                     size: obj.limit
                                 }, function (result) {
                                     var items = result.data.content //获取数据
+                                    var page = obj.curr - 1
                                     const $tbody = $("#presintering_record_table").children('tbody')
-                                    presintering_record.funcs.renderHandler($tbody, items)
+                                    presintering_record.funcs.renderHandler($tbody, items,page)
                                     presintering_record.pageSize = result.data.content.length
                                 })
                             }

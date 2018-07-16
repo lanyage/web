@@ -21,7 +21,7 @@ var mat_out_manage = {
                 /** 过滤返回的数据 */
                 var items = res.data.content
 
-                mat_out_manage.funcs.renderHandler($tbody, items)
+                mat_out_manage.funcs.renderHandler($tbody, items,0)
                 /** 渲染表格结束之后 */
                 mat_out_manage.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -32,14 +32,15 @@ var mat_out_manage = {
                     /** 页面变化后的逻辑 */
                     jump: function (obj, first) {
                         if (!first) {
-                            $.post(home.urls.department.getAllByPage(), {
+                            $.post(home.urls.materialOut.getAllByPage(), {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
-                                const $tbody = $("#material_out_page").children('tbody')
-                                mat_in_manage.funcs.renderHandler($tbody, items)
-                                mat_in_manage.pageSize = result.data.content.length
+                                var page = obj.curr - 1
+                                const $tbody = $("#material_out_table").children('tbody')
+                                mat_out_manage.funcs.renderHandler($tbody, items,page)
+                                mat_out_manage.pageSize = result.data.content.length
                             })
                         }
                     }
@@ -54,10 +55,11 @@ var mat_out_manage = {
             mat_out_manage.funcs.bindSearchEventListener(searchBtn);
 
         }
-        , renderHandler: function ($tbody, items) {
+        , renderHandler: function ($tbody, items,page) {
             $tbody.empty() //清空表格
-            for( var i=0;i<items.length;i++){
-                e=items[i];
+            console.log(page)
+            var i = 1 + page*10
+            items.forEach(function(e){
                 var auditStatus
                 var pickingStatus
                 if(e.pickingStatus===0){
@@ -81,7 +83,7 @@ var mat_out_manage = {
                 }
                 $tbody.append(
                     "<tr>" +
-                    "<td>" + (i+1) + "</td>" +
+                    "<td>" + (i++) + "</td>" +
                     "<td>" + (e.department != null ? e.department.name : null) + "</td>" +
                     "<td>" + (new Date(e.applyDate).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.processManage ? e.processManage.name : null) + "</td>" +
@@ -90,9 +92,9 @@ var mat_out_manage = {
                     "<td><a href=\"#\" class='detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "</tr>"
                 )
-            }
             var detailBtns = $(".detail")
             mat_out_manage.funcs.bindDetailClick(detailBtns)
+        })
         }
 
         /** 监听下拉菜单的option */
@@ -155,7 +157,7 @@ var mat_out_manage = {
                 })
             })*/
             $("#process_type").empty()
-            $("#process_type").append("<option>"+items.process.name+"</option>");
+            $("#process_type").append("<option>"+items.processManage.name+"</option>");
             var pickingApplies = items.pickingApplies
             var $tbody = $('#detail_table').children('tbody')
             $tbody.empty() //清空表格
@@ -166,8 +168,6 @@ var mat_out_manage = {
                     "<td>" + (ele.batchNumber) + "</td>" +
                     "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
                     "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>" +
-                    "<td></td>" +
-                    "<td></td>" +
                     "</tr>"
                 )
             })
@@ -207,9 +207,6 @@ var mat_out_manage = {
                 var department = $('#depmartment-1 option:selected').val();
                 var status = $('#depmartment-2 option:selected').val()
                 var process = $('#depmartment-3 option:selected').val();
-                console.log(department)
-                console.log(status)
-                console.log(process)
                 $.post(home.urls.materialOut.getByDepartmentAndProcessManageAndPickingStatusByPage(), {
                     departmentCode: department,
                     pickingStatus: status,
@@ -218,7 +215,7 @@ var mat_out_manage = {
                     var items = result.data.content //获取数据
                     var page = result.data
                     const $tbody = $("#material_out_table").children('tbody')
-                    mat_out_manage.funcs.renderHandler($tbody, items)
+                    mat_out_manage.funcs.renderHandler($tbody, items,0)
                     layui.laypage.render({
                         elem: 'material_out_page'
                         , count: 10 * page.totalPages//数据总数
@@ -229,8 +226,9 @@ var mat_out_manage = {
                                     size: obj.limit
                                 }, function (result) {
                                     var manage = result.data.content //获取数据
+                                    var page = obj.curr - 1
                                     const $tbody = $("#material_out_table").children('tbody')
-                                    mat_out_manage.funcs.renderHandler($tbody, items)
+                                    mat_out_manage.funcs.renderHandler($tbody, items,page)
                                     mat_out_manage.pageSize = result.data.content.length
                                 })
                             }

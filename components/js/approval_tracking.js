@@ -13,7 +13,7 @@ var approval_tracking = {
             $.post(home.urls.approvalTracking.getAllByPage(), {page:0}, function (res) {
                 var $tbody = $("#approval_tracking_table").children('tbody')
                 var items = res.data.content
-                approval_tracking.funcs.renderHandler($tbody, items)
+                approval_tracking.funcs.renderHandler($tbody, items,0)
                 /** 渲染表格结束之后 */
                 approval_tracking.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -29,8 +29,9 @@ var approval_tracking = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
+                                var page = obj.curr - 1
                                 const $tbody = $("#approval_tracking_table").children('tbody')
-                                approval_tracking.funcs.renderHandler($tbody, items)
+                                approval_tracking.funcs.renderHandler($tbody, items,page)
                                 approval_tracking.pageSize = result.data.content.length
                             })
                         }
@@ -53,9 +54,9 @@ var approval_tracking = {
 
 
         }
-    , renderHandler: function ($tbody, items) {
+    , renderHandler: function ($tbody, items,page) {
         $tbody.empty() //清空表格
-        var i = 1
+        var i = 1 + page * 10
         items.forEach(function (e) {
             var code = e.code
             var content = (
@@ -235,6 +236,21 @@ var approval_tracking = {
                          var defeWeight =  $("#defeWeight1").val()
                          var slotsLeft =  $("#slotsLeft1").val()
                          var screenNormal =  $("#screenNormal1").val()
+                         if(slotsNormal1==='正常'){
+                            slotsNormal1 = 1
+                        }else{
+                            slotsNormal1 = 0
+                        }
+                        if(slotsNormal2==='正常'){
+                            slotsNormal2 = 1
+                        }else{
+                            slotsNormal2 = 0
+                        }
+                        if(screenNormal==='正常'){
+                            screenNormal = 1
+                        }else{
+                            screenNormal = 0
+                        }
                          $.post(home.urls.approvalTracking.update(),{
                              code:code,
                              packagingCode:packagingCode,
@@ -549,7 +565,7 @@ var approval_tracking = {
                      var items = result.data.content //获取数据
                      page = result.data
                      const $tbody = $("#approval_tracking_table").children('tbody')
-                     approval_tracking.funcs.renderHandler($tbody, items)
+                     approval_tracking.funcs.renderHandler($tbody, items,0)
                      layui.laypage.render({
                          elem: 'approval_tracking_page'
                          , count: 10 * page.totalPages//数据总数
@@ -563,7 +579,8 @@ var approval_tracking = {
                                      var items = result.data.content //获取数据
                                      // var code = $('#model-li-select-48').val()
                                      const $tbody = $("#approval_tracking_table").children('tbody')
-                                     approval_tracking.funcs.renderHandler($tbody, items)
+                                     var page = obj.curr - 1
+                                     approval_tracking.funcs.renderHandler($tbody, items,page)
                                      approval_tracking.pageSize = result.data.content.length
                                  })
                              }

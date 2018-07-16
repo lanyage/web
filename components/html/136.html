@@ -10,7 +10,6 @@
             text-align: center;
             font-weight: 400;
             height:40px;
-            width:130px;
         } 
         #batch_abnormal_editor_modal td{
             padding: 5px;
@@ -90,16 +89,16 @@
         })
     </script>
     <div id="batch_abnormal_detail_modal" class="hide" style="padding:30px;"> 
-        <table id="batch_abnormal_detail_table">
+        <table id="batch_abnormal_detail_table" width="100%">
             <thead>
              <tr class="grey">
-                <td>班次</td>
-                <td>时间</td>
-                <td>生产批次</td>
-                <td width="120px">异常物料钵数</td>
-                <td>异常物料重</td>
-                <td>操作人</td>
-                <td>核查人</td>
+                <td width="9%">班次</td>
+                <td width="21%">时间</td>
+                <td width="10%">生产批次</td>
+                <td width="15%">异常物料钵数</td>
+                <td width="15%">异常物料重</td>
+                <td width="15%">操作人</td>
+                <td width="15%">核查人</td>
             </tr>
            </thead>
            <tbody>
@@ -122,13 +121,13 @@
         <table id="batch_abnormal_editor_modal" width="100%">
             <thead>
              <tr class="grey">
-                <td width="10%">班次</td>
-                <td width="20%">时间</td>
+                <td width="9%">班次</td>
+                <td width="23%">时间</td>
                 <td width="10%">生产批次</td>
-                <td width="10%">异常物料钵数</td>
-                <td width="10%">异常物料重</td>
-                <td width="20%">操作人</td>
-                <td width="20%">核查人</td>
+                <td width="14%">异常物料钵数</td>
+                <td width="14%">异常物料重</td>
+                <td width="15%">操作人</td>
+                <td width="15%">核查人</td>
             </tr>
            </thead>
            <tbody>
@@ -136,8 +135,8 @@
                 <td><select id="duty_code"></select></td>
                 <td><input type="datetime" id="E_time" placeholder="格式为2018-01-01 00:00:00"/></td>
                 <td><input type="text" id="batch_Number"/></td>
-                <td><input type="text" id="ab_number"/></td>
-                <td><input type="text" id="ab_weight"/></td>
+                <td><input type="text" id="ab_number"  onkeyup='this.value=this.value.replace(/\D/gi,"")' size="11"/></td>
+                <td><input type="text" id="ab_weight" onkeyup="num(this)" size="14"/></td>
                 <td>
                     <select id="operator_code"></select>
                 </td>
@@ -150,4 +149,14 @@
         <div class="whitespace"></div>
         <span style="float:right;">日期：<span id="editor_time" style="width:10%;"></span></span>
     </div>
+    <!--限制只能保留两位小数点-->
+    <script>
+        function num(obj){
+            obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+            obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
+            obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+            obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数  
+}  
+    </script>
 </div>

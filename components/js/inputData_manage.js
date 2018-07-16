@@ -19,20 +19,21 @@ var inputData_manage = {
          //渲染页面
          renderTable:function () {
              
-
              /** 追加上传选项事件 */
              var fileUploadBtn = $('#fileUpload')
              inputData_manage.funcs.bindOpendialog(fileUploadBtn)
  
-             
              /** 追加添加事件 */
              var openBtn = $('#openBtn')
              inputData_manage.funcs.bindOpendialog(openBtn)
 
-        
              /** 获取提交选项 */
              var submitBtn = $('#submitBtn')
              inputData_manage.funcs.bindSubmitData(submitBtn)
+
+              /** 获取取消选项 */
+              var cancleBtn = $('#cancleBtn')
+              inputData_manage.funcs.bindCancleData(cancleBtn)
 
              /** 选择不同的typeCode显示相应的表头 */
              var tabTop = $('#openBtn')
@@ -44,9 +45,8 @@ var inputData_manage = {
         /** 选择不同的typeCode显示相应的表头 */
          bindShowtabTitle:function(tabTop){
              var ID = 'table'+$("#selectoption option:selected").attr('id')
-            $('#model-li-hide-19 table').addClass('hide')
-
-            $(ID).removeClass('hide')
+             $('#model-li-hide-19 table').addClass('hide')
+             $(ID).removeClass('hide')
          },
 
          /** 点击选择Excle文件按钮 弹出文件框，让选择文件 */
@@ -106,6 +106,7 @@ var inputData_manage = {
 
          /** 制程扣电添加Tbody */
          bindZhiChengKoudian:function(result,Tcode){
+            $("#dataInOut").show()
             var length = result.data['length']
             //console.log(length)
             for(var i=0;i<length;i++){
@@ -119,9 +120,9 @@ var inputData_manage = {
                 var pc3 = result.data[i]['pc3']//XRD
 
                 Tcode.append("<tr>"+
-                    "<td>"+ operation +"</td>"+
-                    "<td>"+ publisher +"</td>"+
-                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
+                    "<td>"+ (operation?operation:'无') +"</td>"+
+                    "<td>"+ (publisher?publisher.name:'无') +"</td>"+
+                    "<td>"+ (auditDate?new Date(auditDate).Format('yyyy-MM-dd'):'无') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
                     "<td>"+ furnaceNum +"</td>"+
                     "<td>"+ pc1 +"</td>"+
@@ -134,6 +135,7 @@ var inputData_manage = {
 
          /** 产品添加Tbody */
          bindProduct:function(result,Tcode){
+            $("#dataInOut").show()
             var length = result.data['length']
             console.log(length)
             for(var i=0;i<length;i++){
@@ -179,7 +181,7 @@ var inputData_manage = {
                 var p36 = result.data[i]['p36']//1C首次放电容量
 
                 Tcode.append("<tr>"+
-                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
+                    "<td>"+ (auditDate?new Date(auditDate).Format('yyyy-MM-dd'):'无') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
                     "<td>"+ judge +"</td>"+
                     "<td>"+ number +"</td>"+
@@ -226,6 +228,7 @@ var inputData_manage = {
 
            /** 金弛622添加Tbody */
         bindJinchi622:function(result,Tcode){
+            $("#dataInOut").show()
             var length = result.data['length']
             console.log(length)
             for(var i=0;i<length;i++){
@@ -263,12 +266,12 @@ var inputData_manage = {
                 //var c15 = result.data[i]['c15']//总量
                 
                 Tcode.append("<tr>"+
-                    "<td>"+ operation +"</td>"+
-                    "<td>"+ publisher +"</td>"+
-                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
+                    "<td>"+ (operation?operation:'无') +"</td>"+
+                    "<td>"+ (publisher?publisher.name:'无') +"</td>"+
+                    "<td>"+ (auditDate?new Date(auditDate).Format('yyyy-MM-dd'):'无') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
                     "<td>"+ insideCode +"</td>"+
-                    "<td>"+ new Date(productDate).Format('yyyy-MM-dd') +"</td>"+
+                    "<td>"+ (productDate?new Date(productDate).Format('yyyy-MM-dd'):'') +"</td>"+
                     "<td>"+ number +"</td>"+
                     "<td>"+ judge +"</td>"+
                     "<td>"+ c1 +"</td>"+
@@ -295,6 +298,7 @@ var inputData_manage = {
 
          /** 制程总锂添加Tbody */
          bindZhiChengZongli:function(result,Tcode){
+            $("#dataInOut").show()
             var length = result.data['length']
             console.log(length)
             for(var i=0;i<length;i++){
@@ -302,20 +306,17 @@ var inputData_manage = {
                 var publisher = result.data[i]['publisher']
                 var auditDate = result.data[i]['auditDate']
                 var batchNumber = result.data[i]['batchNumber']
-                var pc1 = result.data[i]['c1']//Lico3
+                var furnaceNum = result.data[i]['furnaceNum']//炉号
+                var pc1 = result.data[i]['pc1']//Lico3
                 var pc2 = result.data[i]['pc2']//LiOH
                 var pc3 = result.data[i]['pc3']//总LI含量
 
                 Tcode.append("<tr>"+
-                    "<td>"+ operation +"</td>"+
-                    "<td>"+ publisher +"</td>"+
-                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
+                    "<td>"+ (operation?operation:'无') +"</td>"+
+                    "<td>"+ (publisher?publisher.name:'无') +"</td>"+
+                    "<td>"+ (auditDate?new Date(auditDate).Format('yyyy-MM-dd'):'无') +"</td>" +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
-                    "<td>"+ pc1 +"</td>"+
-                    "<td>"+ pc2 +"</td>"+
-                    "<td>"+ pc3 +"</td>"+
-                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
-                    "<td>"+ batchNumber +"</td>"+
+                    "<td>"+furnaceNum+"</td>"+
                     "<td>"+ pc1 +"</td>"+
                     "<td>"+ pc2 +"</td>"+
                     "<td>"+ pc3 +"</td>"+
@@ -327,6 +328,7 @@ var inputData_manage = {
 
          /** 制程粒度添加Tbody */
          bindZhiChengLidu:function(result,Tcode){
+            $("#dataInOut").show()
             var length = result.data['length']
             console.log(length)
             for(var i=0;i<length;i++){
@@ -348,9 +350,9 @@ var inputData_manage = {
                 var pc10 = result.data[i]['pc10']//宽度系数
 
                 Tcode.append("<tr>"+
-                    "<td>"+ operation +"</td>"+
-                    "<td>"+ publisher +"</td>"+
-                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
+                    "<td>"+ (operation?operation:'无') +"</td>"+
+                    "<td>"+ (publisher?publisher.name:'无') +"</td>"+
+                    "<td>"+ (auditDate?new Date(auditDate).Format('yyyy-MM-dd'):'无') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
                     "<td>"+ furnaceNum +"</td>"+
                     "<td>"+ pc1 +"</td>"+
@@ -372,6 +374,7 @@ var inputData_manage = {
 
         /** 天齐碳酸锂添加Tbody */
         bindTianQi:function(result,Tcode){
+            $("#dataInOut").show()
             var length = result.data['length']
             console.log(length)
             for(var i=0;i<length;i++){
@@ -401,11 +404,11 @@ var inputData_manage = {
                 var c17 = result.data[i]['c17']//Fe
 
                 Tcode.append("<tr>"+
-                    "<td>"+ operation +"</td>"+
-                    "<td>"+ publisher +"</td>"+
-                    "<td>"+ new Date(auditDate).Format('yyyy-MM-dd') +"</td>"+
+                    "<td>"+ (operation?operation:'无') +"</td>"+
+                    "<td>"+ (publisher?publisher.name:'无') +"</td>"+
+                    "<td>"+ (auditDate?new Date(auditDate).Format('yyyy-MM-dd'):'无') +"</td>"+
                     "<td>"+ batchNumber +"</td>"+
-                    "<td>"+ new Date(productDate).Format('yyyy-MM-dd') +"</td>"+
+                    "<td>"+ (productDate?new Date(productDate).Format('yyyy-MM-dd'):'无') +"</td>"+
                     "<td>"+ judge +"</td>"+
                     "<td>"+ number +"</td>"+
                     "<td>"+ c1 +"</td>"+
@@ -465,5 +468,13 @@ var inputData_manage = {
                 })
             })
          }
+        ,bindCancleData:function(cancleBtn){
+            cancleBtn.off('click').on('click',function(){
+                var ID = 'table'+$("#selectoption option:selected").attr('id')
+                $('#model-li-hide-19 table').addClass('hide')
+                $(ID).removeClass('show')
+                $("#dataInOut").hide()
+            })
+        }
      }
 }

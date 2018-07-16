@@ -16,7 +16,6 @@ var Production_process = {
          */
         renderTable: function () {
             Production_process.funcs.hideTable();
-            console.log(Production_process.process_type);
             var status = $('#status').val()
             // POST
             $.post(Production_process.funcs.chooseUrl(), {
@@ -37,7 +36,7 @@ var Production_process = {
                     /** 页面变化后的逻辑 */
                     , jump: function (obj, first) {
                         if (!first) {
-                            console.log('不是首次,可以执行');
+                            //console.log('不是首次,可以执行');
                             var status = $('#status').val();
                             $.post(Production_process.funcs.chooseUrl(), {
                                 page: obj.curr - 1,
@@ -74,7 +73,7 @@ var Production_process = {
         selectPremix: function (premixSelect) {
             premixSelect.off('click');
             premixSelect.on('click', function () {
-                console.log("premixSelect");
+                //console.log("premixSelect");
                 var select_premix = $('#select-premix');
                 var select_size = $('#select-size');
                 var select_lithium = $('#select-lithium');
@@ -114,7 +113,7 @@ var Production_process = {
         selectLithium: function (lithiumSelect) {
             lithiumSelect.off('click');
             lithiumSelect.on('click', function () {
-                console.log("lithiumSelect");
+               // console.log("lithiumSelect");
                 var select_premix = $('#select-premix');
                 var select_size = $('#select-size');
                 var select_lithium = $('#select-lithium');
@@ -134,7 +133,7 @@ var Production_process = {
         selectBuckle: function (buckleSelect) {
             buckleSelect.off('click');
             buckleSelect.on('click', function () {
-                console.log("premixSelect");
+                //console.log("premixSelect");
                 var select_premix = $('#select-premix');
                 var select_size = $('#select-size');
                 var select_lithium = $('#select-lithium');
@@ -225,12 +224,7 @@ var Production_process = {
                        "<td style='color:black'>"+ (e.publisher ? e.publisher.name : '无') +"</td>"+
                        "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy-MM-dd'))  +"</td>"+
                        "<td style='color:black'>"+ e.batchNumber +"</td>"+
-                       "<td style='color:black'>"+ e.pc1 +"</td>"+
-                       "<td style='color:black'>"+ e.pc2 +"</td>"+
-                       "<td style='color:black'>"+ e.pc3 +"</td>"+
-                       "<td></td>"+
-                       "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy-MM-dd'))  +"</td>"+
-                       "<td style='color:black'>"+ e.batchNumber +"</td>"+
+                       "<td style='color:black'>"+e.furnaceNum+"</td>"+
                        "<td style='color:black'>"+ e.pc1 +"</td>"+
                        "<td style='color:black'>"+ e.pc2 +"</td>"+
                        "<td style='color:black'>"+ e.pc3 +"</td>"+
@@ -421,6 +415,7 @@ var Production_process = {
                         time: 700
                     })
                     Production_process.init()
+                    $("#product_batch_number_input").val('')
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -434,9 +429,8 @@ var Production_process = {
         bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
-                console.log('search')
                 var process_batch_number = $('#product_batch_number_input').val()
-                console.log(process_batch_number)
+                //console.log(process_batch_number)
                 var status = $('#status').val()
                 $.post(Production_process.funcs.chooseUrlSearch(), {
                     batchNumber: process_batch_number,
@@ -584,17 +578,17 @@ var Production_process = {
                 var code = _selfBtn.attr('id').substr(6);
                 Production_process.currId = "Production-process-" + code;
                 $.post(Production_process.funcs.chooseUrlCode(), {code: code}, function (result) {
-                    console.log("发布" + code);
+                    //console.log("发布" + code);
                     var process = result.data;
                     layer.open({
                         type: 1,
                         content: Production_process.funcs.getData(process),
-                        area: ['550px', '700px'],
+                        area: ['500px', '500px'],
                         btn: ['通过发布', '取消'],
                         offset: 'auto', // ['10%', '40%'],
                         btnAlign: 'c',
                         yes: function () {
-                            console.log("提交发布" + code);
+                            //console.log("提交发布" + code);
                             $.post(Production_process.funcs.chooseUrlAudit(), {
                                 code: code,
                                 auditorCode: home.user.code,     // 此处需要读取用户编号
@@ -602,7 +596,7 @@ var Production_process = {
                             }, function (result) {
                                 if (result.code == 0) {
                                     // 成功
-                                    console.log("发布成功" + code);
+                                    //console.log("发布成功" + code);
                                     layer.open({
                                         type: 1,
                                         content: "<div class='align_middle'>" + "发布成功" + "</div>",
@@ -617,7 +611,7 @@ var Production_process = {
                                     });
                                 } else {
                                     // 失败
-                                    console.log("发布失败" + result.message);
+                                    //console.log("发布失败" + result.message);
                                     layer.open({
                                         type: 1,
                                         content: "<div class='align_middle'>" + "失败<br>" + result.message + "</div>",
@@ -653,8 +647,7 @@ var Production_process = {
                 var _selfBtn = $(this)
                 var code = _selfBtn.attr('id').substr(6);
                 Production_process.currId = "Production-process-" + code;
-                $.post(Production_process.funcs.chooseUrlCode(), {code: code}, function (result) {
-                    console.log("查看" + code);
+                $.post(Production_process.funcs.chooseUrlCode(), {code: code}, function (result) {       
                     var process = result.data;
                     layer.open({
                         type: 1,
@@ -745,13 +738,12 @@ var Production_process = {
         bindLeftBtn: function (leftBtn) {
             leftBtn.off('click');
             leftBtn.on('click', function () {
-                console.log("左");
                 var $table = $(Production_process.funcs.chooseTable());
                 var firstId = $($table.children('tbody').children('tr')[0]).attr('id');
-                console.log(firstId);
+                //console.log(firstId);
                 if (firstId != Production_process.currId) {
                     var prevCode = $('#' + Production_process.currId).prev('tr').attr('id').substr(19);
-                    console.log(prevCode);
+                    //console.log(prevCode);
                     $.post(Production_process.funcs.chooseUrlCode(), {code: prevCode}, function (result) {
                         Production_process.currId = "Production-process-" + prevCode;
                         var process = result.data;
@@ -760,7 +752,7 @@ var Production_process = {
                     })
                 }
                 else {
-                    console.log("First one");
+                    //console.log("First one");
                     layer.msg('已经是页面第一项', {
                         time: 1000
                     })
@@ -775,14 +767,14 @@ var Production_process = {
         bindRightBtn: function (rightBtn) {
             rightBtn.off('click');
             rightBtn.on('click', function () {
-                console.log("右");
+                //console.log("右");
                 var $table = $(Production_process.funcs.chooseTable());
                var rows = $table.children('tbody').children('tr').length-1;
                 var lastId = $($table.children('tbody').children('tr')[rows]).attr('id');
                 if (lastId != Production_process.currId) {
-                    console.log( $('#' + Production_process.currId).next('tr').attr('id'))
+                   // console.log( $('#' + Production_process.currId).next('tr').attr('id'))
                     var nextCode = $('#' + Production_process.currId).next('tr').attr('id').substr(19);
-                    console.log(nextCode);
+                   // console.log(nextCode);
                     $.post(Production_process.funcs.chooseUrlCode(), {code: nextCode}, function (result) {
                         Production_process.currId = "Production-process-" + nextCode;
                         var process = result.data;
@@ -791,7 +783,7 @@ var Production_process = {
                     })
                 }
                 else {
-                    console.log("Last one");
+                    //console.log("Last one");
                     layer.msg('已经是页面最后一项', {
                         time: 1000
                     })
