@@ -83,6 +83,10 @@ var bound_manage = {
 						var mean = $('#mean').val()
 						var upper_standard = $('#upper_standard').val()
 						var down_standard = $('#down_standard').val()
+						if($('#code').val()===""){
+							alert("请填写编码！")
+							return
+						}
 						$.post(home.urls.bound.add(), {
 							code: code,
 							num: num,
