@@ -48,7 +48,7 @@ var screen_examination = {
             })
         },
 
-        renderHandler: function ($tbody, items) {
+        renderHandler: function ($tbody, items,page) {
             $tbody.empty() //清空表格
             var i = 1 + page * 10
             items.forEach(function (e) {
