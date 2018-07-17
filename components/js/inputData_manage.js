@@ -45,6 +45,7 @@ var inputData_manage = {
         /** 选择不同的typeCode显示相应的表头 */
          bindShowtabTitle:function(tabTop){
              var ID = 'table'+$("#selectoption option:selected").attr('id')
+             console.log(ID)
              $('#model-li-hide-19 table').addClass('hide')
              $(ID).removeClass('hide')
          },
@@ -80,8 +81,10 @@ var inputData_manage = {
                    case 3: inputData_manage.funcs.bindTianQi(returndata,bb);
                    break;
                    case 4: a = 'pc';
+                   //case 4: inputData_manage.funcs.bindTianQi(returndata,bb);
                    break;
                    case 5: a = 'pc';
+                   //case 4: inputData_manage.funcs.bindTianQi(returndata,bb);
                    break;
                    case 6: inputData_manage.funcs.bindZhiChengLidu(returndata,bb);
                    break;
@@ -91,6 +94,7 @@ var inputData_manage = {
                    break;
                    default:
                    console.log('没有和以上的匹配上！！！')
+                   
                 }
             },
             error:function(returndata,Ccode){
@@ -112,7 +116,7 @@ var inputData_manage = {
             for(var i=0;i<length;i++){
                 var operation = result.data[i]['operation']
                 var publisher = result.data[i]['publisher']
-                var auditDate = result.data[i]['auditDate']
+                var auditDate = result.data[i]['testDate']
                 var batchNumber = result.data[i]['batchNumber']
                 var furnaceNum = result.data[i]['furnaceNum']
                 var pc1 = result.data[i]['pc1']//SSA
@@ -139,7 +143,7 @@ var inputData_manage = {
             var length = result.data['length']
             console.log(length)
             for(var i=0;i<length;i++){
-                var auditDate = result.data[i]['auditDate']
+                var auditDate = result.data[i]['testDate']
                 var batchNumber = result.data[i]['batchNumber']
                 var judge = result.data[i]['judge']?result.data[i]['judge']['name']:'null'
                 var number = result.data[i]['number'] 
@@ -234,7 +238,7 @@ var inputData_manage = {
             for(var i=0;i<length;i++){
                 var operation = result.data[i]['operation']
                 var publisher = result.data[i]['publisher']
-                var auditDate = result.data[i]['auditDate']
+                var auditDate = result.data[i]['testDate']
                 var batchNumber = result.data[i]['batchNumber']
                 var insideCode = result.data[i]['insideCode']
                 var productDate = result.data[i]['productDate']   
@@ -304,7 +308,7 @@ var inputData_manage = {
             for(var i=0;i<length;i++){
                 var operation = result.data[i]['operation']
                 var publisher = result.data[i]['publisher']
-                var auditDate = result.data[i]['auditDate']
+                var auditDate = result.data[i]['testDate']
                 var batchNumber = result.data[i]['batchNumber']
                 var furnaceNum = result.data[i]['furnaceNum']//炉号
                 var pc1 = result.data[i]['pc1']//Lico3
@@ -334,7 +338,7 @@ var inputData_manage = {
             for(var i=0;i<length;i++){
                 var operation = result.data[i]['operation']
                 var publisher = result.data[i]['publisher']
-                var auditDate = result.data[i]['auditDate']
+                var auditDate = result.data[i]['testDate']
                 var batchNumber = result.data[i]['batchNumber']
                 var furnaceNum = result.data[i]['furnaceNum']
                 var pc1 = result.data[i]['pc1']//D0
@@ -380,7 +384,7 @@ var inputData_manage = {
             for(var i=0;i<length;i++){
                 var operation = result.data[i]['operation']
                 var publisher = result.data[i]['publisher']
-                var auditDate = result.data[i]['auditDate']
+                var auditDate = result.data[i]['testDate']
                 var batchNumber = result.data[i]['batchNumber']
                 var productDate = result.data[i]['productDate'] 
                 var judge = result.data[i]['judge']?result.data[i]['judge']['name']:'null'
