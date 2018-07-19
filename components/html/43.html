@@ -150,7 +150,12 @@
             font-size: 12px;
             text-align: center;
         }
-        #edgudiebook_info2{
+        #edgudiebook_info2 input{
+            width:100%;
+            border:none;
+            text-align: center;
+        }
+        #edgudiebook_info2 select{
             width:100%;
             border:none;
         }
@@ -264,33 +269,33 @@
         <table id="edguidebook_body_uptable" width="100%" style="border-left: 0px;border-right: 0px;">
             <tr> 
                 <td rowspan="3" colspan="6" style="font-size:17px;">
-                    <select id="equipment_select_2" style="width:100%;height:100%;border:0px;text-align: center;"></select>
+                    <select id="equipment_select_2"></select>
                 </td>
                 <td style="width:15%;" class="grey">编号</td>
-                <td style="width:20%;"><input type="text" id="_2_bianhao" style="width:100%;height:100%;border:0px;">
+                <td style="width:20%;"><input type="text" id="_2_bianhao">
                 </td>
             </tr>
             <tr>
                 <td class="grey">版次</td>
-                <td><input id="_2_banci" type="text" style="width:100%;height:100%;border:0px;"></td>
+                <td><input id="_2_banci" type="text"></td>
             </tr>
             <tr>
                 <td class="grey">页次</td>
-                <td><input type="text" id="_2_yeci" style="width:100%;height:100%;border:0px;"></td>
+                <td><input type="text" id="_2_yeci"></td>
             </tr>
             <tr>
                 <td class="grey" style="width:10%;">编制</td>
                 <!--编制人编码	compactorCode-->
-                <td><select id="_2_bianzhi" style="width: 100%;height: 100%;border: none;"></select></td>
+                <td><select id="_2_bianzhi"></select></td>
                 <td class="grey" style="width:10%;">审核</td>
                 <!--审核人编码	auditorCode-->
-                <td><select id="_2_shenhe" style="width: 100%;height: 100%;border: none;"></select></td>
+                <td><select id="_2_shenhe"></select></td>
                 <!--批准人编码	approverCode-->
                 <td class="grey" style="width:10%;">批准</td>
-                <td><select id="_2_pizhun" style="width: 100%;height: 100%;border: none;"></select></td>
+                <td><select id="_2_pizhun"></select></td>
                 <!--生效日期	   effectiveDate-->
                 <td class="grey" style="width:15%;">生效日期</td>
-                <td><input type="date" id="_2_shengxiaoriqi" style="width:100%;height:100%;border:0px;"></td>
+                <td><input type="date" id="_2_shengxiaoriqi"></td>
             </tr>
         </table>
 
@@ -398,7 +403,7 @@
                         guide_manage.images.push(result.data.code)
                         var parent = _self.parent('form').parent('td');
                         parent[0].innerHTML = ''
-                        parent.append("<input value='"+result.data.code+"' type='hidden'/><img style='width: 100%;height: 100px;' src='"+servers.backup()+'/image/'+result.data.code+"'/>")
+                        parent.append("<input value='"+result.data.code+"' type='hidden'/><img style='width: 90%;height: 90px;padding:5px;' src='"+servers.backup()+'/image/'+result.data.code+"'/>")
                     }
                 })
             }

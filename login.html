@@ -89,7 +89,7 @@
                 if (resCode == 0) {
                     console.log(result)
                     $.session.set('user', JSON.stringify(result.data));
-                    document.location = './jsp/home.jsp';
+                    document.location = './jsp/home.html';
                 }else{
                     alert("账号或密码错误！")
                 }
@@ -103,7 +103,7 @@
                 var resCode = result.code
                 if (resCode == 0) {
                     $.session.set('user', JSON.stringify(result.data));
-                    document.location = './jsp/home.jsp';
+                    document.location = './jsp/home.html';
                 }else{
                     alert("账号或密码错误！")
                 }

@@ -68,8 +68,8 @@ var art_manage = {
                     "<td><input type='checkbox' class='art_manage_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (i++) + "</td>" +
                     "<td>" + e.batchNumber + "</td>" +
-                    "<td>" + (e.productLineCode?e.productLineCode.name:'null')+ "</td>" +
-                    "<td>" + e.inputPlan + "</td>" +
+                    "<td>" + (e.productLineCode?e.productLineCode.name:'')+ "</td>" +
+                    "<td>" + (e.inputPlan?e.inputPlan:'0') + "</td>" +
                     "<td>" + (new Date(e.inputDate).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.serialNumber) + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
@@ -125,9 +125,9 @@ var art_manage = {
             $("#make_man").text(items.compactor?items.compactor.name:'')
             $("#product_num").text(items.productLineCode.name)
             $("#audit_man").text(items.auditor?items.auditor.name:'')
-            $("#plan_amount").text(items.inputPlan)
+            $("#plan_amount").text(items.inputPlan?items.inputPlan:'0')
             $("#exec_man").text(items.executor?items.executor.name:'')
-            $("#in_date").text(items.inputDate?new Date(items.inputDate).Format('yyyy-MM-dd'):'null')
+            $("#in_date").text(items.inputDate?new Date(items.inputDate).Format('yyyy-MM-dd'):'')
             $("#pinguan").text(items.qc?items.qc.name:'')
             $("#make_num").text(items.serialNumber)
             $("#t1").text(items.presomaCode)
@@ -142,7 +142,7 @@ var art_manage = {
             $("#t11").text(items.presomaWeight)
             $("#t12").text(items.lithiumWeight)
             $("#t13").text(items.mixFrequency)
-            $("#t14").text(items.mixDate?new Date(items.mixDate).Format('yyyy-MM-dd'):'null')
+            $("#t14").text(items.mixDate?new Date(items.mixDate).Format('yyyy-MM-dd'):'')
             $("#t15").text(items.mixRequirements)
             $("#t16").text(items.mixDetection)
             $("#t17").text(items.presinteringPlan)
@@ -346,7 +346,7 @@ var art_manage = {
             $("#audit_man1").append("<option value="+items.auditor.code+">"+items.auditor.name+"</option>")
             $("#plan_amount1").val(items.inputPlan)
             $("#exec_man1").append("<option value="+items.executor.code+">"+items.executor.name+"</option>")
-            $("#in_date1").val(items.inputDate?new Date(items.inputDate).Format('yyyy-MM-dd'):'null')
+            $("#in_date1").val(items.inputDate?new Date(items.inputDate).Format('yyyy-MM-dd'):'')
             $("#pinguan1").append("<option value="+items.qc.code+">"+items.qc.name+"</option>")
             $("#make_num1").val(items.serialNumber)
             $("#t11").val(items.presomaCode)
@@ -361,7 +361,7 @@ var art_manage = {
             $("#t111").val(items.presomaWeight)
             $("#t121").val(items.lithiumWeight)
             $("#t131").val(items.mixFrequency)
-            $("#t141").val(items.mixDate?new Date(items.mixDate).Format('yyyy-MM-dd hh:mm:ss'):'null')
+            $("#t141").val(items.mixDate?new Date(items.mixDate).Format('yyyy-MM-dd hh:mm:ss'):'')
             $("#t151").val(items.mixRequirements)
             $("#t161").val(items.mixDetection)
             $("#t171").val(items.presinteringPlan)

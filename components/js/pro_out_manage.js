@@ -17,9 +17,9 @@ var pro_out_manage = {
 
     funcs: {
         bindCreatoption: function () {
-            $.get(home.urls.productOut.getAllrawType(),{}, function(result) {
+            $.get(servers.backup()+'material/getAll',{},function(result) {
                 var items = result.data
-                $("#rawType_Code").html("<option value='-1'>选择产品型号</option>")
+                $("#rawType_Code").html("<option value='-1'>请选择物料名称</option>")
                 items.forEach(function(e){
                     $("#rawType_Code").append(
                         "<option value="+e.code+">"+e.name+"</option>"
@@ -116,9 +116,9 @@ var pro_out_manage = {
                     "<tr>" +
                     "<td><input type='checkbox' class='product_out_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (length++) + "</td>" +
-                    "<td>" + (e.rawType ? e.rawType.name : null) + "</td>" +
+                    "<td>" + (e.rawType ? e.rawType.name : '') + "</td>" +
                     "<td>" + (new Date(e.applyTime).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + (e.company ? e.company.name : null) + "</td>" +
+                    "<td>" + (e.company ? e.company.name : '') + "</td>" +
                     "<td>" + auditStatus + "</td>" +
                     "<td><a href=\"#\" class='verify' id='verify-" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
@@ -468,8 +468,8 @@ var pro_out_manage = {
                 
                 }
                 else{
-                $("#audit_Name").text(res[0].auditor?res[0].auditor.name:'null')
-                $("#audit_result").text(res[0].auditResult?res[0].auditResult:'null')
+                $("#audit_Name").text(res[0].auditor?res[0].auditor.name:'')
+                $("#audit_result").text(res[0].auditResult?res[0].auditResult:'')
                 $("#audit_time").text(res[0].auditTime?new Date(res[0].auditTime).Format('yyyy-MM-dd'):' ')
                 $("#audit_note").text((res[0].note?res[0].note:' '))
                 }
@@ -597,7 +597,7 @@ var pro_out_manage = {
                             rawType : {code : $('#editor_select_rawType').val()},
                             transportMode : $('#transportWays').val(),
                             createDate: items.createDate,
-                            company : {code : items.company?items.company.code:null},
+                            company : {code : items.company?items.company.code:''},
                             processManage :{code : $('#editor_select_processCode').val()},
                             auditStatus : 0,
                             outStatus: items.outStatus,
@@ -961,7 +961,7 @@ var pro_out_manage = {
                 "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + (lithium.batchNumber?lithium.batchNumber:'null') + "</td> <td>" + (new Date(lithium.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + lithium.number + "</td> <td>" + lithium.judge.name + "</td></tr>" +
+                "<tr> <td colspan='2'>" + (lithium.batchNumber?lithium.batchNumber:'') + "</td> <td>" + (new Date(lithium.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + lithium.number + "</td> <td>" + lithium.judge.name + "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +

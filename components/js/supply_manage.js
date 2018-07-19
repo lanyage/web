@@ -2,11 +2,15 @@ var supply_manage = {
     suppliers:[],
     init: function () {
         /** 获取供应商信息分页显示并展示 */
+        userStr = $.session.get('user')
+        userJson = JSON.parse(userStr)
+        supplierCode = userJson.supplier?userJson.supplier.code:null
         supply_manage.funcs.renderTable()
         supply_manage.funcs.renderSelect()
-        $.post(home.urls.supplyman.getCustomer(),{code:10},function(result){
+        $.post(home.urls.supplyman.getCustomer(),{code:supplierCode},function(result){
             supply_manage.suppliers = result.data
         })
+        console.log(supply_manage.suppliers )
         //将分页居中
         var out = $('#supplyman_page').width()
         var time = setTimeout(function () {
@@ -18,10 +22,9 @@ var supply_manage = {
     , pageSize: 0
     , funcs: {
         renderTable: function () {
-            userStr = $.session.get('user')
-            userJson = JSON.parse(userStr)
-            supplierCode = userJson.supplier?userJson.supplier.code:null
-            //console.log(userJson)
+        userStr = $.session.get('user')
+        userJson = JSON.parse(userStr)
+        supplierCode = userJson.supplier?userJson.supplier.code:null
             if(supplierCode===null){
                 $.post(home.urls.supplyman.getBySupplierTypeByPage(), {code:1}, function (res) {
                     var $tbody = $("#supplier_table").children('tbody')
@@ -182,7 +185,7 @@ var supply_manage = {
                 $('#dilivery_time_inp').val('')
                 //$('#diliverer_inp').val('')
                 $('#contact_inp').val('')
-                $('#total_inp').val(0)
+                $('#total_inp').text(0)
                 $('#name_inp').val('')
                 $tbody = $("#provider_body_downtable").children('tbody')
                 $tbody.empty()
@@ -223,7 +226,7 @@ var supply_manage = {
                                 sendDate:time,
                                 contact:$('#contact_inp').val(),
                                 name:$('#name_inp').val(),
-                                weight:total_weight.toFixed(2),
+                                weight:total_weight,
                                 //rawType:{code : res.rawType.code},
                                 status:0,
                                 sendEntries:[]
@@ -290,7 +293,7 @@ var supply_manage = {
                             "</tr>"
                         )
                         total_weight += parseFloat(weight)
-                        $('#total_inp').val(total_weight.toFixed(2))
+                        $('#total_inp').text(total_weight.toFixed(2))
                         supply_manage.funcs.add_edit($(".editor"))
                         supply_manage.funcs.add_delete($(".delete"))
                         $("#provider_info_add").css('display','none')
@@ -326,7 +329,7 @@ var supply_manage = {
                         e.eq(1).text(unit) 
                         e.eq(2).text(weight) 
                         total_weight += parseFloat($('#add_weight').val())
-                        $('#total_inp').val(total_weight.toFixed(2))
+                        $('#total_inp').text(parseFloat(total_weight).toFixed(2))
                         $("#provider_info_add").css('display','none')
                         layer.close(index)
                     }
@@ -603,7 +606,7 @@ var supply_manage = {
             $('#dilivery_time_inp').val(res.sendDate)
             $('#contact_inp').val(res.contact)
             $('#name_inp').val(res.name)
-            $('#total_inp').val(total_weight)
+            $('#total_inp').text(total_weight)
             $.post(home.urls.supplyman.getCustomer(),{code:supplierCode},function(result){
                 var items = result.data
                 $("#diliverer_inp").empty()

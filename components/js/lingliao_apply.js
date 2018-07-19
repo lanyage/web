@@ -110,9 +110,9 @@ var lingliao_apply = {
                     "<tr>" +
                     "<td><input type='checkbox' class='lingliao_apply_checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (t++) + "</td>" +
-                    "<td>" + (e.department ? e.department.name : null) + "</td>" +
+                    "<td>" + (e.department ? e.department.name : '') + "</td>" +
                     "<td>" + (new Date(e.applyDate).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + (e.processManage ? e.processManage.name : null) + "</td>" +
+                    "<td>" + (e.processManage ? e.processManage.name : '') + "</td>" +
                     "<td>" + auditStatus + "</td>" +
                     "<td>" + pickingStatus + "</td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (e.code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
@@ -868,10 +868,10 @@ var lingliao_apply = {
         , fillData_to_edit_add: function () {
             const $tbody = $("#edit_addModal_table").children('tbody')
             $tbody.empty()
-            $.get(home.urls.lingLiao.getAllrawType(), {}, function (result) {
+           // $.get(home.urls.lingLiao.getAllrawType(), {}, function (result) {
+            $.get(servers.backup()+'material/getAll',{},function(result){
                 var items = result.data //获取数据
-
-                $("#edit_add_select").html("<option value='-1'>请选择原料类型</option>")
+                $("#edit_add_select").html("<option value='-1'>请选择物料名称</option>")
                 items.forEach(function (e) {
                     $("#edit_add_select").append(
                         "<option value='" + e.code + "'>" + e.name + "</option>"
@@ -960,10 +960,10 @@ var lingliao_apply = {
                 $tbody.append(
                     "<tr>" +
                     "<td><input type='checkbox' class='edit_add_search_checkbox' value='" + (e.code) + "'></td>" +
-                    "<td>" + (e.batchNumber ? e.batchNumber : 'null') + "</td>" +
-                    "<td>" + (e.currentAvailableMaterials ? e.currentAvailableMaterials : 'null') + "</td>" +
-                    "<td>" + (e.materialsUnit ? e.materialsUnit : 'null') + "</td>" +
-                    "<td>" + (e.judgeCode ? e.judgeCode : 'null') + "</td>" +
+                    "<td>" + (e.batchNumber ? e.batchNumber : '') + "</td>" +
+                    "<td>" + (e.currentAvailableMaterials ? e.currentAvailableMaterials : '0') + "</td>" +
+                    "<td>" + (e.materialsUnit ? e.materialsUnit : 'kg') + "</td>" +
+                    "<td>" + (e.judgeCode ? e.judgeCode : '') + "</td>" +
                     "<td><a href=\"#\" class='edit_add_detail' id='detail-" + (e.batchNumber) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                     "</tr>"
                 )
@@ -1080,7 +1080,7 @@ var lingliao_apply = {
                 " <tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td> <td></td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                " <tr> <td colspan='2'>" + (product.status ? product.status.name : null) + "</td> <td>" + (product.publisher ? product.publisher.name : null) + "</td> <td></td> <td></td> <td></td> </tr>" +
+                " <tr> <td colspan='2'>" + (product.status ? product.status.name : '') + "</td> <td>" + (product.publisher ? product.publisher.name : '') + "</td> <td></td> <td></td> <td></td> </tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>检测项目</td> <td>三级控制标准</td> <td>2016-3-2三级控制标准</td> <td>" + (product.batchNumber) + "</td> <td>编辑</td> </tr>" +
@@ -1142,7 +1142,7 @@ var lingliao_apply = {
                 "<thead>" +
                 "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
                 "</thead>" +
-                "<tr> <td colspan='2'>" + (presoma.status?presoma.status.name:'null') + "</td> <td>" + (presoma.publisher ? presoma.publisher : '无') + "</td> <td></td> <td></td></tr>" +
+                "<tr> <td colspan='2'>" + (presoma.status?presoma.status.name:'') + "</td> <td>" + (presoma.publisher ? presoma.publisher : '') + "</td> <td></td> <td></td></tr>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>检测项目</td> <td>控制采购标准-2016-11-21</td> <td>2017.07.01采购标准</td> <td>" + (presoma.batchNumber) + "</td></tr>" +
                 "</thead>" +
@@ -1203,12 +1203,12 @@ var lingliao_apply = {
                 "<tr> <td colspan='2'>批号</td> <td>检测日期</td> <td>数量(t)</td> <td>判定</td></tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + (lithium.batchNumber ? lithium.batchNumber : 'null') + "</td> <td>" + (new Date(lithium.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + (lithium.number) + "</td> <td>" + (lithium.judge?lithium.judge.name:'null') + "</td></tr>" +
+                "<tr> <td colspan='2'>" + (lithium.batchNumber ? lithium.batchNumber : '') + "</td> <td>" + (new Date(lithium.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + (lithium.number) + "</td> <td>" + (lithium.judge?lithium.judge.name:'') + "</td></tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td></tr>" +
                 "</thead>" +
-                "<tr> <td colspan='2'>" + (lithium.status?lithium.status.name:'null')+ "</td> <td>" + (lithium.publisher ? lithium.publisher : '无') + "</td> <td></td> <td></td></tr>" +
+                "<tr> <td colspan='2'>" + (lithium.status?lithium.status.name:'')+ "</td> <td>" + (lithium.publisher ? lithium.publisher : '') + "</td> <td></td> <td></td></tr>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>检测项目</td><td colspan='2'>原料技术标准<td>" + (lithium.batchNumber) + "</td></tr>" +
                 "</thead>" +
