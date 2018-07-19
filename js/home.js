@@ -2660,7 +2660,7 @@ var home = {
                 /** 清除用户登录信息 */
                 $.session.clear()
                 /** 返回登录页面 */
-                window.location.href = '../login.jsp'
+                window.location.href = '../login.html'
             })
         }//$funcs
 

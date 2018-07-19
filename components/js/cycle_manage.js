@@ -45,7 +45,7 @@ var cycle_manage = {
             })
             //$数据渲染完毕
             var addBtn = $("#model-li-hide-add-60")
-            cycle_manage.funcs.bindAddEventListener(addBtn) //追加增加事件
+           // cycle_manage.funcs.bindAddEventListener(addBtn) //追加增加事件
             var refreshBtn = $('#model-li-hide-refresh-60')
             cycle_manage.funcs.bindRefreshEventLisener(refreshBtn) //追加刷新事件
             var searchBtn = $('#model-li-hide-search-60')
@@ -300,14 +300,14 @@ var cycle_manage = {
                 $('#checkAll').prop('checked', false)
                 $tbody.append(
                     "<tr>" +
-                    "<td><input type='checkbox' class='checkbox' value='" + (e.code) + "'></td>" +
+                   // "<td><input type='checkbox' class='checkbox' value='" + (e.code) + "'></td>" +
                     "<td>" + (e.code) + "</td>" +
                     "<td>" + (e.name) + "</td>" +
-                    "<td><a href='#' class='editcycle' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
-                    "<td><a href='#' class='deletecycle' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
+                   // "<td><a href='#' class='editcycle' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
+                   // "<td><a href='#' class='deletecycle' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
                     "</tr>")
             }) //$数据渲染完毕
-            var editBtns = $('.editcycle')
+           /* var editBtns = $('.editcycle')
             var deleteBtns = $('.deletecycle')
             cycle_manage.funcs.bindDeleteEventListener(deleteBtns)
             cycle_manage.funcs.bindEditEventListener(editBtns)
@@ -316,7 +316,7 @@ var cycle_manage = {
             var deleteBatchBtn = $('#model-li-hide-delete-60')
             cycle_manage.funcs.bindDeleteBatchEventListener(deleteBatchBtn)
             var checkboxes = $('.checkbox')
-            cycle_manage.funcs.disselectAll(checkboxes, selectAllBox)
+            cycle_manage.funcs.disselectAll(checkboxes, selectAllBox)*/
         },
         disselectAll: function (checkboxes, selectAllBox) {
             checkboxes.off('change')

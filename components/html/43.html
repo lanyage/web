@@ -141,7 +141,7 @@
 
         input {
             border: none;
-            text-align:center;
+            text-align:center; 
         }
 
         tr,td {
@@ -149,6 +149,10 @@
             border: 1px solid grey;
             font-size: 12px;
             text-align: center;
+        }
+        #edgudiebook_info2{
+            width:100%;
+            border:none;
         }
     </style>
     <div class="block-quote">
@@ -232,22 +236,18 @@
                 </tr>
             </table>
             <div class="whitespace"></div>
-            <table id='guidebook_body_middletable' width="100%" style="border-left: 0px;border-right: 0px;">
-                <tr>
-                    <td id='xuhao' style='width:7%;'>序号</td>
-                    <td id='meirijiandianneirong' style='width:31%;'>每日点检内容</td>
-                    <td id='jianchabiaozhun' style='width:31%;'>检查标准</td>
-                    <td id='tupian' style='width:31%;'>图片</td>
+            <table id='guidebook_body_middletable'style="border-left: 0px;border-right: 0px; width:100%;">
+                <thead>
+                <tr class="grey">
+                    <td id='xuhao' style='width:7%;' class="normal_td">序号</td>
+                    <td id='meirijiandianneirong' style='width:26%;' class="normal_td">每日点检内容</td>
+                    <td id='jianchabiaozhun' style='width:26%;' class="normal_td">检查标准</td>
+                    <td id="cycle" class="normal_td" style='width:10%;'>周期</td>
+                    <td id='tupian' style='width:31%;' class="normal_td">图片</td>
                 </tr>
+            </thead>
                 <tbody id="detail_tbody">
-                <tr style='height:80px;'>
-                    <td style='width:10%;'>1</td>
-                    <td style='width:30%;'>1</td>
-                    <td style='width:30%;'>1</td>
-                    <td style='width:30%;'>
-                        <img src='../dist/images/guidebook/11.png' alt='' style='width:150px;height:70px;'/>
-                    </td>
-                </tr>
+                
                 </tbody>
             </table>
     </div>
@@ -295,11 +295,12 @@
         </table>
 
         <div class="whitespace"></div>
-        <table id="edguidebook_body_downtable" style=" overflow-x: hide;overflow-y: scroll;width:840px;max-width:840px;">
+        <table id="edguidebook_body_downtable" style=" width:100% ;">
             <thead>
             <td style="width:5%;"  class="grey">序号</td>
-            <td style="width:30%;" class="grey">每日点检内容</td>
-            <td style="width:30%;" class="grey">检查标准</td>
+            <td style="width:25%;" class="grey">每日点检内容</td>
+            <td style="width:25%;" class="grey">检查标准</td>
+            <td style="width:10%;" class="grey">周期</td>
             <td style="width:30%;"  class="grey">图片</td>
             <td style="width:5%;"  class="grey">删除</td>
             </thead>
@@ -343,10 +344,17 @@
             "<td><input style='text-align: center;' type='text' value='"+(count)+"'></td>" +
             "<td><input type='text'></td>" +
             "<td><input type='text'></td>" +
+            "<td><select id='cycle-"+(count)+"'></select></td>" +
             "<td><form enctype='multipart/form-data'><input class='upload' type='file' placeholder='上传图片' /></form></td>" +
-            "<td><button class='delete_button' onclick='delTab("+(count++)+")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
+            "<td><button class='delete_button' onclick='delTab("+(count)+")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
             "</tr>"        
         )
+        $.get(servers.backup()+'cycle/getAll',{},function(result){
+            var cycle = result.data
+            cycle.forEach(function(e){
+                $("#cycle-"+(count)+"").append("<option value="+e.code+">"+e.name+"</option>")
+            });
+        })
          
     }
     //"<td><button class='delete_button' onclick='delTab(" + count + ")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +

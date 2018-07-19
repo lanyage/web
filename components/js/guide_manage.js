@@ -1,10 +1,14 @@
 var guide_manage = {
      pageSize: 0,
      equipments: [],
+     cycle:[],
      images: [],
      init: function () {
         $('.layui-layer-shade').remove()
         guide_manage.funcs.renderTable()
+        $.get(servers.backup()+'cycle/getAll',{},function(result){
+            guide_manage.cycle = result.data
+        })
         var out = $('#guide_page').width()
         var time = setTimeout(function () {
                 var inside = $('.layui-laypage').width()
@@ -283,11 +287,19 @@ var guide_manage = {
                 return e.name == header.name
             })
             $("#equipment_select_2").empty()
-            $("#equipment_select_2").append("<option value='" + meName[0].code + "'>" + meName[0].name + '-巡检指导书' + "</option>")
-            guide_manage.equipments.forEach(function (e) {
-               if (e.name != header.name)
+            if(meName[0]!=null){
+                $("#equipment_select_2").append("<option value='" + meName[0].code + "'>" + meName[0].name + '-巡检指导书' + "</option>")
+                guide_manage.equipments.forEach(function (e) {
+                if(e.name != header.name)
                     $("#equipment_select_2").append("<option value='" + e.code + "'>" + e.name + "</option>")
             })
+            }else{
+                guide_manage.equipments.forEach(function (e) {
+                    if(e.name != header.name)
+                        $("#equipment_select_2").append("<option value='" + e.code + "'>" + e.name + "</option>")
+                })
+            }
+            
 
             $("#_2_banci").val(header.edition)
             $("#_2_bianhao").val(header.code)
@@ -322,18 +334,34 @@ var guide_manage = {
             //after rendering head, then you should render the tbody
             $("#tab").empty()
             //console.log(header.guides)
-            var i = 1
+            var i = 0
+            var length = header.guides.length
             header.guides.forEach(function(e) {
                 var guide = e
+                i = i + 1
                 $("#tab").append(
                     "<tr class='newLine' id='s" + i + "'>" +
                     "<td><input style='text-align: center;' type='text' value='"+(i)+"'></td>" +
-                    "<td><input type='text' value='"+guide.content+"'></td>" +
-                    "<td><input type='text' value='"+guide.standard+"'></td>" +
+                    "<td><input type='text' value='"+(guide.content?guide.content:'')+"'></td>" +
+                    "<td><input type='text' value='"+(guide.standard?guide.standard:'')+"'></td>" +
+                    "<td><select id='cycle"+(i)+"')+'></select></td>" +
                     "<td><form enctype='multipart/form-data'><input class='upload' type='file' placeholder='上传图片' id='shangchuan_"+guide.code+"'/></form></td>" +
-                    "<td><button class='delete_button' onclick='delTab("+(i++)+")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
+                    "<td><button class='delete_button' onclick='delTab("+(i)+")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
                     "</tr>"
                 )
+                if(guide.cycle!=null){
+                    $("#cycle"+(i)+"").append("<option value="+guide.cycle.code+">"+guide.cycle.name+"</option>")
+                    guide_manage.cycle.forEach(function(e){
+                        if(e.code!=guide.cycle.code){
+                            $("#cycle"+(i)+"").append("<option value="+e.code+">"+e.name+"</option>")
+                        }
+                    })    
+                }else{
+                    console.log('null')
+                    guide_manage.cycle.forEach(function(e){
+                        $("#cycle"+(i)+"").append("<option value="+e.code+">"+e.name+"</option>")
+                        })
+                }
                 if(guide.imageCode != null) {
                     var parent = $(".upload").parent("form").parent("td")
                     parent[0].innerHTML=''
@@ -355,7 +383,7 @@ var guide_manage = {
                         type: 1,
                         title: '编辑',
                         content: $('#edgudiebook_info2'),
-                        area: ['900px', '500px'],
+                        area: ['1100px', '500px'],
                         btn: ['确认', '取消'],
                         offset: 'auto',
                         closeBtn: 0,
@@ -390,9 +418,11 @@ var guide_manage = {
                                 var meirijiandianneirong = $(_self_sub[1]).children("input").val()
                                 var jianchabiaozhun = $(_self_sub[2]).children("input").val()
                                 var tupian = $(_self_sub[3]).children("input").val()
+                                var cycle = $(_self_sub[4]).children("select").val()
                                 header.guides.push({
                                     content: meirijiandianneirong,
                                     standard: jianchabiaozhun,
+                                    'cycle.code':cycle,
                                     imageCode: tupian
                                 })
                             })
@@ -419,9 +449,14 @@ var guide_manage = {
                         }
                     })
                 })
+                guide_manage.funcs.addLine($("#button"))
             })
         }
-
+        ,addLine:function(buttons){
+            buttons.off('click').on('click',function(){
+                
+            })
+        }
         , bindDeleteBatchEventListener: function (deleteBatchBtn) {
             deleteBatchBtn.off('click').on('click', function () {
                 if ($('.gui_checkbox:checked').length === 0) {
@@ -499,15 +534,19 @@ var guide_manage = {
                     var header = result.data
                     guide_manage.funcs.clearDetail(header)          //clear this table first
                     guide_manage.funcs.renderDetail(header)             //render is then
-                    var $detail_tbody = $("#detail_tbody")
+                    var $detail_tbody = $("#guidebook_body_middletable").children('tbody')
+                    $detail_tbody.empty()
                     var i = 1
-                    header.guides.forEach(function (e) {
+                    var guides = header.guides
+                    console.log(guides)
+                    guides.forEach(function (e) {
                         $detail_tbody.append(
-                            "<tr style='height:80px;'>" +
-                            "<td style='width:10%;'>" + i++ + "</td>" +
-                            "<td style='width:30%;'>" + e.content + "</td>" +
-                            "<td style='width:30%;'>" + e.standard + "</td>" +
-                            "<td style='width:30%;'>" +
+                            "<tr>" +
+                            "<td>" + (i++) + "</td>" +
+                            "<td>" + (e.content?e.content:'') + "</td>" +
+                            "<td>" + (e.standard?e.standard:'')+ "</td>" +
+                            "<td>" + (e.cycle?e.cycle:'') + "</td>" +
+                            "<td>" +
                             "<img alt='还没上传图片' src='" + servers.backup() + 'image/' + e.imageCode + "' alt='' style='width:150px;height:70px;'/>" +
                             "</td>" +
                             "</tr>"
@@ -515,7 +554,7 @@ var guide_manage = {
                     })
                     layer.open({        //after you having rendered the detail table
                         type: 1,
-                        title: '添加',
+                        title: '详情',
                         content: $("#gudiebook_info"),
                         area: ['900px', '500px'],
                         btn: ['确认'],

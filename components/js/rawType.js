@@ -24,7 +24,7 @@ var rawType = {
                                 page: obj.curr - 1,
                                 size: obj.limit
                             }, function (result) {
-                                var rawTypes = result.data.conten
+                                var rawTypes = result.data.content
                                 const $tbody = $("#rawType_table").children('tbody')
                                 rawType.funcs.renderHandler($tbody, rawTypes)
                                 rawType.pageSize = result.data.content.length
