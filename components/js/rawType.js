@@ -157,6 +157,7 @@ var rawType = {
                         time: 700
                     })
                     rawType.init()
+                    $("#rawtype_name_input").empty()
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)

@@ -1,4 +1,4 @@
-<div id='model-li-hide-21' class="display-component-container" style="padding: 20px 20px 20px 20px;max-height: 100%;overflow: auto;max-width: 100%;">
+<div id='model-li-hide-21' class="display-component-container" style="padding: 15px;">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <style type="text/css">
@@ -14,13 +14,12 @@
 
         .table_style tbody td {
             margin: 0;
-            padding: 3px;
+            padding: 0px;
             border: 1px darkgrey solid;
             font-size: 12px;
             color: black;
             text-align: center;
             font-weight: 400;
-            height:30px;
         }
 
         .table_style a {
@@ -86,7 +85,7 @@
         }
 
         .table_scroll {
-            padding:20px;
+            
             height: 600px;
         }
 
@@ -94,9 +93,6 @@
             position: relative;
             top: 50%;
             text-align: center;
-        }
-        #presoma_table tbody td {
-            padding: 3px;
         }
     </style>
     <div class="block-quote">
@@ -127,17 +123,19 @@
         </div>
     </div>
     <div class="whitespace"> </div>
-    <table id="presoma_table" class="table_style" style="width: 100%">
+    <!-- -->
+    <div style="position:relative;height:550px; max-width:1105px;overflow-x:auto;overflow-y:auto;">
+    <table id="presoma_table" class="table_style"  style="width: 100%;">
         <thead>
         <tr style="background: #484848">
             <td rowspan="2">操作</td>
-            <td rowspan="2">审核人</td>
-            <td rowspan="2" style="min-width: 68px;">检测日期</td>
-            <td rowspan="2" style="min-width: 122px;">厂家批号</td>
+            <td rowspan="2" style="min-width: 50px;">审核人</td>
+            <td rowspan="2" style="min-width: 65px;">检测日期</td>
+            <td rowspan="2" style="min-width: 130px;">厂家批号</td>
             <td rowspan="2">内部编号</td>
-            <td rowspan="2" style="min-width: 68px;">生产日期</td>
+            <td rowspan="2" style="min-width: 65px;">生产日期</td>
             <td>数量</td>
-            <td rowspan="2" style="min-width: 45px;">判定</td>
+            <td rowspan="2" style="min-width: 43px;">判定</td>
             <td>振实密度</td>
             <td>水分</td>
             <td>SSA</td>
@@ -154,6 +152,10 @@
             <td>Fe</td>
             <td>Cu</td>
             <td>Cd</td>
+            <td>Zn</td>
+            <td>S</td>
+            <td>Cl-</td>
+            <td>Zr</td>
         </tr>
         <tr style="background: #484848">
             <td>t</td>
@@ -172,6 +174,10 @@
             <td>ppm</td>
             <td>ppm</td>
             <td>ppm</td>
+            <td>ppm</td>
+            <td>ppm</td>
+            <td>ppm</td>
+            <td>%</td>
             <td>ppm</td>
         </tr>
         <tr style="background: #666666">
@@ -193,6 +199,10 @@
             <td>&le;50</td>
             <td>&le;50</td>
             <td>&le;20</td>
+            <td>&le;40</td>
+            <td>&le;1000</td>
+            <td>&le;0.03</td>
+            <td></td>
         </tr>
         <tr style="background: #666666">
             <td></td>
@@ -213,13 +223,17 @@
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
+            <td></td>
+            <td>&le;1300</td>
+            <td></td>
         </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
 
-    <table id="lithium_table" class="table_style" style="width: 100%">
+    <table id="lithium_table" class="table_style"  style="width: 100%;">
         <thead>
         <tr style="background: #484848">
             <td rowspan="2">操作</td>
@@ -305,6 +319,7 @@
     </table>
     <div id="raw_audit_page">
     </div>
+    </div>  
     <script src="../components/js/raw_audit.js"></script>
     <script type="application/javascript">
         $(function () {

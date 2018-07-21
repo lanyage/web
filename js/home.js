@@ -188,7 +188,10 @@ var home = {
             },
             add: function () {
                 return servers.backup() + 'rawType/add'
-            }
+            },
+            getAllByLikeNameByPage: function () {
+                return servers.backup() + 'rawType/getAllByLikeNameByPage'
+            },
         },
         department: {
             getAllByPage: function () {
@@ -912,6 +915,15 @@ var home = {
             getByDepartmentAndProcessManageAndPickingStatusByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getByDepartmentAndProcessManageAndPickingStatusByPage'
             },
+            getByDepartmentAndProcessManageAndPickingStatusByPage: function () {
+                return servers.backup() + 'pickingApplyHeader/getByDepartmentAndProcessManageAndPickingStatusByPage'
+            },
+            getByDepartmentAndProcessManageAndPickingStatusByPage: function () {
+                return servers.backup() + 'pickingApplyHeader/getByDepartmentAndProcessManageAndPickingStatusByPage'
+            },
+            getByDepartmentAndProcessManageAndPickingStatusByPage: function () {
+                return servers.backup() + 'pickingApplyHeader/getByDepartmentAndProcessManageAndPickingStatusByPage'
+            },
             getByCode: function () {
                 return servers.backup() + 'pickingApplyHeader/getByCode'
             }
@@ -939,6 +951,15 @@ var home = {
             },
             getByAuditStatusAndRawTypeAndCreateDateByPage: function () {
                 return servers.backup() + 'productSendHeader/getByAuditStatusAndRawTypeAndCreateDateByPage'
+            },
+            getByAuditStatusByPage: function () {
+                return servers.backup() + 'productSendHeader/getByAuditStatusByPage'
+            },
+            getByCreateDateByPage: function () {
+                return servers.backup() + 'productSendHeader/getByCreateDateByPage'
+            },
+            getByRawTypeByPage: function () {
+                return servers.backup() + 'productSendHeader/getByRawTypeByPage'
             },
             deleteByCode: function () {
                 return servers.backup() + 'productSendHeader/deleteByCode'
@@ -1134,8 +1155,14 @@ var home = {
             getByCode: function () {
                 return servers.backup() + 'pickingApplyHeader/getByCode'
             },
-            getByProcessManageByPage: function () {
+            getByAuditStatusAndProcessManageByPage: function () {
                 return servers.backup() + 'pickingApplyHeader/getByAuditStatusAndProcessManageByPage'
+            },
+            getByProcessManageByPage: function () {
+                return servers.backup() + 'pickingApplyHeader/getByProcessManageByPage'
+            },
+            getByAuditStatusByPage: function () {
+                return servers.backup() + 'pickingApplyHeader/getByAuditStatusByPage'
             },
             update: function () {
                 return servers.backup() + 'pickingApplyHeader/update'
@@ -1145,6 +1172,9 @@ var home = {
             },
             getAllrawType: function () {
                 return servers.backup() + 'rawType/getAll'
+            },
+            getRawTypeByMaterialCode: function () {
+                return servers.backup() + 'rawType/getByMaterialCode'
             },
             getByRawTypeCodeAndBatchNumberLikeByPage: function () {
                 return servers.backup() + 'available/getByRawTypeCodeAndBatchNumberLikeByPage'

@@ -105,19 +105,21 @@
                 <span id="model-li-hide-refresh-51"><a href="#"><i class="layui-icon">&#x1002;</i>刷新</a></span>
                 &nbsp;&nbsp;
                 <span style="color: #6b6b6b;">审核状态</span>
-                <select id="audit_status" style="border-radius: 0;">
-                    <option value="-1">选择审核状态</option>
+                <select id="audit_status" width="100px">
+                   <!-- <option value="-1">选择审核状态</option>
                     <option value="0">未提交</option>
                     <option value="1">在审</option>
                     <option value="2">通过</option>
-                    <option value="3">不通过</option>
+                    <option value="3">不通过</option>-->
                 </select>&nbsp;&nbsp;
 
                 <span style="color: #6b6b6b;">开单日期</span>
-                <input  type="date" id="order_date" value="-1">
+               <!-- <input  type="date" id="order_date">-->
+               <i class="layui-icon">&#xe62d;</i>
+               <input type="text" id="date" placeholder="请选择时间">
                 &nbsp;&nbsp;
-                <span style="color: #6b6b6b;">产品型号</span>
-                <select id="rawType_Code" style="border-radius: 0;">
+                <span style="color: #6b6b6b;">物料名称</span>
+                <select id="rawType_Code" width="100px">
 
                 </select>&nbsp;&nbsp;
 
@@ -133,7 +135,7 @@
             <!--<td><input id="mat_in_checkAll" type="checkbox"></td>-->
             <td class="checkBox_td"><input id="product_out_checkAll" type="checkbox"></td>
             <td>序号</td>
-            <td>产品型号</td>
+            <td>物料名称</td>
             <td>开单日期</td>
             <td>接收单位</td>
             <td>审批状态</td>
@@ -150,20 +152,13 @@
     
     <div id="product_out_page" style="text-align: center;float: left;">
     </div>
-
-    <script src="../components/js/pro_out_manage.js"></script>
-    <script type="application/javascript">
-        $(function () {
-            pro_out_manage.init()
-        })
-    </script>
     <!--审核界面-->
     <div id='verify_modal' class="hide" style="padding: 30px 30px 30px 30px;">
         <table width="100%" style="border-left: 0px;border-right: 0px;">
             <tr>
                 <td class="grey" width="20%">入库单编号</td>
                 <td id="code1" width="40%"></td>
-                <td class="grey" width="20%">产品型号</td>
+                <td class="grey" width="20%">物料名称</td>
                 <td id="rawType1" width="20%"></td>
             </tr>
             <tr>
@@ -227,9 +222,9 @@
         <table id = "detail_modal1" width="100%" style="border-left: 0px;border-right: 0px;">
             <tr>
                 <td  class="grey" width="20%">入库单编号</td>
-                <td id="code" width="40%"></td>
-                <td  class="grey" width="20%">产品型号</td>
-                <td id="rawType" width="20%"></td>
+                <td id="code" width="30%"></td>
+                <td  class="grey" width="20%">物料名称</td>
+                <td id="rawType" width="30%"></td>
             </tr>
             <tr>
                 <td class="grey">接收单位</td>
@@ -286,7 +281,7 @@
             <tr>
                 <td class="grey" width="20%">申请时间</td>
                 <td id="add_applyTime" width="40%"></td>
-                <td class="grey" width="20%">产品型号</td>
+                <td class="grey" width="20%">物料名称</td>
                 <td width="40%" >
                     <select id="add_select_rawType" class="s_center">
                     </select>
@@ -338,7 +333,7 @@
         <div class="block-quote">
             <div class="fl">
                 <p style="color: #62a49a; font-size: 14px;">
-                    <span style="color: black;">原料类型</span>
+                    <span style="color: black;">物料名称</span>
                     <select id="edit_add_select" name="material_type" style="border-radius: 0;">
                         
                     </select>&nbsp;&nbsp;
@@ -377,9 +372,9 @@
         <table id="editor_table1" width="100%" style="border-left: 0px;border-right: 0px;">
             <tr>
                 <td class="grey" width="20%">出库单编号</td>
-                <td width="40%" id="out_code"></td>
-                <td class="grey" width="20%">产品型号</td>
-                <td width="20%">
+                <td width="30%" id="out_code"></td>
+                <td class="grey" width="20%">物料名称</td>
+                <td width="30%">
                     <select id="editor_select_rawType" class="s_center">
                     </select>
                 </td>
@@ -439,5 +434,55 @@
             </tbody>
         </table>
     </div>
+
+    <script src="../components/js/pro_out_manage.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            pro_out_manage.init()
+        })
+    </script>
+     <script type="application/javascript">
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#date',//指定元素
+                btns: ['now'],
+                done: function (value) {
+                    var date = new Date(value).getTime()
+                    $.post(home.urls.productOut.getByCreateDateByPage(), {
+                    createDate:date
+                }, function (result) {
+                    var items = result.data.content //获取数据
+                    page = result.data
+                    //console.log(items)
+                    const $tbody = $("#product_out_table").children('tbody')
+                    pro_out_manage.funcs.renderHandler($tbody, items,0)
+                    layui.laypage.render({
+                        elem: 'product_out_page'
+                        , count: 10 * page.totalPages//数据总数
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                $.post(home.urls.productOut.getByCreateDateByPage(), {
+                                    createDate:createDate,
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var items = result.data.content//获取数据
+                                    // var code = $('#model-li-select-48').val()
+                                    var page = obj.curr - 1
+                                    const $tbody = $("#product_out_table").children('tbody')
+                                    pro_out_manage.funcs.renderHandler($tbody, items,page)
+                                    pro_out_manage.pageSize = result.data.content.length
+                                })
+                            }
+                        }
+                    })
+                })
+
+                }
+            });
+        });
+    </script>
 </div>
 

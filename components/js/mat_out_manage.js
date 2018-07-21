@@ -54,6 +54,18 @@ var mat_out_manage = {
             var searchBtn = $('#model-li-hide-search-50');
             mat_out_manage.funcs.bindSearchEventListener(searchBtn);
 
+            /** 根据领料部门搜索 
+            var depmartment_searchBtn = $('#depmartment');
+            mat_out_manage.funcs.bindDepmartmentSearchEventListener(depmartment_searchBtn);*/
+
+            /** 根据领料状态搜索 
+            var status_searchBtn = $('#status');
+            mat_out_manage.funcs.bindStatusSearchEventListener(status_searchBtn);*/
+
+            /** 根据流程类型搜索 
+            var process_searchBtn = $('#process');
+            mat_out_manage.funcs.bindProcessSearchEventListener(process_searchBtn);*/
+
         }
         , renderHandler: function ($tbody, items,page) {
             $tbody.empty() //清空表格
@@ -99,22 +111,24 @@ var mat_out_manage = {
 
         /** 监听下拉菜单的option */
         , bindCreatoption: function () {
+            $("#status").empty()
+            $("#status").append("<option value='-1'>请选择领料状态</option><option value='0' >待出库</option><option value='1'>已出库</option>")
             $.get(home.urls.department.getAll(), {}, function (result) {
                 var value = result.data
-                $("#depmartment-1").html("<option>请选择领料部门</option>");
+                $("#depmartment").html("<option value='-1'>请选择领料部门</option>");
                 var length = value.length
                 for (var i = 0; i < length; i++) {
                     var text = value[i].name
-                    $("#depmartment-1").append("<option id='" + value[i].code + "' value='" + value[i].code + "'>" + text + "</option>");
+                    $("#depmartment").append("<option id='" + value[i].code + "' value='" + value[i].code + "'>" + text + "</option>");
                 }
             })
                 , $.get(home.urls.check.getAll(), {}, function (result) {
                 var value = result.data
-                $("#depmartment-3").html("<option>请选择流程类型</option>");
+                $("#process").html("<option value='-1'>请选择流程类型</option>");
                 var length = value.length
                 for (var i = 0; i < length; i++) {
                     var text = value[i].name
-                    $("#depmartment-3").append("<option id='" + value[i].code + "' value='" + value[i].code + "'>" + text + "</option>");
+                    $("#process").append("<option id='" + value[i].code + "' value='" + value[i].code + "'>" + text + "</option>");
                 }
             })
         }
@@ -200,17 +214,13 @@ var mat_out_manage = {
 
             })
         }
-        /** 搜索事件 */
+          /** 根据领料部门搜索 */
         , bindSearchEventListener: function (searchBtn) {
-            searchBtn.off('click')
-            searchBtn.on('click', function () {
-                var department = $('#depmartment-1 option:selected').val();
-                var status = $('#depmartment-2 option:selected').val()
-                var process = $('#depmartment-3 option:selected').val();
+            searchBtn.off('change')
+            searchBtn.on('change', function () {
+                var department = $('#depmartment option:selected').val();
                 $.post(home.urls.materialOut.getByDepartmentAndProcessManageAndPickingStatusByPage(), {
                     departmentCode: department,
-                    pickingStatus: status,
-                    processManageCode: process
                 }, function (result) {
                     var items = result.data.content //获取数据
                     var page = result.data
@@ -237,5 +247,45 @@ var mat_out_manage = {
                 })
             })
         }
+        /** 搜索事件 */
+        , bindSearchEventListener: function (searchBtn) {
+            searchBtn.off('click')
+            searchBtn.on('click', function () {
+                var department = $('#depmartment option:selected').val();
+                var status = $('#status option:selected').val()
+                var process = $('#process option:selected').val();
+                $.post(home.urls.materialOut.getByDepartmentAndProcessManageAndPickingStatusByPage(), {
+                    departmentCode: department,
+                    pickingStatus: status,
+                    processManageCode: process
+                }, function (result) {
+                    var items = result.data.content //获取数据
+                    var page = result.data
+                    const $tbody = $("#material_out_table").children('tbody')
+                    mat_out_manage.funcs.renderHandler($tbody, items,0)
+                    layui.laypage.render({
+                        elem: 'material_out_page'
+                        , count: 10 * page.totalPages//数据总数
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                $.post(home.urls.materialOut.getByDepartmentAndProcessManageAndPickingStatusByPage(), {
+                                    departmentCode: department,
+                                    pickingStatus: status,
+                                    processManageCode: process,
+                                    page: obj.curr - 1,
+                                    size: obj.limit
+                                }, function (result) {
+                                    var manage = result.data.content //获取数据
+                                    var page = obj.curr - 1
+                                    const $tbody = $("#material_out_table").children('tbody')
+                                    mat_out_manage.funcs.renderHandler($tbody, items,page)
+                                    mat_out_manage.pageSize = result.data.content.length
+                                })
+                            }
+                        }
+                    })
+                })
+            })
+        },
     }
 }
