@@ -446,7 +446,7 @@ var kiln_Order = {
                     type:1,
                     title:"新增工艺单",
                     content:$("#editor_modal"),
-                    area:['900px','700px'],
+                    area: ['900px', '560px'],
                     btn:['提交','取消'],
                     offset:'auto',
                     closeBtn:0,

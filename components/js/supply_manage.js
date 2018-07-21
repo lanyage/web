@@ -10,7 +10,7 @@ var supply_manage = {
         $.post(home.urls.supplyman.getCustomer(),{code:supplierCode},function(result){
             supply_manage.suppliers = result.data
         })
-        console.log(supply_manage.suppliers )
+        //console.log(supply_manage.suppliers )
         //将分页居中
         var out = $('#supplyman_page').width()
         var time = setTimeout(function () {

@@ -4,7 +4,7 @@
     <style type="text/css">
         .table_style thead td {
             margin: 0;
-            padding: 0px;
+            padding: 3px;
             border: 1px darkgrey solid;
             font-size: 12px;
             color: white;
@@ -14,12 +14,13 @@
 
         .table_style tbody td {
             margin: 0;
-            padding: 0px;
+            padding: 3px;
             border: 1px darkgrey solid;
             font-size: 12px;
             color: black;
             text-align: center;
             font-weight: 400;
+            height:30px;
         }
 
         .table_style a {
@@ -124,14 +125,14 @@
     </div>
     <div class="whitespace"> </div>
     <!-- -->
-    <div style="position:relative;height:550px; max-width:1105px;overflow-x:auto;overflow-y:auto;">
+    <div style="overflow-x: scroll;width:1120px;height:480px;">
     <table id="presoma_table" class="table_style"  style="width: 100%;">
         <thead>
         <tr style="background: #484848">
             <td rowspan="2">操作</td>
-            <td rowspan="2" style="min-width: 50px;">审核人</td>
+            <td rowspan="2" style="min-width: 80px;">审核人</td>
             <td rowspan="2" style="min-width: 65px;">检测日期</td>
-            <td rowspan="2" style="min-width: 130px;">厂家批号</td>
+            <td rowspan="2" style="min-width: 150px;">厂家批号</td>
             <td rowspan="2">内部编号</td>
             <td rowspan="2" style="min-width: 65px;">生产日期</td>
             <td>数量</td>
@@ -318,8 +319,8 @@
         </tbody>
     </table>
     <div id="raw_audit_page">
-    </div>
-    </div>  
+    </div> 
+   </div>
     <script src="../components/js/raw_audit.js"></script>
     <script type="application/javascript">
         $(function () {

@@ -94,7 +94,7 @@ var product_publish = {
                 layer.open({
                     type: 1,
                     content: product_publish.funcs.getData(product),
-                    area: ['720px', '700px'],
+                    area: ['700px', '650px'],
                     btn: ['确认发布', '返回'],
                     offset: 'auto', // ['10%', '40%'],
                     btnAlign: 'c',
@@ -168,7 +168,7 @@ var product_publish = {
                     layer.open({
                         type: 1,
                         content: product_publish.funcs.getData(product),
-                        area: ['720px', '700px'],
+                        area: ['700px', '650px'],
                         btn: ['关闭'],
                         offset: 'auto',   // ['10%', '40%'],
                         btnAlign: 'c',
@@ -268,7 +268,7 @@ var product_publish = {
                 " <tr> <td colspan='2'>批号</td><td>检测日期</td> <td>数量(t)</td> <td>判定</td> <td></td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td colspan='2'>" + (product.batchNumber) + "</td><td>" + (new Date(product.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + (product.number) + "</td> <td>" + (product.judge ? product.judge.name : null) + "</td> <td></td> </tr>" +
+                "<tr> <td colspan='2'>" + (product.batchNumber) + "</td><td>" + (new Date(product.testDate).Format('yyyy-MM-dd')) + "</td> <td>" + (product.number) + "</td> <td>" + (product.judge ? product.judge.name : '') + "</td> <td></td> </tr>" +
                 " </tbody>" +
                 "<thead>" +
                 " <tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td> <td></td> </tr>" +
@@ -292,7 +292,7 @@ var product_publish = {
                 "<tr> <td>D90</td> <td>&le;30.00</td> <td>&le;30.00</td> <td>" + product.p11 + "</td> <td></td> </tr>" +
                 " <tr> <td>D99</td> <td></td> <td>&le;40.00</td> <td>" + product.p12 + "</td> <td></td> </tr>" +
                 "<tr> <td rowspan='5'>磁性物质检测（ppb）</td> <td>粒度宽度系数</td> <td></td> <td></td> <td>" + product.p13 + "</td> <td></td> </tr>" +
-                "<tr> <td>Fe</td> <td></td> <td></td> <td></td> <td></td> </tr>" +
+                "<tr> <td>Fe</td> <td></td> <td></td> <td>" + product.p14 + "</td> <td></td> </tr>" +
                 " <tr> <td>Ni</td> <td></td> <td></td> <td>" + product.p15 + "</td> <td></td> </tr>" +
                 "<tr> <td>Cr</td> <td></td> <td></td> <td>" + product.p15 + "</td> <td></td> </tr>" +
                 "<tr> <td>Zn</td> <td></td> <td></td> <td>" + product.p17 + "</td> <td></td> </tr>" +

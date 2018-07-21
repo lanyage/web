@@ -1,6 +1,19 @@
 var management_handover = {
     init: function () {
         management_handover.funcs.renderTable()
+        //交接类型
+        $.get(servers.backup()+'handoverType/getAll',{},function(result){
+            management_handover.handoverType = result.data
+        })
+        //交接内容
+        $.get(servers.backup()+'handoverContent/getAll',{},function(result){
+            management_handover.handoverContent = result.data
+        })
+        //交接状态类型
+        $.get(servers.backup()+'handoverStateType/getAll',{},function(result){
+            management_handover.handoverStateType = result.data
+        })
+    
         var out = $('#management_handover_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
@@ -152,30 +165,21 @@ var management_handover = {
                     "<td><button class='delete' onclick='management_handover.funcs.delTab("+(i)+")' type='button'style='border:none;outline:none;font-size: 20px;color:#00A99D;background:white;' > &times;</button></td>" +
                     "</tr>"
                 ) 
-                $.get(servers.backup()+'handoverType/getAll',{},function(result){
-                    var res2 = result.data
-                    res2.forEach(function(ele){
-                        if(ele.code!=e.handoverType.code){
-                            $(".handover_type"+(i)+"").append("<option value="+ele.code+">"+ele.name+"</option>")
-                        }    
-                    })    
-                })  
-                $.get(servers.backup()+'handoverContent/getAll',{},function(result){
-                    var res3 = result.data
-                    res3.forEach(function(ele){
-                        if(ele.code!=e.handoverContent.code){
-                            $(".handover_content"+(i)+"").append("<option value="+ele.code+">"+ele.name+"</option>")
-                        }
-                    }) 
-                })  
-                $.get(servers.backup()+'handoverStateType/getAll',{},function(result){
-                    var res4 = result.data
-                    res4.forEach(function(ele){
-                        if(ele.code!=e.handoverStateType.code)
-                        $(".handover_statetype"+(i)+"").append(
-                            "<option value="+ele.code+">"+(ele.handoverState1?ele.handoverState1.name:'')+' '+(ele.handoverState2?ele.handoverState2.name:'')+' '+(ele.handoverState3?ele.handoverState3.name:'')+' '+(ele.handoverState4?ele.handoverState4.name:'')+' '+(ele.handoverState5?ele.handoverState5.name:'')+' '+"</option>")
-                    }) 
-                })  
+                management_handover.handoverType.forEach(function(ele){
+                    if(ele.code!=e.handoverType.code){
+                        $(".handover_type"+(i)+"").append("<option value="+ele.code+">"+ele.name+"</option>")
+                    }    
+                })        
+                management_handover.handoverContent.forEach(function(ele){
+                    if(ele.code!=e.handoverContent.code){
+                        $(".handover_content"+(i)+"").append("<option value="+ele.code+">"+ele.name+"</option>")
+                    }
+                })     
+                management_handover.handoverStateType.forEach(function(ele){
+                    if(ele.code!=e.handoverStateType.code)
+                    $(".handover_statetype"+(i)+"").append(
+                        "<option value="+ele.code+">"+(ele.handoverState1?ele.handoverState1.name:'')+' '+(ele.handoverState2?ele.handoverState2.name:'')+' '+(ele.handoverState3?ele.handoverState3.name:'')+' '+(ele.handoverState4?ele.handoverState4.name:'')+' '+(ele.handoverState5?ele.handoverState5.name:'')+' '+"</option>")
+                })     
              
             })
         }

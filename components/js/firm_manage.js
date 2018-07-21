@@ -89,10 +89,10 @@ var firm_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>地址:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='firm_address' value='" + (firmman.address) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='firm_person' value='" + (firmman.contactPerson) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系电话: &nbsp;<input type='text' id='firm_contact' maxlength='11' value='" + (firmman.contact) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>公司类型:&nbsp;<select style='width:170px;' id='firm_type'><option value="+firmman.supplierType.code+">"+firmman.supplierType.type+"</option></select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>公司类型:&nbsp;<select style='width:290px;' id='firm_type'><option value="+firmman.supplierType.code+">"+firmman.supplierType.type+"</option></select></p>" +
                         "</div>" +
                         "</div>",
-                        area: ['400px', '350px'],
+                        area: ['450px', '350px'],
                         btn: ['确认', '取消'],
                         offset: ['38%', '45%'],
                         yes: function (index) {

@@ -445,7 +445,7 @@
                 <td class="grey" width="20%">审核人</td>
                 <td><select id="audit_man1"></select></td>
                 <td class="grey" width="20%">计划投入量</td>
-                <td><input type="text" id="plan_amount1" /></td>
+                <td><input type="text" id="plan_amount1" onkeyup="num(this)"/></td>
             </tr>
             <tr>
                 <td class="grey" width="20%">执行人</td>
@@ -481,16 +481,16 @@
             </tr>
             <tr>
                 <td rowspan="2"><input type="text" id="t11" /></td>
-                <td rowspan="2"><input type="text" id="t21" /></td>
-                <td rowspan="2"><input type="text" id="t31" /></td>
+                <td rowspan="2"><input type="text" id="t21" onkeyup="num(this)"/></td>
+                <td rowspan="2"><input type="text" id="t31" onkeyup="num(this)"/></td>
                 <td rowspan="2"><input type="text" id="t41" /></td>
-                <td rowspan="2"><input type="text" id="t51" /></td>
-                <td rowspan="2"><input type="text" id="t61" /></td>
-                <td><input type="text" id="t71" /></td>
-                <td rowspan="2"><input type="text" id="t81" /></td>
+                <td rowspan="2"><input type="text" id="t51" onkeyup="num(this)"/></td>
+                <td rowspan="2"><input type="text" id="t61" onkeyup="num(this)"/></td>
+                <td><input type="text" id="t71" onkeyup="num(this)"/></td>
+                <td rowspan="2"><input type="text" id="t81" onkeyup="num(this)"/></td>
             </tr>
              <tr>
-                <td><input type="text" id="t91" /></td>
+                <td><input type="text" id="t91" onkeyup="num(this)"/></td>
                 
             </tr>
             <tr>
@@ -499,8 +499,8 @@
                 <td colspan="5">碳酸锂投料总量/kg</td>
             </tr>
              <tr>
-                <td colspan="2"><input type="text" id="t111" /></td>
-                <td colspan="5"><input type="text" id="t121"/></td>
+                <td colspan="2"><input type="text" id="t111" onkeyup="num(this)"/></td>
+                <td colspan="5"><input type="text" id="t121" onkeyup="num(this)"/></td>
             </tr>
             <tr>
                 <td rowspan="2">生产工艺参数</td>
@@ -508,7 +508,7 @@
                 <td colspan="3">混料时间</td>
             </tr>
              <tr>
-                <td colspan="4"><input type="text" id="t131"/></td>
+                <td colspan="4"><input type="text" id="t131" onkeyup="num(this)" /></td>
                 <td colspan="3"><input type="datetime" id="t141" placeholder="格式为2017-01-01 00:00:00"/></td>
             </tr>
             <tr>
@@ -545,6 +545,22 @@
             </tr>
         </table>
     </div>
-
+   <script>
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#t141',//指定元素
+                type: 'datetime'
+            })
+        })
+        function num(obj){
+            obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+            obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
+            obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+            obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数  
+}  
+    </script>
 
 </div>

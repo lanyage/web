@@ -88,7 +88,7 @@ var company_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>地址:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='company_address' value='" + (companyman.address) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='company_person' value='" + (companyman.contactPerson) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>联系电话:&nbsp;<input type='text' maxlength='11' id='company_contact' value='" + (companyman.contact) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>公司类型:&nbsp;<select style='width:170px;' id='company_type'><option value='" + companyman.supplierType.code + "'>" + companyman.supplierType.type + "</option></select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>公司类型:&nbsp;<select style='width:290px;' id='company_type'><option value='" + companyman.supplierType.code + "'>" + companyman.supplierType.type + "</option></select></p>" +
                         "</div>" +
                         "</div>",
                         area: ['400px', '350px'],

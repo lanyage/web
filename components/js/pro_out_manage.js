@@ -187,7 +187,7 @@ var pro_out_manage = {
                     title: '新增',
                     content: $("#add_modal"),
                     area: ['800px', '400px'],
-                    btn: ['提交', '返回'],
+                    btn: ['保存','提交', '返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
@@ -249,6 +249,63 @@ var pro_out_manage = {
                         layer.close(index)
                     }
                     , btn2: function (index) {
+                        var productSends = [];
+                        var total_amount = 0
+                        $('.delete_checkbox').each(function() {
+                            var e = $(this).parent('td').parent('tr').children('td')
+                            total_amount += parseFloat(e.eq(4).text()) 
+                            productSends.push({
+                            //code : e.eq(1).text(),
+                            batchNumber : e.eq(2).text(),
+                            unit : e.eq(3).text(),
+                            weight : e.eq(4).text(),
+                        })
+                    })  
+                        var time = new Date($("#add_applyTime").text()).getTime()
+                        var nowTime = new Date().Format("yyyy-MM-dd")
+                        var transportMode = $('#add_transportWays').val()
+                        var userStr = $.session.get('user')
+                        var userJson = JSON.parse(userStr)
+                        var data = {
+                            rawType : {code : $('#add_select_rawType').val()},
+                            transportMode : transportMode,
+                            createDate: nowTime,
+                            processManage :{code : $('#add_select_processCode').val()},
+                            auditStatus : 1,
+                            outStatus: 0,
+                            sender:{code : userJson.code},
+                            sendTime:new Date().getTime(),
+                            applicant:{code : userJson.code},
+                            applyTime:time,
+                            weight : total_amount,
+                            company:{code:$("#add_company").val()},
+                            productSends : []
+                        }
+                        data.productSends = productSends
+                        
+                        $.ajax({
+                            url:home.urls.productOut.add(),
+                            contentType:'application/json',
+                            data:JSON.stringify(data),
+                            dataType:'json',
+                            type:'post',
+                            success:function(result) {
+                                if(result.code === 0) {
+                                    var time = setTimeout(function(){
+                                        pro_out_manage.init()
+                                        clearTimeout(time)
+                                    },500)
+                                }
+                                layer.msg(result.message,{
+                                    offset:['40%','55%'],
+                                    time:700          
+                              })  
+                            }                       
+                         })
+                        $("#add_modal").css('display', 'none')
+                        layer.close(index)
+                    }
+                    ,btn3: function (index) {
                         $("#add_modal").css('display', 'none')
                         layer.close(index)
                     }
@@ -620,7 +677,7 @@ var pro_out_manage = {
                             company : {code : items.company?items.company.code:''},
                             processManage :{code : $('#editor_select_processCode').val()},
                             auditStatus : 0,
-                            outStatus: items.outStatus,
+                            outStatus: 0,
                             sender:{code : userJson.code},
                             sendTime:new Date().getTime(),
                             applicant:{code : items.applicant.code},
@@ -676,7 +733,7 @@ var pro_out_manage = {
                             company : {code : items.company.code},
                             processManage :{code : $('#editor_select_processCode').val()},
                             auditStatus : 1,
-                            outStatus: items.outStatus,
+                            outStatus: 1,
                             sender:{code : userJson.code},
                             sendTime:new Date().getTime(),
                             applicant:{code : items.applicant.code},

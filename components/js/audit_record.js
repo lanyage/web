@@ -1,6 +1,18 @@
 var audit_record = {
     init: function () {
         audit_record.funcs.renderTable()
+        //获取所有班次
+        $.get(servers.backup()+"duty/getAll",{},function(result){
+            audit_record.duty = result.data
+        })
+        //获取所有电子秤编号
+        $.get(servers.backup()+"electronicBalance/getAll",{},function(result){
+            audit_record.electronicBalance = result.data
+        })
+        //获取所有用户
+        $.get(servers.backup()+"user/getAll",{ },function(result){
+            audit_record.users = result.data
+        })
         var out = $('#audit_record_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
@@ -117,7 +129,7 @@ var audit_record = {
                             type: 1,
                             title: '核称记录详情',
                             content: $("#detail_modal"),
-                            area: ['400px', '530px'],
+                            area: ['400px', '570px'],
                             btn: ['返回'],
                             offset: "auto",
                             closeBtn: 0,
@@ -137,9 +149,11 @@ var audit_record = {
                     code:code
                 },function (res) {
                     var items = res.data
-                   // $('#dutyCode1').val(items.dutyCode?items.dutyCode.code:' ')
+                    $('#dutyCode1').empty()
+                    $('#equipmentCode1').empty()
+                    $('#auditorCode1').empty()
+                    $('#confirmCode1').empty()
                     $('#auditorTime1').val(new Date(items.auditTime).Format('yyyy-MM-dd hh:mm:ss'))
-                   // $('#equipmentCode1').val(items.equipmentCode?items.equipmentCode.name:'')
                     $('#leftUp1').val(items.leftUp)
                     $('#rightUp1').val(items.rightUp)
                     $('#center1').val(items.center)
@@ -152,74 +166,51 @@ var audit_record = {
                     $('#dutyCode1').append("<option value="+items.dutyCode.code+">"+items.dutyCode.name+"</option>")
                     $('#equipmentCode1').append("<option value="+items.equipmentCode.code+">"+items.equipmentCode.name+"</option>")
 
-                    $.get(servers.backup()+"duty/getAll",{},function(result){
-                        var duty = result.data
-                        duty.forEach(function(e){
-                            if(e.code!=items.dutyCode.code){
-                                 $("#dutyCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
-                            }
-                        })
-                    })
-                    $.get(servers.backup()+"electronicBalance/getAll",{},function(result){
-                       var duty = result.data
-                       duty.forEach(function(e){
+                    audit_record.duty.forEach(function(e){
+                        if(e.code!=items.dutyCode.code){
+                             $("#dutyCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
+                        }
+                    })    
+                    
+                    audit_record.electronicBalance.forEach(function(e){
                         if(e.code!=items.equipmentCode.code){
                             $("#equipmentCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
                         }
-                       })
-                   })
+                       })   
 
                     if(items.auditorCode!=null){
                          $('#auditorCode1').append("<option value="+items.auditorCode.code+">"+items.auditorCode.name+"</option>")
-                         $.get(servers.backup()+"user/getAll",{ },function(result){
-                            var users = result.data
-                            users.forEach(function(e){
-                                if(items.auditorCode.code!=users.code){
+                         audit_record.users.forEach(function(e){
+                                if(items.auditorCode.code!=e.code){
                                     $("#auditorCode1").append(
                                     "<option value="+(e.code)+">"+e.name+"</option>"
                                 )
                                 }
                             })
-                        })
                     }else{
-                        $.get(servers.backup()+"user/getAll",{ },function(result){
-                            var users = result.data
-                            users.forEach(function(e){
-                                    $("#auditorCode1").append(
-                                    "<option value="+(e.code)+">"+e.name+"</option>"
-                                )
+                        audit_record.users.forEach(function(e){
+                            $("#auditorCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
                             })
-                        })
                     }
 
                     if(items.confirmCode!=null){
                         $('#confirmCode1').append("<option value="+items.confirmCode.code+">"+items.confirmCode.name+"</option>")
-                        $.get(servers.backup()+"user/getAll",{ },function(result){
-                           var users = result.data
-                           users.forEach(function(e){
-                               if(items.confirmCode.code!=users.code){
-                                   $("#confirmCode1").append(
-                                   "<option value="+(e.code)+">"+e.name+"</option>"
-                               )
+                        audit_record.users.forEach(function(e){
+                            if(items.confirmCode.code!=e.code){
+                                $("#confirmCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
                                }
-                           })
                        })
                    }else{
-                       $.get(servers.backup()+"user/getAll",{ },function(result){
-                           var users = result.data
-                           users.forEach(function(e){
-                                   $("#confirmCode1").append(
-                                   "<option value="+(e.code)+">"+e.name+"</option>"
-                               )
+                    audit_record.users.forEach(function(e){
+                        $("#confirmCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
                            })
-                       })
                    }
                    
                  layer.open({
                      type:1,
                      title:'编辑核称记录',
                      content:$("#editor_modal"),
-                     area: ['350px', '450px'],
+                     area: ['350px', '500px'],
                      btn:['保存','提交','返回'],
                      offset:"auto",
                      closeBtn:0,
@@ -356,43 +347,38 @@ var audit_record = {
          ,bindAddEvent:function(addBtn){
              addBtn.off('click').on('click',function(){
                 $('#dutyCode1').empty()
-                 $('#auditorTime1').val('')
-                 $('#equipmentCode1').empty()
-                 $('#leftUp1').val('')
-                 $('#rightUp1').val('')
-                 $('#center1').val('')
-                 $('#leftDown1').val('')
-                 $('#rightDown1').val('')
-                 $('#judgement1').val('')
-                 $('#confirm1').val('')
-                 $('#leftDown1').val('')
-                 $("#confirmTime1").val('')
-                 $('#auditorCode1').empty()
-                 $('#confirmCode1').empty()
-                 $.get(servers.backup()+"duty/getAll",{},function(result){
-                     var duty = result.data
-                     duty.forEach(function(e){
-                        $("#dutyCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
-                     })
+                $('#auditorTime1').val('')
+                $('#equipmentCode1').empty()
+                $('#leftUp1').val('')
+                $('#rightUp1').val('')
+                $('#center1').val('')
+                $('#leftDown1').val('')
+                $('#rightDown1').val('')
+                $('#judgement1').val('')
+                $('#confirm1').val('')
+                $('#leftDown1').val('')
+                $("#confirmTime1").val('')
+                $('#auditorCode1').empty()
+                $('#confirmCode1').empty()
+                
+                audit_record.duty.forEach(function(e){
+                    $("#dutyCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
                  })
-                 $.get(servers.backup()+"electronicBalance/getAll",{},function(result){
-                    var duty = result.data
-                    duty.forEach(function(e){
-                       $("#equipmentCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
-                    })
+
+                audit_record.electronicBalance.forEach(function(e){
+                   $("#equipmentCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
                 })
-                 $.get(servers.backup()+"user/getAll",{ },function(result){
-                    var users = result.data
-                    users.forEach(function(e){
-                            $("#auditorCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
-                            $("#confirmCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
-                    })
-                })
+
+
+                audit_record.users.forEach(function(e){
+                        $("#auditorCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
+                        $("#confirmCode1").append("<option value="+(e.code)+">"+e.name+"</option>")
+                })     
                  layer.open({
                      type:1,
                      title:"新增核称记录",
                      content:$("#editor_modal"),
-                     area: ['350px', '450px'],
+                     area: ['350px', '500px'],
                      btn:['提交','取消'],
                      offset:'auto',
                      closeBtn:0,

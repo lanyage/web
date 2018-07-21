@@ -76,14 +76,14 @@ var customer_manage = {
                     title: '新增',
                     content: "<div id='addModal'>" +
                         "<div style='text-align: center;padding-top: 10px;'>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>用户名称:<input type='text' id='cus_name'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名:<input type='text' id='cus_code'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>描述说明:<input type='text' id='cus_description'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>手机号码:<input type='text' id='cus_contact'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>用户名称:<input type='text' id='cus_name' style='width: 290px;'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名:<input type='text' id='cus_code' style='width: 290px;'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>描述说明:<input type='text' id='cus_description' style='width: 290px;'/></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>手机号码:<input type='text' id='cus_contact' style='width: 290px;'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>所属公司:<select id='add_supplier_name' style='padding: 0px;'></select></p>" +
                         "</div>" +
                         "</div>",
-                    area: ['350px', '300px'],
+                    area: ['480px', '280px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '45%'],
                     yes: function (index) {
@@ -318,14 +318,14 @@ var customer_manage = {
                         type: 1,
                         content: "<div id='addModal'>" +
                             "<div style='text-align: center;padding-top: 10px;'>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>用户名称：<input type='text' id='cus_name' value='" + (customers.name) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名：<input type='text' id='cus_code' value='" + (customers.code) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>描述说明：<input type='text' id='cus_description' value='" + (customers.description) + "'/></p>" +
-                            "<p style='padding: 5px 0px 5px 0px;'>手机号码：<input type='text' id='cus_contact' value='" + (customers.contact) + "'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>用户名称：<input type='text' id='cus_name' value='" + (customers.name) + "' style='width: 290px;'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>&nbsp;&nbsp;&nbsp;登录名：<input type='text' id='cus_code' value='" + (customers.code) + "' style='width: 290px;'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>描述说明：<input type='text' id='cus_description' value='" + (customers.description) + "' style='width: 290px;'/></p>" +
+                            "<p style='padding: 5px 0px 5px 0px;'>手机号码：<input type='text' id='cus_contact' value='" + (customers.contact) + "' style='width: 290px;'/></p>" +
                             "<p style='padding: 5px 0px 5px 0px;'>所属公司：<select id='cus_supplier_name'  style='padding: 0px;' ><option value='" + (customers.supplier.code) + "'>"+(customers.supplier.name)+"</option></select></p>" +
                             "</div>" +
                             "</div>",
-                        area: ['350px', '300px'],
+                        area: ['480px', '280px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '45%'],
                         yes: function (index) {

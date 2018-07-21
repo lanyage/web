@@ -228,4 +228,30 @@
                 <div class="whitespace"></div>
                 <span style="float:right;">主任助理确认：<spanstyle="width:10%;"><select id="assistant1" ></select></span></span>
             </div>
+        <!--限制只能保留两位小数点-->
+    <script>
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#infurnaceTime1',//指定元素
+                type: 'datetime'
+            })
+            laydate.render({
+                elem: '#planTime1',//指定元素
+                type: 'datetime'
+            })
+            laydate.render({
+                elem: '#outfurnaceTime1',//指定元素
+                type: 'datetime'
+            })
+        })
+        function num(obj){
+            obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+            obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
+            obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个, 清除多余的
+            obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数  
+}  
+    </script>
 </div>

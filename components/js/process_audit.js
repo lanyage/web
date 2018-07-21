@@ -12,7 +12,7 @@ var process_audit = {
          */
         renderTable: function () {
             process_audit.funcs.hideTable();
-            console.log(process_audit.process_type);
+            //console.log(process_audit.process_type);
             var status = $('#status').val()
             // POST
             $.post(process_audit.funcs.chooseUrl(), {
@@ -276,9 +276,9 @@ var process_audit = {
         bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
-                console.log('search')
+                //console.log('search')
                 var process_batch_number = $('#process_batch_number_input').val()
-                console.log(process_batch_number)
+                //console.log(process_batch_number)
                 var status = $('#status').val()
                 $.post(process_audit.funcs.chooseUrlSearch(), {
                     batchNumber: process_batch_number,
@@ -339,7 +339,7 @@ var process_audit = {
                     layer.open({
                         type: 1,
                         content: process_audit.funcs.getData(process),
-                        area: ['550px', '600px'],
+                        area: ['500px', '500px'],
                         btn: ['通过审核', '取消'],
                         offset: 'auto', // ['10%', '40%'],
                         btnAlign: 'c',
@@ -399,12 +399,12 @@ var process_audit = {
                 var code = _selfBtn.attr('id').substr(6);
                 process_audit.currId = "process-audit-" + code;
                 $.post(process_audit.funcs.chooseUrlCode(), {code: code}, function (result) {
-                    console.log("查看" + code);
+                   // console.log("查看" + code);
                     var process = result.data;
                     layer.open({
                         type: 1,
                         content: process_audit.funcs.getData(process),
-                        area: ['550px', '700px'],
+                        area: ['500px', '500px'],
                         btn: ['关闭'],
                         offset: 'auto',   // ['10%', '40%'],
                         btnAlign: 'c',
@@ -456,13 +456,13 @@ var process_audit = {
         bindLeftBtn: function (leftBtn) {
             leftBtn.off('click');
             leftBtn.on('click', function () {
-                console.log("左");
+                //console.log("左");
                 var $table = $(process_audit.funcs.chooseTable());
                 var firstId = $($table.children('tbody').children('tr')[0]).attr('id');
-                console.log(firstId);
+                //console.log(firstId);
                 if (firstId != process_audit.currId) {
                     var prevCode = $('#' + process_audit.currId).prev('tr').attr('id').substr(14);
-                    console.log(prevCode);
+                    //console.log(prevCode);
                     $.post(process_audit.funcs.chooseUrlCode(), {code: prevCode}, function (result) {
                         process_audit.currId = "process-audit-" + prevCode;
                         var process = result.data;
@@ -471,7 +471,7 @@ var process_audit = {
                     })
                 }
                 else {
-                    console.log("First one");
+                  //console.log("First one");
                     layer.msg('已经是页面第一项', {
                         time: 1000
                     })
@@ -486,14 +486,14 @@ var process_audit = {
         bindRightBtn: function (rightBtn) {
             rightBtn.off('click');
             rightBtn.on('click', function () {
-                console.log("右");
+                //console.log("右");
                 var $table = $(process_audit.funcs.chooseTable());
                 var rows = $table.children('tbody').children('tr').length-1
                 var lastId = $($table.children('tbody').children('tr')[rows]).attr('id');
-                console.log(lastId)
+                //console.log(lastId)
                 if (lastId != process_audit.currId) {
                     var nextCode = $('#' + process_audit.currId).next('tr').attr('id').substr(14);
-                    console.log(nextCode);
+                    //console.log(nextCode);
                     $.post(process_audit.funcs.chooseUrlCode(), {code: nextCode}, function (result) {
                         process_audit.currId = "process-audit-" + nextCode;
                         var process = result.data;
@@ -502,7 +502,7 @@ var process_audit = {
                     })
                 }
                 else {
-                    console.log("Last one");
+                    //console.log("Last one");
                     layer.msg('已经是页面最后一项', {
                         time: 1000
                     })

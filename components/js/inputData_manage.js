@@ -263,12 +263,12 @@ var inputData_manage = {
                 var c22 = result.data[i]['c22']//Ca
                 var c23 = result.data[i]['c23']//Fe
                 var c24 = result.data[i]['c24']//Cu
-                //var c11 = result.data[i]['c11']//Fe
-                //var c12 = result.data[i]['c12']//Ni
-               // var c13 = result.data[i]['c13']//Cr
-                //var c14 = result.data[i]['c14']//Zn
-                //var c15 = result.data[i]['c15']//总量
-                
+               
+                var c25 = result.data[i]['c25']
+                var c26 = result.data[i]['c26']
+                var c27 = result.data[i]['c27']
+                var c28 = result.data[i]['c28']
+                var c29 = result.data[i]['c29']
                 Tcode.append("<tr>"+
                     "<td>"+ (operation?operation:'无') +"</td>"+
                     "<td>"+ (publisher?publisher.name:'无') +"</td>"+
@@ -278,21 +278,26 @@ var inputData_manage = {
                     "<td>"+ (productDate?new Date(productDate).Format('yyyy-MM-dd'):'') +"</td>"+
                     "<td>"+ number +"</td>"+
                     "<td>"+ judge +"</td>"+
-                    "<td>"+ c1 +"</td>"+
-                    "<td>"+ c2 +"</td>"+
-                    "<td>"+ c3 +"</td>"+
-                    "<td>"+ c4 +"</td>"+
-                    "<td>"+ c7 +"</td>"+
-                    "<td>"+ c10 +"</td>"+
-                    "<td>"+ c16 +"</td>"+
-                    "<td>"+ c17 +"</td>"+
-                    "<td>"+ c18 +"</td>"+
-                    "<td>"+ c19 +"</td>"+
-                    "<td>"+ c20 +"</td>"+
-                    "<td>"+ c21 +"</td>"+
-                    "<td>"+ c22 +"</td>"+
-                    "<td>"+ c23 +"</td>"+
-                    "<td>"+ c24 +"</td>"+
+                    "<td>" + (c1?c1:'0') + "</td>" +
+                    "<td>" + (c2?c2:'0') + "</td>" +
+                    "<td>" + (c3?c3:'0') + "</td>" +
+                    "<td>" + (c4?c4:'0') + "</td>" +
+                    "<td>" + (c7?c7:'0') + "</td>" +
+                    "<td>" + (c10?c10:'0') + "</td>" +
+                    "<td>" + (c16?c16:'0') + "</td>" +
+                    "<td>" + (c17?c17:'0') + "</td>" +
+                    "<td>" + (c18?c18:'0') + "</td>" +
+                    "<td>" + (c19?c19:'0') + "</td>" +
+                    "<td>" + (c20?c20:'0') + "</td>" +
+                    "<td>" + (c21?c21:'0') + "</td>" +
+                    "<td>" + (c22?c22:'0') + "</td>" +
+                    "<td>" + (c23?c23:'0') + "</td>" +
+                    "<td>" + (c24?c24:'0') + "</td>" +
+                    "<td>" + (c25?c25:'0') + "</td>" +
+                    "<td>" + (c26?c26:'0') + "</td>" +
+                    "<td>" + (c27?c27:'0') + "</td>" +
+                    "<td>" + (c28?c28:'0') + "</td>" +
+                    "<td>" + (c29?c29:'0') + "</td>" +
                     "</tr>"
                 )
                       

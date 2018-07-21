@@ -110,10 +110,10 @@ var person_manage = {
                         "<p style='padding: 5px 0px 5px 0px;'>用户名称:<input type='text' id='person_name' value='" + (personman.name) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>描述说明:&nbsp;<input type='text' id='person_description' value='" + (personman.description) + "'/></p>" +
                         "<p style='padding: 5px 0px 5px 0px;'>手机号码:&nbsp;<input type='text' id='person_contact' value='" + (personman.contact) + "'/></p>" +
-                        "<p style='padding: 5px 0px 5px 0px;'>所属公司:&nbsp;<select style='width:170px;' id='company_type'></select></p>" +
+                        "<p style='padding: 5px 0px 5px 0px;'>所属公司:&nbsp;<select style='width:290px;' id='company_type'></select></p>" +
                         "</div>" +
                         "</div>",
-                        area: ['350px', '300px'],
+                        area: ['450px', '300px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '45%'],
                         yes: function (index) {

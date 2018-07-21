@@ -1,6 +1,7 @@
 html, body, parent {
-    /*height: 100%;*/
+    height: 100%;
     overflow-y: hidden;
+    overflow-x: scroll;
     min-width: 600px;
 }
 
@@ -263,6 +264,7 @@ body .layui-ext-yourskin .layui-layer-btn {
     color: black;
     text-align: center;
     font-weight: 400;
+    height:30px;
 }
 
 .display-component-container a {

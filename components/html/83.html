@@ -1,13 +1,397 @@
-<div id='model-li-hide-83' class='display-component-container' style='padding: 20px 20px 0px 20px;'>
+<div id='model-li-hide-83' class='display-component-container' style='padding: 20px 20px 0px 20px;overflow-y: scroll;height:530px;;width:1120px;'>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+        #audit_table_inner thead td {
+            padding: 0px;
+            border: 1px darkgrey solid;
+            font-size: 14px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            font-size: 12px;
+            height:20px;
+        }
+
+        #audit_table_inner tbody td {
+            padding: 0px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            font-size: 12px;
+            height:20px;
+        }
+        #audit_table_inner thead td {
+            color: #fff;
+            background: #777777;
+        }
+
+        .table_style thead td {
+            margin: 0;
+            padding: 1px;
+            border: 1px darkgrey solid;
+            font-size: 12px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            height:20px;
+        }
+
+        .table_style tbody td {
+            margin: 0;
+            padding: 1px;
+            border: 1px darkgrey solid;
+            font-size: 10px;
+            color: black;
+            text-align: center;
+            font-weight: 400;
+            height:20px;
+        }
+        .table_scroll {
+            padding:20px;
+            height: 600px;
+        }
+        .align_middle {
+            position: relative;
+            top: 50%;
+            text-align: center;
+        }
+    </style>
     <div class="block-quote" style="border-left: 0">
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
                 <span class="blue_font">输入产品批号:</span>
-                <input type="text" name="suppler_name"/>
-                <button style='background-color: #5179cc;color: white;border-radius: 5%;'>&nbsp;搜索&nbsp;</button>
+                <input type="text" name="suppler_name" id="input_batchNumber"/>
+                <button id="button" style='background-color: #5179cc;color: white;border-radius: 5%;'>&nbsp;搜索&nbsp;</button>
             </p>
         </div>
     </div>
+    <div class="whitespace"></div>
+    <table class='table_inner' align='center' width='100%' height="1000px;">
+        <thead class="grey">
+            <tr> 
+                <td colspan='2' class="normal_td">批号</td>
+                <td class="normal_td">检测日期</td> 
+                <td class="normal_td">数量(t)</td> 
+                <td class="normal_td">判定</td> 
+                <td></td> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr> 
+                <td colspan='2' id="batchNumber"></td>
+                <td id="testDate" class="normal_td"></td>
+                <td id="number"></td> 
+                <td id="judge"></td> 
+                <td></td>
+            </tr>
+        </tbody>
+        <thead class="grey">
+            <tr> 
+                <td colspan='2' class="normal_td">审核状态</td>
+                <td class="normal_td">审核人</td> 
+                <td></td> 
+                <td></td> 
+                <td></td> 
+           </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan='2' id="status"></td>
+                <td id="publisher"></td> 
+                <td></td> 
+                <td></td> 
+                <td></td>
+           </tr> 
+        </tbody>
+        <thead class="grey">
+            <tr> 
+                <td colspan='2' class="normal_td">检测项目</td>
+                <td class="normal_td">三级控制标准</td> 
+                <td class="normal_td">2016-3-2三级控制标准</td> 
+                <td class="normal_td">数据</td> 
+                <td class="normal_td">编辑</td> 
+           </tr>
+        </thead>
+        <tbody>
+            <tr> 
+                <td colspan='2'>振实密度(g/cm3)</td>
+                <td>≥2.0</td> 
+                <td>2.3~2.7</td> 
+                <td id="p1"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>水分(ppm)</td>
+                <td>≤500</td> 
+                <td>≤200</td> 
+                <td id="p2"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>SSA(m2/g)</td>
+                <td>0.20~0.40</td> 
+                <td>0.22~0.48</td> 
+                <td id="p3"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>pH值</td>
+                <td>&le;11.80</td> 
+                <td>&le;11.80</td> 
+                <td id="p4"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Li2CO3（%）</td>
+                <td></td> 
+                <td>&le;0.25</td> 
+                <td id="p5"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>LiOH（%）</td>
+                <td></td> 
+                <td>&le;0.20</td> 
+                <td id="p6"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td rowspan='5'>粒度（um）</td>
+                <td>D1</td> 
+                <td></td> 
+                <td>&ge;3.00</td> 
+                <td id="p8"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td>D10</td> 
+                <td>&ge;6.00</td> 
+                <td>&ge;5.00</td> 
+                <td id="p9"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td>D50</td> 
+                <td>11.00~14.00</td> 
+                <td>11.30~13.3</td> 
+                <td id="p10"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td>D90</td> 
+                <td>&le;30.00</td> 
+                <td>&le;30.00</td> 
+                <td id="p11"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td>D99</td> 
+                <td></td> 
+                <td>&le;40.00</td> 
+                <td id="p12"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td rowspan='5'>磁性物质检测（ppb）</td>
+                <td>粒度宽度系数</td> 
+                <td></td> 
+                <td></td> 
+                <td id="p13"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td>Fe</td> 
+                <td></td> 
+                <td></td> 
+                <td id="p14"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td>Ni</td> 
+                <td></td> 
+                <td></td> 
+                <td id="p15"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td>Cr</td> 
+                <td></td> 
+                <td></td> 
+                <td id="p16"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td>Zn</td> 
+                <td></td> 
+                <td></td> 
+                <td id="p17"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>总量</td>
+                <td>&le;50</td> 
+                <td>&le;50</td> 
+                <td id="p18"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Co（mol%）</td>
+                <td>12.20&plusmn;1.0</td> 
+                <td>19.7&plusmn;0.5</td> 
+                <td id="p19"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Mn（ppm）</td>
+                <td></td> 
+                <td>19.9&plusmn;0.5</td> 
+                <td id="p20"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Ni（ppm）</td>
+                <td></td> 
+                <td>60.4&plusmn;0.5</td> 
+                <td id="p21"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Li（%）</td>
+                <td>7.0&plusmn;0.5</td> 
+                <td>7.0&plusmn;0.5</td> 
+                <td id="p22"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Co（%）</td>
+                <td>12.20&plusmn;1.0</td> 
+                <td>12.20&plusmn;1.0</td> 
+                <td id="p23"></td> 
+                <td></td> 
+           </tr>
+
+           <tr> 
+                <td colspan='2'>Mn（%）</td>
+                <td>11.4&plusmn;1.0</td> 
+                <td>11.4&plusmn;1.0</td> 
+                <td id="p24"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Ni（%）</td>
+                <td>36.2&plusmn;1.0</td> 
+                <td>36.2&plusmn;1.0</td> 
+                <td id="p25"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Na （ppm）</td>
+                <td>&le;200</td> 
+                <td>&le;200</td> 
+                <td id="p26"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Mg （ppm）</td>
+                <td>&le;200</td> 
+                <td>&le;200</td> 
+                <td id="p27"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Ca （ppm）</td>
+                <td>&le;200</td> 
+                <td>&le;200</td> 
+                <td id="p28"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Fe（ppm）</td>
+                <td>&le;50</td> 
+                <td>&le;30</td> 
+                <td id="p29"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Cu（ppm）</td>
+                <td>&le;50</td> 
+                <td>&le;20</td> 
+                <td id="30"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Zn（ppm）</td>
+                <td>&le;50</td> 
+                <td>&le;30</td> 
+                <td id="p31"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>S（ppm）</td>
+                <td></td> 
+                <td>&le;1500</td> 
+                <td id="p32"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>Al（ppm）</td>
+                <td></td> 
+                <td></td> 
+                <td id="p33"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>0.1C放电容量（mAh/g）</td>
+                <td>1000&plusmn;300</td> 
+                <td>1000&plusmn;300</td> 
+                <td id="p34"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>0.1C首次放电效率（%）</td>
+                <td></td> 
+                <td>&ge;177.5</td> 
+                <td id="p35"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>1C放电容量（mAh/g）</td>
+                <td></td> 
+                <td>&ge;177.5</td> 
+                <td id="p36"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>主原料</td>
+                <td></td> 
+                <td>&ge;88.0</td> 
+                <td id="p37"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>成品外观、重量抽查结果</td>
+                <td></td> 
+                <td>&le;0.20</td> 
+                <td id="p38"></td> 
+                <td></td> 
+           </tr>
+           <tr> 
+                <td colspan='2'>产线</td>
+                <td></td> 
+                <td>&le;0.20</td> 
+                <td id="p39"></td> 
+                <td></td> 
+           </tr>
+           
+        </tbody>
+    </table>
+    <script src="../components/js/check_report.js"></script>
+    <script type="application/javascript">
+        $(function(){
+            check_report.init()
+        })
+    </script>
 </div>
