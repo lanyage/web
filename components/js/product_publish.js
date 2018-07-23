@@ -1,6 +1,6 @@
 var product_publish = {
     pageSize: 0,
-    status: 1,
+    status: 2,
     currId: null,
     init: function () {
         product_publish.funcs.renderTable(product_publish.status)
@@ -54,10 +54,10 @@ var product_publish = {
                 $tbody.append(
                     "<tr id='product-publish-" + (e.code) + "'>" +
                     "<td>" + product_publish.funcs.getIcon(product_publish.status, e.code) + "</i></td>" +
-                    "<td>" + (e.publisher ? e.publisher.name : '无') + "</td>" +
+                    "<td>" + (e.publisher ? e.publisher.name : '') + "</td>" +
                     "<td>" + (new Date(e.testDate).Format('yyyy-MM-dd')) + "</td>" +
                     "<td>" + (e.batchNumber) + "</td>" +
-                    "<td>" + (e.judge ? e.judge.name : '无') + "</td>" +
+                    "<td>" + (e.judge ? e.judge.name : '') + "</td>" +
                     "<td>" + (e.number) + "</td>" +
                     "<td>" + (e.p1) + "</td>" +
                     "<td>" + (e.p2) + "</td>" +
@@ -274,7 +274,7 @@ var product_publish = {
                 " <tr> <td colspan='2'>审核状态</td> <td>审核人</td> <td></td> <td></td> <td></td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                " <tr> <td colspan='2'>" + (product.status ? product.status.name : null) + "</td> <td>" + (product.publisher ? product.publisher.name : null) + "</td> <td></td> <td></td> <td></td> </tr>" +
+                " <tr> <td colspan='2'>" + (product.status ? product.status.name : '') + "</td> <td>" + (product.publisher ? product.publisher.name : '') + "</td> <td></td> <td></td> <td></td> </tr>" +
                 "</tbody>" +
                 "<thead>" +
                 "<tr> <td colspan='2'>检测项目</td> <td>三级控制标准</td> <td>2016-3-2三级控制标准</td> <td>" + (product.batchNumber) + "</td> <td>编辑</td> </tr>" +

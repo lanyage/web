@@ -1,8 +1,8 @@
-<div id='model-li-hide-83' class='display-component-container' style='padding: 20px 20px 0px 20px;overflow-y: scroll;height:530px;;width:1120px;'>
+<div id='model-li-hide-83' class='display-component-container' style='padding: 20px 20px 0px 20px;overflow-y: scroll;height:530px;'>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <style>
-        #audit_table_inner thead td {
+        #product thead td {
             padding: 0px;
             border: 1px darkgrey solid;
             font-size: 14px;
@@ -10,10 +10,10 @@
             text-align: center;
             font-weight: 400;
             font-size: 12px;
-            height:20px;
+            height:10px;
         }
 
-        #audit_table_inner tbody td {
+        #product tbody td {
             padding: 0px;
             border: 1px darkgrey solid;
             font-size: 12px;
@@ -21,7 +21,7 @@
             text-align: center;
             font-weight: 400;
             font-size: 12px;
-            height:20px;
+            height:10px;
         }
         #audit_table_inner thead td {
             color: #fff;
@@ -36,7 +36,7 @@
             color: black;
             text-align: center;
             font-weight: 400;
-            height:20px;
+            height:10px;
         }
 
         .table_style tbody td {
@@ -47,7 +47,7 @@
             color: black;
             text-align: center;
             font-weight: 400;
-            height:20px;
+            height:10px;
         }
         .table_scroll {
             padding:20px;
@@ -65,17 +65,20 @@
                 <span class="blue_font">输入产品批号:</span>
                 <input type="text" name="suppler_name" id="input_batchNumber"/>
                 <button id="button" style='background-color: #5179cc;color: white;border-radius: 5%;'>&nbsp;搜索&nbsp;</button>
-            </p>
-        </div>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button onclick="export_pdf()" id="pdf" style='background-color: #5179cc;color: white;border-radius: 5%;'>&nbsp;PDF导出&nbsp;</button>
+            </p> 
+       </div>
     </div>
     <div class="whitespace"></div>
-    <table class='table_inner' align='center' width='100%' height="1000px;">
+    <table id="product" align='center' width='100%' height="650px;" style="display: none;padding:30px;">
         <thead class="grey">
             <tr> 
-                <td colspan='2' class="normal_td">批号</td>
-                <td class="normal_td">检测日期</td> 
-                <td class="normal_td">数量(t)</td> 
-                <td class="normal_td">判定</td> 
+                <td colspan='2' class="normal_td" width="20%">批号</td>
+                <td class="normal_td" width="20%">检测日期</td> 
+                <td class="normal_td" width="20%">数量(t)</td> 
+                <td class="normal_td" width="20%">判定</td> 
                 <td></td> 
             </tr>
         </thead>
@@ -91,7 +94,7 @@
         <thead class="grey">
             <tr> 
                 <td colspan='2' class="normal_td">审核状态</td>
-                <td class="normal_td">审核人</td> 
+                <td class="normal_td">发布人</td> 
                 <td></td> 
                 <td></td> 
                 <td></td> 
@@ -388,10 +391,63 @@
            
         </tbody>
     </table>
+
     <script src="../components/js/check_report.js"></script>
+    <script type="text/javascript" src="../tableExport/jspdf/libs/sprintf.js"></script>
+    <script type="text/javascript" src="../tableExport/jspdf/jspdf.js"></script>
+    <script type="text/javascript" src="../tableExport/jspdf/libs/base64.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+    <script src="../tableExport/html2canvas.js"></script>
     <script type="application/javascript">
         $(function(){
             check_report.init()
         })
+        
     </script>
+    <script>
+        function export_pdf(){
+            html2canvas(
+                document.getElementById("product"),
+                {
+                    dpi: 172,//导出pdf清晰度
+                    onrendered: function (canvas) {
+                        var contentWidth = canvas.width;
+                        var contentHeight = canvas.height;
+                        console.log(contentHeight)
+                        //一页pdf显示html页面生成的canvas高度;
+                        var pageHeight = contentWidth / 592.28 * 841.89;
+                        //未生成pdf的html页面高度
+                        var leftHeight = contentHeight;
+                        //pdf页面偏移
+                        var position = 0;
+                        //html页面生成的canvas在pdf中图片的宽高（a4纸的尺寸[595.28,841.89]）
+                        var imgWidth = 595.28;
+                        var imgHeight = 592.28 / contentWidth * contentHeight;
+
+                        var pageData = canvas.toDataURL('image/jpeg', 1.0);
+                        var pdf = new jsPDF('', 'pt', 'a4');
+
+                        //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
+                        //当内容未超过pdf一页显示的范围，无需分页
+                        if (leftHeight < pageHeight) {
+                            pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight);
+                        } else {
+                            while (leftHeight > 0) {
+                                pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
+                                leftHeight -= pageHeight;
+                                position -= 841.89;
+                                //避免添加空白页
+                                if (leftHeight > 0) {
+                                    pdf.addPage();
+                                }
+                            }
+                        }
+                        pdf.save('content.pdf');
+                    },
+                    //背景设为白色（默认为黑色）
+                    background: "#fff"  
+                })
+    }  
+    </script>
+   
 </div>
