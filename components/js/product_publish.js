@@ -59,22 +59,22 @@ var product_publish = {
                     "<td>" + (e.batchNumber) + "</td>" +
                     "<td>" + (e.judge ? e.judge.name : '') + "</td>" +
                     "<td>" + (e.number) + "</td>" +
-                    "<td>" + (e.p1) + "</td>" +
-                    "<td>" + (e.p2) + "</td>" +
-                    "<td>" + (e.p3) + "</td>" +
-                    "<td>" + (e.p4) + "</td>" +
-                    "<td>" + (e.p7) + "</td>" +
-                    "<td>" + (e.p10) + "</td>" +
-                    "<td>" + (e.p13) + "</td>" +
-                    "<td>" + (e.p19) + "</td>" +
-                    "<td>" + (e.p20) + "</td>" +
-                    "<td>" + (e.p21) + "</td>" +
-                    "<td>" + (e.p22) + "</td>" +
-                    "<td>" + (e.p23) + "</td>" +
-                    "<td>" + (e.p24) + "</td>" +
-                    "<td>" + (e.p34) + "</td>" +
-                    "<td>" + (e.p35) + "</td>" +
-                    "<td>" + (e.p36) + "</td>" +
+                    "<td>" + (e.p1?e.p1:'0') + "</td>" +
+                    "<td>" + (e.p2?e.p2:'0') + "</td>" +
+                    "<td>" + (e.p3?e.p3:'0') + "</td>" +
+                    "<td>" + (e.p4?e.p4:'0') + "</td>" +
+                    "<td>" + (e.p7?e.p7:'0') + "</td>" +
+                    "<td>" + (e.p10?e.p10:'0') + "</td>" +
+                    "<td>" + (e.p13?e.p13:'0') + "</td>" +
+                    "<td>" + (e.p19?e.p19:'0') + "</td>" +
+                    "<td>" + (e.p20?e.p20:'0') + "</td>" +
+                    "<td>" + (e.p21?e.p21:'0') + "</td>" +
+                    "<td>" + (e.p22?e.p22:'0') + "</td>" +
+                    "<td>" + (e.p23?e.p23:'0') + "</td>" +
+                    "<td>" + (e.p24?e.p24:'0') + "</td>" +
+                    "<td>" + (e.p34?e.p34:'0') + "</td>" +
+                    "<td>" + (e.p35?e.p35:'0') + "</td>" +
+                    "<td>" + (e.p36?e.p36:'0') + "</td>" +
                     "</tr>")
             })//$数据渲染完毕
 
@@ -108,6 +108,7 @@ var product_publish = {
                                 time: 700
                             })
                         })
+                        layer.close(index);
                     },
                     btn2: function (index) {
                         layer.close(index)
@@ -245,7 +246,7 @@ var product_publish = {
             })
         }
         , getIcon: function (status, code) {
-            if (status == 1) {
+            if (status == 2) {
                 return "<a href=\"#\" class='publish' id='publish-" + code + "'><i class=\"layui-icon\">&#xe6b2;";
             }
             else {

@@ -1,54 +1,33 @@
-<div id='model-li-hide-83' class='display-component-container' style='padding: 20px 20px 0px 20px;overflow-y: scroll;height:530px;'>
+<div id='model-li-hide-83' class='display-component-container' style='padding: 10px;'>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <style>
         #product thead td {
             padding: 0px;
             border: 1px darkgrey solid;
-            font-size: 14px;
+            font-size: 10px;
             color: black;
             text-align: center;
             font-weight: 400;
             font-size: 12px;
-            height:10px;
+            height:5px;
         }
 
         #product tbody td {
             padding: 0px;
             border: 1px darkgrey solid;
-            font-size: 12px;
+            font-size: 10px;
             color: black;
             text-align: center;
             font-weight: 400;
             font-size: 12px;
-            height:10px;
+            height:5px;
         }
         #audit_table_inner thead td {
             color: #fff;
             background: #777777;
         }
 
-        .table_style thead td {
-            margin: 0;
-            padding: 1px;
-            border: 1px darkgrey solid;
-            font-size: 12px;
-            color: black;
-            text-align: center;
-            font-weight: 400;
-            height:10px;
-        }
-
-        .table_style tbody td {
-            margin: 0;
-            padding: 1px;
-            border: 1px darkgrey solid;
-            font-size: 10px;
-            color: black;
-            text-align: center;
-            font-weight: 400;
-            height:10px;
-        }
         .table_scroll {
             padding:20px;
             height: 600px;
@@ -59,6 +38,7 @@
             text-align: center;
         }
     </style>
+    <body>
     <div class="block-quote" style="border-left: 0">
         <div class="fl">
             <p style="color: #62a49a; font-size: 14px;">
@@ -71,8 +51,8 @@
             </p> 
        </div>
     </div>
-    <div class="whitespace"></div>
-    <table id="product" align='center' width='100%' height="650px;" style="display: none;padding:30px;">
+    <div  id="product" style="display: none;padding:20px;">
+        <table width='100%'>
         <thead class="grey">
             <tr> 
                 <td colspan='2' class="normal_td" width="20%">批号</td>
@@ -391,13 +371,14 @@
            
         </tbody>
     </table>
-
-    <script src="../components/js/check_report.js"></script>
+    </div>
+    </body>
     <script type="text/javascript" src="../tableExport/jspdf/libs/sprintf.js"></script>
     <script type="text/javascript" src="../tableExport/jspdf/jspdf.js"></script>
     <script type="text/javascript" src="../tableExport/jspdf/libs/base64.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
     <script src="../tableExport/html2canvas.js"></script>
+    <script src="../components/js/check_report.js"></script>
     <script type="application/javascript">
         $(function(){
             check_report.init()
@@ -406,10 +387,37 @@
     </script>
     <script>
         function export_pdf(){
-            html2canvas(
-                document.getElementById("product"),
+            /* $('#product').tableExport({type:'pdf',
+                           jspdf: {orientation: 'l',
+                                   format: 'a4',
+                                   margins: {left:10, right:10, top:20, bottom:20},
+                                   autotable: {styles: {fillColor: 'inherit', 
+                                                        textColor: 'inherit'},
+                                               tableWidth: 'auto'}
+                                  }
+                          });*/
+            //获取节点高度，后面为克隆节点设置高度。
+            var targetDom = $("#product");  
+            //克隆节点，默认为false，不复制方法属性，为true是全部复制。
+            var cloneDom = $("#product").clone(true);
+            //设置克隆节点的css属性，因为之前的层级为0，我们只需要比被克隆的节点层级低即可。
+            cloneDom.width(targetDom.width() + "px");  
+            cloneDom.height(targetDom.outerHeight() + "px");  
+            cloneDom.css({
+                "background-color": "white",
+                "position": "absolute",
+                "top": "0px",
+                "z-index": "-1",
+                //"height": height+"px"
+            });
+            //将克隆节点动态追加到body后面。
+            $("body").append(cloneDom);
+            html2canvas(cloneDom,
                 {
                     dpi: 172,//导出pdf清晰度
+                    allowTaint: true,
+                    taintTest: false,
+                    height: $("#product").outerHeight()+90 ,
                     onrendered: function (canvas) {
                         var contentWidth = canvas.width;
                         var contentHeight = canvas.height;
@@ -429,7 +437,7 @@
 
                         //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)
                         //当内容未超过pdf一页显示的范围，无需分页
-                        if (leftHeight < pageHeight) {
+                       /* if (leftHeight < pageHeight) {
                             pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight);
                         } else {
                             while (leftHeight > 0) {
@@ -441,11 +449,10 @@
                                     pdf.addPage();
                                 }
                             }
-                        }
+                        }*/
+                        pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, targetDom.outerHeight());
                         pdf.save('content.pdf');
-                    },
-                    //背景设为白色（默认为黑色）
-                    background: "#fff"  
+                    }, 
                 })
     }  
     </script>

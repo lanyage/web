@@ -4,12 +4,17 @@ var check_report = {
         
         $("#button").off('click').on('click',function(){
             var batchNumber = $("#input_batchNumber").val()
+            if(batchNumber===""){
+                alert("请输入batchNumber!")
+                return
+            }
             $.post(home.urls.productPublish.getByLikeBatchNumberByPage(), {
                 batchNumber: batchNumber,
                 statusCode: 3
             }, function (result) {
                 var product = result.data.content //获取数据
-                if(product === null){
+                if(product === ""){
+                    console.log(1)
                     layer.open({
                         type: 1,
                         content: '未查到该产品批号',
@@ -23,6 +28,7 @@ var check_report = {
                 }else{
                     product.forEach(function(e){
                         if(e.status.code === 2){
+                            console.log(2)
                             $("#product").hide()
                             layer.open({
                                 type: 1,

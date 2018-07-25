@@ -101,9 +101,6 @@
 <script src="../js/servers.js"></script>
 <script src="../js/home.js"></script>
 <script src="../js/Chart.js"></script>
-<script type="text/javascript" src="../tableExport/jspdf/libs/sprintf.js"></script>
-<script type="text/javascript" src="../tableExport/jspdf/jspdf.js"></script>
-<script type="text/javascript" src="../tableExport/jspdf/libs/base64.js"></script>
 <script type="application/javascript">
     $(function () {
 
@@ -138,17 +135,16 @@
         $('.top-left-text')[0].innerHTML = "<span>长远锂科MES系统&nbsp;<strong id='version' style='color: #1E9FFF;font-size:13px; font-weight: 600;'>&nbsp;" + createVersion() + "</strong></span>"
         var userStr = $.session.get('user')
         if (!userStr) {
-            console.log('用户已经失去登录，请重新登录')
+            //console.log('用户已经失去登录，请重新登录')
+            alert('用户已经失去登录，请重新登录')
             document.location = '../login.html';
         }
         var userJson = JSON.parse(userStr)
-        console.log(userJson)
+        //console.log(userJson)
         var menu1Wrapper = $('.menus1 ul')
         var menu2Wrapper = $('.menus2 ul')
-        var roles = userJson.roles
-        roles.forEach(function(e){
-            $("#user_role").text(e.name)
-        })
+       
+        $("#user_role").text(userJson.name)
         
         home.init(userJson, menu1Wrapper, menu2Wrapper)
     })

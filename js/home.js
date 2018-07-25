@@ -1865,6 +1865,7 @@ var home = {
         const user = userJson
         home.user = userJson
         var roles = user.roles //获取用户角色
+        //console.log(roles)
         $("#currentUser").text(home.user.name + " ")
         $('#user-id').text(user.code)
 
@@ -2341,7 +2342,7 @@ var home = {
             $.get(home.urls.monitor_online.loadData(), {}, function (result) {
                 home.funcs.storeData(result)
                 /** 开始打印数据 */
-                console.log("signal", signal)
+               // console.log("signal", signal)
                 switch (signal) {
                     case 0 :
                         (function () {
