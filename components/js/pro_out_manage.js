@@ -514,7 +514,7 @@ var pro_out_manage = {
                 $tbody.append(
                     "<tr>"+
                     "<td>"+ (e.code?e.code:' ') +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
-                    "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td><td>" + (e.status?e.status:' ') + "</td>"+
+                    "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td>"+
                     "</tr>"
             );
             })
@@ -527,18 +527,6 @@ var pro_out_manage = {
             $("#applicant1").text(items.applicant?items.applicant.name:' ')
             $("#sendTime1").text(items.sendTime?new Date(items.sendTime).Format('yyyy-MM-dd'):' ')
             $("#applyTime1").text(items.applyTime?new Date(items.applyTime).Format('yyyy-MM-dd'):' ')
-
-            productSends = items.productSends
-            var $tbody = $("#verify_table").children('tbody')
-            $tbody.empty() //清空表格
-            productSends.forEach(function(e){
-                $tbody.append(
-                    "<tr>"+
-                    "<td>"+ (e.code?e.code:' ') +"</td><td>"+ (e.batchNumber?e.batchNumber:' ') + "</td>"+
-                    "<td>"+ (e.unit?e.unit:' ') + "</td>"+ "<td>"+ (e.weight?e.weight:' ') + "</td><td>" + (e.status?e.status:' ') + "</td>"+
-                    "</tr>"
-            );
-            })
 
             $.post(home.urls.productOut.getByProductSendHeader(),{
                 productSendHeaderCode: codeNumber
