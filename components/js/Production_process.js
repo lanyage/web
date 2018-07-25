@@ -93,7 +93,7 @@ var Production_process = {
         selectSize: function (sizeSelect) {
             sizeSelect.off('click');
             sizeSelect.on('click', function () {
-                console.log("sizeSelect");
+                //console.log("sizeSelect");
                 var select_premix = $('#select-premix');
                 var select_size = $('#select-size');
                 var select_lithium = $('#select-lithium');
@@ -168,13 +168,13 @@ var Production_process = {
                     "<td style='color:black'>"+ e.type +"</td>"+
                     "<td style='color:black'>"+e.lithiumSoluble +"</td>"+
                     "<td style='color:black'>"+ (e.supplier?e.supplier.name:'无') +"</td>"+
-                    "<td style='color:black'>"+ e.pc1 +"</td>"+
-                    "<td style='color:black'>"+ e.pc2 +"</td>"+
-                    "<td style='color:black'>"+ e.pc3 +"</td>"+
-                    "<td style='color:black'>"+ e.pc4 +"</td>"+
-                    "<td style='color:black'>"+ e.pc5 +"</td>"+
-                    "<td style='color:black'>"+ e.pc6 +"</td>"+
-                    "<td style='color:black'>"+ e.pc7 +"</td>"+
+                    "<td style='color:black'>"+ (e.pc1?e.pc1:'0') +"</td>"+
+                    "<td style='color:black'>"+ (e.pc2?e.pc2:'0') +"</td>"+
+                    "<td style='color:black'>"+ (e.pc3?e.pc3:'0') +"</td>"+
+                    "<td style='color:black'>"+ (e.pc4?e.pc4:'0') +"</td>"+
+                    "<td style='color:black'>"+ (e.pc5?e.pc5:'0') +"</td>"+
+                    "<td style='color:black'>"+ (e.pc6?e.pc6:'0') +"</td>"+
+                    "<td style='color:black'>"+ (e.pc7?e.pc7:'0') +"</td>"+
                     "<td style='color:black'></td>"+
                     "</tr>"
                 )
@@ -194,18 +194,17 @@ var Production_process = {
                         "<td style='color:black'>"+ (e.publisher ? e.publisher.name : '无') +"</td>"+
                         "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy-MM-dd'))  +"</td>"+
                         "<td style='color:black'>"+ e.batchNumber +"</td>"+
-                        "<td style='color:black'>"+ e.furnaceNum +"</td>"+
-                        "<td style='color:black'>"+ e.pc1 +"</td>"+
-                        "<td style='color:black'>"+ e.pc2 +"</td>"+
-                        "<td style='color:black'>"+ e.pc3 +"</td>"+
-                        "<td style='color:black'>"+ e.pc4 +"</td>"+
-                        "<td style='color:black'>"+ e.pc5 +"</td>"+
-                        "<td style='color:black'>"+ e.pc6 +"</td>"+
-                        "<td style='color:black'>"+ e.pc7 +"</td>"+
-                        "<td style='color:black'>"+ e.pc8 +"</td>"+
-                        "<td style='color:black'>"+ e.pc9 +"</td>"+
-                        "<td style='color:black'>"+ e.pc10 +"</td>"+
-                        "<td style='color:black'>"+ e.pc10 +"</td>"+
+                        "<td style='color:black'>"+ (e.pc1?e.pc1:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc2?e.pc2:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc3?e.pc3:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc4?e.pc4:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc5?e.pc5:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc6?e.pc6:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc7?e.pc7:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc8?e.pc8:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc9?e.pc9:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc10?e.pc10:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc11?e.pc11:'0') +"</td>"+
                     "</tr>"
                 )
             });
@@ -225,9 +224,9 @@ var Production_process = {
                        "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy-MM-dd'))  +"</td>"+
                        "<td style='color:black'>"+ e.batchNumber +"</td>"+
                        "<td style='color:black'>"+e.furnaceNum+"</td>"+
-                       "<td style='color:black'>"+ e.pc1 +"</td>"+
-                       "<td style='color:black'>"+ e.pc2 +"</td>"+
-                       "<td style='color:black'>"+ e.pc3 +"</td>"+
+                       "<td style='color:black'>"+ (e.pc1?e.pc1:'0') +"</td>"+
+                       "<td style='color:black'>"+ (e.pc2?e.pc2:'0') +"</td>"+
+                       "<td style='color:black'>"+ (e.pc3?e.pc3:'0') +"</td>"+
                     "</tr>"
                 )
             });
@@ -247,9 +246,9 @@ var Production_process = {
                         "<td style='color:black'>"+ (new Date(e.testDate).Format('yyyy-MM-dd'))  +"</td>"+
                         "<td style='color:black'>"+ e.batchNumber +"</td>"+
                         "<td style='color:black'>"+ e.furnaceNum +"</td>"+
-                        "<td style='color:black'>"+ e.pc1 +"</td>"+
-                        "<td style='color:black'>"+ e.pc2 +"</td>"+
-                        "<td style='color:black'>"+ e.pc3 +"</td>"+
+                        "<td style='color:black'>"+ (e.pc1?e.pc1:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc2?e.pc2:'0') +"</td>"+
+                        "<td style='color:black'>"+ (e.pc3?e.pc3:'0') +"</td>"+
                     "</tr>"
                 )
             });
@@ -282,13 +281,13 @@ var Production_process = {
                 "<tbody>" +
                 "<tr> <td>可溶锂 %</td> <td>理论含量&plusmn;0.08</td> <td>" + premix.lithiumSoluble + "</td> </tr>" +
                 "<tr> <td>主原料厂家</td> <td></td> <td>" + Production_process.funcs.getName(premix.supplier) + "</td> </tr>" +
-                "<tr> <td>配比</td> <td></td> <td>" + premix.pc1 + "</td> </tr>" +
-                "<tr> <td>锂的理论含量 %</td> <td></td> <td>" + premix.pc2 + "</td> </tr>" +
-                "<tr> <td>锂的理论下限 %</td> <td></td> <td>" + premix.pc3 + "</td> </tr>" +
-                "<tr> <td>锂的理论上限 %</td> <td></td> <td>" + premix.pc4 + "</td> </tr>" +
-                "<tr> <td>Me%</td> <td></td> <td>" + premix.pc5 + "</td> </tr>" +
-                "<tr> <td>L/M（实际）</td> <td></td> <td>" + premix.pc6 + "</td> </tr>" +
-                "<tr> <td>L/M（理论）</td> <td></td> <td>" + premix.pc7 + "</td> </tr>" +
+                "<tr> <td>配比</td> <td></td> <td>" + (premix.pc1?premix.pc1:'0') + "</td> </tr>" +
+                "<tr> <td>锂的理论含量 %</td> <td></td> <td>" + (premix.pc2?premix.pc2:'0') + "</td> </tr>" +
+                "<tr> <td>锂的理论下限 %</td> <td></td> <td>" + (premix.pc3?premix.pc3:'0') + "</td> </tr>" +
+                "<tr> <td>锂的理论上限 %</td> <td></td> <td>" + (premix.pc4?premix.pc4:'0') + "</td> </tr>" +
+                "<tr> <td>Me%</td> <td></td> <td>" + (premix.pc5?premix.pc5:'0') + "</td> </tr>" +
+                "<tr> <td>L/M（实际）</td> <td></td> <td>" + (premix.pc6?premix.pc6:'0') + "</td> </tr>" +
+                "<tr> <td>L/M（理论）</td> <td></td> <td>" + (premix.pc7?premix.pc7:'0') + "</td> </tr>" +
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
@@ -313,16 +312,16 @@ var Production_process = {
                 "<tr> <td colspan='2'>检测项目</td> <td>三级文件控制标准</td> <td>" + size.batchNumber + "</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td rowspan='9'>振筛粒度</td> <td>D0</td> <td rowspan='9'>12.5&plusmn;1.5</td> <td>" + size.pc1 + "</td> </tr>" +
-                "<tr> <td>D1</td> <td>" + size.pc2 + "</td> </tr>" +
-                "<tr> <td>D5</td> <td>" + size.pc3 + "</td> </tr>" +
-                "<tr> <td>D10</td> <td>" + size.pc4 + "</td> </tr>" +
-                "<tr> <td>D50</td> <td>" + size.pc5 + "</td> </tr>" +
-                "<tr> <td>D90</td> <td>" + size.pc6 + "</td> </tr>" +
-                "<tr> <td>D95</td> <td>" + size.pc7 + "</td> </tr>" +
-                "<tr> <td>D99</td> <td>" + size.pc8 + "</td> </tr>" +
-                "<tr> <td>D99.99</td> <td>" + size.pc9 + "</td> </tr>" +
-                "<tr> <td colspan='2'>宽度系数</td> <td>(D90-D10)/D50</td> <td>" + size.pc10 + "</td> </tr>" +
+                "<tr> <td rowspan='9'>振筛粒度</td> <td>D0</td> <td rowspan='9'>12.5&plusmn;1.5</td> <td>" + (size.pc1?size.pc1:'0') + "</td> </tr>" +
+                "<tr> <td>D1</td> <td>" + (size.pc2?size.pc2:'0') + "</td> </tr>" +
+                "<tr> <td>D5</td> <td>" + (size.pc3?size.pc3:'0') + "</td> </tr>" +
+                "<tr> <td>D10</td> <td>" + (size.pc4?size.pc4:'0') + "</td> </tr>" +
+                "<tr> <td>D50</td> <td>" + (size.pc5?size.pc5:'0') + "</td> </tr>" +
+                "<tr> <td>D90</td> <td>" + (size.pc6?size.pc6:'0') + "</td> </tr>" +
+                "<tr> <td>D95</td> <td>" + (size.pc7?size.pc7:'0') + "</td> </tr>" +
+                "<tr> <td>D99</td> <td>" + (size.pc8?size.pc8:'0') + "</td> </tr>" +
+                "<tr> <td>D99.99</td> <td>" + (size.pc9?size.pc9:'0') + "</td> </tr>" +
+                "<tr> <td colspan='2'>宽度系数</td> <td>(D90-D10)/D50</td> <td>" + (size.pc10?size.pc10:'0') + "</td> </tr>" +
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
@@ -347,9 +346,9 @@ var Production_process = {
                 "<tr> <td>检测项目</td> <td>三级文件控制标准</td> <td>" + lithium.batchNumber + "</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td>Li2CO3</td> <td></td> <td>" + lithium.pc1 + "</td> </tr>" +
-                "<tr> <td>LiOH</td> <td></td> <td>" + lithium.pc2 + "</td> </tr>" +
-                "<tr> <td>总Li含量</td> <td></td> <td>" + lithium.pc3 + "</td> </tr>" +
+                "<tr> <td>Li2CO3</td> <td></td> <td>" + (lithium.pc1?lithium.pc1:'0') + "</td> </tr>" +
+                "<tr> <td>LiOH</td> <td></td> <td>" + (lithium.pc2?lithium.pc2:'0') + "</td> </tr>" +
+                "<tr> <td>总Li含量</td> <td></td> <td>" + (lithium.pc3?lithium.pc3:'0')+ "</td> </tr>" +
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
@@ -374,9 +373,9 @@ var Production_process = {
                 "<tr> <td>检测项目</td> <td>三级文件控制标准</td> <td>" + buckle.batchNumber + "</td> </tr>" +
                 "</thead>" +
                 "<tbody>" +
-                "<tr> <td>SSA</td> <td>0.30&plusmn;0.08</td> <td>" + buckle.pc1 + "</td> </tr>" +
-                "<tr> <td>扣电</td> <td>&ge;177.5</td> <td>" + buckle.pc2 + "</td> </tr>" +
-                "<tr> <td>XRD<br>FWHM(104)</td> <td></td> <td>" + buckle.pc3 + "</td> </tr>" +
+                "<tr> <td>SSA</td> <td>0.30&plusmn;0.08</td> <td>" + (buckle.pc1?buckle.pc1:'0') + "</td> </tr>" +
+                "<tr> <td>扣电</td> <td>&ge;177.5</td> <td>" + (buckle.pc2?buckle.pc2:'0') + "</td> </tr>" +
+                "<tr> <td>XRD<br>FWHM(104)</td> <td></td> <td>" + (buckle.pc3?buckle.pc3:'0') + "</td> </tr>" +
                 "</tbody>" +
                 "</table>" +
                 "</div>" +
@@ -548,7 +547,7 @@ var Production_process = {
          * @returns {string}
          */
         getIcon: function (status, code) {
-            if (status == 1) {
+            if (status == 2) {
                 return "<a href=\"#\" class='audit' id='audit-" + code + "'><i class=\"layui-icon\">&#xe6b2;";
             }
             else {
@@ -591,8 +590,8 @@ var Production_process = {
                             //console.log("提交发布" + code);
                             $.post(Production_process.funcs.chooseUrlAudit(), {
                                 code: code,
-                                auditorCode: home.user.code,     // 此处需要读取用户编号
-                                statusCode: 2
+                                publisherCode: home.user.code,     // 此处需要读取用户编号
+                                statusCode: 3
                             }, function (result) {
                                 if (result.code == 0) {
                                     // 成功

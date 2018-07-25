@@ -1,10 +1,15 @@
 var pro_out_manage = {
     pageSize: null,
+    conpany:[],
     init: function () {
 
         /** 渲染下拉菜单 */
         pro_out_manage.funcs.renderTable()
         pro_out_manage.funcs.bindCreatoption()
+
+        $.get(servers.backup()+'supplier/getAll',{},function(result){
+            pro_out_manage.company = result.data
+        })
     
         //将分页居中
         var out = $('#product_out_page').width()
@@ -323,12 +328,10 @@ var pro_out_manage = {
             $("#add_company").empty()
             $('#add_total_amount').text('0')
             $("#add_select_rawType").html("<option value='-1'>请选择公司类型</option>")
-            $.get(servers.backup()+'company/getAll',{},function(result){
-                var res = result.data
-                res.forEach(function(e){
-                    $("#add_company").append('<option value='+e.code+'>'+e.name+'</option>')
-                })
-            })
+           
+            pro_out_manage.company.forEach(function(e){
+                $("#add_company").append('<option value='+e.code+'>'+e.name+'</option>')
+            })    
             $.post(home.urls.lingLiao.getRawTypeByMaterialCode(), {
                 materialCode:2
             }, function (result){
@@ -839,17 +842,14 @@ var pro_out_manage = {
             $("#editor_company").empty()
             if(items.company!=null){
                 $("#editor_company").append("<option value="+items.company.code+">"+items.company.name+"</option>")
-                $.get(servers.backup()+'company/getAll',{},function(result){
-                    company = result.data
-                    company.forEach(function(e){
-                        if(items.company.code!=e.code){
-                            $("#editor_company").append("<option value="+e.code+">"+e.name+"</option>")
-                        }
-                    })
+                pro_out_manage.company.forEach(function(e){
+                    if(items.company.code!=e.code){
+                        $("#editor_company").append("<option value="+e.code+">"+e.name+"</option>")
+                    }
                 })
             }
             else{
-                company.forEach(function(e){
+                pro_out_manage.company.forEach(function(e){
                     $("#editor_company").append("<option value="+e.code+">"+e.name+"</option>")
                 })
             }
@@ -1020,7 +1020,7 @@ var pro_out_manage = {
                 },function(result){
                     var items = result.data.content
                     page = result.data
-                    console.log(items)
+                    //console.log(items)
                     const $tbody = $("#edit_add_modal_table").children('tbody')
                     pro_out_manage.funcs.edit_add_renderHandler($tbody,items)
                     layui.laypage.render({
@@ -1048,14 +1048,20 @@ var pro_out_manage = {
         ,edit_add_renderHandler:function($tbody,items){
             $tbody.empty() //清空表格
             if(items!=null){
+                var judgeCode
                 items.forEach(function(e){
+                    if(e.judgeCode===1){
+                        judgeCode = '已入库'
+                    }else{
+                        judgeCode = '未入库'
+                    }
                     $tbody.append(
                         "<tr>" +
                         "<td><input type='checkbox' class='edit_add_checkbox' value='" + (e.batchNumber) + "'></td>" +
                         "<td>" + (e.batchNumber ? e.batchNumber : '') + "</td>" +
                         "<td>" + (e.currentAvailableMaterials ? e.currentAvailableMaterials : '0') + "</td>" +
                         "<td>" + (e.materialsUnit?e.materialsUnit:'kg') + "</td>" +
-                        "<td>" + (e.judgeCode ? e.judgeCode : '') + "</td>" +
+                        "<td>" + (judgeCode ) + "</td>" +
                         "<td><a href=\"#\" class='edit_add_search_detail' id='detail-" + (e.batchNumber) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
                         "</tr>"
                     )

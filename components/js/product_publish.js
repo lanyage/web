@@ -101,14 +101,38 @@ var product_publish = {
                     yes: function () {
                         $.post(home.urls.productPublish.productPublish(), {
                             code: product_publish.currId.substr(16),
-                            publisherCode: home.user.code
-                        }, function (res) {
-                            layer.msg(res.message, {
-                                offset: ['40%', '40%'],
-                                time: 700
-                            })
+                            publisherCode: home.user.code,
+                            statusCode: 3
+                        }, function (result) {
+                            if (result.code == 0) {
+                                layer.open({
+                                    type: 1,
+                                    content: "<div class='align_middle'>" + "发布成功" + "</div>",
+                                    area: ['280px', '180px'],
+                                    btn: ['关闭'],
+                                    offset: 'auto', 
+                                    btnAlign: 'c',
+                                    yes: function () {
+                                        layer.closeAll();
+                                        product_publish.funcs.renderTable(product_publish.status)
+                                    }
+                                });
+                            } else {
+                                layer.open({
+                                    type: 1,
+                                    content: "<div class='align_middle'>" + "失败<br>" + result.message + "</div>",
+                                    area: ['280px', '180px'],
+                                    btn: ['关闭'],
+                                    offset: 'auto', // ['43%', '49%'],
+                                    btnAlign: 'c',
+                                    yes: function () {
+                                        layer.closeAll();
+                                        product_publish.funcs.renderTable(product_publish.status)
+                                    }
+                                });
+                            }
                         })
-                        layer.close(index);
+                        
                     },
                     btn2: function (index) {
                         layer.close(index)
