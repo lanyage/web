@@ -11,8 +11,8 @@ var mat_in_manage = {
             $.post(home.urls.materialIn.getAllByPage(), {}, function (res) {
                 var $tbody = $("#material_in_table").children('tbody')
                 var items = res.data.content
-
-                mat_in_manage.funcs.renderHandler($tbody, items)
+        
+                mat_in_manage.funcs.renderHandler($tbody, items,0)
                 /** 渲染表格结束之后 */
                 mat_in_manage.pageSize = res.data.content.length //该页的记录数
                 var page = res.data //分页json
@@ -28,8 +28,9 @@ var mat_in_manage = {
                                 size: obj.limit
                             }, function (result) {
                                 var items = result.data.content //获取数据
+                                var page = obj.curr - 1
                                 const $tbody = $("#material_in_table").children('tbody')
-                                mat_in_manage.funcs.renderHandler($tbody, items)
+                                mat_in_manage.funcs.renderHandler($tbody, items,page)
                                 mat_in_manage.pageSize = result.data.content.length
                             })
                         }
@@ -46,13 +47,14 @@ var mat_in_manage = {
             mat_in_manage.funcs.bindSearchEventListener(searchBtn);
 
         }
-        , renderHandler: function ($tbody, items) {
+        , renderHandler: function ($tbody, items,page) {
             $tbody.empty() //清空表格
+            var i = 1 + page * 10
             items.forEach(function (e) {
                 // $('#dep_checkAll').prop('checked', false)
                 var content = (
                     "<tr>" +
-                    "<td>" + (e.code) + "</td>" +
+                    "<td>" + (i++) + "</td>" +
                     "<td>" + (e.batchNumber) + "</td>" +
                     "<td>" + (e.supplier ? e.supplier.name : null) + "</td>" +
                     "<td>" + (e.date) + "</td>" +
@@ -113,18 +115,19 @@ var mat_in_manage = {
         , fillData: function (table, items) {
             $("#batchNumber").text(items.batchNumber)
             $("#name").text(items.name)
-            $("#productor").text(!items.supplier ? null : items.supplier.name)
-            $("#number").text(!items.number ? '无' : items.number)
+            $("#productor").text(!items.supplier ? '无' : items.supplier.name)
+            $("#number").text(!items.weight ? '无' : items.weight)
             $("#date").text(items.date)
             $("#creatUser").text(items.createUser ? items.createUser.name : '无')
             $("#creatTime").text(new Date().Format("yyyy-MM-dd hh:mm:ss"))
             var godownEntries = items.godownEntries
             var $tbody = $('#down_table').children('tbody')
             $tbody.empty() //清空表格
+            var i = 1
             godownEntries.forEach(function (ele) {
                 $tbody.append(
                     "<tr>" +
-                    " <td>" + (ele.code) + "</td>" +
+                    " <td>" + (i++) + "</td>" +
                     "<td>" + (ele.batchNumber) + "</td>" +
                     "<td>" + (!ele.unit ? 'kg' : ele.unit) + "</td>" +
                     "<td>" + (!ele.weight ? 0 : ele.weight) + "</td>"
@@ -228,7 +231,7 @@ var mat_in_manage = {
                     page = result.data
                     var code = $('#model-li-select-48').val()
                     const $tbody = $("#material_in_table").children('tbody')
-                    mat_in_manage.funcs.renderHandler($tbody, items)
+                    mat_in_manage.funcs.renderHandler($tbody, items,0)
                     layui.laypage.render({
                         elem: 'material_in_page'
                         , count: 10 * page.totalPages//数据总数
@@ -242,7 +245,8 @@ var mat_in_manage = {
                                     var items = result.data.content //获取数据
                                     // var code = $('#model-li-select-48').val()
                                     const $tbody = $("#material_in_table").children('tbody')
-                                    mat_in_manage.funcs.renderHandler($tbody, items)
+                                    var page = obj.curr - 1
+                                    mat_in_manage.funcs.renderHandler($tbody, items,page)
                                     mat_in_manage.pageSize = result.data.content.length
                                 })
                             }
