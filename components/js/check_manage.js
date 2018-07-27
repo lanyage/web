@@ -122,6 +122,14 @@ var check_manage = {
                         var leader3code = $('#chp_leader3code').val()
                         var leader4code = $('#chp_leader4code').val()
                         var leader5code = $('#chp_leader5code').val()
+                        if(processcode==="-1"){
+                            alert('请选择流程类型！')
+                            return
+                        }
+                        if(leader1code==="-1"){
+                            alert('请选择负责人1！')
+                            return
+                        }
                         // console.log('leader1code', leader1code)
                         // console.log('leader2code', leader2code)
                         // console.log('leader3code', leader3code)
