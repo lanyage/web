@@ -136,7 +136,7 @@
         var userStr = $.session.get('user')
         if (!userStr) {
             //console.log('用户已经失去登录，请重新登录')
-            alert('用户已经失去登录，请重新登录')
+            //alert('用户已经失去登录，请重新登录')
             document.location = '../login.html';
         }
         var userJson = JSON.parse(userStr)

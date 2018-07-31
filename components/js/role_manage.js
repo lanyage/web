@@ -309,19 +309,14 @@ var role_manage = {
         /** 编辑权限 */
         , bindEditLimitListener: function (limitBtns) {
             limitBtns.off('click').on('click', function () {
-                var $innerTable = $('#right_body_table')
-                $innerTable.empty().hide()
+                var $innerTable = $('#right_head_table')
+                var $innerTable1 = $('#right_body_table').children('tbody')
+                $innerTable1.empty().hide()
                 /** 获取当前角色的code */
                 var _selfBtn = $(this)
                 var roleCode = _selfBtn.attr('id').substr(6)
                 /** 添加表头 */
-                $innerTable.append(
-                    "<tr style='background:#f8f8f8'>" +
-                    "<td style='text-align: center;max-width: 20%'>导航名称</td>" +
-                    "<td style='text-align: center;max-width: 5%'>选择</td>" +
-                    "<td style='text-align: center'>操作</td>" +
-                    "</tr>"
-                )
+                
                 home.menu3s.sort(function (a, b) {
                     return a.code - b.code
                 })
@@ -380,15 +375,15 @@ var role_manage = {
                         menu2s.forEach(function (menu2) {
                             var menu1 = menu2.menu1;
                             var menu1Code = menu2.menu1.code
-                            var menu1Row = $innerTable.children('#modal-menu1-' + menu1Code)[0]     //看是存在一级菜单这一行
+                            var menu1Row = $innerTable1.children('#modal-menu1-' + menu1Code)[0]     //看是存在一级菜单这一行
                             console.log('menu1Row= ',menu1Row,'menu2',menu2.name)
                             if (!menu1Row) {
                                 //添加一级菜单
-                                $innerTable.append(
-                                    "<tr id='modal-menu1-" + (menu1Code) + "'+><td>" +
+                                $innerTable1.append(
+                                    "<tr id='modal-menu1-" + (menu1Code) + "'+ ><td>" +
                                     "<i class='layui-icon' style='color:rgb(134,134,134)'>&#xe7a0;</i>" +
                                     "<span>" + (menu1.name) + "</span>" +
-                                    "</td><td></td><td></td></tr>"
+                                    "</td><td style='min-width: 23px;'></td><td></td></tr>"
                                 )
                                 //一级菜单后面添加二级菜单
                                 $("#modal-menu1-" + (menu1Code)).after(
@@ -471,6 +466,7 @@ var role_manage = {
                                 })
                                 var time = setTimeout(function() {
                                     $innerTable.show(0)
+                                    $innerTable1.show(0)
                                     clearTimeout(time)
                                 },1000)
                                 /////////////////////////////////
@@ -499,7 +495,7 @@ var role_manage = {
                     layer.open({
                         type: 1,
                         content: $('#right_body'),
-                        area: ['700px', '650px'],
+                        area: ['700px', '658px'],
                         btn: ['确认', '取消'],
                         offset: "auto",
                         closeBtn: 0,

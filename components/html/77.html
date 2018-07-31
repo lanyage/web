@@ -6,6 +6,9 @@
             background-color: white;
             margin-top: 30px;
             width: 100%;
+        }
+        #role_body{
+            width: 100%;
             min-height: 250px;
             overflow-y: auto;
             max-height: 500px;
@@ -16,6 +19,15 @@
             border: 1px solid rgb(134, 134, 134);
             width: 90%;
             height: 500px;
+            border-collapse: collapse;
+        }
+        #right_body_table tbody tr:first-child td{
+            border-bottom:none;
+            }
+        #right_head_table{
+            margin-left:35px;
+            border: 1px solid rgb(134, 134, 134);
+            width: 88%;
             border-collapse: collapse;
         }
 
@@ -77,8 +89,22 @@
     </div>
 
     <div id="right_body" style="display: none;">
-        <table id="right_body_table">
+        <table id="right_head_table">
+            <thead>
+                <tr style='background:#f8f8f8' style="margin-left:15px;">
+                    <td style='text-align: center;width:38.5%' class="normal_td">子模块名称</td>
+                    <td style='text-align: center;width: 6.6%' class="normal_td">选择</td>
+                    <td style='text-align: center;width: 61%' class="normal_td">操作</td>
+                </tr>
+          </thead>
         </table>
+        <div id="role_body">
+            <table id="right_body_table">
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="../components/js/role_manage.js"></script>

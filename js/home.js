@@ -2605,6 +2605,7 @@ var home = {
             personal_center.off('click').on('click',function(){
                 var userStr = $.session.get('user')
                 var userJson = JSON.parse(userStr)
+                console.log(userJson)
                layer.open({
                     type:1,
                     title:'修改初始密码',

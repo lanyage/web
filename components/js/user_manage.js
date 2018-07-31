@@ -165,17 +165,17 @@ var user_manage = {
                     btn: ['确认', '取消'],
                     offset: ['40%', '55%'],
                     yes: function (index) {
-                        console.log('yes')
+                        //console.log('yes')
                         var userCode = _this.attr('id').substr(3)
                         $.post(home.urls.user.deleteByCode(), { code: userCode }, function (result) {
-                            console.log(result.message)
+                            //console.log(result.message)
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
                                 time: 700
                             })
                             if (result.code === 0) {
                                 var time = setTimeout(function () {
-                                    console.log()
+                                    //console.log()
                                     user_manage.funcs.department_Set()
                                     clearTimeout(time)
                                 }, 500)
@@ -194,7 +194,7 @@ var user_manage = {
         , bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click')
             searchBtn.on('click', function () {
-                console.log('search')
+                //console.log('search')
                 var user_name = $('#user_name_input').val()
                 $.post(home.urls.user.getAllByLikeNameByPage(), { name: user_name }, function (result) {
                     var page = result.data
@@ -216,7 +216,7 @@ var user_manage = {
                                 user_manage.pageSize = result.data.content.length
                             })
                             if (!first) {
-                                console.log('not first')
+                                //console.log('not first')
                             }
                         }
                     })
@@ -235,6 +235,7 @@ var user_manage = {
                         time: 700
                     })
                     user_manage.funcs.department_Set()
+                    $("#user_name_input").val('')
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -768,8 +769,8 @@ var user_manage = {
                         }
                     })
                     $('#ic_checkbox').prop('checked') ? (function () { $('#ic_num').attr('disabled', false) })() : (function () {
-                        console.log('因为checked为false,所以将其设置为黑色')
-                        console.log($('#ic_num').attr('disabled'))
+                        //console.log('因为checked为false,所以将其设置为黑色')
+                        //console.log($('#ic_num').attr('disabled'))
                         $('#ic_num').attr('disabled', true)
                     })()
 
