@@ -35,7 +35,7 @@
             <img class="theicon" src="./dist/images/login/pass.png"/>
         </div>
         <div class="tip2">
-            <span>忘记密码？</span>
+            <abbr title="请联系管理员重置密码">忘记密码？</abbr>
         </div>
         <input id="register1" class="button" type="submit" value="登录"/>
     </div>
@@ -50,7 +50,7 @@
             <img class="theicon" src="./dist/images/login/pass.png"/>
         </div>
         <div class="tip2">
-            <span>忘记密码？</span>
+            <abbr title="请联系管理员重置密码">忘记密码？</abbr>
         </div>
         <input id="register2" class="button" type="submit" value="登录"/>
     </div>
@@ -60,13 +60,13 @@
 <script type="text/javascript" src="js/jquerysession.js"></script>
 <script src="./js/servers.js"></script>
 
-<script type="text/javascript">
+<script type="text/javascript">   
     $(function () {
         /** 登录组件的一些逻辑 */
         $('#staff').addClass('selected');
         $('#client_login').hide();
         $('#staff_login').show();
-
+        
         $('#staff').click(function () {
             $('#client').removeClass('selected');
             $('#staff').addClass('selected');
@@ -80,8 +80,18 @@
             $('#staff_login').hide();
             $('#client_login').show();
         })
-
-        $("#register1").on('click', function () {
+        /*用来实现enter回车键实现登录*/
+        $(document).keyup(function(event){
+            if(event.keyCode ==13){
+                //判断一个元素的当前状态是隐藏或者显示  
+                if(($("#staff_login").is(':visible')) && ($("#client_login").is(":hidden"))){
+                    $("#register1").trigger('click')
+                    }else{
+                        $("#register2").trigger('click')
+                    }
+                }
+              });
+        $("#register1").click(function () {
             var username = $("#code").val()
             var password = $("#password").val()
             $.post(servers.backup() + "user/login", {code: username, password: password}, function (result) {
@@ -91,12 +101,13 @@
                     $.session.set('user', JSON.stringify(result.data));
                     document.location = './jsp/home.html';
                 }else{
+                    //console.log("用户错误")
                     alert("账号或密码错误！")
                 }
             })
         })
         
-        $("#register2").on('click', function () {
+        $("#register2").click(function () {
             var username = $("#code2").val()
             var password = $("#password2").val()
             $.post(servers.backup() + "customer/login", {code: username, password: password}, function (result) {
@@ -105,11 +116,11 @@
                     $.session.set('user', JSON.stringify(result.data));
                     document.location = './jsp/home.html';
                 }else{
+                    //console.log("客户错误")
                     alert("账号或密码错误！")
                 }
             })
         })
-
         /** 获取所有的权限 */
         $.get(servers.backup() + 'modelOperation/getAll', {}, function (result) {
             var modelOperations = result.data
