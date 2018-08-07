@@ -136,7 +136,7 @@ var fenshiduibi = {
                 ]
             }
             $('.canvas-container').empty();
-            $('.canvas-container').append("<canvas id='myChart' style='width: 100%;height: 64%;min-width: 800px;min-height: 500px;'></canvas>")
+            $('.canvas-container').append("<canvas id='myChart' style='width: 100%;height: 50%;min-width: 800px;min-height: 350px;'></canvas>")
             var ctx = document.getElementById("myChart").getContext("2d");
             var myChart = new Chart(ctx, {
                 type: 'line',

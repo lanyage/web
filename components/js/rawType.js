@@ -52,9 +52,9 @@ var rawType = {
                 "<td>" + (e.code) + "</td>" +
                 "<td>" + (e.name) + "</td>" +
                 "<td>" + (e.material ? e.material.name : '') + "</td>" +
-                "<td>" + (e.dataTableName) + "</td>" +
-                "<td>" + (e.stockUpper) + "</td>" +
-                "<td>" + (e.stockBottom) + "</td>" +
+                "<td>" + (e.dataTableName?e.dataTableName:'') + "</td>" +
+                "<td>" + (e.stockUpper?e.stockUpper:'') + "</td>" +
+                "<td>" + (e.stockBottom?e.stockBottom:'') + "</td>" +
                 "<td><a href='#' class='edit' id='edit-" + (e.code) + "'><i class='layui-icon'>&#xe642;</i></a></td>" +
                 "<td><a href='#' class='delete' id='de-" + (e.code) + "'><i class='layui-icon'>&#xe640;</i></a></td>" +
                 "</tr>")
@@ -157,7 +157,7 @@ var rawType = {
                         time: 700
                     })
                     rawType.init()
-                    $("#rawtype_name_input").empty()
+                    $("#rawtype_name_input").val('')
                     layer.close(index)
                     clearTimeout(time)
                 }, 200)
@@ -167,7 +167,6 @@ var rawType = {
 
         bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click').on('click', function () {
-                console.log('search')
                 var rawtype_name = $('#rawtype_name_input').val()
                 $.post(home.urls.rawType.getAllByLikeNameByPage(), {name: rawtype_name}, function (result) {
                     var page = result.data
@@ -175,7 +174,7 @@ var rawType = {
                     const $tbody = $("#rawType_table").children('tbody')
                     rawType.funcs.renderHandler($tbody, rawTypes)
                     layui.laypage.render({
-                        elem: 'department_page'
+                        elem: 'rawType_page'
                         , count: 10 * page.totalPages
                         , jump: function (obj, first) {
                             if (!first) {
@@ -185,7 +184,7 @@ var rawType = {
                                     size: obj.limit
                                 }, function (result) {
                                     var rawTypes = result.data.content
-                                    const $tbody = $("#department_table").children('tbody')
+                                    const $tbody = $("#rawType_table").children('tbody')
                                     rawType.funcs.renderHandler($tbody, rawTypes)
                                     rawType.pageSize = result.data.content.length
                                 })

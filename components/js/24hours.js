@@ -114,7 +114,7 @@ var _24hours = {
                 }
             }
             $('.canvas-container').empty();
-            $('.canvas-container').append("<canvas id='myChart' style='width: 100%;height: 74%;min-width: 800px;min-height: 500px;'></canvas>")
+            $('.canvas-container').append("<canvas id='myChart' style='width: 100%;height: 60%;min-width: 800px;min-height: 400px;'></canvas>")
             var ctx = document.getElementById("myChart").getContext("2d");
             var width = $("#myChart").width()
             var height = $("#myChart").height()

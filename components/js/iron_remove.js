@@ -246,10 +246,10 @@ var iron_remove = {
             //console.log(iron_remove.data3)
         }
         , createChart: function (labels, data, data1, data2, data3) {
-            console.log(data);
-            console.log(iron_remove.data1);
-            console.log(iron_remove.data2);
-            console.log(iron_remove.data3);
+            //console.log(data);
+            //console.log(iron_remove.data1);
+            //console.log(iron_remove.data2);
+            //console.log(iron_remove.data3);
             var data = {
                 //折线图需要为每个数据点设置一标签。这是显示在X轴上。
                 /** 横坐标 */
@@ -340,10 +340,10 @@ var iron_remove = {
                 }
             }
             $('.canvas-container').empty();
-            $('.canvas-container').append("<canvas id='myChart' style='width: 100%;height: 74%;min-width: 800px;min-height: 500px;'></canvas>")
-            var ctx = document.getElementById("myChart").getContext("2d");
-            var width = $("#myChart").width()
-            var height = $("#myChart").height()
+            $('.canvas-container').append("<canvas id='myChart1' style='width: 100%;height: 60%;min-width: 800px;min-height: 400px;'></canvas>")
+            var ctx = document.getElementById("myChart1").getContext("2d");
+            var width = $("#myChart1").width()
+            var height = $("#myChart1").height()
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: data
