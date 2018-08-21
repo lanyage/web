@@ -8,7 +8,7 @@ var pro_out_manage = {
         pro_out_manage.funcs.bindCreatoption()
 
         $.get(servers.backup()+'supplier/getAll',{},function(result){
-            pro_out_manage.company = result.data
+            pro_out_manage.supplier = result.data
         })
     
         //将分页居中
@@ -141,7 +141,7 @@ var pro_out_manage = {
                     "<td>" + (length++) + "</td>" +
                     "<td>" + (e.rawType ? e.rawType.name : '') + "</td>" +
                     "<td>" + (new Date(e.applyTime).Format('yyyy-MM-dd')) + "</td>" +
-                    "<td>" + (e.company ? e.company.name : '') + "</td>" +
+                    "<td>" + (e.supplier ? e.supplier.name : '') + "</td>" +
                     "<td>" + auditStatus + "</td>" +
                     "<td><a href=\"#\" class='verify' id='verify-" + (code) + "'><i class=\"layui-icon\">&#xe6b2;</i></a></td>" +
                     "<td><a href=\"#\" class='detail' id='detail-" + (code) + "'><i class=\"layui-icon\">&#xe60a;</i></a></td>" +
@@ -225,11 +225,11 @@ var pro_out_manage = {
                             applicant:{code : userJson.code},
                             applyTime:time,
                             weight : total_amount,
-                            company:{code:$("#add_company").val()},
+                            supplier:{code:$("#add_supplier").val()},
                             productSends : []
                         }
                         data.productSends = productSends
-                        
+                        console.log(data)
                         $.ajax({
                             url:home.urls.productOut.add(),
                             contentType:'application/json',
@@ -266,6 +266,7 @@ var pro_out_manage = {
                             weight : e.eq(4).text(),
                         })
                     })  
+                        
                         var time = new Date($("#add_applyTime").text()).getTime()
                         var nowTime = new Date().Format("yyyy-MM-dd")
                         var transportMode = $('#add_transportWays').val()
@@ -283,10 +284,11 @@ var pro_out_manage = {
                             applicant:{code : userJson.code},
                             applyTime:time,
                             weight : total_amount,
-                            company:{code:$("#add_company").val()},
+                            supplier:{code:$("#add_company").val()},
                             productSends : []
                         }
                         data.productSends = productSends
+                        console.log(data)
                         
                         $.ajax({
                             url:home.urls.productOut.add(),
@@ -329,7 +331,7 @@ var pro_out_manage = {
             $('#add_total_amount').text('0')
             $("#add_select_rawType").html("<option value='-1'>请选择公司类型</option>")
            
-            pro_out_manage.company.forEach(function(e){
+            pro_out_manage.supplier.forEach(function(e){
                 $("#add_company").append('<option value='+e.code+'>'+e.name+'</option>')
             })    
             $.post(home.urls.lingLiao.getRawTypeByMaterialCode(), {
@@ -439,7 +441,7 @@ var pro_out_manage = {
                     title: '审核',
                     content: $("#verify_modal"),
                     area: ['800px', '400px'],
-                    btn: ['通过', '不通过'],
+                    btn: ['通过', '不通过','返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
@@ -472,7 +474,7 @@ var pro_out_manage = {
                         $("#verify_modal").css('display', 'none')
                         layer.close(index)
                     }
-                    , btn2: function (index) {
+                    ,btn2: function (index) {
                         var userStr = $.session.get('user')
                         var userJson = JSON.parse(userStr)
 
@@ -499,6 +501,10 @@ var pro_out_manage = {
                         $("#verify_modal").css('display', 'none')
                         layer.close(index)
                     }
+                    ,btn3 : function(index) {
+                        $("#verify_modal").css('display', 'none')
+                        layer.close(index)
+                    }
                 });
             })
             })
@@ -521,7 +527,7 @@ var pro_out_manage = {
 
             $("#code1").text(items.code)
             $("#rawType1").text(items.rawType?items.rawType.name:' ')
-            $("#verify_company").text(items.company?items.company.name:' ')
+            $("#verify_company").text(items.supplier?items.supplier.name:' ')
             $("#weight1").text(total_amount)
             $("#sender1").text(items.sender?items.sender.name:' ')
             $("#applicant1").text(items.applicant?items.applicant.name:' ')
@@ -595,7 +601,7 @@ var pro_out_manage = {
 
             $("#code").text(items.code)
             $("#rawType").text(items.rawType?items.rawType.name:' ')
-            $("#detail_company").text(items.company?items.company.name:' ')
+            $("#detail_company").text(items.supplier?items.supplier.name:' ')
             $("#weight").text(total_amount)
             $("#sender").text(items.sender?items.sender.name:' ')
             $("#applicant").text(items.applicant?items.applicant.name:' ')
@@ -665,7 +671,7 @@ var pro_out_manage = {
                             rawType : {code : $('#editor_select_rawType').val()},
                             transportMode : $('#transportWays').val(),
                             createDate: items.createDate,
-                            company : {code : items.company?items.company.code:''},
+                            supplier : {code : items.supplier?items.supplier.code:''},
                             processManage :{code : $('#editor_select_processCode').val()},
                             auditStatus : 0,
                             outStatus: 0,
@@ -677,6 +683,7 @@ var pro_out_manage = {
                             productSends : []
                         }
                         data.productSends = productSends
+                        console.log(data)
                         $.ajax({
                             url:home.urls.productOut.update(),
                             contentType:'application/json',
@@ -705,7 +712,7 @@ var pro_out_manage = {
                         var productSends = [];
                         $('.delete_checkbox').each(function() {
                             var e = $(this).parent('td').parent('tr').children('td')
-                            total_amount += e.eq(4).text()
+                            total_amount += parseFloat(e.eq(4).text()) 
                             productSends.push({
                             //productSendHeader:{code:codeNumber},
                             batchNumber : e.eq(2).text(),
@@ -721,7 +728,7 @@ var pro_out_manage = {
                             rawType : {code : $('#editor_select_rawType').val()},
                             transportMode : $('#transportWays').val(),
                             createDate: items.createDate,
-                            company : {code : items.company.code},
+                            supplier : {code : items.supplier.code},
                             processManage :{code : $('#editor_select_processCode').val()},
                             auditStatus : 1,
                             outStatus: 1,
@@ -733,6 +740,7 @@ var pro_out_manage = {
                             productSends : []
                         }
                         data.productSends = productSends
+                        console.log(data)
                         $.ajax({
                             url:home.urls.productOut.update(),
                             contentType:'application/json',
@@ -828,16 +836,16 @@ var pro_out_manage = {
 
         ,fill_edit_data:function(div,items){
             $("#editor_company").empty()
-            if(items.company!=null){
-                $("#editor_company").append("<option value="+items.company.code+">"+items.company.name+"</option>")
-                pro_out_manage.company.forEach(function(e){
-                    if(items.company.code!=e.code){
+            if(items.supplier!=null){
+                $("#editor_company").append("<option value="+items.supplier.code+">"+items.supplier.name+"</option>")
+                pro_out_manage.supplier.forEach(function(e){
+                    if(items.supplier.code!=e.code){
                         $("#editor_company").append("<option value="+e.code+">"+e.name+"</option>")
                     }
                 })
             }
             else{
-                pro_out_manage.company.forEach(function(e){
+                pro_out_manage.supplier.forEach(function(e){
                     $("#editor_company").append("<option value="+e.code+">"+e.name+"</option>")
                 })
             }
@@ -857,7 +865,7 @@ var pro_out_manage = {
                     "</tr>"
             );
             })
-
+            $("#transportWays").val(items.transportMode?items.transportMode:'' )
             $("#out_code").text(items.code?items.code:' ')
             $("#apply_time").text(items.applyTime?new Date(items.applyTime).Format('yyyy-MM-dd'):' ')
             $("#in_time").text(items.sendTime?new Date(items.sendTime).Format('yyyy-MM-dd'):' ')
@@ -1207,7 +1215,7 @@ var pro_out_manage = {
         ,bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click')
             refreshBtn.on('click', function () {
-                $('#transportWays').val('');
+                //$('#transportWays').val('');
                 var index = layer.load(2, {offset: ['40%', '58%']});
                 var time = setTimeout(function () {
                     layer.msg('刷新成功', {
