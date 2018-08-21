@@ -225,7 +225,7 @@ var pro_out_manage = {
                             applicant:{code : userJson.code},
                             applyTime:time,
                             weight : total_amount,
-                            supplier:{code:$("#add_supplier").val()},
+                            supplier:{code:$("#add_company").val()},
                             productSends : []
                         }
                         data.productSends = productSends
