@@ -258,8 +258,8 @@ var iron_remove = {
                     {
                         label: "副产品比例曲线",
                         fill: false,
-                        // steppedLine : false,
-                        // lineTension: 0.1,
+                        steppedLine : false,
+                        lineTension: 0.1,
                         backgroundColor: "rgba(54, 162, 235,0.8)",
                         borderColor: "rgba(54, 162, 235,1)",
                         // borderCapStyle: 'butt',
@@ -306,6 +306,11 @@ var iron_remove = {
                 ],
                 options: {
                     responsive: true,
+                    lineTension: 0,
+                    cubicInterpolationMode :'monotone',
+                    steppedLine: 'false',
+                    bezierCurve : false,
+                    datasetStrokeWidth : 0.3,
                     title: {
                         display: true,
                         text: 'Chart.js Line Chart'
