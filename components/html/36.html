@@ -2,15 +2,26 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <style>
+            #table {
+                width: 100%;
+                overflow-x: scroll;
+                height: 78%;
+            }
            #iron_remove_table, #iron_remove_table1 {
-               width: 100%;
-               margin:0 auto;
+               width: 120%;
+               font-size: 1px;
            }
            #iron_remove_table td{
-               width: 30px;
+               min-width: 55px;
+               max-width: 60px;
+               height:35px;
+               padding: 0;
            }
            #iron_remove_table1 td{
-               width: 30px;
+               min-width: 55px;
+               max-width: 60px;
+               height:35px;
+               padding: 0px;
            }
           
            #add_modal input{
@@ -26,12 +37,7 @@
                 <p style="color: #62a49a; font-size: 14px;">
                     <select id="byproductCount">
                     </select>&nbsp;&nbsp;
-                    <select id="input_year">
-                        
-                    </select>&nbsp;&nbsp;
-                    <select id="input_month">
-                        
-                    </select>&nbsp;&nbsp;
+                    <span style="color: black;">选择时间：</span><input type="text" id="input_year" placeholder="请选择时间"/>&nbsp;&nbsp;
                     <span id="model_li_hide_search_36"><a href="#"><i class="layui-icon">&#xe615;</i>搜索</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <span id="model_li_hide_picture_36"><a href="#"><i class="fa fa-line-chart" aria-hidden="true"></i>曲线显示</a></span>&nbsp;&nbsp;&nbsp;
                     <span id="model_li_hide_table_36"><a href="#"><i class="fa fa-table" aria-hidden="true"></i> 表格显示</a></span>&nbsp;&nbsp;&nbsp;
@@ -49,10 +55,10 @@
         </div>
     
         <div class="whitespace" ></div>
-        <div id="table" class="hide">
+        <div id="table" class="hide small_td">
        <table id="iron_remove_table">
            <tr class="grey">
-               <td>日期</td>
+               <td width="5px;">日期</td>
                <td id="col_1">1</td>
                <td id="col_2">2</td>
                <td id="col_3">3</td>
@@ -169,7 +175,7 @@
        <div class="whitespace" ></div>
        <table id="iron_remove_table1">
            <tr class="grey">
-               <td>日期</td>
+               <td width="5px;">日期</td>
                <td id="col_17">17</td>
                <td id="col_18">18</td>
                <td id="col_19">19</td>
@@ -283,16 +289,28 @@
             <td></td>
         </tr>  
        </table>
+       <div class="canvas-container" class="hide"> 
+            <!-- <canvas id='myChart' style='width: 100%;height: 74%;min-width: 800px;min-height: 500px;'></canvas>-->
+         </div>
     </div>
-    <div class="canvas-container" class="hide"> 
-       <!-- <canvas id='myChart' style='width: 100%;height: 74%;min-width: 800px;min-height: 500px;'></canvas>-->
-    </div>
+    
         <!--<div id="iron_remove_page" ></div>-->
         <script src="../components/js/iron_remove.js"></script>
         <script type="application/javascript">
             $(function () {
                 items = []
                 iron_remove.init()
+            })
+            layui.use('laydate',function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem: "#input_year",
+                    type: 'month'
+                })
+                laydate.render({
+                    elem: "#date",
+                    type: 'month'
+                })
             })
         </script>
         <!---->

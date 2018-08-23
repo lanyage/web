@@ -266,7 +266,6 @@ var pro_out_manage = {
                             weight : e.eq(4).text(),
                         })
                     })  
-                        
                         var time = new Date($("#add_applyTime").text()).getTime()
                         var nowTime = new Date().Format("yyyy-MM-dd")
                         var transportMode = $('#add_transportWays').val()
@@ -289,7 +288,6 @@ var pro_out_manage = {
                         }
                         data.productSends = productSends
                         console.log(data)
-                        
                         $.ajax({
                             url:home.urls.productOut.add(),
                             contentType:'application/json',
@@ -309,6 +307,7 @@ var pro_out_manage = {
                               })  
                             }                       
                          })
+
                         $("#add_modal").css('display', 'none')
                         layer.close(index)
                     }
@@ -326,6 +325,9 @@ var pro_out_manage = {
         }
 
         ,fill_add_data:function(div){
+            $tbody = $("#add_modal_table").children("tbody")
+            $tbody.empty()
+            $("#add_transportWays").val('')
             $("#add_select_rawType").empty()
             $("#add_company").empty()
             $('#add_total_amount').text('0')
@@ -714,12 +716,15 @@ var pro_out_manage = {
                             var e = $(this).parent('td').parent('tr').children('td')
                             total_amount += parseFloat(e.eq(4).text()) 
                             productSends.push({
+                            //code : e.eq(1).text(),
                             //productSendHeader:{code:codeNumber},
                             batchNumber : e.eq(2).text(),
                             unit : e.eq(3).text(),
                             weight : e.eq(4).text(),
                         })
                     })
+                       // console.log($('#editor_select_processCode').val())
+                        //console.log(total_amount)
                         var userStr = $.session.get('user')
                         var userJson = JSON.parse(userStr)
                         var data = {
@@ -728,10 +733,10 @@ var pro_out_manage = {
                             rawType : {code : $('#editor_select_rawType').val()},
                             transportMode : $('#transportWays').val(),
                             createDate: items.createDate,
-                            supplier : {code : items.supplier.code},
+                            supplier : {code : items.supplier?items.supplier.code:''},
                             processManage :{code : $('#editor_select_processCode').val()},
-                            auditStatus : 1,
-                            outStatus: 1,
+                            auditStatus : 2,
+                            outStatus: 0,
                             sender:{code : userJson.code},
                             sendTime:new Date().getTime(),
                             applicant:{code : items.applicant.code},
@@ -760,6 +765,7 @@ var pro_out_manage = {
                               })  
                             }                       
                          })
+
                         $("#editor_modal").css('display', 'none')
                         layer.close(index)
                     }

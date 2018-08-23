@@ -34,17 +34,6 @@ var iron_remove = {
             $("#row14").find('td').eq(i).text('')
             $("#row15").find('td').eq(i).text('')
         }
-        var year = new Date().getFullYear()
-        $("#input_year").empty()
-        $("#input_month").empty()
-        $("#input_year").append("<option>请选择年份</option>")
-        $("#input_month").append("<option>请选择月份</option>")
-        for (var i = year - 10; i <= year; i++) {
-            $("#input_year").append("<option value=" + i + ">" + i + "</option>")
-        }
-        for (var i = 1; i <= 12; i++) {
-            $("#input_month").append("<option value=" + i + ">" + i + "</option>")
-        }
         iron_remove.funcs.bindAddEvent($('#model_li_hide_add_36'))
         var refreshBtn = $('#model_li_hide_refresh_36');
         iron_remove.funcs.bindRefreshEventListener(refreshBtn);
@@ -56,14 +45,21 @@ var iron_remove = {
         bindSearchEventListener: function (searchBtn) {
             searchBtn.off('click').on('click', function () {
                 //$(".canvas-container").hide()
-                $("#table").show()
                 var year = $('#input_year').val();
-                var month = $('#input_month').val();
                 var byproductCount = $('#byproductCount').val();
+                console.log(year)
+                console.log(byproductCount)
+                if( byproductCount === '' || year === '' ){
+                    layer.msg("请同时选择副产品类型和时间");
+                    return
+                }
+                else{
+                    console.log('search')
+                    $("#table").show();
+                
                 $.post(home.urls.byproductCount.getByByproductCodeAndYearMonth(), {
                     byproductCode: byproductCount,
-                    year: year,
-                    month: month
+                    yearMonth: year,
                 }, function (result) {
                     var items = result.data //获取数据
                     // console.log(items)
@@ -72,6 +68,7 @@ var iron_remove = {
                     iron_remove.funcs.curveShow($('#model_li_hide_picture_36'), items)
                     iron_remove.funcs.tableShow($('#model_li_hide_table_36'), items)
                 })
+            }
             })
         }
         , renderHandler: function (items) {

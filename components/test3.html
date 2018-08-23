@@ -1,0 +1,63 @@
+<div id='model-li-hide-74' class='display-component-container'>
+    <meta charset='UTF-8'>
+    <link href="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.min.css" rel="stylesheet" />
+
+
+    <title>test</title>
+    <style type='text/css'>
+
+    </style>
+    <hr/>
+    <div class="block-quote">
+            <select id="slpk" class="selectpicker" data-live-search="true" multiple></select> 
+    </div>
+     <hr/>
+     <div class="form-group">
+		
+			<div class="col-sm-4">
+                    <select id="usertype" name="usertype" class="selectpicker show-tick "multiple data-max-options="3" data-live-search="true">
+                            <option value="0">苹果</option>
+                            <option value="1" data-icon="glyphicon-heart">菠萝</option>
+                            <option value="2" data-content="<span class='label label-success'>香蕉</span>">香蕉</option>
+                            <option value="3" data-content="<span class='label label-success'>火龙果</span>">火龙果</option>
+                            <option value="4" data-content="<span class='label label-success'>梨子</span>">梨子</option>
+                            <option value="5">草莓</option>
+                            <option value="6">哈密瓜</option>
+                            <option value="7">椰子</option>
+                            <option value="8">猕猴桃</option>
+                            <option value="9">桃子</option>
+        
+			</div>
+		</div>
+
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="../js/defaults-zh_CN.min.js"></script>
+    <script type="text/javascript">
+    //初始化刷新数据  
+  
+    $(function() {
+			$(".selectpicker").selectpicker({
+				noneSelectedText: '请选择',
+				countSelectedText: function(){}
+			});
+		
+	   function selectValue() {
+       //获取选择的值
+            alert($('#usertype').selectpicker('val'));
+        }
+
+});   
+    /**
+select.append("<option value='1'>香蕉</option>");  
+select.append("<option value='2'>苹果</option>");  
+select.append("<option value='3'>橘子</option>");  
+select.append("<option value='4'>石榴</option>");  
+select.append("<option value='5'>棒棒糖</option>");  
+select.append("<option value='6'>桃子</option>");  
+select.append("<option value='7'>陶子</option>"); **/
+    
+</script>
+
+</div>

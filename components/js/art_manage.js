@@ -108,7 +108,7 @@ var art_manage = {
                     type: 1,
                     title: '新增工艺单',
                     content: $("#detail_modal"),
-                    area:['850px','500px'],
+                    area:['1000px','500px'],
                     btn: ['返回'],
                     offset: "auto",
                     closeBtn: 0,
@@ -139,10 +139,10 @@ var art_manage = {
             $("#t7").text(items.additiveCode)
             $("#t8").text(items.targetLithium)
             $("#t9").text(items.additiveWeight)
-            $("#t11").text(items.presomaWeight)
+            $("#presomaCode").text(items.presomaWeight)
             $("#t12").text(items.lithiumWeight)
             $("#t13").text(items.mixFrequency)
-            $("#t14").text(items.mixDate?new Date(items.mixDate).Format('yyyy-MM-dd'):'')
+            $("#t14").text(items.mixDate)
             $("#t15").text(items.mixRequirements)
             $("#t16").text(items.mixDetection)
             $("#t17").text(items.presinteringPlan)
@@ -166,7 +166,7 @@ var art_manage = {
                     type:1,
                     title:'编辑工艺单',
                     content:$("#editor_modal"),
-                    area:['850px','500px'],
+                    area:['1150px','500px'],
                     btn:['保存','提交','返回'],
                     offset:"auto",
                     closeBtn:0,
@@ -181,7 +181,7 @@ var art_manage = {
                         var inputPlan = $("#plan_amount1").val()
                         var inputDate = $("#in_date1").val()
                         var serialNumber = $("#make_num1").val()
-                        var presomaCode = $("#t11").val()
+                        var presomaCode = $("#presomaCode").val()
                         var presomaContent = $("#t21").val()
                         var presomaRatio = $("#t31").val()
                         var lithiumCode = $("#t41").val()
@@ -201,6 +201,8 @@ var art_manage = {
                         var presinteringRequirements = $("#t191").val()
                         var compileTime = new Date(items.compileTime).Format('yyyy-MM-dd hh:mm:ss')
                         var presinteringDetection = $("#t201").val()
+                        console.log($("#presomaCode").val())
+                        console.log("presomaCode="+presomaCode)
                         $.post(home.urls.productOrder.update(),{
                             code:code,
                             'compactor.code':compactor,
@@ -258,7 +260,7 @@ var art_manage = {
                         var inputPlan = $("#plan_amount1").val()   
                         var inputDate = $("#in_date1").val()
                         var serialNumber = $("#make_num1").val()
-                        var presomaCode = $("#t11").val()
+                        var presomaCode = $("#presomaCode").val()
                         var presomaContent = $("#t21").val()
                         var presomaRatio = $("#t31").val()
                         var lithiumCode = $("#t41").val()
@@ -349,7 +351,7 @@ var art_manage = {
             $("#in_date1").val(items.inputDate?new Date(items.inputDate).Format('yyyy-MM-dd'):'')
             $("#pinguan1").append("<option value="+items.qc.code+">"+items.qc.name+"</option>")
             $("#make_num1").val(items.serialNumber)
-            $("#t11").val(items.presomaCode)
+            $("#presomaCode").val(items.presomaCode)
             $("#t21").val(items.presomaContent)
             $("#t31").val(items.presomaRatio)
             $("#t41").val(items.lithiumCode)
@@ -361,7 +363,7 @@ var art_manage = {
             $("#t111").val(items.presomaWeight)
             $("#t121").val(items.lithiumWeight)
             $("#t131").val(items.mixFrequency)
-            $("#t141").val(items.mixDate?new Date(items.mixDate).Format('yyyy-MM-dd hh:mm:ss'):'')
+            $("#t141").val(items.mixDate)
             $("#t151").val(items.mixRequirements)
             $("#t161").val(items.mixDetection)
             $("#t171").val(items.presinteringPlan)
@@ -441,7 +443,7 @@ var art_manage = {
                 $("#in_date1").val('')
                 $("#exec_man1").empty()
                 $("#make_num1").val('')
-                $("#t11").val('')
+                $("#presomaCode").val('')
                 $("#t21").val('')
                 $("#t31").val('')
                 $("#t41").val('')
@@ -479,7 +481,7 @@ var art_manage = {
                     type:1,
                     title:"新增工艺单",
                     content:$("#editor_modal"),
-                    area:['850px','500px'],
+                    area:['950px','500px'],
                     btn:['提交','取消'],
                     offset:'auto',
                     closeBtn:0,
@@ -496,7 +498,7 @@ var art_manage = {
                         var inputDate = $("#in_date1").val()
                         var serialNumber = $("#make_num1").val()
             
-                        var presomaCode = $("#t11").val()
+                        var presomaCode = $("#presomaCode").val()
                         var presomaContent = $("#t21").val()
                         var presomaRatio = $("#t31").val()
                         var lithiumCode = $("#t41").val()

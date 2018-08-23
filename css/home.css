@@ -229,6 +229,9 @@ body .layui-ext-yourskin .layui-layer-btn {
     font-weight: 400;
 }
 /*覆盖部分内容*/
+.display-component-container .small_td{
+    font:2px small;
+}
 .display-component-container .normal_td{
     color: black;
 }

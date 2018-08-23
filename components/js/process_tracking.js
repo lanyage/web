@@ -1,6 +1,14 @@
 var process_tracking = {
+    users : [],
+    goods : [],
     init: function () {
-        process_tracking.funcs.renderTable()
+        process_tracking.funcs.renderTable();
+        $.get(servers.backup()+"user/getAll",{ },function(result){
+            process_tracking.users = result.data;
+        })
+        $.get(servers.backup() + "goods/getAll", {}, function (result){
+            process_tracking.goods = result.data;
+        })
         var out = $('#process_tracking_page').width()
         var time = setTimeout(function () {
             var inside = $('.layui-laypage').width()
@@ -94,26 +102,43 @@ var process_tracking = {
                     code:code
                 },function(result){
                     var items = result.data
+                    var premixedOperator = items.premixedOperator;
+                    var presinteringInoperator = items.presinteringInoperator;
+                    var presinteringOutoperator = items.presinteringOutoperator;
+                    var crushingOperator = items.crushingOperator;
+                    var data1 = [] ,data2 = [] ,data3 = [] ,data4 = [] ;
+                    premixedOperator.forEach(function(e) {
+                        data1 += (e.name + '  ');
+                    })
+                    presinteringInoperator.forEach(function(e) {
+                        data2 += (e.name + '  ');
+                    })
+                    presinteringOutoperator.forEach(function(e) {
+                        data3 += (e.name + '  ');
+                    })
+                    crushingOperator.forEach(function(e) {
+                        data4 += (e.name + '  ');
+                    })
                     $("#goodsCode").append("<option value="+items.goodsCode.code+">"+items.goodsCode.name+"</option>")
                     $("#premixedCode").text(items.premixedCode?items.premixedCode:'')
                     $("#premixedDate").text(items.premixedDate)
                     $("#mixerNumber").text(items.mixerNumber)
-                    $("#premixedOperator").text((items.premixedOperator?items.premixedOperator.name:''))
+                    $("#premixedOperator").text(data1)
                     $("#presinteringCode").text(items.presinteringCode)
                     $("#presinteringDate").text(items.presinteringDate?items.presinteringDate:'')
                     $("#sinteringFurnace").text(items.sinteringFurnace)
-                    $("#presinteringInoperator").text(items.presinteringInoperator?items.presinteringInoperator.name:'')
-                    $("#presinteringOutoperator").text(items.presinteringOutoperator?items.presinteringOutoperator.name:'')  
+                    $("#presinteringInoperator").text(data2)
+                    $("#presinteringOutoperator").text(data3)  
                     $("#crushingCode").text(items.crushingCode?items.crushingCode:'')
                     $("#crushingDate").text(items.crushingDate)
                     $("#millNumber").text(items.millNumber)
-                    $("#crushingOperator").text((items.crushingOperator?items.crushingOperator.name:''))
+                    $("#crushingOperator").text(data4)
                     $("#note").text(items.note)
                 layer.open({
                     type: 1,
                     title: '流程追踪详情',
                     content: $("#process_tracking_detail_modal"),
-                    area: ['1000px', '430px'],
+                    area: ['1100px', '450px'],
                     btn: ['返回'],
                     offset: "auto",
                     closeBtn: 0,
@@ -137,56 +162,102 @@ var process_tracking = {
                      $("#premixedCode1").val(items.premixedCode?items.premixedCode:'')
                      $("#premixedDate1").val(items.premixedDate)
                      $("#mixerNumber1").val(items.mixerNumber)
-                     $("#premixedOperator1").append("<option value="+items.premixedOperator.code+">"+items.premixedOperator.name+"</option>")
+                     //$("#premixedOperator1").append("<option value="+items.premixedOperator.code+">"+items.premixedOperator.name+"</option>")
                      $("#presinteringCode1").val(items.presinteringCode)
                      $("#presinteringDate1").val(items.presinteringDate?items.presinteringDate:'')
                      $("#sinteringFurnace1").val(items.sinteringFurnace)
-                     $("#presinteringInoperator1").append("<option value="+items.presinteringInoperator.code+">"+items.presinteringInoperator.name+"</option>")
-                     $("#presinteringOutoperator1").append("<option value="+items.presinteringOutoperator.code+">"+items.presinteringOutoperator.name+"</option>")
+                     //$("#presinteringInoperator1").append("<option value="+items.presinteringInoperator.code+">"+items.presinteringInoperator.name+"</option>")
+                     //$("#presinteringOutoperator1").append("<option value="+items.presinteringOutoperator.code+">"+items.presinteringOutoperator.name+"</option>")
                      $("#crushingCode1").val(items.crushingCode?items.crushingCode:'')
                      $("#crushingDate1").val(items.crushingDate)
                      $("#millNumber1").val(items.millNumber)
-                     $("#crushingOperator1").append("<option value="+items.crushingOperator.code+">"+items.crushingOperator.name+"</option>")
+                     //$("#crushingOperator1").append("<option value="+items.crushingOperator.code+">"+items.crushingOperator.name+"</option>")
                      $("#note1").val(items.note)
-                     $.get(servers.backup() + "goods/getAll", {}, function (result){
-                         var res = result.data
-                         res.forEach(function(e){
-                             if(items.goodsCode.code!=res.code){
+
+                         process_tracking.goods.forEach(function(e){
+                             if(items.goodsCode.code!=e.code){
                             $("#goodsCode1").append("<option value="+e.code+">"+e.name+"</option>")
                          }
                          })
-                     })
-                    $.get(servers.backup()+"user/getAll",{ },function(result){
-                        users = result.data
-                        users.forEach(function(e){
-                        if(items.premixedOperator.code!=users.code){
-                            $("#premixedOperator1").append(
-                            "<option value="+(e.code)+">"+e.name+"</option>"
-                        )
+
+                     $("#premixedOperator1").empty()
+                     $("#presinteringInoperator1").empty()
+                     $("#presinteringOutoperator1").empty()
+                     $("#crushingOperator1").empty()
+                     var premixedOperator = items.premixedOperator;
+                     var presinteringInoperator = items.presinteringInoperator;
+                     var presinteringOutoperator = items.presinteringOutoperator;
+                     var crushingOperator = items.crushingOperator;
+                     process_tracking.users.forEach(function(e){
+                        if(premixedOperator != ''){
+                            var flag = 0;
+                            premixedOperator.forEach(function(ele) {
+                                if(ele.code === e.code){
+                                    $("#premixedOperator1").append("<option value="+(e.code)+" selected>"+e.name+"</option>");
+                                    flag = 1;
+                                }
+                            })
+                            if(flag === 0){
+                                $("#premixedOperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
+                            }
                         }
-                        if(items.presinteringInoperator.code!=users.code){
-                            $("#presinteringInoperator1").append(
-                            "<option value="+(e.code)+">"+e.name+"</option>"
-                        )
-                        }
-                        if(items.presinteringOutoperator.code!=users.code){
-                            $("#presinteringOutoperator1").append(
-                            "<option value="+(e.code)+">"+e.name+"</option>"
-                        )
-                        }
-                        if(items.crushingOperator.code!=users.code){
-                            $("#crushingOperator1").append(
-                            "<option value="+(e.code)+">"+e.name+"</option>"
-                        )
+                        else {
+                            $("#premixedOperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
                         }
                         
-                    })
+                        if(presinteringInoperator != '') {
+                            var flag = 0;
+                            presinteringInoperator.forEach(function(ele) {
+                                if(ele.code === e.code){
+                                    $("#presinteringInoperator1").append("<option value="+(e.code)+" selected>"+e.name+"</option>");
+                                    flag = 1;
+                                }
+                            })
+                            if(flag === 0){
+                                $("#presinteringInoperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
+                            }
+                        }
+                        else {
+                            $("#presinteringInoperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
+                        }
+                        
+                        if(presinteringOutoperator != '') {
+                            var flag = 0;
+                            presinteringOutoperator.forEach(function(ele) {
+                                if(ele.code === e.code){
+                                    $("#presinteringOutoperator1").append("<option value="+(e.code)+" selected>"+e.name+"</option>");
+                                    flag = 1;
+                                }
+                            })
+                            if(flag === 0){
+                                $("#presinteringOutoperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
+                            }
+                        }
+                        else {
+                            $("#presinteringOutoperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
+                        }
+
+                        if(crushingOperator != '') {
+                            var flag = 0;
+                            crushingOperator.forEach(function(ele) {
+                                if(ele.code === e.code){
+                                    $("#crushingOperator1").append("<option value="+(e.code)+" selected>"+e.name+"</option>");
+                                    flag = 1;
+                                }
+                            })
+                            if(flag === 0){
+                                $("#crushingOperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
+                            }
+                        }
+                        else {
+                            $("#crushingOperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
+                        }
                 }) 
                 layer.open({
                     type: 1,
                     title: '编辑流程追踪',
                     content: $("#process_tracking_editor_modal"),
-                    area: ['1000px', '430px'],
+                    area: ['1150px', '530px'],
                     btn: ['确定','提交','返回'],
                     offset: "auto",
                     closeBtn: 0,
@@ -196,33 +267,46 @@ var process_tracking = {
                          var premixedCode = $("#premixedCode1").val()
                          var premixedDate = $("#premixedDate1").val()
                          var mixerNumber =  $("#mixerNumber1").val()
-                         var premixedOperator =  $("#premixedOperator1").val()
+                         //var premixedOperator =  $("#premixedOperator1").val()
                          var presinteringCode =  $("#presinteringCode1").val()
                          var presinteringDate =  $("#presinteringDate1").val()
                          var sinteringFurnace =  $("#sinteringFurnace1").val()
-                         var presinteringInoperator =  $("#presinteringInoperator1").val()
-                         var presinteringOutoperator =  $("#presinteringOutoperator1").val()
+                         //var presinteringInoperator =  $("#presinteringInoperator1").val()
+                         //var presinteringOutoperator =  $("#presinteringOutoperator1").val()
                          var crushingCode = $("#crushingCode1").val()
                          var crushingDate = $("#crushingDate1").val()
                          var millNumber =  $("#millNumber1").val()
-                         var crushingOperator =  $("#crushingOperator1").val()
+                         //var crushingOperator =  $("#crushingOperator1").val()
                          var note =  $("#note1").val()
+                         var premixedOperator = [],presinteringInoperator = [],presinteringOutoperator = [] , crushingOperator = [] ;
+                        if($("#premixedOperator option:selected")) {
+                            premixedOperator.push($("#premixedOperator1").val());
+                        }
+                        if($("#presinteringInoperator option:selected")) {
+                            presinteringInoperator.push($("#presinteringInoperator1").val());
+                        }
+                        if($("#presinteringOutoperator option:selected")) {
+                            presinteringOutoperator.push($("#presinteringOutoperator1").val());
+                        }
+                        if($("#crushingOperator option:selected")) {
+                            crushingOperator.push($("#crushingOperator1").val());
+                        }
                          $.post(home.urls.processTracking.update(),{
                              code:code,
                              'goodsCode.code':goodsCode,
                              premixedCode:premixedCode,
                              premixedDate:premixedDate,
                              mixerNumber:mixerNumber,
-                             'premixedOperator.code':premixedOperator,
+                             premixedOperator:premixedOperator.toString(),
                              presinteringCode:presinteringCode,
                              presinteringDate:presinteringDate,
                              sinteringFurnace:sinteringFurnace,
-                             'presinteringInoperator.code':presinteringInoperator,
-                             'presinteringOutoperator.code':presinteringOutoperator,
+                             presinteringInoperator:presinteringInoperator.toString(),
+                             presinteringOutoperator:presinteringOutoperator.toString(),
                              crushingCode:crushingCode,
                              crushingDate:crushingDate,
                              millNumber:millNumber,
-                             'crushingOperator.code':crushingOperator,
+                             crushingOperator:crushingOperator.toString(),
                              note:note,
                              state:0
                          },function(result){
@@ -240,39 +324,52 @@ var process_tracking = {
                     }
                     ,btn2: function(index) {
                         $("#process_tracking_editor_modal").css('display', 'none')
-                        var goodsCode = $("#goodsCode1").val()
-                        var premixedCode = $("#premixedCode1").val()
-                        var premixedDate = $("#premixedDate1").val()
-                        var mixerNumber =  $("#mixerNumber1").val()
-                        var premixedOperator =  $("#premixedOperator1").val()
-                        var presinteringCode =  $("#presinteringCode1").val()
-                        var presinteringDate =  $("#presinteringDate1").val()
-                        var sinteringFurnace =  $("#sinteringFurnace1").val()
-                        var presinteringInoperator =  $("#presinteringInoperator1").val()
-                        var presinteringOutoperator =  $("#presinteringOutoperator1").val()
-                        var crushingCode = $("#crushingCode1").val()
-                        var crushingDate = $("#crushingDate1").val()
-                        var millNumber =  $("#millNumber1").val()
-                        var crushingOperator =  $("#crushingOperator1").val()
-                        var note =  $("#note1").val()
-                        $.post(home.urls.processTracking.update(),{
-                            code:code,
-                            'goodsCode.code':goodsCode,
-                            premixedCode:premixedCode,
-                            premixedDate:premixedDate,
-                            mixerNumber:mixerNumber,
-                            'premixedOperator.code':premixedOperator,
-                            presinteringCode:presinteringCode,
-                            presinteringDate:presinteringDate,
-                            sinteringFurnace:sinteringFurnace,
-                            'presinteringInoperator.code':presinteringInoperator,
-                            'presinteringOutoperator.code':presinteringOutoperator,
-                            crushingCode:crushingCode,
-                            crushingDate:crushingDate,
-                            millNumber:millNumber,
-                            'crushingOperator.code':crushingOperator,
-                            note:note,
-                            state:1
+                         var goodsCode = $("#goodsCode1").val()
+                         var premixedCode = $("#premixedCode1").val()
+                         var premixedDate = $("#premixedDate1").val()
+                         var mixerNumber =  $("#mixerNumber1").val()
+                         //var premixedOperator =  $("#premixedOperator1").val()
+                         var presinteringCode =  $("#presinteringCode1").val()
+                         var presinteringDate =  $("#presinteringDate1").val()
+                         var sinteringFurnace =  $("#sinteringFurnace1").val()
+                         //var presinteringInoperator =  $("#presinteringInoperator1").val()
+                         //var presinteringOutoperator =  $("#presinteringOutoperator1").val()
+                         var crushingCode = $("#crushingCode1").val()
+                         var crushingDate = $("#crushingDate1").val()
+                         var millNumber =  $("#millNumber1").val()
+                         //var crushingOperator =  $("#crushingOperator1").val()
+                         var note =  $("#note1").val()
+                         var premixedOperator = [] ,presinteringInoperator = [],presinteringOutoperator = [] , crushingOperator = [] ;
+                        if($("#premixedOperator option:selected")) {
+                            premixedOperator.push($("#premixedOperator1").val());
+                        }
+                        if($("#presinteringInoperator option:selected")) {
+                            presinteringInoperator.push($("#presinteringInoperator1").val());
+                        }
+                        if($("#presinteringOutoperator option:selected")) {
+                            presinteringOutoperator.push($("#presinteringOutoperator1").val());
+                        }
+                        if($("#crushingOperator option:selected")) {
+                            crushingOperator.push($("#crushingOperator1").val());
+                        }
+                         $.post(home.urls.processTracking.update(),{
+                             code:code,
+                             'goodsCode.code':goodsCode,
+                             premixedCode:premixedCode,
+                             premixedDate:premixedDate,
+                             mixerNumber:mixerNumber,
+                             premixedOperator:premixedOperator.toString(),
+                             presinteringCode:presinteringCode,
+                             presinteringDate:presinteringDate,
+                             sinteringFurnace:sinteringFurnace,
+                             presinteringInoperator:presinteringInoperator.toString(),
+                             presinteringOutoperator:presinteringOutoperator.toString(),
+                             crushingCode:crushingCode,
+                             crushingDate:crushingDate,
+                             millNumber:millNumber,
+                             crushingOperator:crushingOperator.toString(),
+                             note:note,
+                             state:1
                          },function(result){
                              layer.msg(result.message,{
                                  offset:['40%','55%'],
@@ -346,15 +443,10 @@ var process_tracking = {
                 $("#presinteringInoperator1").empty()
                 $("#presinteringOutoperator1").empty()
                 $("#crushingOperator1").empty()
-                $.get(servers.backup() + "goods/getAll", {}, function (result){
-                    var res = result.data
-                    res.forEach(function(e){
+                process_tracking.goods.forEach(function(e){
                        $("#goodsCode1").append("<option value="+e.code+">"+e.name+"</option>")
                     })
-                })
-               $.get(servers.backup()+"user/getAll",{ },function(result){
-                   users = result.data
-                   users.forEach(function(e){
+                process_tracking.users.forEach(function(e){
                        $("#premixedOperator1").append(
                        "<option value="+(e.code)+">"+e.name+"</option>"
                    )
@@ -367,13 +459,13 @@ var process_tracking = {
                        $("#crushingOperator1").append(
                        "<option value="+(e.code)+">"+e.name+"</option>"
                    )
-               })
-           })               
+               })  
+                $("#process_tracking_editor_modal").removeClass("hide")            
                 layer.open({
                     type: 1,
                     title: '新增流程追踪',
                     content: $("#process_tracking_editor_modal"),
-                    area: ['1000px', '430px'],
+                    area: ['1150px', '550px'],
                     btn: ['确定','返回'],
                     offset: "auto",
                     closeBtn: 0,
@@ -383,32 +475,49 @@ var process_tracking = {
                         var premixedCode = $("#premixedCode1").val()
                         var premixedDate = $("#premixedDate1").val()
                         var mixerNumber =  $("#mixerNumber1").val()
-                        var premixedOperator =  $("#premixedOperator1").val()
+                        //var premixedOperator =  $("#premixedOperator1").val()
                         var presinteringCode =  $("#presinteringCode1").val()
                         var presinteringDate =  $("#presinteringDate1").val()
                         var sinteringFurnace =  $("#sinteringFurnace1").val()
-                        var presinteringInoperator =  $("#presinteringInoperator1").val()
-                        var presinteringOutoperator =  $("#presinteringOutoperator1").val()
+                        //var presinteringInoperator =  $("#presinteringInoperator1").val()
+                        //var presinteringOutoperator =  $("#presinteringOutoperator1").val()
                         var crushingCode = $("#crushingCode1").val()
                         var crushingDate = $("#crushingDate1").val()
                         var millNumber =  $("#millNumber1").val()
-                        var crushingOperator =  $("#crushingOperator1").val()
+                        //var crushingOperator =  $("#crushingOperator1").val()
                         var note =  $("#note1").val()
+                        var premixedOperator = [],presinteringInoperator = [],presinteringOutoperator = [] , crushingOperator = [] ;
+                        if($("#premixedOperator1 option:selected")) {
+                            premixedOperator.push($("#premixedOperator1").val());
+                        }
+                        if($("#presinteringInoperator1 option:selected")) {
+                            presinteringInoperator.push($("#presinteringInoperator1").val());
+                        }
+                        if($("#presinteringOutoperator1 option:selected")) {
+                            presinteringOutoperator.push($("#presinteringOutoperator1").val());
+                        }
+                        if($("#crushingOperator1 option:selected")) {
+                            crushingOperator.push($("#crushingOperator1").val());
+                        }
+                        //console.log('premixedOperator='+premixedOperator)
+                        //console.log('presinteringInoperator='+presinteringInoperator)
+                        //console.log(presinteringOutoperator)
+                        //console.log(crushingOperator)
                         $.post(home.urls.processTracking.add(),{
-                            'goodsCode.code':goodsCode,
+                           'goodsCode.code':goodsCode,
                             premixedCode:premixedCode,
                             premixedDate:premixedDate,
                             mixerNumber:mixerNumber,
-                            'premixedOperator.code':premixedOperator,
+                            premixedOperator:premixedOperator.toString(),
                             presinteringCode:presinteringCode,
                             presinteringDate:presinteringDate,
                             sinteringFurnace:sinteringFurnace,
-                            'presinteringInoperator.code':presinteringInoperator,
-                            'presinteringOutoperator.code':presinteringOutoperator,
+                            presinteringInoperator:presinteringInoperator.toString(),
+                            presinteringOutoperator:presinteringOutoperator.toString(),
                             crushingCode:crushingCode,
                             crushingDate:crushingDate,
                             millNumber:millNumber,
-                            'crushingOperator.code':crushingOperator,
+                            crushingOperator:crushingOperator.toString(),
                             note:note,
                             state:0
                          },function(result){
@@ -422,10 +531,11 @@ var process_tracking = {
                                  },500)
                              }
                          })
+                         $("#process_tracking_editor_modal").addClass("hide")
                         layer.close(index)
                     }
                     ,btn2:function(index){
-                        $("#process_tracking_editor_modal").css('display','none')
+                        $("#process_tracking_editor_modal").addClass("hide")
                         layer.close(index)
                     }
                 }); 

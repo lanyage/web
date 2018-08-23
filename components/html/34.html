@@ -79,21 +79,33 @@
             $(function () {
                 process_tracking.init()
             })
+            layui.use("laydate", function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem:"#presinteringDate1"
+                });
+                laydate.render({
+                    elem:"#crushingDate1"
+                });
+                laydate.render({
+                    elem:"#premixedDate1"
+                });
+            })
         </script>
         <div id="process_tracking_detail_modal" class="hide" style="padding:30px;">
             <span>产品类型:<select id="goodsCode"></select></span>
             <div class="whitespace"></div>
             <table id="process_tracking_detail_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
                 <tr>
-                    <td class="grey">预混</td>
-                    <td>预混物料编号</td>
-                    <td id="premixedCode"></td>
-                    <td>预混日期</td>
-                    <td id="premixedDate"></td>
-                    <td>混料机编号</td>
-                    <td id="mixerNumber"></td>
-                    <td>操作人员</td>
-                    <td id="premixedOperator"></td>
+                    <td class="grey" style="width:5%">预混</td>
+                    <td style="width:10%">预混物料编号</td>
+                    <td id="premixedCode" style="width:10%"></td>
+                    <td style="width:10%">预混日期</td>
+                    <td id="premixedDate" style="width:10%"></td>
+                    <td style="width:10%">混料机编号</td>
+                    <td id="mixerNumber" style="width:10%"></td>
+                    <td style="width:10%">操作人员</td>
+                    <td id="premixedOperator" style="width:25%"></td>
                 </tr>
                 <tr>
                     <td class="grey" rowspan="2">预烧</td>
@@ -134,41 +146,41 @@
             <div class="whitespace"></div>
             <table id="process_tracking_editor_table" width="100%" style="border-left: 0px;border-right: 0px;"> 
                 <tr>
-                    <td class="grey">预混</td>
-                    <td>预混物料编号</td>
-                    <td><input type="text" id="premixedCode1"/></td>
-                    <td>预混日期</td>
-                    <td><input type="date" id="premixedDate1"/></td>
-                    <td>混料机编号</td>
-                    <td><input type="text" id="mixerNumber1"/></td>
-                    <td>操作人员</td>
-                    <td><select id="premixedOperator1"></select></td>
+                    <td class="grey" style="width:10%">预混</td>
+                    <td style="width:13%">预混物料编号</td>
+                    <td style="width:10%"><input type="text" id="premixedCode1"/></td>
+                    <td style="width:10%">预混日期</td>
+                    <td style="width:10%"><input type="text" id="premixedDate1" placeholder="请选择时间"/></td>
+                    <td style="width:10%">混料机编号</td>
+                    <td style="width:10%"><input type="text" id="mixerNumber1"/></td>
+                    <td style="width:10%">操作人员</td>
+                    <td style="width:17%"><select multiple="multiple" size="3" id="premixedOperator1"></select></td>
                 </tr>
                 <tr>
                     <td class="grey" rowspan="2">预烧</td>
                     <td rowspan="2">预烧物料编号</td>
                     <td rowspan="2"><input type="text" id="presinteringCode1"/></td>
                     <td rowspan="2">预烧日期</td>
-                    <td rowspan="2"><input type="date" id="presinteringDate1"/></td>
+                    <td rowspan="2"><input type="text" id="presinteringDate1" placeholder="请选择时间"/></td>
                     <td rowspan="2" >烧结炉号</td>
                     <td rowspan="2"><input type="text" id="sinteringFurnace1"/></td>
                     <td>装料人员</td>
-                    <td><select id="presinteringInoperator1"></select></td>
+                    <td><select multiple="multiple" size="3" id="presinteringInoperator1"></select></td>
                 </tr>
                 <tr>
                     <td>倒料人员</td>
-                    <td><select id="presinteringOutoperator1"></select></td>
+                    <td><select multiple="multiple" size="3" id="presinteringOutoperator1"></select></td>
                 </tr>
                 <tr>
                     <td class="grey">粉粹</td>
                     <td>粉粹物料编号</td>
                     <td><input type="text" id="crushingCode1"/></td>
                     <td>粉粹日期</td>
-                    <td><input type="date" id="crushingDate1"/></td>
+                    <td><input type="text" id="crushingDate1" placeholder="请选择时间" /></td>
                     <td>粉粹机编号</td>
                     <td><input type="text" id="millNumber1"/></td>
                     <td>操作人员</td>
-                    <td><select id="crushingOperator1"></select></td>
+                    <td><select multiple="multiple" size="3" id="crushingOperator1"></select></td>
                 </tr>
                 <tr>
                     <td class="grey">备注</td>

@@ -462,7 +462,7 @@
         </table>
         <div class="whitespace"></div>
         <span>工序生产工艺参数及指</span>
-        <table width="98%" style="border-left: 0px;border-right: 0px;" id="table_inner">
+        <table width="100%" style="border-left: 0px;border-right: 0px;" id="table_inner">
             <tr>
                 <td rowspan="10" class="grey">混料</td>
                 <td rowspan="10">41#</td>
@@ -475,19 +475,19 @@
                 <td>原料批号</td>
                 <td>主含%</td>
                 <td>配比量/kg</td>
-                <td>原料批号</td>
+                <td style="min-width: 80px;">原料批号</td>
                 <td>主含%</td>
                 <td>配比量/kg</td>
             </tr>
             <tr>
-                <td rowspan="2"><input type="text" id="t11" /></td>
+                <td rowspan="2"><input type="text" id="presomaCode" style="min-width: 230px;"/></td>
                 <td rowspan="2"><input type="text" id="t21" onkeyup="num(this)"/></td>
-                <td rowspan="2"><input type="text" id="t31" onkeyup="num(this)"/></td>
-                <td rowspan="2"><input type="text" id="t41" /></td>
+                <td rowspan="2"><input type="text" id="t31" /></td>
+                <td rowspan="2"><input type="text" id="t41"  style="min-width: 200px;"/></td>
                 <td rowspan="2"><input type="text" id="t51" onkeyup="num(this)"/></td>
-                <td rowspan="2"><input type="text" id="t61" onkeyup="num(this)"/></td>
+                <td rowspan="2"><input type="text" id="t61" /></td>
                 <td><input type="text" id="t71" onkeyup="num(this)"/></td>
-                <td rowspan="2"><input type="text" id="t81" onkeyup="num(this)"/></td>
+                <td rowspan="2"><input type="text" id="t81"/></td>
             </tr>
              <tr>
                 <td><input type="text" id="t91" onkeyup="num(this)"/></td>
@@ -504,12 +504,12 @@
             </tr>
             <tr>
                 <td rowspan="2">生产工艺参数</td>
-                <td colspan="4">混科频率</td>
-                <td colspan="3">混料时间</td>
+                <td colspan="4">混科频率/Hz</td>
+                <td colspan="3">混料时间/min</td>
             </tr>
              <tr>
                 <td colspan="4"><input type="text" id="t131" onkeyup="num(this)" /></td>
-                <td colspan="3"><input type="datetime" id="t141" placeholder="格式为2017-01-01 00:00:00"/></td>
+                <td colspan="3"><input type="text" id="t141" /></td>
             </tr>
             <tr>
                 <td>生产过程要求</td>
@@ -546,6 +546,7 @@
         </table>
     </div>
    <script>
+       /**
         layui.use('laydate', function () {
             var laydate = layui.laydate;
             //执行一个laydate实例
@@ -553,7 +554,7 @@
                 elem: '#t141',//指定元素
                 type: 'datetime'
             })
-        })
+        })**/
         function num(obj){
             obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
             obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字
