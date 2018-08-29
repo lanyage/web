@@ -1,6 +1,14 @@
 var process_tracking = {
     users : [],
     goods : [],
+		premixedOperator2 : [],
+		presinteringInoperator2 : [],
+		presinteringOutoperator2 : [], 
+		crushingOperator2 : [],
+		premixedOperator3 : [],
+		presinteringInoperator3 : [],
+		presinteringOutoperator3 : [], 
+		crushingOperator3 : [],
     init: function () {
         process_tracking.funcs.renderTable();
         $.get(servers.backup()+"user/getAll",{ },function(result){
@@ -62,6 +70,8 @@ var process_tracking = {
 
 
         }
+				
+				/**渲染表格*/
     , renderHandler: function ($tbody, items,page) {
         $tbody.empty() //清空表格
         var i = 1 + page * 10
@@ -93,7 +103,7 @@ var process_tracking = {
         home.funcs.bindSelectAll($("#process_tracking_checkAll"),$(".process_tracking_checkbox"),checkedBoxLen,$("process_tracking_table"))
     }
     
-
+		/**详情*/
     , bindDetailEventListener: function (detailBtns) {
             detailBtns.off('click').on('click', function () {
                 var _selfBtn = $(this)
@@ -150,7 +160,7 @@ var process_tracking = {
              }) 
         })    
         },
-        
+        /**编辑事件*/
          bindEditorEventListener:function(editBtns) {
              editBtns.off('click').on('click',function() {
                  var code = $(this).attr('id').substr(7) 
@@ -173,92 +183,34 @@ var process_tracking = {
                      $("#millNumber1").val(items.millNumber)
                      //$("#crushingOperator1").append("<option value="+items.crushingOperator.code+">"+items.crushingOperator.name+"</option>")
                      $("#note1").val(items.note)
-
+											var premixedOperator = items.premixedOperator;
+											var presinteringInoperator = items.presinteringInoperator;										 
+											var presinteringOutoperator = items.presinteringOutoperator;
+											var crushingOperator = items.crushingOperator;	
+											premixedOperator.forEach(function(e) {
+												process_tracking.premixedOperator3.push(e.code)
+											})
+											presinteringInoperator.forEach(function(e) {
+												process_tracking.presinteringInoperator3.push(e.code)
+											})
+											presinteringOutoperator.forEach(function(e) {
+												process_tracking.presinteringOutoperator3.push(e.code)
+											})
+											crushingOperator.forEach(function(e) {
+												process_tracking.crushingOperator3.push(e.code)
+											})
                          process_tracking.goods.forEach(function(e){
                              if(items.goodsCode.code!=e.code){
                             $("#goodsCode1").append("<option value="+e.code+">"+e.name+"</option>")
                          }
                          })
 
-                     $("#premixedOperator1").empty()
-                     $("#presinteringInoperator1").empty()
-                     $("#presinteringOutoperator1").empty()
-                     $("#crushingOperator1").empty()
-                     var premixedOperator = items.premixedOperator;
-                     var presinteringInoperator = items.presinteringInoperator;
-                     var presinteringOutoperator = items.presinteringOutoperator;
-                     var crushingOperator = items.crushingOperator;
-                     process_tracking.users.forEach(function(e){
-                        if(premixedOperator != ''){
-                            var flag = 0;
-                            premixedOperator.forEach(function(ele) {
-                                if(ele.code === e.code){
-                                    $("#premixedOperator1").append("<option value="+(e.code)+" selected>"+e.name+"</option>");
-                                    flag = 1;
-                                }
-                            })
-                            if(flag === 0){
-                                $("#premixedOperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
-                            }
-                        }
-                        else {
-                            $("#premixedOperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
-                        }
-                        
-                        if(presinteringInoperator != '') {
-                            var flag = 0;
-                            presinteringInoperator.forEach(function(ele) {
-                                if(ele.code === e.code){
-                                    $("#presinteringInoperator1").append("<option value="+(e.code)+" selected>"+e.name+"</option>");
-                                    flag = 1;
-                                }
-                            })
-                            if(flag === 0){
-                                $("#presinteringInoperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
-                            }
-                        }
-                        else {
-                            $("#presinteringInoperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
-                        }
-                        
-                        if(presinteringOutoperator != '') {
-                            var flag = 0;
-                            presinteringOutoperator.forEach(function(ele) {
-                                if(ele.code === e.code){
-                                    $("#presinteringOutoperator1").append("<option value="+(e.code)+" selected>"+e.name+"</option>");
-                                    flag = 1;
-                                }
-                            })
-                            if(flag === 0){
-                                $("#presinteringOutoperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
-                            }
-                        }
-                        else {
-                            $("#presinteringOutoperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
-                        }
-
-                        if(crushingOperator != '') {
-                            var flag = 0;
-                            crushingOperator.forEach(function(ele) {
-                                if(ele.code === e.code){
-                                    $("#crushingOperator1").append("<option value="+(e.code)+" selected>"+e.name+"</option>");
-                                    flag = 1;
-                                }
-                            })
-                            if(flag === 0){
-                                $("#crushingOperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
-                            }
-                        }
-                        else {
-                            $("#crushingOperator1").append("<option value="+(e.code)+">"+e.name+"</option>");
-                        }
-                }) 
                 layer.open({
                     type: 1,
                     title: '编辑流程追踪',
                     content: $("#process_tracking_editor_modal"),
                     area: ['1150px', '530px'],
-                    btn: ['确定','提交','返回'],
+                    btn: ['确定','返回'],
                     offset: "auto",
                     closeBtn: 0,
                     yes: function (index) {
@@ -278,35 +230,26 @@ var process_tracking = {
                          var millNumber =  $("#millNumber1").val()
                          //var crushingOperator =  $("#crushingOperator1").val()
                          var note =  $("#note1").val()
-                         var premixedOperator = [],presinteringInoperator = [],presinteringOutoperator = [] , crushingOperator = [] ;
-                        if($("#premixedOperator option:selected")) {
-                            premixedOperator.push($("#premixedOperator1").val());
-                        }
-                        if($("#presinteringInoperator option:selected")) {
-                            presinteringInoperator.push($("#presinteringInoperator1").val());
-                        }
-                        if($("#presinteringOutoperator option:selected")) {
-                            presinteringOutoperator.push($("#presinteringOutoperator1").val());
-                        }
-                        if($("#crushingOperator option:selected")) {
-                            crushingOperator.push($("#crushingOperator1").val());
-                        }
+												console.log(process_tracking.premixedOperator3)
+												console.log(process_tracking.presinteringInoperator3)
+												console.log(process_tracking.presinteringOutoperator3)
+												console.log(process_tracking.crushingOperator3)
                          $.post(home.urls.processTracking.update(),{
                              code:code,
                              'goodsCode.code':goodsCode,
                              premixedCode:premixedCode,
                              premixedDate:premixedDate,
                              mixerNumber:mixerNumber,
-                             premixedOperator:premixedOperator.toString(),
+                             premixedOperator:process_tracking.premixedOperator3.toString(),
                              presinteringCode:presinteringCode,
                              presinteringDate:presinteringDate,
                              sinteringFurnace:sinteringFurnace,
-                             presinteringInoperator:presinteringInoperator.toString(),
-                             presinteringOutoperator:presinteringOutoperator.toString(),
+                             presinteringInoperator:process_tracking.presinteringInoperator3.toString(),
+                             presinteringOutoperator:process_tracking.presinteringOutoperator3.toString(),
                              crushingCode:crushingCode,
                              crushingDate:crushingDate,
                              millNumber:millNumber,
-                             crushingOperator:crushingOperator.toString(),
+                             crushingOperator:process_tracking.crushingOperator3.toString(),
                              note:note,
                              state:0
                          },function(result){
@@ -322,76 +265,163 @@ var process_tracking = {
                          })
                         layer.close(index)
                     }
-                    ,btn2: function(index) {
-                        $("#process_tracking_editor_modal").css('display', 'none')
-                         var goodsCode = $("#goodsCode1").val()
-                         var premixedCode = $("#premixedCode1").val()
-                         var premixedDate = $("#premixedDate1").val()
-                         var mixerNumber =  $("#mixerNumber1").val()
-                         //var premixedOperator =  $("#premixedOperator1").val()
-                         var presinteringCode =  $("#presinteringCode1").val()
-                         var presinteringDate =  $("#presinteringDate1").val()
-                         var sinteringFurnace =  $("#sinteringFurnace1").val()
-                         //var presinteringInoperator =  $("#presinteringInoperator1").val()
-                         //var presinteringOutoperator =  $("#presinteringOutoperator1").val()
-                         var crushingCode = $("#crushingCode1").val()
-                         var crushingDate = $("#crushingDate1").val()
-                         var millNumber =  $("#millNumber1").val()
-                         //var crushingOperator =  $("#crushingOperator1").val()
-                         var note =  $("#note1").val()
-                         var premixedOperator = [] ,presinteringInoperator = [],presinteringOutoperator = [] , crushingOperator = [] ;
-                        if($("#premixedOperator option:selected")) {
-                            premixedOperator.push($("#premixedOperator1").val());
-                        }
-                        if($("#presinteringInoperator option:selected")) {
-                            presinteringInoperator.push($("#presinteringInoperator1").val());
-                        }
-                        if($("#presinteringOutoperator option:selected")) {
-                            presinteringOutoperator.push($("#presinteringOutoperator1").val());
-                        }
-                        if($("#crushingOperator option:selected")) {
-                            crushingOperator.push($("#crushingOperator1").val());
-                        }
-                         $.post(home.urls.processTracking.update(),{
-                             code:code,
-                             'goodsCode.code':goodsCode,
-                             premixedCode:premixedCode,
-                             premixedDate:premixedDate,
-                             mixerNumber:mixerNumber,
-                             premixedOperator:premixedOperator.toString(),
-                             presinteringCode:presinteringCode,
-                             presinteringDate:presinteringDate,
-                             sinteringFurnace:sinteringFurnace,
-                             presinteringInoperator:presinteringInoperator.toString(),
-                             presinteringOutoperator:presinteringOutoperator.toString(),
-                             crushingCode:crushingCode,
-                             crushingDate:crushingDate,
-                             millNumber:millNumber,
-                             crushingOperator:crushingOperator.toString(),
-                             note:note,
-                             state:1
-                         },function(result){
-                             layer.msg(result.message,{
-                                 offset:['40%','55%'],
-                                 time:700
-                             })
-                             if(result.code===0){
-                                 var time = setTimeout(function(){
-                                     process_tracking.init()
-                                     clearTimeout(time)
-                                 },500)
-                             }
-                         })
-                        layer.close(index)
-                     }
-                     ,btn3: function(index) {
+                     ,btn2: function(index) {
                         $("#process_tracking_editor_modal").css('display', 'none')
                         layer.close(index)
                      }
                 }); 
              })
+						 	process_tracking.funcs.bindUpdateSetRolesEvents($('.layui-btn'),code)	
             })
          }
+				 
+				 /**编辑设置用户*/
+				 ,bindUpdateSetRolesEvents : function(buttons,code){
+					 buttons.off('click')
+						buttons.on('click',function() {
+							var id = $(this).attr('id')
+							console.log(id)
+						$("#setRoleModal").removeClass("hide");
+							layer.open({
+								type: 1,
+								title: '设置用户',
+								content: $("#setRoleModal"),
+								area: ['640px', '560px'],
+								btn: ['确定', '取消'],
+								offset: "auto",
+								yes: function(index){	
+										if(id == "premixedOperator1"){
+												$('.right_role').each(function () {
+													console.log($(this).val())
+													process_tracking.premixedOperator3.push($(this).val())
+												})
+													
+										}
+										if(id == "presinteringInoperator1"){
+												$('.right_role').each(function () {
+													
+													process_tracking.presinteringInoperator3.push($(this).val())
+												})
+													
+										}
+										if(id == "presinteringOutoperator1"){
+												$('.right_role').each(function () {
+													process_tracking.presinteringOutoperator3.push($(this).val())
+												})
+													
+										}
+										if(id == "crushingOperator1"){
+												$('.right_role').each(function () {
+													process_tracking.crushingOperator3.push($(this).val())
+												})
+													
+										}						
+												$("#setRoleModal").css("display","none");
+													layer.close(index);
+												},
+												closeBtn : 0,
+												btn2 : function(index) {
+													$("#setRoleModal").css("display","none");
+													layer.close(index);
+												}  
+							})
+							
+								$.post(home.urls.processTracking.getById(),{
+                     code:code
+                 },function(result){
+                     items = result.data
+										 var roles_code1 = [];
+										 var roles_code2 = [];
+										 var roles_code3 = [];
+										 var roles_code4 = [];
+										 const $sul = $("#signedRoles");
+											$sul.empty();
+										 const $ul = $("#unsignedRoles")
+											$ul.empty()
+										 var premixedOperator = items.premixedOperator;
+                     var presinteringInoperator = items.presinteringInoperator;										 
+                     var presinteringOutoperator = items.presinteringOutoperator;
+                     var crushingOperator = items.crushingOperator;
+										 if(id === "premixedOperator1") {
+											 premixedOperator.forEach(function(e) {
+                        $sul.append(
+                             "<li id='right_role_" + (e.code) + "' class='roles'>" + (e.name) + 
+                             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='right_role' value='" + (e.code) + "' type='checkbox' /></li>"
+                         )
+                         roles_code1.push(e.code)
+											}) 
+												process_tracking.users.forEach(function(e) {
+													$ul.append(
+															"<li id='left_role_" + (e.code) + "' class='roles'>" + (e.name) + 
+                             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='left_role' value='" + (e.code) + "' type='checkbox' /></li>"
+													)
+												}) 	
+												for (var i = 0; i < roles_code1.length; i++) {
+                         $('#' + 'left_role_' + roles_code1[i]).remove()
+												}
+										 }   
+										 if(id === "presinteringInoperator1") {
+											 presinteringInoperator.forEach(function(e) {
+                        $sul.append(
+                             "<li id='right_role_" + (e.code) + "' class='roles'>" + (e.name) + 
+                             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='right_role' value='" + (e.code) + "' type='checkbox' /></li>"
+                         )
+                         roles_code2.push(e.code)
+											}) 
+												process_tracking.users.forEach(function(e) {
+													$ul.append(
+															"<li id='left_role_" + (e.code) + "' class='roles'>" + (e.name) + 
+                             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='left_role' value='" + (e.code) + "' type='checkbox' /></li>"
+													)
+												}) 	
+												for (var i = 0; i < roles_code2.length; i++) {
+                         $('#' + 'left_role_' + roles_code2[i]).remove()
+												}
+										 }
+											 if(id === "presinteringOutoperator1") {
+												 console.log("good");
+												 presinteringOutoperator.forEach(function(e) {
+													$sul.append(
+                             "<li id='right_role_" + (e.code) + "' class='roles'>" + (e.name) + 
+                             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='right_role' value='" + (e.code) + "' type='checkbox' /></li>"
+													)
+													roles_code3.push(e.code)
+												}) 
+													process_tracking.users.forEach(function(e) {
+													$ul.append(
+															"<li id='left_role_" + (e.code) + "' class='roles'>" + (e.name) + 
+                             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='left_role' value='" + (e.code) + "' type='checkbox' /></li>"
+													)
+												}) 	
+												for (var i = 0; i < roles_code3.length; i++) {
+                         $('#' + 'left_role_' + roles_code3[i]).remove()
+												}
+											}
+												 if(id === "crushingOperator1") {
+													 crushingOperator.forEach(function(e) {
+														$sul.append(
+                             "<li id='right_role_" + (e.code) + "' class='roles'>" + (e.name) + 
+                             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='right_role' value='" + (e.code) + "' type='checkbox' /></li>"
+														)
+														roles_code4.push(e.code)
+													}) 
+														process_tracking.users.forEach(function(e) {
+													$ul.append(
+															"<li id='left_role_" + (e.code) + "' class='roles'>" + (e.name) + 
+                             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='left_role' value='" + (e.code) + "' type='checkbox' /></li>"
+													)
+												}) 	
+												for (var i = 0; i < roles_code4.length; i++) {
+                         $('#' + 'left_role_' + roles_code4[i]).remove()
+												}
+											}		
+								 })
+									process_tracking.funcs.bindAddRolesListener($("#add_roles")) //追加增加用户事件
+									process_tracking.funcs.bindDeleteRolesListener($("#delete_roles")) //追加删除用户事件 			 
+						})	
+				 }
+				 
+				 /**删除单条数据*/
          ,bindDeleteEventListener:function(deleteBtn){
              deleteBtn.off('click').on('click',function(){
                  var _this = $(this)
@@ -426,6 +456,7 @@ var process_tracking = {
                  })         
              })
          }
+				 /**添加事件*/
          ,bindAddEvent:function(addBtn){
              addBtn.off('click').on('click',function(){
                 $("#premixedCode1").val('')
@@ -439,27 +470,14 @@ var process_tracking = {
                 $("#millNumber1").val('')
                 $("#note1").val('')
                 $("#goodsCode1").empty()
-                $("#premixedOperator1").empty()
-                $("#presinteringInoperator1").empty()
-                $("#presinteringOutoperator1").empty()
-                $("#crushingOperator1").empty()
+								//$("#premixedOperator1").empty()
+                //$("#presinteringInoperator1").empty()
+                //$("#presinteringOutoperator1").empty()
+                //$("#crushingOperator1").empty()
                 process_tracking.goods.forEach(function(e){
                        $("#goodsCode1").append("<option value="+e.code+">"+e.name+"</option>")
                     })
-                process_tracking.users.forEach(function(e){
-                       $("#premixedOperator1").append(
-                       "<option value="+(e.code)+">"+e.name+"</option>"
-                   )
-                       $("#presinteringInoperator1").append(
-                       "<option value="+(e.code)+">"+e.name+"</option>"
-                   )
-                       $("#presinteringOutoperator1").append(
-                       "<option value="+(e.code)+">"+e.name+"</option>"
-                   )
-                       $("#crushingOperator1").append(
-                       "<option value="+(e.code)+">"+e.name+"</option>"
-                   )
-               })  
+								
                 $("#process_tracking_editor_modal").removeClass("hide")            
                 layer.open({
                     type: 1,
@@ -486,38 +504,32 @@ var process_tracking = {
                         var millNumber =  $("#millNumber1").val()
                         //var crushingOperator =  $("#crushingOperator1").val()
                         var note =  $("#note1").val()
-                        var premixedOperator = [],presinteringInoperator = [],presinteringOutoperator = [] , crushingOperator = [] ;
-                        if($("#premixedOperator1 option:selected")) {
-                            premixedOperator.push($("#premixedOperator1").val());
-                        }
-                        if($("#presinteringInoperator1 option:selected")) {
-                            presinteringInoperator.push($("#presinteringInoperator1").val());
-                        }
-                        if($("#presinteringOutoperator1 option:selected")) {
-                            presinteringOutoperator.push($("#presinteringOutoperator1").val());
-                        }
-                        if($("#crushingOperator1 option:selected")) {
-                            crushingOperator.push($("#crushingOperator1").val());
-                        }
-                        //console.log('premixedOperator='+premixedOperator)
-                        //console.log('presinteringInoperator='+presinteringInoperator)
-                        //console.log(presinteringOutoperator)
-                        //console.log(crushingOperator)
+											//	var premixedOperator = []
+											//	var presinteringInoperator = []
+											//	var presinteringOutoperator = []
+											//	var crushingOperator = []
+												
+                      
+												
+												console.log(process_tracking.premixedOperator2)
+												console.log(process_tracking.presinteringInoperator2)
+												console.log(process_tracking.presinteringOutoperator2)
+												console.log(process_tracking.crushingOperator2)
                         $.post(home.urls.processTracking.add(),{
                            'goodsCode.code':goodsCode,
                             premixedCode:premixedCode,
                             premixedDate:premixedDate,
                             mixerNumber:mixerNumber,
-                            premixedOperator:premixedOperator.toString(),
+                            premixedOperator:process_tracking.premixedOperator2.toString(),
                             presinteringCode:presinteringCode,
                             presinteringDate:presinteringDate,
                             sinteringFurnace:sinteringFurnace,
-                            presinteringInoperator:presinteringInoperator.toString(),
-                            presinteringOutoperator:presinteringOutoperator.toString(),
+                            presinteringInoperator:process_tracking.presinteringInoperator2.toString(),
+                            presinteringOutoperator:process_tracking.presinteringOutoperator2.toString(),
                             crushingCode:crushingCode,
                             crushingDate:crushingDate,
                             millNumber:millNumber,
-                            crushingOperator:crushingOperator.toString(),
+                            crushingOperator:process_tracking.crushingOperator2.toString(),
                             note:note,
                             state:0
                          },function(result){
@@ -540,7 +552,108 @@ var process_tracking = {
                     }
                 }); 
              })
+					
+					process_tracking.funcs.bindSetRolesEvents($('.layui-btn'))	 
          }
+				 
+					/**设置用户*/
+				,bindSetRolesEvents : function(buttons) {
+						buttons.off('click')
+						buttons.on('click',function() {
+						var id = $(this).attr('id')
+						console.log(id)
+						$("#setRoleModal").removeClass("hide");
+							layer.open({
+								type: 1,
+								title: '设置用户',
+								content: $("#setRoleModal"),
+								area: ['640px', '560px'],
+								btn: ['确定', '取消'],
+								offset: "auto",
+								yes: function(index){	
+										if(id == "premixedOperator1"){
+												$('.right_role').each(function () {
+													console.log($(this).val())
+													process_tracking.premixedOperator2.push($(this).val())
+												})
+													
+										}
+										if(id == "presinteringInoperator1"){
+												$('.right_role').each(function () {
+													
+													process_tracking.presinteringInoperator2.push($(this).val())
+												})
+													
+										}
+										if(id == "presinteringOutoperator1"){
+												$('.right_role').each(function () {
+													process_tracking.presinteringOutoperator2.push($(this).val())
+												})
+													
+										}
+										if(id == "crushingOperator1"){
+												$('.right_role').each(function () {
+													process_tracking.crushingOperator2.push($(this).val())
+												})
+													
+										}						
+												$("#setRoleModal").css("display","none");
+													layer.close(index);
+												},
+												closeBtn : 0,
+												btn2 : function(index) {
+													$("#setRoleModal").css("display","none");
+													layer.close(index);
+												}  
+							})
+								const $sul = $("#signedRoles");
+								$sul.empty();
+								const $ul = $("#unsignedRoles")
+								$ul.empty()
+								process_tracking.users.forEach(function(e) {
+									$ul.append(
+										 "<li id='left_role_" + (e.code) + "' class='roles'>" + (e.name) + 
+                             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='left_role' value='" + (e.code) + "' type='checkbox' /></li>"
+									)
+								})
+							
+									process_tracking.funcs.bindAddRolesListener($("#add_roles")) //追加增加用户事件
+									process_tracking.funcs.bindDeleteRolesListener($("#delete_roles")) //追加删除用户事件 
+						})
+				}	
+				, bindAddRolesListener: function (addRolesBtn) {
+            addRolesBtn.off('click')
+            addRolesBtn.on('click', function () {
+                $('.left_role').each(function () {
+                    if ($(this).prop('checked')) {
+                        var the_value = $(this).val()
+                        var the_name = $('#left_role_' + the_value).text()
+                        $('#signedRoles').append(
+                            "<li id='right_role_" + the_value + "' class='roles'>" + the_name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='right_role' value='" + the_value + "' type='checkbox' /></li>"
+                        )
+                        $('#left_role_' + the_value).remove()
+                    }
+                })
+            })
+        }
+        , bindDeleteRolesListener: function (deleteRolesBtn) {
+            deleteRolesBtn.off('click')
+            deleteRolesBtn.on('click', function () {
+                $('.right_role').each(function () {
+                    if ($(this).prop('checked')) {
+                        var the_value = $(this).val()
+                        var the_name = $('#right_role_' + the_value).text()
+                        $('#unsignedRoles').append(
+                            "<li id='left_role_" + the_value + "' class='roles'>" + the_name + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class='left_role' value='" + the_value + "' type='checkbox' /></li>"
+                        )
+                        $('#right_role_' + the_value).remove()
+                    }
+                })
+            })
+        }
+
+				 
+				 /**批量删除*/
          ,bindDeleteEvent:function(deleteBtn){
              deleteBtn.off('click').on('click',function(){
                  if($('.process_tracking_checkbox:checked').length === 0) {
@@ -592,6 +705,8 @@ var process_tracking = {
                  }
              })
          }
+				 
+				 /**刷新事件*/
          ,bindRefreshEventListener: function (refreshBtn) {
              refreshBtn.off('click')
              refreshBtn.on('click', function () {
@@ -609,6 +724,7 @@ var process_tracking = {
 
              })
          },
+				 /**查询事件*/
          bindSearchEventListener: function (searchBtn) {
              searchBtn.off('click')
              searchBtn.on('click', function () {

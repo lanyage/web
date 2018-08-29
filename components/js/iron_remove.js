@@ -47,14 +47,14 @@ var iron_remove = {
                 //$(".canvas-container").hide()
                 var year = $('#input_year').val();
                 var byproductCount = $('#byproductCount').val();
-                console.log(year)
-                console.log(byproductCount)
+                //console.log(year)
+                //console.log(byproductCount)
                 if( byproductCount === '' || year === '' ){
                     layer.msg("请同时选择副产品类型和时间");
                     return
                 }
                 else{
-                    console.log('search')
+                    //console.log('search')
                     $("#table").show();
                 
                 $.post(home.urls.byproductCount.getByByproductCodeAndYearMonth(), {
@@ -198,6 +198,9 @@ var iron_remove = {
                     iron_remove.funcs.createChart(iron_remove.labels, iron_remove.data, iron_remove.data1, iron_remove.data2, iron_remove.data3)
                 })*/
                 var code = $("#byproductCount").val()
+                iron_remove.data1 = [];
+                iron_remove.data2 = [];
+                iron_remove.data3 = [];
                 $.post(home.urls.byproduct.getByCode(), {
                     code: code
                 }, function (result) {

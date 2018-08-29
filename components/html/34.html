@@ -1,6 +1,9 @@
 <div id='model-li-hide-34' class="display-component-container" style="padding: 20px;">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <script src="../components/js/process_tracking.js"></script>
         <style>
              #process_tracking_detail_table td {
                 padding: 7px;
@@ -33,6 +36,70 @@
                 height:100%;
                 border:none;
             }
+						
+						.theHead {
+            background : rgb(107,107,107);
+            color : white;
+            text-align :center;
+            list-style: none;
+            padding : 5px;
+            font-weight : 600;
+        }
+        .contents {
+            float : left;
+            height  : 350px;
+            border : rgb(112,118,139) solid 1px;
+            overflow-y : scroll;
+        }
+        .middle {
+            float: left;
+            height : 350px;
+            border-bottom: rgb(112,118,139) solid 1px;
+            border-top: rgb(112,118,139) solid 1px;
+        }
+        #setRole_body{
+            display: none; 
+            margin-left: 25px;
+            margin-right: 20px;
+            margin-top: 40px;
+            }    
+        .clear {
+            clear: both;
+            }   
+        #setRoleModal {
+            background-color: white;
+            margin:20px;
+        }
+        #setRoleModal button {
+            padding : 5 30;
+            margin-top:90px;
+            margin-left:15px;
+        }
+        #setRoleModal header {
+            text-align: center;
+            float: left;
+            border : rgb(112,118,139) solid 1px;
+            position : relative;
+            font-size : 15px;
+        }
+        #setRoleModal ul {
+            padding-left: 0px;
+            height : 100%;
+            margin : 0;
+        }
+        #setRoleModal ul li input {
+            margin-right: 30px;
+            margin-left: 25px;
+        }
+        #setRoleModal ul .roles {
+            list-style: none;
+            text-align: right;
+            padding: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            border-bottom: 1px rgb(112,118,139) solid;
+            overflow: hidden;            
+        }
         </style>
         <div class="block-quote">
             <div class="fl">
@@ -74,11 +141,12 @@
         </table>
     
         <div id="process_tracking_page"></div>
-        <script src="../components/js/process_tracking.js"></script>
+        
         <script type="application/javascript">
             $(function () {
                 process_tracking.init()
-            })
+            
+    });
             layui.use("laydate", function() {
                 var laydate = layui.laydate;
                 laydate.render({
@@ -154,7 +222,7 @@
                     <td style="width:10%">混料机编号</td>
                     <td style="width:10%"><input type="text" id="mixerNumber1"/></td>
                     <td style="width:10%">操作人员</td>
-                    <td style="width:17%"><select multiple="multiple" size="3" id="premixedOperator1"></select></td>
+                    <td style="width:17%"><button class="layui-btn layui-btn-primary" id="premixedOperator1">请选择人员</button></td>
                 </tr>
                 <tr>
                     <td class="grey" rowspan="2">预烧</td>
@@ -165,11 +233,11 @@
                     <td rowspan="2" >烧结炉号</td>
                     <td rowspan="2"><input type="text" id="sinteringFurnace1"/></td>
                     <td>装料人员</td>
-                    <td><select multiple="multiple" size="3" id="presinteringInoperator1"></select></td>
+                    <td><button class="layui-btn layui-btn-primary" id="presinteringInoperator1">请选择人员</button></td>
                 </tr>
                 <tr>
                     <td>倒料人员</td>
-                    <td><select multiple="multiple" size="3" id="presinteringOutoperator1"></select></td>
+                    <td><button class="layui-btn layui-btn-primary" id="presinteringOutoperator1">请选择人员</button></td>
                 </tr>
                 <tr>
                     <td class="grey">粉粹</td>
@@ -180,7 +248,8 @@
                     <td>粉粹机编号</td>
                     <td><input type="text" id="millNumber1"/></td>
                     <td>操作人员</td>
-                    <td><select multiple="multiple" size="3" id="crushingOperator1"></select></td>
+                    <td><button class="layui-btn layui-btn-primary" id="crushingOperator1">请选择人员</button>
+                    </td>
                 </tr>
                 <tr>
                     <td class="grey">备注</td>
@@ -188,4 +257,31 @@
                 </tr>    
                 </table>
         </div>
+				
+				<div id="setRoleModal" class="hide hideModal">
+                 <!--固定表头-->
+                <header style="width:40%;">
+                    <li class="theHead">未选择用户</li>
+                </header>
+                <header style="width:19%">
+                    <li class="theHead">操作</li>
+                 </header>
+                <header style="width:40%">
+                    <li class="theHead">已选择用户</li>
+                </header>
+                <div class="clear"></div>    
+                <div class="contents" style="width:40%">
+                    <ul id="unsignedRoles"></ul>
+                </div>
+                <div class="middle" style="width:19%">
+                    <ul id="button">
+                        <button id="add_roles"><i class="layui-icon layui-btn-small">&#xe602;</i></button>
+                        <button id="delete_roles"><i class="layui-icon layui-btn-small">&#xe603;</i></button>
+                    </ul>
+                </div>
+                <div class="contents" style="width:40%">
+                    <ul id="signedRoles"></ul>
+                </div>   
+            </div>
+				
 </div>
